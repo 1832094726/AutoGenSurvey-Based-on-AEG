@@ -1,0 +1,11 @@
+[
+  {
+    "from_entity": "Wang2015_ARIS",
+    "to_entity": "Zhang2019_SemanticParsingSurvey",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Incorporated advanced semantic parsing techniques and deep learning models.",
+    "evidence": "The survey discusses advancements beyond ARIS, including deep learning and reinforcement learning methods.",
+    "confidence": 0.95
+  }
+]

@@ -1,0 +1,369 @@
+{% extends "base.html" %}
+
+{% block title %}算法对比分析{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+  .file-upload {
+    margin-bottom: 30px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    background-color: #f8f9fa;
+    transition: all 0.3s;
+  }
+  
+  .file-upload:hover {
+    border-color: #007bff;
+  }
+  
+  .file-list {
+    margin-top: 15px;
+    text-align: left;
+  }
+  
+  .file-item {
+    padding: 8px 15px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .progress-container {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    display: none;
+  }
+  
+  .progress-status {
+    margin-bottom: 15px;
+  }
+  
+  .status-bar {
+    height: 24px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  .status-progress {
+    height: 100%;
+    background-color: #007bff;
+    width: 0%;
+    transition: width 0.5s ease;
+    text-align: center;
+    line-height: 24px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .result-section {
+    margin-top: 30px;
+    display: none;
+  }
+  
+  .result-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    background-color: white;
+  }
+  
+  .result-header {
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .result-body {
+    padding: 20px;
+  }
+  
+  .model-select {
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+  }
+  
+  .remove-file {
+    cursor: pointer;
+    color: #dc3545;
+    font-weight: bold;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="text-center">算法对比分析</h1>
+      <p class="text-center text-muted">上传综述文章和相关文献，进行算法演化分析和对比</p>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <!-- 分析表单 -->
+      <form id="comparisonForm" enctype="multipart/form-data">
+        <!-- 模型选择 -->
+        <div class="model-select">
+          <h5>选择分析模型</h5>
+          <div class="form-group">
+            <select class="form-control" name="model" id="modelSelect">
+              <option value="chatgpt">ChatGPT（GPT-3.5）</option>
+              <option value="gpt4">GPT-4</option>
+              <option value="qwenlong">通义千问（长文本版）</option>
+            </select>
+            <small class="form-text text-muted">选择用于提取实体和关系的大语言模型</small>
+          </div>
+        </div>
+        
+        <!-- 文件上传 - 综述论文 -->
+        <div class="file-upload">
+          <h5>上传综述论文</h5>
+          <p class="text-muted">上传一篇算法演化综述论文（PDF格式）</p>
+          
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="reviewPaper" name="review_paper" accept=".pdf" required>
+            <label class="custom-file-label" for="reviewPaper">选择综述论文文件...</label>
+          </div>
+          
+          <div class="file-list mt-3" id="reviewFileList"></div>
+        </div>
+        
+        <!-- 文件上传 - 引用文献 -->
+        <div class="file-upload">
+          <h5>上传引用文献（可选）</h5>
+          <p class="text-muted">上传相关的引用文献（PDF格式，可多选）</p>
+          
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="citationPapers" name="citation_papers" accept=".pdf" multiple>
+            <label class="custom-file-label" for="citationPapers">选择引用文献文件...</label>
+          </div>
+          
+          <div class="file-list mt-3" id="citationFileList"></div>
+        </div>
+        
+        <!-- 提交按钮 -->
+        <div class="text-center mb-4">
+          <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">开始分析</button>
+        </div>
+      </form>
+      
+      <!-- 进度显示 -->
+      <div class="progress-container" id="progressContainer">
+        <h4 class="text-center mb-4">正在进行分析处理...</h4>
+        
+        <div class="progress-status">
+          <div class="d-flex justify-content-between">
+            <span id="currentStage">初始化...</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="status-bar">
+            <div class="status-progress" id="progressBar">0%</div>
+          </div>
+        </div>
+        
+        <div class="alert alert-info" id="statusMessage">
+          正在初始化分析任务...
+        </div>
+      </div>
+      
+      <!-- 结果显示 -->
+      <div class="result-section" id="resultSection">
+        <h4 class="text-center mb-4">分析完成</h4>
+        
+        <div class="result-card">
+          <div class="result-header">
+            <h5>分析结果摘要</h5>
+          </div>
+          <div class="result-body">
+            <div class="row">
+              <div class="col-6 text-center">
+                <h3 id="entityCount">0</h3>
+                <p>提取实体数</p>
+              </div>
+              <div class="col-6 text-center">
+                <h3 id="relationCount">0</h3>
+                <p>提取关系数</p>
+              </div>
+            </div>
+            
+            <div class="text-center mt-4">
+              <a id="viewResultsBtn" href="#" class="btn btn-success">查看详细结果</a>
+              <a href="/graph" class="btn btn-primary ml-2">查看知识图谱</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+  $(document).ready(function() {
+    // 文件上传处理
+    $('#reviewPaper').on('change', function() {
+      const fileName = $(this).val().split('\\').pop();
+      $(this).next('.custom-file-label').html(fileName || '选择综述论文文件...');
+      
+      if (fileName) {
+        $('#reviewFileList').html(`
+          <div class="file-item">
+            <span>${fileName}</span>
+            <span class="remove-file" data-input="reviewPaper">✕</span>
+          </div>
+        `);
+      } else {
+        $('#reviewFileList').empty();
+      }
+    });
+    
+    $('#citationPapers').on('change', function() {
+      const files = $(this)[0].files;
+      $(this).next('.custom-file-label').html(files.length > 0 ? `已选择 ${files.length} 个文件` : '选择引用文献文件...');
+      
+      if (files.length > 0) {
+        let fileList = '';
+        for (let i = 0; i < files.length; i++) {
+          fileList += `
+            <div class="file-item">
+              <span>${files[i].name}</span>
+            </div>
+          `;
+        }
+        $('#citationFileList').html(fileList);
+      } else {
+        $('#citationFileList').empty();
+      }
+    });
+    
+    // 移除文件
+    $(document).on('click', '.remove-file', function() {
+      const inputId = $(this).data('input');
+      $(`#${inputId}`).val('').trigger('change');
+    });
+    
+    // 表单提交
+    $('#comparisonForm').on('submit', function(e) {
+      e.preventDefault();
+      
+      // 验证表单
+      if (!$('#reviewPaper')[0].files[0]) {
+        alert('请选择综述论文');
+        return;
+      }
+      
+      // 收集表单数据
+      const formData = new FormData(this);
+      
+      // 显示进度条
+      $('#comparisonForm').hide();
+      $('#progressContainer').show();
+      
+      // 发送API请求
+      $.ajax({
+        url: '/api/comparison/start',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          if (response.status === 'success') {
+            // 开始轮询任务状态
+            const taskId = response.task_id;
+            startPolling(taskId);
+          } else {
+            alert('启动任务失败: ' + response.message);
+            $('#comparisonForm').show();
+            $('#progressContainer').hide();
+          }
+        },
+        error: function(xhr) {
+          alert('请求错误: ' + (xhr.responseJSON ? xhr.responseJSON.message : '未知错误'));
+          $('#comparisonForm').show();
+          $('#progressContainer').hide();
+        }
+      });
+    });
+    
+    // 轮询任务状态
+    function startPolling(taskId) {
+      let pollInterval = 3000; // 初始轮询间隔为3秒
+      
+      const pollTask = function() {
+        $.ajax({
+          url: `/api/comparison/status/${taskId}`,
+          type: 'GET',
+          success: function(response) {
+            if (response.status === 'success') {
+              const statusData = response.data;
+              
+              // 更新进度显示
+              $('#currentStage').text(statusData.current_stage || '处理中');
+              $('#statusMessage').text(statusData.message || '正在处理...');
+              
+              const progress = statusData.progress * 100;
+              $('#progressPercent').text(`${Math.round(progress)}%`);
+              $('#progressBar').css('width', `${progress}%`).text(`${Math.round(progress)}%`);
+              
+              // 根据任务状态处理
+              if (statusData.status === '已完成') {
+                // 显示结果
+                $('#progressContainer').hide();
+                $('#resultSection').show();
+                
+                // 更新结果数据
+                const resultData = statusData.result || {};
+                $('#entityCount').text(resultData.entities_count || 0);
+                $('#relationCount').text(resultData.relations_count || 0);
+                $('#viewResultsBtn').attr('href', `/comparison/results/${taskId}`);
+                
+                // 停止轮询
+                return;
+              } else if (statusData.status === '错误') {
+                alert('任务处理出错: ' + statusData.message);
+                $('#progressContainer').hide();
+                $('#comparisonForm').show();
+                return;
+              }
+              
+              // 调整轮询间隔 - 进度越大，轮询间隔越长
+              pollInterval = Math.min(10000, 3000 + (statusData.progress * 7000)); // 3-10秒
+              
+              // 继续轮询
+              setTimeout(pollTask, pollInterval);
+            } else {
+              alert('获取任务状态失败: ' + response.message);
+              $('#progressContainer').hide();
+              $('#comparisonForm').show();
+            }
+          },
+          error: function() {
+            // 出错后继续轮询，但延长间隔
+            pollInterval = Math.min(15000, pollInterval + 2000);
+            setTimeout(pollTask, pollInterval);
+          }
+        });
+      };
+      
+      // 开始首次轮询
+      setTimeout(pollTask, 1000);
+    }
+  });
+</script>
+{% endblock %} 

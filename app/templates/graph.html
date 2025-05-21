@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关系图展示 - 算法要素关系图生成系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cytoscape-panzoom/2.5.3/cytoscape.js-panzoom.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container-fluid {
+            flex: 1;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            min-height: 80vh;
+        }
+        .row {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+        }
+        .col-md-9 {
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+        }
+        #cy {
+            width: 100%;
+            flex: 1;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            min-height: 500px;
+            position: relative;
+        }
+        .control-panel {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .node-info {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .node-info-content {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+        .edge-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .layout-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">算法要素关系图生成系统</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/table">算法实体表格</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/graph">关系图展示</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="control-panel">
+                    <h5>图形控制</h5>
+                    <div class="layout-controls">
+                        <button id="btn-reset" class="btn btn-sm btn-outline-secondary">重置视图</button>
+                        <button id="btn-layout-circle" class="btn btn-sm btn-outline-primary">圆形布局</button>
+                        <button id="btn-layout-grid" class="btn btn-sm btn-outline-primary">网格布局</button>
+                        <button id="btn-layout-cose" class="btn btn-sm btn-outline-primary">COSE布局</button>
+                        <button id="btn-fit" class="btn btn-sm btn-outline-secondary">适应视图</button>
+                        <button id="btn-export-png" class="btn btn-sm btn-outline-success">导出PNG</button>
+                        <button id="btn-export-json" class="btn btn-sm btn-outline-success">导出JSON</button>
+                        <button id="btn-refresh-data" class="btn btn-sm btn-outline-danger">刷新数据</button>
+                    </div>
+                    <div class="search-container mb-2">
+                        <div class="input-group">
+                            <input type="text" id="search-term" class="form-control form-control-sm" placeholder="搜索节点...">
+                            <button id="btn-search" class="btn btn-sm btn-outline-primary">搜索</button>
+                        </div>
+                    </div>
+                    <div class="stats-container mb-2 text-muted">
+                        <small id="graph-stats">图形统计: 0个节点, 0条边</small>
+                    </div>
+                    <div>
+                        <h6 class="mt-2 mb-1">关系类型过滤：</h6>
+                        <div class="edge-controls">
+                            <button class="btn btn-sm btn-outline-primary relation-filter" data-relation="all">全部</button>
+                            <button class="btn btn-sm btn-outline-secondary relation-filter" data-relation="Improve">Improve</button>
+                            <button class="btn btn-sm btn-outline-success relation-filter" data-relation="Enhance">Enhance</button>
+                            <button class="btn btn-sm btn-outline-danger relation-filter" data-relation="Replace">Replace</button>
+                            <button class="btn btn-sm btn-outline-warning relation-filter" data-relation="Introduce">Introduce</button>
+                            <button class="btn btn-sm btn-outline-info relation-filter" data-relation="Optimize">Optimize</button>
+                            <button class="btn btn-sm btn-outline-dark relation-filter" data-relation="Boost">Boost</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="cy"></div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: skyblue;"></div>
+                        <span>算法</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: lightgreen;"></div>
+                        <span>数据集</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: orange;"></div>
+                        <span>评价指标</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: gray;"></div>
+                        <span>其他</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="node-info mb-3">
+                    <h5 id="node-info-title">节点信息</h5>
+                    <p id="node-info-empty" class="text-muted">点击节点查看详细信息</p>
+                    <div id="node-info-content" class="node-info-content d-none">
+                        <p><strong>ID：</strong> <span id="node-id"></span></p>
+                        <p><strong>名称：</strong> <span id="node-name"></span></p>
+                        <p><strong>类型：</strong> <span id="node-type"></span></p>
+                        <div id="node-details"></div>
+                    </div>
+                </div>
+                <div class="node-info mb-3">
+                    <h5 id="edge-info-title">边信息</h5>
+                    <p id="edge-info-empty" class="text-muted">点击边查看详细信息</p>
+                    <div id="edge-info-content" class="node-info-content d-none">
+                        <p><strong>源节点：</strong> <span id="edge-source"></span></p>
+                        <p><strong>目标节点：</strong> <span id="edge-target"></span></p>
+                        <p><strong>关系类型：</strong> <span id="edge-type"></span></p>
+                        <p><strong>改进结构：</strong> <span id="edge-structure"></span></p>
+                        <p><strong>详细内容：</strong> <span id="edge-detail"></span></p>
+                        <p><strong>证据：</strong> <span id="edge-evidence"></span></p>
+                        <p><strong>置信度：</strong> <span id="edge-confidence"></span></p>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header bg-primary text-white">添加关系</div>
+                    <div class="card-body">
+                        <form id="add-relation-form">
+                            <div class="mb-2">
+                                <label for="from-entity" class="form-label">源实体</label>
+                                <select class="form-select form-select-sm" id="from-entity" required>
+                                    <option value="">选择源实体</option>
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label for="to-entity" class="form-label">目标实体</label>
+                                <select class="form-select form-select-sm" id="to-entity" required>
+                                    <option value="">选择目标实体</option>
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label for="relation-type" class="form-label">关系类型</label>
+                                <select class="form-select form-select-sm" id="relation-type" required>
+                                    <option value="Improve">Improve</option>
+                                    <option value="Enhance">Enhance</option>
+                                    <option value="Replace">Replace</option>
+                                    <option value="Introduce">Introduce</option>
+                                    <option value="Optimize">Optimize</option>
+                                    <option value="Boost">Boost</option>
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label for="structure" class="form-label">改进结构</label>
+                                <input type="text" class="form-control form-control-sm" id="structure" placeholder="例如: Architecture.Component">
+                            </div>
+                            <div class="mb-2">
+                                <label for="detail" class="form-label">详细内容</label>
+                                <textarea class="form-control form-control-sm" id="detail" rows="2" placeholder="请输入详细内容"></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-sm btn-primary">添加关系</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.21.1/cytoscape.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape-panzoom/2.5.3/cytoscape-panzoom.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化cytoscape
+            const cy = cytoscape({
+                container: document.getElementById('cy'),
+                style: [
+                    {
+                        selector: 'node',
+                        style: {
+                            'background-color': 'data(color)',
+                            'label': 'data(label)',
+                            'color': '#fff',
+                            'text-outline-width': 2,
+                            'text-outline-color': '#555',
+                            'text-valign': 'center',
+                            'text-halign': 'center',
+                            'font-size': '12px',
+                            'width': 'label',
+                            'height': 'label',
+                            'padding': '10px'
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 2,
+                            'line-color': '#bbb',
+                            'target-arrow-color': '#bbb',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier',
+                            'label': 'data(label)',
+                            'font-size': '10px',
+                            'text-background-color': '#fff',
+                            'text-background-opacity': 0.7,
+                            'text-background-padding': '2px',
+                            'text-wrap': 'wrap'
+                        }
+                    },
+                    {
+                        selector: 'edge[relation_type="Improve"]',
+                        style: {
+                            'line-color': '#007bff',
+                            'target-arrow-color': '#007bff'
+                        }
+                    },
+                    {
+                        selector: 'edge[relation_type="Enhance"]',
+                        style: {
+                            'line-color': '#28a745',
+                            'target-arrow-color': '#28a745'
+                        }
+                    },
+                    {
+                        selector: 'edge[relation_type="Replace"]',
+                        style: {
+                            'line-color': '#dc3545',
+                            'target-arrow-color': '#dc3545'
+                        }
+                    },
+                    {
+                        selector: 'edge[relation_type="Introduce"]',
+                        style: {
+                            'line-color': '#ffc107',
+                            'target-arrow-color': '#ffc107'
+                        }
+                    },
+                    {
+                        selector: 'edge[relation_type="Optimize"]',
+                        style: {
+                            'line-color': '#17a2b8',
+                            'target-arrow-color': '#17a2b8'
+                        }
+                    },
+                    {
+                        selector: 'edge[relation_type="Boost"]',
+                        style: {
+                            'line-color': '#343a40',
+                            'target-arrow-color': '#343a40'
+                        }
+                    },
+                    {
+                        selector: 'node:selected',
+                        style: {
+                            'border-width': 3,
+                            'border-color': '#0d6efd'
+                        }
+                    },
+                    {
+                        selector: 'edge:selected',
+                        style: {
+                            'width': 4,
+                            'line-color': '#0d6efd',
+                            'target-arrow-color': '#0d6efd'
+                        }
+                    }
+                ],
+                layout: {
+                    name: 'grid',
+                    padding: 50
+                },
+                wheelSensitivity: 0.3,
+                minZoom: 0.1,  // 添加最小缩放限制
+                maxZoom: 5,    // 添加最大缩放限制
+                // 强制调整视口大小
+                boxSelectionEnabled: true,
+                autoungrabify: false,
+                autounselectify: false
+            });
+            
+            // 强制更新尺寸
+            function forceResizeCytoscape() {
+                const container = document.getElementById('cy');
+                // 不要手动清理canvas层，Cytoscape会自动管理
+                // Cytoscape容器
+                const cyContainer = container.querySelector('div');
+                if (cyContainer) {
+                    const parentHeight = container.clientHeight;
+                    cyContainer.style.height = parentHeight + 'px';
+                }
+                // 通知cytoscape更新尺寸
+                if (window.cy) {
+                    cy.resize();
+                    cy.fit();
+                }
+            }
+            
+            // 确保只绑定一次resize事件
+            window.removeEventListener('resize', forceResizeCytoscape);
+            window.addEventListener('resize', forceResizeCytoscape);
+
+            // 初始布局完成后强制调整大小
+            setTimeout(forceResizeCytoscape, 500);
+
+            // 节点点击事件
+            cy.on('tap', 'node', function(evt) {
+                const node = evt.target;
+                document.getElementById('node-info-empty').classList.add('d-none');
+                document.getElementById('node-info-content').classList.remove('d-none');
+                
+                document.getElementById('node-id').textContent = node.id();
+                document.getElementById('node-name').textContent = node.data('label');
+                document.getElementById('node-type').textContent = node.data('entity_type');
+                
+                // 清空详细信息
+                document.getElementById('node-details').innerHTML = '';
+                
+                // 向后端请求完整的节点信息
+                fetch(`/api/entities/${node.id()}`)
+                    .then(response => {
+                        console.log(`节点信息API响应状态:`, response.status);
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(`获取到节点详细信息:`, data);
+                        
+                        let entity = data;
+                        let details = '';
+                        let entityType = entity.entity_type || '';
+                        
+                        // 根据不同的实体类型显示不同的信息
+                        if (entityType === 'Algorithm' || entity.algorithm_id) {
+                            // 算法实体
+                            if (entity.year) details += `<p><strong>年份：</strong> ${entity.year}</p>`;
+                            if (entity.authors) {
+                                const authors = Array.isArray(entity.authors) ? entity.authors.join(', ') : entity.authors;
+                                details += `<p><strong>作者：</strong> ${authors}</p>`;
+                            }
+                            if (entity.task) details += `<p><strong>任务：</strong> ${entity.task}</p>`;
+                            
+                            // 数据集
+                            if (entity.dataset) {
+                                const datasets = Array.isArray(entity.dataset) ? entity.dataset.join(', ') : entity.dataset;
+                                details += `<p><strong>数据集：</strong> ${datasets}</p>`;
+                            }
+                            
+                            // 评价指标
+                            if (entity.metrics) {
+                                const metrics = Array.isArray(entity.metrics) ? entity.metrics.join(', ') : entity.metrics;
+                                details += `<p><strong>评价指标：</strong> ${metrics}</p>`;
+                            }
+                            
+                            // 架构信息
+                            if (entity.architecture) {
+                                const arch = entity.architecture;
+                                let archDetails = [];
+                                
+                                if (arch.components) {
+                                    const components = Array.isArray(arch.components) ? arch.components.join(', ') : arch.components;
+                                    archDetails.push(`<span class="text-muted">组件:</span> ${components}`);
+                                }
+                                if (arch.connections) {
+                                    const connections = Array.isArray(arch.connections) ? arch.connections.join(', ') : arch.connections;
+                                    archDetails.push(`<span class="text-muted">连接:</span> ${connections}`);
+                                }
+                                if (arch.mechanisms) {
+                                    const mechanisms = Array.isArray(arch.mechanisms) ? arch.mechanisms.join(', ') : arch.mechanisms;
+                                    archDetails.push(`<span class="text-muted">机制:</span> ${mechanisms}`);
+                                }
+                                
+                                if (archDetails.length > 0) {
+                                    details += `<p><strong>架构：</strong> ${archDetails.join('; ')}</p>`;
+                                }
+                            }
+                            
+                            // 方法学信息
+                            if (entity.methodology) {
+                                const meth = entity.methodology;
+                                let methDetails = [];
+                                
+                                if (meth.training_strategy) {
+                                    const strategies = Array.isArray(meth.training_strategy) ? meth.training_strategy.join(', ') : meth.training_strategy;
+                                    methDetails.push(`<span class="text-muted">训练策略:</span> ${strategies}`);
+                                }
+                                if (meth.parameter_tuning) {
+                                    const tuning = Array.isArray(meth.parameter_tuning) ? meth.parameter_tuning.join(', ') : meth.parameter_tuning;
+                                    methDetails.push(`<span class="text-muted">参数调优:</span> ${tuning}`);
+                                }
+                                
+                                if (methDetails.length > 0) {
+                                    details += `<p><strong>方法学：</strong> ${methDetails.join('; ')}</p>`;
+                                }
+                            }
+                            
+                            // 特征处理信息
+                            if (entity.feature_processing) {
+                                const features = Array.isArray(entity.feature_processing) ? entity.feature_processing.join(', ') : entity.feature_processing;
+                                details += `<p><strong>特征处理：</strong> ${features}</p>`;
+                            }
+                        } else if (entityType === 'Dataset' || entity.dataset_id) {
+                            // 数据集实体
+                            if (entity.year) details += `<p><strong>年份：</strong> ${entity.year}</p>`;
+                            if (entity.creators) {
+                                const creators = Array.isArray(entity.creators) ? entity.creators.join(', ') : entity.creators;
+                                details += `<p><strong>创建者：</strong> ${creators}</p>`;
+                            }
+                            if (entity.size) details += `<p><strong>大小：</strong> ${entity.size}</p>`;
+                            if (entity.domain) details += `<p><strong>领域：</strong> ${entity.domain}</p>`;
+                            if (entity.description) details += `<p><strong>描述：</strong> ${entity.description}</p>`;
+                        } else if (entityType === 'Metric' || entity.metric_id) {
+                            // 评价指标实体
+                            if (entity.category) details += `<p><strong>分类：</strong> ${entity.category}</p>`;
+                            if (entity.formula) details += `<p><strong>公式：</strong> ${entity.formula}</p>`;
+                            if (entity.description) details += `<p><strong>描述：</strong> ${entity.description}</p>`;
+                            if (entity.domain) details += `<p><strong>适用领域：</strong> ${entity.domain}</p>`;
+                        }
+                        
+                        // 显示演化关系
+                        if (entity.evolution_relations && entity.evolution_relations.length > 0) {
+                            details += `<p><strong>演化关系：</strong></p><ul>`;
+                            entity.evolution_relations.forEach(rel => {
+                                details += `<li>与 <b>${rel.from_entity}</b> 的关系: ${rel.relation_type} 
+                                           (${rel.structure || '未指定结构'})
+                                           <br><small class="text-muted">${rel.detail || '无详情'}</small></li>`;
+                            });
+                            details += `</ul>`;
+                        }
+                        
+                        document.getElementById('node-details').innerHTML = details || '<p class="text-muted">没有详细信息</p>';
+                    })
+                    .catch(error => {
+                        console.error('获取节点详情失败:', error);
+                        document.getElementById('node-details').innerHTML = '<p class="text-danger">获取详情失败: ' + error.message + '</p>';
+                    });
+            });
+
+            // 边点击事件
+            cy.on('tap', 'edge', function(evt) {
+                const edge = evt.target;
+                document.getElementById('edge-info-empty').classList.add('d-none');
+                document.getElementById('edge-info-content').classList.remove('d-none');
+                
+                const sourceNode = cy.getElementById(edge.data('source'));
+                const targetNode = cy.getElementById(edge.data('target'));
+                
+                document.getElementById('edge-source').textContent = sourceNode.data('label');
+                document.getElementById('edge-target').textContent = targetNode.data('label');
+                document.getElementById('edge-type').textContent = edge.data('relation_type') || '未知';
+                document.getElementById('edge-structure').textContent = edge.data('structure') || '未知';
+                document.getElementById('edge-detail').textContent = edge.data('detail') || '无';
+                document.getElementById('edge-evidence').textContent = edge.data('evidence') || '无';
+                document.getElementById('edge-confidence').textContent = edge.data('confidence') || '未知';
+            });
+
+            // 背景点击事件（取消选择）
+            cy.on('tap', function(evt) {
+                if (evt.target === cy) {
+                    document.getElementById('node-info-empty').classList.remove('d-none');
+                    document.getElementById('node-info-content').classList.add('d-none');
+                    document.getElementById('edge-info-empty').classList.remove('d-none');
+                    document.getElementById('edge-info-content').classList.add('d-none');
+                }
+            });
+
+            // 获取图数据
+            console.log('开始获取图数据...');
+            fetch('/api/graph/data')
+                .then(response => {
+                    console.log('图数据API响应状态:', response.status, response.statusText);
+                    return response.json().then(data => {
+                        console.log('图数据API返回内容:', data);
+                        return { status: response.status, data: data };
+                    });
+                })
+                .then(result => {
+                    const { status, data } = result;
+                    
+                    // 检查是否有错误消息
+                    if (data.error) {
+                        console.error('API返回错误:', data.error);
+                        document.getElementById('cy').innerHTML = `<div class="alert alert-danger m-3">加载图数据失败: ${data.error}</div>`;
+                        return;
+                    }
+                    
+                    // 如果返回数据为空或格式不正确
+                    if (!data || !data.nodes || !data.edges) {
+                        console.error('API返回的数据为空或格式不正确:', data);
+                        document.getElementById('cy').innerHTML = '<div class="alert alert-warning m-3">没有找到图数据。可能需要先上传文献来生成图谱数据。</div>';
+                        return;
+                    }
+                    
+                    if (data.nodes.length === 0) {
+                        console.warn('API返回的节点列表为空');
+                        document.getElementById('cy').innerHTML = '<div class="alert alert-info m-3">图谱中没有节点。请上传文献或手动添加节点。</div>';
+                        return;
+                    }
+                    
+                    console.log(`准备渲染图形: ${data.nodes.length}个节点, ${data.edges.length}条边`);
+                    
+                    // 每次加载新数据前，清理cy元素，防止重影
+                    cy.elements().remove();
+                    // forceResizeCytoscape(); // 这里不再调用，等数据加载后再调用
+                    
+                    // 处理节点
+                    const elements = [];
+                    const nodeIds = new Set(); // 用于检查节点ID的唯一性
+                    
+                    // 添加节点
+                    data.nodes.forEach((node, index) => {
+                        console.log(`处理节点 ${index+1}/${data.nodes.length}:`, node);
+                        
+                        if (!node.id || !node.label) {
+                            console.warn(`节点缺少必要属性:`, node);
+                            return; // 跳过此节点
+                        }
+                        
+                        if (nodeIds.has(node.id)) {
+                            console.warn(`发现重复节点ID: ${node.id}, 将被跳过`);
+                            return; // 跳过重复节点
+                        }
+                        
+                        nodeIds.add(node.id);
+                        
+                        let color;
+                        switch (node.type) {
+                            case 'Algorithm':
+                                color = 'skyblue';
+                                break;
+                            case 'Dataset':
+                                color = 'lightgreen';
+                                break;
+                            case 'Metric':
+                                color = 'orange';
+                                break;
+                            default:
+                                color = 'gray';
+                        }
+                        
+                        const nodeElement = {
+                            group: 'nodes',
+                            data: {
+                                id: node.id,
+                                label: node.label,
+                                entity_type: node.type,
+                                color: color
+                            }
+                        };
+                        
+                        elements.push(nodeElement);
+                        
+                        // 更新下拉列表
+                        const option = document.createElement('option');
+                        option.value = node.id;
+                        option.textContent = node.label;
+                        document.getElementById('from-entity').appendChild(option.cloneNode(true));
+                        document.getElementById('to-entity').appendChild(option);
+                    });
+                    
+                    console.log(`成功处理 ${nodeIds.size} 个有效节点`);
+                    
+                    // 检查是否有边的端点不在节点列表中
+                    let validEdges = 0;
+                    let skippedEdges = 0;
+                    
+                    // 添加边
+                    data.edges.forEach((edge, index) => {
+                        console.log(`处理边 ${index+1}/${data.edges.length}:`, edge);
+                        
+                        if (!edge.source || !edge.target) {
+                            console.warn(`边缺少源或目标ID:`, edge);
+                            skippedEdges++;
+                            return; // 跳过此边
+                        }
+                        
+                        // 验证源节点和目标节点是否存在
+                        if (!nodeIds.has(edge.source)) {
+                            console.warn(`边的源节点不存在: ${edge.source}`);
+                            // 尝试自动创建源节点
+                            elements.push({
+                                group: 'nodes',
+                                data: {
+                                    id: edge.source,
+                                    label: `未知节点 (${edge.source})`,
+                                    entity_type: 'Unknown',
+                                    color: '#aaaaaa'
+                                }
+                            });
+                            nodeIds.add(edge.source);
+                            console.log(`为边 ${edge.source} -> ${edge.target} 自动创建了源节点`);
+                        }
+                        
+                        if (!nodeIds.has(edge.target)) {
+                            console.warn(`边的目标节点不存在: ${edge.target}`);
+                            skippedEdges++;
+                            return; // 跳过此边
+                        }
+                        
+                        // 构建边ID，确保唯一性
+                        const edgeId = `edge_${edge.source}_${edge.target}_${index}`;
+                        
+                        elements.push({
+                            group: 'edges',
+                            data: {
+                                id: edgeId,
+                                source: edge.source,
+                                target: edge.target,
+                                label: edge.label || edge.relation_type || '',
+                                relation_type: edge.relation_type || 'Unknown',
+                                structure: edge.structure || '',
+                                detail: edge.detail || '',
+                                evidence: edge.evidence || '',
+                                confidence: edge.confidence || 0.5
+                            }
+                        });
+                        
+                        validEdges++;
+                    });
+                    
+                    console.log(`成功处理 ${validEdges} 条有效边，跳过了 ${skippedEdges} 条无效边`);
+                    
+                    // 加载元素
+                    cy.elements().remove();
+                    // 不要在这里调用 forceResizeCytoscape
+
+                    if (elements.length === 0) {
+                        console.error('没有有效元素可以添加到图中');
+                        document.getElementById('cy').innerHTML = '<div class="alert alert-warning m-3">处理后没有有效的图形元素。请检查数据格式。</div>';
+                        return;
+                    }
+                    
+                    console.log('开始向图中添加元素...');
+                    cy.add(elements);
+                    console.log('元素添加完成');
+                    
+                    // 数据加载后应用布局
+                    const layout = cy.layout({
+                        name: 'grid',
+                        padding: 50
+                    });
+                    
+                    layout.one('layoutstop', function() {
+                        console.log('布局应用完成');
+                        
+                        // 适应视图
+                        console.log('调整视图大小...');
+                        cy.fit(undefined, 50);
+                        
+                        // 再次强制调整尺寸
+                        forceResizeCytoscape();
+                        
+                        console.log('视图调整完成');
+                        
+                        // 打印最终元素统计
+                        const finalNodes = cy.nodes().length;
+                        const finalEdges = cy.edges().length;
+                        console.log(`图形渲染完成: ${finalNodes} 个节点, ${finalEdges} 条边`);
+                        
+                        // 更新图形统计信息
+                        document.getElementById('graph-stats').textContent = `图形统计: ${finalNodes}个节点, ${finalEdges}条边`;
+                    });
+                    
+                    // 运行布局
+                    layout.run();
+                })
+                .catch(error => {
+                    console.error('获取或处理图数据失败:', error);
+                    document.getElementById('cy').innerHTML = `<div class="alert alert-danger m-3">获取图数据失败: ${error.message}</div>`;
+                });
+
+            // 布局控制
+            document.getElementById('btn-reset').addEventListener('click', function() {
+                cy.reset();
+            });
+            
+            document.getElementById('btn-layout-circle').addEventListener('click', function() {
+                cy.layout({
+                    name: 'circle',
+                    padding: 50
+                }).run();
+            });
+            
+            document.getElementById('btn-layout-grid').addEventListener('click', function() {
+                cy.layout({
+                    name: 'grid',
+                    padding: 50
+                }).run();
+            });
+            
+            document.getElementById('btn-layout-cose').addEventListener('click', function() {
+                cy.layout({
+                    name: 'cose',
+                    padding: 50
+                }).run();
+            });
+            
+            document.getElementById('btn-fit').addEventListener('click', function() {
+                cy.fit();
+            });
+            
+            // 导出PNG
+            document.getElementById('btn-export-png').addEventListener('click', function() {
+                const png = cy.png({
+                    output: 'blob',
+                    bg: '#ffffff',
+                    full: true
+                });
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(png);
+                link.download = '算法要素关系图.png';
+                link.click();
+            });
+            
+            // 导出JSON
+            document.getElementById('btn-export-json').addEventListener('click', function() {
+                const jsonData = JSON.stringify(cy.json().elements, null, 2);
+                const blob = new Blob([jsonData], {type: 'application/json'});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = '算法要素关系图.json';
+                link.click();
+            });
+            
+            // 搜索节点
+            document.getElementById('btn-search').addEventListener('click', function() {
+                const searchTerm = document.getElementById('search-term').value.toLowerCase();
+                
+                if (searchTerm.length < 2) {
+                    alert('请输入至少2个字符进行搜索');
+                    return;
+                }
+                
+                const matchedNodes = cy.nodes().filter(node => {
+                    const nodeData = node.data();
+                    return nodeData.label.toLowerCase().includes(searchTerm);
+                });
+                
+                if (matchedNodes.length > 0) {
+                    cy.fit(matchedNodes, 100);
+                    matchedNodes.select();
+                } else {
+                    alert('没有找到匹配的节点');
+                }
+            });
+            
+            // 创建边
+            document.getElementById('btn-add-edge').addEventListener('click', function() {
+                const fromEntity = document.getElementById('from-entity').value;
+                const toEntity = document.getElementById('to-entity').value;
+                const relationType = document.getElementById('relation-type').value;
+                const relationLabel = document.getElementById('relation-label').value;
+                
+                if (fromEntity === toEntity) {
+                    alert('源节点和目标节点不能相同');
+                    return;
+                }
+                
+                if (!fromEntity || !toEntity || !relationType) {
+                    alert('请填写完整的关系信息');
+                    return;
+                }
+                
+                const edgeId = `${fromEntity}-${toEntity}-${Date.now()}`;
+                const newEdge = {
+                    group: 'edges',
+                    data: {
+                        id: edgeId,
+                        source: fromEntity,
+                        target: toEntity,
+                        relation_type: relationType,
+                        label: relationLabel || relationType
+                    }
+                };
+                
+                cy.add(newEdge);
+                
+                // 重新应用布局
+                cy.layout({
+                    name: 'cose',
+                    padding: 50
+                }).run();
+            });
+            
+            // 关系类型过滤
+            document.querySelectorAll('.relation-filter').forEach(button => {
+                button.addEventListener('click', function() {
+                    const relationType = this.getAttribute('data-relation');
+                    
+                    // 移除所有按钮的active状态
+                    document.querySelectorAll('.relation-filter').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // 添加当前按钮的active状态
+                    this.classList.add('active');
+                    
+                    // 显示所有边
+                    cy.edges().show();
+                    
+                    // 如果不是"全部"，则过滤
+                    if (relationType !== 'all') {
+                        cy.edges().filter(edge => edge.data('relation_type') !== relationType).hide();
+                    }
+                });
+            });
+            
+            // 添加关系表单提交
+            document.getElementById('add-relation-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const fromEntity = document.getElementById('from-entity').value;
+                const toEntity = document.getElementById('to-entity').value;
+                const relationType = document.getElementById('relation-type').value;
+                const structure = document.getElementById('structure').value;
+                const detail = document.getElementById('detail').value;
+                
+                if (!fromEntity || !toEntity) {
+                    alert('请选择源实体和目标实体');
+                    return;
+                }
+                
+                if (fromEntity === toEntity) {
+                    alert('源实体和目标实体不能相同');
+                    return;
+                }
+                
+                // 构建关系数据
+                const relationData = {
+                    from_entity: fromEntity,
+                    to_entity: toEntity,
+                    relation_type: relationType,
+                    structure: structure,
+                    detail: detail,
+                    evidence: '',
+                    confidence: 0.8
+                };
+                
+                // 发送请求添加关系
+                fetch('/api/relations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(relationData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('关系添加成功');
+                        
+                        // 更新图
+                        const sourceNode = cy.getElementById(fromEntity);
+                        const targetNode = cy.getElementById(toEntity);
+                        
+                        let edgeLabel = relationType;
+                        if (structure) {
+                            edgeLabel += ` on ${structure}`;
+                        }
+                        if (detail) {
+                            edgeLabel += `\n${detail}`;
+                        }
+                        
+                        // 添加新边
+                        cy.add({
+                            group: 'edges',
+                            data: {
+                                id: `${fromEntity}-${toEntity}`,
+                                source: fromEntity,
+                                target: toEntity,
+                                label: edgeLabel,
+                                relation_type: relationType,
+                                structure: structure,
+                                detail: detail,
+                                evidence: '',
+                                confidence: 0.8
+                            }
+                        });
+                        
+                        // 重置表单
+                        document.getElementById('add-relation-form').reset();
+                    } else {
+                        alert('添加关系失败: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('添加关系时出错:', error);
+                    alert('添加关系时出错');
+                });
+            });
+
+            // 刷新数据
+            document.getElementById('btn-refresh-data').addEventListener('click', function() {
+                const btn = this;
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 刷新中...';
+                
+                console.log('点击刷新数据按钮，开始获取数据...');
+                
+                // 调用API强制刷新数据
+                fetch('/api/graph/data?force_refresh=true')
+                    .then(response => {
+                        console.log('刷新图数据API响应状态:', response.status, response.statusText);
+                        return response.json().then(data => {
+                            console.log('刷新后API返回内容:', data);
+                            return { status: response.status, data: data };
+                        });
+                    })
+                    .then(result => {
+                        const { status, data } = result;
+                        
+                        // 检查是否有错误消息
+                        if (data.error) {
+                            console.error('API返回错误:', data.error);
+                            document.getElementById('cy').innerHTML = `<div class="alert alert-danger m-3">加载图数据失败: ${data.error}</div>`;
+                            return;
+                        }
+                        
+                        // 如果返回数据为空或格式不正确
+                        if (!data || !data.nodes || !data.edges) {
+                            console.error('API返回的数据为空或格式不正确:', data);
+                            document.getElementById('cy').innerHTML = '<div class="alert alert-warning m-3">没有找到图数据。可能需要先上传文献来生成图谱数据。</div>';
+                            return;
+                        }
+                        
+                        if (data.nodes.length === 0) {
+                            console.warn('API返回的节点列表为空');
+                            document.getElementById('cy').innerHTML = '<div class="alert alert-info m-3">图谱中没有节点。请上传文献或手动添加节点。</div>';
+                            return;
+                        }
+                        
+                        console.log(`准备渲染图形: ${data.nodes.length}个节点, ${data.edges.length}条边`);
+                        
+                        // 每次加载新数据前，清理cy元素，防止重影
+                        cy.elements().remove();
+                        // forceResizeCytoscape(); // 这里不再调用，等数据加载后再调用
+                        
+                        // 处理节点
+                        const elements = [];
+                        const nodeIds = new Set(); // 用于检查节点ID的唯一性
+                        
+                        // 添加节点
+                        data.nodes.forEach((node, index) => {
+                            console.log(`处理节点 ${index+1}/${data.nodes.length}:`, node);
+                            
+                            if (!node.id || !node.label) {
+                                console.warn(`节点缺少必要属性:`, node);
+                                return; // 跳过此节点
+                            }
+                            
+                            if (nodeIds.has(node.id)) {
+                                console.warn(`发现重复节点ID: ${node.id}, 将被跳过`);
+                                return; // 跳过重复节点
+                            }
+                            
+                            nodeIds.add(node.id);
+                            
+                            let color;
+                            switch (node.type) {
+                                case 'Algorithm':
+                                    color = 'skyblue';
+                                    break;
+                                case 'Dataset':
+                                    color = 'lightgreen';
+                                    break;
+                                case 'Metric':
+                                    color = 'orange';
+                                    break;
+                                default:
+                                    color = 'gray';
+                            }
+                            
+                            elements.push({
+                                group: 'nodes',
+                                data: {
+                                    id: node.id,
+                                    label: node.label,
+                                    entity_type: node.type,
+                                    color: color
+                                }
+                            });
+                        });
+                        
+                        console.log(`成功处理 ${nodeIds.size} 个有效节点`);
+                        
+                        // 清空下拉列表并重新填充
+                        document.getElementById('from-entity').innerHTML = '<option value="">-- 选择源节点 --</option>';
+                        document.getElementById('to-entity').innerHTML = '<option value="">-- 选择目标节点 --</option>';
+                        
+                        // 更新下拉列表
+                        nodeIds.forEach(nodeId => {
+                            const node = data.nodes.find(n => n.id === nodeId);
+                            if (node) {
+                                const option = document.createElement('option');
+                                option.value = node.id;
+                                option.textContent = node.label;
+                                document.getElementById('from-entity').appendChild(option.cloneNode(true));
+                                document.getElementById('to-entity').appendChild(option.cloneNode(true));
+                            }
+                        });
+                        
+                        // 检查是否有边的端点不在节点列表中
+                        let validEdges = 0;
+                        let skippedEdges = 0;
+                        
+                        // 添加边
+                        data.edges.forEach((edge, index) => {
+                            console.log(`处理边 ${index+1}/${data.edges.length}:`, edge);
+                            
+                            if (!edge.source || !edge.target) {
+                                console.warn(`边缺少源或目标ID:`, edge);
+                                skippedEdges++;
+                                return; // 跳过此边
+                            }
+                            
+                            // 验证源节点和目标节点是否存在
+                            if (!nodeIds.has(edge.source)) {
+                                console.warn(`边的源节点不存在: ${edge.source}`);
+                                skippedEdges++;
+                                return; // 跳过此边
+                            }
+                            
+                            if (!nodeIds.has(edge.target)) {
+                                console.warn(`边的目标节点不存在: ${edge.target}`);
+                                skippedEdges++;
+                                return; // 跳过此边
+                            }
+                            
+                            // 构建边ID，确保唯一性
+                            const edgeId = `edge_${edge.source}_${edge.target}_${index}`;
+                            
+                            elements.push({
+                                group: 'edges',
+                                data: {
+                                    id: edgeId,
+                                    source: edge.source,
+                                    target: edge.target,
+                                    label: edge.label || edge.relation_type || '',
+                                    relation_type: edge.relation_type || 'Unknown',
+                                    structure: edge.structure || '',
+                                    detail: edge.detail || '',
+                                    evidence: edge.evidence || '',
+                                    confidence: edge.confidence || 0.5
+                                }
+                            });
+                            
+                            validEdges++;
+                        });
+                        
+                        console.log(`成功处理 ${validEdges} 条有效边，跳过了 ${skippedEdges} 条无效边`);
+                        
+                        // 加载元素
+                        cy.elements().remove();
+                        // 不要在这里调用 forceResizeCytoscape
+
+                        if (elements.length === 0) {
+                            console.error('没有有效元素可以添加到图中');
+                            document.getElementById('cy').innerHTML = '<div class="alert alert-warning m-3">处理后没有有效的图形元素。请检查数据格式。</div>';
+                            return;
+                        }
+                        
+                        console.log('开始向图中添加元素...');
+                        cy.add(elements);
+                        console.log('元素添加完成');
+                        
+                        // 应用布局
+                        console.log('开始应用布局...');
+                        const layout = cy.layout({
+                            name: 'cose',
+                            padding: 50,
+                            animate: true,
+                            animationDuration: 1000,
+                            animationEasing: 'ease-out',
+                            randomize: true,
+                            componentSpacing: 80
+                        });
+                        
+                        layout.one('layoutstop', function() {
+                            console.log('布局应用完成');
+                            
+                            // 适应视图
+                            console.log('调整视图大小...');
+                            cy.fit(undefined, 50);
+                            
+                            // 再次强制调整尺寸
+                            forceResizeCytoscape();
+                            
+                            console.log('视图调整完成');
+                            
+                            // 打印最终元素统计
+                            const finalNodes = cy.nodes().length;
+                            const finalEdges = cy.edges().length;
+                            console.log(`图形渲染完成: ${finalNodes} 个节点, ${finalEdges} 条边`);
+                            
+                            // 更新图形统计信息
+                            document.getElementById('graph-stats').textContent = `图形统计: ${finalNodes}个节点, ${finalEdges}条边`;
+                        });
+                        
+                        // 运行布局
+                        layout.run();
+                    })
+                    .catch(error => {
+                        console.error('刷新图数据失败:', error);
+                        alert('刷新数据失败: ' + error.message);
+                    })
+                    .finally(() => {
+                        btn.disabled = false;
+                        btn.innerHTML = '刷新数据';
+                    });
+            });
+        });
+    </script>
+</body>
+</html>

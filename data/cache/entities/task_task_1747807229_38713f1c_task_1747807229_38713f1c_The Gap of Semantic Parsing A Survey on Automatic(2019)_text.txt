@@ -1,0 +1,130 @@
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhang2019_SurveyMWP",
+        "entity_type": "Algorithm",
+        "name": "SurveyMWP",
+        "title": "The Gap of Semantic Parsing: A Survey on Automatic Math Word Problem Solvers",
+        "year": 2019,
+        "authors": [
+          "Dongxiang Zhang",
+          "Lei Wang",
+          "Luming Zhang",
+          "Bing Tian Dai",
+          "Heng Tao Shen"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "AI2_2019",
+          "IL_2019",
+          "CC_2019",
+          "SingleEQ_2019",
+          "AllArith_2019",
+          "MAWPS_2019",
+          "Dolphin-S_2019",
+          "Math23K_2019"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Rule-based Methods",
+            "Statistic-based Methods",
+            "Tree-based Methods",
+            "Deep Learning-based Methods"
+          ],
+          "connections": [
+            "Feature Engineering",
+            "Statistical Learning",
+            "Semantic Parsing",
+            "Deep Learning",
+            "Reinforcement Learning"
+          ],
+          "mechanisms": [
+            "Expression Tree",
+            "Equation Tree",
+            "StackDecoder",
+            "Seq2SeqET",
+            "MathDQN"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning",
+            "Reinforcement Learning"
+          ],
+          "parameter_tuning": [
+            "Beam Search",
+            "Integer Linear Programming",
+            "Q-Network Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Entailment",
+          "Unit Dependency Graph",
+          "Logic Templates",
+          "Schema Matching"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Wang2015_PriorAlgorithm",
+            "to_entity": "Zhang2019_SurveyMWP",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "Integrated multiple methods for better semantic parsing and problem-solving.",
+            "evidence": "Evidence from the survey paper.",
+            "confidence": 0.95
+          }
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AI2_2019",
+        "entity_type": "Dataset",
+        "name": "AI2",
+        "description": "A dataset containing 395 single-step or multi-step arithmetic word problems for third, fourth, and fifth graders.",
+        "domain": "Mathematics Education",
+        "size": 395,
+        "year": 2019,
+        "creators": [
+          "Authors of AI2"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "OldDataset_2005",
+            "to_entity": "AI2_2019",
+            "relation_type": "Extend",
+            "detail": "Expanded the number of problems and included more complex scenarios.",
+            "evidence": "Evidence from the survey paper.",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Classification accuracy for math word problem solving.",
+        "category": "Classification Evaluation",
+        "formula": "Correctly solved problems / Total problems",
+        "evolution_relations": [
+          {
+            "from_entity": "OldMetric_2000",
+            "to_entity": "Accuracy_Classification",
+            "relation_type": "Improve",
+            "detail": "Improved calculation method to handle diverse datasets.",
+            "evidence": "Evidence from the survey paper.",
+            "confidence": 0.85
+          }
+        ]
+      }
+    }
+  ],
+  "complete": false,
+  "timestamp": "2025-05-21T14:11:20.093164"
+}

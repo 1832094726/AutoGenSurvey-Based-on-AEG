@@ -1,0 +1,575 @@
+{% extends 'base.html' %}
+
+{% block title %}上传文件 - 算法演化知识图谱{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .upload-area {
+        border: 2px dashed #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .upload-area:hover {
+        border-color: #6c757d;
+    }
+    
+    #upload-status {
+        margin-top: 20px;
+    }
+    
+    .init-data-section {
+        margin-top: 30px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>上传文献</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    上传PDF文件
+                </div>
+                <div class="card-body">
+                    <form id="upload-form" enctype="multipart/form-data">
+                        <div class="upload-area">
+                            <input type="file" id="file-input" class="form-control" accept=".pdf" hidden>
+                            <label for="file-input" class="btn btn-primary">选择PDF文件</label>
+                            <p class="mt-2 text-muted">或者将PDF文件拖放到此区域</p>
+                            <div id="selected-file" class="mt-2"></div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-success" id="upload-btn">上传</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="upload-status" class="d-none">
+                <div class="card">
+                    <div class="card-header">处理状态</div>
+                    <div class="card-body">
+                        <div class="progress mb-3">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <p id="status-message">正在准备...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-header">上传说明</div>
+                <div class="card-body">
+                    <p>上传PDF文献，系统将自动提取算法实体及其演化关系，生成要素关系图。</p>
+                    <p>支持的文件类型：PDF</p>
+                    <p>最大文件大小：50MB</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">最近处理的文件</div>
+                <div class="card-body" id="recent-files">
+                    <p class="text-muted">暂无记录</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 初始化测试数据部分 -->
+    <div class="init-data-section mt-4">
+        <h3>初始化测试数据</h3>
+        <p class="text-muted">如果没有数据可以测试，您可以点击下方按钮创建一些测试数据</p>
+        
+        <button id="init-test-data" class="btn btn-warning">创建测试数据</button>
+        <div id="init-status" class="mt-3"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        // 文件选择
+        $('#file-input').change(function() {
+            const file = this.files[0];
+            if (file) {
+                $('#selected-file').html(`<strong>已选择：</strong> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+            } else {
+                $('#selected-file').html('');
+            }
+        });
+        
+        // 拖放文件
+        const uploadArea = $('.upload-area');
+        
+        uploadArea.on('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).addClass('border-primary');
+        });
+        
+        uploadArea.on('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).removeClass('border-primary');
+        });
+        
+        uploadArea.on('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).removeClass('border-primary');
+            
+            if (e.originalEvent.dataTransfer.files.length) {
+                const file = e.originalEvent.dataTransfer.files[0];
+                if (file.type === 'application/pdf') {
+                    $('#file-input')[0].files = e.originalEvent.dataTransfer.files;
+                    $('#selected-file').html(`<strong>已选择：</strong> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+                } else {
+                    alert('请上传PDF文件');
+                }
+            }
+        });
+        
+        // 表单提交
+        $('#upload-form').submit(function(e) {
+            e.preventDefault();
+            
+            const fileInput = $('#file-input')[0];
+            if (!fileInput.files.length) {
+                alert('请选择文件');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            if (file.size > 50 * 1024 * 1024) {
+                alert('文件大小不能超过50MB');
+                return;
+            }
+            
+            // 显示进度条
+            $('#upload-status').removeClass('d-none');
+            $('#progress-bar').css('width', '10%');
+            $('#status-message').text('文件上传中...');
+            
+            // 创建FormData对象
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            // 发送请求
+            $.ajax({
+                url: '/process',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        $('#progress-bar').css('width', '100%');
+                        $('#status-message').html(`<div class="alert alert-success">处理完成！已提取 ${response.entities_count} 个实体和 ${response.relations_count} 个关系。</div>
+                        <div class="mt-3">
+                            <a href="/graph" class="btn btn-primary">查看关系图</a>
+                            <a href="/table" class="btn btn-secondary ms-2">查看表格</a>
+                        </div>`);
+                    } else {
+                        $('#progress-bar').css('width', '100%').removeClass('bg-primary').addClass('bg-danger');
+                        $('#status-message').html(`<div class="alert alert-danger">处理失败：${response.message}</div>`);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#progress-bar').css('width', '100%').removeClass('bg-primary').addClass('bg-danger');
+                    $('#status-message').html(`<div class="alert alert-danger">请求出错：${error}</div>`);
+                }
+            });
+        });
+        
+        // 初始化测试数据
+        $('#init-test-data').click(function() {
+            const btn = $(this);
+            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> 处理中...');
+            
+            // 创建测试数据
+            const testData = {
+                entities: [
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "BERT2018",
+                            name: "BERT",
+                            year: "2018",
+                            task: "NLP",
+                            authors: ["Jacob Devlin", "Ming-Wei Chang", "Kenton Lee", "Kristina Toutanova"],
+                            dataset: ["GLUE", "SQuAD"],
+                            metrics: ["Accuracy", "F1"],
+                            entity_type: "Algorithm"
+                        }
+                    },
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "GPT2019",
+                            name: "GPT-2",
+                            year: "2019",
+                            task: "NLP",
+                            authors: ["Alec Radford", "Jeffrey Wu", "Rewon Child", "David Luan", "Dario Amodei", "Ilya Sutskever"],
+                            dataset: ["WebText"],
+                            metrics: ["Perplexity"],
+                            entity_type: "Algorithm"
+                        }
+                    },
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "RoBERTa2019",
+                            name: "RoBERTa",
+                            year: "2019",
+                            task: "NLP",
+                            authors: ["Yinhan Liu", "Myle Ott", "Naman Goyal", "Jingfei Du"],
+                            dataset: ["GLUE", "SQuAD"],
+                            metrics: ["Accuracy", "F1"],
+                            entity_type: "Algorithm"
+                        }
+                    },
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "T52020",
+                            name: "T5",
+                            year: "2020",
+                            task: "NLP",
+                            authors: ["Colin Raffel", "Noam Shazeer", "Adam Roberts"],
+                            dataset: ["GLUE", "SuperGLUE", "SQuAD"],
+                            metrics: ["Accuracy", "F1"],
+                            entity_type: "Algorithm"
+                        }
+                    },
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "GPT32022",
+                            name: "GPT-3",
+                            year: "2022",
+                            task: "NLP",
+                            authors: ["Tom Brown", "Benjamin Mann", "Nick Ryder"],
+                            dataset: ["WebText"],
+                            metrics: ["Perplexity", "Accuracy"],
+                            entity_type: "Algorithm"
+                        }
+                    }
+                ],
+                relations: [
+                    {
+                        from_entity: "BERT2018",
+                        to_entity: "RoBERTa2019",
+                        relation_type: "Improve",
+                        structure: "Architecture.Training",
+                        detail: "更大的批处理大小和更多的训练数据",
+                        evidence: "RoBERTa论文中描述了对BERT的改进",
+                        confidence: 0.95
+                    },
+                    {
+                        from_entity: "GPT2019",
+                        to_entity: "GPT32022",
+                        relation_type: "Enhance",
+                        structure: "Architecture.Scale",
+                        detail: "显著增加了模型大小和参数",
+                        evidence: "GPT-3论文中详述了对GPT-2的扩展",
+                        confidence: 0.98
+                    },
+                    {
+                        from_entity: "BERT2018",
+                        to_entity: "T52020",
+                        relation_type: "Optimize",
+                        structure: "Architecture.Mechanism",
+                        detail: "采用了统一的文本到文本框架",
+                        evidence: "T5论文中提到了对BERT等模型的改进",
+                        confidence: 0.9
+                    },
+                    {
+                        from_entity: "RoBERTa2019",
+                        to_entity: "T52020",
+                        relation_type: "Combine",
+                        structure: "Architecture.Approach",
+                        detail: "融合了RoBERTa的训练策略",
+                        evidence: "T5论文中引用了RoBERTa的工作",
+                        confidence: 0.85
+                    },
+                    {
+                        from_entity: "BERT2018",
+                        to_entity: "GPT2019",
+                        relation_type: "Compare",
+                        structure: "Architecture.Approach",
+                        detail: "与BERT采用了不同的预训练目标",
+                        evidence: "GPT-2论文中将其方法与BERT进行了比较",
+                        confidence: 0.88
+                    }
+                ]
+            };
+            
+            // 发送导入请求
+            $.ajax({
+                url: '/api/import/table',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(testData),
+                success: function(response) {
+                    if (response.success) {
+                        $('#init-status').html(`<div class="alert alert-success">成功创建测试数据！已添加 ${response.entities_count} 个实体和 ${response.relations_count} 个关系。</div>
+                        <div class="mt-3">
+                            <a href="/graph" class="btn btn-primary">查看关系图</a>
+                            <a href="/algorithms" class="btn btn-secondary ms-2">查看算法列表</a>
+                        </div>`);
+                    } else {
+                        $('#init-status').html(`<div class="alert alert-danger">创建测试数据失败：${response.message}</div>`);
+                    }
+                    btn.prop('disabled', false).text('创建测试数据');
+                },
+                error: function(xhr, status, error) {
+                    $('#init-status').html(`<div class="alert alert-danger">请求出错：${error}</div>`);
+                    btn.prop('disabled', false).text('创建测试数据');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %} 
+                $('#selected-file').html(`<strong>已选择：</strong> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+            } else {
+                $('#selected-file').html('');
+            }
+        });
+        
+        // 拖放文件
+        const uploadArea = $('.upload-area');
+        
+        uploadArea.on('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).addClass('border-primary');
+        });
+        
+        uploadArea.on('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).removeClass('border-primary');
+        });
+        
+        uploadArea.on('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).removeClass('border-primary');
+            
+            if (e.originalEvent.dataTransfer.files.length) {
+                const file = e.originalEvent.dataTransfer.files[0];
+                if (file.type === 'application/pdf') {
+                    $('#file-input')[0].files = e.originalEvent.dataTransfer.files;
+                    $('#selected-file').html(`<strong>已选择：</strong> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+                } else {
+                    alert('请上传PDF文件');
+                }
+            }
+        });
+        
+        // 表单提交
+        $('#upload-form').submit(function(e) {
+            e.preventDefault();
+            
+            const fileInput = $('#file-input')[0];
+            if (!fileInput.files.length) {
+                alert('请选择文件');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            if (file.size > 50 * 1024 * 1024) {
+                alert('文件大小不能超过50MB');
+                return;
+            }
+            
+            // 显示进度条
+            $('#upload-status').removeClass('d-none');
+            $('#progress-bar').css('width', '10%');
+            $('#status-message').text('文件上传中...');
+            
+            // 创建FormData对象
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            // 发送请求
+            $.ajax({
+                url: '/process',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        $('#progress-bar').css('width', '100%');
+                        $('#status-message').html(`<div class="alert alert-success">处理完成！已提取 ${response.entities_count} 个实体和 ${response.relations_count} 个关系。</div>
+                        <div class="mt-3">
+                            <a href="/graph" class="btn btn-primary">查看关系图</a>
+                            <a href="/table" class="btn btn-secondary ms-2">查看表格</a>
+                        </div>`);
+                    } else {
+                        $('#progress-bar').css('width', '100%').removeClass('bg-primary').addClass('bg-danger');
+                        $('#status-message').html(`<div class="alert alert-danger">处理失败：${response.message}</div>`);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#progress-bar').css('width', '100%').removeClass('bg-primary').addClass('bg-danger');
+                    $('#status-message').html(`<div class="alert alert-danger">请求出错：${error}</div>`);
+                }
+            });
+        });
+        
+        // 初始化测试数据
+        $('#init-test-data').click(function() {
+            const btn = $(this);
+            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> 处理中...');
+            
+            // 创建测试数据
+            const testData = {
+                entities: [
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "BERT2018",
+                            name: "BERT",
+                            year: "2018",
+                            task: "NLP",
+                            authors: ["Jacob Devlin", "Ming-Wei Chang", "Kenton Lee", "Kristina Toutanova"],
+                            dataset: ["GLUE", "SQuAD"],
+                            metrics: ["Accuracy", "F1"],
+                            entity_type: "Algorithm"
+                        }
+                    },
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "GPT2019",
+                            name: "GPT-2",
+                            year: "2019",
+                            task: "NLP",
+                            authors: ["Alec Radford", "Jeffrey Wu", "Rewon Child", "David Luan", "Dario Amodei", "Ilya Sutskever"],
+                            dataset: ["WebText"],
+                            metrics: ["Perplexity"],
+                            entity_type: "Algorithm"
+                        }
+                    },
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "RoBERTa2019",
+                            name: "RoBERTa",
+                            year: "2019",
+                            task: "NLP",
+                            authors: ["Yinhan Liu", "Myle Ott", "Naman Goyal", "Jingfei Du"],
+                            dataset: ["GLUE", "SQuAD"],
+                            metrics: ["Accuracy", "F1"],
+                            entity_type: "Algorithm"
+                        }
+                    },
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "T52020",
+                            name: "T5",
+                            year: "2020",
+                            task: "NLP",
+                            authors: ["Colin Raffel", "Noam Shazeer", "Adam Roberts"],
+                            dataset: ["GLUE", "SuperGLUE", "SQuAD"],
+                            metrics: ["Accuracy", "F1"],
+                            entity_type: "Algorithm"
+                        }
+                    },
+                    {
+                        algorithm_entity: {
+                            algorithm_id: "GPT32022",
+                            name: "GPT-3",
+                            year: "2022",
+                            task: "NLP",
+                            authors: ["Tom Brown", "Benjamin Mann", "Nick Ryder"],
+                            dataset: ["WebText"],
+                            metrics: ["Perplexity", "Accuracy"],
+                            entity_type: "Algorithm"
+                        }
+                    }
+                ],
+                relations: [
+                    {
+                        from_entity: "BERT2018",
+                        to_entity: "RoBERTa2019",
+                        relation_type: "Improve",
+                        structure: "Architecture.Training",
+                        detail: "更大的批处理大小和更多的训练数据",
+                        evidence: "RoBERTa论文中描述了对BERT的改进",
+                        confidence: 0.95
+                    },
+                    {
+                        from_entity: "GPT2019",
+                        to_entity: "GPT32022",
+                        relation_type: "Enhance",
+                        structure: "Architecture.Scale",
+                        detail: "显著增加了模型大小和参数",
+                        evidence: "GPT-3论文中详述了对GPT-2的扩展",
+                        confidence: 0.98
+                    },
+                    {
+                        from_entity: "BERT2018",
+                        to_entity: "T52020",
+                        relation_type: "Optimize",
+                        structure: "Architecture.Mechanism",
+                        detail: "采用了统一的文本到文本框架",
+                        evidence: "T5论文中提到了对BERT等模型的改进",
+                        confidence: 0.9
+                    },
+                    {
+                        from_entity: "RoBERTa2019",
+                        to_entity: "T52020",
+                        relation_type: "Combine",
+                        structure: "Architecture.Approach",
+                        detail: "融合了RoBERTa的训练策略",
+                        evidence: "T5论文中引用了RoBERTa的工作",
+                        confidence: 0.85
+                    },
+                    {
+                        from_entity: "BERT2018",
+                        to_entity: "GPT2019",
+                        relation_type: "Compare",
+                        structure: "Architecture.Approach",
+                        detail: "与BERT采用了不同的预训练目标",
+                        evidence: "GPT-2论文中将其方法与BERT进行了比较",
+                        confidence: 0.88
+                    }
+                ]
+            };
+            
+            // 发送导入请求
+            $.ajax({
+                url: '/api/import/table',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(testData),
+                success: function(response) {
+                    if (response.success) {
+                        $('#init-status').html(`<div class="alert alert-success">成功创建测试数据！已添加 ${response.entities_count} 个实体和 ${response.relations_count} 个关系。</div>
+                        <div class="mt-3">
+                            <a href="/graph" class="btn btn-primary">查看关系图</a>
+                            <a href="/algorithms" class="btn btn-secondary ms-2">查看算法列表</a>
+                        </div>`);
+                    } else {
+                        $('#init-status').html(`<div class="alert alert-danger">创建测试数据失败：${response.message}</div>`);
+                    }
+                    btn.prop('disabled', false).text('创建测试数据');
+                },
+                error: function(xhr, status, error) {
+                    $('#init-status').html(`<div class="alert alert-danger">请求出错：${error}</div>`);
+                    btn.prop('disabled', false).text('创建测试数据');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %} 

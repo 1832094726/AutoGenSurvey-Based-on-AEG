@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block title %}算法实体列表{% endblock %}
+
+{% block stylesheets %}
+<!-- 额外的DataTables样式 -->
+<link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css" rel="stylesheet">
+<style>
+    .data-table {
+        width: 100% !important;
+    }
+    
+    /* 修复可能的表格行高问题 */
+    .data-table td {
+        vertical-align: middle;
+    }
+    
+    /* 确保加载指示器居中 */
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">算法实体列表</h2>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <span>算法实体</span>
+                <a href="/upload" class="btn btn-primary btn-sm">上传新文献</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div id="algorithm-list-container">
+                <div class="text-center my-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">正在加载算法实体...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- 算法列表页面JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+
+<script>
+// 加载算法实体列表
+function loadAlgorithmList() {
+    $('#algorithm-list-container').html('<div class="text-center my-5"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">正在加载算法实体...</p></div>');
+    
+    console.log('开始加载算法实体列表...');
+    
+    $.ajax({
+        url: '/api/entities',
+        method: 'GET',
+        timeout: 30000,
+        success: function(response) {
+            console.log('成功获取算法实体数据');
+            
+            // 尝试从不同的响应格式中提取实体数据
+            var entities = [];
+            
+            if (response.success === true && response.entities) {
+                entities = response.entities;
+            } else if (Array.isArray(response)) {
+                entities = response;
+            }
+            
+            console.log(`提取到 ${entities.length} 个实体`);
+            
+            if (entities.length > 0) {
+                // 创建表格
+                var tableHtml = '<table class="table table-striped table-bordered" id="algorithm-table">';
+                tableHtml += '<thead><tr>';
+                tableHtml += '<th>ID</th>';
+                tableHtml += '<th>名称</th>';
+                tableHtml += '<th>年份</th>';
+                tableHtml += '<th>任务</th>';
+                tableHtml += '<th>作者</th>';
+                tableHtml += '<th>操作</th>';
+                tableHtml += '</tr></thead>';
+                tableHtml += '<tbody>';
+                
+                // 添加行
+                var rowCount = 0;
+                entities.forEach(function(item) {
+                    var entity = item.algorithm_entity;
+                    if (entity) {
+                        rowCount++;
+                        tableHtml += '<tr>';
+                        tableHtml += '<td>' + (entity.algorithm_id || '') + '</td>';
+                        tableHtml += '<td>' + (entity.name || '') + '</td>';
+                        tableHtml += '<td>' + (entity.year || '') + '</td>';
+                        tableHtml += '<td>' + (entity.task || '') + '</td>';
+                        
+                        // 处理作者
+                        var authors = entity.authors || [];
+                        var authorText = '';
+                        if (authors.length > 0) {
+                            if (authors.length <= 3) {
+                                authorText = authors.join(', ');
+                            } else {
+                                authorText = authors.slice(0, 3).join(', ') + ' 等';
+                            }
+                        }
+                        tableHtml += '<td>' + authorText + '</td>';
+                        
+                        // 操作按钮
+                        tableHtml += '<td><a href="/entity/' + entity.algorithm_id + '" class="btn btn-sm btn-info">查看</a></td>';
+                        tableHtml += '</tr>';
+                    }
+                });
+                
+                tableHtml += '</tbody></table>';
+                
+                if (rowCount > 0) {
+                    // 显示表格
+                    $('#algorithm-list-container').html(tableHtml);
+                    
+                    // 简单初始化表格，避免问题
+                    $('#algorithm-table').DataTable({
+                        "language": {
+                            "search": "搜索:",
+                            "lengthMenu": "显示 _MENU_ 条",
+                            "info": "显示 _START_ 至 _END_ 条，共 _TOTAL_ 条",
+                            "infoEmpty": "没有数据",
+                            "paginate": {
+                                "first": "首页",
+                                "last": "末页",
+                                "next": "下页",
+                                "previous": "上页"
+                            },
+                            // 确保使用HTTPS加载zh.json
+                            // 如果不需要通过URL加载，可以移除此项
+                            /* 
+                            "url": "/static/i18n/zh.json",
+                            */
+                        },
+                        // 禁用AJAX加载其他资源
+                        "ajax": null,
+                        "responsive": true
+                    });
+                    
+                    console.log('表格初始化完成');
+                } else {
+                    $('#algorithm-list-container').html('<div class="alert alert-warning">找到了实体数据，但格式不符合预期。</div>');
+                }
+            } else {
+                $('#algorithm-list-container').html('<div class="alert alert-info">暂无算法实体数据。请上传PDF文件进行处理。</div>');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('加载算法实体失败:', error);
+            $('#algorithm-list-container').html('<div class="alert alert-danger">加载数据失败: ' + error + '<br>请检查服务器日志或刷新页面重试。</div>');
+        }
+    });
+}
+
+// 页面加载时执行
+$(document).ready(function() {
+    loadAlgorithmList();
+});
+</script>
+{% endblock %} 

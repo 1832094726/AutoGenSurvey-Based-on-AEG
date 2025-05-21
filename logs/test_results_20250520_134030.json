@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "errors": [],
+  "test_results": {
+    "import": "成功",
+    "connection": "成功",
+    "get_entities": {
+      "status": "成功",
+      "count": 25
+    },
+    "get_relations": {
+      "status": "成功",
+      "count": 16
+    }
+  }
+}

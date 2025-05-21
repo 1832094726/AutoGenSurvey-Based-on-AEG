@@ -1,0 +1,381 @@
+{% extends "base.html" %}
+
+{% block title %}算法对比分析结果{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+  .metrics-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+  }
+  
+  .metrics-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #343a40;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+  }
+  
+  .metric-card {
+    height: 100%;
+    transition: transform 0.3s;
+    border-left: 4px solid #007bff;
+  }
+  
+  .metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .metric-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .metric-name {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  .chart-container {
+    height: 300px;
+    margin-bottom: 30px;
+  }
+  
+  .relation-type {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .relation-bar {
+    height: 20px;
+    background-color: #007bff;
+    margin: 0 10px;
+    border-radius: 3px;
+  }
+  
+  .cluster-item {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 5px;
+    display: inline-block;
+  }
+  
+  .progress-bar-container {
+    height: 25px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #28a745;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+    font-weight: bold;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="text-center">算法对比分析结果</h1>
+      <p class="text-center text-muted">任务ID: {{ task_id }}</p>
+    </div>
+  </div>
+  
+  {% if metrics %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5>提取数据总览</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6 text-center mb-4">
+              <h2 class="text-primary">{{ entities_count }}</h2>
+              <p class="text-muted">提取实体总数</p>
+            </div>
+            <div class="col-6 text-center mb-4">
+              <h2 class="text-success">{{ relations_count }}</h2>
+              <p class="text-muted">提取关系总数</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5>实体类型统计</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4 text-center">
+              <h2 class="text-primary">{{ metrics.entity_stats.algorithm_count_review + metrics.entity_stats.algorithm_count_citations }}</h2>
+              <p class="text-muted">算法</p>
+            </div>
+            <div class="col-4 text-center">
+              <h2 class="text-info">{{ metrics.entity_stats.dataset_count_review + metrics.entity_stats.dataset_count_citations }}</h2>
+              <p class="text-muted">数据集</p>
+            </div>
+            <div class="col-4 text-center">
+              <h2 class="text-warning">{{ metrics.entity_stats.metric_count_review + metrics.entity_stats.metric_count_citations }}</h2>
+              <p class="text-muted">评价指标</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 实体分析指标 -->
+  <div class="metrics-section">
+    <h3 class="metrics-title">实体分析指标</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card metric-card mb-4">
+          <div class="card-body">
+            <div class="metric-name">实体精准率 (EntityPrecision)</div>
+            <div class="metric-value">{{ (metrics.entity_stats.entity_precision * 100)|round(2) }}%</div>
+            <p class="text-muted small">从引用文献中提取的实体与综述中提及的实体的匹配程度</p>
+            
+            <div class="progress-bar-container mt-3">
+              <div class="progress-bar" style="width: {{ (metrics.entity_stats.entity_precision * 100)|round(2) }}%">
+                {{ (metrics.entity_stats.entity_precision * 100)|round(2) }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card metric-card mb-4">
+          <div class="card-body">
+            <div class="metric-name">实体召回率 (EntityRecall)</div>
+            <div class="metric-value">{{ (metrics.entity_stats.entity_recall * 100)|round(2) }}%</div>
+            <p class="text-muted small">综述中提及的实体在引用文献中的覆盖程度</p>
+            
+            <div class="progress-bar-container mt-3">
+              <div class="progress-bar" style="width: {{ (metrics.entity_stats.entity_recall * 100)|round(2) }}%">
+                {{ (metrics.entity_stats.entity_recall * 100)|round(2) }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5>综述文章实体统计</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4 text-center">
+                <h2 class="text-primary">{{ metrics.entity_stats.algorithm_count_review }}</h2>
+                <p class="text-muted">算法</p>
+              </div>
+              <div class="col-4 text-center">
+                <h2 class="text-info">{{ metrics.entity_stats.dataset_count_review }}</h2>
+                <p class="text-muted">数据集</p>
+              </div>
+              <div class="col-4 text-center">
+                <h2 class="text-warning">{{ metrics.entity_stats.metric_count_review }}</h2>
+                <p class="text-muted">评价指标</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5>引用文献实体统计</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4 text-center">
+                <h2 class="text-primary">{{ metrics.entity_stats.algorithm_count_citations }}</h2>
+                <p class="text-muted">算法</p>
+              </div>
+              <div class="col-4 text-center">
+                <h2 class="text-info">{{ metrics.entity_stats.dataset_count_citations }}</h2>
+                <p class="text-muted">数据集</p>
+              </div>
+              <div class="col-4 text-center">
+                <h2 class="text-warning">{{ metrics.entity_stats.metric_count_citations }}</h2>
+                <p class="text-muted">评价指标</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 关系分析指标 -->
+  <div class="metrics-section">
+    <h3 class="metrics-title">关系分析指标</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card metric-card mb-4">
+          <div class="card-body">
+            <div class="metric-name">关系覆盖率 (RelationCoverage)</div>
+            <div class="metric-value">{{ (metrics.relation_stats.relation_coverage * 100)|round(2) }}%</div>
+            <p class="text-muted small">提取的演化关系覆盖算法实体的程度</p>
+            
+            <div class="progress-bar-container mt-3">
+              <div class="progress-bar" style="width: {{ (metrics.relation_stats.relation_coverage * 100)|round(2) }}%">
+                {{ (metrics.relation_stats.relation_coverage * 100)|round(2) }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5>关系类型分布</h5>
+          </div>
+          <div class="card-body">
+            <div class="relation-type">
+              <span class="relation-name" style="width: 100px;">改进 (Improve)</span>
+              <div class="relation-bar" style="width: {{ metrics.relation_stats.improve_count * 10 }}px;"></div>
+              <span class="relation-count">{{ metrics.relation_stats.improve_count }}</span>
+            </div>
+            <div class="relation-type">
+              <span class="relation-name" style="width: 100px;">优化 (Optimize)</span>
+              <div class="relation-bar" style="width: {{ metrics.relation_stats.optimize_count * 10 }}px;"></div>
+              <span class="relation-count">{{ metrics.relation_stats.optimize_count }}</span>
+            </div>
+            <div class="relation-type">
+              <span class="relation-name" style="width: 100px;">扩展 (Extend)</span>
+              <div class="relation-bar" style="width: {{ metrics.relation_stats.extend_count * 10 }}px;"></div>
+              <span class="relation-count">{{ metrics.relation_stats.extend_count }}</span>
+            </div>
+            <div class="relation-type">
+              <span class="relation-name" style="width: 100px;">替换 (Replace)</span>
+              <div class="relation-bar" style="width: {{ metrics.relation_stats.replace_count * 10 }}px;"></div>
+              <span class="relation-count">{{ metrics.relation_stats.replace_count }}</span>
+            </div>
+            <div class="relation-type">
+              <span class="relation-name" style="width: 100px;">使用 (Use)</span>
+              <div class="relation-bar" style="width: {{ metrics.relation_stats.use_count * 10 }}px;"></div>
+              <span class="relation-count">{{ metrics.relation_stats.use_count }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 聚类分析指标 -->
+  <div class="metrics-section">
+    <h3 class="metrics-title">聚类分析</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card metric-card mb-4">
+          <div class="card-body">
+            <div class="metric-name">聚类精准率 (Precision)</div>
+            <div class="metric-value">{{ (metrics.clustering.precision * 100)|round(2) }}%</div>
+            <p class="text-muted small">自动聚类的准确程度</p>
+            
+            <div class="progress-bar-container mt-3">
+              <div class="progress-bar" style="width: {{ (metrics.clustering.precision * 100)|round(2) }}%">
+                {{ (metrics.clustering.precision * 100)|round(2) }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card metric-card mb-4">
+          <div class="card-body">
+            <div class="metric-name">聚类召回率 (Recall)</div>
+            <div class="metric-value">{{ (metrics.clustering.recall * 100)|round(2) }}%</div>
+            <p class="text-muted small">自动聚类的覆盖程度</p>
+            
+            <div class="progress-bar-container mt-3">
+              <div class="progress-bar" style="width: {{ (metrics.clustering.recall * 100)|round(2) }}%">
+                {{ (metrics.clustering.recall * 100)|round(2) }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5>算法聚类结果</h5>
+          </div>
+          <div class="card-body">
+            {% if metrics.clustering.clusters %}
+              {% for cluster in metrics.clustering.clusters %}
+                <div class="mb-3">
+                  <h6>聚类 #{{ loop.index }}</h6>
+                  <div>
+                    {% for algorithm in cluster %}
+                      <span class="cluster-item">{{ algorithm }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <p class="text-muted">没有找到聚类结果</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row mt-4">
+    <div class="col-md-12 text-center">
+      <a href="/comparison" class="btn btn-primary">返回分析页面</a>
+      <a href="/graph" class="btn btn-success ml-2">查看知识图谱</a>
+    </div>
+  </div>
+  {% else %}
+  <div class="alert alert-warning">
+    <h4>未找到分析结果</h4>
+    <p>无法加载任务 {{ task_id }} 的分析结果。请确保任务已完成并生成了有效的指标数据。</p>
+    <a href="/comparison" class="btn btn-primary mt-3">返回分析页面</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+  // 可以添加图表渲染等JavaScript代码
+  $(document).ready(function() {
+    console.log("比较分析结果页面加载完成");
+  });
+</script>
+{% endblock %} 
