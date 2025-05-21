@@ -798,3 +798,110 @@ def table_string_to_dict(content):
         "表格1:", "表格 1:", "表格1：", "表格 1：", 
         "实体提取表", "模式类型，实体名称，引文"
     ]
+
+def process_folder_with_cache(folder_path, cache_key=None):
+    """处理文件夹中的所有PDF文件，并缓存结果"""
+    # 确保缓存目录存在
+    os.makedirs(Config.CACHE_DIR, exist_ok=True)
+    
+    # 生成缓存键
+    if cache_key is None:
+        folder_name = os.path.basename(os.path.normpath(folder_path))
+        cache_key = f"{folder_name}_processed"
+    
+    # 缓存文件路径
+    cache_path = os.path.join(Config.CACHE_DIR, f"{cache_key}.json")
+    
+    # 检查缓存是否存在
+    if os.path.exists(cache_path):
+        try:
+            with open(cache_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            logging.warning(f"读取缓存文件失败: {str(e)}")
+    
+    # 如果缓存不存在或读取失败，处理文件夹
+    pdf_files = []
+    for file in os.listdir(folder_path):
+        if file.lower().endswith('.pdf'):
+            pdf_files.append(os.path.join(folder_path, file))
+    
+    # 处理所有PDF文件
+    results = []
+    for pdf_file in pdf_files:
+        try:
+            entity = extract_entities_from_paper(pdf_file)
+            if entity:
+                results.append(entity)
+        except Exception as e:
+            logging.error(f"处理文件 {pdf_file} 时出错: {str(e)}")
+    
+    # 缓存结果
+    try:
+        with open(cache_path, 'w', encoding='utf-8') as f:
+            json.dump(results, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        logging.warning(f"保存缓存文件失败: {str(e)}")
+    
+    return results
+
+def process_papers_and_extract_data(review_pdf_path, task_id=None, citation_paths=None):
+    """
+    处理综述文章和引用文献，提取实体和关系数据。
+    
+    Args:
+        review_pdf_path (str): 综述文章的PDF文件路径
+        task_id (str, optional): 处理任务ID，用于更新处理状态
+        citation_paths (list, optional): 引用文献的PDF文件路径列表
+        
+    Returns:
+        Tuple[List[Dict], List[Dict]]: 提取的实体列表和关系列表
+    """
+    # 确保所有必要的目录存在
+    for directory in [Config.UPLOAD_DIR, Config.CACHE_DIR, Config.CITED_PAPERS_DIR]:
+        os.makedirs(directory, exist_ok=True)
+    
+    # 初始化关系列表
+    relations = []
+    
+    # 检查是否有进度文件，尝试恢复之前的处理
+    progress_file = None
+    if task_id:
+        progress_file = os.path.join(Config.CACHE_DIR, f"progress_{task_id}.json")
+        if os.path.exists(progress_file):
+            try:
+                with open(progress_file, 'r', encoding='utf-8') as f:
+                    progress_data = json.load(f)
+                    logging.info(f"找到现有进度文件: {progress_file}")
+                    
+                    # 从缓存中恢复已处理的实体列表
+                    entities = progress_data.get('entities', [])
+                    processed_files = set(progress_data.get('processed_files', []))
+                    
+                    # 更新处理状态
+                    db_manager.update_processing_status(
+                        task_id=task_id,
+                        current_stage='恢复处理',
+                        progress=progress_data.get('progress', 0.3),
+                        message=f'从上次中断处恢复处理，已处理 {len(processed_files)} 个文件'
+                    )
+                    
+                    # 检查主综述是否已处理
+                    review_basename = os.path.basename(review_pdf_path)
+                    if review_basename in processed_files:
+                        logging.info("综述文章已处理，跳过")
+                    else:
+                        # 需要处理综述文章
+                        logging.info("需要处理综述文章")
+                        processed_files = set()  # 重置处理列表
+                        entities = []  # 重置实体列表
+            except Exception as e:
+                logging.error(f"读取进度文件时出错: {str(e)}")
+                processed_files = set()
+                entities = []
+        else:
+            processed_files = set()
+            entities = []
+    else:
+        processed_files = set()
+        entities = []

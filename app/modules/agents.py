@@ -12,6 +12,8 @@ import datetime
 import PyPDF2  # 添加PyPDF2导入
 import hashlib
 import traceback
+import shutil
+from app.modules.db_manager import db_manager  # 导入db_manager
 
 # 设置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -84,7 +86,7 @@ class PdfTextExtractor(BaseTool):
         os.makedirs(cache_dir, exist_ok=True)
         
         filename = Path(pdf_path).stem
-        cache_file = os.path.join(cache_dir, f"{filename}_text.txt")
+        cache_file = os.path.join(cache_dir, f"{filename}_partial.json")
         
         # 返回文本内容，模型会处理提取逻辑
         return json.dumps([pdf_path, cache_file], ensure_ascii=False)
@@ -107,6 +109,9 @@ def extract_text_from_pdf(pdf_path, task_id=None):
         import os
         from pathlib import Path
         
+        # 标准化路径分隔符，确保跨平台一致性
+        pdf_path = os.path.normpath(pdf_path)
+        
         cache_dir = os.path.join(Config.CACHE_DIR, "pdf_text")
         os.makedirs(cache_dir, exist_ok=True)
         
@@ -114,50 +119,102 @@ def extract_text_from_pdf(pdf_path, task_id=None):
         basename = os.path.basename(pdf_path)
         filename_without_ext = os.path.splitext(basename)[0]
         
-        # 确保文件名是安全的缓存键
-        cache_filename = f"task_{task_id}_{filename_without_ext}_text.txt" if task_id else f"{filename_without_ext}_text.txt"
-        cache_path = os.path.join(cache_dir, cache_filename)
+        # 移除可能的任务ID前缀
+        if task_id and filename_without_ext.startswith(f"task_{task_id}_"):
+            filename_without_ext = filename_without_ext[len(f"task_{task_id}_"):]
         
-        # 中间缓存文件，用于保存部分提取结果以便断点续传
-        temp_cache_path = os.path.join(cache_dir, f"{filename_without_ext}_partial.json")
+        # 移除日期时间前缀格式 (如: 20250520_164839_)
+        date_time_prefix_pattern = r"^\d{8}_\d{6}_"
+        import re
+        if re.match(date_time_prefix_pattern, filename_without_ext):
+            logging.info(f"检测到日期时间前缀: {filename_without_ext}")
+            filename_without_ext = re.sub(date_time_prefix_pattern, "", filename_without_ext)
+            logging.info(f"移除前缀后的文件名: {filename_without_ext}")
+        
+        # 只使用JSON格式缓存文件
+        cache_path = os.path.join(cache_dir, f"{filename_without_ext}_partial.json")
         
         logging.info(f"处理PDF文件文本: {pdf_path}, 缓存文件: {cache_path}")
         
-        # 检查缓存是否存在
+        # 检查缓存文件是否存在
         if os.path.exists(cache_path) and os.path.getsize(cache_path) > 0:
-            logging.info(f"从缓存加载文本: {cache_path}")
-            with open(cache_path, 'r', encoding='utf-8') as f:
-                text = f.read()
-                if text.strip():
-                    logging.info(f"成功从缓存加载文本，长度: {len(text)} 字符")
-                    return text
-                else:
-                    logging.warning(f"缓存文件为空或格式不正确，将重新提取文本")
-        
-        # 检查是否有临时提取结果
-        extracted_text = ""
-        max_attempts = 3
-        current_attempt = 0
-        is_extraction_complete = False
-        
-        # 加载之前的部分提取结果（如果有）
-        if os.path.exists(temp_cache_path):
+            logging.info(f"从缓存加载: {cache_path}")
             try:
-                with open(temp_cache_path, 'r', encoding='utf-8') as f:
-                    temp_data = json.load(f)
-                    extracted_text = temp_data.get('text', '')
-                    is_extraction_complete = temp_data.get('complete', False)
-                    if extracted_text:
-                        logging.info(f"加载部分提取结果，当前文本长度: {len(extracted_text)} 字符，是否完成: {is_extraction_complete}")
+                with open(cache_path, 'r', encoding='utf-8') as f:
+                    cache_data = json.load(f)
+                    
+                # 检查是否完成
+                is_complete = cache_data.get('complete', False)
+                text = cache_data.get('text', '')
+                
+                if is_complete and text.strip():
+                    logging.info(f"成功从缓存加载已完成的文本，长度: {len(text)} 字符")
+                    return text
+                elif text.strip():
+                    logging.info(f"从缓存加载部分提取的文本，长度: {len(text)} 字符，将继续提取")
+                    extracted_text = text
+                    # 将尝试次数重置为1
+                    current_attempt = 1
+                else:
+                    logging.warning(f"缓存文件中没有有效文本内容，将重新提取")
+                    extracted_text = ""
+                    current_attempt = 0
             except Exception as e:
-                logging.error(f"读取部分提取结果出错: {str(e)}")
+                logging.error(f"读取缓存文件出错: {str(e)}")
+                extracted_text = ""
+                current_attempt = 0
+        else:
+            # 如果缓存不存在，初始化变量
+            extracted_text = ""
+            current_attempt = 0
         
-        # 如果已经完成提取且有内容，则直接保存并返回
-        if is_extraction_complete and extracted_text:
-            with open(cache_path, 'w', encoding='utf-8') as f:
-                f.write(extracted_text)
-            logging.info(f"使用完整的临时结果更新缓存: {cache_path}")
-            return extracted_text
+        # 尝试在缓存目录中查找可能匹配的文件
+        if not extracted_text:
+            matching_files = []
+            normalized_name = re.sub(r'[^a-zA-Z0-9]', '', filename_without_ext.lower())
+            
+            for file in os.listdir(cache_dir):
+                if file.endswith("_partial.json"):
+                    file_base = file[:-13]  # 去掉 "_partial.json" 后缀
+                    normalized_file = re.sub(r'[^a-zA-Z0-9]', '', file_base.lower())
+                    
+                    # 如果规范化后的名称匹配，或者包含关系，则认为可能匹配
+                    if normalized_file == normalized_name or normalized_file in normalized_name or normalized_name in normalized_file:
+                        matching_files.append(os.path.join(cache_dir, file))
+            
+            # 如果找到可能匹配的缓存文件，尝试使用第一个
+            if matching_files:
+                best_match = matching_files[0]
+                logging.info(f"找到可能匹配的缓存文件: {best_match}")
+                
+                try:
+                    with open(best_match, 'r', encoding='utf-8') as f:
+                        match_data = json.load(f)
+                        match_text = match_data.get('text', '')
+                        match_complete = match_data.get('complete', False)
+                        
+                        if match_text.strip():
+                            logging.info(f"成功从匹配的缓存文件加载文本，长度: {len(match_text)} 字符，完成状态: {match_complete}")
+                            # 将内容复制到标准缓存路径以便下次直接使用
+                            with open(cache_path, 'w', encoding='utf-8') as out_f:
+                                json.dump({
+                                    'text': match_text,
+                                    'complete': match_complete,
+                                    'attempt': 0,
+                                    'timestamp': datetime.datetime.now().isoformat()
+                                }, out_f, ensure_ascii=False)
+                            
+                            if match_complete:
+                                return match_text
+                            else:
+                                extracted_text = match_text
+                                current_attempt = 1
+                except Exception as e:
+                    logging.error(f"读取匹配的缓存文件时出错: {str(e)}")
+        
+        # 设置最大尝试次数
+        max_attempts = 3
+        is_extraction_complete = False
         
         # 如果未完成，则继续提取
         while current_attempt < max_attempts and not is_extraction_complete:
@@ -241,8 +298,8 @@ def extract_text_from_pdf(pdf_path, task_id=None):
                     else:
                         extracted_text += "\n" + new_text
                     
-                    # 保存部分提取结果
-                    with open(temp_cache_path, 'w', encoding='utf-8') as f:
+                    # 保存到缓存文件
+                    with open(cache_path, 'w', encoding='utf-8') as f:
                         json.dump({
                             'text': extracted_text,
                             'complete': is_extraction_complete,
@@ -250,27 +307,19 @@ def extract_text_from_pdf(pdf_path, task_id=None):
                             'timestamp': datetime.datetime.now().isoformat()
                         }, f, ensure_ascii=False)
                     
-                    logging.info(f"已保存部分提取结果，当前文本长度: {len(extracted_text)} 字符，是否完成: {is_extraction_complete}")
+                    logging.info(f"已保存提取结果到缓存，当前文本长度: {len(extracted_text)} 字符，是否完成: {is_extraction_complete}")
                     
-                    # 如果完成或已达到最大尝试次数，则保存最终结果
-                    if is_extraction_complete or current_attempt >= max_attempts:
-                        # 缓存提取的文本
-                        if extracted_text.strip():
-                            with open(cache_path, 'w', encoding='utf-8') as f:
-                                f.write(extracted_text)
-                            logging.info(f"成功使用千问API提取文本，已缓存到: {cache_path}")
-                            return extracted_text
+                    # 如果已完成，直接返回
+                    if is_extraction_complete:
+                        return extracted_text
             except Exception as e:
                 logging.error(f"使用千问API提取文本时出错: {str(e)}")
                 logging.error(traceback.format_exc())
                 logging.info("将使用备用方法提取文本")
         
-        # 如果没有成功使用API提取完整文本，但有部分提取结果，则返回部分结果
+        # 如果提取成功，但未完成，仍然返回部分结果
         if extracted_text:
-            # 缓存提取的文本
-            with open(cache_path, 'w', encoding='utf-8') as f:
-                f.write(extracted_text)
-            logging.info(f"使用部分提取结果更新缓存: {cache_path}")
+            logging.info(f"返回部分提取结果，长度: {len(extracted_text)} 字符")
             return extracted_text
         
         # 备用方法：使用PyPDF2提取
@@ -299,7 +348,12 @@ def extract_text_from_pdf(pdf_path, task_id=None):
                 # 缓存提取的文本
                 if text.strip():
                     with open(cache_path, 'w', encoding='utf-8') as f:
-                        f.write(text)
+                        json.dump({
+                            'text': text,
+                            'complete': True,  # 假设PyPDF2能够完整提取
+                            'attempt': max_attempts,
+                            'timestamp': datetime.datetime.now().isoformat()
+                        }, f, ensure_ascii=False)
                     logging.info(f"成功使用PyPDF2提取文本，已缓存到: {cache_path}")
                     return text
                 else:
@@ -315,7 +369,12 @@ def extract_text_from_pdf(pdf_path, task_id=None):
             
             if text.strip():
                 with open(cache_path, 'w', encoding='utf-8') as f:
-                    f.write(text)
+                    json.dump({
+                        'text': text,
+                        'complete': True,  # 假设pdfminer能够完整提取
+                        'attempt': max_attempts,
+                        'timestamp': datetime.datetime.now().isoformat()
+                    }, f, ensure_ascii=False)
                 logging.info(f"成功使用pdfminer提取文本，已缓存到: {cache_path}")
                 return text
             else:
@@ -1092,379 +1151,6 @@ def extract_evolution_relations(entities, pdf_path=None, task_id=None):
         logging.error(traceback.format_exc())
         return [] 
 
-def extract_json_from_text(text):
-    """
-    从文本中提取JSON内容
-    
-    Args:
-        text (str): 包含JSON的文本
-        
-    Returns:
-        str or None: 提取的JSON字符串，或者None
-    """
-    if not text:
-        return None
-    
-    # 尝试找出JSON代码块
-    json_match = re.search(r'```(?:json)?\s*([\s\S]*?)\s*```', text, re.DOTALL)
-    if json_match:
-        extracted = json_match.group(1).strip()
-        logging.debug(f"从代码块提取到JSON，长度: {len(extracted)}")
-        return extracted
-    
-    # 尝试找出完整JSON数组（含有对象）
-    array_match = re.search(r'\[\s*\{[\s\S]*?\}\s*(?:,\s*\{[\s\S]*?\}\s*)*\]', text, re.DOTALL)
-    if array_match:
-        extracted = array_match.group(0).strip()
-        logging.debug(f"从文本提取到JSON数组，长度: {len(extracted)}")
-        return extracted
-    
-    # 尝试找出JSON对象
-    # 注意：这种方法可能会匹配不完整的JSON，但我们会在后续验证
-    object_match = re.search(r'(\{[\s\S]*\})', text, re.DOTALL)
-    if object_match:
-        # 额外验证括号匹配
-        potential_json = object_match.group(1)
-        if is_balanced(potential_json):
-            logging.debug(f"从文本提取到JSON对象，长度: {len(potential_json)}")
-            return potential_json
-    
-    # 尝试更复杂的方法：嵌套括号匹配
-    # 对于数组
-    if '[' in text and ']' in text:
-        try:
-            start_idx = text.find('[')
-            if start_idx >= 0:
-                # 使用括号栈来找到匹配的结束位置
-                stack = 1  # 已找到一个 '['
-                for i in range(start_idx + 1, len(text)):
-                    if text[i] == '[':
-                        stack += 1
-                    elif text[i] == ']':
-                        stack -= 1
-                        if stack == 0:  # 找到匹配的结束括号
-                            potential_json = text[start_idx:i+1]
-                            if is_json_valid(potential_json):
-                                logging.debug(f"通过括号匹配找到JSON数组，长度: {len(potential_json)}")
-                                return potential_json
-        except Exception as e:
-            logging.warning(f"尝试匹配数组时出错: {str(e)}")
-    
-    # 对于对象
-    if '{' in text and '}' in text:
-        try:
-            start_idx = text.find('{')
-            if start_idx >= 0:
-                # 使用括号栈来找到匹配的结束位置
-                stack = 1  # 已找到一个 '{'
-                for i in range(start_idx + 1, len(text)):
-                    if text[i] == '{':
-                        stack += 1
-                    elif text[i] == '}':
-                        stack -= 1
-                        if stack == 0:  # 找到匹配的结束括号
-                            potential_json = text[start_idx:i+1]
-                            if is_json_valid(potential_json):
-                                logging.debug(f"通过括号匹配找到JSON对象，长度: {len(potential_json)}")
-                                return potential_json
-        except Exception as e:
-            logging.warning(f"尝试匹配对象时出错: {str(e)}")
-    
-    # 最后尝试直接找出任何可能的JSON格式（更宽松的匹配）
-    loose_json = re.search(r'[\[\{][\s\S]*?[\]\}]', text, re.DOTALL)
-    if loose_json:
-        extracted = loose_json.group(0).strip()
-        if is_json_valid(extracted):
-            logging.debug(f"通过宽松匹配找到JSON，长度: {len(extracted)}")
-            return extracted
-    
-    logging.warning("未能从文本中提取有效的JSON内容")
-    return None 
-
-def is_balanced(text):
-    """检查文本中的括号是否匹配平衡"""
-    stack = []
-    brackets = {')': '(', '}': '{', ']': '['}
-    
-    for char in text:
-        if char in '({[':
-            stack.append(char)
-        elif char in ')}]':
-            if not stack or stack.pop() != brackets[char]:
-                return False
-    
-    return len(stack) == 0
-
-def is_json_valid(text):
-    """检查文本是否是有效的JSON"""
-    try:
-        json.loads(text)
-        return True
-    except Exception:
-        return False
-
-def extract_evolution_relations_from_paper(pdf_path, entities, task_id=None, previous_relations=None):
-    """
-    提取论文中算法实体间的演化关系
-    
-    Args:
-        pdf_path (str): PDF文件路径
-        entities (list): 实体列表
-        task_id (str, optional): 任务ID
-        previous_relations (list, optional): 之前已提取的关系，用于断点续传
-    
-    Returns:
-        list: 提取的关系列表
-    """
-    # 检查是否有足够的实体来提取关系
-    if not entities or len(entities) < 2:
-        logging.info(f"无法提取关系: 实体数量不足 (找到 {len(entities) if entities else 0} 个)")
-        return []
-    
-    # 提取论文文本
-    paper_text = extract_text_from_pdf(pdf_path, task_id=task_id)
-    
-    if not paper_text or len(paper_text.strip()) < 100:
-        logging.error("无法从PDF提取足够的文本来分析关系")
-        return []
-    
-    # 获取实体简化列表，用于提示词
-    entity_summaries = []
-    for entity in entities:
-        try:
-            entity_type = "Unknown"
-            entity_id = None
-            entity_name = None
-            
-            if 'algorithm_entity' in entity:
-                entity_type = "Algorithm"
-                entity_id = entity['algorithm_entity'].get('algorithm_id')
-                entity_name = entity['algorithm_entity'].get('name')
-            elif 'dataset_entity' in entity:
-                entity_type = "Dataset"
-                entity_id = entity['dataset_entity'].get('dataset_id')
-                entity_name = entity['dataset_entity'].get('name')
-            elif 'metric_entity' in entity:
-                entity_type = "Metric"
-                entity_id = entity['metric_entity'].get('metric_id')
-                entity_name = entity['metric_entity'].get('name')
-            
-            if entity_id and entity_name:
-                entity_summaries.append({
-                    "id": entity_id,
-                    "name": entity_name,
-                    "type": entity_type
-                })
-        except Exception as e:
-            logging.error(f"处理实体时出错: {str(e)}")
-    
-    # 检查是否有足够的实体摘要
-    if len(entity_summaries) < 2:
-        logging.error(f"获取实体摘要失败，无法提取关系。实体摘要数量: {len(entity_summaries)}")
-        return []
-    
-    # 构建提示词
-    # 检查是否有之前的关系提取结果
-    existing_relations_prompt = ""
-    if previous_relations and len(previous_relations) > 0:
-        # 格式化之前的关系为提示词
-        existing_relations_prompt = "以下是之前已经提取的部分关系:\n\n"
-        for idx, relation in enumerate(previous_relations[:20]):  # 限制数量避免提示词过长
-            source_id = relation.get('source_id', '')
-            target_id = relation.get('target_id', '')
-            relation_type = relation.get('relation_type', '')
-            is_complete = relation.get('is_complete', False)
-            
-            # 找到源实体和目标实体的名称
-            source_name = next((e["name"] for e in entity_summaries if e["id"] == source_id), "未知实体")
-            target_name = next((e["name"] for e in entity_summaries if e["id"] == target_id), "未知实体")
-            
-            existing_relations_prompt += f"{idx+1}. 源实体: {source_name} (ID: {source_id}), 目标实体: {target_name} (ID: {target_id}), 关系类型: {relation_type}, 完整性: {'完整' if is_complete else '不完整'}\n"
-        
-        # 检查是否需要继续完善关系
-        incomplete_relations = [r for r in previous_relations if not r.get('is_complete', False)]
-        if incomplete_relations:
-            existing_relations_prompt += f"\n注意: 有 {len(incomplete_relations)} 条关系不完整，需要继续完善。请优先完善这些关系。\n"
-        
-        existing_relations_prompt += "\n请继续提取论文中的其他关系，避免重复提取上述已有关系。如果上述关系不完整或有错误，请修正。\n\n"
-    
-    # 构建用户提示
-    system_message = f"""你是一个专业的算法演化关系分析助手，能够从论文中识别算法之间的演化关系。
-
-请从提供的论文文本中分析以下实体之间可能存在的演化关系。我们有 {len(entity_summaries)} 个实体:
-
-{json.dumps(entity_summaries, ensure_ascii=False, indent=2)}
-
-请识别以下五种关系类型：
-1. Improve (改进): 算法A在算法B的基础上进行了改进，提高了性能或解决了B的某些问题
-2. Optimize (优化): 算法A在算法B的基础上进行了优化，如提高效率、减少资源消耗等
-3. Extend (扩展): 算法A扩展了算法B的应用范围或功能
-4. Replace (替代): 算法A设计用于替代算法B，通常提供了全新的解决方案
-5. Use (使用): 算法A在其设计或实验中使用了算法B、数据集或评价指标
-
-关系可能在论文的比较部分、相关工作、算法描述或实验部分被提及。请仔细分析文本中的表述，例如"我们的方法改进了XX算法"、"与XX算法相比，我们的方法..."等。
-
-请以JSON格式输出所有发现的关系，包含以下字段：
-- source_id: 源实体ID
-- target_id: 目标实体ID
-- relation_type: 关系类型 (Improve, Optimize, Extend, Replace, Use)
-- description: 关系描述，引用论文中的原文说明该关系
-- is_complete: 标记该关系提取是否完整
-
-确保关系描述来自论文原文，不要添加不存在的内容。"""
-
-    # 添加之前提取的关系作为上下文
-    user_message = f"""请分析论文中实体之间的演化关系，仔细阅读论文内容，特别关注算法比较、方法描述、相关工作和实验部分。
-
-{existing_relations_prompt}
-
-论文文本:
-{paper_text}
-"""
-    
-    # 调用模型提取关系
-    try:
-        logging.info(f"开始从论文中提取演化关系，实体数量: {len(entity_summaries)}")
-        
-        # 创建提取关系的缓存目录
-        if task_id:
-            cache_dir = os.path.join(Config.CACHE_DIR, "relations")
-            os.makedirs(cache_dir, exist_ok=True)
-            
-            # 生成缓存文件名
-            basename = os.path.basename(pdf_path)
-            filename_without_ext = os.path.splitext(basename)[0]
-            cache_key = f"task_{task_id}_{filename_without_ext}_relations.json"
-            cache_path = os.path.join(cache_dir, cache_key)
-            
-            # 检查是否有缓存，且没有之前的关系
-            if os.path.exists(cache_path) and not previous_relations:
-                try:
-                    with open(cache_path, 'r', encoding='utf-8') as f:
-                        cache_data = json.load(f)
-                        logging.info(f"从缓存加载关系数据: {cache_path}")
-                        return cache_data
-                except Exception as e:
-                    logging.error(f"读取关系缓存文件出错: {str(e)}")
-        
-        # 选择合适的模型提取关系
-        from app.config import Config
-        import os
-        from openai import OpenAI
-        
-        # 使用 Qwen API 提取关系
-        if hasattr(Config, 'QWEN_API_KEY') and Config.QWEN_API_KEY:
-            try:
-                logging.info("使用千问API提取关系")
-                client = OpenAI(
-                    api_key=Config.QWEN_API_KEY,
-                    base_url=Config.QWEN_BASE_URL
-                )
-                
-                # 上传PDF文件以提供更好的上下文
-                file = None
-                if os.path.exists(pdf_path):
-                    try:
-                        file = client.files.create(file=Path(pdf_path), purpose="file-extract")
-                        file_id = file.id
-                        logging.info(f"文件上传成功，file_id: {file_id}")
-                        
-                        # 更新系统消息以包含文件ID
-                        system_message = f"fileid://{file_id}\n\n{system_message}"
-                    except Exception as upload_err:
-                        logging.error(f"上传文件失败: {str(upload_err)}")
-                
-                # 构建消息
-                messages = [
-                    {
-                        'role': 'system',
-                        'content': system_message
-                    },
-                    {
-                        'role': 'user',
-                        'content': user_message
-                    }
-                ]
-                
-                # 调用API
-                response = client.chat.completions.create(
-                    model=Config.QWEN_MODEL or "qwen-long",
-                    messages=messages,
-                    temperature=0.2,
-                    stream=True,
-                    max_tokens=None  # 不限制token数量
-                )
-                
-                # 收集流式响应
-                full_response = ""
-                for chunk in response:
-                    if chunk.choices and chunk.choices[0].delta.content:
-                        full_response += chunk.choices[0].delta.content
-                    # 每50个块记录一次
-                    if len(full_response) % 50 == 0:
-                        logging.info(f"收到响应块 #{len(full_response)//50}，当前响应长度: {len(full_response)}")
-                
-                # 提取JSON数据
-                relations = extract_json_from_text(full_response)
-                
-                # 验证并清理结果
-                if isinstance(relations, list):
-                    # 更新每个关系的完整性标记
-                    for relation in relations:
-                        if 'is_complete' not in relation:
-                            relation['is_complete'] = True
-                    
-                    # 如果有之前的关系，合并并去重
-                    if previous_relations:
-                        # 创建源目标ID对的集合用于检测重复
-                        existing_pairs = {(r.get('source_id', ''), r.get('target_id', ''), r.get('relation_type', '')): i 
-                                          for i, r in enumerate(previous_relations)}
-                        
-                        # 遍历新提取的关系
-                        for new_relation in relations:
-                            pair_key = (new_relation.get('source_id', ''), 
-                                       new_relation.get('target_id', ''),
-                                       new_relation.get('relation_type', ''))
-                            
-                            # 检查是否存在重复
-                            if pair_key in existing_pairs:
-                                # 更新现有关系
-                                idx = existing_pairs[pair_key]
-                                # 如果新关系标记为完整，更新旧关系
-                                if new_relation.get('is_complete', False):
-                                    previous_relations[idx]['is_complete'] = True
-                                    previous_relations[idx]['description'] = new_relation.get('description', 
-                                                                                         previous_relations[idx].get('description', ''))
-                            else:
-                                # 添加新关系
-                                previous_relations.append(new_relation)
-                        
-                        relations = previous_relations
-                    
-                    # 缓存提取的关系
-                    if task_id:
-                        with open(cache_path, 'w', encoding='utf-8') as f:
-                            json.dump(relations, f, ensure_ascii=False, indent=2)
-                        logging.info(f"已将关系数据缓存到: {cache_path}")
-                    
-                    logging.info(f"成功提取 {len(relations)} 个关系")
-                    return relations
-                else:
-                    logging.error(f"从响应中提取JSON失败: {relations}")
-                    return previous_relations if previous_relations else []
-            except Exception as e:
-                logging.error(f"使用千问API提取关系时出错: {str(e)}")
-                logging.error(traceback.format_exc())
-                return previous_relations if previous_relations else []
-        else:
-            logging.error("没有配置千问API密钥，无法提取关系")
-            return previous_relations if previous_relations else []
-    except Exception as e:
-        logging.error(f"提取关系过程中出错: {str(e)}")
-        logging.error(traceback.format_exc())
-        return previous_relations if previous_relations else [] 
-
-
 def extract_entities_with_qwen(prompt, max_attempts=3, temp_cache_path=None):
     """
     使用千问API提取实体
@@ -1602,45 +1288,49 @@ def extract_entities_with_qwen(prompt, max_attempts=3, temp_cache_path=None):
 
 def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_reprocess=False, model_name="qwen", task_id=None):
     """
-    从PDF论文中提取相关实体。
-    支持多模型，包括"qwen"、"openai"、"zhipu"等。
-    支持批量处理多个PDF，并提供进度反馈。
+    从论文列表中提取所有实体
     
     Args:
-        pdf_paths (str or list): 单个PDF路径或PDF路径列表
-        max_attempts (int, optional): 最大尝试次数，默认为3
-        batch_size (int, optional): 批处理大小，默认为20
-        force_reprocess (bool, optional): 是否强制重新处理，默认为False
-        model_name (str, optional): 使用的模型名称，默认为"qwen"
-        task_id (str, optional): 任务标识符，用于缓存
-    
+        pdf_paths (List[str]): PDF文件路径列表
+        max_attempts (int): 最大尝试次数
+        batch_size (int): 批处理大小
+        force_reprocess (bool): 是否强制重新处理
+        model_name (str): 使用的模型名称
+        task_id (str, optional): 任务ID
+        
     Returns:
-        tuple: (提取的实体列表, 是否处理完成)
+        List[Dict]: 提取的实体列表
     """
-    # 兼容单个PDF路径和PDF路径列表
+    if not pdf_paths:
+        logging.warning("没有提供PDF文件路径")
+        return []
+    
     if isinstance(pdf_paths, str):
         pdf_paths = [pdf_paths]
-    elif not isinstance(pdf_paths, list):
-        logging.error("invalid pdf_paths parameter type")
-        return [], False
     
-    # 检查文件是否存在，过滤掉不存在的文件
+    # 创建临时目录
+    os.makedirs(Config.TEMP_FOLDER, exist_ok=True)
+    
+    # 验证有效的PDF路径
     valid_pdf_paths = []
     for path in pdf_paths:
-        if os.path.exists(path):
+        # 标准化路径分隔符
+        path = os.path.normpath(path)
+        if os.path.exists(path) and path.lower().endswith('.pdf'):
             valid_pdf_paths.append(path)
         else:
-            logging.warning(f"PDF文件不存在: {path}")
+            logging.warning(f"无效的PDF文件路径: {path}")
     
     if not valid_pdf_paths:
-        logging.error("没有有效的PDF文件")
-        return [], False
-    
-    # 批量处理PDF文件
-    all_entities = []
-    all_complete = True
+        logging.warning("没有有效的PDF文件路径")
+        return []
     
     # 分批处理PDF文件，避免处理太多文件
+    total_files = len(valid_pdf_paths)
+    processed_count = 0
+    all_complete = True
+    extracted_entities = []
+    
     for i in range(0, len(valid_pdf_paths), batch_size):
         batch_paths = valid_pdf_paths[i:i+batch_size]
         logging.info(f"处理PDF批次 {i//batch_size + 1}/{(len(valid_pdf_paths)+batch_size-1)//batch_size}, 共 {len(batch_paths)} 个文件")
@@ -1649,12 +1339,7 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
             try:
                 # 提取PDF文本内容
                 logging.info(f"正在处理PDF: {pdf_path}")
-                text = extract_text_from_pdf(pdf_path, task_id=task_id)
                 
-                if not text or len(text.strip()) < 100:
-                    logging.warning(f"提取的文本内容太少或为空: {pdf_path}")
-                    continue
-            
                 # 创建缓存目录
                 cache_dir = os.path.join(Config.CACHE_DIR, "entities")
                 os.makedirs(cache_dir, exist_ok=True)
@@ -1662,133 +1347,193 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
                 # 生成缓存文件名
                 basename = os.path.basename(pdf_path)
                 filename_without_ext = os.path.splitext(basename)[0]
-                cache_key = f"task_{task_id}_{filename_without_ext}_entities.json" if task_id else f"{filename_without_ext}_entities.json"
+                
+                # 移除可能的任务ID前缀
+                if task_id and filename_without_ext.startswith(f"task_{task_id}_"):
+                    filename_without_ext = filename_without_ext[len(f"task_{task_id}_"):]
+                
+                # 移除日期时间前缀格式 (如: 20250520_164839_)
+                date_time_prefix_pattern = r"^\d{8}_\d{6}_"
+                import re
+                if re.match(date_time_prefix_pattern, filename_without_ext):
+                    logging.info(f"检测到日期时间前缀: {filename_without_ext}")
+                    filename_without_ext = re.sub(date_time_prefix_pattern, "", filename_without_ext)
+                    logging.info(f"移除前缀后的文件名: {filename_without_ext}")
+                
+                cache_key = f"{filename_without_ext}_entities.json"
                 cache_path = os.path.join(cache_dir, cache_key)
                 
                 # 生成临时缓存文件路径
                 temp_cache_dir = os.path.join(Config.TEMP_FOLDER, "entities")
                 os.makedirs(temp_cache_dir, exist_ok=True)
-                temp_cache_path = os.path.join(temp_cache_dir, f"{filename_without_ext}_temp_entities.json")
+                temp_cache_path = os.path.join(temp_cache_dir, f"{filename_without_ext}_partial.json")
                 
                 # 检查是否有缓存且不需要强制重新处理
                 previous_entities = []
-                if os.path.exists(cache_path) and not force_reprocess:
+                if not force_reprocess and os.path.exists(cache_path):
                     try:
                         with open(cache_path, 'r', encoding='utf-8') as f:
-                            cache_data = json.load(f)
+                            previous_entities = json.load(f)
                             logging.info(f"从缓存加载实体数据: {cache_path}")
+                        
+                        if previous_entities:
+                            extracted_entities.extend(previous_entities)
+                            processed_count += 1
+                            logging.info(f"已从缓存加载 {len(previous_entities)} 个实体")
                             
-                            # 检查实体提取是否完整
-                            is_complete = True
-                            for entity in cache_data:
-                                if entity.get('is_complete', False) == False:
-                                    is_complete = False
-                                    break
-                            
-                            if is_complete:
-                                logging.info(f"所有实体数据已完成提取，共 {len(cache_data)} 个实体")
-                                all_entities.extend(cache_data)
-                                continue
-                            else:
-                                logging.info(f"发现不完整的实体数据，将继续提取...")
-                                previous_entities = cache_data
+                            # 更新进度
+                            progress = (1.0 * processed_count / total_files) * 100
+                            if task_id:
+                                db_manager.update_processing_status(
+                                    task_id=task_id,
+                                    current_stage=f'处理PDF文件 ({processed_count}/{total_files})',
+                                    progress=progress,
+                                    current_file=basename,
+                                    message=f"从缓存加载 {basename} 数据"
+                                )
+                                
+                            continue  # 跳过处理这个文件
                     except Exception as e:
-                        logging.error(f"读取实体缓存出错: {str(e)}")
-                
-                # 生成提取实体的提示
-                prompt = generate_entity_extraction_prompt(text, model_name, previous_entities, 
-                                                           partial_extraction=bool(previous_entities))
-                
-                # 调用统一的实体提取函数
-                entities = []
-                is_extraction_complete = False
-                
-                # 使用统一的实体提取模型
-                agent = None
-                if model_name.lower() == "qwen":
-                    agent = setup_qwen_agent(pdf_path)
-                
-                entities, is_extraction_complete = extract_entities_with_model(
-                    prompt, 
-                    model_name, 
-                    max_attempts,
-                    temp_cache_path,
-                    agent
-                )
-                
-                # 如果没有提取成功，设置完成标志为False
-                if not entities:
-                    all_complete = False
-                    continue
-                
-                # 合并或更新结果
-                final_entities = []
-                
-                # 如果有之前的提取结果，需要进行合并和更新
-                if previous_entities:
-                    # 创建ID到索引的映射
-                    id_to_index = {}
-                    for idx, entity in enumerate(previous_entities):
-                        entity_id = None
-                        if 'algorithm_entity' in entity:
-                            entity_id = entity['algorithm_entity'].get('algorithm_id')
-                        elif 'dataset_entity' in entity:
-                            entity_id = entity['dataset_entity'].get('dataset_id')
-                        elif 'metric_entity' in entity:
-                            entity_id = entity['metric_entity'].get('metric_id')
-                        
-                        if entity_id:
-                            id_to_index[entity_id] = idx
+                        logging.error(f"读取缓存文件时出错: {str(e)}")
+
+                # 创建临时文件副本
+                temp_file = os.path.join(Config.TEMP_FOLDER, basename)
+                try:
+                    # 复制文件以避免可能的权限问题
+                    shutil.copy2(pdf_path, temp_file)
+                    logging.info(f"已创建临时文件副本: {temp_file}")
+                except Exception as e:
+                    logging.error(f"创建临时文件副本时出错: {str(e)}")
+                    # 直接使用原始文件
+                    temp_file = pdf_path
                     
-                    # 合并结果，更新已存在的实体，添加新实体
-                    final_entities = previous_entities.copy()
+                # 提取论文中的实体
+                try:
+                    logging.info(f"从PDF提取实体: {basename}")
+                    current_attempt = 0
                     
-                    # 遍历新提取的实体
-                    for new_entity in entities:
-                        # 为新实体添加完整性标记
-                        new_entity['is_complete'] = is_extraction_complete
-                        
-                        # 根据实体类型获取ID
-                        entity_id = None
-                        entity_type = None
-                        
-                        if 'algorithm_entity' in new_entity:
-                            entity_id = new_entity['algorithm_entity'].get('algorithm_id')
-                            entity_type = 'algorithm_entity'
-                        elif 'dataset_entity' in new_entity:
-                            entity_id = new_entity['dataset_entity'].get('dataset_id')
-                            entity_type = 'dataset_entity'
-                        elif 'metric_entity' in new_entity:
-                            entity_id = new_entity['metric_entity'].get('metric_id')
-                            entity_type = 'metric_entity'
-                        
-                        # 如果ID在现有结果中，更新
-                        if entity_id and entity_id in id_to_index:
-                            idx = id_to_index[entity_id]
-                            # 更新实体
-                            if entity_type:
-                                final_entities[idx][entity_type] = new_entity[entity_type]
-                                # 更新完整性标记
-                                final_entities[idx]['is_complete'] = is_extraction_complete
+                    # 尝试多次提取，以处理可能的API故障
+                    while current_attempt < max_attempts:
+                        try:
+                            current_attempt += 1
+                            logging.info(f"第 {current_attempt} 次尝试提取实体...")
+                            
+                            # 提取PDF的文本内容
+                            paper_text = extract_text_from_pdf(temp_file, task_id=task_id)
+                            
+                            if not paper_text or len(paper_text.strip()) < 100:
+                                logging.error("无法从PDF提取足够的文本来分析关系")
+                                return []
+                            
+                            # 生成提取实体的提示
+                            prompt = generate_entity_extraction_prompt(paper_text, model_name, previous_entities, 
+                                                                       partial_extraction=bool(previous_entities))
+                            
+                            # 调用统一的实体提取函数
+                            entities = []
+                            is_extraction_complete = False
+                            
+                            # 使用统一的实体提取模型
+                            agent = None
+                            if model_name.lower() == "qwen":
+                                agent = setup_qwen_agent(pdf_path)
+                            
+                            entities, is_extraction_complete = extract_entities_with_model(
+                                prompt, 
+                                model_name, 
+                                max_attempts,
+                                temp_cache_path,
+                                agent
+                            )
+                            
+                            # 如果没有提取成功，设置完成标志为False
+                            if not entities:
+                                all_complete = False
+                                continue
+                            
+                            # 合并或更新结果
+                            final_entities = []
+                            
+                            # 如果有之前的提取结果，需要进行合并和更新
+                            if previous_entities:
+                                # 创建ID到索引的映射
+                                id_to_index = {}
+                                for idx, entity in enumerate(previous_entities):
+                                    entity_id = None
+                                    if 'algorithm_entity' in entity:
+                                        entity_id = entity['algorithm_entity'].get('algorithm_id')
+                                    elif 'dataset_entity' in entity:
+                                        entity_id = entity['dataset_entity'].get('dataset_id')
+                                    elif 'metric_entity' in entity:
+                                        entity_id = entity['metric_entity'].get('metric_id')
+                                    
+                                    if entity_id:
+                                        id_to_index[entity_id] = idx
+                                
+                                # 合并结果，更新已存在的实体，添加新实体
+                                final_entities = previous_entities.copy()
+                                
+                                # 遍历新提取的实体
+                                for new_entity in entities:
+                                    # 为新实体添加完整性标记
+                                    new_entity['is_complete'] = is_extraction_complete
+                                    
+                                    # 根据实体类型获取ID
+                                    entity_id = None
+                                    entity_type = None
+                                    
+                                    if 'algorithm_entity' in new_entity:
+                                        entity_id = new_entity['algorithm_entity'].get('algorithm_id')
+                                        entity_type = 'algorithm_entity'
+                                    elif 'dataset_entity' in new_entity:
+                                        entity_id = new_entity['dataset_entity'].get('dataset_id')
+                                        entity_type = 'dataset_entity'
+                                    elif 'metric_entity' in new_entity:
+                                        entity_id = new_entity['metric_entity'].get('metric_id')
+                                        entity_type = 'metric_entity'
+                                    
+                                    # 如果ID在现有结果中，更新
+                                    if entity_id and entity_id in id_to_index:
+                                        idx = id_to_index[entity_id]
+                                        # 更新实体
+                                        if entity_type:
+                                            final_entities[idx][entity_type] = new_entity[entity_type]
+                                            # 更新完整性标记
+                                            final_entities[idx]['is_complete'] = is_extraction_complete
+                                        else:
+                                        # 添加新实体
+                                            final_entities.append(new_entity)
                             else:
-                            # 添加新实体
-                                final_entities.append(new_entity)
-                else:
-                    # 没有之前的提取结果，直接使用新提取的结果
-                    for entity in entities:
-                        entity['is_complete'] = is_extraction_complete
-                    final_entities = entities
+                                # 没有之前的提取结果，直接使用新提取的结果
+                                for entity in entities:
+                                    entity['is_complete'] = is_extraction_complete
+                                final_entities = entities
+                            
+                            # 更新全局完成状态
+                            if not is_extraction_complete:
+                                all_complete = False
+                            
+                            # 缓存提取的实体
+                            with open(cache_path, 'w', encoding='utf-8') as f:
+                                json.dump(final_entities, f, ensure_ascii=False, indent=2)
+                            
+                            logging.info(f"提取结果: {len(final_entities)} 个实体, 完成状态: {'完成' if is_extraction_complete else '未完成'}")
+                            extracted_entities.extend(final_entities)
+                            break  # 成功提取，退出循环
+                        
+                        except Exception as e:
+                            logging.error(f"处理 {pdf_path} 时出错: {str(e)}")
+                            import traceback
+                            logging.error(traceback.format_exc())
+                            all_complete = False
+                            break
                 
-                # 更新全局完成状态
-                if not is_extraction_complete:
+                except Exception as e:
+                    logging.error(f"从PDF提取实体时出错: {str(e)}")
+                    import traceback
+                    logging.error(traceback.format_exc())
                     all_complete = False
-                
-                # 缓存提取的实体
-                with open(cache_path, 'w', encoding='utf-8') as f:
-                    json.dump(final_entities, f, ensure_ascii=False, indent=2)
-                
-                logging.info(f"提取结果: {len(final_entities)} 个实体, 完成状态: {'完成' if is_extraction_complete else '未完成'}")
-                all_entities.extend(final_entities)
+                    break
             
             except Exception as e:
                         logging.error(f"处理 {pdf_path} 时出错: {str(e)}")
@@ -1796,4 +1541,4 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
                         logging.error(traceback.format_exc())
                         all_complete = False
     
-    return all_entities, all_complete
+    return extracted_entities, all_complete

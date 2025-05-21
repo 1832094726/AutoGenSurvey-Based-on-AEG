@@ -1,0 +1,161 @@
+{
+  "task_id": "task_1747828490_ca632764",
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Deep_Neural_Solver_2019",
+        "entity_type": "Algorithm",
+        "name": "Deep Neural Solver",
+        "year": 2019,
+        "authors": [
+          "Huang et al."
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Large-scale and diversified dataset"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Neural Network Layers"
+          ],
+          "connections": [
+            "Feedforward Connections"
+          ],
+          "mechanisms": [
+            "Fine-grained Inference"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Optimization"
+          ]
+        },
+        "feature_processing": [
+          "Feature Engineering"
+        ]
+      },
+      "is_complete": false
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seq2SeqET_2019",
+        "entity_type": "Algorithm",
+        "name": "Seq2SeqET",
+        "year": 2019,
+        "authors": [
+          "Unspecified"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Public datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Sequence-to-Sequence Model",
+            "Attention Mechanism"
+          ],
+          "connections": [
+            "Recurrent Connections"
+          ],
+          "mechanisms": [
+            "Encoder-Decoder Architecture"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Gradient Descent"
+          ]
+        },
+        "feature_processing": [
+          "Natural Language Processing Techniques"
+        ]
+      },
+      "is_complete": false
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "StackDecoder_2019",
+        "entity_type": "Algorithm",
+        "name": "StackDecoder",
+        "year": 2019,
+        "authors": [
+          "Unspecified"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Public datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Stack-based Decoder"
+          ],
+          "connections": [
+            "Sequential Connections"
+          ],
+          "mechanisms": [
+            "Stack Operations for Parsing"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Search"
+          ]
+        },
+        "feature_processing": [
+          "Semantic Parsing Techniques"
+        ]
+      },
+      "is_complete": false
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Large_scale_and_diversified_dataset_2019",
+        "entity_type": "Dataset",
+        "name": "Large-scale and diversified dataset",
+        "year": 2019,
+        "domain": "Math Word Problems",
+        "size": "Large",
+        "characteristics": [
+          "Diverse problem types",
+          "Real-world scenarios"
+        ]
+      },
+      "is_complete": false
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_2019",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Proportion of correctly solved problems",
+        "formula": "Correct Predictions / Total Predictions",
+        "value_range": "[0, 1]",
+        "interpretation": "Higher values indicate better performance"
+      },
+      "is_complete": false
+    }
+  ],
+  "processed_files": [
+    "task_1747828490_ca632764_The Gap of Semantic Parsing A Survey on Automatic(2019).pdf"
+  ],
+  "progress": 0.3,
+  "timestamp": "2025-05-21T19:55:58.767177"
+}

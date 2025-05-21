@@ -15,25 +15,32 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def extract_entities_from_citations(citation_list=None, citation_folder=None, task_id=None):
     """
-    从引文中提取实体，支持引文列表或引文文件夹两种模式
+    从引用的文献中提取实体
     
     Args:
-        citation_list (list, optional): 引文列表
-        citation_folder (str, optional): 引文文件夹路径
-        task_id (str, optional): 处理任务ID
+        citation_list (list): 引文列表
+        citation_folder (str): 存放引文PDF文件的文件夹
+        task_id (str): 任务ID
         
     Returns:
-        list: 提取的实体列表
+        list: 从引用文献中提取的实体列表
     """
+    logging.info(f"从引用文献中提取实体，引文列表长度: {len(citation_list) if citation_list else 0}, 文件夹: {citation_folder}")
+    
+    # 初始化实体列表和已处理文件集合
     entities = []
     processed_files = set()
+    
+    # 如果提供了引文文件夹，标准化路径
+    if citation_folder:
+        citation_folder = os.path.normpath(citation_folder)
     
     # 如果提供了引文文件夹，从文件夹中获取所有PDF
     if citation_folder and os.path.isdir(citation_folder):
         pdf_files = []
         for filename in os.listdir(citation_folder):
             if filename.endswith('.pdf'):
-                pdf_files.append(os.path.join(citation_folder, filename))
+                pdf_files.append(os.path.normpath(os.path.join(citation_folder, filename)))
         logging.info(f"从文件夹 '{citation_folder}' 中找到 {len(pdf_files)} 个PDF文件")
     # 如果提供了引文列表，查找对应的文件
     elif citation_list:
@@ -48,9 +55,9 @@ def extract_entities_from_citations(citation_list=None, citation_folder=None, ta
             for filename in os.listdir(Config.CITED_PAPERS_DIR):
                 if filename.endswith('.pdf'):
                     if citation_id and citation_id.lower() in filename.lower():
-                        potential_files.append(os.path.join(Config.CITED_PAPERS_DIR, filename))
+                        potential_files.append(os.path.normpath(os.path.join(Config.CITED_PAPERS_DIR, filename)))
                     elif citation_title and citation_title.lower() in filename.lower():
-                        potential_files.append(os.path.join(Config.CITED_PAPERS_DIR, filename))
+                        potential_files.append(os.path.normpath(os.path.join(Config.CITED_PAPERS_DIR, filename)))
             
             # 如果找到了匹配的文件，添加到处理列表
             if potential_files:
@@ -86,7 +93,7 @@ def extract_entities_from_citations(citation_list=None, citation_folder=None, ta
                 )
             
             logging.info(f"正在处理文件 {i+1}/{len(pdf_files)}: {filename}")
-            extracted_entities = extract_entities_from_paper(pdf_path)
+            extracted_entities = extract_entities_from_paper(pdf_path, task_id=task_id)
             
             if extracted_entities:
                 entities.extend(extracted_entities)

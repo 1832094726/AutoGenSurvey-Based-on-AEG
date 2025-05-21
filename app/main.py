@@ -104,11 +104,17 @@ def process_papers():
         # 确保上传目录存在
         os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
         
-        # 生成安全的文件名，使用task_id避免冲突
-        safe_filename = f"{task_id}_{Path(original_filename).name}"  # 使用任务ID前缀避免冲突
+        # 使用原始文件名，不加前缀
+        safe_filename = Path(original_filename).name
+        
+        # 检查文件是否已存在，如果存在则使用唯一名称
+        filename = os.path.join(Config.UPLOAD_FOLDER, safe_filename)
+        if os.path.exists(filename):
+            # 如果文件已存在，才使用task_id前缀
+            safe_filename = f"{task_id}_{safe_filename}"
+            filename = os.path.join(Config.UPLOAD_FOLDER, safe_filename)
         
         # 直接保存文件到目标位置
-        filename = os.path.join(Config.UPLOAD_FOLDER, safe_filename)
         file.save(filename)
         temp_file_path = filename  # 记录临时文件路径以便后续清理
         

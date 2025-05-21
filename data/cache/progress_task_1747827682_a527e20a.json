@@ -1,0 +1,202 @@
+{
+  "task_id": "task_1747827682_a527e20a",
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Deep_Neural_Solver_2019",
+        "entity_type": "Algorithm",
+        "name": "Deep Neural Solver",
+        "year": 2019,
+        "authors": [
+          "Huang et al."
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Large-scale and diversified dataset"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Neural Network Layers"
+          ],
+          "connections": [
+            "Feedforward Connections"
+          ],
+          "mechanisms": [
+            "End-to-End Learning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Optimization"
+          ]
+        },
+        "feature_processing": [
+          "Feature Engineering"
+        ]
+      },
+      "is_complete": false
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seq2SeqET_2019",
+        "entity_type": "Algorithm",
+        "name": "Seq2SeqET",
+        "year": 2019,
+        "authors": [
+          "Not explicitly mentioned"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Public datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Sequence-to-Sequence Model",
+            "Attention Mechanism"
+          ],
+          "connections": [
+            "Recurrent Connections"
+          ],
+          "mechanisms": [
+            "Encoder-Decoder Architecture"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Optimization"
+          ]
+        },
+        "feature_processing": [
+          "Natural Language Processing Techniques"
+        ]
+      },
+      "is_complete": false
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "StackDecoder_2019",
+        "entity_type": "Algorithm",
+        "name": "StackDecoder",
+        "year": 2019,
+        "authors": [
+          "Not explicitly mentioned"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Public datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Stack-based Decoder"
+          ],
+          "connections": [
+            "Sequential Connections"
+          ],
+          "mechanisms": [
+            "Stack Operations for Parsing"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Optimization"
+          ]
+        },
+        "feature_processing": [
+          "Semantic Parsing Techniques"
+        ]
+      },
+      "is_complete": false
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "MathDQN_2019",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "year": 2019,
+        "authors": [
+          "Not explicitly mentioned"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Public datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Deep Q-Network"
+          ],
+          "connections": [
+            "Reinforcement Learning Connections"
+          ],
+          "mechanisms": [
+            "Policy Gradient Methods"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Reinforcement Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Optimization"
+          ]
+        },
+        "feature_processing": [
+          "Reinforcement Learning Techniques"
+        ]
+      },
+      "is_complete": false
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Large_scale_diversified_dataset_2019",
+        "entity_type": "Dataset",
+        "name": "Large-scale and diversified dataset",
+        "year": 2019,
+        "domain": "Math Word Problems",
+        "size": "Not specified",
+        "characteristics": [
+          "Diverse problem types",
+          "Large scale"
+        ]
+      },
+      "is_complete": false
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_2019",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Proportion of correctly solved problems",
+        "formula": "Correct Predictions / Total Predictions",
+        "value_range": "[0, 1]",
+        "interpretation": "Higher values indicate better performance"
+      },
+      "is_complete": false
+    }
+  ],
+  "processed_files": [
+    "The Gap of Semantic Parsing A Survey on Automatic(2019).pdf"
+  ],
+  "progress": 0.3,
+  "timestamp": "2025-05-21T19:41:28.385019"
+}

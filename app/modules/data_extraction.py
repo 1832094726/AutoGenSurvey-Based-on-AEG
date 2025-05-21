@@ -34,7 +34,20 @@ def parse_review_paper(file_path, task_id=None):
         
         # 生成缓存文件名
         file_basename = os.path.basename(file_path)
-        cache_file = os.path.join(Config.CACHE_DIR, f"references_{file_basename.replace('.pdf', '')}.json")
+        filename_without_ext = os.path.splitext(file_basename)[0]
+        
+        # 移除可能的任务ID前缀
+        if task_id and filename_without_ext.startswith(f"task_{task_id}_"):
+            filename_without_ext = filename_without_ext[len(f"task_{task_id}_"):]
+            
+        # 移除日期时间前缀格式 (如: 20250520_164839_)
+        date_time_prefix_pattern = r"^\d{8}_\d{6}_"
+        if re.match(date_time_prefix_pattern, filename_without_ext):
+            logging.info(f"检测到日期时间前缀: {filename_without_ext}")
+            filename_without_ext = re.sub(date_time_prefix_pattern, "", filename_without_ext)
+            logging.info(f"移除前缀后的文件名: {filename_without_ext}")
+        
+        cache_file = os.path.join(Config.CACHE_DIR, f"references_{filename_without_ext}.json")
         
         # 检查缓存是否存在
         if os.path.exists(cache_file):
@@ -414,6 +427,9 @@ def extract_entities_from_paper(pdf_path, task_id=None, sub_progress=None):
     Returns:
         list: 提取的实体列表
     """
+    # 标准化路径分隔符
+    pdf_path = os.path.normpath(pdf_path)
+    
     if not os.path.exists(pdf_path):
         logging.error(f"文件不存在: {pdf_path}")
         return []
@@ -422,12 +438,23 @@ def extract_entities_from_paper(pdf_path, task_id=None, sub_progress=None):
     basename = os.path.basename(pdf_path)
     filename_without_ext = os.path.splitext(basename)[0]
     
+    # 移除可能的任务ID前缀
+    if task_id and filename_without_ext.startswith(f"task_{task_id}_"):
+        filename_without_ext = filename_without_ext[len(f"task_{task_id}_"):]
+    
+    # 移除日期时间前缀格式 (如: 20250520_164839_)
+    date_time_prefix_pattern = r"^\d{8}_\d{6}_"
+    if re.match(date_time_prefix_pattern, filename_without_ext):
+        logging.info(f"检测到日期时间前缀: {filename_without_ext}")
+        filename_without_ext = re.sub(date_time_prefix_pattern, "", filename_without_ext)
+        logging.info(f"移除前缀后的文件名: {filename_without_ext}")
+    
     # 创建缓存目录
     cache_dir = os.path.join(Config.CACHE_DIR, "entities")
     os.makedirs(cache_dir, exist_ok=True)
     
     # 生成缓存文件名
-    cache_key = f"task_{task_id}_{filename_without_ext}_entities.json" if task_id else f"{filename_without_ext}_entities.json"
+    cache_key = f"{filename_without_ext}_entities.json"
     cache_path = os.path.join(cache_dir, cache_key)
     
     # 检查缓存是否存在
@@ -609,6 +636,11 @@ def process_papers_and_extract_data(review_pdf_path, task_id=None, citation_path
     Returns:
         Tuple[List[Dict], List[Dict]]: 提取的实体列表和关系列表
     """
+    # 标准化路径分隔符
+    review_pdf_path = os.path.normpath(review_pdf_path)
+    if citation_paths:
+        citation_paths = [os.path.normpath(path) for path in citation_paths]
+    
     # 确保所有必要的目录存在
     for directory in [Config.UPLOAD_DIR, Config.CACHE_DIR, Config.CITED_PAPERS_DIR]:
         os.makedirs(directory, exist_ok=True)
@@ -782,7 +814,14 @@ def process_papers_and_extract_data(review_pdf_path, task_id=None, citation_path
     # 创建关系缓存文件名
     relations_cache_file = None
     if task_id:
-        relations_cache_file = os.path.join(Config.CACHE_DIR, f"relations_{task_id}.json")
+        review_basename = os.path.basename(review_pdf_path)
+        review_filename_without_ext = os.path.splitext(review_basename)[0]
+        
+        # 移除可能的任务ID前缀
+        if task_id and review_filename_without_ext.startswith(f"task_{task_id}_"):
+            review_filename_without_ext = review_filename_without_ext[len(f"task_{task_id}_"):]
+            
+        relations_cache_file = os.path.join(Config.CACHE_DIR, f"relations_{review_filename_without_ext}.json")
         if os.path.exists(relations_cache_file):
             try:
                 with open(relations_cache_file, 'r', encoding='utf-8') as f:
@@ -933,10 +972,17 @@ def extract_relationships_with_context(entities, pdf_path, task_id=None, existin
     # 缓存关系数据
     if relations and task_id:
         # 保存关系到缓存
-        relations_cache_file = os.path.join(Config.CACHE_DIR, f"relations_{task_id}.json")
+        basename = os.path.basename(pdf_path)
+        filename_without_ext = os.path.splitext(basename)[0]
+        
+        # 移除可能的任务ID前缀
+        if task_id and filename_without_ext.startswith(f"task_{task_id}_"):
+            filename_without_ext = filename_without_ext[len(f"task_{task_id}_"):]
+            
+        relations_cache_file = os.path.join(Config.CACHE_DIR, f"relations_{filename_without_ext}.json")
         with open(relations_cache_file, 'w', encoding='utf-8') as f:
-            json.dump(relations, f, ensure_ascii=False, indent=2)
-        logging.info(f"已将关系数据缓存到: {relations_cache_file}, 共 {len(relations)} 条关系")
+            json.dump(relations, f, ensure_ascii=False, indent=4)
+        logging.info(f"已保存 {len(relations)} 条关系到缓存文件: {relations_cache_file}")
     
     return relations
 

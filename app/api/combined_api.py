@@ -12,6 +12,7 @@ from app.config import Config
 from app.modules.data_processing import process_review_paper, process_multiple_papers, normalize_entities, transform_table_data_to_entities, save_data_to_json
 from app.modules.knowledge_graph import build_knowledge_graph, visualize_graph, export_graph_to_json
 from app.modules.db_manager import db_manager
+from pathlib import Path
 
 # 创建蓝图
 combined_api = Blueprint('combined_api', __name__)
@@ -99,29 +100,33 @@ def batch_upload_files():
         if not os.path.exists(Config.UPLOAD_DIR):
             os.makedirs(Config.UPLOAD_DIR)
         
+        # 生成唯一的task_id
+        import time
+        task_id = f"task_{int(time.time())}_{str(uuid.uuid4())[:8]}"
+        
         file_paths = []
         file_names = []
         
         for file in files:
             if file.filename == '':
                 continue
-                
-            # 使用临时文件保存上传的文件
-            with tempfile.NamedTemporaryFile(delete=False, suffix=os.path.splitext(file.filename)[1]) as temp_file:
-                file.save(temp_file.name)
-                
-                # 创建永久文件路径
-                filename = f"{uuid.uuid4()}{os.path.splitext(file.filename)[1]}"
-                target_path = os.path.join(Config.UPLOAD_DIR, filename)
-                
-                # 确保目标目录存在
-                os.makedirs(os.path.dirname(target_path), exist_ok=True)
-                
-                # 将临时文件移动到目标位置
-                shutil.copy2(temp_file.name, target_path)
-                
-                file_paths.append(target_path)
-                file_names.append(os.path.basename(file.filename))
+            
+            # 使用原始文件名
+            original_filename = file.filename
+            safe_filename = Path(original_filename).name
+            
+            # 检查文件是否已存在，如果存在则使用唯一名称
+            target_path = os.path.join(Config.UPLOAD_DIR, safe_filename)
+            if os.path.exists(target_path):
+                # 如果文件已存在，才使用task_id前缀
+                safe_filename = f"{task_id}_{safe_filename}"
+                target_path = os.path.join(Config.UPLOAD_DIR, safe_filename)
+            
+            # 直接保存文件
+            file.save(target_path)
+            
+            file_paths.append(target_path)
+            file_names.append(os.path.basename(original_filename))
         
         if not file_paths:
             return jsonify({
