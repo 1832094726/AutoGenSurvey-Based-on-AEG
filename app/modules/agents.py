@@ -774,203 +774,6 @@ def setup_qwen_agent(pdf_path=None):
         # 如果使用千问模型失败，返回None
         return None
 
-def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_reprocess=False, model_name="qwen", task_id=None):
-    """
-    从PDF论文中提取相关实体。
-    支持多模型，包括"qwen"、"openai"、"zhipu"等。
-    支持批量处理多个PDF，并提供进度反馈。
-    
-    Args:
-        pdf_paths (str or list): 单个PDF路径或PDF路径列表
-        max_attempts (int, optional): 最大尝试次数，默认为3
-        batch_size (int, optional): 批处理大小，默认为20
-        force_reprocess (bool, optional): 是否强制重新处理，默认为False
-        model_name (str, optional): 使用的模型名称，默认为"qwen"
-        task_id (str, optional): 任务标识符，用于缓存
-    
-    Returns:
-        tuple: (提取的实体列表, 是否处理完成)
-    """
-    # 兼容单个PDF路径和PDF路径列表
-    if isinstance(pdf_paths, str):
-        pdf_paths = [pdf_paths]
-    elif not isinstance(pdf_paths, list):
-        logging.error("invalid pdf_paths parameter type")
-        return [], False
-    
-    # 检查文件是否存在，过滤掉不存在的文件
-    valid_pdf_paths = []
-    for path in pdf_paths:
-        if os.path.exists(path):
-            valid_pdf_paths.append(path)
-        else:
-            logging.warning(f"PDF文件不存在: {path}")
-    
-    if not valid_pdf_paths:
-        logging.error("没有有效的PDF文件")
-        return [], False
-    
-    # 批量处理PDF文件
-    all_entities = []
-    all_complete = True
-    
-    # 分批处理PDF文件，避免处理太多文件
-    for i in range(0, len(valid_pdf_paths), batch_size):
-        batch_paths = valid_pdf_paths[i:i+batch_size]
-        logging.info(f"处理PDF批次 {i//batch_size + 1}/{(len(valid_pdf_paths)+batch_size-1)//batch_size}, 共 {len(batch_paths)} 个文件")
-        
-        for pdf_path in batch_paths:
-            try:
-                # 提取PDF文本内容
-                logging.info(f"正在处理PDF: {pdf_path}")
-                text = extract_text_from_pdf(pdf_path, task_id=task_id)
-                
-                if not text or len(text.strip()) < 100:
-                    logging.warning(f"提取的文本内容太少或为空: {pdf_path}")
-                    continue
-            
-                # 创建缓存目录
-                cache_dir = os.path.join(Config.CACHE_DIR, "entities")
-                os.makedirs(cache_dir, exist_ok=True)
-                
-                # 生成缓存文件名
-                basename = os.path.basename(pdf_path)
-                filename_without_ext = os.path.splitext(basename)[0]
-                cache_key = f"task_{task_id}_{filename_without_ext}_entities.json" if task_id else f"{filename_without_ext}_entities.json"
-                cache_path = os.path.join(cache_dir, cache_key)
-                
-                # 生成临时缓存文件路径
-                temp_cache_dir = os.path.join(Config.TEMP_FOLDER, "entities")
-                os.makedirs(temp_cache_dir, exist_ok=True)
-                temp_cache_path = os.path.join(temp_cache_dir, f"{filename_without_ext}_temp_entities.json")
-                
-                # 检查是否有缓存且不需要强制重新处理
-                previous_entities = []
-                if os.path.exists(cache_path) and not force_reprocess:
-                    try:
-                        with open(cache_path, 'r', encoding='utf-8') as f:
-                            cache_data = json.load(f)
-                            logging.info(f"从缓存加载实体数据: {cache_path}")
-                            
-                            # 检查实体提取是否完整
-                            is_complete = True
-                            for entity in cache_data:
-                                if entity.get('is_complete', False) == False:
-                                    is_complete = False
-                                    break
-                            
-                            if is_complete:
-                                logging.info(f"所有实体数据已完成提取，共 {len(cache_data)} 个实体")
-                                all_entities.extend(cache_data)
-                                continue
-                            else:
-                                logging.info(f"发现不完整的实体数据，将继续提取...")
-                                previous_entities = cache_data
-                    except Exception as e:
-                        logging.error(f"读取实体缓存出错: {str(e)}")
-                
-                # 生成提取实体的提示
-                prompt = generate_entity_extraction_prompt(text, model_name, previous_entities, 
-                                                           partial_extraction=bool(previous_entities))
-                
-                # 调用统一的实体提取函数
-                entities = []
-                is_extraction_complete = False
-                
-                # 使用统一的实体提取模型
-                agent = None
-                if model_name.lower() == "qwen":
-                    agent = setup_qwen_agent(pdf_path)
-                
-                entities, is_extraction_complete = extract_entities_with_model(
-                    prompt, 
-                    model_name, 
-                    max_attempts,
-                    temp_cache_path,
-                    agent
-                )
-                
-                # 如果没有提取成功，设置完成标志为False
-                if not entities:
-                    all_complete = False
-                    continue
-                
-                # 合并或更新结果
-                final_entities = []
-                
-                # 如果有之前的提取结果，需要进行合并和更新
-                if previous_entities:
-                    # 创建ID到索引的映射
-                    id_to_index = {}
-                    for idx, entity in enumerate(previous_entities):
-                        entity_id = None
-                        if 'algorithm_entity' in entity:
-                            entity_id = entity['algorithm_entity'].get('algorithm_id')
-                        elif 'dataset_entity' in entity:
-                            entity_id = entity['dataset_entity'].get('dataset_id')
-                        elif 'metric_entity' in entity:
-                            entity_id = entity['metric_entity'].get('metric_id')
-                        
-                        if entity_id:
-                            id_to_index[entity_id] = idx
-                    
-                    # 合并结果，更新已存在的实体，添加新实体
-                    final_entities = previous_entities.copy()
-                    
-                    # 遍历新提取的实体
-                    for new_entity in entities:
-                        # 为新实体添加完整性标记
-                        new_entity['is_complete'] = is_extraction_complete
-                        
-                        # 根据实体类型获取ID
-                        entity_id = None
-                        entity_type = None
-                        
-                        if 'algorithm_entity' in new_entity:
-                            entity_id = new_entity['algorithm_entity'].get('algorithm_id')
-                            entity_type = 'algorithm_entity'
-                        elif 'dataset_entity' in new_entity:
-                            entity_id = new_entity['dataset_entity'].get('dataset_id')
-                            entity_type = 'dataset_entity'
-                        elif 'metric_entity' in new_entity:
-                            entity_id = new_entity['metric_entity'].get('metric_id')
-                            entity_type = 'metric_entity'
-                        
-                        # 如果ID在现有结果中，更新
-                        if entity_id and entity_id in id_to_index:
-                            idx = id_to_index[entity_id]
-                            # 更新实体
-                            if entity_type:
-                                final_entities[idx][entity_type] = new_entity[entity_type]
-                                # 更新完整性标记
-                                final_entities[idx]['is_complete'] = is_extraction_complete
-                            else:
-                            # 添加新实体
-                                final_entities.append(new_entity)
-                else:
-                    # 没有之前的提取结果，直接使用新提取的结果
-                    for entity in entities:
-                        entity['is_complete'] = is_extraction_complete
-                    final_entities = entities
-                
-                # 更新全局完成状态
-                if not is_extraction_complete:
-                    all_complete = False
-                
-                # 缓存提取的实体
-                with open(cache_path, 'w', encoding='utf-8') as f:
-                    json.dump(final_entities, f, ensure_ascii=False, indent=2)
-                
-                logging.info(f"提取结果: {len(final_entities)} 个实体, 完成状态: {'完成' if is_extraction_complete else '未完成'}")
-                all_entities.extend(final_entities)
-            
-            except Exception as e:
-                        logging.error(f"处理 {pdf_path} 时出错: {str(e)}")
-                        import traceback
-                        logging.error(traceback.format_exc())
-                        all_complete = False
-    
-    return all_entities, all_complete
 
 def extract_evolution_relations(entities, pdf_path=None, task_id=None):
     """
@@ -1661,10 +1464,7 @@ def extract_evolution_relations_from_paper(pdf_path, entities, task_id=None, pre
         logging.error(traceback.format_exc())
         return previous_relations if previous_relations else [] 
 
-# 删除extract_entities_with_zhipu函数
 
-
-# 替换为新的extract_entities_with_qwen函数
 def extract_entities_with_qwen(prompt, max_attempts=3, temp_cache_path=None):
     """
     使用千问API提取实体
@@ -1798,3 +1598,202 @@ def extract_entities_with_qwen(prompt, max_attempts=3, temp_cache_path=None):
     
     logging.error(f"在 {max_attempts} 次尝试后仍未能提取实体")
     return [], False
+
+
+def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_reprocess=False, model_name="qwen", task_id=None):
+    """
+    从PDF论文中提取相关实体。
+    支持多模型，包括"qwen"、"openai"、"zhipu"等。
+    支持批量处理多个PDF，并提供进度反馈。
+    
+    Args:
+        pdf_paths (str or list): 单个PDF路径或PDF路径列表
+        max_attempts (int, optional): 最大尝试次数，默认为3
+        batch_size (int, optional): 批处理大小，默认为20
+        force_reprocess (bool, optional): 是否强制重新处理，默认为False
+        model_name (str, optional): 使用的模型名称，默认为"qwen"
+        task_id (str, optional): 任务标识符，用于缓存
+    
+    Returns:
+        tuple: (提取的实体列表, 是否处理完成)
+    """
+    # 兼容单个PDF路径和PDF路径列表
+    if isinstance(pdf_paths, str):
+        pdf_paths = [pdf_paths]
+    elif not isinstance(pdf_paths, list):
+        logging.error("invalid pdf_paths parameter type")
+        return [], False
+    
+    # 检查文件是否存在，过滤掉不存在的文件
+    valid_pdf_paths = []
+    for path in pdf_paths:
+        if os.path.exists(path):
+            valid_pdf_paths.append(path)
+        else:
+            logging.warning(f"PDF文件不存在: {path}")
+    
+    if not valid_pdf_paths:
+        logging.error("没有有效的PDF文件")
+        return [], False
+    
+    # 批量处理PDF文件
+    all_entities = []
+    all_complete = True
+    
+    # 分批处理PDF文件，避免处理太多文件
+    for i in range(0, len(valid_pdf_paths), batch_size):
+        batch_paths = valid_pdf_paths[i:i+batch_size]
+        logging.info(f"处理PDF批次 {i//batch_size + 1}/{(len(valid_pdf_paths)+batch_size-1)//batch_size}, 共 {len(batch_paths)} 个文件")
+        
+        for pdf_path in batch_paths:
+            try:
+                # 提取PDF文本内容
+                logging.info(f"正在处理PDF: {pdf_path}")
+                text = extract_text_from_pdf(pdf_path, task_id=task_id)
+                
+                if not text or len(text.strip()) < 100:
+                    logging.warning(f"提取的文本内容太少或为空: {pdf_path}")
+                    continue
+            
+                # 创建缓存目录
+                cache_dir = os.path.join(Config.CACHE_DIR, "entities")
+                os.makedirs(cache_dir, exist_ok=True)
+                
+                # 生成缓存文件名
+                basename = os.path.basename(pdf_path)
+                filename_without_ext = os.path.splitext(basename)[0]
+                cache_key = f"task_{task_id}_{filename_without_ext}_entities.json" if task_id else f"{filename_without_ext}_entities.json"
+                cache_path = os.path.join(cache_dir, cache_key)
+                
+                # 生成临时缓存文件路径
+                temp_cache_dir = os.path.join(Config.TEMP_FOLDER, "entities")
+                os.makedirs(temp_cache_dir, exist_ok=True)
+                temp_cache_path = os.path.join(temp_cache_dir, f"{filename_without_ext}_temp_entities.json")
+                
+                # 检查是否有缓存且不需要强制重新处理
+                previous_entities = []
+                if os.path.exists(cache_path) and not force_reprocess:
+                    try:
+                        with open(cache_path, 'r', encoding='utf-8') as f:
+                            cache_data = json.load(f)
+                            logging.info(f"从缓存加载实体数据: {cache_path}")
+                            
+                            # 检查实体提取是否完整
+                            is_complete = True
+                            for entity in cache_data:
+                                if entity.get('is_complete', False) == False:
+                                    is_complete = False
+                                    break
+                            
+                            if is_complete:
+                                logging.info(f"所有实体数据已完成提取，共 {len(cache_data)} 个实体")
+                                all_entities.extend(cache_data)
+                                continue
+                            else:
+                                logging.info(f"发现不完整的实体数据，将继续提取...")
+                                previous_entities = cache_data
+                    except Exception as e:
+                        logging.error(f"读取实体缓存出错: {str(e)}")
+                
+                # 生成提取实体的提示
+                prompt = generate_entity_extraction_prompt(text, model_name, previous_entities, 
+                                                           partial_extraction=bool(previous_entities))
+                
+                # 调用统一的实体提取函数
+                entities = []
+                is_extraction_complete = False
+                
+                # 使用统一的实体提取模型
+                agent = None
+                if model_name.lower() == "qwen":
+                    agent = setup_qwen_agent(pdf_path)
+                
+                entities, is_extraction_complete = extract_entities_with_model(
+                    prompt, 
+                    model_name, 
+                    max_attempts,
+                    temp_cache_path,
+                    agent
+                )
+                
+                # 如果没有提取成功，设置完成标志为False
+                if not entities:
+                    all_complete = False
+                    continue
+                
+                # 合并或更新结果
+                final_entities = []
+                
+                # 如果有之前的提取结果，需要进行合并和更新
+                if previous_entities:
+                    # 创建ID到索引的映射
+                    id_to_index = {}
+                    for idx, entity in enumerate(previous_entities):
+                        entity_id = None
+                        if 'algorithm_entity' in entity:
+                            entity_id = entity['algorithm_entity'].get('algorithm_id')
+                        elif 'dataset_entity' in entity:
+                            entity_id = entity['dataset_entity'].get('dataset_id')
+                        elif 'metric_entity' in entity:
+                            entity_id = entity['metric_entity'].get('metric_id')
+                        
+                        if entity_id:
+                            id_to_index[entity_id] = idx
+                    
+                    # 合并结果，更新已存在的实体，添加新实体
+                    final_entities = previous_entities.copy()
+                    
+                    # 遍历新提取的实体
+                    for new_entity in entities:
+                        # 为新实体添加完整性标记
+                        new_entity['is_complete'] = is_extraction_complete
+                        
+                        # 根据实体类型获取ID
+                        entity_id = None
+                        entity_type = None
+                        
+                        if 'algorithm_entity' in new_entity:
+                            entity_id = new_entity['algorithm_entity'].get('algorithm_id')
+                            entity_type = 'algorithm_entity'
+                        elif 'dataset_entity' in new_entity:
+                            entity_id = new_entity['dataset_entity'].get('dataset_id')
+                            entity_type = 'dataset_entity'
+                        elif 'metric_entity' in new_entity:
+                            entity_id = new_entity['metric_entity'].get('metric_id')
+                            entity_type = 'metric_entity'
+                        
+                        # 如果ID在现有结果中，更新
+                        if entity_id and entity_id in id_to_index:
+                            idx = id_to_index[entity_id]
+                            # 更新实体
+                            if entity_type:
+                                final_entities[idx][entity_type] = new_entity[entity_type]
+                                # 更新完整性标记
+                                final_entities[idx]['is_complete'] = is_extraction_complete
+                            else:
+                            # 添加新实体
+                                final_entities.append(new_entity)
+                else:
+                    # 没有之前的提取结果，直接使用新提取的结果
+                    for entity in entities:
+                        entity['is_complete'] = is_extraction_complete
+                    final_entities = entities
+                
+                # 更新全局完成状态
+                if not is_extraction_complete:
+                    all_complete = False
+                
+                # 缓存提取的实体
+                with open(cache_path, 'w', encoding='utf-8') as f:
+                    json.dump(final_entities, f, ensure_ascii=False, indent=2)
+                
+                logging.info(f"提取结果: {len(final_entities)} 个实体, 完成状态: {'完成' if is_extraction_complete else '未完成'}")
+                all_entities.extend(final_entities)
+            
+            except Exception as e:
+                        logging.error(f"处理 {pdf_path} 时出错: {str(e)}")
+                        import traceback
+                        logging.error(traceback.format_exc())
+                        all_complete = False
+    
+    return all_entities, all_complete

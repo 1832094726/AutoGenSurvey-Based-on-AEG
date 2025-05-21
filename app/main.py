@@ -356,38 +356,38 @@ def load_or_build_graph_data(force_refresh=False):
             
         return {'nodes': [], 'edges': [], 'error': str(e), 'traceback': tb}
 
-# @main.route('/api/graph/data')
-# def get_graph_data():
-#     """获取图数据API接口"""
-#     force_refresh = request.args.get('refresh', '0') == '1'
-#     graph_data = load_or_build_graph_data(force_refresh)
-#     return jsonify(graph_data)
+@main.route('/api/graph/data')
+def get_graph_data():
+    """获取图数据API接口"""
+    force_refresh = request.args.get('refresh', '0') == '1'
+    graph_data = load_or_build_graph_data(force_refresh)
+    return jsonify(graph_data)
 
-# @main.route('/api/graph/image')
-# def get_graph_image():
-#     """获取图片"""
-#     try:
-#         # 确保图数据目录存在
-#         os.makedirs(Config.GRAPH_DATA_DIR, exist_ok=True)
-#         
-#         graph_image_path = os.path.join(Config.GRAPH_DATA_DIR, 'graph.png')
-#         
-#         if not os.path.exists(graph_image_path):
-#             # 如果图片不存在，尝试从数据库创建
-#             entities = db_manager.get_all_entities()
-#             relations = db_manager.get_all_relations()
-#             
-#             if not entities:
-#                 return jsonify({'success': False, 'message': '没有可用的数据'}), 404
-#             
-#             graph = build_knowledge_graph(entities, relations)
-#             visualize_graph(graph, output_path=graph_image_path)
-#         
-#         return send_from_directory(os.path.dirname(graph_image_path), os.path.basename(graph_image_path))
-#         
-#     except Exception as e:
-#         logging.error(f"获取图片时出错: {str(e)}")
-#         return jsonify({'success': False, 'message': f'获取图片时出错: {str(e)}'}), 500
+@main.route('/api/graph/image')
+def get_graph_image():
+    """获取图片"""
+    try:
+        # 确保图数据目录存在
+        os.makedirs(Config.GRAPH_DATA_DIR, exist_ok=True)
+        
+        graph_image_path = os.path.join(Config.GRAPH_DATA_DIR, 'graph.png')
+        
+        if not os.path.exists(graph_image_path):
+            # 如果图片不存在，尝试从数据库创建
+            entities = db_manager.get_all_entities()
+            relations = db_manager.get_all_relations()
+            
+            if not entities:
+                return jsonify({'success': False, 'message': '没有可用的数据'}), 404
+            
+            graph = build_knowledge_graph(entities, relations)
+            visualize_graph(graph, output_path=graph_image_path)
+        
+        return send_from_directory(os.path.dirname(graph_image_path), os.path.basename(graph_image_path))
+        
+    except Exception as e:
+        logging.error(f"获取图片时出错: {str(e)}")
+        return jsonify({'success': False, 'message': f'获取图片时出错: {str(e)}'}), 500
 
 @main.route('/api/import/table', methods=['POST'])
 def import_table_data():
