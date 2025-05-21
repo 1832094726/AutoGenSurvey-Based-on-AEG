@@ -42,11 +42,11 @@ class DatabaseManager:
                         logging.warning(f"关闭旧连接时出错: {str(e)}")
                 
                 # 建立新连接，增加连接超时和使用纯Python实现
-            self.conn = mysql.connector.connect(
-                host=Config.MYSQL_HOST,
-                port=Config.MYSQL_PORT,
-                user=Config.MYSQL_USER,
-                password=Config.MYSQL_PASSWORD,
+                self.conn = mysql.connector.connect(
+                    host=Config.MYSQL_HOST,
+                    port=Config.MYSQL_PORT,
+                    user=Config.MYSQL_USER,
+                    password=Config.MYSQL_PASSWORD,
                     database=Config.MYSQL_DB,
                     charset='utf8mb4',
                     use_pure=True,  # 使用纯Python实现，增加稳定性
@@ -89,28 +89,24 @@ class DatabaseManager:
                     logging.warning("MySQL连接已断开，尝试重连")
                     self._connect_mysql()
                     return True
-                
                 # 测试连接是否有效
                 try:
                     self.cursor.execute("SELECT 1")
                     self.cursor.fetchone()
                     return True  # 连接正常
-        except Exception as e:
+                except Exception as e:
                     logging.warning(f"连接测试失败: {str(e)}，尝试重连")
                     self._connect_mysql()
                     return True
-                    
             except Exception as e:
                 retry_count += 1
                 logging.error(f"检查MySQL连接时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                
                 if retry_count < max_retries:
                     logging.error("无法建立MySQL连接，等待5秒后重试")
                     time.sleep(5)
                 else:
                     logging.error("达到最大重试次数，无法重新连接MySQL")
                     return False
-        
         return False
     
     def _check_and_init_tables(self):
@@ -120,108 +116,103 @@ class DatabaseManager:
     def _check_and_init_tables_mysql(self):
         """检查并初始化MySQL表"""
         try:
-        # 检查算法表是否存在
-        self.cursor.execute("SHOW TABLES LIKE 'Algorithms'")
-        if not self.cursor.fetchone():
-            # 创建算法表
-            self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Algorithms (
-                algorithm_id VARCHAR(255) PRIMARY KEY,
-                name VARCHAR(255),
-                title TEXT,
-                year VARCHAR(50),
-                authors TEXT,
-                task VARCHAR(255),
-                dataset TEXT,
-                metrics TEXT,
-                architecture_components TEXT,
-                architecture_connections TEXT,
-                architecture_mechanisms TEXT,
-                methodology_training_strategy TEXT,
-                methodology_parameter_tuning TEXT,
-                feature_processing TEXT,
-                entity_type VARCHAR(50) DEFAULT 'Algorithm'
-            )
-            ''')
-            logging.info("创建MySQL Algorithms表")
-        
-        # 检查数据集表是否存在
-        self.cursor.execute("SHOW TABLES LIKE 'Datasets'")
-        if not self.cursor.fetchone():
-            # 创建数据集表
-            self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Datasets (
-                dataset_id VARCHAR(255) PRIMARY KEY,
-                name VARCHAR(255),
-                description TEXT,
-                domain VARCHAR(255),
-                size INT,
-                year VARCHAR(50),
-                creators TEXT,
-                entity_type VARCHAR(50) DEFAULT 'Dataset'
-            )
-            ''')
-            logging.info("创建MySQL Datasets表")
-        
-        # 检查指标表是否存在
-        self.cursor.execute("SHOW TABLES LIKE 'Metrics'")
-        if not self.cursor.fetchone():
-            # 创建指标表
-            self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Metrics (
-                metric_id VARCHAR(255) PRIMARY KEY,
-                name VARCHAR(255),
-                description TEXT,
-                category VARCHAR(255),
-                formula TEXT,
-                entity_type VARCHAR(50) DEFAULT 'Metric'
-            )
-            ''')
-            logging.info("创建MySQL Metrics表")
-        
-        # 检查关系表是否存在
-        self.cursor.execute("SHOW TABLES LIKE 'EvolutionRelations'")
-        if not self.cursor.fetchone():
-            # 创建关系表，确保relation_type非空
-            self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS EvolutionRelations (
-                relation_id INT AUTO_INCREMENT PRIMARY KEY,
-                from_entity VARCHAR(255) NOT NULL,
-                to_entity VARCHAR(255) NOT NULL,
-                relation_type VARCHAR(100) NOT NULL,
-                structure VARCHAR(255),
-                detail TEXT,
-                evidence TEXT,
-                confidence FLOAT,
-                from_entity_type VARCHAR(50),
-                to_entity_type VARCHAR(50),
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-            )
-            ''')
-            logging.info("创建MySQL EvolutionRelations表")
-        
-        # 检查处理状态表是否存在
-        self.cursor.execute("SHOW TABLES LIKE 'ProcessingStatus'")
-        if not self.cursor.fetchone():
-            # 创建处理状态表
-            self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS ProcessingStatus (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                task_id VARCHAR(255) UNIQUE,
-                status VARCHAR(50),  -- 'waiting', 'processing', 'completed', 'failed'
-                current_stage VARCHAR(100),
-                progress FLOAT,  -- 0.0到1.0之间的进度
-                current_file TEXT,
-                message TEXT,
-                start_time DATETIME,
-                update_time DATETIME,
-                end_time DATETIME
-            )
-            ''')
-            logging.info("创建MySQL ProcessingStatus表")
-        
-        self.conn.commit()
+            # 检查算法表是否存在
+            self.cursor.execute("SHOW TABLES LIKE 'Algorithms'")
+            if not self.cursor.fetchone():
+                # 创建算法表
+                self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS Algorithms (
+                    algorithm_id VARCHAR(255) PRIMARY KEY,
+                    name VARCHAR(255),
+                    title TEXT,
+                    year VARCHAR(50),
+                    authors TEXT,
+                    task VARCHAR(255),
+                    dataset TEXT,
+                    metrics TEXT,
+                    architecture_components TEXT,
+                    architecture_connections TEXT,
+                    architecture_mechanisms TEXT,
+                    methodology_training_strategy TEXT,
+                    methodology_parameter_tuning TEXT,
+                    feature_processing TEXT,
+                    entity_type VARCHAR(50) DEFAULT 'Algorithm'
+                )
+                ''')
+                logging.info("创建MySQL Algorithms表")
+            # 检查数据集表是否存在
+            self.cursor.execute("SHOW TABLES LIKE 'Datasets'")
+            if not self.cursor.fetchone():
+                # 创建数据集表
+                self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS Datasets (
+                    dataset_id VARCHAR(255) PRIMARY KEY,
+                    name VARCHAR(255),
+                    description TEXT,
+                    domain VARCHAR(255),
+                    size INT,
+                    year VARCHAR(50),
+                    creators TEXT,
+                    entity_type VARCHAR(50) DEFAULT 'Dataset'
+                )
+                ''')
+                logging.info("创建MySQL Datasets表")
+            # 检查指标表是否存在
+            self.cursor.execute("SHOW TABLES LIKE 'Metrics'")
+            if not self.cursor.fetchone():
+                # 创建指标表
+                self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS Metrics (
+                    metric_id VARCHAR(255) PRIMARY KEY,
+                    name VARCHAR(255),
+                    description TEXT,
+                    category VARCHAR(255),
+                    formula TEXT,
+                    entity_type VARCHAR(50) DEFAULT 'Metric'
+                )
+                ''')
+                logging.info("创建MySQL Metrics表")
+            # 检查关系表是否存在
+            self.cursor.execute("SHOW TABLES LIKE 'EvolutionRelations'")
+            if not self.cursor.fetchone():
+                # 创建关系表，确保relation_type非空
+                self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS EvolutionRelations (
+                    relation_id INT AUTO_INCREMENT PRIMARY KEY,
+                    from_entity VARCHAR(255) NOT NULL,
+                    to_entity VARCHAR(255) NOT NULL,
+                    relation_type VARCHAR(100) NOT NULL,
+                    structure VARCHAR(255),
+                    detail TEXT,
+                    evidence TEXT,
+                    confidence FLOAT,
+                    from_entity_type VARCHAR(50),
+                    to_entity_type VARCHAR(50),
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )
+                ''')
+                logging.info("创建MySQL EvolutionRelations表")
+            # 检查处理状态表是否存在
+            self.cursor.execute("SHOW TABLES LIKE 'ProcessingStatus'")
+            if not self.cursor.fetchone():
+                # 创建处理状态表
+                self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS ProcessingStatus (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    task_id VARCHAR(255) UNIQUE,
+                    status VARCHAR(50),  -- 'waiting', 'processing', 'completed', 'failed'
+                    current_stage VARCHAR(100),
+                    progress FLOAT,  -- 0.0到1.0之间的进度
+                    current_file TEXT,
+                    message TEXT,
+                    start_time DATETIME,
+                    update_time DATETIME,
+                    end_time DATETIME
+                )
+                ''')
+                logging.info("创建MySQL ProcessingStatus表")
+            self.conn.commit()
         except (mysql.connector.Error, MySQLError) as e:
             logging.error(f"初始化数据库表时出错: {str(e)}")
             self.conn.rollback()
@@ -258,76 +249,64 @@ class DatabaseManager:
                     retry_count += 1
                     time.sleep(5)
                     continue
-                    
-        for entity in entities:
-            if 'algorithm_entity' in entity:
-                algo = entity['algorithm_entity']
-                
-                # 转换列表/字典为JSON字符串
-                authors = json.dumps(algo.get('authors', []), ensure_ascii=False)
-                dataset = json.dumps(algo.get('dataset', []), ensure_ascii=False)
-                metrics = json.dumps(algo.get('metrics', []), ensure_ascii=False)
-                
-                architecture = algo.get('architecture', {})
-                arch_components = json.dumps(architecture.get('components', []), ensure_ascii=False)
-                arch_connections = json.dumps(architecture.get('connections', []), ensure_ascii=False)
-                arch_mechanisms = json.dumps(architecture.get('mechanisms', []), ensure_ascii=False)
-                
-                methodology = algo.get('methodology', {})
-                meth_training = json.dumps(methodology.get('training_strategy', []), ensure_ascii=False)
-                meth_params = json.dumps(methodology.get('parameter_tuning', []), ensure_ascii=False)
-                
-                feature_processing = json.dumps(algo.get('feature_processing', []), ensure_ascii=False)
-                
-                # MySQL的INSERT ON DUPLICATE KEY UPDATE语法
-                sql = '''
-                INSERT INTO Algorithms 
-                (algorithm_id, name, title, year, authors, task, dataset, metrics,
-                architecture_components, architecture_connections, architecture_mechanisms,
-                methodology_training_strategy, methodology_parameter_tuning, feature_processing)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                ON DUPLICATE KEY UPDATE 
-                name = VALUES(name), title = VALUES(title), year = VALUES(year), 
-                authors = VALUES(authors), task = VALUES(task), dataset = VALUES(dataset),
-                metrics = VALUES(metrics), architecture_components = VALUES(architecture_components),
-                architecture_connections = VALUES(architecture_connections), 
-                architecture_mechanisms = VALUES(architecture_mechanisms),
-                methodology_training_strategy = VALUES(methodology_training_strategy),
-                methodology_parameter_tuning = VALUES(methodology_parameter_tuning),
-                feature_processing = VALUES(feature_processing)
-                '''
-                
-                self.cursor.execute(sql, (
-                    algo.get('algorithm_id', ''),
-                    algo.get('name', ''),
-                    algo.get('title', ''),
-                    algo.get('year', ''),
-                    authors,
-                    algo.get('task', ''),
-                    dataset,
-                    metrics,
-                    arch_components,
-                    arch_connections,
-                    arch_mechanisms,
-                    meth_training,
-                    meth_params,
-                    feature_processing
-                ))
-        
-        self.conn.commit()
-        logging.info(f"已将 {len(entities)} 个实体存储到MySQL数据库")
+                for entity in entities:
+                    if 'algorithm_entity' in entity:
+                        algo = entity['algorithm_entity']
+                        # 转换列表/字典为JSON字符串
+                        authors = json.dumps(algo.get('authors', []), ensure_ascii=False)
+                        dataset = json.dumps(algo.get('dataset', []), ensure_ascii=False)
+                        metrics = json.dumps(algo.get('metrics', []), ensure_ascii=False)
+                        architecture = algo.get('architecture', {})
+                        arch_components = json.dumps(architecture.get('components', []), ensure_ascii=False)
+                        arch_connections = json.dumps(architecture.get('connections', []), ensure_ascii=False)
+                        arch_mechanisms = json.dumps(architecture.get('mechanisms', []), ensure_ascii=False)
+                        methodology = algo.get('methodology', {})
+                        meth_training = json.dumps(methodology.get('training_strategy', []), ensure_ascii=False)
+                        meth_params = json.dumps(methodology.get('parameter_tuning', []), ensure_ascii=False)
+                        feature_processing = json.dumps(algo.get('feature_processing', []), ensure_ascii=False)
+                        # MySQL的INSERT ON DUPLICATE KEY UPDATE语法
+                        sql = '''
+                        INSERT INTO Algorithms 
+                        (algorithm_id, name, title, year, authors, task, dataset, metrics,
+                        architecture_components, architecture_connections, architecture_mechanisms,
+                        methodology_training_strategy, methodology_parameter_tuning, feature_processing)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        ON DUPLICATE KEY UPDATE 
+                        name = VALUES(name), title = VALUES(title), year = VALUES(year), 
+                        authors = VALUES(authors), task = VALUES(task), dataset = VALUES(dataset),
+                        metrics = VALUES(metrics), architecture_components = VALUES(architecture_components),
+                        architecture_connections = VALUES(architecture_connections), 
+                        architecture_mechanisms = VALUES(architecture_mechanisms),
+                        methodology_training_strategy = VALUES(methodology_training_strategy),
+                        methodology_parameter_tuning = VALUES(methodology_parameter_tuning),
+                        feature_processing = VALUES(feature_processing)
+                        '''
+                        self.cursor.execute(sql, (
+                            algo.get('algorithm_id', ''),
+                            algo.get('name', ''),
+                            algo.get('title', ''),
+                            algo.get('year', ''),
+                            authors,
+                            algo.get('task', ''),
+                            dataset,
+                            metrics,
+                            arch_components,
+                            arch_connections,
+                            arch_mechanisms,
+                            meth_training,
+                            meth_params,
+                            feature_processing
+                        ))
+                self.conn.commit()
+                logging.info(f"已将 {len(entities)} 个实体存储到MySQL数据库")
                 return
-                
             except (mysql.connector.Error, MySQLError) as e:
                 retry_count += 1
                 logging.error(f"存储实体到MySQL时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                
                 # 如果是连接问题，等待后重试
                 time.sleep(5)
-                
                 # 尝试重新连接
                 self._connect_mysql()
-                
                 if retry_count >= max_retries:
                     logging.error("重试次数已达上限，无法存储实体到数据库")
                     break
@@ -336,7 +315,6 @@ class DatabaseManager:
                 import traceback
                 logging.error(traceback.format_exc())
                 break
-        
         logging.error(f"无法将 {len(entities)} 个实体存储到MySQL数据库")
     
     def store_relations(self, relations):
@@ -380,12 +358,10 @@ class DatabaseManager:
             if not isinstance(relation, dict):
                 logging.error(f"关系数据格式错误: {relation}")
                 return False
-            
             # 检查是否是数据库格式（from_entity/to_entity）
             if "from_entity" in relation and "to_entity" in relation:
                 # 直接使用数据库格式
                 return self._store_relation_mysql(relation)
-            
             # 检查是否是API格式（from_entities/to_entities数组）
             # 验证必要字段
             required_fields = ["from_entities", "to_entities", "relation_type"]
@@ -393,20 +369,16 @@ class DatabaseManager:
                 if field not in relation:
                     logging.error(f"关系数据缺少必要字段 '{field}': {relation}")
                     return False
-            
             # 验证from_entities和to_entities
             if not isinstance(relation["from_entities"], list) or not isinstance(relation["to_entities"], list):
                 logging.error(f"from_entities或to_entities必须是列表: {relation}")
                 return False
-            
             if len(relation["from_entities"]) == 0 or len(relation["to_entities"]) == 0:
                 logging.error(f"from_entities或to_entities不能为空: {relation}")
                 return False
-            
             # 对每一组from_entity和to_entity创建关系
             success_count = 0
             relation_count = 0
-            
             for from_entity in relation["from_entities"]:
                 for to_entity in relation["to_entities"]:
                     relation_count += 1
@@ -435,10 +407,10 @@ class DatabaseManager:
                     }
                     # 调用数据库存储方法
                     if self._store_relation_mysql(relation_data):
-                success_count += 1
+                        success_count += 1
             logging.info(f"成功存储 {success_count}/{relation_count} 条演化关系")
             return success_count > 0
-            except Exception as e:
+        except Exception as e:
             logging.error(f"存储演化关系时出错: {str(e)}")
             import traceback
             logging.error(traceback.format_exc())
@@ -513,7 +485,7 @@ class DatabaseManager:
                      from_entity_type, to_entity_type)
                 )
                 logging.info(f"创建新演化关系: {from_entity} -> {to_entity} ({relation_type})")
-        self.conn.commit()
+            self.conn.commit()
             return True
         except Exception as e:
             self.conn.rollback()
@@ -535,7 +507,7 @@ class DatabaseManager:
             elif entity_type == "Metric":
                 table_name = "Metrics"
                 id_column = "metric_id"
-        else:
+            else:
                 logging.warning(f"未知的实体类型: {entity_type}")
                 return False
             # 构建SQL查询
@@ -556,34 +528,30 @@ class DatabaseManager:
         """
         logging.warning("开始获取所有实体...")
         entities = []
-        
         try:
-        # 获取算法实体
-        algorithm_entities = self._get_all_entities_mysql()
-        if algorithm_entities:
-            entities.extend(algorithm_entities)
-            logging.warning(f"获取到 {len(algorithm_entities)} 个算法实体")
-            
-        # 获取数据集实体
-        dataset_entities = self.get_all_datasets()
-        if dataset_entities:
-            # 转换为统一格式
-            for dataset in dataset_entities:
-                dataset['entity_type'] = 'Dataset'
-                dataset['entity_id'] = dataset['dataset_id']
-                entities.append({'dataset_entity': dataset})
-            logging.warning(f"获取到 {len(dataset_entities)} 个数据集实体")
-            
-        # 获取评价指标实体
-        metric_entities = self.get_all_metrics()
-        if metric_entities:
-            # 转换为统一格式
-            for metric in metric_entities:
-                metric['entity_type'] = 'Metric'
-                metric['entity_id'] = metric['metric_id']
-                entities.append({'metric_entity': metric})
-            logging.warning(f"获取到 {len(metric_entities)} 个评价指标实体")
-                
+            # 获取算法实体
+            algorithm_entities = self._get_all_entities_mysql()
+            if algorithm_entities:
+                entities.extend(algorithm_entities)
+                logging.warning(f"获取到 {len(algorithm_entities)} 个算法实体")
+            # 获取数据集实体
+            dataset_entities = self.get_all_datasets()
+            if dataset_entities:
+                # 转换为统一格式
+                for dataset in dataset_entities:
+                    dataset['entity_type'] = 'Dataset'
+                    dataset['entity_id'] = dataset['dataset_id']
+                    entities.append({'dataset_entity': dataset})
+                logging.warning(f"获取到 {len(dataset_entities)} 个数据集实体")
+            # 获取评价指标实体
+            metric_entities = self.get_all_metrics()
+            if metric_entities:
+                # 转换为统一格式
+                for metric in metric_entities:
+                    metric['entity_type'] = 'Metric'
+                    metric['entity_id'] = metric['metric_id']
+                    entities.append({'metric_entity': metric})
+                logging.warning(f"获取到 {len(metric_entities)} 个评价指标实体")
         except Exception as e:
             logging.error(f"获取实体列表出错: {str(e)}")
             import traceback
@@ -606,87 +574,74 @@ class DatabaseManager:
                     time.sleep(5)
                     continue
                 
-            self.cursor.execute("SELECT * FROM Algorithms")
-            rows = self.cursor.fetchall()
-            
-            entities = []
-            column_names = [description[0] for description in self.cursor.description]
-            
-            logging.warning("从MySQL获取到 %d 行数据", len(rows))
-            
-            for row in rows:
-                # 将行数据转换为字典
-                entity_dict = dict(zip(column_names, row))
-                
-                # 处理JSON字段
-                for field in ['authors', 'dataset', 'metrics', 'architecture_components', 
-                              'architecture_connections', 'architecture_mechanisms',
-                              'methodology_training_strategy', 'methodology_parameter_tuning', 
-                              'feature_processing']:
-                    if entity_dict.get(field) and isinstance(entity_dict[field], str):
-                        try:
-                            entity_dict[field] = json.loads(entity_dict[field])
-                        except json.JSONDecodeError:
-                            # 如果不是有效的JSON，尝试按逗号分隔
-                            if ',' in entity_dict[field]:
-                                entity_dict[field] = [item.strip() for item in entity_dict[field].split(',')]
-                            else:
-                                entity_dict[field] = [entity_dict[field]]
-                
-                # 构建规范化的实体对象
-                algorithm_entity = {
-                    'algorithm_id': entity_dict['algorithm_id'],
-                    'entity_id': entity_dict['algorithm_id'],  # 增加统一的entity_id字段
-                    'name': entity_dict['name'],
-                    'title': entity_dict.get('title', ''),
-                    'year': entity_dict.get('year', ''),
-                    'authors': entity_dict.get('authors', []),
-                    'task': entity_dict.get('task', ''),
-                    'dataset': entity_dict.get('dataset', []),
-                    'metrics': entity_dict.get('metrics', []),
-                    'architecture': {
-                        'components': entity_dict.get('architecture_components', []),
-                        'connections': entity_dict.get('architecture_connections', []),
-                        'mechanisms': entity_dict.get('architecture_mechanisms', [])
-                    },
-                    'methodology': {
-                        'training_strategy': entity_dict.get('methodology_training_strategy', []),
-                        'parameter_tuning': entity_dict.get('methodology_parameter_tuning', [])
-                    },
-                    'feature_processing': entity_dict.get('feature_processing', []),
-                    'entity_type': 'Algorithm'
-                }
-                
-                # 添加到实体列表
-                entities.append({'algorithm_entity': algorithm_entity})
-            
-            if not entities:
-                logging.warning("没有找到任何算法实体，返回空列表")
-            else:
-                logging.warning("返回 %d 个算法实体", len(entities))
-                
-            return entities
-            
+                self.cursor.execute("SELECT * FROM Algorithms")
+                rows = self.cursor.fetchall()
+                entities = []
+                column_names = [description[0] for description in self.cursor.description]
+                logging.warning("从MySQL获取到 %d 行数据", len(rows))
+                for row in rows:
+                    # 将行数据转换为字典
+                    entity_dict = dict(zip(column_names, row))
+                    # 处理JSON字段
+                    for field in ['authors', 'dataset', 'metrics', 'architecture_components', 
+                                  'architecture_connections', 'architecture_mechanisms',
+                                  'methodology_training_strategy', 'methodology_parameter_tuning', 
+                                  'feature_processing']:
+                        if entity_dict.get(field) and isinstance(entity_dict[field], str):
+                            try:
+                                entity_dict[field] = json.loads(entity_dict[field])
+                            except json.JSONDecodeError:
+                                # 如果不是有效的JSON，尝试按逗号分隔
+                                if ',' in entity_dict[field]:
+                                    entity_dict[field] = [item.strip() for item in entity_dict[field].split(',')]
+                                else:
+                                    entity_dict[field] = [entity_dict[field]]
+                    # 构建规范化的实体对象
+                    algorithm_entity = {
+                        'algorithm_id': entity_dict['algorithm_id'],
+                        'entity_id': entity_dict['algorithm_id'],  # 增加统一的entity_id字段
+                        'name': entity_dict['name'],
+                        'title': entity_dict.get('title', ''),
+                        'year': entity_dict.get('year', ''),
+                        'authors': entity_dict.get('authors', []),
+                        'task': entity_dict.get('task', ''),
+                        'dataset': entity_dict.get('dataset', []),
+                        'metrics': entity_dict.get('metrics', []),
+                        'architecture': {
+                            'components': entity_dict.get('architecture_components', []),
+                            'connections': entity_dict.get('architecture_connections', []),
+                            'mechanisms': entity_dict.get('architecture_mechanisms', [])
+                        },
+                        'methodology': {
+                            'training_strategy': entity_dict.get('methodology_training_strategy', []),
+                            'parameter_tuning': entity_dict.get('methodology_parameter_tuning', [])
+                        },
+                        'feature_processing': entity_dict.get('feature_processing', []),
+                        'entity_type': 'Algorithm'
+                    }
+                    # 添加到实体列表
+                    entities.append({'algorithm_entity': algorithm_entity})
+                if not entities:
+                    logging.warning("没有找到任何算法实体，返回空列表")
+                else:
+                    logging.warning("返回 %d 个算法实体", len(entities))
+                return entities
             except (mysql.connector.Error, MySQLError) as e:
                 retry_count += 1
                 logging.error(f"从MySQL获取实体时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                
                 # 如果是连接问题，等待后重试
                 time.sleep(5)
-                
                 # 尝试重新连接
                 self._connect_mysql()
-                
                 if retry_count >= max_retries:
                     logging.error("重试次数已达上限，无法从数据库获取实体")
                     break
-        except Exception as e:
-            logging.error("从MySQL获取实体时出错: %s", str(e))
-            import traceback
-            logging.error(traceback.format_exc())
+            except Exception as e:
+                logging.error("从MySQL获取实体时出错: %s", str(e))
+                import traceback
+                logging.error(traceback.format_exc())
                 break
-            
-            return []
+        return []
             
     def get_all_relations(self):
         """
@@ -702,67 +657,53 @@ class DatabaseManager:
         """从MySQL获取所有演化关系"""
         max_retries = 3
         retry_count = 0
-        
         while retry_count < max_retries:
-        try:
-            # 检查连接是否已关闭
+            try:
+                # 检查连接是否已关闭
                 if not self._reconnect_if_needed():
                     logging.error("无法建立MySQL连接，等待5秒后重试")
                     retry_count += 1
                     time.sleep(5)
                     continue
-            
-            self.cursor.execute("""
-            SELECT relation_id, from_entity, to_entity, relation_type, structure, 
-                   detail, evidence, confidence, from_entity_type, to_entity_type
-            FROM EvolutionRelations
-            """)
-            rows = self.cursor.fetchall()
-            
-            relations = []
-            column_names = [description[0] for description in self.cursor.description]
-            
-            logging.warning("从MySQL获取到 %d 行关系数据", len(rows))
-            
-            for row in rows:
-                # 将行数据转换为字典
-                relation_dict = dict(zip(column_names, row))
-                
-                # 确保confidence是浮点数
-                if 'confidence' in relation_dict and relation_dict['confidence'] is not None:
-                    relation_dict['confidence'] = float(relation_dict['confidence'])
-                
-                relations.append(relation_dict)
-                
-            if not relations:
-                logging.warning("没有找到任何关系，返回空列表")
-            else:
-                logging.warning("返回 %d 个关系，示例: %s", 
-                             len(relations), 
-                             json.dumps(relations[0], ensure_ascii=False) if relations else "无")
-                
-            return relations
-            
+                self.cursor.execute("""
+                SELECT relation_id, from_entity, to_entity, relation_type, structure, 
+                       detail, evidence, confidence, from_entity_type, to_entity_type
+                FROMEvolutionRelations
+                """)
+                rows = self.cursor.fetchall()
+                relations = []
+                column_names = [description[0] for description in self.cursor.description]
+                logging.warning("从MySQL获取到 %d 行关系数据", len(rows))
+                for row in rows:
+                    # 将行数据转换为字典
+                    relation_dict = dict(zip(column_names, row))
+                    # 确保confidence是浮点数
+                    if 'confidence' in relation_dict and relation_dict['confidence'] is not None:
+                        relation_dict['confidence'] = float(relation_dict['confidence'])
+                    relations.append(relation_dict)
+                if not relations:
+                    logging.warning("没有找到任何关系，返回空列表")
+                else:
+                    logging.warning("返回 %d 个关系，示例: %s", 
+                                 len(relations), 
+                                 json.dumps(relations[0], ensure_ascii=False) if relations else "无")
+                return relations
             except (mysql.connector.Error, MySQLError) as e:
                 retry_count += 1
                 logging.error(f"从MySQL获取关系时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                
                 # 如果是连接问题，等待后重试
                 time.sleep(5)
-                
                 # 尝试重新连接
                 self._connect_mysql()
-                
                 if retry_count >= max_retries:
                     logging.error("重试次数已达上限，无法从数据库获取关系")
                     break
-        except Exception as e:
-            logging.error("从MySQL获取关系时出错: %s", str(e))
-            import traceback
-            logging.error(traceback.format_exc())
+            except Exception as e:
+                logging.error("从MySQL获取关系时出错: %s", str(e))
+                import traceback
+                logging.error(traceback.format_exc())
                 break
-            
-            return []
+        return []
     
     def update_entity(self, entity_id, updated_data):
         """
@@ -1053,52 +994,40 @@ class DatabaseManager:
             reconnected = self._reconnect_if_needed()
             if reconnected:
                 logging.info(f"已重新连接MySQL，准备更新任务 {task_id} 的状态")
-            
             # 准备更新字段
             update_fields = []
             params = []
-            
             if status is not None:
                 update_fields.append("status = %s")
                 params.append(status)
-            
             if current_stage is not None:
                 update_fields.append("current_stage = %s")
                 params.append(current_stage)
-            
             if progress is not None:
                 update_fields.append("progress = %s")
                 params.append(progress)
-            
             if current_file is not None:
                 update_fields.append("current_file = %s")
                 params.append(current_file)
-            
             if message is not None:
                 update_fields.append("message = %s")
                 params.append(message)
-            
             # 更新修改时间
             update_fields.append("update_time = %s")
             params.append(datetime.datetime.now())
-            
             # 如果标记为完成，设置结束时间
             if completed is not None and completed:
                 update_fields.append("end_time = %s")
                 params.append(datetime.datetime.now())
-            
             if not update_fields:
                 logging.warning(f"没有提供任何更新字段，任务 {task_id} 的状态未更新")
                 return False
-            
             # 构建SQL语句
             sql = f"UPDATE ProcessingStatus SET {', '.join(update_fields)} WHERE task_id = %s"
             params.append(task_id)
-            
             # 使用重试机制执行更新
             max_retries = 3
             retry_count = 0
-            
             while retry_count < max_retries:
                 try:
                     # 检查连接状态
@@ -1106,15 +1035,13 @@ class DatabaseManager:
                         reconnected = self._reconnect_if_needed()
                         if reconnected:
                             logging.info(f"第 {retry_count+1} 次尝试重连成功，准备更新任务状态")
-                    
                     # 执行更新
                     self.cursor.execute(sql, tuple(params))
-            self.conn.commit()
-                    
+                    self.conn.commit()
                     # 检查更新是否成功
                     if self.cursor.rowcount > 0:
                         logging.info(f"成功更新任务 {task_id} 的处理状态")
-            return True
+                        return True
                     else:
                         logging.warning(f"未找到任务 {task_id} 或状态未发生变化")
                         # 如果任务不存在，尝试创建
@@ -1123,20 +1050,16 @@ class DatabaseManager:
                             return self._create_processing_task(task_id, status, current_stage, progress, 
                                                                current_file, message, completed)
                         return False
-                
                 except mysql.connector.Error as err:
                     retry_count += 1
                     logging.error(f"更新任务状态时出错 (尝试 {retry_count}/{max_retries}): {str(err)}")
-                    
                     if retry_count < max_retries:
                         logging.info(f"5秒后重试更新任务状态...")
                         time.sleep(5)
                     else:
                         logging.error(f"已达到最大重试次数，无法更新任务 {task_id} 的状态")
                         return False
-            
             return False
-    
         except Exception as e:
             logging.error(f"更新任务 {task_id} 的处理状态时发生错误: {str(e)}")
             return False
@@ -1295,66 +1218,66 @@ class DatabaseManager:
             if row:
             # 解析JSON字符串为Python对象
                 try:
-            authors = json.loads(row[4]) if row[4] else []
+                    authors = json.loads(row[4]) if row[4] else []
                 except:
                     authors = []
                 try:
-            dataset = json.loads(row[6]) if row[6] else []
+                    dataset = json.loads(row[6]) if row[6] else []
                 except:
                     dataset = []
                 try:
-            metrics = json.loads(row[7]) if row[7] else []
+                    metrics = json.loads(row[7]) if row[7] else []
                 except:
                     metrics = []
                 try:
-            arch_components = json.loads(row[8]) if row[8] else []
+                    arch_components = json.loads(row[8]) if row[8] else []
                 except:
                     arch_components = []
                 try:
-            arch_connections = json.loads(row[9]) if row[9] else []
+                    arch_connections = json.loads(row[9]) if row[9] else []
                 except:
                     arch_connections = []
                 try:
-            arch_mechanisms = json.loads(row[10]) if row[10] else []
+                    arch_mechanisms = json.loads(row[10]) if row[10] else []
                 except:
                     arch_mechanisms = []
                 try:
-            meth_training = json.loads(row[11]) if row[11] else []
+                    meth_training = json.loads(row[11]) if row[11] else []
                 except:
                     meth_training = []
                 try:
-            meth_params = json.loads(row[12]) if row[12] else []
+                    meth_params = json.loads(row[12]) if row[12] else []
                 except:
                     meth_params = []
                 try:
-            feature_processing = json.loads(row[13]) if row[13] else []
+                    feature_processing = json.loads(row[13]) if row[13] else []
                 except:
                     feature_processing = []
                 # 构建算法实体对象
-            entity = {
-                'algorithm_entity': {
-                    'algorithm_id': row[0],
-                        'entity_id': row[0],
-                    'name': row[1],
-                    'title': row[2],
-                    'year': row[3],
-                    'authors': authors,
-                    'task': row[5],
-                    'dataset': dataset,
-                    'metrics': metrics,
-                    'architecture': {
-                        'components': arch_components,
-                        'connections': arch_connections,
-                        'mechanisms': arch_mechanisms
-                    },
-                    'methodology': {
-                        'training_strategy': meth_training,
-                        'parameter_tuning': meth_params
-                    },
-                    'feature_processing': feature_processing,
-                        'entity_type': 'Algorithm'
+                entity = {
+                    'algorithm_entity': {
+                        'algorithm_id': row[0],
+                            'entity_id': row[0],
+                        'name': row[1],
+                        'title': row[2],
+                        'year': row[3],
+                        'authors': authors,
+                        'task': row[5],
+                        'dataset': dataset,
+                        'metrics': metrics,
+                        'architecture': {
+                            'components': arch_components,
+                            'connections': arch_connections,
+                            'mechanisms': arch_mechanisms
+                        },
+                        'methodology': {
+                            'training_strategy': meth_training,
+                            'parameter_tuning': meth_params
+                        },
+                        'feature_processing': feature_processing,
+                            'entity_type': 'Algorithm'
+                        }
                     }
-                }
                 # 获取演化关系
                 relations = self._get_entity_relations(entity_id)
                 entity['algorithm_entity']['evolution_relations'] = relations
@@ -1629,24 +1552,24 @@ class DatabaseManager:
             self.cursor.execute('SELECT COUNT(*) FROM Algorithms WHERE algorithm_id = %s', (algorithm_id,))
             if self.cursor.fetchone()[0] > 0:
                 # 更新现有记录
-            sql = '''
-                UPDATE Algorithms SET
-                    name = %s, title = %s, year = %s, authors = %s,
-                    task = %s, dataset = %s, metrics = %s,
-                    architecture_components = %s, architecture_connections = %s,
-                    architecture_mechanisms = %s, methodology_training_strategy = %s,
-                    methodology_parameter_tuning = %s, feature_processing = %s,
-                    entity_type = %s
-                WHERE algorithm_id = %s
-                '''
-            self.cursor.execute(sql, (
-                    name, title, year, authors,
-                    task, dataset, metrics,
-                    arch_components, arch_connections,
-                    arch_mechanisms, training_strategy,
-                    parameter_tuning, feature_processing,
-                    'Algorithm', algorithm_id
-                ))
+                sql = '''
+                    UPDATE Algorithms SET
+                        name = %s, title = %s, year = %s, authors = %s,
+                        task = %s, dataset = %s, metrics = %s,
+                        architecture_components = %s, architecture_connections = %s,
+                        architecture_mechanisms = %s, methodology_training_strategy = %s,
+                        methodology_parameter_tuning = %s, feature_processing = %s,
+                        entity_type = %s
+                    WHERE algorithm_id = %s
+                    '''
+                self.cursor.execute(sql, (
+                        name, title, year, authors,
+                        task, dataset, metrics,
+                        arch_components, arch_connections,
+                        arch_mechanisms, training_strategy,
+                        parameter_tuning, feature_processing,
+                        'Algorithm', algorithm_id
+                    ))
                 logging.info(f"更新算法: {algorithm_id}")
             else:
                 # 创建新记录
@@ -1715,18 +1638,18 @@ class DatabaseManager:
             self.cursor.execute('SELECT COUNT(*) FROM Datasets WHERE dataset_id = %s', (dataset_id,))
             if self.cursor.fetchone()[0] > 0:
                 # 更新现有记录
-            sql = '''
-                UPDATE Datasets SET
-                    name = %s, description = %s, domain = %s,
-                    size = %s, year = %s, creators = %s,
-                    entity_type = %s
-                WHERE dataset_id = %s
-                '''
-            self.cursor.execute(sql, (
-                    name, description, domain,
-                    size, year, creators,
-                    'Dataset', dataset_id
-                ))
+                sql = '''
+                    UPDATE Datasets SET
+                        name = %s, description = %s, domain = %s,
+                        size = %s, year = %s, creators = %s,
+                        entity_type = %s
+                    WHERE dataset_id = %s
+                    '''
+                self.cursor.execute(sql, (
+                        name, description, domain,
+                        size, year, creators,
+                        'Dataset', dataset_id
+                    ))
                 logging.info(f"更新数据集: {dataset_id}")
             else:
                 # 创建新记录
@@ -1811,7 +1734,6 @@ class DatabaseManager:
         """获取所有数据集实体"""
         max_retries = 3
         retry_count = 0
-        
         while retry_count < max_retries:
             try:
                 # 检查连接状态
@@ -1820,45 +1742,37 @@ class DatabaseManager:
                     retry_count += 1
                     time.sleep(5)
                     continue
-                
-            self.cursor.execute('SELECT * FROM Datasets')
-            result = self.cursor.fetchall()
-            if result:
-                # 转换结果为字典列表
-                datasets = []
-                for row in result:
-                    dataset = {}
-                    for i, col in enumerate(self.cursor.description):
-                        dataset[col[0]] = row[i]
-                    datasets.append(dataset)
-                return datasets
-            return []
+                self.cursor.execute('SELECT * FROM Datasets')
+                result = self.cursor.fetchall()
+                if result:
+                    # 转换结果为字典列表
+                    datasets = []
+                    for row in result:
+                        dataset = {}
+                        for i, col in enumerate(self.cursor.description):
+                            dataset[col[0]] = row[i]
+                        datasets.append(dataset)
+                    return datasets
+                return []
             except (mysql.connector.Error, MySQLError) as e:
                 retry_count += 1
                 logging.error(f"获取数据集列表时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                
-                # 如果是连接问题，等待后重试
                 time.sleep(5)
-                
-                # 尝试重新连接
                 self._connect_mysql()
-                
                 if retry_count >= max_retries:
                     logging.error("重试次数已达上限，无法获取数据集列表")
                     break
-        except Exception as e:
-            logging.error(f"获取数据集列表时出错: {str(e)}")
+            except Exception as e:
+                logging.error(f"获取数据集列表时出错: {str(e)}")
                 import traceback
                 logging.error(traceback.format_exc())
                 break
-        
-            return []
-            
+        return []
+
     def get_all_metrics(self):
         """获取所有评估指标实体"""
         max_retries = 3
         retry_count = 0
-        
         while retry_count < max_retries:
             try:
                 # 检查连接状态
@@ -1867,40 +1781,33 @@ class DatabaseManager:
                     retry_count += 1
                     time.sleep(5)
                     continue
-                
-            self.cursor.execute('SELECT * FROM Metrics')
-            result = self.cursor.fetchall()
-            if result:
-                # 转换结果为字典列表
-                metrics = []
-                for row in result:
-                    metric = {}
-                    for i, col in enumerate(self.cursor.description):
-                        metric[col[0]] = row[i]
-                    metrics.append(metric)
-                return metrics
-            return []
+                self.cursor.execute('SELECT * FROM Metrics')
+                result = self.cursor.fetchall()
+                if result:
+                    # 转换结果为字典列表
+                    metrics = []
+                    for row in result:
+                        metric = {}
+                        for i, col in enumerate(self.cursor.description):
+                            metric[col[0]] = row[i]
+                        metrics.append(metric)
+                    return metrics
+                return []
             except (mysql.connector.Error, MySQLError) as e:
                 retry_count += 1
                 logging.error(f"获取评估指标列表时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                
-                # 如果是连接问题，等待后重试
                 time.sleep(5)
-                
-                # 尝试重新连接
                 self._connect_mysql()
-                
                 if retry_count >= max_retries:
                     logging.error("重试次数已达上限，无法获取评估指标列表")
                     break
-        except Exception as e:
-            logging.error(f"获取评估指标列表时出错: {str(e)}")
+            except Exception as e:
+                logging.error(f"获取评估指标列表时出错: {str(e)}")
                 import traceback
                 logging.error(traceback.format_exc())
                 break
-        
-            return []
-            
+        return []
+
     def get_dataset_by_id(self, dataset_id):
         """获取指定ID的数据集详细信息"""
         try:
@@ -1959,26 +1866,20 @@ class DatabaseManager:
             """
             self.cursor.execute(query, (entity_id,))
             rows = self.cursor.fetchall()
-            
             relations = []
             column_names = [description[0] for description in self.cursor.description]
-            
             for row in rows:
                 relation = {}
                 for i, col in enumerate(column_names):
                     relation[col] = row[i]
-                    
                 if col == 'confidence' and relation[col] is not None:
                     relation[col] = float(relation[col])
-                
                 relations.append(relation)
-                
             return relations
-            
         except Exception as e:
             logging.error(f"获取传入关系时出错: {str(e)}")
             return []
-            
+
     def get_outgoing_relations(self, entity_id):
         """获取从指定实体出发的所有关系"""
         if self.db_type == 'mysql':
@@ -1998,22 +1899,16 @@ class DatabaseManager:
             """
             self.cursor.execute(query, (entity_id,))
             rows = self.cursor.fetchall()
-            
             relations = []
             column_names = [description[0] for description in self.cursor.description]
-            
             for row in rows:
                 relation = {}
                 for i, col in enumerate(column_names):
                     relation[col] = row[i]
-                    
                 if col == 'confidence' and relation[col] is not None:
                     relation[col] = float(relation[col])
-                
                 relations.append(relation)
-                
             return relations
-            
         except Exception as e:
             logging.error(f"获取传出关系时出错: {str(e)}")
             return []
