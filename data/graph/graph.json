@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "ALGES_2015",
+      "label": "ALGES",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "EXPRESSIONTREE_2015",
+      "label": "ExpressionTree",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "MATHDQN_2018",
+      "label": "MathDQN",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "AI2_2014",
+      "label": "AI2",
+      "type": "Dataset",
+      "description": "",
+      "domain": "Arithmetic Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MATH23K_2014",
+      "label": "Math23K",
+      "type": "Dataset",
+      "description": "",
+      "domain": "Arithmetic Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACCURACY_2014",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Proportion of correctly solved problems",
+      "category": "",
+      "node_type": "Metric"
+    }
+  ],
+  "edges": []
+}

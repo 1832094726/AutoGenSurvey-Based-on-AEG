@@ -1,4 +1,5 @@
 {
+  "task_id": "task_1747921466_9c5d8c49",
   "entities": [
     {
       "algorithm_entity": {
@@ -171,5 +172,9 @@
       }
     }
   ],
-  "timestamp": "2025-05-22T21:46:14.524616"
+  "processed_files": [
+    "The Gap of Semantic Parsing A Survey on Automatic(2019).pdf"
+  ],
+  "progress": 0.3,
+  "timestamp": "2025-05-22T21:46:14.545741"
 }

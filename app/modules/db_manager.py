@@ -668,7 +668,7 @@ class DatabaseManager:
                 self.cursor.execute("""
                 SELECT relation_id, from_entity, to_entity, relation_type, structure, 
                        detail, evidence, confidence, from_entity_type, to_entity_type
-                FROMEvolutionRelations
+                FROM EvolutionRelations
                 """)
                 rows = self.cursor.fetchall()
                 relations = []
@@ -1433,6 +1433,7 @@ class DatabaseManager:
             bool: 是否成功存储
         """
         try:
+            entity_type=None
             # 支持嵌套格式的实体
             if 'algorithm_entity' in entity:
                 actual_entity = entity['algorithm_entity']
@@ -1452,7 +1453,6 @@ class DatabaseManager:
             else:
                 # 支持直接格式的实体
                 actual_entity = entity
-            entity_type = entity.get('entity_type', 'Algorithm')
             
             # 确保ID存在且一致
             if 'algorithm_id' in actual_entity and 'entity_id' not in actual_entity:

@@ -404,56 +404,22 @@ def save_entity_to_cache(paper_id, entity_data):
 
 def extract_entities_from_paper(pdf_path, task_id=None, sub_progress=None):
     """
-    从论文中提取算法实体和要素
+    从论文中提取实体
     
     Args:
         pdf_path (str): PDF文件路径
-        task_id (str, optional): 任务ID，用于缓存标识
-        sub_progress (tuple, optional): 进度范围 (start, end)，用于在分批处理中更新进度
+        task_id (str, optional): 处理任务ID
+        sub_progress (tuple, optional): 子进度范围 (start, end)
         
     Returns:
-        list: 提取的实体列表
+        Tuple[List[Dict], bool]: 提取的实体列表和是否提取完成
     """
     if not os.path.exists(pdf_path):
         logging.error(f"文件不存在: {pdf_path}")
-        return []
+        return [], False
         
-    # 尝试从缓存获取
-    basename = os.path.basename(pdf_path)
-    filename_without_ext = os.path.splitext(basename)[0]
-    
-    # 创建缓存目录
-    cache_dir = os.path.join(Config.CACHE_DIR, "entities")
-    os.makedirs(cache_dir, exist_ok=True)
-    
-    # 生成缓存文件名
-    cache_key = f"task_{task_id}_{filename_without_ext}_entities.json" if task_id else f"{filename_without_ext}_entities.json"
-    cache_path = os.path.join(cache_dir, cache_key)
-    
-    # 检查缓存是否存在
-    if os.path.exists(cache_path):
-        try:
-            with open(cache_path, 'r', encoding='utf-8') as f:
-                cache_data = json.load(f)
-                logging.info(f"从缓存加载实体数据: {cache_path}")
-                
-                # 检查实体提取是否完整
-                is_complete = True
-                for entity in cache_data:
-                    if entity.get('is_complete', False) == False:
-                        is_complete = False
-                        break
-                
-                if is_complete:
-                    logging.info(f"所有实体数据已完成提取，共 {len(cache_data)} 个实体")
-                    return cache_data
-                else:
-                    logging.info(f"实体数据提取不完整，将继续提取...")
-                    # 此处不直接返回，而是继续处理，使用已有数据作为历史记录
-        except Exception as e:
-            logging.error(f"读取缓存文件时出错: {str(e)}")
-            
     # 更新处理状态
+    basename = os.path.basename(pdf_path)
     if task_id and sub_progress:
         start_progress, end_progress = sub_progress
         current_progress = start_progress + (end_progress - start_progress) * 0.3
@@ -470,31 +436,25 @@ def extract_entities_from_paper(pdf_path, task_id=None, sub_progress=None):
     entities, is_complete = extract_paper_entities(
         pdf_path, 
         model_name=Config.DEFAULT_MODEL,
-        task_id=task_id
+        task_id=task_id,
+        batch_size=1
     )
     
-    # 如果提取成功
-    if entities:
-        # 缓存提取的实体
-        with open(cache_path, 'w', encoding='utf-8') as f:
-            json.dump(entities, f, ensure_ascii=False, indent=2)
-        logging.info(f"已提取 {len(entities)} 个实体，已缓存到: {cache_path}")
-        
-        # 更新处理状态
-        if task_id and sub_progress:
-            start_progress, end_progress = sub_progress
-            current_progress = start_progress + (end_progress - start_progress) * 0.7
-            db_manager.update_processing_status(
-                task_id=task_id,
-                current_stage='实体提取完成',
-                progress=current_progress,
-                current_file=basename,
-                message=f"已从 {basename} 中提取 {len(entities)} 个实体"
-            )
-    else:
+    # 如果提取成功，更新处理状态
+    if entities and task_id and sub_progress:
+        start_progress, end_progress = sub_progress
+        current_progress = start_progress + (end_progress - start_progress) * 0.7
+        db_manager.update_processing_status(
+            task_id=task_id,
+            current_stage='实体提取完成',
+            progress=current_progress,
+            current_file=basename,
+            message=f"已从 {basename} 中提取 {len(entities)} 个实体"
+        )
+    elif not entities:
         logging.warning(f"未能从 {pdf_path} 提取任何实体")
     
-    return entities
+    return entities, is_complete
 
 def _clean_json_string(json_str):
     """清理和修复常见的JSON格式错误"""
@@ -690,7 +650,7 @@ def process_papers_and_extract_data(review_pdf_path, task_id=None, citation_path
             )
         
         # 从综述文章中提取实体
-        review_entities = extract_entities_from_paper(review_pdf_path, task_id)
+        review_entities, _ = extract_entities_from_paper(review_pdf_path, task_id)
         if review_entities:
             entities.extend(review_entities)
             processed_files.add(review_basename)
@@ -851,7 +811,7 @@ def process_papers_and_extract_data(review_pdf_path, task_id=None, citation_path
             # 保存到数据库
             if task_id:
                 if entity_type != 'Unknown':
-                    db_manager.save_entity(entity_data, task_id, entity_type)
+                    db_manager.store_algorithm_entity(entity_data)
                     stored_count += 1
                 else:
                     skipped_count += 1
@@ -902,7 +862,7 @@ def extract_relationships_with_context(entities, pdf_path, task_id=None, existin
         logging.info("实体数量不足，无法提取关系")
         return []
     
-    from app.modules.agents import extract_evolution_relations_from_paper
+    from app.modules.agents import extract_evolution_relations
     
     # 更新处理状态
     if task_id:
@@ -916,17 +876,17 @@ def extract_relationships_with_context(entities, pdf_path, task_id=None, existin
     # 使用现有关系作为上下文继续提取
     if existing_relations:
         # 创建一个包含已存在关系信息的提示
-        relations = extract_evolution_relations_from_paper(
-            pdf_path, 
-            entities, 
+        relations = extract_evolution_relations(
+            pdf_path=pdf_path, 
+            entities=entities, 
             task_id=task_id, 
             previous_relations=existing_relations
         )
     else:
         # 第一次提取
-        relations = extract_evolution_relations_from_paper(
-            pdf_path, 
-            entities, 
+        relations = extract_evolution_relations(
+            pdf_path=pdf_path, 
+            entities=entities, 
             task_id=task_id
         )
     

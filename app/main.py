@@ -107,8 +107,8 @@ def process_papers():
         # 确保上传目录存在
         os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
         
-        # 生成安全的文件名，使用task_id避免冲突
-        safe_filename = f"{task_id}_{Path(original_filename).name}"  # 使用任务ID前缀避免冲突
+        # 不要生成安全的文件名
+        safe_filename = f"{Path(original_filename).name}"  # 使用任务ID前缀避免冲突
         
         # 直接保存文件到目标位置
         filename = os.path.join(Config.UPLOAD_FOLDER, safe_filename)

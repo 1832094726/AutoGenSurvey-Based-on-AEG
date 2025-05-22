@@ -1372,43 +1372,43 @@ def extract_evolution_relations(entities, pdf_path=None, task_id=None, previous_
                 # 验证关系格式并转换为标准格式
                 valid_relations = []
                 for relation in relations:
-                            # 验证基本结构
-                            if not isinstance(relation, dict):
-                                continue
-                            if 'from_entities' not in relation or 'to_entities' not in relation:
-                                continue
-                            if not isinstance(relation['from_entities'], list) or not isinstance(relation['to_entities'], list):
-                                continue
-                            if len(relation['from_entities']) == 0 or len(relation['to_entities']) == 0:
-                                continue
-                            # 验证实体ID
-                            valid = True
-                            for from_entity in relation['from_entities']:
-                                if not isinstance(from_entity, dict) or 'entity_id' not in from_entity:
-                                    valid = False
-                                    break
+                    # 验证基本结构
+                    if not isinstance(relation, dict):
+                        continue
+                    if 'from_entities' not in relation or 'to_entities' not in relation:
+                        continue
+                    if not isinstance(relation['from_entities'], list) or not isinstance(relation['to_entities'], list):
+                        continue
+                    if len(relation['from_entities']) == 0 or len(relation['to_entities']) == 0:
+                        continue
+                    # 验证实体ID
+                    valid = True
+                    for from_entity in relation['from_entities']:
+                        if not isinstance(from_entity, dict) or 'entity_id' not in from_entity:
+                            valid = False
+                            break
+                    for to_entity in relation['to_entities']:
+                        if not isinstance(to_entity, dict) or 'entity_id' not in to_entity:
+                            valid = False
+                            break
+                    if valid:
+                        # 将每个from_entity和to_entity组合都创建一个单独的关系（扁平化）
+                        for from_entity in relation['from_entities']:
                             for to_entity in relation['to_entities']:
-                                if not isinstance(to_entity, dict) or 'entity_id' not in to_entity:
-                                    valid = False
-                                    break
-                            if valid:
-                                # 将每个from_entity和to_entity组合都创建一个单独的关系（扁平化）
-                                for from_entity in relation['from_entities']:
-                                    for to_entity in relation['to_entities']:
-                                        # 创建数据库格式的关系对象
-                                        db_relation = {
-                                            "from_entity": from_entity["entity_id"],
-                                            "to_entity": to_entity["entity_id"],
-                                            "relation_type": relation.get("relation_type", ""),
-                                            "structure": relation.get("structure", ""),
-                                            "detail": relation.get("detail", ""),
-                                            "evidence": relation.get("evidence", ""),
-                                            "confidence": relation.get("confidence", 0.0),
-                                            "from_entity_type": from_entity.get("entity_type", "Algorithm"),
+                                # 创建数据库格式的关系对象
+                                db_relation = {
+                                    "from_entity": from_entity["entity_id"],
+                                    "to_entity": to_entity["entity_id"],
+                                    "relation_type": relation.get("relation_type", ""),
+                                    "structure": relation.get("structure", ""),
+                                    "detail": relation.get("detail", ""),
+                                    "evidence": relation.get("evidence", ""),
+                                    "confidence": relation.get("confidence", 0.0),
+                                    "from_entity_type": from_entity.get("entity_type", "Algorithm"),
                                     "to_entity_type": to_entity.get("entity_type", "Algorithm"),
                                     "extraction_complete": is_complete
-                                        }
-                                        valid_relations.append(db_relation)
+                                }
+                                valid_relations.append(db_relation)
                 # 合并之前的关系和新提取的关系
                 final_relations = []
                 if previous_relations:
@@ -1427,9 +1427,10 @@ def extract_evolution_relations(entities, pdf_path=None, task_id=None, previous_
                     logging.info(f"合并后有 {len(final_relations)} 条关系，其中 {len(previous_relations)} 条来自之前的结果，{len(final_relations) - len(previous_relations)} 条是新提取的")
                 else:
                     final_relations = valid_relations
-                        # 缓存结果
-                    with open(cache_file, 'w', encoding='utf-8') as f:
-                            json.dump(final_relations, f, indent=2, ensure_ascii=False)
+                
+                # 缓存结果
+                with open(cache_file, 'w', encoding='utf-8') as f:
+                    json.dump(final_relations, f, indent=2, ensure_ascii=False)
                 logging.info(f"成功缓存 {len(final_relations)} 条关系到 {cache_file}")
                 return final_relations
             else:
@@ -1659,11 +1660,14 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
         task_id (str, optional): 任务ID
     
     Returns:
-        List[Dict]: 提取的实体列表
+        Tuple[List[Dict], bool]: 提取的实体列表和是否完成提取
     """
+    # 初始化is_complete变量，确保所有执行路径都有值
+    is_complete = False
+    
     if not pdf_paths:
         logging.warning("没有提供PDF文件路径")
-        return []
+        return [], False
     
     if isinstance(pdf_paths, str):
         pdf_paths = [pdf_paths]
@@ -1693,7 +1697,7 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
     
     if not valid_pdf_paths:
         logging.warning("没有找到有效的PDF文件")
-        return []
+        return [], False
     
     # 确保缓存目录存在
     cache_dir = os.path.join(Config.CACHE_DIR, "entities")
@@ -1737,23 +1741,27 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
                 cache_key = f"{normalized_basename}_entities.json"
                 cache_path = os.path.join(cache_dir, cache_key)
                 
+                # 初始化缓存实体列表
+                cache_entities = []
+                
                 if os.path.exists(cache_path) and not force_reprocess:
                     try:
                         with open(cache_path, 'r', encoding='utf-8') as f:
                             cache_data = json.load(f)
                             if isinstance(cache_data, dict) and 'entities' in cache_data:
-                                entities = cache_data['entities']
+                                cache_entities = cache_data['entities']
                             else:
-                                entities = cache_data
+                                cache_entities = cache_data
                             
-                            if entities:
-                                logging.info(f"从缓存加载实体: {cache_path}, 共 {len(entities)} 个实体")
-                                extracted_entities.extend(entities)
+                            if cache_entities:
+                                logging.info(f"从缓存加载实体: {cache_path}, 共 {len(cache_entities)} 个实体")
+                                extracted_entities.extend(cache_entities)
                                 processed_files.add(normalized_basename)
                                 processed_count += 1
                                 continue
                     except Exception as e:
                         logging.error(f"读取缓存失败: {str(e)}")
+                        cache_entities = []
                 
                 # 如果没有缓存或缓存无效，则提取实体
                 logging.info(f"正在处理文件: {basename}")
@@ -1778,8 +1786,13 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
                         processed_count += 1
                         continue
                         
-                    # 生成提取实体的提示
-                    prompt = generate_entity_extraction_prompt(paper_text, model_name)
+                    # 生成提取实体的提示，传递缓存的实体
+                    prompt = generate_entity_extraction_prompt(
+                        paper_text, 
+                        model_name, 
+                        previous_entities=cache_entities, 
+                        partial_extraction=len(cache_entities) > 0
+                    )
                     
                     # 配置Agent（如果需要）
                     agent = None
@@ -1787,12 +1800,19 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
                         agent = setup_qwen_agent(pdf_path)
                     
                     # 调用提取函数
-                    entities, is_complete = extract_entities_with_model(
+                    new_entities, is_complete = extract_entities_with_model(
                         prompt, 
                         model_name, 
                         max_attempts,
                         agent=agent
                     )
+                    
+                    # 合并缓存实体和新提取的实体
+                    entities = []
+                    if cache_entities:
+                        entities.extend(cache_entities)
+                    if new_entities:
+                        entities.extend(new_entities)
                     
                     # 如果提取成功
                     if entities:
@@ -1839,18 +1859,21 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
             cache_key = f"{normalized_basename}_entities.json"
             cache_path = os.path.join(cache_dir, cache_key)
             
+            # 初始化缓存实体列表
+            cache_entities = []
+            
             if os.path.exists(cache_path) and not force_reprocess:
                 try:
                     with open(cache_path, 'r', encoding='utf-8') as f:
                         cache_data = json.load(f)
                         if isinstance(cache_data, dict) and 'entities' in cache_data:
-                            entities = cache_data['entities']
+                            cache_entities = cache_data['entities']
                         else:
-                            entities = cache_data
+                            cache_entities = cache_data
                         
-                        if entities:
-                            logging.info(f"从缓存加载实体: {cache_path}, 共 {len(entities)} 个实体")
-                            extracted_entities.extend(entities)
+                        if cache_entities:
+                            logging.info(f"从缓存加载实体: {cache_path}, 共 {len(cache_entities)} 个实体")
+                            extracted_entities.extend(cache_entities)
                             processed_files.add(normalized_basename)
                             processed_count += 1
                             
@@ -1862,12 +1885,13 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
                                     current_stage=f'处理文件 {processed_count}/{total_files}',
                                     progress=file_progress,
                                     current_file=basename,
-                                    message=f"从缓存加载实体，已提取 {len(entities)} 个实体"
+                                    message=f"从缓存加载实体，已提取 {len(cache_entities)} 个实体"
                                 )
                             
                             continue
                 except Exception as e:
                     logging.error(f"读取缓存失败: {str(e)}")
+                    cache_entities = []
             
             # 如果没有缓存或缓存无效，则提取实体
             logging.info(f"正在处理文件: {basename}")
@@ -1892,8 +1916,13 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
                     processed_count += 1
                     continue
                 
-                # 生成提取实体的提示
-                prompt = generate_entity_extraction_prompt(paper_text, model_name)
+                # 生成提取实体的提示，传递缓存的实体
+                prompt = generate_entity_extraction_prompt(
+                    paper_text, 
+                    model_name, 
+                    previous_entities=cache_entities, 
+                    partial_extraction=len(cache_entities) > 0
+                )
                 
                 # 配置Agent（如果需要）
                 agent = None
@@ -1901,12 +1930,19 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
                     agent = setup_qwen_agent(pdf_path)
                 
                 # 调用提取函数
-                entities, _ = extract_entities_with_model(
+                new_entities, is_complete = extract_entities_with_model(
                     prompt, 
                     model_name, 
                     max_attempts,
                     agent=agent
                 )
+                
+                # 合并缓存实体和新提取的实体
+                entities = []
+                if cache_entities:
+                    entities.extend(cache_entities)
+                if new_entities:
+                    entities.extend(new_entities)
                 
                 # 如果提取成功
                 if entities:
@@ -1955,7 +1991,11 @@ def extract_paper_entities(pdf_paths, max_attempts=3, batch_size=20, force_repro
             entity_ids.add(entity_id)
             unique_entities.append(entity)
     logging.info(f"最终提取了 {len(unique_entities)} 个唯一实体，来自 {len(pdf_paths)} 个原始PDF文件")
-    return unique_entities
+    
+    # 设置完成状态 - 只要有实体被提取，我们就认为是完成的
+    is_complete = len(unique_entities) > 0
+    
+    return unique_entities, is_complete
 
 def test_json_extraction_and_completion_status(text):
     """
