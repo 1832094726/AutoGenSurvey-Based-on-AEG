@@ -14,6 +14,7 @@ import hashlib
 import traceback
 import shutil
 from app.modules.db_manager import db_manager  # 导入db_manager
+import tempfile
 
 # 设置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -29,7 +30,37 @@ def check_extraction_complete(content):
     Returns:
         bool: 提取是否完成
     """
-    is_complete = "EXTRACTION_COMPLETE: true" in content.lower()
+    # 使用更强大的模式匹配，适应不同格式的完成标志
+    patterns = [
+        r'EXTRACTION_COMPLETE:\s*true',
+        r'EXTRACTION[_\s-]*COMPLETE\s*[:：]\s*true',
+        r'提取\s*完成\s*[:：]\s*true',
+        r'完成\s*提取\s*[:：]\s*true',
+        r'提取.*?已.*?完成',
+        r'已.*?完成.*?提取'
+    ]
+    
+    # 检查所有可能的模式
+    is_complete = False
+    for pattern in patterns:
+        if re.search(pattern, content):
+            is_complete = True
+            break
+    
+    # 同时检查是否包含未完成标志
+    incomplete_patterns = [
+        r'EXTRACTION_COMPLETE:\s*false',
+        r'EXTRACTION[_\s-]*COMPLETE\s*[:：]\s*false',
+        r'提取\s*未\s*完成',
+        r'需要\s*继续\s*提取'
+    ]
+    
+    # 如果同时找到完成和未完成标志，以未完成为准
+    for pattern in incomplete_patterns:
+        if re.search(pattern, content):
+            is_complete = False
+            break
+    
     logging.info(f"提取完成状态: {'完成' if is_complete else '未完成'}")
     return is_complete
 
@@ -249,15 +280,14 @@ def extract_text_from_pdf(pdf_path, task_id=None):
                         在提取完成后，请加上一行单独的"EXTRACTION_COMPLETE: true"来表示你已完成提取整个文档。如果还有更多内容需要提取，则加上"EXTRACTION_COMPLETE: false"。'''
                     else:
                         user_prompt += '\n\n在提取完成后，请加上一行单独的"EXTRACTION_COMPLETE: true"来表示你已完成提取整个文档。如果还有更多内容需要提取，则加上"EXTRACTION_COMPLETE: false"。'
-                    
-                    # 构建消息
-                    messages = [
-                        {
-                            'role': 'system',
-                            'content': f'fileid://{file_id}'
-                        },
-                        {
-                            'role': 'user',
+                # 构建消息
+                messages = [
+                    {
+                        'role': 'system',
+                        'content': f'fileid://{file_id}'
+                    },
+                    {
+                        'role': 'user',
                             'content': user_prompt
                         }
                     ]

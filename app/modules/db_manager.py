@@ -1433,16 +1433,34 @@ class DatabaseManager:
             bool: 是否成功存储
         """
         try:
-            # 支持多种实体类型
+            # 支持嵌套格式的实体
+            if 'algorithm_entity' in entity:
+                actual_entity = entity['algorithm_entity']
+                entity_type = actual_entity.get('entity_type', 'Algorithm')
+                if 'algorithm_id' in actual_entity:
+                    actual_entity['entity_id'] = actual_entity['algorithm_id']
+            elif 'dataset_entity' in entity:
+                actual_entity = entity['dataset_entity']
+                entity_type = actual_entity.get('entity_type', 'Dataset')
+                if 'dataset_id' in actual_entity:
+                    actual_entity['entity_id'] = actual_entity['dataset_id']
+            elif 'metric_entity' in entity:
+                actual_entity = entity['metric_entity']
+                entity_type = actual_entity.get('entity_type', 'Metric')
+                if 'metric_id' in actual_entity:
+                    actual_entity['entity_id'] = actual_entity['metric_id']
+            else:
+                # 支持直接格式的实体
+                actual_entity = entity
             entity_type = entity.get('entity_type', 'Algorithm')
             
             # 确保ID存在且一致
-            if 'algorithm_id' in entity and 'entity_id' not in entity:
-                entity['entity_id'] = entity['algorithm_id'] 
-            if 'entity_id' in entity and 'algorithm_id' not in entity:
-                entity['algorithm_id'] = entity['entity_id']
+            if 'algorithm_id' in actual_entity and 'entity_id' not in actual_entity:
+                actual_entity['entity_id'] = actual_entity['algorithm_id'] 
+            if 'entity_id' in actual_entity and 'algorithm_id' not in actual_entity:
+                actual_entity['algorithm_id'] = actual_entity['entity_id']
             
-            entity_id = entity.get('entity_id', '')
+            entity_id = actual_entity.get('entity_id', '')
             if not entity_id:
                 logging.error("实体ID不能为空")
                 return False
@@ -1451,13 +1469,13 @@ class DatabaseManager:
             
             if entity_type == 'Algorithm':
                 # 存储算法实体
-                self._store_algorithm_mysql(entity)
+                self._store_algorithm_mysql(actual_entity)
             elif entity_type == 'Dataset':
                 # 存储数据集实体
-                self._store_dataset_mysql(entity)
+                self._store_dataset_mysql(actual_entity)
             elif entity_type == 'Metric':
                 # 存储评价指标实体
-                self._store_metric_mysql(entity)
+                self._store_metric_mysql(actual_entity)
             else:
                 logging.warning(f"未知实体类型: {entity_type}，跳过存储")
                 return False
