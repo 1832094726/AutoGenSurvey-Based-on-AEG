@@ -1,0 +1,19 @@
+2025-05-22 16:58:47,282 - INFO - 从文件 test_extraction_data.txt 测试提取功能
+2025-05-22 16:58:47,284 - INFO - 文件内容长度: 5106 字符
+2025-05-22 16:58:47,285 - INFO - 开始测试JSON提取和完成状态检测
+2025-05-22 16:58:47,289 - INFO - 提取完成状态: 未完成
+2025-05-22 16:58:47,291 - INFO - 完成状态检测结果: False
+2025-05-22 16:58:47,293 - INFO - 成功提取JSON，长度: 1134
+2025-05-22 16:58:47,294 - INFO - JSON预览: [
+  {
+    "from_entities": [
+      {
+        "entity_id": "ALGES",
+        "entity_type": "Algorithm"
+      }
+    ],
+    "to_entities": [
+      {
+        "entity_id": "ExpressionTree",
+        "entity...
+2025-05-22 16:58:47,296 - INFO - 解析到 2 个实体

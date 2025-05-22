@@ -49,26 +49,29 @@ def table():
 @main.route('/entity/<entity_id>')
 @main.route('/entities/<entity_id>')
 def entity_detail(entity_id):
-    """渲染实体详情页面"""
-    # 尝试从数据库获取实体信息
+    """实体详情页面"""
     entity = db_manager.get_entity_by_id(entity_id)
+    
     if not entity:
-        # 如果实体不存在，返回404
-        return render_template('404.html', message=f"实体 '{entity_id}' 不存在"), 404
-        
-    # 处理实体数据，确保正确的结构
+        return render_template('error.html', message=f"找不到ID为 {entity_id} 的实体")
+    
+    # 根据嵌套结构提取实体数据和类型
     if 'algorithm_entity' in entity:
         entity_data = entity['algorithm_entity']
-        entity_type = 'Algorithm'
+        entity_type = entity_data.get('entity_type', 'Algorithm')
     elif 'dataset_entity' in entity:
         entity_data = entity['dataset_entity']
-        entity_type = 'Dataset'
+        entity_type = entity_data.get('entity_type', 'Dataset')
     elif 'metric_entity' in entity:
         entity_data = entity['metric_entity']
-        entity_type = 'Metric'
+        entity_type = entity_data.get('entity_type', 'Metric')
     else:
         entity_data = entity
         entity_type = entity.get('entity_type', 'Unknown')
+    
+    # 确保entity_data中有entity_id
+    if 'entity_id' not in entity_data and entity_id:
+        entity_data['entity_id'] = entity_id
     
     # 获取与该实体相关的关系
     relations = db_manager.get_relations_by_entity(entity_id)
@@ -104,17 +107,11 @@ def process_papers():
         # 确保上传目录存在
         os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
         
-        # 使用原始文件名，不加前缀
-        safe_filename = Path(original_filename).name
-        
-        # 检查文件是否已存在，如果存在则使用唯一名称
-        filename = os.path.join(Config.UPLOAD_FOLDER, safe_filename)
-        if os.path.exists(filename):
-            # 如果文件已存在，才使用task_id前缀
-            safe_filename = f"{task_id}_{safe_filename}"
-            filename = os.path.join(Config.UPLOAD_FOLDER, safe_filename)
+        # 生成安全的文件名，使用task_id避免冲突
+        safe_filename = f"{task_id}_{Path(original_filename).name}"  # 使用任务ID前缀避免冲突
         
         # 直接保存文件到目标位置
+        filename = os.path.join(Config.UPLOAD_FOLDER, safe_filename)
         file.save(filename)
         temp_file_path = filename  # 记录临时文件路径以便后续清理
         
@@ -362,38 +359,38 @@ def load_or_build_graph_data(force_refresh=False):
             
         return {'nodes': [], 'edges': [], 'error': str(e), 'traceback': tb}
 
-@main.route('/api/graph/data')
-def get_graph_data():
-    """获取图数据API接口"""
-    force_refresh = request.args.get('refresh', '0') == '1'
-    graph_data = load_or_build_graph_data(force_refresh)
-    return jsonify(graph_data)
+# @main.route('/api/graph/data')
+# def get_graph_data():
+#     """获取图数据API接口"""
+#     force_refresh = request.args.get('refresh', '0') == '1'
+#     graph_data = load_or_build_graph_data(force_refresh)
+#     return jsonify(graph_data)
 
-@main.route('/api/graph/image')
-def get_graph_image():
-    """获取图片"""
-    try:
-        # 确保图数据目录存在
-        os.makedirs(Config.GRAPH_DATA_DIR, exist_ok=True)
-        
-        graph_image_path = os.path.join(Config.GRAPH_DATA_DIR, 'graph.png')
-        
-        if not os.path.exists(graph_image_path):
-            # 如果图片不存在，尝试从数据库创建
-            entities = db_manager.get_all_entities()
-            relations = db_manager.get_all_relations()
-            
-            if not entities:
-                return jsonify({'success': False, 'message': '没有可用的数据'}), 404
-            
-            graph = build_knowledge_graph(entities, relations)
-            visualize_graph(graph, output_path=graph_image_path)
-        
-        return send_from_directory(os.path.dirname(graph_image_path), os.path.basename(graph_image_path))
-        
-    except Exception as e:
-        logging.error(f"获取图片时出错: {str(e)}")
-        return jsonify({'success': False, 'message': f'获取图片时出错: {str(e)}'}), 500
+# @main.route('/api/graph/image')
+# def get_graph_image():
+#     """获取图片"""
+#     try:
+#         # 确保图数据目录存在
+#         os.makedirs(Config.GRAPH_DATA_DIR, exist_ok=True)
+#         
+#         graph_image_path = os.path.join(Config.GRAPH_DATA_DIR, 'graph.png')
+#         
+#         if not os.path.exists(graph_image_path):
+#             # 如果图片不存在，尝试从数据库创建
+#             entities = db_manager.get_all_entities()
+#             relations = db_manager.get_all_relations()
+#             
+#             if not entities:
+#                 return jsonify({'success': False, 'message': '没有可用的数据'}), 404
+#             
+#             graph = build_knowledge_graph(entities, relations)
+#             visualize_graph(graph, output_path=graph_image_path)
+#         
+#         return send_from_directory(os.path.dirname(graph_image_path), os.path.basename(graph_image_path))
+#         
+#     except Exception as e:
+#         logging.error(f"获取图片时出错: {str(e)}")
+#         return jsonify({'success': False, 'message': f'获取图片时出错: {str(e)}'}), 500
 
 @main.route('/api/import/table', methods=['POST'])
 def import_table_data():
