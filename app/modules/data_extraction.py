@@ -824,11 +824,32 @@ def process_papers_and_extract_data(review_pdf_path, task_id=None, citation_path
     if relations and task_id:
         for relation in relations:
             try:
+                # 检查关系格式并进行必要的转换
                 if 'source_id' in relation and 'target_id' in relation:
-                    db_manager.save_relation(relation, task_id)
-                    relation_count += 1
+                    # 将source_id/target_id格式转换为from_entity/to_entity格式
+                    transformed_relation = {
+                        'from_entity': relation['source_id'],
+                        'to_entity': relation['target_id'],
+                        'relation_type': relation.get('relation_type', 'Improve'),
+                        'structure': relation.get('structure', ''),
+                        'detail': relation.get('detail', ''),
+                        'evidence': relation.get('evidence', ''),
+                        'confidence': relation.get('confidence', 0.0),
+                        'from_entity_type': relation.get('source_type', 'Algorithm'),
+                        'to_entity_type': relation.get('target_type', 'Algorithm')
+                    }
+                    if db_manager.store_algorithm_relation(transformed_relation):
+                        relation_count += 1
+                elif 'from_entity' in relation and 'to_entity' in relation:
+                    # 已经是正确格式，直接存储
+                    if db_manager.store_algorithm_relation(relation):
+                        relation_count += 1
+                else:
+                    logging.warning(f"关系数据格式错误，无法存储: {relation}")
             except Exception as e:
                 logging.error(f"保存关系到数据库时出错: {str(e)}")
+                import traceback
+                logging.error(traceback.format_exc())
     
     # 更新处理状态
     if task_id:

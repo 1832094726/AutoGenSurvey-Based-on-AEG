@@ -453,7 +453,7 @@ def generate_entity_extraction_prompt(text, model_name, previous_entities=None, 
 
 对于每个实体，请尽可能提取以下信息：
 - 实体类型（Algorithm, Dataset, Metric）
-- 实体ID（使用格式：实体名称_年份，例如BERT_2018）
+- 实体ID（使用格式: 作者年份_实体名称，例如Zhang2016_TemplateSolver）
 - 实体名称
 - 发表年份
 - 作者
@@ -466,54 +466,85 @@ def generate_entity_extraction_prompt(text, model_name, previous_entities=None, 
 
 请以JSON格式输出，确保包含以下结构：
 ```json
-[
-  {
-    "algorithm_entity": {
-      "algorithm_id": "算法名_年份",
-      "entity_type": "Algorithm",
-      "name": "算法名称",
-      "title": "论文标题",
-      "year": 发表年份,
-      "authors": ["作者1", "作者2"],
-      "task": "任务领域",
-      "dataset": ["使用的数据集1", "使用的数据集2"],
-      "metrics": ["使用的评价指标1", "使用的评价指标2"],
-      "architecture": {
-        "components": ["组件1", "组件2"],
-        "connections": ["连接描述"],
-        "mechanisms": ["机制描述"]
-      },
-      "methodology": {
-        "training_strategy": ["训练策略"],
-        "parameter_tuning": ["参数调整方法"]
-      },
-      "feature_processing": ["特征处理方法"]
-    }
-  },
-  {
-    "dataset_entity": {
-      "dataset_id": "数据集名_年份",
-      "entity_type": "Dataset",
-      "name": "数据集名称",
-      "year": 发表年份,
-      "domain": "领域",
-      "size": "数据集大小",
-      "characteristics": ["特征1", "特征2"]
-    }
-  },
-  {
-    "metric_entity": {
-      "metric_id": "指标名_年份",
-      "entity_type": "Metric",
-      "name": "指标名称",
-      "description": "指标描述",
-      "formula": "计算公式",
-      "value_range": "取值范围",
-      "interpretation": "解释"
-    }
-  }
-]
-```
+                    [
+                      {
+                        "algorithm_entity": {
+                          "algorithm_id": "Zhang2016_TemplateSolver",
+                          "entity_type": "Algorithm",
+                          "name": "TemplateSolver",
+                          "title": "论文标题",
+                          "year": 2016,
+                          "authors": ["Zhang, Y.", "Li, W.", ...],
+                          "task": "任务类型",
+                          "dataset": ["数据集1", "数据集2", ...],
+                          "metrics": ["评价指标1", "评价指标2", ...],
+                          "architecture": {
+                            "components": ["组件1", "组件2", ...],
+                            "connections": ["连接1", "连接2", ...],
+                            "mechanisms": ["机制1", "机制2", ...]
+                          },
+                          "methodology": {
+                            "training_strategy": ["策略1", "策略2", ...],
+                            "parameter_tuning": ["参数1", "参数2", ...]
+                          },
+                          "feature_processing": ["处理方法1", "处理方法2", ...],
+                          "evolution_relations": [
+                            {
+                              "from_entity": "Wang2015_PriorAlgorithm",
+                              "to_entity": "Zhang2016_TemplateSolver",
+                              "relation_type": "Improve",
+                              "structure": "Architecture.Mechanism",
+                              "detail": "具体改进内容",
+                              "evidence": "证据文本",
+                              "confidence": 0.95
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "dataset_entity": {
+                          "dataset_id": "MNIST_2010",
+                          "entity_type": "Dataset",
+                          "name": "MNIST",
+                          "description": "手写数字识别数据集",
+                          "domain": "计算机视觉",
+                          "size": 70000,
+                          "year": 2010,
+                          "creators": ["LeCun, Y.", "Cortes, C.", ...],
+                          "evolution_relations": [
+                            {
+                              "from_entity": "OldDataset_2005",
+                              "to_entity": "MNIST_2010",
+                              "relation_type": "Extend",
+                              "detail": "扩展了样本数量",
+                              "evidence": "证据文本",
+                              "confidence": 0.9
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "metric_entity": {
+                          "metric_id": "Accuracy_Classification",
+                          "entity_type": "Metric",
+                          "name": "Accuracy",
+                          "description": "分类准确率",
+                          "category": "分类评估",
+                          "formula": "正确分类样本数/总样本数",
+                          "evolution_relations": [
+                            {
+                              "from_entity": "OldMetric_2000",
+                              "to_entity": "Accuracy_Classification",
+                              "relation_type": "Improve",
+                              "detail": "改进了计算方式",
+                              "evidence": "证据文本",
+                              "confidence": 0.85
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                    ```
 
 只包含论文中明确提到的实体信息，如果某些字段信息不可用，可以省略。请确保JSON格式正确，避免语义错误。
 """
@@ -1237,7 +1268,8 @@ def extract_evolution_relations(entities, pdf_path=None, task_id=None, previous_
         
         # 基础提示词
         user_message = f"""分析这篇论文与以下{str(len(entity_descriptions))}个已知实体之间的演化关系。
-
+1.实体ID（使用格式: 作者年份_实体名称，例如Zhang2016_TemplateSolver）
+2.已知实体提取的entity_id需要保持一致
 我们将演化关系分为五种类型：
 
 1. 改进（Improve）：指算法设计或结构上的创新，升级整体架构或机制，以实现新功能或提高适应性。
@@ -1301,11 +1333,12 @@ def extract_evolution_relations(entities, pdf_path=None, task_id=None, previous_
 """
             user_message = previous_context + user_message
 
-        user_message += """
+        user_message += f"""
 最后，请明确告知我提取是否已完成，还是需要继续提取更多关系。在JSON返回后，请单独一行写明"EXTRACTION_COMPLETE: true/false"。
 
 已知实体信息如下:
-{chr(10).join(entity_descriptions)}"""
+{chr(10).join(entity_descriptions)}
+"""
         
         file_id = None
         response = None

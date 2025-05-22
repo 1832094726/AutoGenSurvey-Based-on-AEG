@@ -1,53 +1,110 @@
 {
   "nodes": [
     {
-      "id": "ALGES_2015",
-      "label": "ALGES",
-      "type": "Algorithm",
-      "year": "2015",
-      "task": "Arithmetic Word Problem Solving",
-      "node_type": "Algorithm"
-    },
-    {
-      "id": "EXPRESSIONTREE_2015",
+      "id": "ZHANG2016_EXPRESSIONTREE",
       "label": "ExpressionTree",
       "type": "Algorithm",
-      "year": "2015",
+      "year": 2015,
       "task": "Arithmetic Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
-      "id": "MATHDQN_2018",
+      "id": "WANG2018_MATHDQN",
       "label": "MathDQN",
       "type": "Algorithm",
-      "year": "2018",
+      "year": 2018,
       "task": "Arithmetic Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
-      "id": "AI2_2014",
-      "label": "AI2",
-      "type": "Dataset",
-      "description": "",
-      "domain": "Arithmetic Word Problems",
-      "node_type": "Dataset"
+      "id": "ACCURACY_ARITHMETICPROBLEMS",
+      "label": "ACCURACY_ARITHMETICPROBLEMS",
+      "type": "Unknown",
+      "node_type": "Unknown"
     },
     {
       "id": "MATH23K_2014",
-      "label": "Math23K",
-      "type": "Dataset",
-      "description": "",
-      "domain": "Arithmetic Word Problems",
-      "node_type": "Dataset"
+      "label": "MATH23K_2014",
+      "type": "Unknown",
+      "node_type": "Unknown"
     },
     {
-      "id": "ACCURACY_2014",
-      "label": "Accuracy",
-      "type": "Metric",
-      "description": "Proportion of correctly solved problems",
-      "category": "",
-      "node_type": "Metric"
+      "id": "AI2_2014",
+      "label": "AI2_2014",
+      "type": "Unknown",
+      "node_type": "Unknown"
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "source": "ZHANG2016_EXPRESSIONTREE",
+      "target": "AI2_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "ExpressionTree uses the AI2 dataset for evaluation.",
+      "evidence": "The AI2 dataset is used to evaluate the performance of ExpressionTree in the paper.",
+      "confidence": 0.95
+    },
+    {
+      "source": "ZHANG2016_EXPRESSIONTREE",
+      "target": "ACCURACY_ARITHMETICPROBLEMS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Metric",
+      "detail": "ExpressionTree uses accuracy as a metric to evaluate its performance on arithmetic word problems.",
+      "evidence": "The accuracy of ExpressionTree is reported on various datasets including AI2.",
+      "confidence": 0.95
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "ZHANG2016_EXPRESSIONTREE",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Component",
+      "detail": "MathDQN improves upon ExpressionTree by using deep reinforcement learning to iteratively pick the best operator for two selected quantities.",
+      "evidence": "MathDQN models the tree construction as a Markov Decision Process and leverages the strengths of deep Q-network (DQN) to enhance the accuracy and robustness.",
+      "confidence": 0.95
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "AI2_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "MathDQN uses the AI2 dataset for evaluation.",
+      "evidence": "The AI2 dataset is used to evaluate the performance of MathDQN in the paper.",
+      "confidence": 0.95
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "ACCURACY_ARITHMETICPROBLEMS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Metric",
+      "detail": "MathDQN uses accuracy as a metric to evaluate its performance on arithmetic word problems.",
+      "evidence": "The accuracy of MathDQN is reported on various datasets including AI2.",
+      "confidence": 0.95
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "MATH23K_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "MathDQN uses the Math23K dataset for evaluation.",
+      "evidence": "The Math23K dataset is used to evaluate the performance of MathDQN in the paper.",
+      "confidence": 0.95
+    },
+    {
+      "source": "MATH23K_2014",
+      "target": "AI2_2014",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Evaluation.Dataset",
+      "detail": "Math23K extends AI2 by providing a larger and more diverse dataset of Chinese math word problems.",
+      "evidence": "Math23K contains 23,161 problems, which is significantly larger and more diverse than AI2's 395 problems.",
+      "confidence": 0.95
+    }
+  ]
 }
