@@ -1,0 +1,86 @@
+[
+  {
+    "from_entity": "Kushman2014_EquationSetSolver",
+    "to_entity": "Huang2017_FineGrainedExpressions",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "引入细粒度单元以提高模板片段映射的准确性",
+    "evidence": "通过将模板解析为细粒度单元，提高了映射精度。",
+    "confidence": 0.95,
+    "from_entity_type": "Algorithm",
+    "to_entity_type": "Algorithm",
+    "extraction_complete": true
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Wang2018_TranslationModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "引入表达式树进行翻译模型优化",
+    "evidence": "通过表达式树的构建，提高了翻译模型的效果。",
+    "confidence": 0.9,
+    "from_entity_type": "Algorithm",
+    "to_entity_type": "Algorithm",
+    "extraction_complete": true
+  },
+  {
+    "from_entity": "Wang2018_TranslationModel",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "引入强化学习以优化表达式树构建",
+    "evidence": "通过强化学习，提高了表达式树构建的效率。",
+    "confidence": 0.9,
+    "from_entity_type": "Algorithm",
+    "to_entity_type": "Algorithm",
+    "extraction_complete": true
+  },
+  {
+    "from_entity": "AI2_2014",
+    "to_entity": "Dolphin18K_2016",
+    "relation_type": "Extend",
+    "structure": "",
+    "detail": "扩展了问题数量和模板种类",
+    "evidence": "Dolphin18K包含更多的问题和模板。",
+    "confidence": 0.9,
+    "from_entity_type": "Dataset",
+    "to_entity_type": "Dataset",
+    "extraction_complete": true
+  },
+  {
+    "from_entity": "OldMetric_2000",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Improve",
+    "structure": "",
+    "detail": "改进了计算方式",
+    "evidence": "通过更精确的计算方法，提高了准确率。",
+    "confidence": 0.85,
+    "from_entity_type": "Metric",
+    "to_entity_type": "Metric",
+    "extraction_complete": true
+  },
+  {
+    "from_entity": "Hosseini2014_VerbCategorization",
+    "to_entity": "Koncel-Kedziorski2015_EquationParser",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "引入语义解析器以提高方程生成的准确性",
+    "evidence": "通过语义解析器，提高了方程生成的准确性。",
+    "confidence": 0.9,
+    "from_entity_type": "Algorithm",
+    "to_entity_type": "Algorithm",
+    "extraction_complete": true
+  },
+  {
+    "from_entity": "OldDataset_2005",
+    "to_entity": "AI2_2014",
+    "relation_type": "Extend",
+    "structure": "",
+    "detail": "扩展了问题数量和复杂度",
+    "evidence": "AI2包含更多的问题和复杂度。",
+    "confidence": 0.9,
+    "from_entity_type": "Dataset",
+    "to_entity_type": "Dataset",
+    "extraction_complete": true
+  }
+]

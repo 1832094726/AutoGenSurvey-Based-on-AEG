@@ -1,0 +1,156 @@
+{
+  "nodes": [
+    {
+      "id": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "label": "Fine-grained Expressions",
+      "type": "Algorithm",
+      "year": 2017,
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2018_TRANSLATIONMODEL",
+      "label": "Translation Model",
+      "type": "Algorithm",
+      "year": 2018,
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2018_MATHDQN",
+      "label": "MathDQN",
+      "type": "Algorithm",
+      "year": 2018,
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "KONCEL-KEDZIORSKI2015_EQUATIONPARSER",
+      "label": "Equation Parser",
+      "type": "Algorithm",
+      "year": 2015,
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HOSSEINI2014_VERBCATEGORIZATION",
+      "label": "HOSSEINI2014_VERBCATEGORIZATION",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "OLDDATASET_2005",
+      "label": "OLDDATASET_2005",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ACCURACY_CLASSIFICATION",
+      "label": "ACCURACY_CLASSIFICATION",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "AI2_2014",
+      "label": "AI2_2014",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "OLDMETRIC_2000",
+      "label": "OLDMETRIC_2000",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2015_EXPRESSIONTREE",
+      "label": "ROY2015_EXPRESSIONTREE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "KUSHMAN2014_EQUATIONSETSOLVER",
+      "label": "KUSHMAN2014_EQUATIONSETSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "DOLPHIN18K_2016",
+      "label": "DOLPHIN18K_2016",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    }
+  ],
+  "edges": [
+    {
+      "source": "WANG2018_TRANSLATIONMODEL",
+      "target": "WANG2018_MATHDQN",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入强化学习以优化表达式树构建",
+      "evidence": "通过强化学习，提高了表达式树构建的效率。",
+      "confidence": 0.9
+    },
+    {
+      "source": "HOSSEINI2014_VERBCATEGORIZATION",
+      "target": "KONCEL-KEDZIORSKI2015_EQUATIONPARSER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入语义解析器以提高方程生成的准确性",
+      "evidence": "通过语义解析器，提高了方程生成的准确性。",
+      "confidence": 0.9
+    },
+    {
+      "source": "OLDDATASET_2005",
+      "target": "AI2_2014",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "",
+      "detail": "扩展了问题数量和复杂度",
+      "evidence": "AI2包含更多的问题和复杂度。",
+      "confidence": 0.9
+    },
+    {
+      "source": "AI2_2014",
+      "target": "DOLPHIN18K_2016",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "",
+      "detail": "扩展了问题数量和模板种类",
+      "evidence": "Dolphin18K包含更多的问题和模板。",
+      "confidence": 0.9
+    },
+    {
+      "source": "OLDMETRIC_2000",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "",
+      "detail": "改进了计算方式",
+      "evidence": "通过更精确的计算方法，提高了准确率。",
+      "confidence": 0.85
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "WANG2018_TRANSLATIONMODEL",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入表达式树进行翻译模型优化",
+      "evidence": "通过表达式树的构建，提高了翻译模型的效果。",
+      "confidence": 0.9
+    },
+    {
+      "source": "KUSHMAN2014_EQUATIONSETSOLVER",
+      "target": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入细粒度单元以提高模板片段映射的准确性",
+      "evidence": "通过将模板解析为细粒度单元，提高了映射精度。",
+      "confidence": 0.95
+    }
+  ]
+}

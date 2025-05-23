@@ -898,7 +898,7 @@ def extract_relationships_with_context(entities, pdf_path, task_id=None, existin
     if existing_relations:
         # 创建一个包含已存在关系信息的提示
         relations = extract_evolution_relations(
-            pdf_path=pdf_path, 
+            pdf_paths=pdf_path, 
             entities=entities, 
             task_id=task_id, 
             previous_relations=existing_relations
@@ -906,7 +906,7 @@ def extract_relationships_with_context(entities, pdf_path, task_id=None, existin
     else:
         # 第一次提取
         relations = extract_evolution_relations(
-            pdf_path=pdf_path, 
+            pdf_paths=pdf_path, 
             entities=entities, 
             task_id=task_id
         )
