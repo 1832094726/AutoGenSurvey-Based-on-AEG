@@ -236,7 +236,7 @@ def extract_text_from_pdf(pdf_path, task_id=None):
                 except Exception as e:
                     logging.error(f"读取匹配的缓存文件时出错: {str(e)}")
         # 设置最大尝试次数
-        max_attempts = 3
+        max_attempts = 10
         is_extraction_complete = False
         
         # 如果未完成，则继续提取
@@ -264,7 +264,7 @@ def extract_text_from_pdf(pdf_path, task_id=None):
                     if extracted_text:
                         user_prompt = f'''我已经提取了部分文本内容如下:
                         
-                        {extracted_text[:1000]}...
+                        {extracted_text}...
                         
                         请继续提取剩余的内容，确保不要重复已经提取的部分，只返回新内容。将新内容与之前内容无缝连接，不要有重复或遗漏。提取时要尽可能保留原始格式，包括所有页面内容、表格内容和参考文献，避免因过长而截断。请完成整个文档的提取。
 
@@ -452,9 +452,11 @@ def generate_entity_extraction_prompt(text, model_name, previous_entities=None, 
 3. 评价指标：用于评估算法性能的度量，例如准确率、精确率、召回率等
 
 对于每个实体，请尽可能提取以下信息：
-- 实体类型（Algorithm, Dataset, Metric）
-- 实体ID（使用格式: 作者年份_实体名称，例如Zhang2016_TemplateSolver）
-- 实体名称
+- 实体类型（Algorithm, Dataset, Metric）不能省略
+- 算法实体ID（使用格式: 作者年份_实体名称，例如Zhang2016_TemplateSolver）不能省略
+- 数据集实体ID（使用格式: 实体名称_年份，例如MNIST_2010）不能省略
+- 评价实体ID（使用格式: 实体名称_类别，例如Accuracy_Classification）不能省略
+- 实体名称，不能省略
 - 发表年份
 - 作者
 - 任务领域
@@ -542,17 +544,17 @@ def generate_entity_extraction_prompt(text, model_name, previous_entities=None, 
                             }
                           ]
                         }
-                      }
+                      },...//其他实体
                     ]
                     ```
 
-只包含论文中明确提到的实体信息，如果某些字段信息不可用，可以省略。请确保JSON格式正确，避免语义错误。
+尽量提取论文中所有可能的实体信息，如果某些字段信息不可用，可以省略。请确保JSON格式正确，避免语义错误。
 """
 
     # 如果有之前提取的实体，添加到提示中
     if previous_entities and len(previous_entities) > 0:
         # 格式化之前的实体为提示
-        previous_entities_str = json.dumps(previous_entities[:5], ensure_ascii=False, indent=2)
+        previous_entities_str = json.dumps(previous_entities, ensure_ascii=False, indent=2)
         context_prompt = f"""
 我之前已经从这篇论文中提取了部分实体，但提取不完整。以下是已知的部分实体：
 
@@ -583,10 +585,10 @@ def generate_entity_extraction_prompt(text, model_name, previous_entities=None, 
         prompt = base_prompt + f"\n\n论文文本：\n{text[:10000000]}"  # 截取前10000个字符避免过长
     elif model_name.lower() == "openai":
         # OpenAI模型提示
-        prompt = base_prompt + f"\n\n论文文本：\n{text[:800000]}"  # OpenAI模型限制更严格
+        prompt = base_prompt + f"\n\n论文文本：\n{text[:10000000]}"  # OpenAI模型限制更严格
     else:
         # 通用提示
-        prompt = base_prompt + f"\n\n论文文本：\n{text[:8000]}"
+        prompt = base_prompt + f"\n\n论文文本：\n{text[:10000000]}"
     
     return prompt
 
@@ -1323,7 +1325,7 @@ def extract_evolution_relations(entities, pdf_path=None, task_id=None, previous_
         # 如果有之前的关系，添加到提示中
         if previous_relations and len(previous_relations) > 0:
             # 转换为更易读的格式
-            previous_relations_str = json.dumps(previous_relations[:10], ensure_ascii=False, indent=2)
+            previous_relations_str = json.dumps(previous_relations, ensure_ascii=False, indent=2)
             previous_context = f"""
 我已经从这篇论文中提取了一些关系，但可能不完整。以下是已知的{len(previous_relations)}条关系中的部分示例：
 

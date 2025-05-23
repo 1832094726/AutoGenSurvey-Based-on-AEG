@@ -158,7 +158,7 @@ def parse_review_paper(file_path, task_id=None):
                     
                     # 最多展示10个已收集的文献，避免提示词过长
                     if collected_titles:
-                        sample_titles = collected_titles[:10]
+                        sample_titles = collected_titles
                         user_message += f"\n\n已经收集了 {len(all_references)} 条文献，包括：\n" + "\n".join([f"- {title}" for title in sample_titles])
                         if len(collected_titles) > 10:
                             user_message += f"\n以及其他 {len(collected_titles) - 10} 条..."
