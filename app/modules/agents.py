@@ -864,17 +864,20 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=3, pr
                     if not isinstance(entities, list):
                         entities = [entities]  # 确保是列表格式
                     logging.info(f"成功从API响应提取 {len(entities)} 个实体")
-                except json.JSONDecodeError:
-                    logging.warning("JSON解析错误，尝试清理后重新解析")
+                except json.JSONDecodeError as e:
+                    logging.warning(f"JSON解析错误: {str(e)}，尝试清理后重新解析")
                     try:
                         clean_json = json_text.replace('```', '').strip()
                         clean_json = re.sub(r',\s*]', ']', clean_json)
                         clean_json = re.sub(r',\s*}', '}', clean_json)
                         entities = json.loads(clean_json)
                         if not isinstance(entities, list):
-                            entities = [entities]
+                            entities = [entities]  # 确保是列表格式
+                        logging.info(f"清理后成功解析 {len(entities)} 个实体")
                     except Exception as clean_err:
                         logging.error(f"清理后JSON仍解析失败: {str(clean_err)}")
+                        logging.error(f"原始JSON错误: {str(e)}")
+                        logging.debug(f"问题JSON片段: {json_text[:100]}...{json_text[-100:] if len(json_text) > 100 else ''}")
                         entities = []
             
             # 合并新提取的实体（去重）
@@ -1024,25 +1027,109 @@ def extract_json_from_text(text):
     Returns:
         str: 提取的JSON文本，如果未找到则返回None
     """
-    # 尝试找到JSON块 ```json ... ``` 或 ``` ... ```
-    json_block_pattern = r'```(?:json)?\s*\n([\s\S]*?)\n```'
+    if not text:
+        return None
+        
+    logging.debug(f"开始从文本中提取JSON，文本长度：{len(text)} 字符")
+    
+    # 首先尝试从代码块中提取JSON
+    json_block_pattern = r'```(?:json)?\s*([\s\S]*?)(?:\s*```|\s*EXTRACTION_COMPLETE\s*:)'
     matches = re.findall(json_block_pattern, text)
     if matches:
-        return matches[0].strip()
-        
-    # 尝试找到开始和结束的 [ ... ]
-    json_array_pattern = r'\[\s*\{[\s\S]*\}\s*\]'
-    matches = re.findall(json_array_pattern, text)
+        json_candidate = matches[0].strip()
+        # 确保JSON以合适的结尾符号结束
+        if json_candidate.endswith(','):
+            json_candidate = json_candidate[:-1]
+        if json_candidate.endswith(']') or json_candidate.endswith('}'):
+            logging.debug(f"从代码块提取到可能的JSON，长度: {len(json_candidate)}")
+            # 验证JSON是否有效
+            try:
+                json.loads(json_candidate)
+                return json_candidate
+            except json.JSONDecodeError as e:
+                logging.warning(f"从代码块提取的JSON无效: {str(e)}，尝试其他方法")
+    
+    # 尝试提取最外层的JSON数组 [...] 或对象 {...}
+    # 首先尝试数组
+    array_pattern = r'\[\s*\{[\s\S]*?\}\s*\]'
+    matches = re.findall(array_pattern, text)
     if matches:
-        return matches[0].strip()
-        
-    # 尝试找到最长的 { ... } 块
-    json_obj_pattern = r'\{[\s\S]*?\}'
-    matches = re.findall(json_obj_pattern, text)
+        for match in sorted(matches, key=len, reverse=True):
+            try:
+                json.loads(match)
+                logging.debug(f"提取到有效的JSON数组，长度: {len(match)}")
+                return match
+            except json.JSONDecodeError:
+                continue
+    
+    # 然后尝试对象
+    object_pattern = r'\{[\s\S]*?\}'
+    matches = re.findall(object_pattern, text)
     if matches:
-        # 返回最长的匹配，可能是包含所有实体的JSON对象
-        return max(matches, key=len).strip()
+        for match in sorted(matches, key=len, reverse=True):
+            try:
+                json.loads(match)
+                logging.debug(f"提取到有效的JSON对象，长度: {len(match)}")
+                return match
+            except json.JSONDecodeError:
+                continue
+    
+    # 如果上述方法都失败，尝试手动查找JSON边界
+    if '[' in text and ']' in text:
+        try:
+            # 找到第一个 [ 和最后一个 ]
+            start_idx = text.find('[')
+            last_idx = text.rfind(']')
+            if start_idx != -1 and last_idx != -1 and start_idx < last_idx:
+                potential_json = text[start_idx:last_idx+1]
+                try:
+                    json.loads(potential_json)
+                    logging.debug(f"使用索引方法提取到有效的JSON，长度: {len(potential_json)}")
+                    return potential_json
+                except json.JSONDecodeError:
+                    # 尝试清理JSON
+                    clean_json = re.sub(r',\s*]', ']', potential_json)
+                    clean_json = re.sub(r',\s*}', '}', clean_json)
+                    try:
+                        json.loads(clean_json)
+                        logging.debug(f"清理后提取到有效的JSON，长度: {len(clean_json)}")
+                        return clean_json
+                    except json.JSONDecodeError:
+                        pass
+        except Exception as e:
+            logging.warning(f"手动查找JSON边界时出错: {str(e)}")
+    
+    # 最后的尝试：去除任何EXTRACTION_COMPLETE标记，然后再解析
+    extraction_complete_pattern = r'([\s\S]*?)(?:\s*EXTRACTION_COMPLETE\s*:)'
+    matches = re.findall(extraction_complete_pattern, text)
+    if matches:
+        cleaned_text = matches[0].strip()
+        # 如果文本以代码块结束符号结束，去掉它
+        if cleaned_text.endswith('```'):
+            cleaned_text = cleaned_text[:-3].strip()
         
+        # 检查开头和结尾，确保是完整的JSON
+        if (cleaned_text.startswith('[') and cleaned_text.endswith(']')) or \
+           (cleaned_text.startswith('{') and cleaned_text.endswith('}')):
+            try:
+                json.loads(cleaned_text)
+                logging.debug(f"从去除标记后的文本中提取到有效JSON，长度: {len(cleaned_text)}")
+                return cleaned_text
+            except json.JSONDecodeError as e:
+                # 尝试修复最常见的JSON错误
+                if str(e).startswith('Extra data'):
+                    error_pos = int(re.search(r'char (\d+)', str(e)).group(1))
+                    cleaned_text = cleaned_text[:error_pos]
+                    if (cleaned_text.startswith('[') and cleaned_text.endswith(']')) or \
+                       (cleaned_text.startswith('{') and cleaned_text.endswith('}')):
+                        try:
+                            json.loads(cleaned_text)
+                            logging.debug(f"从修复后的文本中提取到有效JSON，长度: {len(cleaned_text)}")
+                            return cleaned_text
+                        except json.JSONDecodeError:
+                            pass
+    
+    logging.warning("未能从文本中提取有效的JSON")
     return None
 
 def extract_paper_entities(pdf_paths, max_attempts=5, batch_size=1, model_name="qwen", task_id=None):
@@ -1526,17 +1613,20 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
                     if not isinstance(relations, list):
                         relations = [relations]  # 确保是列表格式
                     logging.info(f"成功从API响应提取 {len(relations)} 个关系")
-                except json.JSONDecodeError:
-                    logging.warning("JSON解析错误，尝试清理后重新解析")
+                except json.JSONDecodeError as e:
+                    logging.warning(f"JSON解析错误: {str(e)}，尝试清理后重新解析")
                     try:
                         clean_json = json_text.replace('```', '').strip()
                         clean_json = re.sub(r',\s*]', ']', clean_json)
                         clean_json = re.sub(r',\s*}', '}', clean_json)
                         relations = json.loads(clean_json)
                         if not isinstance(relations, list):
-                            relations = [relations]
+                            relations = [relations]  # 确保是列表格式
+                        logging.info(f"清理后成功解析 {len(relations)} 个关系")
                     except Exception as clean_err:
                         logging.error(f"清理后JSON仍解析失败: {str(clean_err)}")
+                        logging.error(f"原始JSON错误: {str(e)}")
+                        logging.debug(f"问题JSON片段: {json_text[:100]}...{json_text[-100:] if len(json_text) > 100 else ''}")
                         relations = []
                 
                 # 验证关系格式并转换为标准格式
