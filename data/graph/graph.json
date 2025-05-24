@@ -1,18 +1,610 @@
 {
   "nodes": [
     {
-      "id": "HUANG2017_FINEGRAINEDEXPRESSIONS",
-      "label": "Fine-grained Expressions",
+      "id": "ALGES2015_EQUATIONTREE",
+      "label": "ALGES",
       "type": "Algorithm",
-      "year": 2017,
+      "year": "2015",
+      "task": "Algebraic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ANTOL2015_VISUALQUESTIONANSWERING",
+      "label": "Visual Question Answering (VQA)",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Visual Question Answering",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ANTOL2015_VQA",
+      "label": "Visual Question Answering (VQA)",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Visual Question Answering",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "CHANG2013_CONSTRAINEDLATENTVARIABLEMODEL",
+      "label": "Constrained Latent Variable Model",
+      "type": "Algorithm",
+      "year": "2013",
+      "task": "Coreference Resolution",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "CHANG2013_L3M",
+      "label": "Latent Left Linking model (L3M)",
+      "type": "Algorithm",
+      "year": "2013",
+      "task": "Coreference Resolution",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "CHEN2014_FASTDEPENDENCYPARSER",
+      "label": "Fast Dependency Parser",
+      "type": "Algorithm",
+      "year": "2014",
+      "task": "Dependency Parsing",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "CHEN2014_NEURALDEPENDENCYPARSER",
+      "label": "Neural Dependency Parser",
+      "type": "Algorithm",
+      "year": "2014",
+      "task": "Dependency Parsing",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "CHEN2014_NEURALPARSER",
+      "label": "Neural Dependency Parser",
+      "type": "Algorithm",
+      "year": "2014",
+      "task": "Dependency Parsing",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "CHIANG2018_SEMANTICALLYALIGNED",
+      "label": "Semantically-Aligned Equation Generation",
+      "type": "Algorithm",
+      "year": "2018",
       "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
-      "id": "WANG2018_MATHDQN",
-      "label": "MathDQN",
+      "id": "CHIANG2018_SEMANTICALLYALIGNEDEQUATIONGENERATION",
+      "label": "Semantically-Aligned Equation Generation",
       "type": "Algorithm",
-      "year": 2018,
+      "year": "2018",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "CHIANG2018_STACKDECODER",
+      "label": "StackDecoder",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "CLARK2016_RETRIEVALSTATISTICSINFERENCE",
+      "label": "Combining Retrieval, Statistics, and Inference",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Elementary Science Question Answering",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "DEMARNEFFE2008_TYPEDDEPENDENCY",
+      "label": "Typed Dependency Parses from Phrase Structure Parses",
+      "type": "Algorithm",
+      "year": "2008",
+      "task": "Dependency Parsing",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "DENG2009_IMAGENET",
+      "label": "ImageNet",
+      "type": "Algorithm",
+      "year": "2009",
+      "task": "Image Classification",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "EARLEY1969_CONTEXTFREEPARSING",
+      "label": "Efficient Context-Free Parsing Algorithm",
+      "type": "Algorithm",
+      "year": "1969",
+      "task": "Context-Free Parsing",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "GOLDBERG2010_EASYFIRSTPARSER",
+      "label": "Easy-First Non-Directional Dependency Parsing",
+      "type": "Algorithm",
+      "year": "2010",
+      "task": "Dependency Parsing",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "GOLDBERG2010_EASYFIRSTPARSING",
+      "label": "Easy-First Non-Directional Dependency Parsing",
+      "type": "Algorithm",
+      "year": "2010",
+      "task": "Dependency Parsing",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "GOYAL2017_VQAMAKINGV",
+      "label": "Making the V in VQA Matter",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Visual Question Answering",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HOCHREITER1997_LSTM",
+      "label": "Long Short-Term Memory",
+      "type": "Algorithm",
+      "year": "1997",
+      "task": "Sequence Modeling",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HOSSEINI2014_VERBCATEGORIZATION",
+      "label": "Verb Categorization for Arithmetic Word Problems",
+      "type": "Algorithm",
+      "year": "2014",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2016_LARGESCALEEVALUATION",
+      "label": "Ranking SVM Model",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2016_MATHWORDPROBLEMSOLVER",
+      "label": "Math Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2017_FG_EXPRESSION",
+      "label": "FG-Expression",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Equation Set Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2017_FG-EXPRESSION",
+      "label": "FG-Expression",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Equation Set Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2017_FGEXPRESSION",
+      "label": "FG-Expression",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Equation Set Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "label": "Fine-Grained Expressions",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2017_NEURALMATHSOLVER",
+      "label": "Neural Math Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "自动求解算术文字题",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2018_FG-EXPRESSION",
+      "label": "FG-Expression",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Equation Set Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2018_NEURALMATHWORDPROBLEM",
+      "label": "Neural Math Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2018_NEURALMATHWORDPROBLEMSOLVER",
+      "label": "Neural Math Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Solving Math Word Problems",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2018_REINFORCEMENTLEARNING",
+      "label": "Neural Math Word Problem Solver with Reinforcement Learning",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "KONCEL-KEDZIORSKI2015_ALGES",
+      "label": "ALGES",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Algebraic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "KONCEL-KEDZIORSKI2015_EQUATIONPARSER",
+      "label": "Equation Parser",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "KONCELKEDZIORSKI2015_ALGES",
+      "label": "ALGES",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Algebraic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "LIANG2016_TAGBASEDSOLVER",
+      "label": "Tag-Based Math Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "LIN2017_SELFATTENTIVEEMBEDDING",
+      "label": "Structured Self-attentive Sentence Embedding",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Sentence Embedding",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "LIN2017_STRUCTUREDSELFATTENTION",
+      "label": "Structured Self-Attentive Sentence Embedding",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Sentence Embedding",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "LIN2017_STRUCTUREDSELFATTENTIVEEMBEDDING",
+      "label": "Structured Self-attentive Sentence Embedding",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Sentence Embedding",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "LUONG2016_MULTITASKSEQ2SEQ",
+      "label": "Multi-task Sequence to Sequence Learning",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "多任务序列到序列学习",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "MA2016_FRAMEBASEDCALCULUS",
+      "label": "Frame-Based Calculus for Solving Arithmetic Multi-Step Addition and Subtraction Word Problems",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Arithmetic Multi-Step Addition and Subtraction Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "MIKOLOV2013_DISTRIBUTEDREPRESENTATIONS",
+      "label": "Distributed Representations of Words and Phrases",
+      "type": "Algorithm",
+      "year": "2013",
+      "task": "Word and Phrase Representation",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "MITRA2016_FORMULASOLVER",
+      "label": "Formula Solver",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "MITRA2016_FORMULAUSAGE",
+      "label": "Formula Usage for Simple Arithmetic Problems",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Simple Arithmetic Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "NOVAK1985_BEATRIX",
+      "label": "BEATRIX",
+      "type": "Algorithm",
+      "year": "1985",
+      "task": "Physics Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "RAGHUNATHAN2010_MULTIPASSSIEVE",
+      "label": "Multi-Pass Sieve",
+      "type": "Algorithm",
+      "year": "2010",
+      "task": "Coreference Resolution",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "RAGHUNATHAN2010_SIEVE",
+      "label": "Multi-Pass Sieve",
+      "type": "Algorithm",
+      "year": "2010",
+      "task": "Coreference Resolution",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "RAGHUNATHAN2010_SIEVECOREFERENCE",
+      "label": "Multi-Pass Sieve for Coreference Resolution",
+      "type": "Algorithm",
+      "year": "2010",
+      "task": "Coreference Resolution",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "RAGHUNATHAN2010_SIEVEMODEL",
+      "label": "Multi-Pass Sieve Model",
+      "type": "Algorithm",
+      "year": "2010",
+      "task": "Coreference Resolution",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROBAIDEK2018_DATADRIVENALGEBRA",
+      "label": "Data-Driven Methods for Solving Algebra Word Problems",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Algebra Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_ALGES",
+      "label": "ALGES",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Parsing Algebraic Word Problems into Equations",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_ARIS",
+      "label": "ARIS",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_ARITHMETICWORDPROBLEMS",
+      "label": "Arithmetic Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_EXPRESSIONTREE",
+      "label": "Expression Tree",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Solving Arithmetic Word Problems",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_GENERALARITHMETIC",
+      "label": "General Arithmetic Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_GENERALARITHMETICSOLVER",
+      "label": "General Arithmetic Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_GENERALARITHMETICWORDPROBLEMSOLVER",
+      "label": "General Arithmetic Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_MATHWORDPROBLEMSOLVER",
+      "label": "Math Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_UNITDEPENDENCYGRAPH",
+      "label": "Unit Dependency Graph",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2016_UNITDEPENDENCYGRAPH",
+      "label": "Unit Dependency Graph",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "自动求解算术文字题",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2018_DECLARATIVEKNOWLEDGE",
+      "label": "Declarative Knowledge Mapping",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2018_DECLARATIVEKNOWLEDGEMAPPING",
+      "label": "Declarative Knowledge Mapping",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2018_UNITDEPENDENCYGRAPH",
+      "label": "Unit Dependency Graph",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SEO2014_DIAGRAMUNDERSTANDING",
+      "label": "Diagram Understanding in Geometry Questions",
+      "type": "Algorithm",
+      "year": "2014",
+      "task": "Diagram Understanding",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SEO2014_GEOSOLVER",
+      "label": "GeoSolver",
+      "type": "Algorithm",
+      "year": "2014",
+      "task": "Geometry Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SEO2015_DIAGRAMUNDERSTANDING",
+      "label": "Diagram Understanding",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Geometry Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SEO2015_GEOS",
+      "label": "GEOS",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Geometry Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SEQ2SEQET2018_TRANSLATIONMODEL",
+      "label": "Seq2SeqET",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SHI2015_SEMANTICPARSING",
+      "label": "Semantic Parsing and Reasoning",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SLAGLE1965_DEDUCTIVEQA",
+      "label": "Deductive Question-Answering Program",
+      "type": "Algorithm",
+      "year": "1965",
+      "task": "Question Answering",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SOCHER2013_COMPOSITIONALVECTORGRAMMAR",
+      "label": "Compositional Vector Grammar (CVG)",
+      "type": "Algorithm",
+      "year": "2013",
+      "task": "Syntactic Parsing",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "STACKDECODER2019_SEMANTICTRACKING",
+      "label": "StackDecoder",
+      "type": "Algorithm",
+      "year": "2019",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SUTSKEVER2014_SEQUENCETOSEQUENCE",
+      "label": "Sequence-to-Sequence Learning with Neural Networks",
+      "type": "Algorithm",
+      "year": "2014",
+      "task": "Translation",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "T-RNN2019_TEMPLATEREPRESENTATION",
+      "label": "T-RNN",
+      "type": "Algorithm",
+      "year": "2019",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "UNITDEP2017_UNITDEPENDENCYGRAPH",
+      "label": "UNITDEP",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "UPADHYAY2016_MIXEDSP",
+      "label": "MixedSP",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Equation Set Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2016_EQUATIONNORMALIZATION",
+      "label": "Equation Normalization Method",
+      "type": "Algorithm",
+      "year": "2016",
       "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
@@ -20,76 +612,556 @@
       "id": "WANG2017_DEEPNEURALSOLVER",
       "label": "Deep Neural Solver",
       "type": "Algorithm",
-      "year": 2017,
+      "year": "2017",
       "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
-      "id": "ROY2015_EXPRESSIONTREE",
-      "label": "Expression Tree",
+      "id": "WANG2017_TEMPLATEBASEDSOLVER",
+      "label": "Template-Based Math Word Problem Solver",
       "type": "Algorithm",
-      "year": 2015,
+      "year": "2017",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2017_TRANSLATION",
+      "label": "Translation to Expression Tree",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2017_TRANSLATIONTOEXPRESSIONTREE",
+      "label": "Translation to Expression Tree",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2018_DIMENSIONALSYNTHESIS",
+      "label": "Dimensionally Guided Synthesis of Mathematical Word Problems",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Math Word Problem Generation",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2018_MATHDQN",
+      "label": "MathDQN",
+      "type": "Algorithm",
+      "year": "2018",
       "task": "Arithmetic Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
-      "id": "ALGES2015_EQUATIONTREE",
-      "label": "ALGES",
+      "id": "WANG2018_SEMANTICALLYALIGNEDEQUATION",
+      "label": "Semantically-Aligned Equation Generation",
       "type": "Algorithm",
-      "year": 2015,
-      "task": "Algebraic Word Problem Solving",
+      "year": "2018",
+      "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
       "id": "WANG2018_SEQ2SEQET",
       "label": "Seq2SeqET",
       "type": "Algorithm",
-      "year": 2018,
+      "year": "2018",
       "task": "Arithmetic Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
-      "id": "CHIANG2018_STACKDECODER",
+      "id": "WANG2018_STACKDECODER",
       "label": "StackDecoder",
       "type": "Algorithm",
-      "year": 2018,
+      "year": "2019",
       "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2018_T-RNN",
+      "label": "T-RNN",
+      "type": "Algorithm",
+      "year": "2019",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2018_TEMPLATEBASED",
+      "label": "Template-Based Math Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2018_TEMPLATEBASEDSOLVER",
+      "label": "Template-Based Math Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WANG2018_TRANSLATIONMODEL",
+      "label": "Translation Model",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Translating Math Word Problem to Expression Tree",
       "node_type": "Algorithm"
     },
     {
       "id": "WANG2019_T_RNN",
       "label": "T-RNN",
       "type": "Algorithm",
-      "year": 2019,
+      "year": "2019",
       "task": "Arithmetic Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
-      "id": "DOLPHIN18K_2016",
-      "label": "DOLPHIN18K_2016",
-      "type": "Unknown",
-      "node_type": "Unknown"
+      "id": "WANG2019_T-RNN",
+      "label": "T-RNN",
+      "type": "Algorithm",
+      "year": "2019",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
     },
     {
-      "id": "ACCURACY_CLASSIFICATION",
-      "label": "ACCURACY_CLASSIFICATION",
-      "type": "Unknown",
-      "node_type": "Unknown"
+      "id": "WANG2019_TEMPLATEBASED",
+      "label": "Template-Based Math Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2019",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WATANABE2000_LAYOUTTEXTINTEGRATION",
+      "label": "Integration of Layout Information and Textual Information",
+      "type": "Algorithm",
+      "year": "2000",
+      "task": "Diagram Understanding",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "WISEMAN2016_BEAMSEARCHOPTIMIZATION",
+      "label": "Beam-Search Optimization",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Sequence Learning",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "YU2016_IMPLICITQUANTITYRELATIONS",
+      "label": "Extraction of Implicit Quantity Relations",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Implicit Quantity Relation Extraction",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ZHANG2019_DEEPNEURALSOLVER",
+      "label": "Deep Neural Solver (DNS)",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Solving Math Word Problems",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ZHOU2015_QUADRATICPROGRAMMING",
+      "label": "Quadratic Programming",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Algebra Word Problem Solving",
+      "node_type": "Algorithm"
     },
     {
       "id": "AI2_2014",
-      "label": "AI2_2014",
+      "label": "AI2",
+      "type": "Dataset",
+      "description": "Arithmetic word problems for third, fourth, and fifth graders",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "AI2_2016",
+      "label": "AI2",
+      "type": "Dataset",
+      "description": "包含395个单步或多步算术文字问题",
+      "domain": "Math Word Problem Solving",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALG514_2014",
+      "label": "ALG514",
+      "type": "Dataset",
+      "description": "Dataset of algebra problems crawled from Algebra.com",
+      "domain": "Equation Set Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALLARITH_2016",
+      "label": "AllArith",
+      "type": "Dataset",
+      "description": "Mixed dataset of arithmetic word problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "AQUA_2018",
+      "label": "AQuA",
+      "type": "Dataset",
+      "description": "Large-scale dataset of multi-choice math questions",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CC_2014",
+      "label": "CC",
+      "type": "Dataset",
+      "description": "Multi-step math problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CC_2015",
+      "label": "CC",
+      "type": "Dataset",
+      "description": "Multi-step math problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DOLPHIN-S_2017",
+      "label": "Dolphin-S",
+      "type": "Dataset",
+      "description": "包含7070个算术问题的数据集",
+      "domain": "自动解题",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DOLPHIN1878_2015",
+      "label": "Dolphin1878",
+      "type": "Dataset",
+      "description": "Dataset of math problems crawled from algebra.com and answers.yahoo.com",
+      "domain": "Equation Set Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DOLPHIN18K_2016",
+      "label": "Dolphin18K",
+      "type": "Dataset",
+      "description": "包含18,460个数学问题和5,871个模板的大规模数据集",
+      "domain": "数学问题求解",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DRAW1K_2016",
+      "label": "DRAW1K",
+      "type": "Dataset",
+      "description": "Dataset of linear equation problems with diverse vocabularies and equation systems",
+      "domain": "Algebra Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IL_2014",
+      "label": "IL",
+      "type": "Dataset",
+      "description": "Single-step word problems with one operator",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IL_2015",
+      "label": "IL",
+      "type": "Dataset",
+      "description": "Single-step word problems with one operator",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IMAGENET_2009",
+      "label": "ImageNet",
+      "type": "Dataset",
+      "description": "A large-scale hierarchical image database",
+      "domain": "Computer Vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MATH23K_2014",
+      "label": "Math23K",
+      "type": "Dataset",
+      "description": "Chinese math word problems for elementary school students",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MATH23K_2017",
+      "label": "Math23K",
+      "type": "Dataset",
+      "description": "Large-scale dataset for arithmetic word problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MATH23K_2018",
+      "label": "Math23K",
+      "type": "Dataset",
+      "description": "一个大型算术文字题数据集",
+      "domain": "自然语言处理",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MAWPS_2016",
+      "label": "MAWPS",
+      "type": "Dataset",
+      "description": "Dataset for arithmetic word problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MAWPS-S_2016",
+      "label": "MAWPS-S",
+      "type": "Dataset",
+      "description": "Arithmetic word problems with one unknown variable",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SAT_GEOMETRYQUESTIONS_2015",
+      "label": "SAT Geometry Questions",
+      "type": "Dataset",
+      "description": "A dataset of geometry problems from SAT exams.",
+      "domain": "Geometry Problem Solving",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SATGEOMETRY_2015",
+      "label": "SAT几何问题",
+      "type": "Dataset",
+      "description": "SAT考试中的几何问题数据集",
+      "domain": "几何问题求解",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SINGLEEQ_2015",
+      "label": "SingleEQ",
+      "type": "Dataset",
+      "description": "包含508个单步或多步算术文字题，混合来源",
+      "domain": "数学问题求解",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SINGLEEQ_2016",
+      "label": "SingleEQ",
+      "type": "Dataset",
+      "description": "包含单步和多步算术问题的混合数据集",
+      "domain": "算术问题求解",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "VQA_2015",
+      "label": "VQA",
+      "type": "Dataset",
+      "description": "Visual Question Answering dataset",
+      "domain": "Computer Vision and NLP",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WMT_2016",
+      "label": "WMT",
+      "type": "Dataset",
+      "description": "机器翻译基准数据集",
+      "domain": "机器翻译",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACCURACY_CLASSIFICATION",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Classification accuracy",
+      "category": "Classification evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "AVERAGEPRECISION_CLASSIFICATION",
+      "label": "平均精度",
+      "type": "Metric",
+      "description": "分类任务中的平均精度",
+      "category": "分类评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BLEU_SCORE_TRANSLATION",
+      "label": "BLEU Score",
+      "type": "Metric",
+      "description": "Evaluation metric for translation quality",
+      "category": "Translation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BLEU_TRANSLATION",
+      "label": "BLEU",
+      "type": "Metric",
+      "description": "Evaluation metric for machine translation",
+      "category": "Translation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BLEUSCORE_TRANSLATION",
+      "label": "BLEU分数",
+      "type": "Metric",
+      "description": "机器翻译任务中的BLEU分数",
+      "category": "机器翻译评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CORRECTRATE_GEOMETRY",
+      "label": "正确率",
+      "type": "Metric",
+      "description": "几何问题求解的正确率",
+      "category": "几何问题求解评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Classification evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_CLASSIFICATION",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1SCORE_CLASSIFICATION",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "F1 分数",
+      "category": "分类评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "LABELEDATTACHMENTSCORE_PARSING",
+      "label": "Labeled Attachment Score",
+      "type": "Metric",
+      "description": "Dependency parsing score with labels",
+      "category": "Dependency Parsing evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PRECISION_CLASSIFICATION",
+      "label": "Precision",
+      "type": "Metric",
+      "description": "精确率",
+      "category": "分类评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RECALL_CLASSIFICATION",
+      "label": "Recall",
+      "type": "Metric",
+      "description": "召回率",
+      "category": "分类评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "UNLABELEDATTACHMENTSCORE_PARSING",
+      "label": "Unlabeled Attachment Score",
+      "type": "Metric",
+      "description": "Dependency parsing score without labels",
+      "category": "Dependency Parsing evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "KUSHMAN2014_EQUATIONSETSOLVER",
+      "label": "KUSHMAN2014_EQUATIONSETSOLVER",
       "type": "Unknown",
       "node_type": "Unknown"
     },
     {
-      "id": "ALG514_2014",
-      "label": "ALG514_2014",
+      "id": "GOYAL2017_VQA",
+      "label": "GOYAL2017_VQA",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "OLDDATASET_2005",
+      "label": "OLDDATASET_2005",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SEO2013_DIAGRAMUNDERSTANDING",
+      "label": "SEO2013_DIAGRAMUNDERSTANDING",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "OLDMETRIC_2000",
+      "label": "OLDMETRIC_2000",
       "type": "Unknown",
       "node_type": "Unknown"
     }
   ],
   "edges": [
+    {
+      "source": "ANTOL2015_VQA",
+      "target": "GOYAL2017_VQA",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "VQA改进了Visual Question Answering",
+      "detail": "VQA通过引入更平衡的数据集，改进了Visual Question Answering的视觉理解能力。",
+      "evidence": "VQA通过引入更平衡的数据集，改进了Visual Question Answering的视觉理解能力，使得模型在测试集上的表现更好（Goyal et al., 2017）。",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHANG2013_L3M",
+      "target": "RAGHUNATHAN2010_SIEVE",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "L3M改进了Multi-Pass Sieve",
+      "detail": "L3M通过引入潜在变量模型和基于知识的约束，改进了Multi-Pass Sieve的核心ference解析能力。",
+      "evidence": "L3M通过引入潜在变量模型和基于知识的约束，改进了Multi-Pass Sieve的核心ference解析能力，提高了准确性和效率（Chang et al., 2013）。",
+      "confidence": 0.85
+    },
+    {
+      "source": "CHEN2014_NEURALPARSER",
+      "target": "GOLDBERG2010_EASYFIRSTPARSER",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Neural Dependency Parser优化了Easy-First Non-Directional Dependency Parsing",
+      "detail": "Neural Dependency Parser通过使用神经网络分类器，优化了Easy-First Non-Directional Dependency Parsing的速度和准确性。",
+      "evidence": "Neural Dependency Parser通过使用神经网络分类器，优化了Easy-First Non-Directional Dependency Parsing的速度和准确性，显著提高了无标签和有标签依存得分（Chen & Manning, 2014）。",
+      "confidence": 0.9
+    },
+    {
+      "source": "HOSSEINI2014_VERBCATEGORIZATION",
+      "target": "KONCEL-KEDZIORSKI2015_EQUATIONPARSER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入语义解析器以提高方程生成的准确性",
+      "evidence": "通过语义解析器，提高了方程生成的准确性。",
+      "confidence": 0.9
+    },
+    {
+      "source": "HUANG2017_FG_EXPRESSION",
+      "target": "HUANG2018_FG-EXPRESSION",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "FG-Expression -> FG-Expression",
+      "detail": "FG-Expression在2018年的版本中优化了特征选择和模板片段的应用。",
+      "evidence": "FG-Expression also significantly reduces the search space because only top-k templates are examined whereas previous methods align numbers for all the templates in the training dataset.",
+      "confidence": 0.85
+    },
     {
       "source": "HUANG2017_FINEGRAINEDEXPRESSIONS",
       "target": "WANG2018_MATHDQN",
@@ -99,6 +1171,196 @@
       "detail": "MathDQN通过引入深度强化学习框架，改进了Fine-grained Expressions的表达方式，提高了模型的准确性和泛化能力。",
       "evidence": "MathDQN models the tree construction as a Markov Decision Process and leverages the strengths of deep Q-network (DQN).",
       "confidence": 0.85
+    },
+    {
+      "source": "KONCEL-KEDZIORSKI2015_ALGES",
+      "target": "WANG2018_TRANSLATIONMODEL",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "ALGES -> Translation Model",
+      "detail": "Translation Model通过引入seq2seq模型优化了ALGES的表达式树生成过程。",
+      "evidence": "Seq2SeqET[15] extended the idea of DNS by using expression tree as the output sequence. It applied seq2seq model to convert the problem text into an expression tree.",
+      "confidence": 0.85
+    },
+    {
+      "source": "KONCEL-KEDZIORSKI2015_ALGES",
+      "target": "WANG2018_MATHDQN",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "ALGES -> MathDQN",
+      "detail": "MathDQN通过引入强化学习优化了ALGES的表达式树生成过程。",
+      "evidence": "MathDQN iteratively picks the best operator for two selected quantities. This procedure can be viewed as beam search with k=1 when exploiting candidate expression trees. Its deep Q-network acts as the operator classifier and guides the model to select the most promising operator for tree construction.",
+      "confidence": 0.85
+    },
+    {
+      "source": "KONCEL-KEDZIORSKI2015_ALGES",
+      "target": "HUANG2017_FG_EXPRESSION",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "ALGES -> FG-Expression",
+      "detail": "FG-Expression扩展了ALGES的方法，通过细粒度单元解析方程模板。",
+      "evidence": "FG-Expression parses an equation template into fine-grained units, called template fragment. Each template is represented in a tree structure as in Figure 3 and each fragment represents a sub-tree rooted at an internal node.",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCEL-KEDZIORSKI2015_ALGES",
+      "target": "CHIANG2018_STACKDECODER",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "ALGES -> StackDecoder",
+      "detail": "StackDecoder通过引入栈机制优化了ALGES的表达式树生成过程。",
+      "evidence": "StackDecoder is also based on seq2seq model. Its encoder extracts semantic meanings of quantities in the question text and the decoder is equipped with a stack to facilitate tracking the semantic meanings of operands.",
+      "confidence": 0.85
+    },
+    {
+      "source": "KONCEL-KEDZIORSKI2015_ALGES",
+      "target": "ZHANG2019_DEEPNEURALSOLVER",
+      "label": "Replace",
+      "relation_type": "Replace",
+      "structure": "ALGES -> Deep Neural Solver",
+      "detail": "Deep Neural Solver用深度学习模型替换了ALGES的手工特征工程方法。",
+      "evidence": "Deep Neural Solver(DNS)[14] is the first deep learning based algorithm that does not rely on hand-crafted features. This is a milestone contribution because all the previous methods (including MathDQN) require human intelligence to help extract features that are effective.",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCELKEDZIORSKI2015_ALGES",
+      "target": "ROY2015_GENERALARITHMETIC",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "ALGES改进了General Arithmetic Word Problem Solver",
+      "detail": "ALGES通过整数线性规划生成方程树，改进了General Arithmetic Word Problem Solver的解题能力。",
+      "evidence": "ALGES通过整数线性规划生成方程树，改进了General Arithmetic Word Problem Solver的解题能力，特别是在多步算术问题上表现更好（Koncel-Kedziorski et al., 2015）。",
+      "confidence": 0.85
+    },
+    {
+      "source": "LIN2017_STRUCTUREDSELFATTENTION",
+      "target": "CHEN2014_NEURALPARSER",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Structured Self-Attentive Sentence Embedding扩展了Neural Dependency Parser",
+      "detail": "Structured Self-Attentive Sentence Embedding通过引入自注意力机制，扩展了Neural Dependency Parser的句子嵌入表示。",
+      "evidence": "Structured Self-Attentive Sentence Embedding通过引入自注意力机制，扩展了Neural Dependency Parser的句子嵌入表示，提供了更丰富的语义信息（Lin et al., 2017）。",
+      "confidence": 0.85
+    },
+    {
+      "source": "ROY2015_ARIS",
+      "target": "ROY2015_GENERALARITHMETIC",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "ARIS扩展为General Arithmetic Word Problem Solver",
+      "detail": "ARIS通过动词分类来生成方程，而General Arithmetic Word Problem Solver进一步扩展了这一方法，能够处理更复杂的算术问题。",
+      "evidence": "ARIS系统通过动词分类来生成方程，而General Arithmetic Word Problem Solver则通过表达树和约束推理框架来处理更复杂的算术问题（Roy & Roth, 2015）。",
+      "confidence": 0.85
+    },
+    {
+      "source": "ROY2015_ARIS",
+      "target": "MITRA2016_FORMULASOLVER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "ARIS改进了Formula Solver",
+      "detail": "ARIS通过动词分类和方程生成，改进了Formula Solver的解题能力。",
+      "evidence": "ARIS通过动词分类和方程生成，改进了Formula Solver的解题能力，特别是在标准小学测试问题上表现更好（Hosseini et al., 2015；Mitra & Baral, 2016）。",
+      "confidence": 0.85
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "WANG2018_TRANSLATIONMODEL",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Expression Tree -> Translation Model",
+      "detail": "Translation Model扩展了Expression Tree的思想，使用表达式树作为输出序列。",
+      "evidence": "Seq2SeqET[15] extended the idea of DNS by using expression tree as the output sequence.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "WANG2018_MATHDQN",
+      "label": "Replace",
+      "relation_type": "Replace",
+      "structure": "Expression Tree -> MathDQN",
+      "detail": "MathDQN用强化学习方法替换了Expression Tree的Beam Search方法，以更好地处理多步问题。",
+      "evidence": "MathDQN models the tree construction as Markov Decision Process and leverage the strengths of deep Q-network (DQN). By using a two-layer feed-forward neural network as the deep Q-network to approximate the Q-value function, the framework learns model parameters from the reward feedback of the environment.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "ALGES2015_EQUATIONTREE",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "ALGES扩展了ExpressionTree的树结构",
+      "detail": "ALGES通过引入整数线性规划（ILP）来扩展ExpressionTree的树结构，从而更好地处理多步问题。",
+      "evidence": "ALGES exploits the whole search space to enumerate all the possible trees, whereas ExpressionTree and ALGES use beam search for efficiency concern.",
+      "confidence": 0.8
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "WANG2019_T-RNN",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Expression Tree -> T-RNN",
+      "detail": "T-RNN在Expression Tree的基础上进行了改进，特别是在数量编码、模板表示和树构造方面。",
+      "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "CHIANG2018_STACKDECODER",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Expression Tree -> StackDecoder",
+      "detail": "StackDecoder通过引入栈机制优化了Expression Tree的语义跟踪。",
+      "evidence": "StackDecoder is also based on seq2seq model. Its encoder extracts semantic meanings of quantities in the question text and the decoder is equipped with a stack to facilitate tracking the semantic meanings of operands.",
+      "confidence": 0.85
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "ZHANG2019_DEEPNEURALSOLVER",
+      "label": "Replace",
+      "relation_type": "Replace",
+      "structure": "Expression Tree -> Deep Neural Solver",
+      "detail": "Deep Neural Solver用深度学习模型替换了Expression Tree的手工特征工程方法。",
+      "evidence": "Deep Neural Solver(DNS)[14] is the first deep learning based algorithm that does not rely on hand-crafted features. This is a milestone contribution because all the previous methods (including MathDQN) require human intelligence to help extract features that are effective.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "HUANG2017_FG_EXPRESSION",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Expression Tree -> FG-Expression",
+      "detail": "FG-Expression扩展了Expression Tree的方法，通过细粒度单元解析方程模板。",
+      "evidence": "FG-Expression parses an equation template into fine-grained units, called template fragment. Each template is represented in a tree structure as in Figure 3 and each fragment represents a sub-tree rooted at an internal node.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2018_UNITDEPENDENCYGRAPH",
+      "target": "ROY2015_GENERALARITHMETIC",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Unit Dependency Graph优化了General Arithmetic Word Problem Solver",
+      "detail": "Unit Dependency Graph通过引入单位依赖图减少了General Arithmetic Word Problem Solver的错误率。",
+      "evidence": "Unit Dependency Graph通过引入单位依赖图（UDGs），减少了General Arithmetic Word Problem Solver的错误率超过10%，使其更加鲁棒（Roy & Roth, 2018）。",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2018_UNITDEPENDENCYGRAPH",
+      "target": "ROY2015_ARIS",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Unit Dependency Graph优化了ARIS",
+      "detail": "Unit Dependency Graph通过引入单位依赖图，优化了ARIS的解题过程。",
+      "evidence": "Unit Dependency Graph通过引入单位依赖图，优化了ARIS的解题过程，减少了错误率（Roy & Roth, 2018）。",
+      "confidence": 0.9
+    },
+    {
+      "source": "SEO2015_GEOS",
+      "target": "SEO2013_DIAGRAMUNDERSTANDING",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "GEOS扩展了Diagram Understanding",
+      "detail": "GEOS不仅理解文本，还结合了图表解释，扩展了Diagram Understanding的功能。",
+      "evidence": "GEOS不仅理解文本，还结合了图表解释，扩展了Diagram Understanding的功能，能够处理几何问题（Seo et al., 2015）。",
+      "confidence": 0.9
     },
     {
       "source": "WANG2017_DEEPNEURALSOLVER",
@@ -141,24 +1403,44 @@
       "confidence": 0.8
     },
     {
-      "source": "ROY2015_EXPRESSIONTREE",
-      "target": "WANG2018_MATHDQN",
-      "label": "Improve",
-      "relation_type": "Improve",
-      "structure": "MathDQN改进了ExpressionTree的表达树构建方法",
-      "detail": "MathDQN使用深度强化学习和马尔可夫决策过程来迭代选择最佳操作符，从而改进了ExpressionTree的表达树构建方法。",
-      "evidence": "MathDQN models the tree construction as a Markov Decision Process and leverages the strengths of deep Q-network (DQN). By using a two-layer feed-forward neural network as the deep Q-network to approximate the Q-value function, the framework learns model parameters from the reward feedback of the environment. Consequently, the RL framework demonstrates higher generality and robustness than the other tree-based methods when handling complicated scenarios.",
+      "source": "WANG2017_TRANSLATION",
+      "target": "WANG2017_DEEPNEURALSOLVER",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Translation to Expression Tree优化了Deep Neural Solver",
+      "detail": "Translation to Expression Tree通过规范化方程，优化了Deep Neural Solver的表达式生成过程。",
+      "evidence": "Translation to Expression Tree通过规范化方程，优化了Deep Neural Solver的表达式生成过程，显著提高了模型的准确性（Wang et al., 2017）。",
       "confidence": 0.9
     },
     {
-      "source": "ROY2015_EXPRESSIONTREE",
-      "target": "ALGES2015_EQUATIONTREE",
-      "label": "Extend",
-      "relation_type": "Extend",
-      "structure": "ALGES扩展了ExpressionTree的树结构",
-      "detail": "ALGES通过引入整数线性规划（ILP）来扩展ExpressionTree的树结构，从而更好地处理多步问题。",
-      "evidence": "ALGES exploits the whole search space to enumerate all the possible trees, whereas ExpressionTree and ALGES use beam search for efficiency concern.",
-      "confidence": 0.8
+      "source": "WANG2018_MATHDQN",
+      "target": "ZHANG2019_DEEPNEURALSOLVER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "MathDQN -> Deep Neural Solver",
+      "detail": "Deep Neural Solver在MathDQN的基础上进一步改进，使用了更复杂的深度学习模型和双向LSTM。",
+      "evidence": "Deep Neural Solver(DNS)[14] is the first deep learning based algorithm that does not rely on hand-crafted features. This is a milestone contribution because all the previous methods (including MathDQN) require human intelligence to help extract features that are effective.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "WANG2019_T-RNN",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "MathDQN -> T-RNN",
+      "detail": "T-RNN通过引入Bi-LSTM和自注意力机制优化了MathDQN的数量编码和模板表示。",
+      "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction. First, an effective embedding network with Bi-LSTM and self attention is used to vectorize the quantities.",
+      "confidence": 0.85
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "WANG2017_DEEPNEURALSOLVER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "MathDQN改进了Deep Neural Solver",
+      "detail": "MathDQN引入了强化学习机制，解决了Deep Neural Solver在生成表达式时可能出现的错误。",
+      "evidence": "MathDQN采用了深度Q网络（Deep Q-Network），通过强化学习直接优化解题准确性，克服了Deep Neural Solver在大空间目标表达式中的性能下降问题（Wang et al., 2018）。",
+      "confidence": 0.9
     },
     {
       "source": "WANG2018_SEQ2SEQET",
@@ -171,14 +1453,74 @@
       "confidence": 0.9
     },
     {
-      "source": "ACCURACY_CLASSIFICATION",
-      "target": "ACCURACY_CLASSIFICATION",
-      "label": "Use",
-      "relation_type": "Use",
-      "structure": "多个算法使用了相同的评估指标",
-      "detail": "多个算法如Fine-grained Expressions、MathDQN、Deep Neural Solver等都使用了分类准确率作为评估指标。",
-      "evidence": "The metrics used in these algorithms include Accuracy_Classification.",
-      "confidence": 0.95
+      "source": "WANG2018_STACKDECODER",
+      "target": "WANG2017_DEEPNEURALSOLVER",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "StackDecoder扩展了Deep Neural Solver",
+      "detail": "StackDecoder通过引入堆栈机制，扩展了Deep Neural Solver的功能，增强了语义跟踪能力。",
+      "evidence": "StackDecoder通过引入堆栈机制，扩展了Deep Neural Solver的功能，增强了语义跟踪能力，提高了算术问题的求解精度（Wang et al., 2019）。",
+      "confidence": 0.85
+    },
+    {
+      "source": "WANG2018_T-RNN",
+      "target": "WANG2017_DEEPNEURALSOLVER",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "T-RNN扩展了Deep Neural Solver",
+      "detail": "T-RNN通过引入双向LSTM和自注意力机制，扩展了Deep Neural Solver的功能，提高了表达式的生成能力。",
+      "evidence": "T-RNN通过引入双向LSTM和自注意力机制，扩展了Deep Neural Solver的功能，提高了表达式的生成能力，特别是在Math23K数据集上表现优异（Wang et al., 2019）。",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_TEMPLATEBASED",
+      "target": "WANG2017_DEEPNEURALSOLVER",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Template-Based Math Word Problem Solver扩展了Deep Neural Solver",
+      "detail": "Template-Based Math Word Problem Solver通过引入递归神经网络和模板表示，扩展了Deep Neural Solver的功能。",
+      "evidence": "Template-Based Math Word Problem Solver通过递归神经网络和模板表示，扩展了Deep Neural Solver的功能，提高了表达式的生成能力（Wang et al., 2018）。",
+      "confidence": 0.85
+    },
+    {
+      "source": "WANG2018_TEMPLATEBASED",
+      "target": "WANG2017_TRANSLATION",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Template-Based Math Word Problem Solver扩展了Translation to Expression Tree",
+      "detail": "Template-Based Math Word Problem Solver通过引入递归神经网络和模板表示，扩展了Translation to Expression Tree的功能。",
+      "evidence": "Template-Based Math Word Problem Solver通过引入递归神经网络和模板表示，扩展了Translation to Expression Tree的功能，提高了表达式的生成能力（Wang et al., 2018）。",
+      "confidence": 0.85
+    },
+    {
+      "source": "WANG2018_TRANSLATIONMODEL",
+      "target": "WANG2018_MATHDQN",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入强化学习以优化表达式树构建",
+      "evidence": "通过强化学习，提高了表达式树构建的效率。",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_TRANSLATIONMODEL",
+      "target": "WANG2019_T-RNN",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Translation Model -> T-RNN",
+      "detail": "T-RNN在Translation Model的基础上进行了改进，特别是在递归神经网络和自注意力机制方面。",
+      "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction. First, an effective embedding network with Bi-LSTM and self attention is used to vectorize the quantities.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_TRANSLATIONMODEL",
+      "target": "ZHANG2019_DEEPNEURALSOLVER",
+      "label": "Replace",
+      "relation_type": "Replace",
+      "structure": "Translation Model -> Deep Neural Solver",
+      "detail": "Deep Neural Solver用深度学习模型替换了Translation Model的手工特征工程方法。",
+      "evidence": "Deep Neural Solver(DNS)[14] is the first deep learning based algorithm that does not rely on hand-crafted features. This is a milestone contribution because all the previous methods (including MathDQN) require human intelligence to help extract features that are effective.",
+      "confidence": 0.9
     },
     {
       "source": "AI2_2014",
@@ -199,6 +1541,46 @@
       "detail": "Dolphin18K包含了更多的数学问题，数据量更大，问题类型更加多样化，扩展了ALG514的数据规模和多样性。",
       "evidence": "The harvested dataset is so far the largest one, with 18,460 problems and 5,871 equation templates.",
       "confidence": 0.9
+    },
+    {
+      "source": "ACCURACY_CLASSIFICATION",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "多个算法使用了相同的评估指标",
+      "detail": "多个算法如Fine-grained Expressions、MathDQN、Deep Neural Solver等都使用了分类准确率作为评估指标。",
+      "evidence": "The metrics used in these algorithms include Accuracy_Classification.",
+      "confidence": 0.95
+    },
+    {
+      "source": "KUSHMAN2014_EQUATIONSETSOLVER",
+      "target": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入细粒度单元以提高模板片段映射的准确性",
+      "evidence": "通过将模板解析为细粒度单元，提高了映射精度。",
+      "confidence": 0.95
+    },
+    {
+      "source": "OLDDATASET_2005",
+      "target": "AI2_2014",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "",
+      "detail": "扩展了问题数量和复杂度",
+      "evidence": "AI2包含更多的问题和复杂度。",
+      "confidence": 0.9
+    },
+    {
+      "source": "OLDMETRIC_2000",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "",
+      "detail": "改进了计算方式",
+      "evidence": "通过更精确的计算方法，提高了准确率。",
+      "confidence": 0.85
     }
   ]
 }

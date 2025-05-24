@@ -4,6 +4,7 @@ import json
 import datetime
 import time  # 添加time模块用于睡眠
 import mysql.connector  # 导入MySQL连接器包
+import traceback
 from mysql.connector import Error as MySQLError  # 导入MySQL错误类型便于捕获
 from app.config import Config
 
@@ -1119,7 +1120,6 @@ class DatabaseManager:
                     # 计算完成状态
                     result['completed'] = result['end_time'] is not None
                     
-                    logging.info(f"成功获取任务 {task_id} 的处理状态")
                     return result
                 
                 except mysql.connector.Error as err:
@@ -1960,6 +1960,130 @@ class DatabaseManager:
         except Exception as e:
             logging.error(f"检查任务存在时出错: {str(e)}")
             return False
+
+    def get_entities_by_task(self, task_id):
+        """
+        根据任务ID获取相关实体
+        
+        Args:
+            task_id (str): 任务ID
+            
+        Returns:
+            list: 相关实体列表
+        """
+        try:
+            # 检查是否需要重连
+            self._reconnect_if_needed()
+            
+            # 使用任务ID查询实体 - 在现有表结构中，可能没有直接关联，
+            # 这里我们假设任务ID被保存在实体的metadata字段中，或者使用其他方式关联
+            # 实际实现需要根据具体的数据库结构调整
+            
+            # 查询算法实体
+            sql = "SELECT * FROM AlgorithmEntities WHERE metadata LIKE %s"
+            self.cursor.execute(sql, (f'%"task_id": "{task_id}"%',))
+            algorithm_rows = self.cursor.fetchall()
+            
+            # 查询数据集实体
+            sql = "SELECT * FROM DatasetEntities WHERE metadata LIKE %s"
+            self.cursor.execute(sql, (f'%"task_id": "{task_id}"%',))
+            dataset_rows = self.cursor.fetchall()
+            
+            # 查询评价指标实体
+            sql = "SELECT * FROM MetricEntities WHERE metadata LIKE %s"
+            self.cursor.execute(sql, (f'%"task_id": "{task_id}"%',))
+            metric_rows = self.cursor.fetchall()
+            
+            # 获取字段名
+            algorithm_fields = [desc[0] for desc in self.cursor.description]
+            
+            # 转换为字典列表
+            entities = []
+            
+            # 处理算法实体
+            for row in algorithm_rows:
+                entity = {}
+                for i, field in enumerate(algorithm_fields):
+                    entity[field] = row[i]
+                entities.append({
+                    'algorithm_entity': entity,
+                    'entity_type': 'Algorithm'
+                })
+            
+            # 处理数据集实体
+            for row in dataset_rows:
+                entity = {}
+                for i, field in enumerate(algorithm_fields):
+                    entity[field] = row[i]
+                entities.append({
+                    'dataset_entity': entity,
+                    'entity_type': 'Dataset'
+                })
+            
+            # 处理评价指标实体
+            for row in metric_rows:
+                entity = {}
+                for i, field in enumerate(algorithm_fields):
+                    entity[field] = row[i]
+                entities.append({
+                    'metric_entity': entity,
+                    'entity_type': 'Metric'
+                })
+            
+            # 如果找不到具体关联，则返回所有实体
+            if not entities:
+                logging.warning(f"未找到与任务 {task_id} 关联的实体，返回所有实体")
+                return self.get_all_entities()
+                
+            return entities
+            
+        except Exception as e:
+            logging.error(f"获取任务 {task_id} 的实体时出错: {str(e)}")
+            logging.error(traceback.format_exc())
+            return []
+
+    def get_relations_by_task(self, task_id):
+        """
+        根据任务ID获取相关关系
+        
+        Args:
+            task_id (str): 任务ID
+            
+        Returns:
+            list: 相关关系列表
+        """
+        try:
+            # 检查是否需要重连
+            self._reconnect_if_needed()
+            
+            # 使用任务ID查询关系 - 在现有表结构中，可能没有直接关联，
+            # 这里我们假设任务ID被保存在关系的metadata字段中，或者使用其他方式关联
+            sql = "SELECT * FROM AlgorithmRelations WHERE metadata LIKE %s"
+            self.cursor.execute(sql, (f'%"task_id": "{task_id}"%',))
+            relation_rows = self.cursor.fetchall()
+            
+            # 获取字段名
+            relation_fields = [desc[0] for desc in self.cursor.description]
+            
+            # 转换为字典列表
+            relations = []
+            for row in relation_rows:
+                relation = {}
+                for i, field in enumerate(relation_fields):
+                    relation[field] = row[i]
+                relations.append(relation)
+            
+            # 如果找不到具体关联，则返回所有关系
+            if not relations:
+                logging.warning(f"未找到与任务 {task_id} 关联的关系，返回所有关系")
+                return self.get_all_relations()
+                
+            return relations
+            
+        except Exception as e:
+            logging.error(f"获取任务 {task_id} 的关系时出错: {str(e)}")
+            logging.error(traceback.format_exc())
+            return []
 
 # 创建数据库管理器实例
 db_manager = DatabaseManager()

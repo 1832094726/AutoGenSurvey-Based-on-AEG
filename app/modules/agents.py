@@ -982,9 +982,12 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
         system_message = """你是一位专业的算法演化关系分析专家。请分析提供的论文和实体列表，识别算法之间的演化关系。
         
 演化关系是指一个算法对另一个算法的改进、扩展、优化或替代关系。请仔细分析这些关系，并以JSON格式返回。
-        
-1.实体ID（使用格式: 作者年份_实体名称，例如Zhang2016_TemplateSolver）
-2.已知实体提取的entity_id需要保持一致
+
+特别说明：
+1. 实体列表已通过单独的文本文件上传，但内容是JSON格式，包含所有算法、数据集和评价指标实体信息
+2. 请务必使用文件中提供的实体ID进行关系识别，不要使用不存在的实体
+3. 论文内容已通过PDF文件上传，请从中提取支持演化关系的证据
+
 我们将演化关系分为五种类型：
 
 1. 改进（Improve）：指算法设计或结构上的创新，升级整体架构或机制，以实现新功能或提高适应性。
@@ -1003,20 +1006,15 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
    表达方式：A uses B, A employs B, A utilizes B, A applies B, A leverages B, A adopts B, A implements B
 请根据论文内容，识别实体列表中算法之间的演化关系，并提供详细信息。如果找不到明确的关系，请勿创建虚构的关系。"""
         
-        # 构建用户提示信息
-        user_message = """请分析以下实体列表和论文内容，识别算法之间的演化关系。
+        # 构建基础用户消息（不包含实体）
+        base_user_message = """请分析已上传的实体文件和PDF论文内容，识别算法之间的演化关系。
 
-实体列表（包含算法、数据集和评价指标）：
-"""
-        
-        # 添加实体到提示中
-        entity_json = json.dumps(entities, ensure_ascii=False, indent=2)
-        user_message += entity_json
-        
-        user_message += """
-        
+重要提示：
+1. 所有实体信息都在已上传的文本文件中，内容是JSON格式，包含算法、数据集和评价指标实体
+2. 请不要创建文件中不存在的实体，必须严格使用文件中提供的实体ID
+3. 如果实体文件中有数百个实体，请尽可能全面分析它们之间的关系
 
-重要说明：请注意实体类型可以是算法（Algorithm）、数据集（Dataset）或评估指标（Metric）。实体之间的演化关系可以是：
+实体之间的演化关系可以是：
 - 算法改进/优化/扩展/替换另一个算法
 - 算法使用特定数据集
 - 算法使用特定评估指标
@@ -1041,8 +1039,8 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
   ...
 ]
 
-请确保每个关系都有足够的证据支持，避免虚构不存在的关系。"""
-        
+请确保每个关系都有足够的证据支持，避免虚构不存在的关系。如果找不到明确的证据，请不要创建关系。"""
+
         # 调用API进行关系提取
         try:
             from openai import OpenAI
@@ -1056,16 +1054,41 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
                 {"role": "system", "content": system_message}
             ]
             
-            # 添加file-id引用
+            # 创建临时文件保存所有实体
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as temp_file:
+                temp_filename = temp_file.name
+                # 将所有实体以JSON格式写入TXT文件
+                json_content = json.dumps(entities, ensure_ascii=False, indent=2)
+                temp_file.write(json_content)
+                logging.info(f"已将 {len(entities)} 个实体以JSON格式写入TXT文件: {temp_filename}")
+            
+            # 上传实体文件并获取file-id
+            entities_file_id = upload_and_cache_file(temp_filename, purpose="file-extract")
+            
+            # 删除临时文件
+            try:
+                os.unlink(temp_filename)
+            except Exception as e:
+                logging.warning(f"删除临时文件时出错: {str(e)}")
+            
+            if not entities_file_id:
+                logging.error("上传实体文件失败，无法获取file-id")
+                return []
+            
+            # 添加file-id引用（包括PDF文件和实体文件）
+            all_file_ids = []
             if file_ids:
-                file_content = ",".join([f"fileid://{fid}" for fid in file_ids])
-                messages.append({"role": "system", "content": file_content})
+                all_file_ids.extend(file_ids)
+            all_file_ids.append(entities_file_id)
+            
+            file_content = ",".join([f"fileid://{fid}" for fid in all_file_ids])
+            messages.append({"role": "system", "content": file_content})
             
             # 添加用户提示
-            messages.append({"role": "user", "content": user_message})
+            messages.append({"role": "user", "content": base_user_message})
             
             # 调用API
-            logging.info(f"调用千问API提取关系，文件数: {len(file_ids) if file_ids else 0}")
+            logging.info(f"调用千问API提取关系，包含 {len(file_ids) if file_ids else 0} 个PDF文件和 1 个JSON内容的TXT文件(ID: {entities_file_id})，共 {len(all_file_ids)} 个文件")
             response = client.chat.completions.create(
                 model=Config.QWEN_MODEL or "qwen-long",
                 messages=messages,

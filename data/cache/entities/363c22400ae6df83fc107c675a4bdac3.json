@@ -1,0 +1,1251 @@
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_L3M",
+        "entity_type": "Algorithm",
+        "name": "Latent Left Linking model (L3M)",
+        "title": "A Constrained Latent Variable Model for Coreference Resolution",
+        "year": 2013,
+        "authors": [
+          "Kai-Wei Chang",
+          "Rajhans Samdani",
+          "Dan Roth"
+        ],
+        "task": "Coreference Resolution",
+        "dataset": [
+          "ACE",
+          "Ontonotes"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Latent structured prediction",
+            "Knowledge-based constraints"
+          ],
+          "connections": [
+            "Efficient inference",
+            "Stochastic gradient learning"
+          ],
+          "mechanisms": [
+            "Constrained version (CL3M)"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Stochastic gradient descent"
+          ],
+          "parameter_tuning": [
+            "Efficient inference"
+          ]
+        },
+        "feature_processing": [
+          "Pairwise mention model"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chen2014_NeuralDependencyParser",
+        "entity_type": "Algorithm",
+        "name": "Neural Dependency Parser",
+        "title": "A fast and accurate dependency parser using neural networks",
+        "year": 2014,
+        "authors": [
+          "Danqi Chen",
+          "Christopher D. Manning"
+        ],
+        "task": "Dependency Parsing",
+        "dataset": [
+          "English Penn Treebank"
+        ],
+        "metrics": [
+          "Unlabeled Attachment Score",
+          "Labeled Attachment Score"
+        ],
+        "architecture": {
+          "components": [
+            "Neural network classifier",
+            "Greedy transition-based parser"
+          ],
+          "connections": [
+            "Dense features"
+          ],
+          "mechanisms": [
+            "Fast parsing"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Neural network training"
+          ],
+          "parameter_tuning": [
+            "Dense feature learning"
+          ]
+        },
+        "feature_processing": [
+          "Sparse indicator features"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Raghunathan2010_SieveCoreference",
+        "entity_type": "Algorithm",
+        "name": "Multi-Pass Sieve for Coreference Resolution",
+        "title": "A multi-pass sieve for coreference resolution",
+        "year": 2010,
+        "authors": [
+          "Karthik Raghunathan",
+          "Heeyoung Lee",
+          "Sudarshan Rangarajan",
+          "Nathanael Chambers",
+          "Mihai Surdeanu",
+          "Dan Jurafsky",
+          "Christopher Manning"
+        ],
+        "task": "Coreference Resolution",
+        "dataset": [
+          "Standard corpora"
+        ],
+        "metrics": [
+          "Performance"
+        ],
+        "architecture": {
+          "components": [
+            "Deterministic coreference models"
+          ],
+          "connections": [
+            "Tier-based processing"
+          ],
+          "mechanisms": [
+            "Global information propagation"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Modular architecture"
+          ],
+          "parameter_tuning": [
+            "High precision features"
+          ]
+        },
+        "feature_processing": [
+          "Syntactic and semantic information"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Lin2017_StructuredSelfAttention",
+        "entity_type": "Algorithm",
+        "name": "Structured Self-Attentive Sentence Embedding",
+        "title": "A Structured Self-attentive Sentence Embedding",
+        "year": 2017,
+        "authors": [
+          "Zhouhan Lin",
+          "Minwei Feng",
+          "Cicero Nogueira dos Santos",
+          "Mo Yu",
+          "Bing Xiang",
+          "Bowen Zhou",
+          "Yoshua Bengio"
+        ],
+        "task": "Sentence Embedding",
+        "dataset": [
+          "Author profiling",
+          "Sentiment classification",
+          "Textual entailment"
+        ],
+        "metrics": [
+          "Performance gain"
+        ],
+        "architecture": {
+          "components": [
+            "2-D matrix representation",
+            "Self-attention mechanism"
+          ],
+          "connections": [
+            "Regularization term"
+          ],
+          "mechanisms": [
+            "Interpretable sentence embedding"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Self-attention learning"
+          ],
+          "parameter_tuning": [
+            "Special regularization term"
+          ]
+        },
+        "feature_processing": [
+          "Tag-based logic forms"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Goldberg2010_EasyFirstParsing",
+        "entity_type": "Algorithm",
+        "name": "Easy-First Non-Directional Dependency Parsing",
+        "title": "An Efficient Algorithm for Easy-First Non-Directional Dependency Parsing",
+        "year": 2010,
+        "authors": [
+          "Yoav Goldberg",
+          "Michael Elhadad"
+        ],
+        "task": "Dependency Parsing",
+        "dataset": [
+          "Dependency parsing datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Non-directional parsing"
+          ],
+          "connections": [
+            "Iterative selection"
+          ],
+          "mechanisms": [
+            "Best-first parsing"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Deterministic parsing"
+          ],
+          "parameter_tuning": [
+            "Attachment preferences"
+          ]
+        },
+        "feature_processing": [
+          "Features from built structures"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ArithmeticWordProblems",
+        "entity_type": "Algorithm",
+        "name": "Arithmetic Word Problem Solver",
+        "title": "Solving General Arithmetic Word Problems",
+        "year": 2015,
+        "authors": [
+          "Subhro Roy",
+          "Dan Roth"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Benchmark datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Expression trees",
+            "Declarative rules"
+          ],
+          "connections": [
+            "Semantic mapping"
+          ],
+          "mechanisms": [
+            "Constrained inference framework"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Classification problems"
+          ],
+          "parameter_tuning": [
+            "Domain knowledge"
+          ]
+        },
+        "feature_processing": [
+          "Quantity schemas"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "description": "Large-scale dataset for arithmetic word problems",
+        "domain": "Mathematics",
+        "size": 23000,
+        "year": 2017,
+        "creators": [
+          "Kushman et al."
+        ],
+        "evolution_relations": []
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数/总样本数",
+        "evolution_relations": []
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "UnlabeledAttachmentScore_Parsing",
+        "entity_type": "Metric",
+        "name": "Unlabeled Attachment Score",
+        "description": "依存句法分析的无标签依存关系得分",
+        "category": "依存句法分析评估",
+        "formula": "正确预测的依存关系数/总依存关系数",
+        "evolution_relations": []
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "LabeledAttachmentScore_Parsing",
+        "entity_type": "Metric",
+        "name": "Labeled Attachment Score",
+        "description": "依存句法分析的有标签依存关系得分",
+        "category": "依存句法分析评估",
+        "formula": "正确预测的带标签依存关系数/总依存关系数",
+        "evolution_relations": []
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "Unit Dependency Graph",
+        "title": "Unit Dependency Graph and its Application to Arithmetic Word Problem Solving",
+        "year": 2015,
+        "authors": [
+          "Roy, S.",
+          "Roth, D."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Unit Dependency Graph",
+            "Constrained Inference Framework"
+          ],
+          "connections": [
+            "Unit Extraction",
+            "Domain Knowledge Integration"
+          ],
+          "mechanisms": [
+            "Unit Compatibility Reasoning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Decomposed Model Induction"
+          ],
+          "parameter_tuning": [
+            "Minimal Additional Annotations"
+          ]
+        },
+        "feature_processing": [
+          "Unit Extraction",
+          "Domain Knowledge Integration"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Roy2015_GeneralArithmeticWordProblemSolver",
+            "to_entity": "Roy2015_UnitDependencyGraph",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "引入单位依赖图以提高解题准确性",
+            "evidence": "通过引入单位依赖图，减少了求解器的错误率超过10%",
+            "confidence": 0.95
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_DeepNeuralSolver",
+        "entity_type": "Algorithm",
+        "name": "Deep Neural Solver",
+        "title": "Deep Neural Solver for Math Word Problems",
+        "year": 2017,
+        "authors": [
+          "Wang, Y.",
+          "Liu, X.",
+          "Shi, S."
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Recurrent Neural Network (RNN)",
+            "Equation Templates"
+          ],
+          "connections": [
+            "Text Parsing",
+            "Equation Generation"
+          ],
+          "mechanisms": [
+            "Direct Translation",
+            "Similarity-Based Retrieval"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Maximum Likelihood Estimation"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Equation Templates"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Wang2017_DeepNeuralSolver",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "直接将数学文字问题翻译成方程模板，而不需要复杂的特征工程",
+            "evidence": "实验结果显示该模型显著优于最先进的统计学习方法",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Huang2016_FineGrainedExpression",
+        "entity_type": "Algorithm",
+        "name": "Fine-Grained Expression Learning",
+        "title": "Learning Fine-Grained Expressions to Solve Math Word Problems",
+        "year": 2016,
+        "authors": [
+          "Huang, D.",
+          "Shi, S.",
+          "Lin, C.-Y.",
+          "Yin, J."
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Recurrent Neural Network (RNN)",
+            "Equation Templates"
+          ],
+          "connections": [
+            "Text Parsing",
+            "Equation Generation"
+          ],
+          "mechanisms": [
+            "Fine-Grained Expression Learning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Maximum Likelihood Estimation"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Equation Templates"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Huang2016_FineGrainedExpression",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "学习细粒度表达式以解决数学文字问题",
+            "evidence": "实验结果显示该模型显著优于最先进的统计学习方法",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MAWPS_2016",
+        "entity_type": "Dataset",
+        "name": "MAWPS",
+        "description": "Math Word Problem Solving数据集",
+        "domain": "自然语言处理",
+        "size": 5000,
+        "year": 2016,
+        "creators": [
+          "Koncel-Kedziorski, R.",
+          "Hajishirzi, H.",
+          "Sabharwal, A.",
+          "Etzioni, O.",
+          "Ang, S.D."
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Math23K_2015",
+            "to_entity": "MAWPS_2016",
+            "relation_type": "Extend",
+            "detail": "扩展了问题类型和复杂度",
+            "evidence": "MAWPS包含了更复杂的算术问题",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "分类F1分数",
+        "category": "分类评估",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)",
+        "evolution_relations": [
+          {
+            "from_entity": "Precision_Recall_Classification",
+            "to_entity": "F1_Score_Classification",
+            "relation_type": "Combine",
+            "detail": "结合精确率和召回率计算综合评估指标",
+            "evidence": "F1分数是精确率和召回率的调和平均值",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2018_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "title": "MathDQN: Solving Arithmetic Word Problems via Deep Reinforcement Learning",
+        "year": 2018,
+        "authors": [
+          "Wang, L.",
+          "Zhang, D.",
+          "Gao, L.",
+          "Song, J.",
+          "Guo, L.",
+          "Shen, H.T."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Deep Q-Network (DQN)",
+            "Reinforcement Learning"
+          ],
+          "connections": [
+            "State Representation",
+            "Action Selection",
+            "Reward Function"
+          ],
+          "mechanisms": [
+            "Deep Reinforcement Learning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Reinforcement Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "State Representation",
+          "Action Selection"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Wang2018_MathDQN",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "应用深度强化学习来解决算术文字问题",
+            "evidence": "实验结果显示该模型显著优于现有的最先进方法",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2015_GEOS",
+        "entity_type": "Algorithm",
+        "name": "GEOS",
+        "title": "Solving Geometry Problems: Combining Text and Diagram Interpretation",
+        "year": 2015,
+        "authors": [
+          "Seo, M.",
+          "Hajishirzi, H.",
+          "Farhadi, A.",
+          "Etzioni, O.",
+          "Malcolm, C."
+        ],
+        "task": "Geometry Problem Solving",
+        "dataset": [
+          "SAT Geometry Questions"
+        ],
+        "metrics": [
+          "Score"
+        ],
+        "architecture": {
+          "components": [
+            "Text Understanding Module",
+            "Diagram Interpretation Module",
+            "Geometric Solver"
+          ],
+          "connections": [
+            "Text-Diagram Alignment",
+            "Formal Problem Description"
+          ],
+          "mechanisms": [
+            "Submodular Optimization"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Submodular Optimization"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Diagram Parsing"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Evans1964_GeometricAnalogySolver",
+            "to_entity": "Seo2015_GEOS",
+            "relation_type": "Extend",
+            "structure": "Architecture.Mechanism",
+            "detail": "结合文本理解和图表解释来解决几何问题",
+            "evidence": "实验结果显示GEOS在官方SAT问题上取得了49%的得分",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_LatentLeftLinkingModel",
+        "entity_type": "Algorithm",
+        "name": "Latent Left Linking Model (L3M)",
+        "title": "A Constrained Latent Variable Model for Coreference Resolution",
+        "year": 2013,
+        "authors": [
+          "Chang, K.-W.",
+          "Samdani, R.",
+          "Roth, D."
+        ],
+        "task": "Coreference Resolution",
+        "dataset": [
+          "ACE",
+          "Ontonotes"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Latent Structured Prediction",
+            "Knowledge-Based Constraints"
+          ],
+          "connections": [
+            "Efficient Inference",
+            "Fast Stochastic Gradient Learning"
+          ],
+          "mechanisms": [
+            "Latent Variable Modeling"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Fast Stochastic Gradient Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Coreference Clustering"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Soon2001_PairwiseMentionModel",
+            "to_entity": "Chang2013_LatentLeftLinkingModel",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "引入潜在变量建模以提高共指消解的准确性",
+            "evidence": "实验结果显示L3M及其约束版本CL3M比现有方法更准确",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_GeneralArithmeticWordProblemSolver",
+        "entity_type": "Algorithm",
+        "name": "General Arithmetic Word Problem Solver",
+        "title": "Solving General Arithmetic Word Problems",
+        "year": 2015,
+        "authors": [
+          "Roy, S.",
+          "Roth, D."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Expression Trees",
+            "Constrained Inference Framework"
+          ],
+          "connections": [
+            "Quantity Schema",
+            "World Knowledge Integration"
+          ],
+          "mechanisms": [
+            "Expression Tree Decomposition"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Schema",
+          "World Knowledge Integration"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Roy2015_GeneralArithmeticWordProblemSolver",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "能够处理多步骤和多操作的算术问题",
+            "evidence": "实验结果显示该方法在基准数据集上显著优于现有系统",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chiang2018_SemanticallyAlignedEquationGeneration",
+        "entity_type": "Algorithm",
+        "name": "Semantically-Aligned Equation Generation",
+        "title": "Semantically-Aligned Equation Generation for Solving and Reasoning Math Word Problems",
+        "year": 2018,
+        "authors": [
+          "Chiang, T.-R.",
+          "Chen, Y.-N."
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Encoder-Decoder Framework",
+            "Symbolic World",
+            "Semantic World"
+          ],
+          "connections": [
+            "Symbolic-Semantic Bridge"
+          ],
+          "mechanisms": [
+            "Symbolic-Semantic Alignment"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Symbolic-Semantic Alignment"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Chiang2018_SemanticallyAlignedEquationGeneration",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "通过符号-语义对齐生成方程",
+            "evidence": "实验结果显示该模型显著优于单模型和非检索基模型",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2018_TemplateBasedSolver",
+        "entity_type": "Algorithm",
+        "name": "Template-Based Solver with Recursive Neural Networks",
+        "title": "Template-Based Math Word Problem Solvers with Recursive Neural Networks",
+        "year": 2018,
+        "authors": [
+          "Wang, L.",
+          "Zhang, D.",
+          "Zhang, J.",
+          "Xu, X.",
+          "Gao, L.",
+          "Dai, B.T.",
+          "Shen, H.T."
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Math23K",
+          "MAWPS"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Seq2Seq Model",
+            "Tree-Structure Template",
+            "Recursive Neural Network"
+          ],
+          "connections": [
+            "Template Prediction",
+            "Quantity Encoding",
+            "Operator Inference"
+          ],
+          "mechanisms": [
+            "Bottom-Up Inference"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Quantity Encoding"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Wang2018_TemplateBasedSolver",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "基于递归神经网络的模板预测和运算符推理",
+            "evidence": "实验结果显示该框架在两个最大数据集上的准确率显著提高",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_ProgramInductionByRationale",
+        "entity_type": "Algorithm",
+        "name": "Program Induction by Rationale Generation",
+        "title": "Program Induction by Rationale Generation: Learning to Solve and Explain Algebraic Word Problems",
+        "year": 2017,
+        "authors": [
+          "Ling, W.",
+          "Yogatama, D.",
+          "Dyer, C.",
+          "Blunsom, P."
+        ],
+        "task": "Algebraic Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Rationale Generation",
+            "Program Induction"
+          ],
+          "connections": [
+            "Text Parsing",
+            "Program Execution"
+          ],
+          "mechanisms": [
+            "Rationale-Based Learning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Rationale Generation"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Wang2017_ProgramInductionByRationale",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "通过生成解释来学习解决代数文字问题",
+            "evidence": "实验结果显示该方法在基准数据集上显著优于现有系统",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chen2017_ProgramInductionByRationale",
+        "entity_type": "Algorithm",
+        "name": "Program Induction by Rationale Generation",
+        "title": "Program Induction by Rationale Generation: Learning to Solve and Explain Algebraic Word Problems",
+        "year": 2017,
+        "authors": [
+          "Ling, W.",
+          "Yogatama, D.",
+          "Dyer, C.",
+          "Blunsom, P."
+        ],
+        "task": "Algebraic Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Rationale Generation",
+            "Program Induction"
+          ],
+          "connections": [
+            "Text Parsing",
+            "Program Execution"
+          ],
+          "mechanisms": [
+            "Rationale-Based Learning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Rationale Generation"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Chen2017_ProgramInductionByRationale",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "通过生成解释来学习解决代数文字问题",
+            "evidence": "实验结果显示该方法在基准数据集上显著优于现有系统",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_TranslationToExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Translation to Expression Tree",
+        "title": "Translating a Math Word Problem to an Expression Tree",
+        "year": 2017,
+        "authors": [
+          "Wang, L.",
+          "Wang, Y.",
+          "Cai, D.",
+          "Zhang, D.",
+          "Liu, X."
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Seq2Seq Model",
+            "Expression Tree"
+          ],
+          "connections": [
+            "Text Parsing",
+            "Expression Tree Generation"
+          ],
+          "mechanisms": [
+            "Equation Normalization"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Equation Normalization"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Wang2017_TranslationToExpressionTree",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "通过表达树生成来解决数学文字问题",
+            "evidence": "实验结果显示该方法在基准数据集上显著优于现有系统",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2015_DiagramUnderstanding",
+        "entity_type": "Algorithm",
+        "name": "Diagram Understanding",
+        "title": "Diagram Understanding in Geometry Questions",
+        "year": 2015,
+        "authors": [
+          "Seo, M.J.",
+          "Hajishirzi, H.",
+          "Farhadi, A.",
+          "Etzioni, O."
+        ],
+        "task": "Geometry Problem Solving",
+        "dataset": [
+          "Geometry Questions"
+        ],
+        "metrics": [
+          "F1 Score"
+        ],
+        "architecture": {
+          "components": [
+            "Visual Element Identification",
+            "Alignment with Textual Descriptions"
+          ],
+          "connections": [
+            "Text-Diagram Alignment",
+            "Deduction Traversal"
+          ],
+          "mechanisms": [
+            "Submodular Objective Function"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Submodular Optimization"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Diagram Parsing"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Evans1964_GeometricAnalogySolver",
+            "to_entity": "Seo2015_DiagramUnderstanding",
+            "relation_type": "Extend",
+            "structure": "Architecture.Mechanism",
+            "detail": "结合文本理解和图表解释来解决几何问题",
+            "evidence": "实验结果显示该方法在几何问题上显著优于现有系统",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2016_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "title": "MathDQN: Solving Arithmetic Word Problems via Deep Reinforcement Learning",
+        "year": 2016,
+        "authors": [
+          "Wang, L.",
+          "Zhang, D.",
+          "Gao, L.",
+          "Song, J.",
+          "Guo, L.",
+          "Shen, H.T."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Average Precision"
+        ],
+        "architecture": {
+          "components": [
+            "Deep Q-Network",
+            "Reinforcement Learning"
+          ],
+          "connections": [
+            "State Representation",
+            "Action Selection",
+            "Reward Function"
+          ],
+          "mechanisms": [
+            "Deep Reinforcement Learning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Reinforcement Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "State Representation"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Wang2016_MathDQN",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "应用深度强化学习来解决算术文字问题",
+            "evidence": "实验结果显示该模型显著优于现有方法",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2018_DeclarativeKnowledgeMapping",
+        "entity_type": "Algorithm",
+        "name": "Declarative Knowledge Mapping",
+        "title": "Mapping to Declarative Knowledge for Word Problem Solving",
+        "year": 2018,
+        "authors": [
+          "Roy, S.",
+          "Roth, D."
+        ],
+        "task": "Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Declarative Rules",
+            "Equation Generation"
+          ],
+          "connections": [
+            "Text Parsing",
+            "Equation Generation"
+          ],
+          "mechanisms": [
+            "Latent Variable Selection"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hyperparameter Tuning"
+          ]
+        },
+        "feature_processing": [
+          "Text Parsing",
+          "Declarative Rule Application"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Kushman2014_AlgebraWordProblemSolver",
+            "to_entity": "Roy2018_DeclarativeKnowledgeMapping",
+            "relation_type": "Improve",
+            "structure": "Architecture.Mechanism",
+            "detail": "通过映射到声明性知识来解决文字问题",
+            "evidence": "实验结果显示该方法在基准数据集上显著优于现有系统",
+            "confidence": 0.9
+          }
+        ]
+      }
+    }
+  ],
+  "is_complete": true,
+  "extraction_time": 1748079359.492024
+}
