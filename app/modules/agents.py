@@ -781,7 +781,7 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=3, pr
         # 如果已有提取的实体，将其加入到提示词中
         current_prompt = prompt
         if all_entities:
-            # 构建已提取的实体列表摘要 (最多显示前5个)
+            # 构建已提取的实体列表摘要 
             entity_summary = []
             for idx, entity in enumerate(all_entities):
                 entity_type = "未知"
@@ -1048,6 +1048,7 @@ def extract_json_from_text(text):
                 return json_candidate
             except json.JSONDecodeError as e:
                 logging.warning(f"从代码块提取的JSON无效: {str(e)}，尝试其他方法")
+                logging.debug(f"出错文本：{text}")
     
     # 尝试提取最外层的JSON数组 [...] 或对象 {...}
     # 首先尝试数组

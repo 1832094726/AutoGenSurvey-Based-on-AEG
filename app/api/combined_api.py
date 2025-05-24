@@ -698,7 +698,7 @@ def start_comparison():
         review_paper = request.files.get('review_paper')
         citation_papers = request.files.getlist('citation_papers')
         model_name = request.form.get('model', 'chatgpt')
-        
+        from pathlib import Path
         # 验证输入
         if not review_paper:
             return jsonify({'status': 'error', 'message': '未提供综述论文'}), 400
@@ -712,8 +712,11 @@ def start_comparison():
         os.makedirs(Config.CITED_PAPERS_DIR, exist_ok=True)
         
         # 保存综述论文，使用任务ID避免冲突
-        review_filename = secure_filename(f"{task_id}_{review_paper.filename}")
-        review_path = os.path.join(Config.UPLOAD_DIR, review_filename)
+        review_filename = review_paper.filename
+        # 不要生成安全的文件名
+        safe_filename = f"{Path(review_filename).name}"  
+        # 直接保存文件到目标位置
+        review_path = os.path.join(Config.UPLOAD_FOLDER, safe_filename)
         review_paper.save(review_path)
         temp_files.append(review_path)
         
