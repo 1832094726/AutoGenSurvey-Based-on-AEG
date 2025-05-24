@@ -25,11 +25,19 @@
       "node_type": "Algorithm"
     },
     {
+      "id": "CASS2018_REINFORCEMENTLEARNING",
+      "label": "CASS",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
       "id": "CHANG2013_CONSTRAINEDLATENTVARIABLEMODEL",
-      "label": "Constrained Latent Variable Model",
+      "label": "Constrained Latent Variable Model (CL3M)",
       "type": "Algorithm",
       "year": "2013",
-      "task": "Coreference Resolution",
+      "task": "指代消解",
       "node_type": "Algorithm"
     },
     {
@@ -65,11 +73,27 @@
       "node_type": "Algorithm"
     },
     {
+      "id": "CHEN2017_PROGRAMINDUCTION",
+      "label": "Program Induction by Rationale Generation",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "代数应用题求解与解释",
+      "node_type": "Algorithm"
+    },
+    {
       "id": "CHIANG2018_SEMANTICALLYALIGNED",
       "label": "Semantically-Aligned Equation Generation",
       "type": "Algorithm",
       "year": "2018",
       "task": "Math Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "CHIANG2018_SEMANTICALLYALIGNEDEQUATION",
+      "label": "Semantically-Aligned Equation Generation",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "数学应用题求解",
       "node_type": "Algorithm"
     },
     {
@@ -137,6 +161,14 @@
       "node_type": "Algorithm"
     },
     {
+      "id": "GOLDWASSER2013_LEARNINGFROMNATURALINSTRUCTIONS",
+      "label": "Learning from Natural Instructions",
+      "type": "Algorithm",
+      "year": "2013",
+      "task": "Natural Language Understanding",
+      "node_type": "Algorithm"
+    },
+    {
       "id": "GOYAL2017_VQAMAKINGV",
       "label": "Making the V in VQA Matter",
       "type": "Algorithm",
@@ -158,6 +190,22 @@
       "type": "Algorithm",
       "year": "2014",
       "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2016_FINEGRAINEDEXPRESSIONS",
+      "label": "Fine-Grained Expressions",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "数学应用题求解",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2016_LARGESCALEDATASETCONSTRUCTION",
+      "label": "Large-Scale Dataset Construction",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
@@ -202,7 +250,7 @@
     },
     {
       "id": "HUANG2017_FINEGRAINEDEXPRESSIONS",
-      "label": "Fine-Grained Expressions",
+      "label": "Fine-grained Expressions",
       "type": "Algorithm",
       "year": "2017",
       "task": "Math Word Problem Solving",
@@ -214,6 +262,14 @@
       "type": "Algorithm",
       "year": "2017",
       "task": "自动求解算术文字题",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "HUANG2018_CASS",
+      "label": "CASS",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
@@ -273,6 +329,14 @@
       "node_type": "Algorithm"
     },
     {
+      "id": "KUSHMAN2014_EQUATIONPARSER",
+      "label": "Equation Parser",
+      "type": "Algorithm",
+      "year": "2014",
+      "task": "代数应用题解析",
+      "node_type": "Algorithm"
+    },
+    {
       "id": "LIANG2016_TAGBASEDSOLVER",
       "label": "Tag-Based Math Word Problem Solver",
       "type": "Algorithm",
@@ -305,6 +369,22 @@
       "node_type": "Algorithm"
     },
     {
+      "id": "LIN2017_STRUCTUREDSELFATTENTIVESENTENCEEMBEDDING",
+      "label": "Structured Self-Attentive Sentence Embedding",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Sentence Embedding",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "LING2017_PROGRAMINDUCTION",
+      "label": "Program Induction",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Algebraic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
       "id": "LUONG2016_MULTITASKSEQ2SEQ",
       "label": "Multi-task Sequence to Sequence Learning",
       "type": "Algorithm",
@@ -313,11 +393,27 @@
       "node_type": "Algorithm"
     },
     {
+      "id": "LUONG2016_MULTITASKSEQUENCETOSEQUENCE",
+      "label": "Multi-Task Sequence-to-Sequence Learning",
+      "type": "Algorithm",
+      "year": "2016",
+      "task": "Sequence-to-Sequence Learning",
+      "node_type": "Algorithm"
+    },
+    {
       "id": "MA2016_FRAMEBASEDCALCULUS",
       "label": "Frame-Based Calculus for Solving Arithmetic Multi-Step Addition and Subtraction Word Problems",
       "type": "Algorithm",
       "year": "2016",
       "task": "Arithmetic Multi-Step Addition and Subtraction Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "MATHDQN2018_REINFORCEMENTLEARNING",
+      "label": "MathDQN",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
@@ -457,8 +553,24 @@
       "node_type": "Algorithm"
     },
     {
+      "id": "ROY2015_SOLVINGGENERALARITHMETIC",
+      "label": "Solving General Arithmetic Problems",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "一般算术应用题求解",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2015_SOLVINGGENERALARITHMETICPROBLEMS",
+      "label": "Solving General Arithmetic Problems",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
       "id": "ROY2015_UNITDEPENDENCYGRAPH",
-      "label": "Unit Dependency Graph",
+      "label": "Unit Dependency Graph (UDG)",
       "type": "Algorithm",
       "year": "2015",
       "task": "Arithmetic Word Problem Solving",
@@ -489,8 +601,24 @@
       "node_type": "Algorithm"
     },
     {
+      "id": "ROY2018_MAPPINGDECLARATIVEKNOWLEDGE",
+      "label": "Mapping to Declarative Knowledge",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "数学应用题求解",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "ROY2018_MAPPINGTODECLARATIVEKNOWLEDGE",
+      "label": "Mapping to Declarative Knowledge",
+      "type": "Algorithm",
+      "year": "2018",
+      "task": "Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
       "id": "ROY2018_UNITDEPENDENCYGRAPH",
-      "label": "Unit Dependency Graph",
+      "label": "Unit Dependency Graph (UDG)",
       "type": "Algorithm",
       "year": "2018",
       "task": "Arithmetic Word Problem Solving",
@@ -502,6 +630,14 @@
       "type": "Algorithm",
       "year": "2014",
       "task": "Diagram Understanding",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "SEO2014_G-ALINGER",
+      "label": "G-ALINGER",
+      "type": "Algorithm",
+      "year": "2014",
+      "task": "Geometry Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
@@ -545,6 +681,14 @@
       "node_type": "Algorithm"
     },
     {
+      "id": "SIYAM2017_ARABICARITHMETICSOLVER",
+      "label": "Arabic Arithmetic Word Problem Solver",
+      "type": "Algorithm",
+      "year": "2017",
+      "task": "Arabic Arithmetic Word Problem Solving",
+      "node_type": "Algorithm"
+    },
+    {
       "id": "SLAGLE1965_DEDUCTIVEQA",
       "label": "Deductive Question-Answering Program",
       "type": "Algorithm",
@@ -557,7 +701,7 @@
       "label": "Compositional Vector Grammar (CVG)",
       "type": "Algorithm",
       "year": "2013",
-      "task": "Syntactic Parsing",
+      "task": "Parsing",
       "node_type": "Algorithm"
     },
     {
@@ -570,10 +714,18 @@
     },
     {
       "id": "SUTSKEVER2014_SEQUENCETOSEQUENCE",
-      "label": "Sequence-to-Sequence Learning with Neural Networks",
+      "label": "Sequence-to-Sequence Learning",
       "type": "Algorithm",
       "year": "2014",
-      "task": "Translation",
+      "task": "Sequence Learning",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "T-RNN2019_TEMPLATEBASEDSOLVER",
+      "label": "T-RNN",
+      "type": "Algorithm",
+      "year": "2019",
+      "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
@@ -698,7 +850,7 @@
     },
     {
       "id": "WANG2018_TEMPLATEBASEDSOLVER",
-      "label": "Template-Based Math Word Problem Solver",
+      "label": "Template-Based Solver",
       "type": "Algorithm",
       "year": "2018",
       "task": "Math Word Problem Solving",
@@ -709,7 +861,7 @@
       "label": "Translation Model",
       "type": "Algorithm",
       "year": "2018",
-      "task": "Translating Math Word Problem to Expression Tree",
+      "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
@@ -725,7 +877,7 @@
       "label": "T-RNN",
       "type": "Algorithm",
       "year": "2019",
-      "task": "Arithmetic Word Problem Solving",
+      "task": "Math Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
@@ -750,6 +902,14 @@
       "type": "Algorithm",
       "year": "2016",
       "task": "Sequence Learning",
+      "node_type": "Algorithm"
+    },
+    {
+      "id": "YU2015_SYNTAXSEMANTICSMODEL",
+      "label": "Syntax-Semantics Model",
+      "type": "Algorithm",
+      "year": "2015",
+      "task": "Chinese Arithmetic Word Problem Solving",
       "node_type": "Algorithm"
     },
     {
@@ -796,8 +956,8 @@
       "id": "ALG514_2014",
       "label": "ALG514",
       "type": "Dataset",
-      "description": "Dataset of algebra problems crawled from Algebra.com",
-      "domain": "Equation Set Problems",
+      "description": "包含514个代数问题，涉及28个模板",
+      "domain": "自动解题系统",
       "node_type": "Dataset"
     },
     {
@@ -844,24 +1004,24 @@
       "id": "DOLPHIN1878_2015",
       "label": "Dolphin1878",
       "type": "Dataset",
-      "description": "Dataset of math problems crawled from algebra.com and answers.yahoo.com",
-      "domain": "Equation Set Problems",
+      "description": "包含1,878个数学问题和1,183个模板",
+      "domain": "自动解题系统",
       "node_type": "Dataset"
     },
     {
       "id": "DOLPHIN18K_2016",
       "label": "Dolphin18K",
       "type": "Dataset",
-      "description": "包含18,460个数学问题和5,871个模板的大规模数据集",
-      "domain": "数学问题求解",
+      "description": "包含18,460个数学问题和5,871个模板，涉及一个或多个方程",
+      "domain": "自动解题系统",
       "node_type": "Dataset"
     },
     {
       "id": "DRAW1K_2016",
       "label": "DRAW1K",
       "type": "Dataset",
-      "description": "Dataset of linear equation problems with diverse vocabularies and equation systems",
-      "domain": "Algebra Word Problems",
+      "description": "包含1,000个线性方程问题，具有词汇和方程系统的多样性",
+      "domain": "自动解题系统",
       "node_type": "Dataset"
     },
     {
@@ -900,8 +1060,8 @@
       "id": "MATH23K_2017",
       "label": "Math23K",
       "type": "Dataset",
-      "description": "Large-scale dataset for arithmetic word problems",
-      "domain": "Mathematics",
+      "description": "大规模数学应用题数据集",
+      "domain": "自然语言处理",
       "node_type": "Dataset"
     },
     {
@@ -980,8 +1140,8 @@
       "id": "ACCURACY_CLASSIFICATION",
       "label": "Accuracy",
       "type": "Metric",
-      "description": "Classification accuracy",
-      "category": "Classification evaluation",
+      "description": "分类准确率",
+      "category": "分类评估",
       "node_type": "Metric"
     },
     {
@@ -1036,8 +1196,8 @@
       "id": "F1_SCORE_CLASSIFICATION",
       "label": "F1 Score",
       "type": "Metric",
-      "description": "Harmonic mean of precision and recall",
-      "category": "Classification Evaluation",
+      "description": "综合考虑精确率和召回率的评价指标",
+      "category": "分类评估",
       "node_type": "Metric"
     },
     {
@@ -1087,8 +1247,44 @@
       "node_type": "Unknown"
     },
     {
-      "id": "GOYAL2017_VQA",
-      "label": "GOYAL2017_VQA",
+      "id": "SEO2013_DIAGRAMUNDERSTANDING",
+      "label": "SEO2013_DIAGRAMUNDERSTANDING",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "OLDDATASET_2000",
+      "label": "OLDDATASET_2000",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "TRADITIONALPAIRWISEMODEL",
+      "label": "TRADITIONALPAIRWISEMODEL",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SINGLEFUNCTIONCOREFERENCEMODELS",
+      "label": "SINGLEFUNCTIONCOREFERENCEMODELS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "TRADITIONALSEQ2SEQ",
+      "label": "TRADITIONALSEQ2SEQ",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "TRADITIONALGEOMETRYSOLVERS",
+      "label": "TRADITIONALGEOMETRYSOLVERS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "TRADITIONALSTATISTICALMETHODS",
+      "label": "TRADITIONALSTATISTICALMETHODS",
       "type": "Unknown",
       "node_type": "Unknown"
     },
@@ -1099,14 +1295,56 @@
       "node_type": "Unknown"
     },
     {
-      "id": "SEO2013_DIAGRAMUNDERSTANDING",
-      "label": "SEO2013_DIAGRAMUNDERSTANDING",
+      "id": "TRADITIONALFEATUREBASEDPARSERS",
+      "label": "TRADITIONALFEATUREBASEDPARSERS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "HOSSEINI2014_SIMPLEOPERATIONS",
+      "label": "HOSSEINI2014_SIMPLEOPERATIONS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SOON2001_PAIRWISEMENTIONMODEL",
+      "label": "SOON2001_PAIRWISEMENTIONMODEL",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SMALLSCALEDATASETS",
+      "label": "SMALLSCALEDATASETS",
       "type": "Unknown",
       "node_type": "Unknown"
     },
     {
       "id": "OLDMETRIC_2000",
       "label": "OLDMETRIC_2000",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "TRADITIONALUNITEXTRACTION",
+      "label": "TRADITIONALUNITEXTRACTION",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "GOYAL2017_VQA",
+      "label": "GOYAL2017_VQA",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "TRADITIONALSENTENCEEMBEDDINGS",
+      "label": "TRADITIONALSENTENCEEMBEDDINGS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "TRADITIONALRULEBASEDAPPROACHES",
+      "label": "TRADITIONALRULEBASEDAPPROACHES",
       "type": "Unknown",
       "node_type": "Unknown"
     }
@@ -1121,6 +1359,16 @@
       "detail": "VQA通过引入更平衡的数据集，改进了Visual Question Answering的视觉理解能力。",
       "evidence": "VQA通过引入更平衡的数据集，改进了Visual Question Answering的视觉理解能力，使得模型在测试集上的表现更好（Goyal et al., 2017）。",
       "confidence": 0.9
+    },
+    {
+      "source": "CASS2018_REINFORCEMENTLEARNING",
+      "target": "T-RNN2019_TEMPLATEBASEDSOLVER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入双向LSTM和自注意力机制以提高求解精度",
+      "evidence": "通过引入双向LSTM和自注意力机制，进一步提高了求解精度。",
+      "confidence": 0.95
     },
     {
       "source": "CHANG2013_L3M",
@@ -1233,6 +1481,26 @@
       "confidence": 0.85
     },
     {
+      "source": "KUSHMAN2014_EQUATIONPARSER",
+      "target": "CHEN2017_PROGRAMINDUCTION",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Component",
+      "detail": "引入理由生成以提高解题准确性",
+      "evidence": "通过引入理由生成，显著提高了求解器的性能",
+      "confidence": 0.95
+    },
+    {
+      "source": "KUSHMAN2014_EQUATIONPARSER",
+      "target": "CHIANG2018_SEMANTICALLYALIGNEDEQUATION",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Component",
+      "detail": "引入语义对齐方程生成以提高解题准确性",
+      "evidence": "通过引入语义对齐方程生成，显著提高了求解器的性能",
+      "confidence": 0.95
+    },
+    {
       "source": "LIN2017_STRUCTUREDSELFATTENTION",
       "target": "CHEN2014_NEURALPARSER",
       "label": "Extend",
@@ -1331,6 +1599,16 @@
       "detail": "FG-Expression扩展了Expression Tree的方法，通过细粒度单元解析方程模板。",
       "evidence": "FG-Expression parses an equation template into fine-grained units, called template fragment. Each template is represented in a tree structure as in Figure 3 and each fragment represents a sub-tree rooted at an internal node.",
       "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_SOLVINGGENERALARITHMETIC",
+      "target": "ROY2018_MAPPINGDECLARATIVEKNOWLEDGE",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Component",
+      "detail": "引入声明性知识映射以提高解题准确性",
+      "evidence": "通过引入声明性知识映射，显著提高了求解器的性能",
+      "confidence": 0.95
     },
     {
       "source": "ROY2018_UNITDEPENDENCYGRAPH",
@@ -1537,9 +1815,29 @@
       "target": "DOLPHIN18K_2016",
       "label": "Extend",
       "relation_type": "Extend",
-      "structure": "Dolphin18K扩展了ALG514的数据规模和多样性",
-      "detail": "Dolphin18K包含了更多的数学问题，数据量更大，问题类型更加多样化，扩展了ALG514的数据规模和多样性。",
-      "evidence": "The harvested dataset is so far the largest one, with 18,460 problems and 5,871 equation templates.",
+      "structure": "",
+      "detail": "扩展了数据集规模并增加了问题的多样性",
+      "evidence": "Dolphin18K是目前最大的数学问题数据集，具有更高的多样性和挑战性。",
+      "confidence": 0.9
+    },
+    {
+      "source": "ALG514_2014",
+      "target": "DOLPHIN1878_2015",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "",
+      "detail": "扩展了数据集规模并增加了问题的多样性",
+      "evidence": "Dolphin1878是ALG514的扩展版本，具有更高的多样性和挑战性。",
+      "confidence": 0.9
+    },
+    {
+      "source": "DOLPHIN1878_2015",
+      "target": "DRAW1K_2016",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "",
+      "detail": "扩展了数据集规模并增加了问题的多样性",
+      "evidence": "DRAW1K是Dolphin1878的扩展版本，具有更高的多样性和挑战性。",
       "confidence": 0.9
     },
     {
@@ -1559,7 +1857,67 @@
       "relation_type": "Improve",
       "structure": "Architecture.Mechanism",
       "detail": "引入细粒度单元以提高模板片段映射的准确性",
-      "evidence": "通过将模板解析为细粒度单元，提高了映射精度。",
+      "evidence": "通过将方程模板解析为细粒度单元，提高了文本信息与模板片段之间的映射精度。",
+      "confidence": 0.95
+    },
+    {
+      "source": "OLDDATASET_2000",
+      "target": "ALG514_2014",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "",
+      "detail": "扩展了数据集规模并增加了问题的多样性",
+      "evidence": "ALG514是早期广泛使用的代数问题数据集，具有一定的多样性和挑战性。",
+      "confidence": 0.9
+    },
+    {
+      "source": "TRADITIONALPAIRWISEMODEL",
+      "target": "CHANG2013_L3M",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入了潜在变量模型和约束机制",
+      "evidence": "Experiments on ACE and Ontonotes data show that L3M and its constrained version, CL3M, are more accurate than several state-of-the-art approaches.",
+      "confidence": 0.95
+    },
+    {
+      "source": "SINGLEFUNCTIONCOREFERENCEMODELS",
+      "target": "RAGHUNATHAN2010_MULTIPASSSIEVE",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "通过多层筛选模型提高了精度",
+      "evidence": "Our approach outperforms many state-of-the-art supervised and unsupervised models on several standard corpora.",
+      "confidence": 0.95
+    },
+    {
+      "source": "TRADITIONALSEQ2SEQ",
+      "target": "HUANG2018_CASS",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "通过复制和对齐机制解决了生成虚假数字的问题",
+      "evidence": "The copy and alignment mechanism is effective to address the two issues;",
+      "confidence": 0.95
+    },
+    {
+      "source": "TRADITIONALGEOMETRYSOLVERS",
+      "target": "SEO2015_GEOS",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "结合文本理解和图表解释",
+      "evidence": "GEOS achieves a 49% score on official SAT questions, and a score of 61% on practice questions.",
+      "confidence": 0.95
+    },
+    {
+      "source": "TRADITIONALSTATISTICALMETHODS",
+      "target": "WANG2017_DEEPNEURALSOLVER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "直接将数学应用题翻译为方程模板",
+      "evidence": "Experiments conducted on a large dataset show that the RNN model and the hybrid model significantly outperform state-of-the-art statistical learning methods for math word problem solving.",
       "confidence": 0.95
     },
     {
@@ -1573,14 +1931,94 @@
       "confidence": 0.9
     },
     {
+      "source": "TRADITIONALFEATUREBASEDPARSERS",
+      "target": "CHEN2014_NEURALDEPENDENCYPARSER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "使用神经网络分类器减少了特征计算成本并提高了解析速度",
+      "evidence": "Experiments show that the neural network classifier achieves a 2% improvement in unlabeled and labeled attachment scores.",
+      "confidence": 0.95
+    },
+    {
+      "source": "HOSSEINI2014_SIMPLEOPERATIONS",
+      "target": "ROY2015_SOLVINGGENERALARITHMETIC",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Architecture.Component",
+      "detail": "扩展了解析范围至更复杂的算术问题",
+      "evidence": "能够处理更复杂的多步算术问题",
+      "confidence": 0.9
+    },
+    {
+      "source": "SOON2001_PAIRWISEMENTIONMODEL",
+      "target": "CHANG2013_CONSTRAINEDLATENTVARIABLEMODEL",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Component",
+      "detail": "引入约束以提高模型准确性",
+      "evidence": "通过引入约束，显著提高了模型的准确性",
+      "confidence": 0.95
+    },
+    {
+      "source": "SMALLSCALEDATASETS",
+      "target": "HUANG2016_LARGESCALEDATASETCONSTRUCTION",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Architecture.Mechanism",
+      "detail": "构建了更大规模的数据集",
+      "evidence": "We build a large-scale dataset which is more than 9 times the size of previous ones, and contains many more problem types.",
+      "confidence": 0.95
+    },
+    {
       "source": "OLDMETRIC_2000",
       "target": "ACCURACY_CLASSIFICATION",
       "label": "Improve",
       "relation_type": "Improve",
       "structure": "",
       "detail": "改进了计算方式",
-      "evidence": "通过更精确的计算方法，提高了准确率。",
+      "evidence": "通过更严格的实验设置和更大的数据集，提高了准确率的可靠性。",
       "confidence": 0.85
+    },
+    {
+      "source": "TRADITIONALUNITEXTRACTION",
+      "target": "ROY2018_UNITDEPENDENCYGRAPH",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "通过单位依赖图减少了错误",
+      "evidence": "Introduction of UDGs reduces the error of the solver by over 10%, surpassing all existing systems for solving arithmetic word problems.",
+      "confidence": 0.95
+    },
+    {
+      "source": "TRADITIONALSENTENCEEMBEDDINGS",
+      "target": "LIN2017_STRUCTUREDSELFATTENTIVESENTENCEEMBEDDING",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "引入了自注意力机制和特殊正则化项",
+      "evidence": "Results show that our model yields a significant performance gain compared to other sentence embedding methods in all of the 3 tasks.",
+      "confidence": 0.95
+    },
+    {
+      "source": "TRADITIONALRULEBASEDAPPROACHES",
+      "target": "ROY2015_ARIS",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "通过动词分类提高了解题能力",
+      "evidence": "ARIS learns to categorize verbs with 81.2% accuracy, and is able to solve 77.7% of the problems in a corpus of standard primary school test questions.",
+      "confidence": 0.95
+    },
+    {
+      "source": "TRADITIONALRULEBASEDAPPROACHES",
+      "target": "ROY2015_SOLVINGGENERALARITHMETICPROBLEMS",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Mechanism",
+      "detail": "通过表达树分解和约束推理框架提高了解题能力",
+      "evidence": "Experimental results show that our method outperforms existing systems, achieving state-of-the-art performance on benchmark datasets of arithmetic word problems.",
+      "confidence": 0.95
     }
   ]
 }

@@ -121,18 +121,7 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
                             "training_strategy": ["策略1", "策略2", ...],
                             "parameter_tuning": ["参数1", "参数2", ...]
                           },
-                          "feature_processing": ["处理方法1", "处理方法2", ...],
-                          "evolution_relations": [
-                            {
-                              "from_entity": "Wang2015_PriorAlgorithm",
-                              "to_entity": "Zhang2016_TemplateSolver",
-                              "relation_type": "Improve",
-                              "structure": "Architecture.Mechanism",
-                              "detail": "具体改进内容",
-                              "evidence": "证据文本",
-                              "confidence": 0.95
-                            }
-                          ]
+                          "feature_processing": ["处理方法1", "处理方法2", ...]
                         }
                       },
                       {
@@ -144,16 +133,7 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
                           "domain": "计算机视觉",
                           "size": 70000,
                           "year": 2010,
-                          "creators": ["LeCun, Y.", "Cortes, C.", ...],
-                          "evolution_relations": [
-                            {
-                              "from_entity": "OldDataset_2005",
-                              "to_entity": "MNIST_2010",
-                              "relation_type": "Extend",
-                              "detail": "扩展了样本数量",
-                              "evidence": "证据文本",
-                              "confidence": 0.9
-                            }
+                          "creators": ["LeCun, Y.", "Cortes, C.", ...]
                           ]
                         }
                       },
@@ -164,17 +144,7 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
                           "name": "Accuracy",
                           "description": "分类准确率",
                           "category": "分类评估",
-                          "formula": "正确分类样本数/总样本数",
-                          "evolution_relations": [
-                            {
-                              "from_entity": "OldMetric_2000",
-                              "to_entity": "Accuracy_Classification",
-                              "relation_type": "Improve",
-                              "detail": "改进了计算方式",
-                              "evidence": "证据文本",
-                              "confidence": 0.85
-                            }
-                          ]
+                          "formula": "正确分类样本数/总样本数"
                         }
                       },...//其他实体
                     ]
@@ -444,7 +414,9 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=3, pr
             is_complete = check_extraction_complete(content)
             is_extraction_complete=is_complete
             # 提取JSON部分
+            logging.info(f"提取到的文本长度: {len(content)}")
             json_text = extract_json_from_text(content)
+            logging.info(f"提取到的JSON文本长度: {len(json_text)}")
             if json_text:
                 try:
                     entities = json.loads(json_text)
@@ -515,7 +487,7 @@ def extract_json_from_text(text):
     if not text:
         return None
         
-    logging.debug(f"开始从文本中提取JSON，文本长度：{len(text)} 字符")
+    logging.info(f"开始从文本中提取JSON，文本长度：{len(text)} 字符")
     
     # 首先尝试从代码块中提取JSON
     json_block_pattern = r'```(?:json)?\s*([\s\S]*?)(?:\s*```|\s*EXTRACTION_COMPLETE\s*:)'
@@ -526,7 +498,7 @@ def extract_json_from_text(text):
         if json_candidate.endswith(','):
             json_candidate = json_candidate[:-1]
         if json_candidate.endswith(']') or json_candidate.endswith('}'):
-            logging.debug(f"从代码块提取到可能的JSON，长度: {len(json_candidate)}")
+            logging.info(f"从代码块提取到可能的JSON，长度: {len(json_candidate)}")
             # 验证JSON是否有效
             try:
                 json.loads(json_candidate)
@@ -543,7 +515,7 @@ def extract_json_from_text(text):
         for match in sorted(matches, key=len, reverse=True):
             try:
                 json.loads(match)
-                logging.debug(f"提取到有效的JSON数组，长度: {len(match)}")
+                logging.info(f"提取到有效的JSON数组，长度: {len(match)}")
                 return match
             except json.JSONDecodeError:
                 continue
@@ -555,7 +527,7 @@ def extract_json_from_text(text):
         for match in sorted(matches, key=len, reverse=True):
             try:
                 json.loads(match)
-                logging.debug(f"提取到有效的JSON对象，长度: {len(match)}")
+                logging.info(f"提取到有效的JSON对象，长度: {len(match)}")
                 return match
             except json.JSONDecodeError:
                 continue
@@ -570,7 +542,7 @@ def extract_json_from_text(text):
                 potential_json = text[start_idx:last_idx+1]
                 try:
                     json.loads(potential_json)
-                    logging.debug(f"使用索引方法提取到有效的JSON，长度: {len(potential_json)}")
+                    logging.info(f"使用索引方法提取到有效的JSON，长度: {len(potential_json)}")
                     return potential_json
                 except json.JSONDecodeError:
                     # 尝试清理JSON
@@ -1025,10 +997,10 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
 [
   {
     "from_entities": [
-      {"entity_id": "算法A的ID", "entity_type": "Algorithm"}
+      {"entity_id": "实体A的ID", "entity_type": "Algorithm/Dataset/Metric"}
     ],
     "to_entities": [
-      {"entity_id": "算法B的ID", "entity_type": "Algorithm"}
+      {"entity_id": "实体B的ID", "entity_type": "Algorithm/Dataset/Metric"}
     ],
     "relation_type": "关系类型：Improve/Optimize/Extend/Replace/Use",
     "structure": "关系的结构描述",

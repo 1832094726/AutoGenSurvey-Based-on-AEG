@@ -28,11 +28,18 @@ def comparison_results(task_id):
     
     # 解析结果数据
     result_data = {}
-    if task_status.get('result'):
+    message = task_status.get('message', '')
+    if message:
         try:
-            result_data = json.loads(task_status.get('result'))
-        except:
-            flash('无法解析任务结果数据', 'danger')
+            # 尝试从message中解析JSON
+            result_data = json.loads(message)
+        except json.JSONDecodeError:
+            # 如果message不是JSON格式，检查是否有result字段
+            if task_status.get('result'):
+                try:
+                    result_data = json.loads(task_status.get('result'))
+                except:
+                    flash('无法解析任务结果数据', 'danger')
     
     # 获取指标数据
     entities_count = result_data.get('entities_count', 0)

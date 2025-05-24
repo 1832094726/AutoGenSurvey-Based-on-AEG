@@ -867,8 +867,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             status='已完成',
             current_stage='任务完成',
             progress=1.0,
-            message='比较分析任务已完成',
-            result=result_data,
+            message=json.dumps(result_data, ensure_ascii=False),
             completed=True
         )
         

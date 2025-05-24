@@ -1,0 +1,994 @@
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Huang2017_FineGrainedExpressions",
+        "entity_type": "Algorithm",
+        "name": "Fine-grained Expressions",
+        "year": 2017,
+        "authors": [
+          "D. Huang",
+          "S. Shi",
+          "J. Yin",
+          "C.-Y. Lin"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Dolphin18K_2016"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Semantic Representation",
+            "Fine-grained Inference"
+          ],
+          "connections": [
+            "Mapping Sentences to Grounded Equations"
+          ],
+          "mechanisms": [
+            "Template Fragment"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Learning Rate",
+            "Batch Size"
+          ]
+        },
+        "feature_processing": [
+          "Textual Features",
+          "Quantity Features",
+          "Solution Features"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2018_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "year": 2018,
+        "authors": [
+          "L. Wang",
+          "D. Zhang",
+          "L. Gao",
+          "J. Song",
+          "L. Guo",
+          "H. T. Shen"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "AI2_2014",
+          "IL_2015",
+          "CC_2015",
+          "AllArith_2016",
+          "Dolphin-S_2017",
+          "Math23K_2017"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Deep Q-Network",
+            "Markov Decision Process"
+          ],
+          "connections": [
+            "State Transition",
+            "Reward Function"
+          ],
+          "mechanisms": [
+            "Operator Selection"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Deep Reinforcement Learning"
+          ],
+          "parameter_tuning": [
+            "Discount Factor",
+            "Exploration Rate"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Relevance Classifier",
+          "Beam Search"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_DeepNeuralSolver",
+        "entity_type": "Algorithm",
+        "name": "Deep Neural Solver",
+        "year": 2017,
+        "authors": [
+          "Y. Wang",
+          "X. Liu",
+          "S. Shi"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "AI2_2014",
+          "IL_2015",
+          "CC_2015",
+          "SingleEQ_2016",
+          "AllArith_2016",
+          "Dolphin-S_2017",
+          "Math23K_2017"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Sequence-to-Sequence Model",
+            "GRU"
+          ],
+          "connections": [
+            "Word Embedding",
+            "Encoder-Decoder"
+          ],
+          "mechanisms": [
+            "Equation Normalization"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Learning Rate",
+            "Batch Size"
+          ]
+        },
+        "feature_processing": [
+          "Word Embedding",
+          "Equation Templates"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AI2_2014",
+        "entity_type": "Dataset",
+        "name": "AI2",
+        "description": "包含单步或多步算术问题的数据集",
+        "domain": "数学问题求解",
+        "size": 395,
+        "year": 2014,
+        "creators": [
+          "M. J. Hosseini",
+          "H. Hajishirzi",
+          "O. Etzioni",
+          "N. Kushman"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "IL_2015",
+        "entity_type": "Dataset",
+        "name": "IL",
+        "description": "包含单步算术问题的数据集",
+        "domain": "数学问题求解",
+        "size": 562,
+        "year": 2015,
+        "creators": [
+          "S. Roy",
+          "D. Roth"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "CC_2015",
+        "entity_type": "Dataset",
+        "name": "CC",
+        "description": "包含多步算术问题的数据集",
+        "domain": "数学问题求解",
+        "size": 600,
+        "year": 2015,
+        "creators": [
+          "R. Koncel-Kedziorski",
+          "H. Hajishirzi",
+          "A. Sabharwal",
+          "O. Etzioni",
+          "S. D. Ang"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "SingleEQ_2016",
+        "entity_type": "Dataset",
+        "name": "SingleEQ",
+        "description": "包含单步或多步算术问题的数据集",
+        "domain": "数学问题求解",
+        "size": 508,
+        "year": 2016,
+        "creators": [
+          "R. Koncel-Kedziorski",
+          "H. Hajishirzi",
+          "A. Sabharwal",
+          "O. Etzioni",
+          "S. D. Ang"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AllArith_2016",
+        "entity_type": "Dataset",
+        "name": "AllArith",
+        "description": "包含混合算术问题的数据集",
+        "domain": "数学问题求解",
+        "size": 831,
+        "year": 2016,
+        "creators": [
+          "S. Roy",
+          "D. Roth"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin-S_2017",
+        "entity_type": "Dataset",
+        "name": "Dolphin-S",
+        "description": "包含单步或多步算术问题的数据集",
+        "domain": "数学问题求解",
+        "size": 7070,
+        "year": 2017,
+        "creators": [
+          "D. Huang",
+          "S. Shi",
+          "C. Lin",
+          "J. Yin",
+          "W. Ma"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "description": "包含中文小学数学问题的数据集",
+        "domain": "数学问题求解",
+        "size": 23162,
+        "year": 2017,
+        "creators": [
+          "Y. Wang",
+          "X. Liu",
+          "S. Shi"
+        ]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数/总样本数"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Expression Tree",
+        "year": 2015,
+        "authors": [
+          "Roy, S.",
+          "Roth, D."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "AI2",
+          "IL",
+          "CC"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Binary Classifier",
+            "Local Classifier"
+          ],
+          "connections": [
+            "Bottom-up Tree Construction"
+          ],
+          "mechanisms": [
+            "Beam Search"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Beam Size"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Extraction",
+          "Operator Selection"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "ALGES2015_EquationTree",
+        "entity_type": "Algorithm",
+        "name": "ALGES",
+        "year": 2015,
+        "authors": [
+          "Koncel-Kedziorski, R.",
+          "Hajishirzi, H.",
+          "Sabharwal, A.",
+          "Etzioni, O.",
+          "Ang, S.D."
+        ],
+        "task": "Algebraic Word Problem Solving",
+        "dataset": [
+          "AI2",
+          "IL",
+          "CC"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Equation Tree",
+            "Integer Linear Programming"
+          ],
+          "connections": [
+            "Syntactic Validity Enforcement"
+          ],
+          "mechanisms": [
+            "Brute-force Enumeration"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Constraint Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Extraction",
+          "Equation Normalization"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "UNITDEP2017_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "UNITDEP",
+        "year": 2017,
+        "authors": [
+          "Roy, S.",
+          "Roth, D."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "AI2",
+          "IL",
+          "CC"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Unit Dependency Graph",
+            "Rate Consistency"
+          ],
+          "connections": [
+            "Graph Construction"
+          ],
+          "mechanisms": [
+            "Node and Edge Classification"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Classifier Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Extraction",
+          "Rate Detection"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seq2SeqET2018_TranslationModel",
+        "entity_type": "Algorithm",
+        "name": "Seq2SeqET",
+        "year": 2018,
+        "authors": [
+          "Wang, L.",
+          "Wang, Y.",
+          "Cai, D.",
+          "Zhang, D.",
+          "Liu, X."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "SingleEQ",
+          "AllArith"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Seq2Seq Model",
+            "Expression Tree"
+          ],
+          "connections": [
+            "Text to Expression Tree Translation"
+          ],
+          "mechanisms": [
+            "Equation Normalization"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Model Hyperparameters"
+          ]
+        },
+        "feature_processing": [
+          "Text Embedding",
+          "Expression Tree Generation"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "StackDecoder2019_SemanticTracking",
+        "entity_type": "Algorithm",
+        "name": "StackDecoder",
+        "year": 2019,
+        "authors": [
+          "Chiang, T.",
+          "Chen, Y."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "SingleEQ",
+          "AllArith"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Seq2Seq Model",
+            "Semantic Stack"
+          ],
+          "connections": [
+            "Operand Semantic Tracking"
+          ],
+          "mechanisms": [
+            "Stack-based Decoding"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Model Hyperparameters"
+          ]
+        },
+        "feature_processing": [
+          "Text Embedding",
+          "Semantic Meaning Extraction"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "T-RNN2019_TemplateImprovement",
+        "entity_type": "Algorithm",
+        "name": "T-RNN",
+        "year": 2019,
+        "authors": [
+          "Wang, L.",
+          "Zhang, D.",
+          "Zhang, J.",
+          "Xu, X.",
+          "Gao, L.",
+          "Dai, B.",
+          "Shen, H.T."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "SingleEQ",
+          "AllArith"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Bi-LSTM",
+            "Self-Attention",
+            "Recursive Neural Network"
+          ],
+          "connections": [
+            "Quantity Encoding",
+            "Template Representation",
+            "Tree Construction"
+          ],
+          "mechanisms": [
+            "Recursive Inference"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Model Hyperparameters"
+          ]
+        },
+        "feature_processing": [
+          "Text Embedding",
+          "Quantity Vectorization"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ALG514_2014",
+        "entity_type": "Dataset",
+        "name": "ALG514",
+        "description": "Crowdsourced algebra problems from Algebra.com",
+        "domain": "Mathematical Word Problems",
+        "size": 514,
+        "year": 2014,
+        "creators": [
+          "Kushman, N.",
+          "Zettlemoyer, L.",
+          "Barzilay, R.",
+          "Artzi, Y."
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin1878_2015",
+        "entity_type": "Dataset",
+        "name": "Dolphin1878",
+        "description": "Math problems crawled from algebra.com and answers.yahoo.com",
+        "domain": "Mathematical Word Problems",
+        "size": 1878,
+        "year": 2015,
+        "creators": [
+          "Seo, M.J.",
+          "Hajishirzi, H.",
+          "Farhadi, A.",
+          "Etzioni, O."
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "DRAW1K_2016",
+        "entity_type": "Dataset",
+        "name": "DRAW1K",
+        "description": "Linear equation problems crawled and filtered from algebra.com",
+        "domain": "Mathematical Word Problems",
+        "size": 1000,
+        "year": 2016,
+        "creators": [
+          "Upadhyay, S.",
+          "Chang, M."
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin18K_2016",
+        "entity_type": "Dataset",
+        "name": "Dolphin18K",
+        "description": "Math problems crawled from Yahoo! Answers",
+        "domain": "Mathematical Word Problems",
+        "size": 18460,
+        "year": 2016,
+        "creators": [
+          "Huang, D.",
+          "Shi, S.",
+          "Lin, C.",
+          "Yin, J.",
+          "Ma, W."
+        ]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Precision_Classification",
+        "entity_type": "Metric",
+        "name": "Precision",
+        "description": "精确率",
+        "category": "分类评估",
+        "formula": "真正例/(真正例 + 假正例)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Recall_Classification",
+        "entity_type": "Metric",
+        "name": "Recall",
+        "description": "召回率",
+        "category": "分类评估",
+        "formula": "真正例/(真正例 + 假负例)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "F1分数",
+        "category": "分类评估",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2018_TranslationToExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Translation to Expression Tree",
+        "year": 2018,
+        "authors": [
+          "L. Wang",
+          "Y. Wang",
+          "D. Cai",
+          "D. Zhang",
+          "X. Liu"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "EMNLP"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Seq2Seq Model",
+            "Expression Tree"
+          ],
+          "connections": [
+            "Problem Text",
+            "Expression Tree"
+          ],
+          "mechanisms": [
+            "Sequence-to-Sequence Translation"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Seq2Seq Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Word Embedding",
+          "GRU Network"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chiang2018_SemanticallyAlignedEquationGeneration",
+        "entity_type": "Algorithm",
+        "name": "Semantically-aligned Equation Generation",
+        "year": 2018,
+        "authors": [
+          "T. Chiang",
+          "Y. Chen"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "CoRR"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "LSTM-based Network",
+            "Syntactic Parsing"
+          ],
+          "connections": [
+            "Diagram",
+            "Text"
+          ],
+          "mechanisms": [
+            "Semantic Alignment"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "LSTM Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Word Embedding",
+          "Dependency Parsing"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MAWPS_2016",
+        "entity_type": "Dataset",
+        "name": "MAWPS",
+        "description": "Arithmetic word problems with one unknown variable",
+        "domain": "Mathematical Word Problems",
+        "size": 2373,
+        "year": 2016,
+        "creators": [
+          "R. Koncel-Kedziorski",
+          "S. Roy",
+          "A. Amini",
+          "N. Kushman",
+          "H. Hajishirzi"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "AI2_2014",
+            "to_entity": "MAWPS_2016",
+            "relation_type": "Extend",
+            "detail": "Expanded the dataset with more complex problems",
+            "evidence": "The dataset combines previously published word problem datasets.",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2014_DiagramUnderstanding",
+        "entity_type": "Algorithm",
+        "name": "Diagram Understanding",
+        "year": 2014,
+        "authors": [
+          "M. J. Seo",
+          "H. Hajishirzi",
+          "A. Farhadi",
+          "O. Etzioni"
+        ],
+        "task": "Geometry Problem Solving",
+        "dataset": [
+          "AAAI"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Hough Transform",
+            "Objective Function"
+          ],
+          "connections": [
+            "Visual Elements",
+            "Textual Information"
+          ],
+          "mechanisms": [
+            "Primitive Detection",
+            "Visual-Textual Alignment"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hough Transform Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Pixel Coverage",
+          "Visual Coherence"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2015_GEOS",
+        "entity_type": "Algorithm",
+        "name": "GEOS",
+        "year": 2015,
+        "authors": [
+          "M. J. Seo",
+          "H. Hajishirzi",
+          "A. Farhadi",
+          "O. Etzioni",
+          "C. Malcolm"
+        ],
+        "task": "Geometry Problem Solving",
+        "dataset": [
+          "EMNLP"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Logical Expression",
+            "Confidence Scores"
+          ],
+          "connections": [
+            "Text",
+            "Diagram"
+          ],
+          "mechanisms": [
+            "Text Parsing",
+            "Diagram Parsing"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Predicate Indicator Functions"
+          ]
+        },
+        "feature_processing": [
+          "Logical Expression Generation",
+          "Numerical Method"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Sachan2017_TextbookAxiomaticKnowledge",
+        "entity_type": "Algorithm",
+        "name": "Textbook Axiomatic Knowledge",
+        "year": 2017,
+        "authors": [
+          "M. Sachan",
+          "A. Dubey",
+          "E. P. Xing"
+        ],
+        "task": "Geometry Problem Solving",
+        "dataset": [
+          "EMNLP"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Axiomatic Knowledge",
+            "Reasoning Engine"
+          ],
+          "connections": [
+            "Textbooks",
+            "Logical Inference"
+          ],
+          "mechanisms": [
+            "Structured Axiomatic Knowledge"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Axiomatic Knowledge Extraction"
+          ]
+        },
+        "feature_processing": [
+          "Textbook Parsing",
+          "Axiomatic Knowledge Integration"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Alvin2017_GeoShader",
+        "entity_type": "Algorithm",
+        "name": "GeoShader",
+        "year": 2017,
+        "authors": [
+          "C. Alvin",
+          "S. Gulwani",
+          "R. Majumdar",
+          "S. Mukhopadhyay"
+        ],
+        "task": "Geometry Problem Solving",
+        "dataset": [
+          "AIED"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Hypergraph",
+            "Intermediate Facts"
+          ],
+          "connections": [
+            "Diagram",
+            "Target Node"
+          ],
+          "mechanisms": [
+            "Analysis Hypergraph",
+            "Path Finding"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hypergraph Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Diagram Parsing",
+          "Fact Extraction"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AQuA_2018",
+        "entity_type": "Dataset",
+        "name": "AQuA",
+        "description": "Large-scale dataset of multi-choice math questions",
+        "domain": "Mathematical Word Problems",
+        "size": 100000,
+        "year": 2018,
+        "creators": [
+          "DeepMind"
+        ],
+        "evolution_relations": [
+          {
+            "from_entity": "Dolphin18K_2016",
+            "to_entity": "AQuA_2018",
+            "relation_type": "Extend",
+            "detail": "Expanded the dataset with more complex and diverse problems",
+            "evidence": "AQuA covers a broader range of topics and difficulty levels.",
+            "confidence": 0.9
+          }
+        ]
+      }
+    }
+  ],
+  "is_complete": false,
+  "extraction_time": 1748087041.8270626
+}

@@ -583,3 +583,44 @@ def get_task_status(task_id):
             "traceback": tb
         }), 500
 
+@main.route('/comparison/results/<task_id>')
+def comparison_results(task_id):
+    """比较分析结果页面"""
+    import json
+    
+    task_status = db_manager.get_processing_status(task_id)
+    
+    if not task_status:
+        return render_template('error.html', message=f"找不到ID为 {task_id} 的任务")
+    
+    if task_status.get('status') != '已完成':
+        return render_template('error.html', message=f"任务 {task_id} 尚未完成，无法显示结果")
+    
+    # 解析结果数据
+    result_data = {}
+    message = task_status.get('message', '')
+    if message:
+        try:
+            # 尝试从message中解析JSON
+            result_data = json.loads(message)
+        except json.JSONDecodeError:
+            # 如果message不是JSON格式，检查是否有result字段
+            if task_status.get('result'):
+                try:
+                    result_data = json.loads(task_status.get('result'))
+                except:
+                    logging.error(f"无法解析任务 {task_id} 的结果数据")
+    
+    # 获取指标数据
+    entities_count = result_data.get('entities_count', 0)
+    relations_count = result_data.get('relations_count', 0)
+    metrics = result_data.get('metrics', {})
+    
+    logging.info(f"为任务 {task_id} 渲染比较结果页面，实体数: {entities_count}, 关系数: {relations_count}")
+    
+    return render_template('comparison_results.html', 
+                          task_id=task_id,
+                          entities_count=entities_count,
+                          relations_count=relations_count,
+                          metrics=metrics)
+
