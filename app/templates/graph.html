@@ -402,9 +402,9 @@
                         console.log(`获取到节点详细信息:`, data);
                         
                         let entity = data;
-                        let details = '';
+                            let details = '';
                         let entityType = entity.entity_type || '';
-                        
+                            
                         // 根据不同的实体类型显示不同的信息
                         if (entityType === 'Algorithm' || entity.algorithm_id) {
                             // 算法实体

@@ -992,8 +992,6 @@ class DatabaseManager:
         try:
             # 检查是否需要重连
             reconnected = self._reconnect_if_needed()
-            if reconnected:
-                logging.info(f"已重新连接MySQL，准备更新任务 {task_id} 的状态")
             # 准备更新字段
             update_fields = []
             params = []
@@ -1040,7 +1038,6 @@ class DatabaseManager:
                     self.conn.commit()
                     # 检查更新是否成功
                     if self.cursor.rowcount > 0:
-                        logging.info(f"成功更新任务 {task_id} 的处理状态")
                         return True
                     else:
                         logging.warning(f"未找到任务 {task_id} 或状态未发生变化")
@@ -1077,8 +1074,6 @@ class DatabaseManager:
         try:
             # 检查是否需要重连
             reconnected = self._reconnect_if_needed()
-            if reconnected:
-                logging.info(f"已重新连接MySQL，准备获取任务 {task_id} 的状态")
             
             # 使用重试机制执行查询
             max_retries = 3

@@ -660,9 +660,8 @@ def extract_paper_entities(pdf_paths, max_attempts=5, batch_size=1, model_name="
         filename = os.path.basename(path)
         file_stat = os.stat(path)
         file_size = file_stat.st_size
-        file_mtime = int(file_stat.st_mtime)
-        # 使用文件名、大小和修改时间生成唯一键
-        cache_key_parts.append(f"{filename}_{file_size}_{file_mtime}")
+        # 使用文件名、大小生成唯一键
+        cache_key_parts.append(f"{filename}_{file_size}")
     
     # 排序以确保相同文件集合的一致键值
     cache_key_parts.sort()

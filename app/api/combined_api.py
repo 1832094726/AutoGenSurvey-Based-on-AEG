@@ -720,35 +720,23 @@ def start_comparison():
         review_paper.save(review_path)
         temp_files.append(review_path)
         
-        # 保存引用论文
+        # 保存引用论文，使用时间戳和索引前缀
         citation_paths = []
         for i, paper in enumerate(citation_papers):
             if paper.filename:
-                citation_filename = secure_filename(f"{task_id}_{i}_{paper.filename}")
-                citation_path = os.path.join(Config.CITED_PAPERS_DIR, citation_filename)
+                citation_path = os.path.join(Config.CITED_PAPERS_DIR, paper.filename)
                 paper.save(citation_path)
                 citation_paths.append(citation_path)
                 temp_files.append(citation_path)
         
-        # 将任务信息保存到数据库
-        task_info = {
-            'task_id': task_id,
-            'review_paper': review_path,
-            'citation_papers': citation_paths,
-            'model': model_name,
-            'timestamp': timestamp,
-            'status': 'started',
-            'temp_files': temp_files  # 记录所有临时文件以便稍后清理
-        }
-        
-        # 创建处理任务 - 只使用支持的参数
-        task_name = f"比较分析任务 - 模型: {model_name} - 文件: {review_paper.filename}"
+        # 创建处理任务
+        task_name = f"比较分析任务 - {review_paper.filename}"
         db_manager.create_processing_task(
             task_id=task_id,
             task_name=task_name
         )
         
-        # 更新任务状态以包含更多信息
+        # 更新任务状态
         db_manager.update_processing_status(
             task_id=task_id,
             status='处理中',
@@ -805,31 +793,83 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         )
         
         # 导入所需模块
-        from app.modules.data_extraction import process_papers_and_extract_data
+        from app.modules.data_extraction import calculate_comparison_metrics
         
-        # 运行处理任务
-        entities, relations, metrics = process_papers_and_extract_data(
-            review_pdf_path=review_path,
+        # 更新状态：提取实体
+        db_manager.update_processing_status(
             task_id=task_id,
-            citation_paths=citation_paths
+            current_stage='提取实体',
+            progress=0.2,
+            message='正在从综述论文中提取实体'
         )
         
-        # 保存结果到数据库
-        from datetime import datetime
+        # 处理综述论文，提取实体
+        review_entities, review_relations = extract_entities_from_review(review_path, task_id)
+        
+        # 更新状态：处理引用文献
+        db_manager.update_processing_status(
+            task_id=task_id,
+            current_stage='处理引用文献',
+            progress=0.4,
+            message='正在从引用文献中提取实体'
+        )
+        
+        # 处理引用文献，提取实体
+        citation_entities, citation_relations = extract_entities_from_citations(citation_paths, task_id)
+        
+        # 更新状态：提取关系
+        db_manager.update_processing_status(
+            task_id=task_id,
+            current_stage='提取关系',
+            progress=0.6,
+            message='正在分析实体之间的演化关系'
+        )
+        
+        # 合并实体和关系
+        all_entities = review_entities + citation_entities
+        all_relations = review_relations + citation_relations
+        
+        # 提取实体关系，传入所有PDF文件路径
+        from app.modules.agents import extract_evolution_relations
+        all_pdf_paths = [review_path] + citation_paths
+        evolution_relations = extract_evolution_relations(
+            entities=all_entities, 
+            pdf_paths=all_pdf_paths, 
+            task_id=task_id, 
+            previous_relations=all_relations
+        )
+        
+        # 更新状态：计算指标
+        db_manager.update_processing_status(
+            task_id=task_id,
+            current_stage='计算指标',
+            progress=0.8,
+            message='正在计算比较指标'
+        )
+        
+        # 使用calculate_comparison_metrics函数计算比较指标
+        metrics = calculate_comparison_metrics(review_entities, citation_entities, evolution_relations)
+        
+        # 保存实体和关系到数据库
+        save_entities_and_relations(all_entities, evolution_relations)
+        
+        # 构建结果
         result_data = {
-            'entities_count': len(entities),
-            'relations_count': len(relations),
-            'metrics': metrics,
-            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            'review_entities_count': len(review_entities),
+            'citation_entities_count': len(citation_entities),
+            'relations_count': len(evolution_relations),
+            'metrics': metrics
         }
         
+        # 更新任务状态为完成
         db_manager.update_processing_status(
             task_id=task_id,
             status='已完成',
             current_stage='任务完成',
             progress=1.0,
             message='比较分析任务已完成',
-            result=json.dumps(result_data)
+            result=result_data,
+            completed=True
         )
         
         logging.info(f"比较分析任务 {task_id} 已完成")
@@ -859,6 +899,85 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             except Exception as file_err:
                 logging.error(f"删除临时文件出错: {str(file_err)}")
 
+def extract_entities_from_review(review_path, task_id):
+    """从综述论文中提取实体和关系"""
+    from app.modules.agents import extract_paper_entities
+    
+    # 检查文件是否存在
+    if not os.path.exists(review_path):
+        logging.error(f"综述论文文件不存在: {review_path}")
+        return [], []
+        
+    logging.info(f"开始处理综述论文: {os.path.basename(review_path)}")
+    
+    # 从综述论文中提取实体
+    entities, is_complete = extract_paper_entities(
+        pdf_paths=review_path,
+        max_attempts=3,
+        model_name="qwen",
+        task_id=f"{task_id}_review"
+    )
+    
+    logging.info(f"从综述论文中提取到 {len(entities)} 个实体")
+    
+    # 暂时返回空的关系列表，关系将在后续步骤中提取
+    return entities, []
+
+def extract_entities_from_citations(citation_paths, task_id):
+    """从引用文献中提取实体和关系"""
+    from app.modules.agents import extract_paper_entities
+    
+    all_entities = []
+    
+    if not citation_paths:
+        logging.warning("没有提供引用文献")
+        return all_entities, []
+        
+    valid_paths = [p for p in citation_paths if os.path.exists(p)]
+    if len(valid_paths) < len(citation_paths):
+        logging.warning(f"有 {len(citation_paths) - len(valid_paths)} 个引用文献文件不存在")
+    
+    if not valid_paths:
+        logging.error("没有有效的引用文献文件")
+        return all_entities, []
+    
+    # 批量处理引用文献，每次处理5篇
+    batch_size = 100
+
+    # 提取实体
+    all_entities, is_complete = extract_paper_entities(
+        pdf_paths=valid_paths,
+        max_attempts=5,
+        batch_size=batch_size,
+        model_name="qwen",
+        task_id=f"{task_id}_citation_batchs"
+    )
+
+    # 暂时返回空的关系列表，关系将在后续步骤中提取
+    return all_entities, []
+
+def save_entities_and_relations(entities, relations):
+    """保存实体和关系到数据库"""
+    if not entities and not relations:
+        logging.warning("没有实体和关系需要保存")
+        return
+        
+    # 保存实体
+    entity_count = 0
+    for entity in entities:
+        if entity:
+            db_manager.store_algorithm_entity(entity)
+            entity_count += 1
+    
+    # 保存关系
+    relation_count = 0
+    for relation in relations:
+        if relation:
+            db_manager.store_algorithm_relation(relation)
+            relation_count += 1
+    
+    logging.info(f"已保存 {entity_count} 个实体和 {relation_count} 个关系到数据库")
+
 @combined_api.route('/comparison/status/<task_id>', methods=['GET'])
 def get_comparison_status(task_id):
     """获取比较分析任务处理状态"""
@@ -876,8 +995,30 @@ def get_comparison_status(task_id):
             'current_stage': task_status.get('current_stage', ''),
             'progress': task_status.get('progress', 0),
             'message': task_status.get('message', ''),
-            'result': json.loads(task_status.get('result', '{}')) if task_status.get('result') else {}
+            'result': task_status.get('result', {})
         }
+        
+        # 如果结果是字符串格式的JSON，则解析为字典
+        if isinstance(status_data['result'], str) and status_data['result'].strip():
+            try:
+                status_data['result'] = json.loads(status_data['result'])
+            except json.JSONDecodeError:
+                status_data['result'] = {}
+        
+        # 检查任务是否完成
+        if task_status.get('completed', False):
+            # 如果已完成，增加更多详细信息
+            status_data['completed_at'] = task_status.get('update_time', '')
+            
+            # 检查结果数据的可用性
+            if not status_data['result']:
+                # 如果没有结果数据，尝试获取实体和关系数
+                entities = db_manager.get_entities_by_task(task_id)
+                relations = db_manager.get_relations_by_task(task_id)
+                
+                if entities or relations:
+                    status_data['entities_count'] = len(entities)
+                    status_data['relations_count'] = len(relations)
         
         return jsonify({
             'status': 'success',
@@ -886,4 +1027,5 @@ def get_comparison_status(task_id):
     
     except Exception as e:
         logging.error(f"获取任务 {task_id} 状态时出错: {str(e)}")
+        logging.error(traceback.format_exc())
         return jsonify({'status': 'error', 'message': f'获取任务状态时出错: {str(e)}'}), 500 
