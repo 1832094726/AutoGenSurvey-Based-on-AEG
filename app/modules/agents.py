@@ -183,12 +183,12 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None)
                 entity_name = entity["metric_entity"].get("metric_id")
                 entity_examples.append(f"{entity_name}")
         
-            # 添加部分提取的上下文
-            logging.info(f"已提取的实体: {entity_examples}")
-            previous_entities_hint = "\n\n以下实体已经被提取过，请不要重复提取，并继续识别其他实体：\n- "
-            previous_entities_hint += "\n- ".join(entity_examples)
-            previous_entities_hint += "\n\n请确保你提取的是新实体，不要包含上述已提取的实体。"
-            base_prompt += previous_entities_hint
+        # 添加部分提取的上下文
+        logging.info(f"已提取的实体: {entity_examples}")
+        previous_entities_hint = "\n\n以下实体已经被提取过，请不要重复提取，并继续识别其他实体：\n- "
+        previous_entities_hint += "\n- ".join(entity_examples)
+        previous_entities_hint += "\n\n请确保你提取的是新实体，不要包含上述已提取的实体。"
+        base_prompt += previous_entities_hint
     
     return base_prompt
 
