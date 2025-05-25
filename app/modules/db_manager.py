@@ -1987,67 +1987,20 @@ class DatabaseManager:
             # 检查是否需要重连
             self._reconnect_if_needed()
             
-            # 使用任务ID查询实体 - 在现有表结构中，可能没有直接关联，
-            # 这里我们假设任务ID被保存在实体的metadata字段中，或者使用其他方式关联
-            # 实际实现需要根据具体的数据库结构调整
+            # 在当前数据库结构中，实体表中没有直接与任务ID关联的字段
+            # 查看ProcessingStatus表中是否有包含该任务ID的记录
+            task_sql = "SELECT * FROM ProcessingStatus WHERE task_id = %s"
+            self.cursor.execute(task_sql, (task_id,))
+            task_row = self.cursor.fetchone()
             
-            # 查询算法实体
-            sql = "SELECT * FROM AlgorithmEntities WHERE metadata LIKE %s"
-            self.cursor.execute(sql, (f'%"task_id": "{task_id}"%',))
-            algorithm_rows = self.cursor.fetchall()
+            if not task_row:
+                logging.warning(f"未找到任务ID: {task_id}")
+                # 如果找不到任务ID，返回空列表
+                return []
             
-            # 查询数据集实体
-            sql = "SELECT * FROM DatasetEntities WHERE metadata LIKE %s"
-            self.cursor.execute(sql, (f'%"task_id": "{task_id}"%',))
-            dataset_rows = self.cursor.fetchall()
-            
-            # 查询评价指标实体
-            sql = "SELECT * FROM MetricEntities WHERE metadata LIKE %s"
-            self.cursor.execute(sql, (f'%"task_id": "{task_id}"%',))
-            metric_rows = self.cursor.fetchall()
-            
-            # 获取字段名
-            algorithm_fields = [desc[0] for desc in self.cursor.description]
-            
-            # 转换为字典列表
-            entities = []
-            
-            # 处理算法实体
-            for row in algorithm_rows:
-                entity = {}
-                for i, field in enumerate(algorithm_fields):
-                    entity[field] = row[i]
-                entities.append({
-                    'algorithm_entity': entity,
-                    'entity_type': 'Algorithm'
-                })
-            
-            # 处理数据集实体
-            for row in dataset_rows:
-                entity = {}
-                for i, field in enumerate(algorithm_fields):
-                    entity[field] = row[i]
-                entities.append({
-                    'dataset_entity': entity,
-                    'entity_type': 'Dataset'
-                })
-            
-            # 处理评价指标实体
-            for row in metric_rows:
-                entity = {}
-                for i, field in enumerate(algorithm_fields):
-                    entity[field] = row[i]
-                entities.append({
-                    'metric_entity': entity,
-                    'entity_type': 'Metric'
-                })
-            
-            # 如果找不到具体关联，则返回所有实体
-            if not entities:
-                logging.warning(f"未找到与任务 {task_id} 关联的实体，返回所有实体")
-                return self.get_all_entities()
-                
-            return entities
+            # 如果找到任务，返回所有实体（由于目前没有实体与任务的直接关联）
+            logging.info(f"找到任务ID: {task_id}，返回所有实体")
+            return self.get_all_entities()
             
         except Exception as e:
             logging.error(f"获取任务 {task_id} 的实体时出错: {str(e)}")
@@ -2068,32 +2021,94 @@ class DatabaseManager:
             # 检查是否需要重连
             self._reconnect_if_needed()
             
-            # 使用任务ID查询关系 - 在现有表结构中，可能没有直接关联，
-            # 这里我们假设任务ID被保存在关系的metadata字段中，或者使用其他方式关联
-            sql = "SELECT * FROM AlgorithmRelations WHERE metadata LIKE %s"
-            self.cursor.execute(sql, (f'%"task_id": "{task_id}"%',))
-            relation_rows = self.cursor.fetchall()
+            # 在当前数据库结构中，关系表中没有直接与任务ID关联的字段
+            # 查看ProcessingStatus表中是否有包含该任务ID的记录
+            task_sql = "SELECT * FROM ProcessingStatus WHERE task_id = %s"
+            self.cursor.execute(task_sql, (task_id,))
+            task_row = self.cursor.fetchone()
             
-            # 获取字段名
-            relation_fields = [desc[0] for desc in self.cursor.description]
+            if not task_row:
+                logging.warning(f"未找到任务ID: {task_id}")
+                # 如果找不到任务ID，返回空列表
+                return []
             
-            # 转换为字典列表
-            relations = []
-            for row in relation_rows:
-                relation = {}
-                for i, field in enumerate(relation_fields):
-                    relation[field] = row[i]
-                relations.append(relation)
-            
-            # 如果找不到具体关联，则返回所有关系
-            if not relations:
-                logging.warning(f"未找到与任务 {task_id} 关联的关系，返回所有关系")
-                return self.get_all_relations()
-                
-            return relations
+            # 如果找到任务，返回所有关系（由于目前没有关系与任务的直接关联）
+            logging.info(f"找到任务ID: {task_id}，返回所有关系")
+            return self.get_all_relations()
             
         except Exception as e:
             logging.error(f"获取任务 {task_id} 的关系时出错: {str(e)}")
+            logging.error(traceback.format_exc())
+            return []
+
+    def get_comparison_history(self, limit=20):
+        """
+        获取比较分析的历史任务记录
+        
+        Args:
+            limit (int): 最大返回记录数
+            
+        Returns:
+            list: 任务记录列表
+        """
+        try:
+            # 检查是否需要重连
+            self._reconnect_if_needed()
+            
+            # 查询与比较分析相关的任务
+            query = """
+            SELECT task_id, task_name, status, current_stage, progress, message, 
+                   start_time, update_time, end_time, completed
+            FROM ProcessingStatus
+            WHERE task_name LIKE '%比较%' OR task_name LIKE '%比对%' OR task_name LIKE '%Comparison%' 
+                  OR task_name LIKE '%Compare%' OR status = 'completed'
+            ORDER BY start_time DESC
+            LIMIT %s
+            """
+            
+            self.cursor.execute(query, (limit,))
+            rows = self.cursor.fetchall()
+            
+            # 如果没有找到任何结果，查询最近的任务记录
+            if not rows:
+                fallback_query = """
+                SELECT task_id, task_name, status, current_stage, progress, message, 
+                       start_time, update_time, end_time, completed
+                FROM ProcessingStatus
+                ORDER BY start_time DESC
+                LIMIT %s
+                """
+                self.cursor.execute(fallback_query, (limit,))
+                rows = self.cursor.fetchall()
+                logging.info(f"未找到特定比较任务，返回最近的{limit}条任务记录")
+            
+            tasks = []
+            # 获取字段名
+            column_names = [desc[0] for desc in self.cursor.description]
+            
+            for row in rows:
+                task = {}
+                for i, col_name in enumerate(column_names):
+                    # 处理日期时间类型
+                    if isinstance(row[i], (datetime.datetime, datetime.date)):
+                        task[col_name] = row[i].strftime('%Y-%m-%d %H:%M:%S')
+                    # 处理completed布尔值
+                    elif col_name == 'completed':
+                        task[col_name] = row[i] == 1 if row[i] is not None else False
+                    # 处理progress浮点值
+                    elif col_name == 'progress':
+                        task[col_name] = float(row[i]) if row[i] is not None else 0
+                    # 其他字段
+                    else:
+                        task[col_name] = row[i] if row[i] is not None else ""
+                
+                tasks.append(task)
+            
+            logging.info(f"获取到 {len(tasks)} 条比较分析历史记录")
+            return tasks
+            
+        except Exception as e:
+            logging.error(f"获取比较分析历史记录时出错: {str(e)}")
             logging.error(traceback.format_exc())
             return []
 

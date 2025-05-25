@@ -1032,36 +1032,9 @@ def get_comparison_status(task_id):
 def get_comparison_history():
     """获取比较分析的历史任务记录"""
     try:
-        # 查询所有比较分析相关的任务
-        query = """
-        SELECT task_id, task_name, status, current_stage, progress, message, 
-               start_time, update_time, end_time, completed
-        FROM ProcessingStatus
-        WHERE task_name LIKE '%比较分析%' OR task_name LIKE '%Comparison%'
-        ORDER BY start_time DESC
-        LIMIT 20
-        """
+        # 使用db_manager的get_comparison_history方法获取任务记录
+        tasks = db_manager.get_comparison_history(limit=20)
         
-        db_manager.cursor.execute(query)
-        rows = db_manager.cursor.fetchall()
-        
-        tasks = []
-        
-        for row in rows:
-            task = {
-                "task_id": row[0],
-                "task_name": row[1],
-                "status": row[2],
-                "current_stage": row[3],
-                "progress": float(row[4]) if row[4] is not None else 0,
-                "message": row[5],
-                "start_time": row[6].strftime('%Y-%m-%d %H:%M:%S') if row[6] else None,
-                "update_time": row[7].strftime('%Y-%m-%d %H:%M:%S') if row[7] else None,
-                "end_time": row[8].strftime('%Y-%m-%d %H:%M:%S') if row[8] else None,
-                "completed": row[9] == 1 if row[9] is not None else False
-            }
-            tasks.append(task)
-            
         return jsonify({
             "success": True,
             "tasks": tasks
