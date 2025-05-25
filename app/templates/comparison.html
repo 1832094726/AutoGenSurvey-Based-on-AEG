@@ -114,6 +114,35 @@
   
   <div class="row">
     <div class="col-md-8 offset-md-2">
+      <!-- 历史记录 -->
+      <div class="card mb-4" id="historySection">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5>历史分析记录</h5>
+          <button class="btn btn-sm btn-outline-secondary" id="refreshHistoryBtn">
+            <i class="fas fa-sync-alt"></i> 刷新
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover" id="historyTable">
+              <thead>
+                <tr>
+                  <th>任务名称</th>
+                  <th>状态</th>
+                  <th>创建时间</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody">
+                <tr>
+                  <td colspan="4" class="text-center">加载历史记录中...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
       <!-- 分析表单 -->
       <form id="comparisonForm" enctype="multipart/form-data">
         <!-- 模型选择 -->
@@ -216,6 +245,14 @@
 {{ super() }}
 <script>
   $(document).ready(function() {
+    // 初始加载历史记录
+    loadComparisonHistory();
+    
+    // 刷新历史记录按钮点击事件
+    $('#refreshHistoryBtn').on('click', function() {
+      loadComparisonHistory();
+    });
+    
     // 文件上传处理
     $('#reviewPaper').on('change', function() {
       const fileName = $(this).val().split('\\').pop();
@@ -333,12 +370,18 @@
                 $('#relationCount').text(resultData.relations_count || 0);
                 $('#viewResultsBtn').attr('href', `/comparison/results/${taskId}`);
                 
+                // 刷新历史记录
+                loadComparisonHistory();
+                
                 // 停止轮询
                 return;
               } else if (statusData.status === '错误') {
                 alert('任务处理出错: ' + statusData.message);
                 $('#progressContainer').hide();
                 $('#comparisonForm').show();
+                
+                // 刷新历史记录
+                loadComparisonHistory();
                 return;
               }
               
@@ -363,6 +406,76 @@
       
       // 开始首次轮询
       setTimeout(pollTask, 1000);
+    }
+    
+    // 加载比较分析历史记录
+    function loadComparisonHistory() {
+      $('#historyTableBody').html('<tr><td colspan="4" class="text-center"><i class="fas fa-spinner fa-spin"></i> 加载中...</td></tr>');
+      
+      $.ajax({
+        url: '/api/comparison/history',
+        type: 'GET',
+        success: function(response) {
+          if (response.success && response.tasks && response.tasks.length > 0) {
+            let html = '';
+            
+            response.tasks.forEach(function(task) {
+              const statusClass = getStatusClass(task.status);
+              const formattedDate = formatDate(task.start_time);
+              
+              html += `
+                <tr>
+                  <td>${task.task_name || '比较分析任务'}</td>
+                  <td><span class="badge ${statusClass}">${task.status}</span></td>
+                  <td>${formattedDate}</td>
+                  <td>
+                    ${task.status === '已完成' ? 
+                      `<a href="/comparison/results/${task.task_id}" class="btn btn-sm btn-primary">查看结果</a>` : 
+                      `<button class="btn btn-sm btn-secondary" disabled>等待完成</button>`}
+                  </td>
+                </tr>
+              `;
+            });
+            
+            $('#historyTableBody').html(html);
+          } else {
+            $('#historyTableBody').html('<tr><td colspan="4" class="text-center">暂无历史记录</td></tr>');
+          }
+        },
+        error: function() {
+          $('#historyTableBody').html('<tr><td colspan="4" class="text-center text-danger">加载失败，请稍后重试</td></tr>');
+        }
+      });
+    }
+    
+    // 获取状态对应的样式类
+    function getStatusClass(status) {
+      switch(status) {
+        case '已完成':
+          return 'bg-success';
+        case '处理中':
+          return 'bg-info';
+        case '错误':
+          return 'bg-danger';
+        default:
+          return 'bg-secondary';
+      }
+    }
+    
+    // 格式化日期
+    function formatDate(dateString) {
+      if (!dateString) return '未知时间';
+      
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return dateString;
+      
+      return date.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
     }
   });
 </script>

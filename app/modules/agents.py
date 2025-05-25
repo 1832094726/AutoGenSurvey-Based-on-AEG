@@ -55,14 +55,14 @@ def check_extraction_complete(text):
         if re.search(pattern, text, re.IGNORECASE):
             return False
             
-    # 默认为完成
-    return True
+    # 默认为未完成
+    return False
 
 
 
 
 # 修改生成提取提示词的函数
-def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None, partial_extraction=False):
+def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None):
     """
     生成用于实体提取的提示词，不再需要包含论文文本内容
     
@@ -98,7 +98,7 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
 - 方法论（如果是算法）
 - 特征处理方法（如果是算法）
 
-请以JSON格式输出，确保包含以下结构：
+请以JSON格式输出，确保包含以下结构，不要包含任何其他内容：
 ```json
                     [
                       {
@@ -162,29 +162,29 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
     completion_request = """
 最后，请明确告知我提取是否已完成，还是需要继续提取更多实体。请根据你对文本的分析，判断是否已经提取了所有可能的实体。
 
-在JSON返回后，请单独一行写明"EXTRACTION_COMPLETE: true"（找不到任何实体了）或"EXTRACTION_COMPLETE: false"（如果有任何没有被抽取的实体存在或分段提取,请继续提取）。
+在JSON返回后，请单独一行写明"EXTRACTION_COMPLETE: true"（找不到任何实体请输出）或"EXTRACTION_COMPLETE: false"（如果有任何没有被抽取的实体存在或需要分段提取,请输出）。
 """
     base_prompt += completion_request
 
     # 如果有之前提取的实体，添加到提示中
     if previous_entities and len(previous_entities) > 0:
         entity_examples = []
-        for i, entity in enumerate(previous_entities):  # 只显示最多5个示例
+        for i, entity in enumerate(previous_entities): 
             if "algorithm_entity" in entity:
                 entity_type = "算法"
-                entity_name = entity["algorithm_entity"].get("name", "未知算法")
-                entity_examples.append(f"{entity_type}: {entity_name}")
+                entity_name = entity["algorithm_entity"].get("algorithm_id")
+                entity_examples.append(f"{entity_name}")
             elif "dataset_entity" in entity:
                 entity_type = "数据集"
-                entity_name = entity["dataset_entity"].get("name", "未知数据集")
-                entity_examples.append(f"{entity_type}: {entity_name}")
+                entity_name = entity["dataset_entity"].get("dataset_id")
+                entity_examples.append(f"{entity_name}")
             elif "metric_entity" in entity:
                 entity_type = "评价指标"
-                entity_name = entity["metric_entity"].get("name", "未知指标")
-                entity_examples.append(f"{entity_type}: {entity_name}")
+                entity_name = entity["metric_entity"].get("metric_id")
+                entity_examples.append(f"{entity_name}")
         
-        if partial_extraction:
             # 添加部分提取的上下文
+            logging.info(f"已提取的实体: {entity_examples}")
             previous_entities_hint = "\n\n以下实体已经被提取过，请不要重复提取，并继续识别其他实体：\n- "
             previous_entities_hint += "\n- ".join(entity_examples)
             previous_entities_hint += "\n\n请确保你提取的是新实体，不要包含上述已提取的实体。"
@@ -288,7 +288,7 @@ def extract_entities_with_openai(prompt, model_name="gpt-3.5-turbo", max_attempt
 
 
 # 创建一个通用的实体提取函数，替代多个API特定的函数
-def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=3, previous_entities=None, agent=None):
+def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=5, previous_entities=None, agent=None):
     """
     使用指定模型从PDF文件中提取实体，支持多个文件和file-id方式
     
@@ -320,12 +320,6 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=3, pr
         logging.error("没有有效的file-id，无法提取实体")
         return [], False
         
-    # 生成提取实体的提示
-    prompt = generate_entity_extraction_prompt(
-        model_name, 
-        previous_entities=previous_entities, 
-        partial_extraction=previous_entities and len(previous_entities) > 0
-    )
     
     all_entities = []  # 所有已提取的实体
     current_attempt = 0
@@ -333,38 +327,13 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=3, pr
     
     while current_attempt < max_attempts and not is_extraction_complete:
         current_attempt += 1
-        logging.info(f"提取尝试 {current_attempt}/{max_attempts}")
+        logging.info(f"提取尝试 {current_attempt}/{max_attempts},是否完成: {is_extraction_complete}")
         
         # 如果已有提取的实体，将其加入到提示词中
-        current_prompt = prompt
-        if all_entities:
-            # 构建已提取的实体列表摘要 
-            entity_summary = []
-            for idx, entity in enumerate(all_entities):
-                entity_type = "未知"
-                entity_name = "未命名"
-                
-                if 'algorithm_entity' in entity:
-                    entity_type = "算法"
-                    entity_name = entity['algorithm_entity'].get('name', '未命名算法')
-                elif 'dataset_entity' in entity:
-                    entity_type = "数据集"
-                    entity_name = entity['dataset_entity'].get('name', '未命名数据集')
-                elif 'metric_entity' in entity:
-                    entity_type = "评价指标"
-                    entity_name = entity['metric_entity'].get('name', '未命名指标')
-                
-                entity_summary.append(f"{entity_type}: {entity_name}")
-            
-            if len(all_entities) > 5:
-                entity_summary.append(f"... 等 {len(all_entities)} 个实体")
-            
-            # 添加已提取实体的提示
-            entities_hint = "\n\n已经提取的实体有：\n" + "\n".join(entity_summary)
-            entities_hint += "\n\n请继续提取文本中其他尚未提取的实体，不要重复已提取的实体。"
-            current_prompt = current_prompt + entities_hint
-            logging.info(f"添加了 {len(all_entities)} 个已提取实体的提示信息")
-        
+        current_prompt = generate_entity_extraction_prompt(
+        model_name, 
+        previous_entities=all_entities, 
+    )
         # 使用千问API提取实体
         entities = []
         try:
@@ -452,6 +421,7 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=3, pr
                 for new_entity in entities:
                     entity_id = _get_entity_id(new_entity)
                     if entity_id and entity_id in entity_id_map:
+                        logging.info(f"已存在的实体: {entity_id}")
                         # 更新已存在的实体
                         continue
                     else:
@@ -460,9 +430,9 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=3, pr
             else:
                 # 如果是首次提取，直接使用结果
                 all_entities = entities
-            
-            # 如果提取已完成，或者连续两次提取结果相同（无新增实体），则认为提取完成
-            if is_complete or (entities and len(all_entities) == len(entities) and current_attempt > 1):
+            previous_entities = all_entities
+            # 如果提取已完成
+            if is_complete:
                 is_extraction_complete = True
                 break
                 
@@ -502,6 +472,16 @@ def extract_json_from_text(text):
             # 验证JSON是否有效
             try:
                 json.loads(json_candidate)
+                # 检查提取后内容长度是否明显小于原文本
+                if len(json_candidate) < len(text) - 500:
+                    # 保存原文本和提取后的内容到缓存目录
+                    os.makedirs("data/cache/test", exist_ok=True)
+                    timestamp = int(time.time())
+                    with open(f"data/cache/test/original_text_{timestamp}.txt", "w", encoding="utf-8") as f:
+                        f.write(text)
+                    with open(f"data/cache/test/extracted_json_{timestamp}.json", "w", encoding="utf-8") as f:
+                        f.write(json_candidate)
+                    logging.info(f"已保存原文本和提取JSON到data/cache/test目录，时间戳: {timestamp}")
                 return json_candidate
             except json.JSONDecodeError as e:
                 logging.warning(f"从代码块提取的JSON无效: {str(e)}，尝试其他方法")
@@ -516,10 +496,19 @@ def extract_json_from_text(text):
             try:
                 json.loads(match)
                 logging.info(f"提取到有效的JSON数组，长度: {len(match)}")
+                # 检查提取后内容长度是否明显小于原文本
+                if len(match) < len(text) - 500:
+                    # 保存原文本和提取后的内容到缓存目录
+                    os.makedirs("data/cache/test", exist_ok=True)
+                    timestamp = int(time.time())
+                    with open(f"data/cache/test/original_text_{timestamp}.txt", "w", encoding="utf-8") as f:
+                        f.write(text)
+                    with open(f"data/cache/test/extracted_json_{timestamp}.json", "w", encoding="utf-8") as f:
+                        f.write(match)
+                    logging.info(f"已保存原文本和提取JSON到data/cache/test目录，时间戳: {timestamp}")
                 return match
             except json.JSONDecodeError:
                 continue
-    
     # 然后尝试对象
     object_pattern = r'\{[\s\S]*?\}'
     matches = re.findall(object_pattern, text)
@@ -722,43 +711,6 @@ def extract_paper_entities(pdf_paths, max_attempts=5, batch_size=1, model_name="
     
     return all_entities, is_complete
 
-def test_json_extraction_and_completion_status(text):
-    """
-    测试JSON提取和完成状态检测功能
-    
-    Args:
-        text (str): 要测试的文本
-        
-    Returns:
-        tuple: (提取的JSON字符串, 完成状态)
-    """
-    logging.info("开始测试JSON提取和完成状态检测")
-    
-    # 检查完成状态
-    is_complete = check_extraction_complete(text)
-    logging.info(f"完成状态检测结果: {is_complete}")
-    
-    # 提取JSON
-    json_str = extract_json_from_text(text)
-    if json_str:
-        logging.info(f"成功提取JSON，长度: {len(json_str)}")
-        json_preview = json_str[:200] + "..." if len(json_str) > 200 else json_str
-        logging.info(f"JSON预览: {json_preview}")
-    else:
-        logging.error("未能提取到有效的JSON")
-        
-    # 如果提取到了JSON，尝试解析
-    entities = []
-    if json_str:
-        try:
-            entities = json.loads(json_str)
-            if not isinstance(entities, list):
-                entities = [entities]
-            logging.info(f"解析到 {len(entities)} 个实体")
-        except Exception as e:
-            logging.error(f"JSON解析错误: {str(e)}")
-    
-    return json_str, is_complete, entities
 
 # 添加一个函数用于上传文件并缓存file-id
 def upload_and_cache_file(file_path, purpose="file-extract"):
@@ -859,15 +811,16 @@ def _get_entity_id(entity):
         return entity["metric_entity"].get("metric_id")
     return None
 
-def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous_relations=None):
+def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous_relations=None, max_attempts=5):
     """
-    从实体列表和PDF文件中提取演化关系，支持多个PDF文件和file-id方式
+    从实体列表和PDF文件中提取演化关系，支持多个PDF文件和file-id方式，添加重试循环结构
     
     Args:
         entities (list): 实体列表
         pdf_paths (str/list, optional): PDF文件路径或路径列表
         task_id (str, optional): 任务ID，用于缓存和日志
         previous_relations (list, optional): 之前提取的关系，用于断点续传
+        max_attempts (int): 最大尝试次数
         
     Returns:
         list: 提取的演化关系列表
@@ -913,31 +866,7 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
             entity_id = _get_entity_id(entity)
             if entity_id:
                 entity_ids.append(entity_id)
-        
-        # 排序以确保相同文件集合的一致键值
-        entity_ids.sort()
-        cache_key_parts.extend(entity_ids)
-        
-        # 添加可选的任务ID
-        if task_id:
-            cache_key = f"{task_id}_{'_'.join(cache_key_parts)}"
-        else:
-            cache_key = '_'.join(cache_key_parts)
-        
-        # 生成MD5哈希，避免文件名过长
-        cache_key = hashlib.md5(cache_key.encode()).hexdigest()
-        cache_file = os.path.join(cache_dir, f"{cache_key}.json")
-        
-        # 检查缓存
-        if os.path.exists(cache_file):
-            try:
-                with open(cache_file, 'r', encoding='utf-8') as f:
-                    cached_relations = json.load(f)
-                logging.info(f"从缓存加载了 {len(cached_relations)} 个关系")
-                return cached_relations
-            except Exception as e:
-                logging.error(f"读取缓存文件出错: {str(e)}")
-        
+
         # 准备file-id列表
         file_ids = []
         if pdf_paths:
@@ -950,8 +879,219 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
             if not file_ids:
                 logging.warning("没有有效的file-id，将仅基于实体列表分析关系")
         
-        # 生成关系提取提示
-        system_message = """你是一位专业的算法演化关系分析专家。请分析提供的论文和实体列表，识别算法之间的演化关系。
+        # 创建临时文件保存所有实体
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as temp_file:
+            temp_filename = temp_file.name
+            # 将所有实体以JSON格式写入TXT文件
+            json_content = json.dumps(entities, ensure_ascii=False, indent=2)
+            temp_file.write(json_content)
+            logging.info(f"已将 {len(entities)} 个实体以JSON格式写入TXT文件: {temp_filename}")
+        
+        # 上传实体文件并获取file-id
+        entities_file_id = upload_and_cache_file(temp_filename, purpose="file-extract")
+        
+        # 删除临时文件
+        try:
+            os.unlink(temp_filename)
+        except Exception as e:
+            logging.warning(f"删除临时文件时出错: {str(e)}")
+        
+        if not entities_file_id:
+            logging.error("上传实体文件失败，无法获取file-id")
+            return []
+        
+        # 添加file-id引用（包括PDF文件和实体文件）
+        all_file_ids = []
+        if file_ids:
+            all_file_ids.extend(file_ids)
+        all_file_ids.append(entities_file_id)
+        
+        # 初始化变量
+        all_relations = [] if not previous_relations else previous_relations.copy()
+        current_attempt = 0
+        is_extraction_complete = False
+        
+        # 添加重试循环结构
+        while current_attempt < max_attempts and not is_extraction_complete:
+            current_attempt += 1
+            logging.info(f"关系提取尝试 {current_attempt}/{max_attempts}")
+            
+            # 生成关系提取提示
+            system_message, base_user_message = generate_evolution_relation_prompt(all_relations)
+            
+            # 调用API进行关系提取
+            try:
+                from openai import OpenAI
+                client = OpenAI(
+                    api_key=Config.QWEN_API_KEY,
+                    base_url=Config.QWEN_BASE_URL
+                )
+                
+                # 构建消息
+                messages = [
+                    {"role": "system", "content": system_message}
+                ]
+                
+                # 添加file-id引用
+                file_content = ",".join([f"fileid://{fid}" for fid in all_file_ids])
+                messages.append({"role": "system", "content": file_content})
+                
+                # 添加用户提示
+                messages.append({"role": "user", "content": base_user_message})
+                
+                # 调用API
+                logging.info(f"调用千问API提取关系，包含 {len(file_ids) if file_ids else 0} 个PDF文件和 1 个JSON内容的TXT文件(ID: {entities_file_id})，共 {len(all_file_ids)} 个文件")
+                response = client.chat.completions.create(
+                    model=Config.QWEN_MODEL or "qwen-long",
+                    messages=messages,
+                    temperature=0.2,
+                    stream=True,
+                    max_tokens=None  # 不限制token数量
+                )
+                
+                # 收集流式响应内容
+                content = ""
+                chunk_count = 0
+                for chunk in response:
+                    chunk_count += 1
+                    if chunk.choices and chunk.choices[0].delta.content:
+                        content += chunk.choices[0].delta.content
+                    # 每100个块记录一次
+                    if chunk_count % 100 == 0:
+                        logging.info(f"收到响应块 #{chunk_count}，当前响应长度: {len(content)} 字符")
+                
+                logging.info(f"响应接收完成，共 {chunk_count} 个响应块，总长度: {len(content)} 字符")
+                
+                # 检查是否包含完成标志
+                is_complete = check_extraction_complete(content)
+                is_extraction_complete = is_complete
+                
+                # 提取JSON部分
+                json_text = extract_json_from_text(content)
+                if json_text:
+                    try:
+                        relations = json.loads(json_text)
+                        if not isinstance(relations, list):
+                            relations = [relations]  # 确保是列表格式
+                        logging.info(f"成功从API响应提取 {len(relations)} 个关系,是否完成: {is_complete}")
+                    except json.JSONDecodeError as e:
+                        logging.warning(f"JSON解析错误: {str(e)}，尝试清理后重新解析")
+                        try:
+                            clean_json = json_text.replace('```', '').strip()
+                            clean_json = re.sub(r',\s*]', ']', clean_json)
+                            clean_json = re.sub(r',\s*}', '}', clean_json)
+                            relations = json.loads(clean_json)
+                            if not isinstance(relations, list):
+                                relations = [relations]  # 确保是列表格式
+                            logging.info(f"清理后成功解析 {len(relations)} 个关系")
+                        except Exception as clean_err:
+                            logging.error(f"清理后JSON仍解析失败: {str(clean_err)}")
+                            logging.error(f"原始JSON错误: {str(e)}")
+                            logging.debug(f"问题JSON片段: {json_text[:100]}...{json_text[-100:] if len(json_text) > 100 else ''}")
+                            relations = []
+                    
+                    # 验证关系格式并转换为标准格式
+                    valid_relations = []
+                    for relation in relations:
+                        # 验证基本结构
+                        if not isinstance(relation, dict):
+                            continue
+                        if 'from_entities' not in relation or 'to_entities' not in relation:
+                            continue
+                        if not isinstance(relation['from_entities'], list) or not isinstance(relation['to_entities'], list):
+                            continue
+                        if len(relation['from_entities']) == 0 or len(relation['to_entities']) == 0:
+                            continue
+                        # 验证实体ID
+                        valid = True
+                        for from_entity in relation['from_entities']:
+                            if not isinstance(from_entity, dict) or 'entity_id' not in from_entity:
+                                valid = False
+                                break
+                        for to_entity in relation['to_entities']:
+                            if not isinstance(to_entity, dict) or 'entity_id' not in to_entity:
+                                valid = False
+                                break
+                        if valid:
+                            # 将每个from_entity和to_entity组合都创建一个单独的关系（扁平化）
+                            for from_entity in relation['from_entities']:
+                                for to_entity in relation['to_entities']:
+                                    # 创建数据库格式的关系对象
+                                    db_relation = {
+                                        "from_entity": from_entity["entity_id"],
+                                        "to_entity": to_entity["entity_id"],
+                                        "relation_type": relation.get("relation_type", ""),
+                                        "structure": relation.get("structure", ""),
+                                        "detail": relation.get("detail", ""),
+                                        "evidence": relation.get("evidence", ""),
+                                        "confidence": relation.get("confidence", 0.0),
+                                        "from_entity_type": from_entity.get("entity_type", "Algorithm"),
+                                        "to_entity_type": to_entity.get("entity_type", "Algorithm"),
+                                        "extraction_complete": is_complete
+                                    }
+                                    valid_relations.append(db_relation)
+                    
+                    # 合并当前提取的关系和已有关系
+                    if all_relations:
+                        # 使用已有关系的集合来检查重复
+                        existing_relation_keys = set()
+                        for rel in all_relations:
+                            key = (rel.get("from_entity", ""), rel.get("to_entity", ""), rel.get("relation_type", ""))
+                            existing_relation_keys.add(key)
+                        
+                        # 添加不重复的新关系
+                        new_relation_count = 0
+                        for rel in valid_relations:
+                            key = (rel.get("from_entity", ""), rel.get("to_entity", ""), rel.get("relation_type", ""))
+                            if key not in existing_relation_keys:
+                                all_relations.append(rel)
+                                existing_relation_keys.add(key)
+                                new_relation_count += 1
+                        
+                        logging.info(f"本轮提取的有效关系: {len(valid_relations)}，添加了 {new_relation_count} 个新关系")
+                        
+                    else:
+                        # 首次提取
+                        all_relations = valid_relations
+                        logging.info(f"首次提取的有效关系数量: {len(all_relations)}")
+                        
+                        if is_complete:
+                            is_extraction_complete = True
+                else:
+                    logging.error("未能从API响应中提取有效的关系")
+                    # 如果已经有提取的关系，则不视为完全失败
+                    if current_attempt >= max_attempts:
+                        break
+            except Exception as e:
+                logging.error(f"调用API时出错: {str(e)}")
+                logging.error(traceback.format_exc())
+                # 继续下一次尝试
+                if current_attempt >= max_attempts:
+                    break
+        
+        # 更新所有关系的完成状态
+        for relation in all_relations:
+            relation["extraction_complete"] = is_extraction_complete
+            
+        logging.info(f"完成演化关系提取，共 {len(all_relations)} 个关系，完成状态: {is_extraction_complete}")
+        return all_relations
+    except Exception as e:
+        logging.error(f"提取演化关系时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return []
+
+def generate_evolution_relation_prompt(previous_relations=None):
+    """
+    生成用于演化关系提取的提示词
+    
+    Args:
+        previous_relations (list, optional): 之前提取的关系列表，用于断点续传
+        
+    Returns:
+        tuple: (system_message, user_message) 系统消息和用户消息
+    """
+    # 生成系统消息
+    system_message = """你是一位专业的算法演化关系分析专家。请分析提供的论文和实体列表，识别算法之间的演化关系。
         
 演化关系是指一个算法对另一个算法的改进、扩展、优化或替代关系。请仔细分析这些关系，并以JSON格式返回。
 
@@ -977,9 +1117,9 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
 5. 使用（Use）：表示一个实体使用另一个实体作为工具或资源。例如，算法使用特定的数据集进行训练或评估，或使用特定的指标进行性能评估，算法不能使用算法。
    表达方式：A uses B, A employs B, A utilizes B, A applies B, A leverages B, A adopts B, A implements B
 请根据论文内容，识别实体列表中算法之间的演化关系，并提供详细信息。如果找不到明确的关系，请勿创建虚构的关系。"""
-        
-        # 构建基础用户消息（不包含实体）
-        base_user_message = """请分析已上传的实体文件和PDF论文内容，识别算法之间的演化关系。
+    
+    # 构建基础用户消息
+    base_user_message = """请分析已上传的实体文件和PDF论文内容，识别算法之间的演化关系。
 
 重要提示：
 1. 所有实体信息都在已上传的文本文件中，内容是JSON格式，包含算法、数据集和评价指标实体
@@ -993,7 +1133,7 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
 - 数据集改进/扩展另一个数据集
 - 评估指标改进/扩展另一个评估指标
 
-请以以下格式返回关系列表：
+请以以下格式返回关系列表，不要包含任何其他内容：
 [
   {
     "from_entities": [
@@ -1009,179 +1149,31 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
     "confidence": 置信度（0.0-1.0）
   },
   ...
-]
+]"""
+        # 添加完成状态请求
+    completion_request = """
+最后，请明确告知我提取是否已完成，还是需要继续提取更多关系。请根据你对文本的分析，判断是否已经提取了所有可能的关系。
 
-请确保每个关系都有足够的证据支持，避免虚构不存在的关系。如果找不到明确的证据，请不要创建关系。"""
+在JSON返回后，请单独一行写明"EXTRACTION_COMPLETE: true"（找不到任何关系请输出）或"EXTRACTION_COMPLETE: false"（如果有任何没有被抽取的关系存在或需要分段提取,请输出）。
+"""
+    base_user_message += completion_request
+    # 如果有之前提取的关系，补充提示
+    if previous_relations and len(previous_relations) > 0:
+        relation_examples = []
+        
+        for i in len(previous_relations):
+            relation = previous_relations[i]
+            from_entity = relation.get("from_entity", "未知")
+            to_entity = relation.get("to_entity", "未知")
+            relation_type = relation.get("relation_type", "未知")
+            relation_examples.append(f"{from_entity} → {to_entity} ({relation_type})")        
 
-        # 调用API进行关系提取
-        try:
-            from openai import OpenAI
-            client = OpenAI(
-                api_key=Config.QWEN_API_KEY,
-                base_url=Config.QWEN_BASE_URL
-            )
-            
-            # 构建消息
-            messages = [
-                {"role": "system", "content": system_message}
-            ]
-            
-            # 创建临时文件保存所有实体
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as temp_file:
-                temp_filename = temp_file.name
-                # 将所有实体以JSON格式写入TXT文件
-                json_content = json.dumps(entities, ensure_ascii=False, indent=2)
-                temp_file.write(json_content)
-                logging.info(f"已将 {len(entities)} 个实体以JSON格式写入TXT文件: {temp_filename}")
-            
-            # 上传实体文件并获取file-id
-            entities_file_id = upload_and_cache_file(temp_filename, purpose="file-extract")
-            
-            # 删除临时文件
-            try:
-                os.unlink(temp_filename)
-            except Exception as e:
-                logging.warning(f"删除临时文件时出错: {str(e)}")
-            
-            if not entities_file_id:
-                logging.error("上传实体文件失败，无法获取file-id")
-                return []
-            
-            # 添加file-id引用（包括PDF文件和实体文件）
-            all_file_ids = []
-            if file_ids:
-                all_file_ids.extend(file_ids)
-            all_file_ids.append(entities_file_id)
-            
-            file_content = ",".join([f"fileid://{fid}" for fid in all_file_ids])
-            messages.append({"role": "system", "content": file_content})
-            
-            # 添加用户提示
-            messages.append({"role": "user", "content": base_user_message})
-            
-            # 调用API
-            logging.info(f"调用千问API提取关系，包含 {len(file_ids) if file_ids else 0} 个PDF文件和 1 个JSON内容的TXT文件(ID: {entities_file_id})，共 {len(all_file_ids)} 个文件")
-            response = client.chat.completions.create(
-                model=Config.QWEN_MODEL or "qwen-long",
-                messages=messages,
-                temperature=0.2,
-                stream=True,
-                max_tokens=None  # 不限制token数量
-            )
-            
-            # 收集流式响应内容
-            content = ""
-            chunk_count = 0
-            for chunk in response:
-                chunk_count += 1
-                if chunk.choices and chunk.choices[0].delta.content:
-                    content += chunk.choices[0].delta.content
-                # 每100个块记录一次
-                if chunk_count % 100 == 0:
-                    logging.info(f"收到响应块 #{chunk_count}，当前响应长度: {len(content)} 字符")
-            
-            logging.info(f"响应接收完成，共 {chunk_count} 个响应块，总长度: {len(content)} 字符")
-            
-            # 检查是否包含完成标志
-            is_complete = check_extraction_complete(content)
-            
-            # 提取JSON部分
-            json_text = extract_json_from_text(content)
-            if json_text:
-                try:
-                    relations = json.loads(json_text)
-                    if not isinstance(relations, list):
-                        relations = [relations]  # 确保是列表格式
-                    logging.info(f"成功从API响应提取 {len(relations)} 个关系")
-                except json.JSONDecodeError as e:
-                    logging.warning(f"JSON解析错误: {str(e)}，尝试清理后重新解析")
-                    try:
-                        clean_json = json_text.replace('```', '').strip()
-                        clean_json = re.sub(r',\s*]', ']', clean_json)
-                        clean_json = re.sub(r',\s*}', '}', clean_json)
-                        relations = json.loads(clean_json)
-                        if not isinstance(relations, list):
-                            relations = [relations]  # 确保是列表格式
-                        logging.info(f"清理后成功解析 {len(relations)} 个关系")
-                    except Exception as clean_err:
-                        logging.error(f"清理后JSON仍解析失败: {str(clean_err)}")
-                        logging.error(f"原始JSON错误: {str(e)}")
-                        logging.debug(f"问题JSON片段: {json_text[:100]}...{json_text[-100:] if len(json_text) > 100 else ''}")
-                        relations = []
-                
-                # 验证关系格式并转换为标准格式
-                valid_relations = []
-                for relation in relations:
-                    # 验证基本结构
-                    if not isinstance(relation, dict):
-                        continue
-                    if 'from_entities' not in relation or 'to_entities' not in relation:
-                        continue
-                    if not isinstance(relation['from_entities'], list) or not isinstance(relation['to_entities'], list):
-                        continue
-                    if len(relation['from_entities']) == 0 or len(relation['to_entities']) == 0:
-                        continue
-                    # 验证实体ID
-                    valid = True
-                    for from_entity in relation['from_entities']:
-                        if not isinstance(from_entity, dict) or 'entity_id' not in from_entity:
-                            valid = False
-                            break
-                    for to_entity in relation['to_entities']:
-                        if not isinstance(to_entity, dict) or 'entity_id' not in to_entity:
-                            valid = False
-                            break
-                    if valid:
-                        # 将每个from_entity和to_entity组合都创建一个单独的关系（扁平化）
-                        for from_entity in relation['from_entities']:
-                            for to_entity in relation['to_entities']:
-                                # 创建数据库格式的关系对象
-                                db_relation = {
-                                    "from_entity": from_entity["entity_id"],
-                                    "to_entity": to_entity["entity_id"],
-                                    "relation_type": relation.get("relation_type", ""),
-                                    "structure": relation.get("structure", ""),
-                                    "detail": relation.get("detail", ""),
-                                    "evidence": relation.get("evidence", ""),
-                                    "confidence": relation.get("confidence", 0.0),
-                                    "from_entity_type": from_entity.get("entity_type", "Algorithm"),
-                                    "to_entity_type": to_entity.get("entity_type", "Algorithm"),
-                                    "extraction_complete": is_complete
-                                }
-                                valid_relations.append(db_relation)
-                
-                # 合并之前的关系和新提取的关系
-                final_relations = []
-                if previous_relations:
-                    # 使用已有关系的集合来检查重复
-                    existing_relation_keys = set()
-                    for rel in previous_relations:
-                        key = (rel.get("from_entity", ""), rel.get("to_entity", ""), rel.get("relation_type", ""))
-                        existing_relation_keys.add(key)
-                        final_relations.append(rel)
-                    # 添加不重复的新关系
-                    for rel in valid_relations:
-                        key = (rel.get("from_entity", ""), rel.get("to_entity", ""), rel.get("relation_type", ""))
-                        if key not in existing_relation_keys:
-                            final_relations.append(rel)
-                            existing_relation_keys.add(key)
-                    logging.info(f"合并后有 {len(final_relations)} 条关系，其中 {len(previous_relations)} 条来自之前的结果，{len(final_relations) - len(previous_relations)} 条是新提取的")
-                else:
-                    final_relations = valid_relations
-                
-                # 缓存结果
-                with open(cache_file, 'w', encoding='utf-8') as f:
-                    json.dump(final_relations, f, indent=2, ensure_ascii=False)
-                logging.info(f"成功缓存 {len(final_relations)} 条关系到 {cache_file}")
-                return final_relations
-            else:
-                logging.error("未能从API响应中提取有效的关系")
-                return []
-        except Exception as e:
-            logging.error(f"调用API时出错: {str(e)}")
-            logging.error(traceback.format_exc())
-            return []
-    except Exception as e:
-        logging.error(f"提取演化关系时出错: {str(e)}")
-        logging.error(traceback.format_exc())
-        return []
+        previous_relations_hint = "\n\n以下是已经提取的部分关系，请不要重复提取，并继续提取其他关系：\n- "
+        previous_relations_hint += "\n- ".join(relation_examples)
+        previous_relations_hint += "\n\n请确保你提取的是新关系，不要包含上述已提取的关系。"
+        logging.info(f"已提取的关系: {relation_examples}")
+        base_user_message += previous_relations_hint
+    
+    base_user_message += "\n\n请确保每个关系都有足够的证据支持，避免虚构不存在的关系。如果找不到明确的证据，请不要创建关系。"
+    
+    return system_message, base_user_message

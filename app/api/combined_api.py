@@ -624,10 +624,10 @@ def clear_all_data():
         }), 500
 
 @combined_api.route('/clear/cache', methods=['POST'])
-def clear_cache_keep_pdf_text():
-    """清除除PDF提取文本外的所有缓存和数据库数据"""
+def clear_cache_keep_file_ids():
+    """清除除file_ids外的所有缓存和数据库数据"""
     try:
-        logging.warning("收到清除缓存的请求（保留PDF文本提取）")
+        logging.warning("收到清除缓存的请求（保留file_ids）")
         
         # 清除数据库中的数据
         db_manager.clear_all_data()
@@ -648,35 +648,35 @@ def clear_cache_keep_pdf_text():
             os.makedirs(Config.GRAPH_DATA_DIR, exist_ok=True)
             logging.warning(f"已清除图数据文件夹: {Config.GRAPH_DATA_DIR}")
             
-        # 清除缓存目录中除PDF文本外的所有内容
+        # 清除缓存目录中除file_ids外的所有内容
         if os.path.exists(Config.CACHE_DIR):
-            pdf_text_dir = os.path.join(Config.CACHE_DIR, "pdf_text")
+            file_ids_dir = os.path.join(Config.CACHE_DIR, "file_ids")
             
-            # 备份PDF文本目录（如果存在）
-            temp_pdf_text_backup = None
-            if os.path.exists(pdf_text_dir):
+            # 备份file_ids目录（如果存在）
+            temp_file_ids_backup = None
+            if os.path.exists(file_ids_dir):
                 import tempfile
-                temp_pdf_text_backup = tempfile.mkdtemp()
-                shutil.copytree(pdf_text_dir, os.path.join(temp_pdf_text_backup, "pdf_text"))
-                logging.info(f"已备份PDF文本目录到临时位置: {temp_pdf_text_backup}")
+                temp_file_ids_backup = tempfile.mkdtemp()
+                shutil.copytree(file_ids_dir, os.path.join(temp_file_ids_backup, "file_ids"))
+                logging.info(f"已备份file_ids目录到临时位置: {temp_file_ids_backup}")
             
             # 清除整个缓存目录
             shutil.rmtree(Config.CACHE_DIR)
             os.makedirs(Config.CACHE_DIR, exist_ok=True)
             logging.warning(f"已清除缓存文件夹: {Config.CACHE_DIR}")
             
-            # 恢复PDF文本目录
-            if temp_pdf_text_backup:
-                if not os.path.exists(pdf_text_dir):
-                    os.makedirs(pdf_text_dir, exist_ok=True)
-                shutil.copytree(os.path.join(temp_pdf_text_backup, "pdf_text"), pdf_text_dir, dirs_exist_ok=True)
+            # 恢复file_ids目录
+            if temp_file_ids_backup:
+                if not os.path.exists(file_ids_dir):
+                    os.makedirs(file_ids_dir, exist_ok=True)
+                shutil.copytree(os.path.join(temp_file_ids_backup, "file_ids"), file_ids_dir, dirs_exist_ok=True)
                 # 清除临时备份
-                shutil.rmtree(temp_pdf_text_backup)
-                logging.info(f"已恢复PDF文本目录: {pdf_text_dir}")
+                shutil.rmtree(temp_file_ids_backup)
+                logging.info(f"已恢复file_ids目录: {file_ids_dir}")
         
         return jsonify({
             "success": True,
-            "message": "已成功清除缓存和数据库数据，保留PDF文本提取"
+            "message": "已成功清除缓存和数据库数据，保留file_ids"
         })
     except Exception as e:
         logging.error(f"清除缓存时出错: {str(e)}")
@@ -912,7 +912,6 @@ def extract_entities_from_review(review_path, task_id):
     # 从综述论文中提取实体
     entities, is_complete = extract_paper_entities(
         pdf_paths=review_path,
-        max_attempts=3,
         model_name="qwen",
         task_id=f"{task_id}_review"
     )
@@ -1027,4 +1026,51 @@ def get_comparison_status(task_id):
     except Exception as e:
         logging.error(f"获取任务 {task_id} 状态时出错: {str(e)}")
         logging.error(traceback.format_exc())
-        return jsonify({'status': 'error', 'message': f'获取任务状态时出错: {str(e)}'}), 500 
+        return jsonify({'status': 'error', 'message': f'获取任务状态时出错: {str(e)}'}), 500
+
+@combined_api.route('/comparison/history', methods=['GET'])
+def get_comparison_history():
+    """获取比较分析的历史任务记录"""
+    try:
+        # 查询所有比较分析相关的任务
+        query = """
+        SELECT task_id, task_name, status, current_stage, progress, message, 
+               start_time, update_time, end_time, completed
+        FROM ProcessingStatus
+        WHERE task_name LIKE '%比较分析%' OR task_name LIKE '%Comparison%'
+        ORDER BY start_time DESC
+        LIMIT 20
+        """
+        
+        db_manager.cursor.execute(query)
+        rows = db_manager.cursor.fetchall()
+        
+        tasks = []
+        
+        for row in rows:
+            task = {
+                "task_id": row[0],
+                "task_name": row[1],
+                "status": row[2],
+                "current_stage": row[3],
+                "progress": float(row[4]) if row[4] is not None else 0,
+                "message": row[5],
+                "start_time": row[6].strftime('%Y-%m-%d %H:%M:%S') if row[6] else None,
+                "update_time": row[7].strftime('%Y-%m-%d %H:%M:%S') if row[7] else None,
+                "end_time": row[8].strftime('%Y-%m-%d %H:%M:%S') if row[8] else None,
+                "completed": row[9] == 1 if row[9] is not None else False
+            }
+            tasks.append(task)
+            
+        return jsonify({
+            "success": True,
+            "tasks": tasks
+        })
+        
+    except Exception as e:
+        logging.error(f"获取比较分析历史记录时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return jsonify({
+            "success": False,
+            "message": f"获取历史记录出错: {str(e)}"
+        }), 500 

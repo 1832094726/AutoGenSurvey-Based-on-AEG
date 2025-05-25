@@ -202,6 +202,7 @@ class DatabaseManager:
                 CREATE TABLE IF NOT EXISTS ProcessingStatus (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     task_id VARCHAR(255) UNIQUE,
+                    task_name VARCHAR(255),
                     status VARCHAR(50),  -- 'waiting', 'processing', 'completed', 'failed'
                     current_stage VARCHAR(100),
                     progress FLOAT,  -- 0.0到1.0之间的进度
@@ -209,7 +210,8 @@ class DatabaseManager:
                     message TEXT,
                     start_time DATETIME,
                     update_time DATETIME,
-                    end_time DATETIME
+                    end_time DATETIME,
+                    completed TINYINT(1) DEFAULT 0
                 )
                 ''')
                 logging.info("创建MySQL ProcessingStatus表")
@@ -1018,6 +1020,11 @@ class DatabaseManager:
             if completed is not None and completed:
                 update_fields.append("end_time = %s")
                 params.append(datetime.datetime.now())
+                update_fields.append("completed = %s")
+                params.append(1)
+            elif completed is not None:
+                update_fields.append("completed = %s")
+                params.append(0)
             if not update_fields:
                 logging.warning(f"没有提供任何更新字段，任务 {task_id} 的状态未更新")
                 return False
@@ -1179,6 +1186,11 @@ class DatabaseManager:
             if completed is not None and completed:
                 fields.append("end_time")
                 values.append(now)
+                fields.append("completed")
+                values.append(1)
+            elif completed is not None:
+                fields.append("completed")
+                values.append(0)
             
             # 构建SQL语句
             placeholders = ", ".join(["%s"] * len(fields))
