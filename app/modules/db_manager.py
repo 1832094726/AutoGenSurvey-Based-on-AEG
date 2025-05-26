@@ -137,10 +137,18 @@ class DatabaseManager:
                     methodology_training_strategy TEXT,
                     methodology_parameter_tuning TEXT,
                     feature_processing TEXT,
-                    entity_type VARCHAR(50) DEFAULT 'Algorithm'
+                    entity_type VARCHAR(50) DEFAULT 'Algorithm',
+                    task_id VARCHAR(255)
                 )
                 ''')
                 logging.info("创建MySQL Algorithms表")
+            else:
+                # 检查task_id字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM Algorithms LIKE 'task_id'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE Algorithms ADD COLUMN task_id VARCHAR(255)")
+                    logging.info("向Algorithms表添加task_id字段")
+            
             # 检查数据集表是否存在
             self.cursor.execute("SHOW TABLES LIKE 'Datasets'")
             if not self.cursor.fetchone():
@@ -154,10 +162,18 @@ class DatabaseManager:
                     size INT,
                     year VARCHAR(50),
                     creators TEXT,
-                    entity_type VARCHAR(50) DEFAULT 'Dataset'
+                    entity_type VARCHAR(50) DEFAULT 'Dataset',
+                    task_id VARCHAR(255)
                 )
                 ''')
                 logging.info("创建MySQL Datasets表")
+            else:
+                # 检查task_id字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM Datasets LIKE 'task_id'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE Datasets ADD COLUMN task_id VARCHAR(255)")
+                    logging.info("向Datasets表添加task_id字段")
+            
             # 检查指标表是否存在
             self.cursor.execute("SHOW TABLES LIKE 'Metrics'")
             if not self.cursor.fetchone():
@@ -169,10 +185,18 @@ class DatabaseManager:
                     description TEXT,
                     category VARCHAR(255),
                     formula TEXT,
-                    entity_type VARCHAR(50) DEFAULT 'Metric'
+                    entity_type VARCHAR(50) DEFAULT 'Metric',
+                    task_id VARCHAR(255)
                 )
                 ''')
                 logging.info("创建MySQL Metrics表")
+            else:
+                # 检查task_id字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM Metrics LIKE 'task_id'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE Metrics ADD COLUMN task_id VARCHAR(255)")
+                    logging.info("向Metrics表添加task_id字段")
+            
             # 检查关系表是否存在
             self.cursor.execute("SHOW TABLES LIKE 'EvolutionRelations'")
             if not self.cursor.fetchone():
@@ -190,31 +214,18 @@ class DatabaseManager:
                     from_entity_type VARCHAR(50),
                     to_entity_type VARCHAR(50),
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    task_id VARCHAR(255)
                 )
                 ''')
                 logging.info("创建MySQL EvolutionRelations表")
-            # 检查处理状态表是否存在
-            self.cursor.execute("SHOW TABLES LIKE 'ProcessingStatus'")
-            if not self.cursor.fetchone():
-                # 创建处理状态表
-                self.cursor.execute('''
-                CREATE TABLE IF NOT EXISTS ProcessingStatus (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    task_id VARCHAR(255) UNIQUE,
-                    task_name VARCHAR(255),
-                    status VARCHAR(50),  -- 'waiting', 'processing', 'completed', 'failed'
-                    current_stage VARCHAR(100),
-                    progress FLOAT,  -- 0.0到1.0之间的进度
-                    current_file TEXT,
-                    message TEXT,
-                    start_time DATETIME,
-                    update_time DATETIME,
-                    end_time DATETIME,
-                    completed TINYINT(1) DEFAULT 0
-                )
-                ''')
-                logging.info("创建MySQL ProcessingStatus表")
+            else:
+                # 检查task_id字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'task_id'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN task_id VARCHAR(255)")
+                    logging.info("向EvolutionRelations表添加task_id字段")
+            
             self.conn.commit()
         except (mysql.connector.Error, MySQLError) as e:
             logging.error(f"初始化数据库表时出错: {str(e)}")
@@ -344,7 +355,7 @@ class DatabaseManager:
         logging.info(f"成功存储 {stored_count}/{len(relations)} 条关系数据")
         return stored_count > 0
         
-    def store_algorithm_relation(self, relation):
+    def store_algorithm_relation(self, relation, task_id=None):
         """
         将单条实体演化关系存储到数据库
         
@@ -352,6 +363,7 @@ class DatabaseManager:
             relation (dict): 演化关系数据，支持两种格式：
                 1. 数据库格式：{from_entity, to_entity, relation_type, ...}
                 2. API格式：{from_entities, to_entities, relation_type, ...}
+            task_id (str, optional): 关联的任务ID
             
         Returns:
             bool: 是否成功存储
@@ -364,7 +376,7 @@ class DatabaseManager:
             # 检查是否是数据库格式（from_entity/to_entity）
             if "from_entity" in relation and "to_entity" in relation:
                 # 直接使用数据库格式
-                return self._store_relation_mysql(relation)
+                return self._store_relation_mysql(relation, task_id)
             # 检查是否是API格式（from_entities/to_entities数组）
             # 验证必要字段
             required_fields = ["from_entities", "to_entities", "relation_type"]
@@ -409,9 +421,9 @@ class DatabaseManager:
                         "to_entity_type": to_entity_type
                     }
                     # 调用数据库存储方法
-                    if self._store_relation_mysql(relation_data):
+                    if self._store_relation_mysql(relation_data, task_id):
                         success_count += 1
-            logging.info(f"成功存储 {success_count}/{relation_count} 条演化关系")
+            logging.info(f"成功存储 {success_count}/{relation_count} 条演化关系，任务ID: {task_id}")
             return success_count > 0
         except Exception as e:
             logging.error(f"存储演化关系时出错: {str(e)}")
@@ -419,12 +431,13 @@ class DatabaseManager:
             logging.error(traceback.format_exc())
             return False
     
-    def _store_relation_mysql(self, relation_data):
+    def _store_relation_mysql(self, relation_data, task_id=None):
         """
         将实体演化关系存储到MySQL数据库
         
         Args:
             relation_data (dict): 演化关系数据
+            task_id (str, optional): 关联的任务ID
             
         Returns:
             bool: 是否成功存储
@@ -434,12 +447,13 @@ class DatabaseManager:
             from_entity = relation_data["from_entity"]
             to_entity = relation_data["to_entity"]
             relation_type = relation_data["relation_type"]
-            structure = relation_data["structure"]
-            detail = relation_data["detail"]
-            evidence = relation_data["evidence"]
-            confidence = relation_data["confidence"]
-            from_entity_type = relation_data["from_entity_type"]
-            to_entity_type = relation_data["to_entity_type"]
+            structure = relation_data.get("structure", "")
+            detail = relation_data.get("detail", "")
+            evidence = relation_data.get("evidence", "")
+            confidence = relation_data.get("confidence", 0.0)
+            from_entity_type = relation_data.get("from_entity_type", "Algorithm")
+            to_entity_type = relation_data.get("to_entity_type", "Algorithm")
+            
             # 检查实体是否存在
             from_exists = self._check_entity_exists(from_entity, from_entity_type)
             to_exists = self._check_entity_exists(to_entity, to_entity_type)
@@ -462,32 +476,32 @@ class DatabaseManager:
                 update_sql = """
                 UPDATE EvolutionRelations 
                 SET structure = %s, detail = %s, evidence = %s, confidence = %s,
-                    from_entity_type = %s, to_entity_type = %s
+                    from_entity_type = %s, to_entity_type = %s, task_id = %s
                 WHERE from_entity = %s AND to_entity = %s AND relation_type = %s
                 """
                 self.cursor.execute(
                     update_sql, 
                     (structure, detail, evidence, confidence, 
-                     from_entity_type, to_entity_type,
+                     from_entity_type, to_entity_type, task_id,
                      from_entity, to_entity, relation_type)
                 )
-                logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type})")
+                logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}")
             else:
                 # 关系不存在，执行插入
                 insert_sql = """
                 INSERT INTO EvolutionRelations (
                     from_entity, to_entity, relation_type, 
                     structure, detail, evidence, confidence, 
-                    from_entity_type, to_entity_type
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    from_entity_type, to_entity_type, task_id
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """
                 self.cursor.execute(
                     insert_sql, 
                     (from_entity, to_entity, relation_type, 
                      structure, detail, evidence, confidence,
-                     from_entity_type, to_entity_type)
+                     from_entity_type, to_entity_type, task_id)
                 )
-                logging.info(f"创建新演化关系: {from_entity} -> {to_entity} ({relation_type})")
+                logging.info(f"创建新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}")
             self.conn.commit()
             return True
         except Exception as e:
@@ -1429,12 +1443,13 @@ class DatabaseManager:
             self.conn.rollback()
             return False
 
-    def store_algorithm_entity(self, entity):
+    def store_algorithm_entity(self, entity, task_id=None):
         """
         存储算法实体到MySQL数据库
         
         Args:
             entity (dict): 要存储的算法实体数据
+            task_id (str, optional): 关联的任务ID
             
         Returns:
             bool: 是否成功存储
@@ -1472,17 +1487,17 @@ class DatabaseManager:
                 logging.error("实体ID不能为空")
                 return False
             
-            logging.info(f"存储实体: {entity_id} (类型: {entity_type})")
+            logging.info(f"存储实体: {entity_id} (类型: {entity_type}, 任务ID: {task_id})")
             
             if entity_type == 'Algorithm':
                 # 存储算法实体
-                self._store_algorithm_mysql(actual_entity)
+                self._store_algorithm_mysql(actual_entity, task_id)
             elif entity_type == 'Dataset':
                 # 存储数据集实体
-                self._store_dataset_mysql(actual_entity)
+                self._store_dataset_mysql(actual_entity, task_id)
             elif entity_type == 'Metric':
                 # 存储评价指标实体
-                self._store_metric_mysql(actual_entity)
+                self._store_metric_mysql(actual_entity, task_id)
             else:
                 logging.warning(f"未知实体类型: {entity_type}，跳过存储")
                 return False
@@ -1493,8 +1508,17 @@ class DatabaseManager:
             logging.error(f"存储实体时出错: {str(e)}")
             return False
 
-    def _store_algorithm_mysql(self, entity):
-        """将算法实体存储到MySQL数据库"""
+    def _store_algorithm_mysql(self, entity, task_id=None):
+        """
+        将算法实体存储到MySQL数据库
+        
+        Args:
+            entity (dict): 算法实体数据
+            task_id (str, optional): 关联的任务ID
+        
+        Returns:
+            bool: 是否成功存储
+        """
         try:
             # 从实体中提取相关字段
             algorithm_id = entity.get('entity_id', '') or entity.get('algorithm_id', '')
@@ -1584,7 +1608,7 @@ class DatabaseManager:
                         architecture_components = %s, architecture_connections = %s,
                         architecture_mechanisms = %s, methodology_training_strategy = %s,
                         methodology_parameter_tuning = %s, feature_processing = %s,
-                        entity_type = %s
+                        entity_type = %s, task_id = %s
                     WHERE algorithm_id = %s
                     '''
                 self.cursor.execute(sql, (
@@ -1593,9 +1617,9 @@ class DatabaseManager:
                         arch_components, arch_connections,
                         arch_mechanisms, training_strategy,
                         parameter_tuning, feature_processing,
-                        'Algorithm', algorithm_id
+                        'Algorithm', task_id, algorithm_id
                     ))
-                logging.info(f"更新算法: {algorithm_id}")
+                logging.info(f"更新算法: {algorithm_id}, 任务ID: {task_id}")
             else:
                 # 创建新记录
                 sql = '''
@@ -1604,13 +1628,13 @@ class DatabaseManager:
                     task, dataset, metrics,
                     architecture_components, architecture_connections,
                     architecture_mechanisms, methodology_training_strategy,
-                    methodology_parameter_tuning, feature_processing, entity_type
+                    methodology_parameter_tuning, feature_processing, entity_type, task_id
                 ) VALUES (
                     %s, %s, %s, %s, %s,
                     %s, %s, %s,
                     %s, %s,
                     %s, %s,
-                    %s, %s, %s
+                    %s, %s, %s, %s
                 )
                 '''
                 self.cursor.execute(sql, (
@@ -1618,9 +1642,9 @@ class DatabaseManager:
                     task, dataset, metrics,
                     arch_components, arch_connections,
                     arch_mechanisms, training_strategy,
-                    parameter_tuning, feature_processing, 'Algorithm'
+                    parameter_tuning, feature_processing, 'Algorithm', task_id
                 ))
-                logging.info(f"存储算法: {algorithm_id}")
+                logging.info(f"存储算法: {algorithm_id}, 任务ID: {task_id}")
             
             self.conn.commit()
             return True
@@ -1629,8 +1653,17 @@ class DatabaseManager:
             logging.error(f"存储算法时出错: {str(e)}")
             return False
     
-    def _store_dataset_mysql(self, entity):
-        """将数据集实体存储到MySQL数据库"""
+    def _store_dataset_mysql(self, entity, task_id=None):
+        """
+        将数据集实体存储到MySQL数据库
+        
+        Args:
+            entity (dict): 数据集实体数据
+            task_id (str, optional): 关联的任务ID
+            
+        Returns:
+            bool: 是否成功存储
+        """
         try:
             # 从实体中提取相关字段
             dataset_id = entity.get('entity_id', '')
@@ -1667,31 +1700,31 @@ class DatabaseManager:
                     UPDATE Datasets SET
                         name = %s, description = %s, domain = %s,
                         size = %s, year = %s, creators = %s,
-                        entity_type = %s
+                        entity_type = %s, task_id = %s
                     WHERE dataset_id = %s
                     '''
                 self.cursor.execute(sql, (
                         name, description, domain,
                         size, year, creators,
-                        'Dataset', dataset_id
+                        'Dataset', task_id, dataset_id
                     ))
-                logging.info(f"更新数据集: {dataset_id}")
+                logging.info(f"更新数据集: {dataset_id}, 任务ID: {task_id}")
             else:
                 # 创建新记录
                 sql = '''
                 INSERT INTO Datasets (
                     dataset_id, name, description, domain,
-                    size, year, creators, entity_type
+                    size, year, creators, entity_type, task_id
                 ) VALUES (
                     %s, %s, %s, %s,
-                    %s, %s, %s, %s
+                    %s, %s, %s, %s, %s
                 )
                 '''
                 self.cursor.execute(sql, (
                     dataset_id, name, description, domain,
-                    size, year, creators, 'Dataset'
+                    size, year, creators, 'Dataset', task_id
                 ))
-                logging.info(f"存储数据集: {dataset_id}")
+                logging.info(f"存储数据集: {dataset_id}, 任务ID: {task_id}")
             
             self.conn.commit()
             return True
@@ -1700,8 +1733,17 @@ class DatabaseManager:
             logging.error(f"存储数据集时出错: {str(e)}")
             return False
 
-    def _store_metric_mysql(self, entity):
-        """将评价指标实体存储到MySQL数据库"""
+    def _store_metric_mysql(self, entity, task_id=None):
+        """
+        将评价指标实体存储到MySQL数据库
+        
+        Args:
+            entity (dict): 评价指标实体数据
+            task_id (str, optional): 关联的任务ID
+            
+        Returns:
+            bool: 是否成功存储
+        """
         try:
             # 从实体中提取相关字段
             metric_id = entity.get('entity_id', '')
@@ -1723,30 +1765,30 @@ class DatabaseManager:
                 sql = '''
                 UPDATE Metrics SET
                     name = %s, description = %s, category = %s,
-                    formula = %s, entity_type = %s
+                    formula = %s, entity_type = %s, task_id = %s
                 WHERE metric_id = %s
                 '''
                 self.cursor.execute(sql, (
                     name, description, category,
-                    formula, 'Metric', metric_id
+                    formula, 'Metric', task_id, metric_id
                 ))
-                logging.info(f"更新评价指标: {metric_id}")
+                logging.info(f"更新评价指标: {metric_id}, 任务ID: {task_id}")
             else:
                 # 创建新记录
                 sql = '''
                 INSERT INTO Metrics (
                     metric_id, name, description, category,
-                    formula, entity_type
+                    formula, entity_type, task_id
                 ) VALUES (
                     %s, %s, %s, %s,
-                    %s, %s
+                    %s, %s, %s
                 )
                 '''
                 self.cursor.execute(sql, (
                     metric_id, name, description, category,
-                    formula, 'Metric'
+                    formula, 'Metric', task_id
                 ))
-                logging.info(f"存储评价指标: {metric_id}")
+                logging.info(f"存储评价指标: {metric_id}, 任务ID: {task_id}")
             
             self.conn.commit()
             return True
@@ -1987,8 +2029,7 @@ class DatabaseManager:
             # 检查是否需要重连
             self._reconnect_if_needed()
             
-            # 在当前数据库结构中，实体表中没有直接与任务ID关联的字段
-            # 查看ProcessingStatus表中是否有包含该任务ID的记录
+            # 先查询ProcessingStatus表确认任务是否存在
             task_sql = "SELECT * FROM ProcessingStatus WHERE task_id = %s"
             self.cursor.execute(task_sql, (task_id,))
             task_row = self.cursor.fetchone()
@@ -1998,9 +2039,99 @@ class DatabaseManager:
                 # 如果找不到任务ID，返回空列表
                 return []
             
-            # 如果找到任务，返回所有实体（由于目前没有实体与任务的直接关联）
-            logging.info(f"找到任务ID: {task_id}，返回所有实体")
-            return self.get_all_entities()
+            all_entities = []
+            
+            # 查询算法实体
+            self.cursor.execute("SELECT * FROM Algorithms WHERE task_id = %s", (task_id,))
+            algorithm_rows = self.cursor.fetchall()
+            algorithm_columns = [desc[0] for desc in self.cursor.description]
+            
+            # 处理算法实体
+            for row in algorithm_rows:
+                entity_dict = dict(zip(algorithm_columns, row))
+                # 处理JSON字段
+                for field in ['authors', 'dataset', 'metrics', 'architecture_components', 
+                            'architecture_connections', 'architecture_mechanisms',
+                            'methodology_training_strategy', 'methodology_parameter_tuning', 
+                            'feature_processing']:
+                    if entity_dict.get(field) and isinstance(entity_dict[field], str):
+                        try:
+                            entity_dict[field] = json.loads(entity_dict[field])
+                        except json.JSONDecodeError:
+                            # 如果不是有效的JSON，尝试按逗号分隔
+                            if ',' in entity_dict[field]:
+                                entity_dict[field] = [item.strip() for item in entity_dict[field].split(',')]
+                            else:
+                                entity_dict[field] = [entity_dict[field]]
+                
+                # 构建规范化的实体对象
+                algorithm_entity = {
+                    'algorithm_id': entity_dict['algorithm_id'],
+                    'entity_id': entity_dict['algorithm_id'],
+                    'name': entity_dict['name'],
+                    'title': entity_dict.get('title', ''),
+                    'year': entity_dict.get('year', ''),
+                    'authors': entity_dict.get('authors', []),
+                    'task': entity_dict.get('task', ''),
+                    'dataset': entity_dict.get('dataset', []),
+                    'metrics': entity_dict.get('metrics', []),
+                    'architecture': {
+                        'components': entity_dict.get('architecture_components', []),
+                        'connections': entity_dict.get('architecture_connections', []),
+                        'mechanisms': entity_dict.get('architecture_mechanisms', [])
+                    },
+                    'methodology': {
+                        'training_strategy': entity_dict.get('methodology_training_strategy', []),
+                        'parameter_tuning': entity_dict.get('methodology_parameter_tuning', [])
+                    },
+                    'feature_processing': entity_dict.get('feature_processing', []),
+                    'entity_type': 'Algorithm',
+                    'task_id': entity_dict.get('task_id', task_id)
+                }
+                all_entities.append({'algorithm_entity': algorithm_entity})
+            
+            # 查询数据集实体
+            self.cursor.execute("SELECT * FROM Datasets WHERE task_id = %s", (task_id,))
+            dataset_rows = self.cursor.fetchall()
+            dataset_columns = [desc[0] for desc in self.cursor.description]
+            
+            # 处理数据集实体
+            for row in dataset_rows:
+                entity_dict = dict(zip(dataset_columns, row))
+                # 处理JSON字段
+                if 'creators' in entity_dict and isinstance(entity_dict['creators'], str):
+                    try:
+                        entity_dict['creators'] = json.loads(entity_dict['creators'])
+                    except json.JSONDecodeError:
+                        # 如果不是有效的JSON，尝试按逗号分隔
+                        if ',' in entity_dict['creators']:
+                            entity_dict['creators'] = [item.strip() for item in entity_dict['creators'].split(',')]
+                        else:
+                            entity_dict['creators'] = [entity_dict['creators']]
+                
+                # 确保entity_id字段存在
+                entity_dict['entity_id'] = entity_dict['dataset_id']
+                all_entities.append({'dataset_entity': entity_dict})
+            
+            # 查询评价指标实体
+            self.cursor.execute("SELECT * FROM Metrics WHERE task_id = %s", (task_id,))
+            metric_rows = self.cursor.fetchall()
+            metric_columns = [desc[0] for desc in self.cursor.description]
+            
+            # 处理评价指标实体
+            for row in metric_rows:
+                entity_dict = dict(zip(metric_columns, row))
+                # 确保entity_id字段存在
+                entity_dict['entity_id'] = entity_dict['metric_id']
+                all_entities.append({'metric_entity': entity_dict})
+            
+            # 如果没有找到任何实体，记录警告
+            if not all_entities:
+                logging.warning(f"未找到与任务 {task_id} 关联的实体")
+                return all_entities
+            
+            logging.info(f"找到 {len(all_entities)} 个与任务 {task_id} 关联的实体")
+            return all_entities
             
         except Exception as e:
             logging.error(f"获取任务 {task_id} 的实体时出错: {str(e)}")
@@ -2021,8 +2152,7 @@ class DatabaseManager:
             # 检查是否需要重连
             self._reconnect_if_needed()
             
-            # 在当前数据库结构中，关系表中没有直接与任务ID关联的字段
-            # 查看ProcessingStatus表中是否有包含该任务ID的记录
+            # 先查询ProcessingStatus表确认任务是否存在
             task_sql = "SELECT * FROM ProcessingStatus WHERE task_id = %s"
             self.cursor.execute(task_sql, (task_id,))
             task_row = self.cursor.fetchone()
@@ -2032,9 +2162,37 @@ class DatabaseManager:
                 # 如果找不到任务ID，返回空列表
                 return []
             
-            # 如果找到任务，返回所有关系（由于目前没有关系与任务的直接关联）
-            logging.info(f"找到任务ID: {task_id}，返回所有关系")
-            return self.get_all_relations()
+            # 查询与任务ID相关联的关系
+            relations_sql = """
+            SELECT relation_id, from_entity, to_entity, relation_type, structure, 
+                   detail, evidence, confidence, from_entity_type, to_entity_type,
+                   created_at, updated_at, task_id
+            FROM EvolutionRelations
+            WHERE task_id = %s
+            """
+            self.cursor.execute(relations_sql, (task_id,))
+            rows = self.cursor.fetchall()
+            
+            relations = []
+            if not rows:
+                logging.warning(f"未找到与任务 {task_id} 关联的关系记录")
+                return relations
+                
+            # 获取列名
+            column_names = [desc[0] for desc in self.cursor.description]
+            
+            # 处理查询结果
+            for row in rows:
+                relation = {}
+                for i, name in enumerate(column_names):
+                    if name == 'created_at' or name == 'updated_at':
+                        relation[name] = row[i].strftime('%Y-%m-%d %H:%M:%S') if row[i] else None
+                    else:
+                        relation[name] = row[i]
+                relations.append(relation)
+            
+            logging.info(f"找到 {len(relations)} 个与任务 {task_id} 关联的关系记录")
+            return relations
             
         except Exception as e:
             logging.error(f"获取任务 {task_id} 的关系时出错: {str(e)}")
@@ -2111,6 +2269,35 @@ class DatabaseManager:
             logging.error(f"获取比较分析历史记录时出错: {str(e)}")
             logging.error(traceback.format_exc())
             return []
+
+    def save_entities_and_relations(self, entities, relations, task_id=None):
+        """
+        保存实体和关系到数据库
+        
+        Args:
+            entities (list): 要保存的实体列表
+            relations (list): 要保存的关系列表
+            task_id (str, optional): 关联的任务ID
+        """
+        if not entities and not relations:
+            logging.warning("没有实体和关系需要保存")
+            return
+            
+        # 保存实体
+        entity_count = 0
+        for entity in entities:
+            if entity:
+                self.store_algorithm_entity(entity, task_id)
+                entity_count += 1
+        
+        # 保存关系
+        relation_count = 0
+        for relation in relations:
+            if relation:
+                self.store_algorithm_relation(relation, task_id)
+                relation_count += 1
+        
+        logging.info(f"已保存 {entity_count} 个实体和 {relation_count} 个关系到数据库，任务ID: {task_id}")
 
 # 创建数据库管理器实例
 db_manager = DatabaseManager()

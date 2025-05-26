@@ -1,381 +1,514 @@
 {% extends "base.html" %}
 
-{% block title %}算法对比分析结果{% endblock %}
+{% block title %}比较分析结果{% endblock %}
 
-{% block styles %}
-{{ super() }}
+{% block custom_head %}
 <style>
-  .metrics-section {
-    margin-bottom: 30px;
-    padding: 15px;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-  }
-  
-  .metrics-title {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #343a40;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 5px;
-  }
-  
-  .metric-card {
-    height: 100%;
-    transition: transform 0.3s;
-    border-left: 4px solid #007bff;
-  }
-  
-  .metric-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-  
-  .metric-value {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  .metric-name {
-    font-size: 1rem;
-    color: #6c757d;
-  }
-  
-  .chart-container {
-    height: 300px;
-    margin-bottom: 30px;
-  }
-  
-  .relation-type {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .relation-bar {
-    height: 20px;
-    background-color: #007bff;
-    margin: 0 10px;
-    border-radius: 3px;
-  }
-  
-  .cluster-item {
-    background-color: #e9ecef;
-    border-radius: 4px;
-    padding: 8px 12px;
-    margin: 5px;
-    display: inline-block;
-  }
-  
-  .progress-bar-container {
-    height: 25px;
-    background-color: #e9ecef;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 15px;
-  }
-  
-  .progress-bar {
-    height: 100%;
-    background-color: #28a745;
-    border-radius: 5px;
-    transition: width 0.5s ease;
-    text-align: center;
-    line-height: 25px;
-    color: white;
-    font-weight: bold;
-  }
+    .metrics-card {
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .metrics-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .entity-list, .relation-list {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    .reload-btn {
+        cursor: pointer;
+        color: #007bff;
+    }
+    .reload-btn:hover {
+        color: #0056b3;
+    }
+    .loading {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        border: 2px solid rgba(0,0,0,0.2);
+        border-top-color: #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-  <div class="row mb-4">
-    <div class="col">
-      <h1 class="text-center">算法对比分析结果</h1>
-      <p class="text-center text-muted">任务ID: {{ task_id }}</p>
+    <div class="row mb-4">
+        <div class="col">
+            <h2>比较分析结果 <small class="text-muted">任务ID: {{ task_id }}</small></h2>
+            <div class="mb-3">
+                <a href="{{ url_for('main.comparison') }}" class="btn btn-secondary">返回</a>
+                <button id="showEntitiesBtn" class="btn btn-primary ml-2">查看实体</button>
+                <button id="showRelationsBtn" class="btn btn-info ml-2">查看关系</button>
+            </div>
+        </div>
     </div>
-  </div>
-  
-  {% if metrics %}
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card mb-4">
-        <div class="card-header">
-          <h5>提取数据总览</h5>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-6 text-center mb-4">
-              <h2 class="text-primary">{{ entities_count }}</h2>
-              <p class="text-muted">提取实体总数</p>
-            </div>
-            <div class="col-6 text-center mb-4">
-              <h2 class="text-success">{{ relations_count }}</h2>
-              <p class="text-muted">提取关系总数</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-6">
-      <div class="card mb-4">
-        <div class="card-header">
-          <h5>实体类型统计</h5>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-4 text-center">
-              <h2 class="text-primary">{{ metrics.entity_stats.algorithm_count_review + metrics.entity_stats.algorithm_count_citations }}</h2>
-              <p class="text-muted">算法</p>
-            </div>
-            <div class="col-4 text-center">
-              <h2 class="text-info">{{ metrics.entity_stats.dataset_count_review + metrics.entity_stats.dataset_count_citations }}</h2>
-              <p class="text-muted">数据集</p>
-            </div>
-            <div class="col-4 text-center">
-              <h2 class="text-warning">{{ metrics.entity_stats.metric_count_review + metrics.entity_stats.metric_count_citations }}</h2>
-              <p class="text-muted">评价指标</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- 实体分析指标 -->
-  <div class="metrics-section">
-    <h3 class="metrics-title">实体分析指标</h3>
+    <!-- 进度和状态信息 -->
+    {% if metrics %}
     <div class="row">
-      <div class="col-md-6">
-        <div class="card metric-card mb-4">
-          <div class="card-body">
-            <div class="metric-name">实体精准率 (EntityPrecision)</div>
-            <div class="metric-value">{{ (metrics.entity_stats.entity_precision * 100)|round(2) }}%</div>
-            <p class="text-muted small">从引用文献中提取的实体与综述中提及的实体的匹配程度</p>
-            
-            <div class="progress-bar-container mt-3">
-              <div class="progress-bar" style="width: {{ (metrics.entity_stats.entity_precision * 100)|round(2) }}%">
-                {{ (metrics.entity_stats.entity_precision * 100)|round(2) }}%
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-6">
-        <div class="card metric-card mb-4">
-          <div class="card-body">
-            <div class="metric-name">实体召回率 (EntityRecall)</div>
-            <div class="metric-value">{{ (metrics.entity_stats.entity_recall * 100)|round(2) }}%</div>
-            <p class="text-muted small">综述中提及的实体在引用文献中的覆盖程度</p>
-            
-            <div class="progress-bar-container mt-3">
-              <div class="progress-bar" style="width: {{ (metrics.entity_stats.entity_recall * 100)|round(2) }}%">
-                {{ (metrics.entity_stats.entity_recall * 100)|round(2) }}%
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <h5>综述文章实体统计</h5>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-4 text-center">
-                <h2 class="text-primary">{{ metrics.entity_stats.algorithm_count_review }}</h2>
-                <p class="text-muted">算法</p>
-              </div>
-              <div class="col-4 text-center">
-                <h2 class="text-info">{{ metrics.entity_stats.dataset_count_review }}</h2>
-                <p class="text-muted">数据集</p>
-              </div>
-              <div class="col-4 text-center">
-                <h2 class="text-warning">{{ metrics.entity_stats.metric_count_review }}</h2>
-                <p class="text-muted">评价指标</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <h5>引用文献实体统计</h5>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-4 text-center">
-                <h2 class="text-primary">{{ metrics.entity_stats.algorithm_count_citations }}</h2>
-                <p class="text-muted">算法</p>
-              </div>
-              <div class="col-4 text-center">
-                <h2 class="text-info">{{ metrics.entity_stats.dataset_count_citations }}</h2>
-                <p class="text-muted">数据集</p>
-              </div>
-              <div class="col-4 text-center">
-                <h2 class="text-warning">{{ metrics.entity_stats.metric_count_citations }}</h2>
-                <p class="text-muted">评价指标</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- 关系分析指标 -->
-  <div class="metrics-section">
-    <h3 class="metrics-title">关系分析指标</h3>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card metric-card mb-4">
-          <div class="card-body">
-            <div class="metric-name">关系覆盖率 (RelationCoverage)</div>
-            <div class="metric-value">{{ (metrics.relation_stats.relation_coverage * 100)|round(2) }}%</div>
-            <p class="text-muted small">提取的演化关系覆盖算法实体的程度</p>
-            
-            <div class="progress-bar-container mt-3">
-              <div class="progress-bar" style="width: {{ (metrics.relation_stats.relation_coverage * 100)|round(2) }}%">
-                {{ (metrics.relation_stats.relation_coverage * 100)|round(2) }}%
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <h5>关系类型分布</h5>
-          </div>
-          <div class="card-body">
-            <div class="relation-type">
-              <span class="relation-name" style="width: 100px;">改进 (Improve)</span>
-              <div class="relation-bar" style="width: {{ metrics.relation_stats.improve_count * 10 }}px;"></div>
-              <span class="relation-count">{{ metrics.relation_stats.improve_count }}</span>
-            </div>
-            <div class="relation-type">
-              <span class="relation-name" style="width: 100px;">优化 (Optimize)</span>
-              <div class="relation-bar" style="width: {{ metrics.relation_stats.optimize_count * 10 }}px;"></div>
-              <span class="relation-count">{{ metrics.relation_stats.optimize_count }}</span>
-            </div>
-            <div class="relation-type">
-              <span class="relation-name" style="width: 100px;">扩展 (Extend)</span>
-              <div class="relation-bar" style="width: {{ metrics.relation_stats.extend_count * 10 }}px;"></div>
-              <span class="relation-count">{{ metrics.relation_stats.extend_count }}</span>
-            </div>
-            <div class="relation-type">
-              <span class="relation-name" style="width: 100px;">替换 (Replace)</span>
-              <div class="relation-bar" style="width: {{ metrics.relation_stats.replace_count * 10 }}px;"></div>
-              <span class="relation-count">{{ metrics.relation_stats.replace_count }}</span>
-            </div>
-            <div class="relation-type">
-              <span class="relation-name" style="width: 100px;">使用 (Use)</span>
-              <div class="relation-bar" style="width: {{ metrics.relation_stats.use_count * 10 }}px;"></div>
-              <span class="relation-count">{{ metrics.relation_stats.use_count }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- 聚类分析指标 -->
-  <div class="metrics-section">
-    <h3 class="metrics-title">聚类分析</h3>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card metric-card mb-4">
-          <div class="card-body">
-            <div class="metric-name">聚类精准率 (Precision)</div>
-            <div class="metric-value">{{ (metrics.clustering.precision * 100)|round(2) }}%</div>
-            <p class="text-muted small">自动聚类的准确程度</p>
-            
-            <div class="progress-bar-container mt-3">
-              <div class="progress-bar" style="width: {{ (metrics.clustering.precision * 100)|round(2) }}%">
-                {{ (metrics.clustering.precision * 100)|round(2) }}%
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-6">
-        <div class="card metric-card mb-4">
-          <div class="card-body">
-            <div class="metric-name">聚类召回率 (Recall)</div>
-            <div class="metric-value">{{ (metrics.clustering.recall * 100)|round(2) }}%</div>
-            <p class="text-muted small">自动聚类的覆盖程度</p>
-            
-            <div class="progress-bar-container mt-3">
-              <div class="progress-bar" style="width: {{ (metrics.clustering.recall * 100)|round(2) }}%">
-                {{ (metrics.clustering.recall * 100)|round(2) }}%
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card mb-4">
-          <div class="card-header">
-            <h5>算法聚类结果</h5>
-          </div>
-          <div class="card-body">
-            {% if metrics.clustering.clusters %}
-              {% for cluster in metrics.clustering.clusters %}
-                <div class="mb-3">
-                  <h6>聚类 #{{ loop.index }}</h6>
-                  <div>
-                    {% for algorithm in cluster %}
-                      <span class="cluster-item">{{ algorithm }}</span>
-                    {% endfor %}
-                  </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>提取数据总览</h5>
                 </div>
-              {% endfor %}
-            {% else %}
-              <p class="text-muted">没有找到聚类结果</p>
-            {% endif %}
-          </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 text-center mb-4">
+                            <h2 class="text-primary">{{ entities_count }}</h2>
+                            <p class="text-muted">提取实体总数</p>
+                            <small class="text-muted">
+                                综述: {{ review_entities_count }} | 引文: {{ citation_entities_count }}
+                            </small>
+                        </div>
+                        <div class="col-6 text-center mb-4">
+                            <h2 class="text-success">{{ relations_count }}</h2>
+                            <p class="text-muted">提取关系总数</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>实体类型统计</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <h2 class="text-primary">{{ metrics.entity_stats.algorithm_count_review + metrics.entity_stats.algorithm_count_citations }}</h2>
+                            <p class="text-muted">算法</p>
+                        </div>
+                        <div class="col-4 text-center">
+                            <h2 class="text-info">{{ metrics.entity_stats.dataset_count_review + metrics.entity_stats.dataset_count_citations }}</h2>
+                            <p class="text-muted">数据集</p>
+                        </div>
+                        <div class="col-4 text-center">
+                            <h2 class="text-warning">{{ metrics.entity_stats.metric_count_review + metrics.entity_stats.metric_count_citations }}</h2>
+                            <p class="text-muted">评价指标</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  
-  <div class="row mt-4">
-    <div class="col-md-12 text-center">
-      <a href="/comparison" class="btn btn-primary">返回分析页面</a>
-      <a href="/graph" class="btn btn-success ml-2">查看知识图谱</a>
-    </div>
-  </div>
-  {% else %}
-  <div class="alert alert-warning">
-    <h4>未找到分析结果</h4>
-    <p>无法加载任务 {{ task_id }} 的分析结果。请确保任务已完成并生成了有效的指标数据。</p>
-    <a href="/comparison" class="btn btn-primary mt-3">返回分析页面</a>
-  </div>
-  {% endif %}
-</div>
-{% endblock %}
 
-{% block scripts %}
-{{ super() }}
+    <!-- 指标卡片 -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card metrics-card" id="entity-stats-card">
+                <div class="card-header d-flex justify-content-between">
+                    <h5>实体统计 <span id="entity-stats-loading"></span></h5>
+                    <i class="fas fa-sync reload-btn" title="重新计算" onclick="recalculateMetric('entity_stats')"></i>
+                </div>
+                <div class="card-body">
+                    <div id="entity-stats-content">
+                        <!-- 实体统计内容将在此处动态加载 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card metrics-card" id="relation-stats-card">
+                <div class="card-header d-flex justify-content-between">
+                    <h5>关系统计 <span id="relation-stats-loading"></span></h5>
+                    <i class="fas fa-sync reload-btn" title="重新计算" onclick="recalculateMetric('relation_stats')"></i>
+                </div>
+                <div class="card-body">
+                    <div id="relation-stats-content">
+                        <!-- 关系统计内容将在此处动态加载 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card metrics-card" id="clustering-card">
+                <div class="card-header d-flex justify-content-between">
+                    <h5>聚类度量 <span id="clustering-loading"></span></h5>
+                    <i class="fas fa-sync reload-btn" title="重新计算" onclick="recalculateMetric('clustering')"></i>
+                </div>
+                <div class="card-body">
+                    <div id="clustering-content">
+                        <!-- 聚类度量内容将在此处动态加载 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 实体和关系展示模态框 -->
+    <div class="modal fade" id="entitiesModal" tabindex="-1" role="dialog" aria-labelledby="entitiesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="entitiesModalLabel">实体列表</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="entityTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="algorithm-tab" data-toggle="tab" href="#algorithm" role="tab">算法实体</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="dataset-tab" data-toggle="tab" href="#dataset" role="tab">数据集实体</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="metric-tab" data-toggle="tab" href="#metric" role="tab">指标实体</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3" id="entityTabContent">
+                        <div class="tab-pane fade show active" id="algorithm" role="tabpanel">
+                            <div class="entity-list" id="algorithm-list">
+                                <div class="text-center py-4">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">加载中...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="dataset" role="tabpanel">
+                            <div class="entity-list" id="dataset-list">
+                                <!-- 数据集实体将在此处动态加载 -->
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="metric" role="tabpanel">
+                            <div class="entity-list" id="metric-list">
+                                <!-- 指标实体将在此处动态加载 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="relationsModal" tabindex="-1" role="dialog" aria-labelledby="relationsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="relationsModalLabel">关系列表</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="relation-list" id="relation-list">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">加载中...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12 text-center">
+            <a href="/comparison" class="btn btn-primary">返回分析页面</a>
+            <a href="/graph" class="btn btn-success ml-2">查看知识图谱</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        <h4>未找到分析结果</h4>
+        <p>无法加载任务 {{ task_id }} 的分析结果。请确保任务已完成并生成了有效的指标数据。</p>
+        <a href="/comparison" class="btn btn-primary mt-3">返回分析页面</a>
+    </div>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- 添加脚本 -->
 <script>
-  // 可以添加图表渲染等JavaScript代码
-  $(document).ready(function() {
-    console.log("比较分析结果页面加载完成");
-  });
+    const taskId = "{{ task_id }}";
+
+    // 加载实体数据
+    function loadEntities() {
+        fetch(`/api/comparison/${taskId}/entities`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 分类处理实体
+                    const algorithms = data.entities.filter(e => e.algorithm_entity);
+                    const datasets = data.entities.filter(e => e.dataset_entity);
+                    const metrics = data.entities.filter(e => e.metric_entity);
+
+                    // 更新算法实体列表
+                    const algorithmList = document.getElementById('algorithm-list');
+                    algorithmList.innerHTML = algorithms.length > 0 
+                        ? renderEntitiesList(algorithms, 'algorithm_entity')
+                        : '<div class="alert alert-info">没有找到算法实体</div>';
+
+                    // 更新数据集实体列表
+                    const datasetList = document.getElementById('dataset-list');
+                    datasetList.innerHTML = datasets.length > 0
+                        ? renderEntitiesList(datasets, 'dataset_entity')
+                        : '<div class="alert alert-info">没有找到数据集实体</div>';
+
+                    // 更新指标实体列表
+                    const metricList = document.getElementById('metric-list');
+                    metricList.innerHTML = metrics.length > 0
+                        ? renderEntitiesList(metrics, 'metric_entity')
+                        : '<div class="alert alert-info">没有找到指标实体</div>';
+                } else {
+                    console.error('加载实体失败:', data.message);
+                    document.getElementById('algorithm-list').innerHTML = 
+                        '<div class="alert alert-danger">加载实体失败: ' + data.message + '</div>';
+                    document.getElementById('dataset-list').innerHTML = 
+                        '<div class="alert alert-danger">加载实体失败: ' + data.message + '</div>';
+                    document.getElementById('metric-list').innerHTML = 
+                        '<div class="alert alert-danger">加载实体失败: ' + data.message + '</div>';
+                }
+            })
+            .catch(error => {
+                console.error('请求实体数据出错:', error);
+                document.getElementById('algorithm-list').innerHTML = 
+                    '<div class="alert alert-danger">加载实体失败: ' + error.message + '</div>';
+            });
+    }
+
+    // 渲染实体列表
+    function renderEntitiesList(entities, type) {
+        return entities.map(entity => {
+            const entityData = entity[type];
+            const name = entityData.name || '未命名';
+            const description = entityData.description || '无描述';
+            const source = entity.source || '未知来源';
+            
+            return `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title">${name}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">来源: ${source}</h6>
+                        <p class="card-text">${description}</p>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // 加载关系数据
+    function loadRelations() {
+        fetch(`/api/comparison/${taskId}/relations`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const relationList = document.getElementById('relation-list');
+                    relationList.innerHTML = data.relations.length > 0
+                        ? renderRelationsList(data.relations)
+                        : '<div class="alert alert-info">没有找到关系数据</div>';
+                } else {
+                    console.error('加载关系失败:', data.message);
+                    document.getElementById('relation-list').innerHTML = 
+                        '<div class="alert alert-danger">加载关系失败: ' + data.message + '</div>';
+                }
+            })
+            .catch(error => {
+                console.error('请求关系数据出错:', error);
+                document.getElementById('relation-list').innerHTML = 
+                    '<div class="alert alert-danger">加载关系失败: ' + error.message + '</div>';
+            });
+    }
+
+    // 渲染关系列表
+    function renderRelationsList(relations) {
+        return relations.map(relation => {
+            const fromEntity = relation.from_entity || '未知实体';
+            const toEntity = relation.to_entity || '未知实体';
+            const relationType = relation.relation_type || '未知关系类型';
+            const source = relation.source || '未知来源';
+            
+            return `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title">${fromEntity} → ${toEntity}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">关系类型: ${relationType}</h6>
+                        <p class="card-text">来源: ${source}</p>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // 重新计算指标
+    function recalculateMetric(metricType) {
+        // 显示加载动画
+        document.getElementById(`${metricType.replace('_', '-')}-loading`).innerHTML = 
+            '<span class="loading ml-2"></span>';
+        
+        fetch(`/api/comparison/${taskId}/recalculate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ metric_type: metricType })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // 清除加载动画
+                document.getElementById(`${metricType.replace('_', '-')}-loading`).innerHTML = '';
+                
+                // 根据返回的数据更新页面上的指标
+                updateMetricsDisplay(data.metrics, metricType);
+                
+                // 显示成功消息
+                alert(`${getMetricTypeName(metricType)}重新计算完成`);
+            } else {
+                // 清除加载动画
+                document.getElementById(`${metricType.replace('_', '-')}-loading`).innerHTML = '';
+                console.error('重新计算指标失败:', data.message);
+                alert(`重新计算指标失败: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            // 清除加载动画
+            document.getElementById(`${metricType.replace('_', '-')}-loading`).innerHTML = '';
+            console.error('请求指标重新计算出错:', error);
+            alert(`请求指标重新计算出错: ${error.message}`);
+        });
+    }
+
+    // 获取指标类型的中文名称
+    function getMetricTypeName(metricType) {
+        switch(metricType) {
+            case 'entity_stats': return '实体统计';
+            case 'relation_stats': return '关系统计';
+            case 'clustering': return '聚类度量';
+            case 'all': return '所有指标';
+            default: return `${metricType}指标`;
+        }
+    }
+
+    // 更新指标显示
+    function updateMetricsDisplay(metrics, metricType) {
+        if (metricType === 'entity_stats' || metricType === 'all') {
+            if (metrics.entity_stats) {
+                const stats = metrics.entity_stats;
+                document.getElementById('entity-stats-content').innerHTML = `
+                    <p>综述实体数: ${stats.review_entity_count || 0}</p>
+                    <p>引文实体数: ${stats.citation_entity_count || 0}</p>
+                    <p>实体精确度: ${(stats.entity_precision * 100).toFixed(2)}%</p>
+                    <p>实体召回率: ${(stats.entity_recall * 100).toFixed(2)}%</p>
+                    <p>实体F1得分: ${(stats.entity_f1 * 100).toFixed(2)}%</p>
+                `;
+            }
+        }
+        
+        if (metricType === 'relation_stats' || metricType === 'all') {
+            if (metrics.relation_stats) {
+                const stats = metrics.relation_stats;
+                let relationHtml = `
+                    <p>关系总数: ${stats.total_relations || 0}</p>
+                    <p>关系覆盖率: ${(stats.relation_coverage * 100).toFixed(2)}%</p>
+                `;
+                
+                if (stats.relation_types) {
+                    relationHtml += '<h6>关系类型分布:</h6><ul>';
+                    for (const [type, count] of Object.entries(stats.relation_types)) {
+                        relationHtml += `<li>${type}: ${count}</li>`;
+                    }
+                    relationHtml += '</ul>';
+                }
+                
+                document.getElementById('relation-stats-content').innerHTML = relationHtml;
+            }
+        }
+        
+        if (metricType === 'clustering' || metricType === 'all') {
+            if (metrics.clustering) {
+                const clustering = metrics.clustering;
+                document.getElementById('clustering-content').innerHTML = `
+                    <p>聚类精确度: ${(clustering.clustering_precision * 100).toFixed(2)}%</p>
+                    <p>聚类召回率: ${(clustering.clustering_recall * 100).toFixed(2)}%</p>
+                    <p>聚类F1得分: ${(clustering.clustering_f1 * 100).toFixed(2)}%</p>
+                    <p>聚类数量: ${clustering.cluster_count || 0}</p>
+                `;
+            }
+        }
+    }
+
+    // 监听按钮点击事件
+    document.getElementById('showEntitiesBtn').addEventListener('click', function() {
+        loadEntities();
+        $('#entitiesModal').modal('show');
+    });
+
+    document.getElementById('showRelationsBtn').addEventListener('click', function() {
+        loadRelations();
+        $('#relationsModal').modal('show');
+    });
+    
+    // 页面加载时初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        // 初始加载指标数据
+        checkTaskStatus();
+        
+        // 定时检查任务状态
+        setInterval(checkTaskStatus, 5000);
+    });
+
+    // 检查任务状态函数
+    function checkTaskStatus() {
+        fetch(`/api/comparison/${taskId}/status`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.task) {
+                    // 更新任务状态显示
+                    updateTaskStatus(data.task);
+                    
+                    // 如果任务已完成且有指标数据，加载指标
+                    if (data.task.status === 'COMPLETED' && data.task.message) {
+                        try {
+                            const result = JSON.parse(data.task.message);
+                            if (result.metrics) {
+                                updateAllMetrics(result.metrics);
+                            }
+                        } catch (e) {
+                            console.error('解析指标数据出错:', e);
+                        }
+                    }
+                } else {
+                    console.error('获取任务状态失败:', data.message || '未知错误');
+                }
+            })
+            .catch(error => {
+                console.error('请求任务状态出错:', error);
+            });
+    }
+    
+    // 更新任务状态显示
+    function updateTaskStatus(task) {
+        // 更新任务状态UI（如果有状态显示部分）
+        // 这里可以根据实际需要添加状态显示UI的更新代码
+    }
+    
+    // 更新所有指标显示
+    function updateAllMetrics(metrics) {
+        // 调用更新指标显示函数更新所有类型的指标
+        updateMetricsDisplay(metrics, 'all');
+    }
 </script>
 {% endblock %} 

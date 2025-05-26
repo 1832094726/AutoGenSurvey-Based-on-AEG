@@ -320,10 +320,61 @@
         processData: false,
         contentType: false,
         success: function(response) {
-          if (response.status === 'success') {
-            // 开始轮询任务状态
-            const taskId = response.task_id;
-            startPolling(taskId);
+          if (response.success && response.task) {
+            const statusData = response.task;
+            
+            // 更新进度显示
+            $('#currentStage').text(statusData.current_stage || '处理中');
+            $('#statusMessage').text(statusData.message || '正在处理...');
+            
+            const progress = statusData.progress * 100;
+            $('#progressPercent').text(`${Math.round(progress)}%`);
+            $('#progressBar').css('width', `${progress}%`).text(`${Math.round(progress)}%`);
+            
+            // 根据任务状态处理
+            if (statusData.status === '已完成') {
+              // 显示结果
+              $('#progressContainer').hide();
+              $('#resultSection').show();
+              
+              // 更新结果数据
+              let resultData = {};
+              try {
+                resultData = JSON.parse(statusData.message || '{}');
+              } catch (e) {
+                console.error('解析结果数据出错:', e);
+              }
+              
+              // 计算实体总数和关系数
+              const reviewEntitiesCount = resultData.review_entities_count || 0;
+              const citationEntitiesCount = resultData.citation_entities_count || 0;
+              const entitiesCount = reviewEntitiesCount + citationEntitiesCount;
+              const relationsCount = resultData.relations_count || 0;
+              
+              $('#entityCount').text(entitiesCount);
+              $('#relationCount').text(relationsCount);
+              $('#viewResultsBtn').attr('href', `/comparison/results/${taskId}`);
+              
+              // 刷新历史记录
+              loadComparisonHistory();
+              
+              // 停止轮询
+              return;
+            } else if (statusData.status === '错误') {
+              alert('任务处理出错: ' + statusData.message);
+              $('#progressContainer').hide();
+              $('#comparisonForm').show();
+              
+              // 刷新历史记录
+              loadComparisonHistory();
+              return;
+            }
+            
+            // 调整轮询间隔 - 进度越大，轮询间隔越长
+            pollInterval = Math.min(10000, 3000 + (statusData.progress * 7000)); // 3-10秒
+            
+            // 继续轮询
+            setTimeout(pollTask, pollInterval);
           } else {
             alert('启动任务失败: ' + response.message);
             $('#comparisonForm').show();
@@ -344,11 +395,11 @@
       
       const pollTask = function() {
         $.ajax({
-          url: `/api/comparison/status/${taskId}`,
+          url: `/api/comparison/${taskId}/status`,
           type: 'GET',
           success: function(response) {
-            if (response.status === 'success') {
-              const statusData = response.data;
+            if (response.success && response.task) {
+              const statusData = response.task;
               
               // 更新进度显示
               $('#currentStage').text(statusData.current_stage || '处理中');
@@ -365,9 +416,21 @@
                 $('#resultSection').show();
                 
                 // 更新结果数据
-                const resultData = statusData.result || {};
-                $('#entityCount').text(resultData.entities_count || 0);
-                $('#relationCount').text(resultData.relations_count || 0);
+                let resultData = {};
+                try {
+                  resultData = JSON.parse(statusData.message || '{}');
+                } catch (e) {
+                  console.error('解析结果数据出错:', e);
+                }
+                
+                // 计算实体总数和关系数
+                const reviewEntitiesCount = resultData.review_entities_count || 0;
+                const citationEntitiesCount = resultData.citation_entities_count || 0;
+                const entitiesCount = reviewEntitiesCount + citationEntitiesCount;
+                const relationsCount = resultData.relations_count || 0;
+                
+                $('#entityCount').text(entitiesCount);
+                $('#relationCount').text(relationsCount);
                 $('#viewResultsBtn').attr('href', `/comparison/results/${taskId}`);
                 
                 // 刷新历史记录

@@ -612,9 +612,13 @@ def comparison_results(task_id):
                     logging.error(f"无法解析任务 {task_id} 的结果数据")
     
     # 获取指标数据
-    entities_count = result_data.get('entities_count', 0)
+    review_entities_count = result_data.get('review_entities_count', 0)
+    citation_entities_count = result_data.get('citation_entities_count', 0)
     relations_count = result_data.get('relations_count', 0)
     metrics = result_data.get('metrics', {})
+    
+    # 计算总实体数
+    entities_count = review_entities_count + citation_entities_count
     
     logging.info(f"为任务 {task_id} 渲染比较结果页面，实体数: {entities_count}, 关系数: {relations_count}")
     
@@ -622,5 +626,7 @@ def comparison_results(task_id):
                           task_id=task_id,
                           entities_count=entities_count,
                           relations_count=relations_count,
-                          metrics=metrics)
+                          metrics=metrics,
+                          review_entities_count=review_entities_count,
+                          citation_entities_count=citation_entities_count)
 

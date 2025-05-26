@@ -851,7 +851,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         metrics = calculate_comparison_metrics(review_entities, citation_entities, evolution_relations)
         
         # 保存实体和关系到数据库
-        save_entities_and_relations(all_entities, evolution_relations)
+        save_entities_and_relations(all_entities, evolution_relations, task_id)
         
         # 构建结果
         result_data = {
@@ -954,7 +954,7 @@ def extract_entities_from_citations(citation_paths, task_id):
     # 暂时返回空的关系列表，关系将在后续步骤中提取
     return all_entities, []
 
-def save_entities_and_relations(entities, relations):
+def save_entities_and_relations(entities, relations, task_id=None):
     """保存实体和关系到数据库"""
     if not entities and not relations:
         logging.warning("没有实体和关系需要保存")
@@ -964,69 +964,18 @@ def save_entities_and_relations(entities, relations):
     entity_count = 0
     for entity in entities:
         if entity:
-            db_manager.store_algorithm_entity(entity)
+            db_manager.store_algorithm_entity(entity, task_id)
             entity_count += 1
     
     # 保存关系
     relation_count = 0
     for relation in relations:
         if relation:
-            db_manager.store_algorithm_relation(relation)
+            db_manager.store_algorithm_relation(relation, task_id)
             relation_count += 1
     
-    logging.info(f"已保存 {entity_count} 个实体和 {relation_count} 个关系到数据库")
+    logging.info(f"已保存 {entity_count} 个实体和 {relation_count} 个关系到数据库, 任务ID: {task_id}")
 
-@combined_api.route('/comparison/status/<task_id>', methods=['GET'])
-def get_comparison_status(task_id):
-    """获取比较分析任务处理状态"""
-    try:
-        # 从数据库获取任务状态
-        task_status = db_manager.get_processing_status(task_id)
-        
-        if not task_status:
-            return jsonify({'status': 'error', 'message': '找不到指定的任务'}), 404
-        
-        # 转换为JSON格式
-        status_data = {
-            'task_id': task_id,
-            'status': task_status.get('status', '未知'),
-            'current_stage': task_status.get('current_stage', ''),
-            'progress': task_status.get('progress', 0),
-            'message': task_status.get('message', ''),
-            'result': task_status.get('result', {})
-        }
-        
-        # 如果结果是字符串格式的JSON，则解析为字典
-        if isinstance(status_data['result'], str) and status_data['result'].strip():
-            try:
-                status_data['result'] = json.loads(status_data['result'])
-            except json.JSONDecodeError:
-                status_data['result'] = {}
-        
-        # 检查任务是否完成
-        if task_status.get('completed', False):
-            # 如果已完成，增加更多详细信息
-            status_data['completed_at'] = task_status.get('update_time', '')
-            
-            # 检查结果数据的可用性
-            if not status_data['result']:
-                # 如果没有结果数据，尝试获取实体和关系数
-                entities = db_manager.get_entities_by_task(task_id)
-                relations = db_manager.get_relations_by_task(task_id)
-                
-                if entities or relations:
-                    status_data['entities_count'] = len(entities)
-                    status_data['relations_count'] = len(relations)
-        
-        return jsonify({
-            'status': 'success',
-            'data': status_data
-        })
-    
-    except Exception as e:
-        logging.error(f"获取任务 {task_id} 状态时出错: {str(e)}")
-        logging.error(traceback.format_exc())
-        return jsonify({'status': 'error', 'message': f'获取任务状态时出错: {str(e)}'}), 500
 
 @combined_api.route('/comparison/history', methods=['GET'])
 def get_comparison_history():
@@ -1046,4 +995,167 @@ def get_comparison_history():
         return jsonify({
             "success": False,
             "message": f"获取历史记录出错: {str(e)}"
+        }), 500
+
+@combined_api.route('/comparison/<task_id>/entities', methods=['GET'])
+def get_comparison_entities(task_id):
+    """获取比较分析任务的实体列表"""
+    try:
+        # 获取任务的实体
+        entities = db_manager.get_entities_by_task(task_id)
+        
+        # 按类型统计实体数量
+        algorithm_count = sum(1 for e in entities if 'algorithm_entity' in e)
+        dataset_count = sum(1 for e in entities if 'dataset_entity' in e)
+        metric_count = sum(1 for e in entities if 'metric_entity' in e)
+        
+        return jsonify({
+            "success": True,
+            "entities": entities,
+            "count": {
+                "total": len(entities),
+                "algorithm": algorithm_count,
+                "dataset": dataset_count,
+                "metric": metric_count
+            }
+        })
+        
+    except Exception as e:
+        logging.error(f"获取任务 {task_id} 的实体列表时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return jsonify({
+            "success": False,
+            "message": f"获取实体列表出错: {str(e)}"
+        }), 500
+
+@combined_api.route('/comparison/<task_id>/relations', methods=['GET'])
+def get_comparison_relations(task_id):
+    """获取比较分析任务的关系列表"""
+    try:
+        # 获取任务的关系
+        relations = db_manager.get_relations_by_task(task_id)
+        
+        # 按类型统计关系
+        relation_types = {}
+        for relation in relations:
+            relation_type = relation.get('relation_type', 'unknown')
+            if relation_type not in relation_types:
+                relation_types[relation_type] = 0
+            relation_types[relation_type] += 1
+        
+        return jsonify({
+            "success": True,
+            "relations": relations,
+            "count": {
+                "total": len(relations),
+                "by_type": relation_types
+            }
+        })
+        
+    except Exception as e:
+        logging.error(f"获取任务 {task_id} 的关系列表时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return jsonify({
+            "success": False,
+            "message": f"获取关系列表出错: {str(e)}"
+        }), 500
+
+@combined_api.route('/comparison/<task_id>/recalculate', methods=['POST'])
+def recalculate_metrics(task_id):
+    """重新计算比较分析任务的指标"""
+    try:
+        # 获取指标类型
+        metric_type = request.json.get('metric_type', 'all')  # 可选值: all, entity_stats, relation_stats, clustering
+        
+        # 获取实体和关系
+        review_entities = db_manager.get_entities_by_task(f"{task_id}_review")
+        citation_entities = db_manager.get_entities_by_task(f"{task_id}_citation_batchs")
+        all_relations = db_manager.get_relations_by_task(task_id)
+        
+        # 导入指标计算模块
+        from app.modules.metrics_calculator import (
+            calculate_comparison_metrics, 
+            calculate_entity_statistics,
+            calculate_relation_statistics,
+            calculate_clustering_metrics
+        )
+        
+        # 根据类型计算指标
+        if metric_type == 'entity_stats':
+            metrics = {
+                'entity_stats': calculate_entity_statistics(review_entities, citation_entities)
+            }
+        elif metric_type == 'relation_stats':
+            metrics = {
+                'relation_stats': calculate_relation_statistics(all_relations)
+            }
+        elif metric_type == 'clustering':
+            metrics = {
+                'clustering': calculate_clustering_metrics(review_entities + citation_entities, all_relations)
+            }
+        else:  # 'all'
+            metrics = calculate_comparison_metrics(review_entities, citation_entities, all_relations)
+        
+        # 更新任务状态中的结果数据
+        task_status = db_manager.get_processing_status(task_id)
+        if task_status:
+            # 获取现有消息数据
+            message = task_status.get('message', '{}')
+            try:
+                result_data = json.loads(message)
+            except:
+                result_data = {}
+            
+            # 更新指标数据
+            if 'metrics' not in result_data:
+                result_data['metrics'] = {}
+                
+            if metric_type == 'all':
+                result_data['metrics'] = metrics
+            else:
+                result_data['metrics'][metric_type] = metrics[metric_type]
+                
+            # 保存更新后的结果
+            db_manager.update_processing_status(
+                task_id=task_id,
+                message=json.dumps(result_data, ensure_ascii=False)
+            )
+        
+        return jsonify({
+            "success": True,
+            "metrics": metrics
+        })
+        
+    except Exception as e:
+        logging.error(f"重新计算任务 {task_id} 的指标时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return jsonify({
+            "success": False,
+            "message": f"计算指标出错: {str(e)}"
+        }), 500
+
+@combined_api.route('/comparison/<task_id>/status', methods=['GET'])
+def get_comparison_status(task_id):
+    """获取比较分析任务的状态信息"""
+    try:
+        # 获取任务状态
+        task_status = db_manager.get_processing_status(task_id)
+        
+        if not task_status:
+            return jsonify({
+                "success": False,
+                "message": f"任务 {task_id} 不存在"
+            }), 404
+            
+        return jsonify({
+            "success": True,
+            "task": task_status
+        })
+        
+    except Exception as e:
+        logging.error(f"获取任务 {task_id} 的状态时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return jsonify({
+            "success": False,
+            "message": f"获取任务状态出错: {str(e)}"
         }), 500 
