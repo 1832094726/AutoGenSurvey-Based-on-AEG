@@ -803,8 +803,22 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             message='正在从综述论文中提取实体'
         )
         
-        # 处理综述论文，提取实体
+        # 处理综述论文，提取实体，使用相同的任务ID
         review_entities, review_relations = extract_entities_from_review(review_path, task_id)
+        
+        # 确保所有综述实体都有正确的来源标记
+        for entity in review_entities:
+            # 标记外层source字段
+            if 'source' not in entity or not entity['source'] or entity['source'] == '未知':
+                entity['source'] = '综述'
+            
+            # 标记内层source字段
+            if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
+                entity['algorithm_entity']['source'] = '综述'
+            elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
+                entity['dataset_entity']['source'] = '综述'
+            elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
+                entity['metric_entity']['source'] = '综述'
         
         # 更新状态：处理引用文献
         db_manager.update_processing_status(
@@ -814,8 +828,22 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             message='正在从引用文献中提取实体'
         )
         
-        # 处理引用文献，提取实体
+        # 处理引用文献，提取实体，使用相同的任务ID
         citation_entities, citation_relations = extract_entities_from_citations(citation_paths, task_id)
+        
+        # 确保所有引文实体都有正确的来源标记
+        for entity in citation_entities:
+            # 标记外层source字段
+            if 'source' not in entity or not entity['source'] or entity['source'] == '未知':
+                entity['source'] = '引文'
+            
+            # 标记内层source字段
+            if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
+                entity['algorithm_entity']['source'] = '引文'
+            elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
+                entity['dataset_entity']['source'] = '引文'
+            elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
+                entity['metric_entity']['source'] = '引文'
         
         # 更新状态：提取关系
         db_manager.update_processing_status(
@@ -825,19 +853,56 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             message='正在分析实体之间的演化关系'
         )
         
-        # 合并实体和关系
+        # 导入关系提取函数
+        from app.modules.agents import extract_evolution_relations
+        
+        # 分别提取综述关系和引文关系
+        
+        # 1. 提取综述关系（只使用综述PDF和综述实体）
+        db_manager.update_processing_status(
+            task_id=task_id,
+            current_stage='提取关系',
+            progress=0.65,
+            message='正在从综述中提取算法演化关系'
+        )
+        review_evolution_relations = extract_evolution_relations(
+            entities=review_entities, 
+            pdf_paths=[review_path],  # 只传入综述PDF
+            task_id=task_id,
+            previous_relations=review_relations
+        )
+        
+        # 确保所有综述关系都有正确的来源标记
+        for relation in review_evolution_relations:
+            relation['source'] = '综述'
+        
+        # 2. 提取引文关系（只使用引文PDF和引文实体）
+        if citation_entities and citation_paths:
+            db_manager.update_processing_status(
+                task_id=task_id,
+                current_stage='提取关系',
+                progress=0.75,
+                message='正在从引文中提取算法演化关系'
+            )
+            citation_evolution_relations = extract_evolution_relations(
+                entities=citation_entities, 
+                pdf_paths=citation_paths,  # 只传入引文PDF
+                task_id=task_id,
+                previous_relations=citation_relations
+            )
+            
+            # 确保所有引文关系都有正确的来源标记
+            for relation in citation_evolution_relations:
+                relation['source'] = '引文'
+        else:
+            citation_evolution_relations = []
+        
+        # 合并两种来源的演化关系
+        evolution_relations = review_evolution_relations + citation_evolution_relations
+        
+        # 合并所有实体（保留原始代码）
         all_entities = review_entities + citation_entities
         all_relations = review_relations + citation_relations
-        
-        # 提取实体关系，传入所有PDF文件路径
-        from app.modules.agents import extract_evolution_relations
-        all_pdf_paths = [review_path] + citation_paths
-        evolution_relations = extract_evolution_relations(
-            entities=all_entities, 
-            pdf_paths=all_pdf_paths, 
-            task_id=task_id, 
-            previous_relations=all_relations
-        )
         
         # 更新状态：计算指标
         db_manager.update_processing_status(
@@ -850,7 +915,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         # 使用calculate_comparison_metrics函数计算比较指标
         metrics = calculate_comparison_metrics(review_entities, citation_entities, evolution_relations)
         
-        # 保存实体和关系到数据库
+        # 保存实体和关系到数据库，使用相同的任务ID
         save_entities_and_relations(all_entities, evolution_relations, task_id)
         
         # 构建结果
@@ -909,12 +974,26 @@ def extract_entities_from_review(review_path, task_id):
         
     logging.info(f"开始处理综述论文: {os.path.basename(review_path)}")
     
-    # 从综述论文中提取实体
+    # 从综述论文中提取实体，使用主任务ID
     entities, is_complete = extract_paper_entities(
         pdf_paths=review_path,
         model_name="qwen",
-        task_id=f"{task_id}_review"
+        task_id=task_id  # 使用主任务ID
     )
+    
+    # 确保所有实体都有正确的来源标记
+    for entity in entities:
+        # 标记外层source字段
+        if 'source' not in entity or not entity['source'] or entity['source'] == '未知':
+            entity['source'] = '综述'
+        
+        # 标记内层source字段
+        if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
+            entity['algorithm_entity']['source'] = '综述'
+        elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
+            entity['dataset_entity']['source'] = '综述'
+        elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
+            entity['metric_entity']['source'] = '综述'
     
     logging.info(f"从综述论文中提取到 {len(entities)} 个实体")
     
@@ -942,14 +1021,28 @@ def extract_entities_from_citations(citation_paths, task_id):
     # 批量处理引用文献，每次处理5篇
     batch_size = 100
 
-    # 提取实体
+    # 提取实体，使用主任务ID
     all_entities, is_complete = extract_paper_entities(
         pdf_paths=valid_paths,
         max_attempts=5,
         batch_size=batch_size,
         model_name="qwen",
-        task_id=f"{task_id}_citation_batchs"
+        task_id=task_id  # 使用主任务ID
     )
+    
+    # 确保所有实体都有正确的来源标记
+    for entity in all_entities:
+        # 标记外层source字段
+        if 'source' not in entity or not entity['source'] or entity['source'] == '未知':
+            entity['source'] = '引文'
+        
+        # 标记内层source字段
+        if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
+            entity['algorithm_entity']['source'] = '引文'
+        elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
+            entity['dataset_entity']['source'] = '引文'
+        elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
+            entity['metric_entity']['source'] = '引文'
 
     # 暂时返回空的关系列表，关系将在后续步骤中提取
     return all_entities, []
@@ -997,26 +1090,91 @@ def get_comparison_history():
             "message": f"获取历史记录出错: {str(e)}"
         }), 500
 
+@combined_api.route('/tasks/<task_id>/entities', methods=['GET'])
 @combined_api.route('/comparison/<task_id>/entities', methods=['GET'])
 def get_comparison_entities(task_id):
     """获取比较分析任务的实体列表"""
     try:
-        # 获取任务的实体
-        entities = db_manager.get_entities_by_task(task_id)
+        # 直接使用原始任务ID获取所有实体
+        all_entities = db_manager.get_entities_by_task(task_id)
+        
+        if not all_entities:
+            logging.warning(f"未找到与任务 {task_id} 关联的实体")
+            return jsonify({
+                "success": False,
+                "message": f"未找到任务 {task_id} 的相关实体",
+                "entities": [],
+                "count": {
+                    "total": 0,
+                    "algorithm": 0,
+                    "dataset": 0,
+                    "metric": 0,
+                    "review": 0,
+                    "citation": 0
+                }
+            }), 404
+        
+        # 通过source字段区分综述和引文实体
+        review_entities = []
+        citation_entities = []
+        
+        for entity in all_entities:
+            # 获取实体的来源
+            entity_source = None
+            
+            # 处理不同类型的实体
+            if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
+                entity_source = entity['algorithm_entity'].get('source', '未知')
+            elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
+                entity_source = entity['dataset_entity'].get('source', '未知')
+            elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
+                entity_source = entity['metric_entity'].get('source', '未知')
+            else:
+                entity_source = entity.get('source', '未知')
+            
+            # 根据来源分类
+            if entity_source == '综述':
+                review_entities.append(entity)
+            elif entity_source == '引文':
+                citation_entities.append(entity)
+            else:
+                # 对于未知来源的实体，添加默认来源（可能是基于其他特征推断）
+                if '算法' in str(entity) or '方法' in str(entity) or 'algorithm' in str(entity).lower():
+                    entity_source = '综述'  # 假设与算法相关的更可能是综述
+                    review_entities.append(entity)
+                else:
+                    entity_source = '引文'  # 其他默认为引文
+                    citation_entities.append(entity)
+                
+                # 更新实体的source字段
+                if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
+                    entity['algorithm_entity']['source'] = entity_source
+                elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
+                    entity['dataset_entity']['source'] = entity_source
+                elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
+                    entity['metric_entity']['source'] = entity_source
+                else:
+                    entity['source'] = entity_source
         
         # 按类型统计实体数量
-        algorithm_count = sum(1 for e in entities if 'algorithm_entity' in e)
-        dataset_count = sum(1 for e in entities if 'dataset_entity' in e)
-        metric_count = sum(1 for e in entities if 'metric_entity' in e)
+        algorithm_count = sum(1 for e in all_entities if 'algorithm_entity' in e)
+        dataset_count = sum(1 for e in all_entities if 'dataset_entity' in e)
+        metric_count = sum(1 for e in all_entities if 'metric_entity' in e)
+        
+        # 按来源统计
+        review_count = len(review_entities)
+        citation_count = len(citation_entities)
         
         return jsonify({
             "success": True,
-            "entities": entities,
+            "entities": all_entities,
             "count": {
-                "total": len(entities),
+                "total": len(all_entities),
                 "algorithm": algorithm_count,
                 "dataset": dataset_count,
-                "metric": metric_count
+                "metric": metric_count,
+                "review": review_count,
+                "citation": citation_count
             }
         })
         
@@ -1028,12 +1186,90 @@ def get_comparison_entities(task_id):
             "message": f"获取实体列表出错: {str(e)}"
         }), 500
 
+@combined_api.route('/tasks/<task_id>/relations', methods=['GET'])
 @combined_api.route('/comparison/<task_id>/relations', methods=['GET'])
 def get_comparison_relations(task_id):
     """获取比较分析任务的关系列表"""
     try:
         # 获取任务的关系
         relations = db_manager.get_relations_by_task(task_id)
+        
+        if not relations:
+            logging.warning(f"未找到与任务 {task_id} 关联的关系")
+            return jsonify({
+                "success": False,
+                "message": f"未找到任务 {task_id} 的相关关系",
+                "relations": [],
+                "count": {
+                    "total": 0,
+                    "by_type": {},
+                    "by_source": {'综述': 0, '引文': 0, '未知': 0}
+                }
+            }), 404
+        
+        # 确保每个关系都有来源字段，如果没有则根据实体推断
+        for relation in relations:
+            if 'source' not in relation or not relation['source'] or relation['source'] == '未知':
+                # 尝试根据关联实体的source字段推断来源
+                try:
+                    from_entity = relation.get('from_entity', '')
+                    to_entity = relation.get('to_entity', '')
+                    
+                    # 查询相关实体的来源
+                    if from_entity:
+                        from_entity_data = db_manager.get_entity_by_id(from_entity)
+                        if from_entity_data:
+                            # 尝试获取来源
+                            if 'algorithm_entity' in from_entity_data:
+                                source = from_entity_data['algorithm_entity'].get('source')
+                                if source and source != '未知':
+                                    relation['source'] = source
+                                    continue
+                            elif 'dataset_entity' in from_entity_data:
+                                source = from_entity_data['dataset_entity'].get('source')
+                                if source and source != '未知':
+                                    relation['source'] = source
+                                    continue
+                            elif 'metric_entity' in from_entity_data:
+                                source = from_entity_data['metric_entity'].get('source')
+                                if source and source != '未知':
+                                    relation['source'] = source
+                                    continue
+                    
+                    # 如果from_entity没有明确来源，尝试to_entity
+                    if to_entity:
+                        to_entity_data = db_manager.get_entity_by_id(to_entity)
+                        if to_entity_data:
+                            # 尝试获取来源
+                            if 'algorithm_entity' in to_entity_data:
+                                source = to_entity_data['algorithm_entity'].get('source')
+                                if source and source != '未知':
+                                    relation['source'] = source
+                                    continue
+                            elif 'dataset_entity' in to_entity_data:
+                                source = to_entity_data['dataset_entity'].get('source')
+                                if source and source != '未知':
+                                    relation['source'] = source
+                                    continue
+                            elif 'metric_entity' in to_entity_data:
+                                source = to_entity_data['metric_entity'].get('source')
+                                if source and source != '未知':
+                                    relation['source'] = source
+                                    continue
+                except Exception as e:
+                    logging.warning(f"无法推断关系来源: {str(e)}")
+                
+                # 如果仍然无法确定来源，尝试使用其他提示信息
+                if relation['source'] == '未知':
+                    # 使用关系自身的特征进行判断
+                    relation_str = str(relation)
+                    if '综述' in relation_str or 'review' in relation_str.lower():
+                        relation['source'] = '综述'
+                    elif '引文' in relation_str or 'citation' in relation_str.lower():
+                        relation['source'] = '引文'
+                    else:
+                        # 保持未知状态
+                        pass
         
         # 按类型统计关系
         relation_types = {}
@@ -1042,13 +1278,21 @@ def get_comparison_relations(task_id):
             if relation_type not in relation_types:
                 relation_types[relation_type] = 0
             relation_types[relation_type] += 1
+            
+        # 按来源统计关系
+        source_counts = {
+            '综述': len([r for r in relations if r.get('source') == '综述']),
+            '引文': len([r for r in relations if r.get('source') == '引文']),
+            '未知': len([r for r in relations if r.get('source') == '未知'])
+        }
         
         return jsonify({
             "success": True,
             "relations": relations,
             "count": {
                 "total": len(relations),
-                "by_type": relation_types
+                "by_type": relation_types,
+                "by_source": source_counts
             }
         })
         
@@ -1060,6 +1304,7 @@ def get_comparison_relations(task_id):
             "message": f"获取关系列表出错: {str(e)}"
         }), 500
 
+@combined_api.route('/tasks/<task_id>/recalculate', methods=['POST'])
 @combined_api.route('/comparison/<task_id>/recalculate', methods=['POST'])
 def recalculate_metrics(task_id):
     """重新计算比较分析任务的指标"""
@@ -1067,10 +1312,42 @@ def recalculate_metrics(task_id):
         # 获取指标类型
         metric_type = request.json.get('metric_type', 'all')  # 可选值: all, entity_stats, relation_stats, clustering
         
-        # 获取实体和关系
-        review_entities = db_manager.get_entities_by_task(f"{task_id}_review")
-        citation_entities = db_manager.get_entities_by_task(f"{task_id}_citation_batchs")
+        # 获取任务的所有实体和关系
+        all_entities = db_manager.get_entities_by_task(task_id)
         all_relations = db_manager.get_relations_by_task(task_id)
+        
+        if not all_entities:
+            return jsonify({
+                "success": False,
+                "message": f"未找到任务 {task_id} 的实体数据，无法计算指标"
+            }), 404
+        
+        # 根据source字段分离综述和引文实体
+        review_entities = []
+        citation_entities = []
+        
+        for entity in all_entities:
+            # 确定实体来源
+            entity_source = None
+            
+            # 处理不同类型的实体
+            if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
+                entity_source = entity['algorithm_entity'].get('source', '未知')
+            elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
+                entity_source = entity['dataset_entity'].get('source', '未知')
+            elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
+                entity_source = entity['metric_entity'].get('source', '未知')
+            else:
+                entity_source = entity.get('source', '未知')
+            
+            # 根据来源分类
+            if entity_source == '综述':
+                review_entities.append(entity)
+            elif entity_source == '引文':
+                citation_entities.append(entity)
+            else:
+                # 对于未知来源的实体，进行简单分类（实际应用中可能需要更复杂的逻辑）
+                review_entities.append(entity)  # 默认归为综述
         
         # 导入指标计算模块
         from app.modules.metrics_calculator import (
@@ -1091,7 +1368,7 @@ def recalculate_metrics(task_id):
             }
         elif metric_type == 'clustering':
             metrics = {
-                'clustering': calculate_clustering_metrics(review_entities + citation_entities, all_relations)
+                'clustering': calculate_clustering_metrics(all_entities, all_relations)
             }
         else:  # 'all'
             metrics = calculate_comparison_metrics(review_entities, citation_entities, all_relations)
@@ -1134,6 +1411,7 @@ def recalculate_metrics(task_id):
             "message": f"计算指标出错: {str(e)}"
         }), 500
 
+@combined_api.route('/tasks/<task_id>/status', methods=['GET'])
 @combined_api.route('/comparison/<task_id>/status', methods=['GET'])
 def get_comparison_status(task_id):
     """获取比较分析任务的状态信息"""

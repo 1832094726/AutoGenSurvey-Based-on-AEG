@@ -138,7 +138,8 @@ class DatabaseManager:
                     methodology_parameter_tuning TEXT,
                     feature_processing TEXT,
                     entity_type VARCHAR(50) DEFAULT 'Algorithm',
-                    task_id VARCHAR(255)
+                    task_id VARCHAR(255),
+                    source VARCHAR(50) DEFAULT '未知'
                 )
                 ''')
                 logging.info("创建MySQL Algorithms表")
@@ -148,6 +149,12 @@ class DatabaseManager:
                 if not self.cursor.fetchone():
                     self.cursor.execute("ALTER TABLE Algorithms ADD COLUMN task_id VARCHAR(255)")
                     logging.info("向Algorithms表添加task_id字段")
+                
+                # 检查source字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM Algorithms LIKE 'source'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE Algorithms ADD COLUMN source VARCHAR(50) DEFAULT '未知'")
+                    logging.info("向Algorithms表添加source字段")
             
             # 检查数据集表是否存在
             self.cursor.execute("SHOW TABLES LIKE 'Datasets'")
@@ -163,7 +170,8 @@ class DatabaseManager:
                     year VARCHAR(50),
                     creators TEXT,
                     entity_type VARCHAR(50) DEFAULT 'Dataset',
-                    task_id VARCHAR(255)
+                    task_id VARCHAR(255),
+                    source VARCHAR(50) DEFAULT '未知'
                 )
                 ''')
                 logging.info("创建MySQL Datasets表")
@@ -173,6 +181,12 @@ class DatabaseManager:
                 if not self.cursor.fetchone():
                     self.cursor.execute("ALTER TABLE Datasets ADD COLUMN task_id VARCHAR(255)")
                     logging.info("向Datasets表添加task_id字段")
+                
+                # 检查source字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM Datasets LIKE 'source'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE Datasets ADD COLUMN source VARCHAR(50) DEFAULT '未知'")
+                    logging.info("向Datasets表添加source字段")
             
             # 检查指标表是否存在
             self.cursor.execute("SHOW TABLES LIKE 'Metrics'")
@@ -186,7 +200,8 @@ class DatabaseManager:
                     category VARCHAR(255),
                     formula TEXT,
                     entity_type VARCHAR(50) DEFAULT 'Metric',
-                    task_id VARCHAR(255)
+                    task_id VARCHAR(255),
+                    source VARCHAR(50) DEFAULT '未知'
                 )
                 ''')
                 logging.info("创建MySQL Metrics表")
@@ -196,7 +211,13 @@ class DatabaseManager:
                 if not self.cursor.fetchone():
                     self.cursor.execute("ALTER TABLE Metrics ADD COLUMN task_id VARCHAR(255)")
                     logging.info("向Metrics表添加task_id字段")
-            
+                
+                # 检查source字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM Metrics LIKE 'source'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE Metrics ADD COLUMN source VARCHAR(50) DEFAULT '未知'")
+                    logging.info("向Metrics表添加source字段")
+                    
             # 检查关系表是否存在
             self.cursor.execute("SHOW TABLES LIKE 'EvolutionRelations'")
             if not self.cursor.fetchone():
@@ -215,7 +236,8 @@ class DatabaseManager:
                     to_entity_type VARCHAR(50),
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                    task_id VARCHAR(255)
+                    task_id VARCHAR(255),
+                    source VARCHAR(50) DEFAULT '未知'
                 )
                 ''')
                 logging.info("创建MySQL EvolutionRelations表")
@@ -225,6 +247,12 @@ class DatabaseManager:
                 if not self.cursor.fetchone():
                     self.cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN task_id VARCHAR(255)")
                     logging.info("向EvolutionRelations表添加task_id字段")
+                    
+                # 检查source字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'source'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN source VARCHAR(50) DEFAULT '未知'")
+                    logging.info("向EvolutionRelations表添加source字段")
             
             self.conn.commit()
         except (mysql.connector.Error, MySQLError) as e:
@@ -373,6 +401,10 @@ class DatabaseManager:
             if not isinstance(relation, dict):
                 logging.error(f"关系数据格式错误: {relation}")
                 return False
+                
+            # 获取来源信息
+            source = relation.get('source', '未知')
+            
             # 检查是否是数据库格式（from_entity/to_entity）
             if "from_entity" in relation and "to_entity" in relation:
                 # 直接使用数据库格式
@@ -418,7 +450,8 @@ class DatabaseManager:
                         "evidence": relation.get("evidence", ""),
                         "confidence": relation.get("confidence", 0.0),
                         "from_entity_type": from_entity_type,
-                        "to_entity_type": to_entity_type
+                        "to_entity_type": to_entity_type,
+                        "source": source  # 添加来源字段
                     }
                     # 调用数据库存储方法
                     if self._store_relation_mysql(relation_data, task_id):
@@ -453,6 +486,7 @@ class DatabaseManager:
             confidence = relation_data.get("confidence", 0.0)
             from_entity_type = relation_data.get("from_entity_type", "Algorithm")
             to_entity_type = relation_data.get("to_entity_type", "Algorithm")
+            source = relation_data.get("source", "未知")  # 获取来源字段，默认为"未知"
             
             # 检查实体是否存在
             from_exists = self._check_entity_exists(from_entity, from_entity_type)
@@ -476,32 +510,32 @@ class DatabaseManager:
                 update_sql = """
                 UPDATE EvolutionRelations 
                 SET structure = %s, detail = %s, evidence = %s, confidence = %s,
-                    from_entity_type = %s, to_entity_type = %s, task_id = %s
+                    from_entity_type = %s, to_entity_type = %s, task_id = %s, source = %s
                 WHERE from_entity = %s AND to_entity = %s AND relation_type = %s
                 """
                 self.cursor.execute(
                     update_sql, 
                     (structure, detail, evidence, confidence, 
-                     from_entity_type, to_entity_type, task_id,
+                     from_entity_type, to_entity_type, task_id, source,
                      from_entity, to_entity, relation_type)
                 )
-                logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}")
+                logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
             else:
                 # 关系不存在，执行插入
                 insert_sql = """
                 INSERT INTO EvolutionRelations (
                     from_entity, to_entity, relation_type, 
                     structure, detail, evidence, confidence, 
-                    from_entity_type, to_entity_type, task_id
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    from_entity_type, to_entity_type, task_id, source
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """
                 self.cursor.execute(
                     insert_sql, 
                     (from_entity, to_entity, relation_type, 
                      structure, detail, evidence, confidence,
-                     from_entity_type, to_entity_type, task_id)
+                     from_entity_type, to_entity_type, task_id, source)
                 )
-                logging.info(f"创建新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}")
+                logging.info(f"创建新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
             self.conn.commit()
             return True
         except Exception as e:
@@ -634,7 +668,8 @@ class DatabaseManager:
                             'parameter_tuning': entity_dict.get('methodology_parameter_tuning', [])
                         },
                         'feature_processing': entity_dict.get('feature_processing', []),
-                        'entity_type': 'Algorithm'
+                        'entity_type': 'Algorithm',
+                        'source': entity_dict.get('source', '未知')  # 添加来源字段
                     }
                     # 添加到实体列表
                     entities.append({'algorithm_entity': algorithm_entity})
@@ -1462,16 +1497,25 @@ class DatabaseManager:
                 entity_type = actual_entity.get('entity_type', 'Algorithm')
                 if 'algorithm_id' in actual_entity:
                     actual_entity['entity_id'] = actual_entity['algorithm_id']
+                # 继承外层实体的source属性
+                if 'source' in entity and 'source' not in actual_entity:
+                    actual_entity['source'] = entity['source']
             elif 'dataset_entity' in entity:
                 actual_entity = entity['dataset_entity']
                 entity_type = actual_entity.get('entity_type', 'Dataset')
                 if 'dataset_id' in actual_entity:
                     actual_entity['entity_id'] = actual_entity['dataset_id']
+                # 继承外层实体的source属性
+                if 'source' in entity and 'source' not in actual_entity:
+                    actual_entity['source'] = entity['source']
             elif 'metric_entity' in entity:
                 actual_entity = entity['metric_entity']
                 entity_type = actual_entity.get('entity_type', 'Metric')
                 if 'metric_id' in actual_entity:
                     actual_entity['entity_id'] = actual_entity['metric_id']
+                # 继承外层实体的source属性
+                if 'source' in entity and 'source' not in actual_entity:
+                    actual_entity['source'] = entity['source']
             else:
                 # 支持直接格式的实体
                 actual_entity = entity
@@ -1486,8 +1530,18 @@ class DatabaseManager:
             if not entity_id:
                 logging.error("实体ID不能为空")
                 return False
+                
+            # 确保source字段存在
+            if 'source' not in actual_entity:
+                # 尝试从task_id推断来源
+                if task_id and '_review' in task_id:
+                    actual_entity['source'] = '综述'
+                elif task_id and '_citation' in task_id:
+                    actual_entity['source'] = '引文'
+                else:
+                    actual_entity['source'] = '未知'
             
-            logging.info(f"存储实体: {entity_id} (类型: {entity_type}, 任务ID: {task_id})")
+            logging.info(f"存储实体: {entity_id} (类型: {entity_type}, 任务ID: {task_id}, 来源: {actual_entity.get('source', '未知')})")
             
             if entity_type == 'Algorithm':
                 # 存储算法实体
@@ -1525,6 +1579,9 @@ class DatabaseManager:
             name = entity.get('name', '')
             title = entity.get('title', '')
             year = str(entity.get('year', ''))
+            
+            # 获取来源信息，默认为"未知"
+            source = entity.get('source', '未知')
             
             # 处理列表类字段，确保是JSON字符串
             authors = entity.get('authors', [])
@@ -1608,7 +1665,7 @@ class DatabaseManager:
                         architecture_components = %s, architecture_connections = %s,
                         architecture_mechanisms = %s, methodology_training_strategy = %s,
                         methodology_parameter_tuning = %s, feature_processing = %s,
-                        entity_type = %s, task_id = %s
+                        entity_type = %s, task_id = %s, source = %s
                     WHERE algorithm_id = %s
                     '''
                 self.cursor.execute(sql, (
@@ -1617,9 +1674,9 @@ class DatabaseManager:
                         arch_components, arch_connections,
                         arch_mechanisms, training_strategy,
                         parameter_tuning, feature_processing,
-                        'Algorithm', task_id, algorithm_id
+                        'Algorithm', task_id, source, algorithm_id
                     ))
-                logging.info(f"更新算法: {algorithm_id}, 任务ID: {task_id}")
+                logging.info(f"更新算法: {algorithm_id}, 任务ID: {task_id}, 来源: {source}")
             else:
                 # 创建新记录
                 sql = '''
@@ -1628,13 +1685,13 @@ class DatabaseManager:
                     task, dataset, metrics,
                     architecture_components, architecture_connections,
                     architecture_mechanisms, methodology_training_strategy,
-                    methodology_parameter_tuning, feature_processing, entity_type, task_id
+                    methodology_parameter_tuning, feature_processing, entity_type, task_id, source
                 ) VALUES (
                     %s, %s, %s, %s, %s,
                     %s, %s, %s,
                     %s, %s,
                     %s, %s,
-                    %s, %s, %s, %s
+                    %s, %s, %s, %s, %s
                 )
                 '''
                 self.cursor.execute(sql, (
@@ -1642,9 +1699,9 @@ class DatabaseManager:
                     task, dataset, metrics,
                     arch_components, arch_connections,
                     arch_mechanisms, training_strategy,
-                    parameter_tuning, feature_processing, 'Algorithm', task_id
+                    parameter_tuning, feature_processing, 'Algorithm', task_id, source
                 ))
-                logging.info(f"存储算法: {algorithm_id}, 任务ID: {task_id}")
+                logging.info(f"存储算法: {algorithm_id}, 任务ID: {task_id}, 来源: {source}")
             
             self.conn.commit()
             return True
@@ -1670,6 +1727,9 @@ class DatabaseManager:
             name = entity.get('name', '')
             description = entity.get('description', '')
             domain = entity.get('domain', '')
+            
+            # 获取来源信息，默认为"未知"
+            source = entity.get('source', '未知')
             
             # 处理size字段，确保是整数
             size_value = entity.get('size', 0)
@@ -1700,31 +1760,31 @@ class DatabaseManager:
                     UPDATE Datasets SET
                         name = %s, description = %s, domain = %s,
                         size = %s, year = %s, creators = %s,
-                        entity_type = %s, task_id = %s
+                        entity_type = %s, task_id = %s, source = %s
                     WHERE dataset_id = %s
                     '''
                 self.cursor.execute(sql, (
                         name, description, domain,
                         size, year, creators,
-                        'Dataset', task_id, dataset_id
+                        'Dataset', task_id, source, dataset_id
                     ))
-                logging.info(f"更新数据集: {dataset_id}, 任务ID: {task_id}")
+                logging.info(f"更新数据集: {dataset_id}, 任务ID: {task_id}, 来源: {source}")
             else:
                 # 创建新记录
                 sql = '''
                 INSERT INTO Datasets (
                     dataset_id, name, description, domain,
-                    size, year, creators, entity_type, task_id
+                    size, year, creators, entity_type, task_id, source
                 ) VALUES (
                     %s, %s, %s, %s,
-                    %s, %s, %s, %s, %s
+                    %s, %s, %s, %s, %s, %s
                 )
                 '''
                 self.cursor.execute(sql, (
                     dataset_id, name, description, domain,
-                    size, year, creators, 'Dataset', task_id
+                    size, year, creators, 'Dataset', task_id, source
                 ))
-                logging.info(f"存储数据集: {dataset_id}, 任务ID: {task_id}")
+                logging.info(f"存储数据集: {dataset_id}, 任务ID: {task_id}, 来源: {source}")
             
             self.conn.commit()
             return True
@@ -1752,6 +1812,9 @@ class DatabaseManager:
             category = entity.get('category', '')
             formula = entity.get('formula', '')
             
+            # 获取来源信息，默认为"未知"
+            source = entity.get('source', '未知')
+            
             # 确保所有字段都是字符串类型
             name = str(name) if name else ''
             description = str(description) if description else ''
@@ -1765,30 +1828,30 @@ class DatabaseManager:
                 sql = '''
                 UPDATE Metrics SET
                     name = %s, description = %s, category = %s,
-                    formula = %s, entity_type = %s, task_id = %s
+                    formula = %s, entity_type = %s, task_id = %s, source = %s
                 WHERE metric_id = %s
                 '''
                 self.cursor.execute(sql, (
                     name, description, category,
-                    formula, 'Metric', task_id, metric_id
+                    formula, 'Metric', task_id, source, metric_id
                 ))
-                logging.info(f"更新评价指标: {metric_id}, 任务ID: {task_id}")
+                logging.info(f"更新评价指标: {metric_id}, 任务ID: {task_id}, 来源: {source}")
             else:
                 # 创建新记录
                 sql = '''
                 INSERT INTO Metrics (
                     metric_id, name, description, category,
-                    formula, entity_type, task_id
+                    formula, entity_type, task_id, source
                 ) VALUES (
                     %s, %s, %s, %s,
-                    %s, %s, %s
+                    %s, %s, %s, %s
                 )
                 '''
                 self.cursor.execute(sql, (
                     metric_id, name, description, category,
-                    formula, 'Metric', task_id
+                    formula, 'Metric', task_id, source
                 ))
-                logging.info(f"存储评价指标: {metric_id}, 任务ID: {task_id}")
+                logging.info(f"存储评价指标: {metric_id}, 任务ID: {task_id}, 来源: {source}")
             
             self.conn.commit()
             return True
@@ -2041,6 +2104,13 @@ class DatabaseManager:
             
             all_entities = []
             
+            # 判断任务来源
+            default_source = '未知'
+            if '_review' in task_id:
+                default_source = '综述'
+            elif '_citation' in task_id:
+                default_source = '引文'
+            
             # 查询算法实体
             self.cursor.execute("SELECT * FROM Algorithms WHERE task_id = %s", (task_id,))
             algorithm_rows = self.cursor.fetchall()
@@ -2064,6 +2134,9 @@ class DatabaseManager:
                             else:
                                 entity_dict[field] = [entity_dict[field]]
                 
+                # 获取来源或使用默认值
+                source = entity_dict.get('source', default_source)
+                
                 # 构建规范化的实体对象
                 algorithm_entity = {
                     'algorithm_id': entity_dict['algorithm_id'],
@@ -2086,7 +2159,8 @@ class DatabaseManager:
                     },
                     'feature_processing': entity_dict.get('feature_processing', []),
                     'entity_type': 'Algorithm',
-                    'task_id': entity_dict.get('task_id', task_id)
+                    'task_id': entity_dict.get('task_id', task_id),
+                    'source': source
                 }
                 all_entities.append({'algorithm_entity': algorithm_entity})
             
@@ -2109,8 +2183,12 @@ class DatabaseManager:
                         else:
                             entity_dict['creators'] = [entity_dict['creators']]
                 
+                # 获取来源或使用默认值
+                source = entity_dict.get('source', default_source)
+                
                 # 确保entity_id字段存在
                 entity_dict['entity_id'] = entity_dict['dataset_id']
+                entity_dict['source'] = source
                 all_entities.append({'dataset_entity': entity_dict})
             
             # 查询评价指标实体
@@ -2121,8 +2199,13 @@ class DatabaseManager:
             # 处理评价指标实体
             for row in metric_rows:
                 entity_dict = dict(zip(metric_columns, row))
+                
+                # 获取来源或使用默认值
+                source = entity_dict.get('source', default_source)
+                
                 # 确保entity_id字段存在
                 entity_dict['entity_id'] = entity_dict['metric_id']
+                entity_dict['source'] = source
                 all_entities.append({'metric_entity': entity_dict})
             
             # 如果没有找到任何实体，记录警告
@@ -2140,21 +2223,21 @@ class DatabaseManager:
 
     def get_relations_by_task(self, task_id):
         """
-        根据任务ID获取相关关系
+        获取与特定任务ID关联的关系
         
         Args:
             task_id (str): 任务ID
             
         Returns:
-            list: 相关关系列表
+            list: 关系列表
         """
         try:
             # 检查是否需要重连
             self._reconnect_if_needed()
             
-            # 先查询ProcessingStatus表确认任务是否存在
-            task_sql = "SELECT * FROM ProcessingStatus WHERE task_id = %s"
-            self.cursor.execute(task_sql, (task_id,))
+            # 检查任务是否存在
+            check_sql = "SELECT task_id FROM ProcessingStatus WHERE task_id = %s"
+            self.cursor.execute(check_sql, (task_id,))
             task_row = self.cursor.fetchone()
             
             if not task_row:
@@ -2162,11 +2245,18 @@ class DatabaseManager:
                 # 如果找不到任务ID，返回空列表
                 return []
             
+            # 判断任务来源
+            default_source = '未知'
+            if '_review' in task_id:
+                default_source = '综述'
+            elif '_citation' in task_id:
+                default_source = '引文'
+            
             # 查询与任务ID相关联的关系
             relations_sql = """
             SELECT relation_id, from_entity, to_entity, relation_type, structure, 
                    detail, evidence, confidence, from_entity_type, to_entity_type,
-                   created_at, updated_at, task_id
+                   task_id, source
             FROM EvolutionRelations
             WHERE task_id = %s
             """
@@ -2185,10 +2275,12 @@ class DatabaseManager:
             for row in rows:
                 relation = {}
                 for i, name in enumerate(column_names):
-                    if name == 'created_at' or name == 'updated_at':
-                        relation[name] = row[i].strftime('%Y-%m-%d %H:%M:%S') if row[i] else None
-                    else:
-                        relation[name] = row[i]
+                    relation[name] = row[i]
+                
+                # 确保source字段存在
+                if 'source' not in relation or not relation['source']:
+                    relation['source'] = default_source
+                
                 relations.append(relation)
             
             logging.info(f"找到 {len(relations)} 个与任务 {task_id} 关联的关系记录")

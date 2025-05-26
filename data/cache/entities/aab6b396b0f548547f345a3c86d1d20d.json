@@ -1,0 +1,1092 @@
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_L3M",
+        "entity_type": "Algorithm",
+        "name": "Latent Left Linking model (L3M)",
+        "title": "A Constrained Latent Variable Model for Coreference Resolution",
+        "year": 2013,
+        "authors": [
+          "Kai-Wei Chang",
+          "Rajhans Samdani",
+          "Dan Roth"
+        ],
+        "task": "Coreference Resolution",
+        "dataset": [
+          "ACE",
+          "Ontonotes"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Latent structured prediction",
+            "Knowledge-based constraints"
+          ],
+          "connections": [
+            "Efficient inference",
+            "Stochastic gradient based learning"
+          ],
+          "mechanisms": [
+            "Constrained latent variable model"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Stochastic gradient descent"
+          ],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Clustering of noun phrases"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chen2014_NeuralParser",
+        "entity_type": "Algorithm",
+        "name": "Neural Network Dependency Parser",
+        "title": "A fast and accurate dependency parser using neural networks",
+        "year": 2014,
+        "authors": [
+          "Danqi Chen",
+          "Christopher D. Manning"
+        ],
+        "task": "Dependency Parsing",
+        "dataset": [
+          "English Penn Treebank"
+        ],
+        "metrics": [
+          "Unlabeled Attachment Score",
+          "Labeled Attachment Score"
+        ],
+        "architecture": {
+          "components": [
+            "Neural network classifier",
+            "Greedy transition-based parser"
+          ],
+          "connections": [
+            "Small number of dense features"
+          ],
+          "mechanisms": [
+            "Fast stochastic gradient based learning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Stochastic gradient descent"
+          ],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Sparse indicator features"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Raghunathan2010_Sieve",
+        "entity_type": "Algorithm",
+        "name": "Multi-Pass Sieve",
+        "title": "A multi-pass sieve for coreference resolution",
+        "year": 2010,
+        "authors": [
+          "Karthik Raghunathan",
+          "Heeyoung Lee",
+          "Sudarshan Rangarajan",
+          "Nathanael Chambers",
+          "Mihai Surdeanu",
+          "Dan Jurafsky",
+          "Christopher Manning"
+        ],
+        "task": "Coreference Resolution",
+        "dataset": [
+          "Standard corpora"
+        ],
+        "metrics": [
+          "Performance"
+        ],
+        "architecture": {
+          "components": [
+            "Deterministic coreference models"
+          ],
+          "connections": [
+            "Hierarchical tiers"
+          ],
+          "mechanisms": [
+            "Propagation of global information"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Constraints",
+          "Attributes sharing"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Lin2017_StructuredSelfAttention",
+        "entity_type": "Algorithm",
+        "name": "Structured Self-Attentive Sentence Embedding",
+        "title": "A Structured Self-attentive Sentence Embedding",
+        "year": 2017,
+        "authors": [
+          "Zhouhan Lin",
+          "Minwei Feng",
+          "Cicero Nogueira dos Santos",
+          "Mo Yu",
+          "Bing Xiang",
+          "Bowen Zhou",
+          "Yoshua Bengio"
+        ],
+        "task": "Sentence Embedding",
+        "dataset": [
+          "Author profiling",
+          "Sentiment classification",
+          "Textual entailment"
+        ],
+        "metrics": [
+          "Performance gain"
+        ],
+        "architecture": {
+          "components": [
+            "2-D matrix embedding",
+            "Self-attention mechanism"
+          ],
+          "connections": [
+            "Rows attending different parts of the sentence"
+          ],
+          "mechanisms": [
+            "Special regularization term"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": []
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Goldberg2010_EasyFirst",
+        "entity_type": "Algorithm",
+        "name": "Easy-First Non-Directional Dependency Parsing",
+        "title": "An Efficient Algorithm for Easy-First Non-Directional Dependency Parsing",
+        "year": 2010,
+        "authors": [
+          "Yoav Goldberg",
+          "Michael Elhadad"
+        ],
+        "task": "Dependency Parsing",
+        "dataset": [
+          "CoNLL 2006",
+          "CoNLL 2007"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Deterministic parsing algorithm"
+          ],
+          "connections": [
+            "Iteratively selecting best pairs of neighbors"
+          ],
+          "mechanisms": [
+            "Non-directional manner"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Features from built structures"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Deng2009_ImageNet",
+        "entity_type": "Algorithm",
+        "name": "ImageNet",
+        "title": "ImageNet: A Large-Scale Hierarchical Image Database",
+        "year": 2009,
+        "authors": [
+          "Jia Deng",
+          "Wei Dong",
+          "Richard Socher",
+          "Li-Jia Li",
+          "Kai Li",
+          "Li Fei-Fei"
+        ],
+        "task": "Image Classification",
+        "dataset": [
+          "ImageNet"
+        ],
+        "metrics": [
+          "Scale",
+          "Accuracy",
+          "Diversity"
+        ],
+        "architecture": {
+          "components": [
+            "Large-scale ontology of images"
+          ],
+          "connections": [
+            "WordNet structure"
+          ],
+          "mechanisms": [
+            "Amazon Mechanical Turk for data collection"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": []
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ImageNet_2009",
+        "entity_type": "Dataset",
+        "name": "ImageNet",
+        "description": "大规模图像数据库",
+        "domain": "计算机视觉",
+        "size": 3200000,
+        "year": 2009,
+        "creators": [
+          "Jia Deng",
+          "Wei Dong",
+          "Richard Socher",
+          "Li-Jia Li",
+          "Kai Li",
+          "Li Fei-Fei"
+        ]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数/总样本数"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "UnlabeledAttachmentScore_Parsing",
+        "entity_type": "Metric",
+        "name": "Unlabeled Attachment Score",
+        "description": "未标注依存关系的依存解析得分",
+        "category": "依存解析评估",
+        "formula": "正确依存关系数/总依存关系数"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "LabeledAttachmentScore_Parsing",
+        "entity_type": "Metric",
+        "name": "Labeled Attachment Score",
+        "description": "标注依存关系的依存解析得分",
+        "category": "依存解析评估",
+        "formula": "正确标注依存关系数/总依存关系数"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ArithmeticWordProblems",
+        "entity_type": "Algorithm",
+        "name": "Arithmetic Word Problem Solver",
+        "title": "Solving General Arithmetic Word Problems",
+        "year": 2015,
+        "authors": [
+          "Subhro Roy",
+          "Dan Roth"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Benchmark datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Expression trees",
+            "Constrained inference framework"
+          ],
+          "connections": [
+            "Decomposition of target arithmetic problem"
+          ],
+          "mechanisms": [
+            "Quantity schemas"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Syntactic and semantic features"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2015_GEOS",
+        "entity_type": "Algorithm",
+        "name": "GEOS",
+        "title": "Solving Geometry Problems: Combining Text and Diagram Interpretation",
+        "year": 2015,
+        "authors": [
+          "Minjoon Seo",
+          "Hannaneh Hajishirzi",
+          "Ali Farhadi",
+          "Oren Etzioni",
+          "Clint Malcolm"
+        ],
+        "task": "Geometry Problem Solving",
+        "dataset": [
+          "Official SAT questions",
+          "Practice questions"
+        ],
+        "metrics": [
+          "Score"
+        ],
+        "architecture": {
+          "components": [
+            "Submodular optimization",
+            "Formal problem description"
+          ],
+          "connections": [
+            "Text understanding and diagram interpretation"
+          ],
+          "mechanisms": [
+            "Geometric solver"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Text and visual information"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Huang2016_MathWordProblems",
+        "entity_type": "Algorithm",
+        "name": "Math Word Problem Solver",
+        "title": "How Well Do Computers Solve Math Word Problems?",
+        "year": 2016,
+        "authors": [
+          "Danqing Huang",
+          "Shuming Shi",
+          "Chin-Yew Lin",
+          "Jian Yin",
+          "Wei-Ying Ma"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Yahoo! Answers"
+        ],
+        "metrics": [
+          "Precision",
+          "Recall"
+        ],
+        "architecture": {
+          "components": [
+            "Ranking SVM model"
+          ],
+          "connections": [
+            "Automatic extraction of problem answers"
+          ],
+          "mechanisms": [
+            "Community question-answering web pages"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Problem text and answer text"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Kushman2014_EquationTemplates",
+        "entity_type": "Algorithm",
+        "name": "Equation Templates",
+        "title": "Learning to Automatically Solve Algebra Word Problems",
+        "year": 2014,
+        "authors": [
+          "Nate Kushman",
+          "Yoav Artzi",
+          "Luke Zettlemoyer",
+          "Regina Barzilay"
+        ],
+        "task": "Algebra Word Problem Solving",
+        "dataset": [
+          "Algebra word problems"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "System of linear equations"
+          ],
+          "connections": [
+            "Alignment of variables and numbers"
+          ],
+          "mechanisms": [
+            "Statistical learning techniques"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Natural language"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2018_DeclarativeKnowledge",
+        "entity_type": "Algorithm",
+        "name": "Declarative Knowledge Mapping",
+        "title": "Mapping to Declarative Knowledge for Word Problem Solving",
+        "year": 2018,
+        "authors": [
+          "Subhro Roy",
+          "Dan Roth"
+        ],
+        "task": "Word Problem Solving",
+        "dataset": [
+          "Benchmark datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Declarative rules"
+          ],
+          "connections": [
+            "Translation of natural language to math expressions"
+          ],
+          "mechanisms": [
+            "Latent variable"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Variables and numbers"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_DeepNeuralSolver",
+        "entity_type": "Algorithm",
+        "name": "Deep Neural Solver",
+        "title": "Deep Neural Solver for Math Word Problems",
+        "year": 2017,
+        "authors": [
+          "Yan Wang",
+          "Xiaojiang Liu",
+          "Shuming Shi"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Large dataset"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Recurrent Neural Network (RNN) model"
+          ],
+          "connections": [
+            "Equation templates"
+          ],
+          "mechanisms": [
+            "Hybrid model combining RNN and retrieval model"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Pretrained word embeddings"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Huang2017_FineGrainedExpressions",
+        "entity_type": "Algorithm",
+        "name": "Fine-Grained Expressions",
+        "title": "Learning Fine-Grained Expressions to Solve Math Word Problems",
+        "year": 2017,
+        "authors": [
+          "Danqing Huang",
+          "Shuming Shi",
+          "Chin-Yew Lin",
+          "Jian Yin"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Math23K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Expression templates"
+          ],
+          "connections": [
+            "Equation templates"
+          ],
+          "mechanisms": [
+            "Fine-grained expressions"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Numbers and operators"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_TemplateBasedSolver",
+        "entity_type": "Algorithm",
+        "name": "Template-Based Solver",
+        "title": "Template-Based Math Word Problem Solvers with Recursive Neural Networks",
+        "year": 2017,
+        "authors": [
+          "Lei Wang",
+          "Dongxiang Zhang",
+          "Jipeng Zhang",
+          "Xing Xu",
+          "Lianli Gao",
+          "Bing Tian Dai",
+          "Heng Tao Shen"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Math23K",
+          "MAWPS"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Seq2seq model",
+            "Tree-structure template",
+            "Recursive neural network"
+          ],
+          "connections": [
+            "Bi-LSTM and self-attention"
+          ],
+          "mechanisms": [
+            "Bottom-up inference"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Inferred numbers",
+          "Unknown operators"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ArithmeticWordProblems",
+        "entity_type": "Algorithm",
+        "name": "Arithmetic Word Problem Solver",
+        "title": "Solving General Arithmetic Word Problems",
+        "year": 2015,
+        "authors": [
+          "Subhro Roy",
+          "Dan Roth"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Benchmark datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Expression trees",
+            "Constrained inference framework"
+          ],
+          "connections": [
+            "Decomposition of target arithmetic problem"
+          ],
+          "mechanisms": [
+            "Quantity schemas"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Syntactic and semantic features"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2015_GEOS",
+        "entity_type": "Algorithm",
+        "name": "GEOS",
+        "title": "Solving Geometry Problems: Combining Text and Diagram Interpretation",
+        "year": 2015,
+        "authors": [
+          "Minjoon Seo",
+          "Hannaneh Hajishirzi",
+          "Ali Farhadi",
+          "Oren Etzioni",
+          "Clint Malcolm"
+        ],
+        "task": "Geometry Problem Solving",
+        "dataset": [
+          "Official SAT questions",
+          "Practice questions"
+        ],
+        "metrics": [
+          "Score"
+        ],
+        "architecture": {
+          "components": [
+            "Submodular optimization",
+            "Formal problem description"
+          ],
+          "connections": [
+            "Text understanding and diagram interpretation"
+          ],
+          "mechanisms": [
+            "Geometric solver"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Text and visual information"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Huang2016_LargeScaleDataset",
+        "entity_type": "Algorithm",
+        "name": "Large-Scale Dataset Construction",
+        "title": "How Well Do Computers Solve Math Word Problems?",
+        "year": 2016,
+        "authors": [
+          "Danqing Huang",
+          "Shuming Shi",
+          "Chin-Yew Lin",
+          "Jian Yin",
+          "Wei-Ying Ma"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Yahoo! Answers"
+        ],
+        "metrics": [
+          "Precision",
+          "Recall"
+        ],
+        "architecture": {
+          "components": [
+            "Ranking SVM model"
+          ],
+          "connections": [
+            "Automatic extraction of problem answers"
+          ],
+          "mechanisms": [
+            "Community question-answering web pages"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Problem text and answer text"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2018_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "Unit Dependency Graph",
+        "title": "Unit Dependency Graph and its Application to Arithmetic Word Problem Solving",
+        "year": 2018,
+        "authors": [
+          "Subhro Roy",
+          "Dan Roth"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Benchmark datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Unit Dependency Graphs (UDGs)"
+          ],
+          "connections": [
+            "Dependencies between units of numbers"
+          ],
+          "mechanisms": [
+            "Inducing UDGs",
+            "Constrained inference framework"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Units of numbers"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "title": "MathDQN: Solving Arithmetic Word Problems via Deep Reinforcement Learning",
+        "year": 2017,
+        "authors": [
+          "Lei Wang",
+          "Dongxiang Zhang",
+          "Lianli Gao",
+          "Jingkuan Song",
+          "Long Guo",
+          "Heng Tao Shen"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Benchmark datasets"
+        ],
+        "metrics": [
+          "Average precision"
+        ],
+        "architecture": {
+          "components": [
+            "Deep Q-network"
+          ],
+          "connections": [
+            "States, actions, reward function"
+          ],
+          "mechanisms": [
+            "Feed-forward neural network"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Deep reinforcement learning"
+          ],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Arithmetic word problem text"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ArithmeticWordProblems",
+        "entity_type": "Algorithm",
+        "name": "Arithmetic Word Problem Solver",
+        "title": "Solving General Arithmetic Word Problems",
+        "year": 2015,
+        "authors": [
+          "Subhro Roy",
+          "Dan Roth"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "Benchmark datasets"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Expression trees",
+            "Constrained inference framework"
+          ],
+          "connections": [
+            "Decomposition of target arithmetic problem"
+          ],
+          "mechanisms": [
+            "Quantity schemas"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Syntactic and semantic features"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Socher2013_CompositionalVectorGrammar",
+        "entity_type": "Algorithm",
+        "name": "Compositional Vector Grammar (CVG)",
+        "title": "Parsing with Compositional Vector Grammars",
+        "year": 2013,
+        "authors": [
+          "Richard Socher",
+          "John Bauer",
+          "Christopher D. Manning",
+          "Andrew Y. Ng"
+        ],
+        "task": "Parsing",
+        "dataset": [
+          "Benchmark datasets"
+        ],
+        "metrics": [
+          "F1 score"
+        ],
+        "architecture": {
+          "components": [
+            "Integer Linear Programming",
+            "Recursive neural network"
+          ],
+          "connections": [
+            "Syntactico-semantic, compositional vector representations"
+          ],
+          "mechanisms": [
+            "PCFGs"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Syntactic and semantic features"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Sutskever2014_SequenceToSequence",
+        "entity_type": "Algorithm",
+        "name": "Sequence-to-Sequence Learning",
+        "title": "Sequence to Sequence Learning with Neural Networks",
+        "year": 2014,
+        "authors": [
+          "Ilya Sutskever",
+          "Oriol Vinyals",
+          "Quoc V. Le"
+        ],
+        "task": "Sequence Learning",
+        "dataset": [
+          "WMT-14 English to French translation"
+        ],
+        "metrics": [
+          "BLEU score"
+        ],
+        "architecture": {
+          "components": [
+            "Multilayered Long Short-Term Memory (LSTM)",
+            "Deep LSTM"
+          ],
+          "connections": [
+            "Input sequence to vector",
+            "Target sequence from vector"
+          ],
+          "mechanisms": [
+            "Maximum likelihood estimation"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Reversing the order of words"
+          ],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Text spans"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wiseman2018_BeamSearchOptimization",
+        "entity_type": "Algorithm",
+        "name": "Beam-Search Optimization",
+        "title": "Sequence-to-Sequence Learning as Beam-Search Optimization",
+        "year": 2018,
+        "authors": [
+          "Sam Wiseman",
+          "Alexander M. Rush"
+        ],
+        "task": "Sequence Learning",
+        "dataset": [
+          "Benchmark datasets"
+        ],
+        "metrics": [
+          "BLEU score"
+        ],
+        "architecture": {
+          "components": [
+            "Multilayered Long Short-Term Memory (LSTM)"
+          ],
+          "connections": [
+            "Input sequence to vector",
+            "Target sequence from vector"
+          ],
+          "mechanisms": [
+            "Global sequence scores"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Beam-search training scheme"
+          ],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Text spans"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Antol2015_VQA",
+        "entity_type": "Algorithm",
+        "name": "Visual Question Answering (VQA)",
+        "title": "VQA: Visual Question Answering",
+        "year": 2015,
+        "authors": [
+          "Stanislaw Antol",
+          "Aishwarya Agrawal",
+          "Jiasen Lu",
+          "Margaret Mitchell",
+          "Dhruv Batra",
+          "C. Lawrence Zitnick",
+          "Devi Parikh"
+        ],
+        "task": "Visual Question Answering",
+        "dataset": [
+          "VQA dataset"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Free-form and open-ended VQA"
+          ],
+          "connections": [
+            "Image and natural language question"
+          ],
+          "mechanisms": [
+            "Automatic evaluation"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": [
+          "Visual and textual information"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "VQA_2015",
+        "entity_type": "Dataset",
+        "name": "VQA",
+        "description": "视觉问答数据集",
+        "domain": "计算机视觉与自然语言处理",
+        "size": 10000000,
+        "year": 2015,
+        "creators": [
+          "Stanislaw Antol",
+          "Aishwarya Agrawal",
+          "Jiasen Lu",
+          "Margaret Mitchell",
+          "Dhruv Batra",
+          "C. Lawrence Zitnick",
+          "Devi Parikh"
+        ]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "BLEU_Translation",
+        "entity_type": "Metric",
+        "name": "BLEU",
+        "description": "双语评估替代指标",
+        "category": "翻译评估",
+        "formula": "候选翻译与参考翻译之间的相似度"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Parsing",
+        "entity_type": "Metric",
+        "name": "F1",
+        "description": "精确率和召回率的调和平均值",
+        "category": "解析评估",
+        "formula": "2 * (precision * recall) / (precision + recall)"
+      }
+    }
+  ],
+  "is_complete": true,
+  "extraction_time": 1748253472.7009249
+}

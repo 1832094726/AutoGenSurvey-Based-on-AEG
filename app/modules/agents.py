@@ -516,6 +516,16 @@ def extract_json_from_text(text):
         for match in sorted(matches, key=len, reverse=True):
             try:
                 json.loads(match)
+                if len(match) < len(text) - 500:
+                    # 保存原文本和提取后的内容到缓存目录
+                    os.makedirs("data/cache/test", exist_ok=True)
+                    timestamp = int(time.time())
+                    with open(f"data/cache/test/original_text_{timestamp}.txt", "w", encoding="utf-8") as f:
+                        f.write(text)
+                    with open(f"data/cache/test/extracted_json_{timestamp}.json", "w", encoding="utf-8") as f:
+                        f.write(match)
+                    logging.info(f"已保存原文本和提取JSON到data/cache/test目录，时间戳: {timestamp}")
+                return match
                 logging.info(f"提取到有效的JSON对象，长度: {len(match)}")
                 return match
             except json.JSONDecodeError:
@@ -531,6 +541,15 @@ def extract_json_from_text(text):
                 potential_json = text[start_idx:last_idx+1]
                 try:
                     json.loads(potential_json)
+                    if len(potential_json) < len(text) - 500:
+                        # 保存原文本和提取后的内容到缓存目录
+                        os.makedirs("data/cache/test", exist_ok=True)
+                        timestamp = int(time.time())
+                        with open(f"data/cache/test/original_text_{timestamp}.txt", "w", encoding="utf-8") as f:
+                            f.write(text)
+                        with open(f"data/cache/test/extracted_json_{timestamp}.json", "w", encoding="utf-8") as f:
+                            f.write(potential_json)
+                        logging.info(f"已保存原文本和提取JSON到data/cache/test目录，时间戳: {timestamp}")
                     logging.info(f"使用索引方法提取到有效的JSON，长度: {len(potential_json)}")
                     return potential_json
                 except json.JSONDecodeError:
@@ -560,6 +579,15 @@ def extract_json_from_text(text):
            (cleaned_text.startswith('{') and cleaned_text.endswith('}')):
             try:
                 json.loads(cleaned_text)
+                if len(cleaned_text) < len(text) - 500:
+                    # 保存原文本和提取后的内容到缓存目录
+                    os.makedirs("data/cache/test", exist_ok=True)
+                    timestamp = int(time.time())
+                    with open(f"data/cache/test/original_text_{timestamp}.txt", "w", encoding="utf-8") as f:
+                        f.write(text)
+                    with open(f"data/cache/test/extracted_json_{timestamp}.json", "w", encoding="utf-8") as f:
+                        f.write(match)
+                    logging.info(f"已保存原文本和提取JSON到data/cache/test目录，时间戳: {timestamp}")
                 logging.debug(f"从去除标记后的文本中提取到有效JSON，长度: {len(cleaned_text)}")
                 return cleaned_text
             except json.JSONDecodeError as e:
@@ -1053,7 +1081,7 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
                     else:
                         # 首次提取
                         all_relations = valid_relations
-                        logging.info(f"首次提取的有效关系数量: {len(all_relations)}")
+                        logging.info(f": {len(all_relations)}")
                         
                         if is_complete:
                             is_extraction_complete = True

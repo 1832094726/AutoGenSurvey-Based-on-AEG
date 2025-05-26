@@ -1,0 +1,639 @@
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Huang2017_FineGrainedExpressions",
+        "entity_type": "Algorithm",
+        "name": "Fine-grained Expressions",
+        "year": 2017,
+        "authors": [
+          "D. Huang",
+          "S. Shi",
+          "J. Yin",
+          "C.-Y. Lin"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "Dolphin18K_2016"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Expression Fragments",
+            "Template Fragments"
+          ],
+          "connections": [
+            "Mapping between Textual Information and Template Fragments"
+          ],
+          "mechanisms": [
+            "Fine-grained Parsing"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Parameter Optimization"
+          ]
+        },
+        "feature_processing": [
+          "Textual Features",
+          "Quantity Features",
+          "Solution Features"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2018_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "year": 2018,
+        "authors": [
+          "L. Wang",
+          "D. Zhang",
+          "L. Gao",
+          "J. Song",
+          "L. Guo",
+          "H. T. Shen"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "AI2_2014",
+          "IL_2015",
+          "CC_2015",
+          "AllArith_2016",
+          "Dolphin-S_2017",
+          "Math23K_2017"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Deep Q-Network",
+            "Markov Decision Process"
+          ],
+          "connections": [
+            "State Transition",
+            "Reward Function"
+          ],
+          "mechanisms": [
+            "Reinforcement Learning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Deep Reinforcement Learning"
+          ],
+          "parameter_tuning": [
+            "Q-value Function Approximation"
+          ]
+        },
+        "feature_processing": [
+          "Semantic Parsing",
+          "Quantity Extraction"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2019_T-RNN",
+        "entity_type": "Algorithm",
+        "name": "T-RNN",
+        "year": 2019,
+        "authors": [
+          "L. Wang",
+          "D. Zhang",
+          "J. Zhang",
+          "X. Xu",
+          "L. Gao",
+          "B. Dai",
+          "H. T. Shen"
+        ],
+        "task": "Math Word Problem Solving",
+        "dataset": [
+          "SingleEQ_2016",
+          "AllArith_2016",
+          "MAWPS-S_2016",
+          "Dolphin-S_2017",
+          "Math23K_2017"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Bi-LSTM",
+            "Self-Attention",
+            "Recursive Neural Network"
+          ],
+          "connections": [
+            "Quantity Encoding",
+            "Template Representation",
+            "Tree Construction"
+          ],
+          "mechanisms": [
+            "Recursive Inference"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Model Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Effective Embedding Network",
+          "Vectorization"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AI2_2014",
+        "entity_type": "Dataset",
+        "name": "AI2",
+        "description": "包含395个单步或多步算术文字问题，适用于三年级到五年级学生",
+        "domain": "数学问题求解",
+        "size": 395,
+        "year": 2014,
+        "creators": [
+          "M. J. Hosseini",
+          "H. Hajishirzi",
+          "O. Etzioni",
+          "N. Kushman"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "IL_2015",
+        "entity_type": "Dataset",
+        "name": "IL",
+        "description": "包含562个单步算术文字问题，涉及加减乘除运算",
+        "domain": "数学问题求解",
+        "size": 562,
+        "year": 2015,
+        "creators": [
+          "S. Roy",
+          "D. Roth"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "CC_2015",
+        "entity_type": "Dataset",
+        "name": "CC",
+        "description": "包含600个多步算术文字问题，不涉及无关数量",
+        "domain": "数学问题求解",
+        "size": 600,
+        "year": 2015,
+        "creators": [
+          "R. Koncel-Kedziorski",
+          "H. Hajishirzi",
+          "A. Sabharwal",
+          "O. Etzioni",
+          "S. D. Ang"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AllArith_2016",
+        "entity_type": "Dataset",
+        "name": "AllArith",
+        "description": "包含831个算术文字问题，去除了近似重复的问题",
+        "domain": "数学问题求解",
+        "size": 831,
+        "year": 2016,
+        "creators": [
+          "S. Roy",
+          "D. Roth"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin-S_2017",
+        "entity_type": "Dataset",
+        "name": "Dolphin-S",
+        "description": "包含7,070个算术文字问题，其中115个为单步问题，6,955个为多步问题",
+        "domain": "数学问题求解",
+        "size": 7070,
+        "year": 2017,
+        "creators": [
+          "D. Huang",
+          "S. Shi",
+          "C. Lin",
+          "J. Yin",
+          "W. Ma"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "description": "包含23,162个中文小学数学文字问题",
+        "domain": "数学问题求解",
+        "size": 23162,
+        "year": 2017,
+        "creators": [
+          "Y. Wang",
+          "X. Liu",
+          "S. Shi"
+        ]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数/总样本数"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Expression Tree",
+        "year": 2015,
+        "authors": [
+          "Roy, S.",
+          "Roth, D."
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": [
+          "AI2_2014",
+          "IL_2015",
+          "CC_2015"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Binary Classifier",
+            "Local Operator Classifier"
+          ],
+          "connections": [
+            "Bottom-up Tree Construction"
+          ],
+          "mechanisms": [
+            "Beam Search"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Beam Size"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Extraction",
+          "Proposition Transformation"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Koncel-Kedziorski2015_ALGES",
+        "entity_type": "Algorithm",
+        "name": "ALGES",
+        "year": 2015,
+        "authors": [
+          "Koncel-Kedziorski, R.",
+          "Hajishirzi, H.",
+          "Sabharwal, A.",
+          "Etzioni, O.",
+          "Ang, S.D."
+        ],
+        "task": "Algebraic Word Problem Solving",
+        "dataset": [
+          "AI2_2014",
+          "IL_2015",
+          "CC_2015"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Equation Tree",
+            "Integer Linear Programming"
+          ],
+          "connections": [
+            "Syntactically Valid Trees"
+          ],
+          "mechanisms": [
+            "Brute-force Enumeration",
+            "Scoring Function"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Scoring Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Extraction",
+          "Problem Text Parsing"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Upadhyay2016_MixedSP",
+        "entity_type": "Algorithm",
+        "name": "MixedSP",
+        "year": 2016,
+        "authors": [
+          "Upadhyay, S.",
+          "Chang, M.",
+          "Chang, K.",
+          "Yih, W."
+        ],
+        "task": "Equation Set Problem Solving",
+        "dataset": [
+          "ALG514_2014",
+          "DRAW1K_2016"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Template Matching",
+            "Implicit Supervision"
+          ],
+          "connections": [
+            "Explicit and Implicit Supervision"
+          ],
+          "mechanisms": [
+            "Max-margin Objective",
+            "Rank-aware Classifier"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning",
+            "Implicit Supervision"
+          ],
+          "parameter_tuning": [
+            "Max-margin Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Template Alignment",
+          "Feature Selection"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ALG514_2014",
+        "entity_type": "Dataset",
+        "name": "ALG514",
+        "description": "包含514个代数问题的数据集，用于方程组求解",
+        "domain": "数学问题求解",
+        "size": 514,
+        "year": 2014,
+        "creators": [
+          "Kushman, N.",
+          "Zettlemoyer, L.",
+          "Barzilay, R.",
+          "Artzi, Y."
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin1878_2015",
+        "entity_type": "Dataset",
+        "name": "Dolphin1878",
+        "description": "包含1,878个代数问题的数据集，用于方程组求解",
+        "domain": "数学问题求解",
+        "size": 1878,
+        "year": 2015,
+        "creators": [
+          "Shi, S.",
+          "Wang, Y.",
+          "Lin, C.",
+          "Rui, Y."
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "DRAW1K_2016",
+        "entity_type": "Dataset",
+        "name": "DRAW1K",
+        "description": "包含1,000个线性方程问题的数据集，用于方程组求解",
+        "domain": "数学问题求解",
+        "size": 1000,
+        "year": 2016,
+        "creators": [
+          "Upadhyay, S.",
+          "Chang, M."
+        ]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Precision_Classification",
+        "entity_type": "Metric",
+        "name": "Precision",
+        "description": "精确率",
+        "category": "分类评估",
+        "formula": "真正例/(真正例 + 假正例)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Recall_Classification",
+        "entity_type": "Metric",
+        "name": "Recall",
+        "description": "召回率",
+        "category": "分类评估",
+        "formula": "真正例/(真正例 + 假负例)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2015_GEOS",
+        "entity_type": "Algorithm",
+        "name": "GEOS",
+        "year": 2015,
+        "authors": [
+          "Seo, M.J.",
+          "Hajishirzi, H.",
+          "Farhadi, A.",
+          "Etzioni, O.",
+          "Malcolm, C."
+        ],
+        "task": "Geometry Word Problem Solving",
+        "dataset": [
+          "Dolphin18K_2016"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Logical Expression Generator",
+            "Numerical Method"
+          ],
+          "connections": [
+            "Text Parsing",
+            "Diagram Parsing"
+          ],
+          "mechanisms": [
+            "Primitive Detection",
+            "Logical Expression Alignment"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Indicator Function Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Textual Feature Extraction",
+          "Diagram Feature Extraction"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin18K_2016",
+        "entity_type": "Dataset",
+        "name": "Dolphin18K",
+        "description": "包含18,460个代数问题的数据集，用于方程组求解",
+        "domain": "数学问题求解",
+        "size": 18460,
+        "year": 2016,
+        "creators": [
+          "Huang, D.",
+          "Shi, S.",
+          "Lin, C.",
+          "Yin, J.",
+          "Ma, W."
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Sachan2017_TextbookKnowledge",
+        "entity_type": "Algorithm",
+        "name": "Textbook Knowledge",
+        "year": 2017,
+        "authors": [
+          "Sachan, M.",
+          "Dubey, A.",
+          "Xing, E.P."
+        ],
+        "task": "Geometry Word Problem Solving",
+        "dataset": [
+          "Dolphin18K_2016"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Axiomatic Knowledge Base",
+            "Reasoning Engine"
+          ],
+          "connections": [
+            "Text Parsing",
+            "Axiomatic Knowledge Alignment"
+          ],
+          "mechanisms": [
+            "Structured Axiomatic Knowledge",
+            "Logical Inference"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Axiomatic Knowledge Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Textual Feature Extraction",
+          "Axiomatic Knowledge Extraction"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Alvin2017_GeoShader",
+        "entity_type": "Algorithm",
+        "name": "GeoShader",
+        "year": 2017,
+        "authors": [
+          "Alvin, C.",
+          "Gulwani, S.",
+          "Majumdar, R.",
+          "Mukhopadhyay, S."
+        ],
+        "task": "Geometry Word Problem Solving",
+        "dataset": [
+          "Dolphin18K_2016"
+        ],
+        "metrics": [
+          "Accuracy_Classification"
+        ],
+        "architecture": {
+          "components": [
+            "Hypergraph",
+            "Intermediate Facts"
+          ],
+          "connections": [
+            "Deduction Path",
+            "Target Node"
+          ],
+          "mechanisms": [
+            "Analysis Hypergraph",
+            "Path Finding"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Supervised Learning"
+          ],
+          "parameter_tuning": [
+            "Hypergraph Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Diagram Feature Extraction",
+          "Intermediate Fact Extraction"
+        ]
+      }
+    }
+  ],
+  "is_complete": true,
+  "extraction_time": 1748251696.0777907
+}
