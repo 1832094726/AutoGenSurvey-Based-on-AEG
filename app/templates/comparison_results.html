@@ -47,7 +47,14 @@
     .card-header i {
         transition: transform 0.3s;
     }
-    .card-header[aria-expanded="true"] i {
+    .card-header[aria-expanded="true"] i.fa-chevron-down {
+        transform: rotate(180deg);
+    }
+    .card-header .fa-chevron-down {
+        transition: transform 0.3s ease;
+    }
+    .collapse.show + .card-header .fa-chevron-down,
+    [aria-expanded="true"] .fa-chevron-down {
         transform: rotate(180deg);
     }
     #entity-stats-content p, #relation-stats-content p, #clustering-content p {
@@ -106,6 +113,9 @@
             <div class="col-6 text-center mb-4">
                                 <h2 class="text-success" id="relationsCount">0</h2>
               <p class="text-muted">提取关系总数</p>
+                                <small class="text-muted" id="relationsDetail">
+                                    综述: 0 | 引文: 0
+                                </small>
             </div>
           </div>
         </div>
@@ -122,14 +132,23 @@
             <div class="col-4 text-center">
                                 <h2 class="text-primary" id="algorithmsCount">0</h2>
               <p class="text-muted">算法</p>
+                                <small class="text-muted" id="algorithmsDetail">
+                                    综述: 0 | 引文: 0
+                                </small>
             </div>
             <div class="col-4 text-center">
                                 <h2 class="text-info" id="datasetsCount">0</h2>
               <p class="text-muted">数据集</p>
+                                <small class="text-muted" id="datasetsDetail">
+                                    综述: 0 | 引文: 0
+                                </small>
             </div>
             <div class="col-4 text-center">
                                 <h2 class="text-warning" id="metricsCount">0</h2>
               <p class="text-muted">评价指标</p>
+                                <small class="text-muted" id="metricsDetail">
+                                    综述: 0 | 引文: 0
+                                </small>
             </div>
           </div>
         </div>
@@ -386,6 +405,9 @@
   </div>
 </div>
 
+<!-- 先引入jQuery，再引入其他依赖库 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- 添加脚本 -->
@@ -400,6 +422,38 @@
         let taskData = null;
         window.entitiesData = null;
         window.relationsData = null;
+        
+        // 全局错误处理
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("全局错误:", message, "位置:", source, lineno, colno, error);
+            document.getElementById("api-status").textContent = `页面发生错误: ${message}`;
+            return false;
+        };
+        
+        // 增强的API请求函数，带重试功能
+        async function fetchWithRetry(url, options = {}, retries = 3, retryDelay = 1000) {
+            try {
+                const response = await fetch(url, options);
+                if (response.ok) return response.json();
+                
+                console.warn(`API请求失败 (${response.status}): ${url}`);
+                
+                if (retries > 0) {
+                    console.log(`将在 ${retryDelay}ms 后重试，剩余重试次数: ${retries}`);
+                    await new Promise(resolve => setTimeout(resolve, retryDelay));
+                    return fetchWithRetry(url, options, retries - 1, retryDelay * 1.5);
+                }
+                
+                throw new Error(`API请求失败，状态码: ${response.status}`);
+            } catch (error) {
+                if (retries > 0) {
+                    console.log(`请求出错，将在 ${retryDelay}ms 后重试，剩余重试次数: ${retries}`, error);
+                    await new Promise(resolve => setTimeout(resolve, retryDelay));
+                    return fetchWithRetry(url, options, retries - 1, retryDelay * 1.5);
+                }
+                throw error;
+            }
+        }
         
         // 更新调试区域
         document.getElementById("debug-task-id").textContent = taskId;
@@ -420,41 +474,52 @@
             }
             
             // 初始化jQuery事件
-            $(document).ready(function() {
-                // 为模态框的关闭按钮添加事件
-                $('.modal .close, .modal .btn-secondary').on('click', function() {
-                    $(this).closest('.modal').modal('hide');
+            if (typeof $ !== 'undefined') {
+                $(document).ready(function() {
+                    console.log("jQuery准备就绪，开始初始化事件");
+                    
+                    // 为模态框的关闭按钮添加事件
+                    $('.modal .close, .modal .btn-secondary').on('click', function() {
+                        $(this).closest('.modal').modal('hide');
+                    });
+                    
+                    // 修复标签页切换问题
+                    $('#entityTabs a').on('click', function(e) {
+                        e.preventDefault();
+                        $(this).tab('show');
+                    });
+                    
+                    // 初始化二级标签页
+                    $('#algorithm-source-tabs a').on('click', function(e) {
+                        e.preventDefault();
+                        $(this).tab('show');
+                    });
+                    
+                    $('#dataset-source-tabs a').on('click', function(e) {
+                        e.preventDefault();
+                        $(this).tab('show');
+                    });
+                    
+                    $('#metric-source-tabs a').on('click', function(e) {
+                        e.preventDefault();
+                        $(this).tab('show');
+                    });
+                    
+                    $('#relation-source-tabs a').on('click', function(e) {
+                        e.preventDefault();
+                        $(this).tab('show');
+                    });
+                    
+                    // 现在初始化卡片点击事件
+                    initCardEventListeners();
+                    
+                    console.log("jQuery事件绑定完成");
                 });
-                
-                // 修复标签页切换问题
-                $('#entityTabs a').on('click', function(e) {
-                    e.preventDefault();
-                    $(this).tab('show');
-                });
-                
-                // 初始化二级标签页
-                $('#algorithm-source-tabs a').on('click', function(e) {
-                    e.preventDefault();
-                    $(this).tab('show');
-                });
-                
-                $('#dataset-source-tabs a').on('click', function(e) {
-                    e.preventDefault();
-                    $(this).tab('show');
-                });
-                
-                $('#metric-source-tabs a').on('click', function(e) {
-                    e.preventDefault();
-                    $(this).tab('show');
-                });
-                
-                $('#relation-source-tabs a').on('click', function(e) {
-                    e.preventDefault();
-                    $(this).tab('show');
-                });
-                
-                console.log("jQuery事件绑定完成");
-            });
+            } else {
+                console.log("jQuery不可用，使用原生JS初始化事件");
+                // 使用原生JS初始化卡片点击事件
+                initCardEventListeners();
+            }
             
             // 立即开始加载任务数据
             loadTaskData();
@@ -509,138 +574,202 @@
                 `;
             }
             
-            // 同时请求状态、实体和关系数据
-            Promise.all([
-                fetch(`/api/comparison/${taskId}/status`).then(r => r.json()).catch(e => ({ success: false, message: e.message })),
-                fetch(`/api/comparison/${taskId}/entities`).then(r => r.json()).catch(e => ({ success: false, message: e.message })),
-                fetch(`/api/comparison/${taskId}/relations`).then(r => r.json()).catch(e => ({ success: false, message: e.message })),
-                // 直接请求重新计算的指标，确保数据最新
-                fetch(`/api/comparison/${taskId}/recalculate`, {
+            // 准备Promise数组，使用带重试功能的请求
+            const promises = [
+                // 任务状态
+                fetchWithRetry(`/api/comparison/${taskId}/status`)
+                    .catch(e => ({ success: false, message: `获取任务状态失败: ${e.message}` })),
+                
+                // 实体数据
+                fetchWithRetry(`/api/comparison/${taskId}/entities`)
+                    .catch(e => {
+                        console.error("获取实体数据失败:", e);
+                        return { success: false, message: `获取实体数据失败: ${e.message}` };
+                    }),
+                
+                // 关系数据    
+                fetchWithRetry(`/api/comparison/${taskId}/relations`)
+                    .catch(e => {
+                        console.error("获取关系数据失败:", e);
+                        return { success: false, message: `获取关系数据失败: ${e.message}` };
+                    }),
+                
+                // 指标数据 (POST请求)
+                fetchWithRetry(`/api/comparison/${taskId}/recalculate`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ metric_type: 'all' })
-                }).then(r => r.json()).catch(e => ({ success: false }))
-            ])
-            .then(([statusData, entitiesData, relationsData, metricsData]) => {
-                console.log("所有API请求完成");
-                
-                // 检查任务状态
-                const taskInfo = safeGetNestedProperty(statusData, 'task') || 
-                                 safeGetNestedProperty(statusData, 'data') || 
-                                 (statusData.success ? statusData : null);
-                
-                if (taskInfo) {
-                    taskData = taskInfo;
+                }).catch(e => {
+                    console.error("重新计算指标失败:", e);
+                    return { success: false, message: `重新计算指标失败: ${e.message}` };
+                })
+            ];
+            
+            // 使用Promise.allSettled确保即使部分请求失败，也能处理成功的请求
+            Promise.allSettled(promises)
+                .then(results => {
+                    console.log("所有API请求完成，状态:", results.map(r => r.status));
                     
-                    // 显示API返回数据摘要
-                    safeUpdateElement("api-status", `数据加载完成，任务状态: ${taskInfo.status || '未知'}`);
+                    // 提取结果，使用默认值处理失败的情况
+                    const statusData = results[0].status === 'fulfilled' ? results[0].value : { success: false };
+                    const entitiesData = results[1].status === 'fulfilled' ? results[1].value : { success: false };
+                    const relationsData = results[2].status === 'fulfilled' ? results[2].value : { success: false };
+                    const metricsData = results[3].status === 'fulfilled' ? results[3].value : { success: false };
                     
                     // 检查任务状态
-                    const completedStatuses = ['已完成', '完成', 'COMPLETED', 'completed', 'DONE', 'done'];
-                    if (completedStatuses.includes(taskData.status)) {
-                        console.log("任务已完成，显示结果");
+                    const taskInfo = safeGetNestedProperty(statusData, 'task') || 
+                                     safeGetNestedProperty(statusData, 'data') || 
+                                     (statusData.success ? statusData : null);
+                    
+                    if (taskInfo) {
+                        taskData = taskInfo;
                         
-                        // 显示内容区域
-                        if (document.getElementById('loadingSection')) {
-                            document.getElementById('loadingSection').style.display = 'none';
-                        }
-                        if (document.getElementById('taskContent')) {
-                            document.getElementById('taskContent').style.display = 'block';
-                        }
+                        // 显示API返回数据摘要
+                        safeUpdateElement("api-status", `数据加载完成，任务状态: ${taskInfo.status || '未知'}`);
                         
-                        // 处理实体数据
-                        if (entitiesData && entitiesData.success) {
-                            // 保存到全局变量供后续使用
-                            window.entitiesData = entitiesData;
-                            processEntitiesData(entitiesData);
-                            // 预加载实体列表，但不显示
-                            prepareEntitiesLists(entitiesData);
+                        // 检查任务状态
+                        const completedStatuses = ['已完成', '完成', 'COMPLETED', 'completed', 'DONE', 'done'];
+                        if (completedStatuses.includes(taskData.status)) {
+                            console.log("任务已完成，显示结果");
+                            
+                            // 显示内容区域
+                            if (document.getElementById('loadingSection')) {
+                                document.getElementById('loadingSection').style.display = 'none';
+                            }
+                            if (document.getElementById('taskContent')) {
+                                document.getElementById('taskContent').style.display = 'block';
+                            }
+                            
+                            // 处理实体数据
+                            if (entitiesData && entitiesData.success) {
+                                // 保存到全局变量供后续使用
+                                window.entitiesData = entitiesData;
+                                processEntitiesData(entitiesData);
+                                // 预加载实体列表，但不显示
+                                prepareEntitiesLists(entitiesData);
+                            } else {
+                                console.error('获取实体数据失败:', entitiesData?.message || '未知错误');
+                                document.getElementById('entitiesCount').textContent = "N/A";
+                                document.getElementById('entitiesDetail').textContent = "加载失败";
+                                document.getElementById('algorithmsCount').textContent = "N/A";
+                                document.getElementById('datasetsCount').textContent = "N/A";
+                                document.getElementById('metricsCount').textContent = "N/A";
+                            }
+                            
+                            // 处理关系数据
+                            if (relationsData && relationsData.success) {
+                                // 保存到全局变量供后续使用
+                                window.relationsData = relationsData;
+                                processRelationsData(relationsData);
+                                // 预加载关系列表，但不显示
+                                prepareRelationsLists(relationsData);
+                            } else {
+                                console.error('获取关系数据失败:', relationsData?.message || '未知错误');
+                                document.getElementById('relationsCount').textContent = "N/A";
+                                document.getElementById('relationsDetail').textContent = "加载失败";
+                            }
+                            
+                            // 处理指标数据
+                            if (metricsData && metricsData.success && metricsData.metrics) {
+                                updateMetricsDisplay(metricsData.metrics, 'all');
+                            } else {
+                                console.warn("指标数据未能成功加载:", metricsData);
+                                safeUpdateElement('entity-stats-content', '<div class="alert alert-warning">无法加载指标数据。<button class="btn btn-sm btn-primary mt-2" onclick="recalculateMetric(\'entity_stats\')">重试</button></div>');
+                                safeUpdateElement('relation-stats-content', '<div class="alert alert-warning">无法加载指标数据。<button class="btn btn-sm btn-primary mt-2" onclick="recalculateMetric(\'relation_stats\')">重试</button></div>');
+                                safeUpdateElement('clustering-content', '<div class="alert alert-warning">无法加载指标数据。<button class="btn btn-sm btn-primary mt-2" onclick="recalculateMetric(\'clustering\')">重试</button></div>');
+                            }
                         } else {
-                            console.error('获取实体数据失败:', entitiesData?.message || '未知错误');
-                        }
-                        
-                        // 处理关系数据
-                        if (relationsData && relationsData.success) {
-                            // 保存到全局变量供后续使用
-                            window.relationsData = relationsData;
-                            processRelationsData(relationsData);
-                            // 预加载关系列表，但不显示
-                            prepareRelationsLists(relationsData);
-                        } else {
-                            console.error('获取关系数据失败:', relationsData?.message || '未知错误');
-                        }
-                        
-                        // 处理指标数据
-                        if (metricsData && metricsData.success && metricsData.metrics) {
-                            updateMetricsDisplay(metricsData.metrics, 'all');
+                            // 任务未完成，显示进度
+                            console.log("任务未完成，显示进度:", taskData.status, taskData.progress);
+                            if (document.getElementById('errorSection')) {
+                                document.getElementById('errorSection').style.display = 'block';
+                            }
+                            safeUpdateElement('errorMessage',
+                                `任务 ${taskId} 正在进行中 (${(taskData.progress * 100 || 0).toFixed(1)}%)，状态: ${taskData.status || '未知'}，请稍后查看结果。`
+                            );
+                            if (document.getElementById('loadingSection')) {
+                                document.getElementById('loadingSection').style.display = 'none';
+                            }
                         }
                     } else {
-                        // 任务未完成，显示进度
-                        console.log("任务未完成，显示进度:", taskData.status, taskData.progress);
+                        // 显示错误信息
+                        console.error("加载任务数据失败:", statusData);
                         if (document.getElementById('errorSection')) {
                             document.getElementById('errorSection').style.display = 'block';
                         }
-                        safeUpdateElement('errorMessage',
-                            `任务 ${taskId} 正在进行中 (${(taskData.progress * 100 || 0).toFixed(1)}%)，状态: ${taskData.status || '未知'}，请稍后查看结果。`
-                        );
+                        safeUpdateElement('errorMessage', statusData.message || `无法加载任务 ${taskId} 的数据。`);
                         if (document.getElementById('loadingSection')) {
                             document.getElementById('loadingSection').style.display = 'none';
                         }
                     }
-                } else {
-                    // 显示错误信息
-                    console.error("加载任务数据失败:", statusData);
+                })
+                .catch(error => {
+                    console.error('加载任务数据的总体过程出错:', error);
+                    safeUpdateElement("api-status", `所有API请求失败: ${error.message}`);
                     if (document.getElementById('errorSection')) {
                         document.getElementById('errorSection').style.display = 'block';
                     }
-                    safeUpdateElement('errorMessage', statusData.message || `无法加载任务 ${taskId} 的数据。`);
+                    safeUpdateElement('errorMessage',
+                        `加载任务数据时出错: ${error.message}。请检查网络连接和API状态。`
+                    );
                     if (document.getElementById('loadingSection')) {
                         document.getElementById('loadingSection').style.display = 'none';
                     }
-                }
-            })
-            .catch(error => {
-                console.error('加载任务数据出错:', error);
-                safeUpdateElement("api-status", `API请求出错: ${error.message}`);
-                if (document.getElementById('errorSection')) {
-                    document.getElementById('errorSection').style.display = 'block';
-                }
-                safeUpdateElement('errorMessage',
-                    `加载任务数据时出错: ${error.message}。请检查网络连接和API状态。`
-                );
-                if (document.getElementById('loadingSection')) {
-                    document.getElementById('loadingSection').style.display = 'none';
-                }
-            });
+                });
         }
         
         // 处理实体数据
         function processEntitiesData(data) {
             console.log("处理实体数据");
             
+            // 获取综述和引文实体
+            const reviewEntities = data.by_source?.综述 || [];
+            const citationEntities = data.by_source?.引文 || [];
+            
             // 统计总数
             document.getElementById('entitiesCount').textContent = data.count?.total || data.entities.length;
             document.getElementById('entitiesDetail').textContent = 
-                `综述: ${data.count?.review || 0} | 引文: ${data.count?.citation || 0}`;
+                `综述: ${reviewEntities.length || 0} | 引文: ${citationEntities.length || 0}`;
             
             // 按类型统计
-            document.getElementById('algorithmsCount').textContent = data.count?.algorithm || 0;
-            document.getElementById('datasetsCount').textContent = data.count?.dataset || 0;
-            document.getElementById('metricsCount').textContent = data.count?.metric || 0;
+            const algorithmsReview = reviewEntities.filter(e => e.entity_type === 'Algorithm').length;
+            const algorithmsCitation = citationEntities.filter(e => e.entity_type === 'Algorithm').length;
+            const datasetsReview = reviewEntities.filter(e => e.entity_type === 'Dataset').length;
+            const datasetsCitation = citationEntities.filter(e => e.entity_type === 'Dataset').length;
+            const metricsReview = reviewEntities.filter(e => e.entity_type === 'Metric').length;
+            const metricsCitation = citationEntities.filter(e => e.entity_type === 'Metric').length;
+            
+            document.getElementById('algorithmsCount').textContent = algorithmsReview + algorithmsCitation;
+            document.getElementById('algorithmsDetail').textContent = 
+                `综述: ${algorithmsReview} | 引文: ${algorithmsCitation}`;
+                
+            document.getElementById('datasetsCount').textContent = datasetsReview + datasetsCitation;
+            document.getElementById('datasetsDetail').textContent = 
+                `综述: ${datasetsReview} | 引文: ${datasetsCitation}`;
+                
+            document.getElementById('metricsCount').textContent = metricsReview + metricsCitation;
+            document.getElementById('metricsDetail').textContent = 
+                `综述: ${metricsReview} | 引文: ${metricsCitation}`;
         }
         
         // 处理关系数据
         function processRelationsData(data) {
             console.log("处理关系数据");
             
+            // 获取综述和引文关系
+            const reviewRelations = data.by_source?.综述 || [];
+            const citationRelations = data.by_source?.引文 || [];
+            
             // 更新关系计数
             document.getElementById('relationsCount').textContent = data.count?.total || data.relations.length;
+            document.getElementById('relationsDetail').textContent = 
+                `综述: ${reviewRelations.length} | 引文: ${citationRelations.length}`;
             
             // 更新关系统计显示
             let relationStatsHtml = `
                 <p>总关系数: ${data.count?.total || data.relations.length}</p>
-                <p>综述关系: ${data.by_source?.综述?.length || 0}</p>
-                <p>引文关系: ${data.by_source?.引文?.length || 0}</p>
+                <p>综述关系: ${reviewRelations.length}</p>
+                <p>引文关系: ${citationRelations.length}</p>
             `;
             
             // 添加关系类型统计
@@ -704,19 +833,21 @@
         // 渲染简化的实体列表，只显示ID和名称
         function renderSimplifiedEntitiesList(entities) {
             try {
-                return entities.map(entity => {
-                    const entityId = entity.entity_id || '';
+                console.log(`正在渲染${entities.length}个实体列表`);
+                return entities.map((entity, index) => {
+                    const entityId = entity.entity_id || `entity-${index}`;
+                    const safeId = `entity-${entityId.toString().replace(/[^a-zA-Z0-9]/g, '-')}`;
                     const name = entity.name || '未命名';
                     const authors = Array.isArray(entity.authors) ? entity.authors.join(', ') : entity.authors || '';
                     
                     return `
                         <div class="card mb-2">
-                            <div class="card-header" data-toggle="collapse" data-target="#entity-${entityId.replace(/[^a-zA-Z0-9]/g, '-')}">
+                            <div class="card-header" data-toggle="collapse" data-target="#${safeId}">
                                 <strong>${name}</strong>
                                 <small class="text-muted">ID: ${entityId}</small>
                                 <i class="fas fa-chevron-down float-right"></i>
                             </div>
-                            <div class="collapse" id="entity-${entityId.replace(/[^a-zA-Z0-9]/g, '-')}">
+                            <div class="collapse" id="${safeId}">
                                 <div class="card-body">
                                     <p><strong>作者:</strong> ${authors}</p>
                                     <p><strong>详细信息:</strong></p>
@@ -756,8 +887,10 @@
         // 渲染详细的关系列表
         function renderDetailedRelationsList(relations) {
             try {
-                return relations.map(relation => {
-                    const relationId = relation.relation_id || '';
+                console.log(`正在渲染${relations.length}个关系列表`);
+                return relations.map((relation, index) => {
+                    const relationId = relation.relation_id || `relation-${index}`;
+                    const safeId = `relation-${relationId.toString().replace(/[^a-zA-Z0-9]/g, '-')}`;
                     const fromEntity = relation.from_entity || '未知实体';
                     const toEntity = relation.to_entity || '未知实体';
                     const relationType = relation.relation_type || '未知关系类型';
@@ -767,12 +900,12 @@
                     
                     return `
                         <div class="card mb-2">
-                            <div class="card-header" data-toggle="collapse" data-target="#relation-${relationId}">
+                            <div class="card-header" data-toggle="collapse" data-target="#${safeId}">
                                 <strong>${fromEntity} → ${toEntity}</strong>
                                 <small class="text-muted">(${relationType})</small>
                                 <i class="fas fa-chevron-down float-right"></i>
                             </div>
-                            <div class="collapse" id="relation-${relationId}">
+                            <div class="collapse" id="${safeId}">
                                 <div class="card-body">
                                     <p><strong>关系类型:</strong> ${relationType}</p>
                                     ${structure ? `<p><strong>结构信息:</strong> ${structure}</p>` : ''}
@@ -806,21 +939,14 @@
             const contentId = `${metricType.replace('_', '-')}-content`;
             safeUpdateElement(contentId, '<div class="text-center py-2"><div class="spinner-border text-primary" role="status"><span class="sr-only">计算中...</span></div></div>');
             
-            // 发送重新计算请求
-            fetch(`/api/comparison/${taskId}/recalculate`, {
+            // 使用带重试的API请求
+            fetchWithRetry(`/api/comparison/${taskId}/recalculate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ metric_type: metricType })
-            })
-            .then(response => {
-                console.log(`重新计算API响应状态: ${response.status}`);
-                if (!response.ok) {
-                    throw new Error(`API响应错误: ${response.status}`);
-                }
-                return response.json();
-            })
+            }, 5, 2000) // 5次重试，每次间隔从2秒开始
             .then(data => {
                 // 清除加载动画
                 if (loadingElement) {
@@ -835,12 +961,18 @@
                     if (data.metrics) {
                         updateMetricsDisplay(data.metrics, metricType);
                     } else {
-                        safeUpdateElement(contentId, '<div class="alert alert-warning">重新计算成功，但未返回指标数据</div>');
+                        safeUpdateElement(contentId, '<div class="alert alert-warning">重新计算成功，但未返回指标数据 <button class="btn btn-sm btn-outline-primary mt-2" onclick="recalculateMetric(\'' + metricType + '\')">再次尝试</button></div>');
                     }
                 } else {
                     console.error('重新计算指标失败:', data.message);
                     document.getElementById("api-status").textContent = `${getMetricTypeName(metricType)}计算失败: ${data.message}`;
-                    safeUpdateElement(contentId, `<div class="alert alert-danger">计算失败: ${data.message}</div>`);
+                    safeUpdateElement(contentId, `<div class="alert alert-danger">
+                        计算失败: ${data.message}
+                        <br>
+                        <button class="btn btn-sm btn-outline-danger mt-2" onclick="recalculateMetric('${metricType}')">
+                            重试
+                        </button>
+                    </div>`);
                 }
             })
             .catch(error => {
@@ -851,7 +983,13 @@
                 
                 console.error('请求指标重新计算出错:', error);
                 document.getElementById("api-status").textContent = `${getMetricTypeName(metricType)}计算出错: ${error.message}`;
-                safeUpdateElement(contentId, `<div class="alert alert-danger">请求出错: ${error.message}</div>`);
+                safeUpdateElement(contentId, `<div class="alert alert-danger">
+                    请求出错: ${error.message}
+                    <br>
+                    <button class="btn btn-sm btn-outline-danger mt-2" onclick="recalculateMetric('${metricType}')">
+                        重试
+                    </button>
+                </div>`);
             });
         }
 
@@ -943,15 +1081,285 @@
 
         // 监听按钮点击事件
         document.getElementById('showEntitiesBtn').addEventListener('click', function() {
-            loadEntities();
-            $('#entitiesModal').modal('show');
+            console.log("点击了查看实体按钮");
+            try {
+                console.log("准备加载实体数据...");
+                loadEntities();
+                console.log("准备显示实体模态框...");
+                
+                // 检查jQuery是否可用
+                if (typeof $ !== 'undefined') {
+                    console.log("使用jQuery显示模态框");
+                    $('#entitiesModal').modal('show');
+                } else {
+                    console.log("jQuery不可用，使用原生JS显示模态框");
+                    document.getElementById('entitiesModal').style.display = 'block';
+                    document.getElementById('entitiesModal').classList.add('show');
+                    document.body.classList.add('modal-open');
+                }
+                
+                console.log("实体模态框显示命令已执行");
+            } catch (error) {
+                console.error("显示实体模态框时出错:", error);
+                alert("显示实体列表时出错: " + error.message);
+            }
         });
 
         document.getElementById('showRelationsBtn').addEventListener('click', function() {
-            loadRelations();
-            $('#relationsModal').modal('show');
+            console.log("点击了查看关系按钮");
+            try {
+                console.log("准备加载关系数据...");
+                loadRelations();
+                console.log("准备显示关系模态框...");
+                
+                // 检查jQuery是否可用
+                if (typeof $ !== 'undefined') {
+                    console.log("使用jQuery显示模态框");
+                    $('#relationsModal').modal('show');
+                } else {
+                    console.log("jQuery不可用，使用原生JS显示模态框");
+                    document.getElementById('relationsModal').style.display = 'block';
+                    document.getElementById('relationsModal').classList.add('show');
+                    document.body.classList.add('modal-open');
+                }
+                
+                console.log("关系模态框显示命令已执行");
+            } catch (error) {
+                console.error("显示关系模态框时出错:", error);
+                alert("显示关系列表时出错: " + error.message);
+            }
         });
         
+        // 为卡片头部添加点击事件，确保折叠/展开功能正常工作
+        function initCardEventListeners() {
+            console.log("初始化卡片点击事件");
+            
+            // 检查jQuery是否可用
+            if (typeof $ !== 'undefined') {
+                console.log("使用jQuery绑定卡片事件");
+                
+                // 移除任何现有的卡片点击事件，避免重复绑定
+                $(document).off('click', '.card-header');
+                
+                // 使用事件委托添加点击事件
+                $(document).on('click', '.card-header', function(e) {
+                    console.log("点击了卡片头部");
+                    
+                    // 获取目标元素
+                    const targetSelector = $(this).data('target');
+                    if (!targetSelector) return;
+                    
+                    // 防止事件冒泡和默认行为
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log("切换折叠状态:", targetSelector);
+                    
+                    // 使用Bootstrap的collapse方法
+                    $(targetSelector).collapse('toggle');
+                    
+                    // 切换箭头方向
+                    const arrow = $(this).find('i.fa-chevron-down');
+                    if ($(targetSelector).hasClass('show')) {
+                        arrow.css('transform', 'rotate(180deg)');
+                    } else {
+                        arrow.css('transform', 'rotate(0deg)');
+                    }
+                });
+            } else {
+                console.log("jQuery不可用，使用原生JS绑定卡片点击事件");
+                
+                // 移除现有事件监听器（如果有）
+                document.removeEventListener('click', handleCardClick);
+                
+                // 添加新的事件监听器
+                document.addEventListener('click', handleCardClick);
+                
+                function handleCardClick(event) {
+                    // 检查是否点击了卡片头部
+                    let target = event.target;
+                    let cardHeader = null;
+                    
+                    while (target && target !== document) {
+                        if (target.classList && target.classList.contains('card-header')) {
+                            cardHeader = target;
+                            break;
+                        }
+                        target = target.parentNode;
+                    }
+                    
+                    if (!cardHeader) return;
+                    
+                    console.log("点击了卡片头部（原生JS）");
+                    
+                    // 获取目标元素选择器
+                    const targetSelector = cardHeader.getAttribute('data-target');
+                    if (!targetSelector) return;
+                    
+                    // 防止默认行为
+                    event.preventDefault();
+                    event.stopPropagation();
+                    
+                    console.log("切换折叠状态:", targetSelector);
+                    
+                    const targetElement = document.querySelector(targetSelector);
+                    if (!targetElement) return;
+                    
+                    // 切换显示类
+                    targetElement.classList.toggle('show');
+                    targetElement.classList.toggle('collapse');
+                    targetElement.classList.toggle('collapsing');
+                    
+                    // 设置aria属性
+                    const isExpanded = targetElement.classList.contains('show');
+                    cardHeader.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+                    
+                    // 处理箭头
+                    const arrow = cardHeader.querySelector('i.fa-chevron-down');
+                    if (arrow) {
+                        arrow.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
+                    
+                    // 添加过渡效果
+                    if (isExpanded) {
+                        targetElement.style.height = 'auto';
+                        setTimeout(() => {
+                            targetElement.classList.remove('collapsing');
+                            targetElement.classList.add('collapse');
+                            targetElement.classList.add('show');
+                        }, 350);
+                    } else {
+                        setTimeout(() => {
+                            targetElement.classList.remove('collapsing');
+                            targetElement.classList.add('collapse');
+                        }, 350);
+                    }
+                }
+            }
+            
+            console.log("卡片点击事件绑定完成");
+        }
+        
+        // 调用卡片事件初始化
+        initCardEventListeners();
+
+        // 加载实体数据
+        function loadEntities() {
+            console.log("开始加载实体列表");
+            
+            // 检查是否有可用的实体数据
+            if (!window.entitiesData || !window.entitiesData.success) {
+                console.warn("实体数据不可用，尝试重新加载");
+                tryReloadData('entities', function(data) {
+                    if (data && data.success) {
+                        window.entitiesData = data;
+                        console.log("实体数据重新加载成功，现在准备实体列表");
+                        prepareEntitiesLists(data);
+                    } else {
+                        console.error("重新加载实体数据失败");
+                        safeUpdateElement('algorithm-review-list', '<div class="alert alert-danger">加载实体数据失败，请刷新页面重试</div>');
+                        safeUpdateElement('dataset-review-list', '<div class="alert alert-danger">加载实体数据失败，请刷新页面重试</div>');
+                        safeUpdateElement('metric-review-list', '<div class="alert alert-danger">加载实体数据失败，请刷新页面重试</div>');
+                    }
+                });
+                return;
+            }
+            
+            try {
+                // 准备实体数据
+                console.log("使用已缓存的实体数据准备列表展示");
+                prepareEntitiesLists(window.entitiesData);
+            } catch (error) {
+                console.error("准备实体列表时出错:", error);
+                safeUpdateElement('algorithm-review-list', '<div class="alert alert-danger">显示实体列表时出错: ' + error.message + '</div>');
+                safeUpdateElement('dataset-review-list', '<div class="alert alert-danger">显示实体列表时出错: ' + error.message + '</div>');
+                safeUpdateElement('metric-review-list', '<div class="alert alert-danger">显示实体列表时出错: ' + error.message + '</div>');
+            }
+        }
+
+        // 加载关系数据
+        function loadRelations() {
+            console.log("开始加载关系列表");
+            
+            // 检查是否有可用的关系数据
+            if (!window.relationsData || !window.relationsData.success) {
+                console.warn("关系数据不可用，尝试重新加载");
+                tryReloadData('relations', function(data) {
+                    if (data && data.success) {
+                        window.relationsData = data;
+                        console.log("关系数据重新加载成功，现在准备关系列表");
+                        prepareRelationsLists(data);
+                    } else {
+                        console.error("重新加载关系数据失败");
+                        safeUpdateElement('relation-review-list', '<div class="alert alert-danger">加载关系数据失败，请刷新页面重试</div>');
+                        safeUpdateElement('relation-citation-list', '<div class="alert alert-danger">加载关系数据失败，请刷新页面重试</div>');
+                    }
+                });
+                return;
+            }
+            
+            try {
+                // 准备关系数据
+                console.log("使用已缓存的关系数据准备列表展示");
+                prepareRelationsLists(window.relationsData);
+            } catch (error) {
+                console.error("准备关系列表时出错:", error);
+                safeUpdateElement('relation-review-list', '<div class="alert alert-danger">显示关系列表时出错: ' + error.message + '</div>');
+                safeUpdateElement('relation-citation-list', '<div class="alert alert-danger">显示关系列表时出错: ' + error.message + '</div>');
+            }
+        }
+        
+        // 尝试重新加载数据
+        function tryReloadData(dataType, callback) {
+            console.log(`尝试重新加载${dataType}数据...`);
+            safeUpdateElement("api-status", `正在重新加载${dataType}数据...`);
+            
+            // 定义回调函数名称
+            const callbackFnName = `reload${dataType.charAt(0).toUpperCase() + dataType.slice(1)}Callback`;
+            
+            // 将回调注册到全局
+            window[callbackFnName] = callback;
+            
+            // 显示加载动画
+            const elementIds = dataType === 'entities' 
+                ? ['algorithm-review-list', 'dataset-review-list', 'metric-review-list'] 
+                : ['relation-review-list', 'relation-citation-list'];
+            
+            elementIds.forEach(id => {
+                safeUpdateElement(id, `<div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">重新加载中...</span>
+                    </div>
+                    <p class="mt-2">正在重新连接服务器...</p>
+                </div>`);
+            });
+            
+            // 使用增强的API请求
+            fetchWithRetry(`/api/comparison/${taskId}/${dataType}`, {}, 3, 2000)
+                .then(data => {
+                    console.log(`成功加载${dataType}数据:`, data.success);
+                    if (window[callbackFnName]) {
+                        window[callbackFnName](data);
+                    }
+                    safeUpdateElement("api-status", `${dataType}数据重新加载完成`);
+                })
+                .catch(error => {
+                    console.error(`加载${dataType}数据时出错:`, error);
+                    elementIds.forEach(id => {
+                        safeUpdateElement(id, `<div class="alert alert-danger">
+                            加载数据失败: ${error.message}。
+                            <button class="btn btn-sm btn-outline-danger mt-2" onclick="window['${callbackFnName}'](null); tryReloadData('${dataType}', window['${callbackFnName}'])">
+                                重试
+                            </button>
+                        </div>`);
+                    });
+                    safeUpdateElement("api-status", `${dataType}数据加载失败: ${error.message}`);
+                    if (window[callbackFnName]) {
+                        window[callbackFnName](null);
+                    }
+                });
+        }
+
         // 确保模态框关闭按钮正常工作 - 使用多种方式绑定DOM加载事件
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initPage);
@@ -972,24 +1380,6 @@
         
         // 直接暴露函数到全局作用域，方便调试
         window.debugLoadTask = loadTaskData;
-
-        // 加载实体数据
-        function loadEntities() {
-            console.log("开始加载实体列表");
-            
-            // 准备实体数据
-            // 已经请求过的数据可以直接使用，无需重新加载
-            prepareEntitiesLists(window.entitiesData || {});
-        }
-
-        // 加载关系数据
-        function loadRelations() {
-            console.log("开始加载关系列表");
-            
-            // 准备关系数据
-            // 已经请求过的数据可以直接使用，无需重新加载
-            prepareRelationsLists(window.relationsData || {});
-        }
     })();
 </script>
 
