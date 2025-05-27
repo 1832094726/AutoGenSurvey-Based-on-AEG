@@ -475,46 +475,44 @@
             
             // 初始化jQuery事件
             if (typeof $ !== 'undefined') {
-                $(document).ready(function() {
-                    console.log("jQuery准备就绪，开始初始化事件");
-                    
-                    // 为模态框的关闭按钮添加事件
-                    $('.modal .close, .modal .btn-secondary').on('click', function() {
-                        $(this).closest('.modal').modal('hide');
-                    });
-                    
-                    // 修复标签页切换问题
-                    $('#entityTabs a').on('click', function(e) {
-                        e.preventDefault();
-                        $(this).tab('show');
-                    });
-                    
-                    // 初始化二级标签页
-                    $('#algorithm-source-tabs a').on('click', function(e) {
-                        e.preventDefault();
-                        $(this).tab('show');
-                    });
-                    
-                    $('#dataset-source-tabs a').on('click', function(e) {
-                        e.preventDefault();
-                        $(this).tab('show');
-                    });
-                    
-                    $('#metric-source-tabs a').on('click', function(e) {
-                        e.preventDefault();
-                        $(this).tab('show');
-                    });
-                    
-                    $('#relation-source-tabs a').on('click', function(e) {
-                        e.preventDefault();
-                        $(this).tab('show');
-                    });
-                    
-                    // 现在初始化卡片点击事件
-                    initCardEventListeners();
-                    
-                    console.log("jQuery事件绑定完成");
+                console.log("jQuery准备就绪，开始初始化事件");
+                
+                // 为模态框的关闭按钮添加事件
+                $('.modal .close, .modal .btn-secondary').on('click', function() {
+                    $(this).closest('.modal').modal('hide');
                 });
+                
+                // 修复标签页切换问题
+                $('#entityTabs a').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                
+                // 初始化二级标签页
+                $('#algorithm-source-tabs a').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                
+                $('#dataset-source-tabs a').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                
+                $('#metric-source-tabs a').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                
+                $('#relation-source-tabs a').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                
+                // 现在初始化卡片点击事件
+                initCardEventListeners();
+                
+                console.log("jQuery事件绑定完成");
             } else {
                 console.log("jQuery不可用，使用原生JS初始化事件");
                 // 使用原生JS初始化卡片点击事件
@@ -1130,114 +1128,52 @@
             }
         });
         
-        // 为卡片头部添加点击事件，确保折叠/展开功能正常工作
+        // 为卡片头部添加点击事件，确保折叠/展开功能正常工作（只用Bootstrap事件）
         function initCardEventListeners() {
-            console.log("初始化卡片点击事件");
-            
-            // 检查jQuery是否可用
+            console.log("初始化卡片点击事件（只用Bootstrap事件）");
+
+            // 先解绑，防止重复
             if (typeof $ !== 'undefined') {
-                console.log("使用jQuery绑定卡片事件");
-                
-                // 移除任何现有的卡片点击事件，避免重复绑定
-                $(document).off('click', '.card-header');
-                
-                // 使用事件委托添加点击事件
-                $(document).on('click', '.card-header', function(e) {
-                    console.log("点击了卡片头部");
-                    
-                    // 获取目标元素
-                    const targetSelector = $(this).data('target');
-                    if (!targetSelector) return;
-                    
-                    // 防止事件冒泡和默认行为
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    console.log("切换折叠状态:", targetSelector);
-                    
-                    // 使用Bootstrap的collapse方法
-                    $(targetSelector).collapse('toggle');
-                    
-                    // 切换箭头方向
-                    const arrow = $(this).find('i.fa-chevron-down');
-                    if ($(targetSelector).hasClass('show')) {
-                        arrow.css('transform', 'rotate(180deg)');
-                    } else {
-                        arrow.css('transform', 'rotate(0deg)');
-                    }
+                $('.collapse').off('show.bs.collapse hide.bs.collapse');
+
+                // 展开时旋转箭头
+                $('.collapse').on('show.bs.collapse', function () {
+                    const header = $(this).prev('.card-header');
+                    header.attr('aria-expanded', 'true');
+                    header.find('i.fa-chevron-down').css('transform', 'rotate(180deg)');
+                    console.log('展开:', this.id);
+                });
+
+                // 折叠时还原箭头
+                $('.collapse').on('hide.bs.collapse', function () {
+                    const header = $(this).prev('.card-header');
+                    header.attr('aria-expanded', 'false');
+                    header.find('i.fa-chevron-down').css('transform', 'rotate(0deg)');
+                    console.log('折叠:', this.id);
                 });
             } else {
-                console.log("jQuery不可用，使用原生JS绑定卡片点击事件");
-                
-                // 移除现有事件监听器（如果有）
-                document.removeEventListener('click', handleCardClick);
-                
-                // 添加新的事件监听器
-                document.addEventListener('click', handleCardClick);
-                
-                function handleCardClick(event) {
-                    // 检查是否点击了卡片头部
-                    let target = event.target;
-                    let cardHeader = null;
-                    
-                    while (target && target !== document) {
-                        if (target.classList && target.classList.contains('card-header')) {
-                            cardHeader = target;
-                            break;
+                // 原生JS兜底方案
+                document.querySelectorAll('.collapse').forEach(function (collapseEl) {
+                    collapseEl.removeEventListener('transitionend', collapseEl._arrowHandler || (()=>{}));
+                    const handler = function () {
+                        const header = collapseEl.previousElementSibling;
+                        if (!header || !header.classList.contains('card-header')) return;
+                        const arrow = header.querySelector('i.fa-chevron-down');
+                        if (!arrow) return;
+                        if (collapseEl.classList.contains('show')) {
+                            header.setAttribute('aria-expanded', 'true');
+                            arrow.style.transform = 'rotate(180deg)';
+                            console.log('展开:', collapseEl.id);
+                        } else {
+                            header.setAttribute('aria-expanded', 'false');
+                            arrow.style.transform = 'rotate(0deg)';
+                            console.log('折叠:', collapseEl.id);
                         }
-                        target = target.parentNode;
-                    }
-                    
-                    if (!cardHeader) return;
-                    
-                    console.log("点击了卡片头部（原生JS）");
-                    
-                    // 获取目标元素选择器
-                    const targetSelector = cardHeader.getAttribute('data-target');
-                    if (!targetSelector) return;
-                    
-                    // 防止默认行为
-                    event.preventDefault();
-                    event.stopPropagation();
-                    
-                    console.log("切换折叠状态:", targetSelector);
-                    
-                    const targetElement = document.querySelector(targetSelector);
-                    if (!targetElement) return;
-                    
-                    // 切换显示类
-                    targetElement.classList.toggle('show');
-                    targetElement.classList.toggle('collapse');
-                    targetElement.classList.toggle('collapsing');
-                    
-                    // 设置aria属性
-                    const isExpanded = targetElement.classList.contains('show');
-                    cardHeader.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-                    
-                    // 处理箭头
-                    const arrow = cardHeader.querySelector('i.fa-chevron-down');
-                    if (arrow) {
-                        arrow.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
-                    }
-                    
-                    // 添加过渡效果
-                    if (isExpanded) {
-                        targetElement.style.height = 'auto';
-                        setTimeout(() => {
-                            targetElement.classList.remove('collapsing');
-                            targetElement.classList.add('collapse');
-                            targetElement.classList.add('show');
-                        }, 350);
-                    } else {
-                        setTimeout(() => {
-                            targetElement.classList.remove('collapsing');
-                            targetElement.classList.add('collapse');
-                        }, 350);
-                    }
-                }
+                    };
+                    collapseEl._arrowHandler = handler;
+                    collapseEl.addEventListener('transitionend', handler);
+                });
             }
-            
-            console.log("卡片点击事件绑定完成");
         }
         
         // 调用卡片事件初始化
