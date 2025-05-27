@@ -7,24 +7,28 @@
     .metrics-card {
         cursor: pointer;
         transition: all 0.3s;
+        height: 100%;
     }
     .metrics-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
     .entity-list, .relation-list {
-        max-height: 400px;
+        max-height: 500px;
         overflow-y: auto;
     }
     .reload-btn {
         cursor: pointer;
-    color: #007bff;
-  }
+        color: #007bff;
+        font-size: 16px;
+    }
     .reload-btn:hover {
         color: #0056b3;
+        transform: rotate(180deg);
+        transition: transform 0.5s;
     }
     .loading {
-    display: inline-block;
+        display: inline-block;
         width: 1em;
         height: 1em;
         border: 2px solid rgba(0,0,0,0.2);
@@ -36,7 +40,30 @@
         to {
             transform: rotate(360deg);
         }
-  }
+    }
+    .card-header {
+        cursor: pointer;
+    }
+    .card-header i {
+        transition: transform 0.3s;
+    }
+    .card-header[aria-expanded="true"] i {
+        transform: rotate(180deg);
+    }
+    #entity-stats-content p, #relation-stats-content p, #clustering-content p {
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+    }
+    #entity-stats-content p:nth-child(odd), 
+    #relation-stats-content p:nth-child(odd), 
+    #clustering-content p:nth-child(odd) {
+        background-color: rgba(0,0,0,.03);
+    }
+    .nav-tabs, .nav-pills {
+        border-bottom: 1px solid #dee2e6;
+        margin-bottom: 1rem;
+    }
 </style>
 {% endblock %}
 
@@ -192,26 +219,97 @@
                         </ul>
                         <div class="tab-content mt-3" id="entityTabContent">
                             <div class="tab-pane fade show active" id="algorithm" role="tabpanel">
-                                <div class="entity-list" id="algorithm-list">
-                                    <div class="text-center py-4">
-                                        <div class="spinner-border text-primary" role="status">
-                                            <span class="sr-only">加载中...</span>
-            </div>
-          </div>
-        </div>
-      </div>
+                                <ul class="nav nav-pills mb-3" id="algorithm-source-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="algorithm-review-tab" data-toggle="pill" href="#algorithm-review" role="tab">综述来源</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="algorithm-citation-tab" data-toggle="pill" href="#algorithm-citation" role="tab">引文来源</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="algorithm-source-content">
+                                    <div class="tab-pane fade show active" id="algorithm-review" role="tabpanel">
+                                        <div class="entity-list" id="algorithm-review-list">
+                                            <div class="text-center py-4">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="sr-only">加载中...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="algorithm-citation" role="tabpanel">
+                                        <div class="entity-list" id="algorithm-citation-list">
+                                            <div class="text-center py-4">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="sr-only">加载中...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tab-pane fade" id="dataset" role="tabpanel">
-                                <div class="entity-list" id="dataset-list">
-                                    <!-- 数据集实体将在此处动态加载 -->
-            </div>
-          </div>
+                                <ul class="nav nav-pills mb-3" id="dataset-source-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="dataset-review-tab" data-toggle="pill" href="#dataset-review" role="tab">综述来源</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="dataset-citation-tab" data-toggle="pill" href="#dataset-citation" role="tab">引文来源</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="dataset-source-content">
+                                    <div class="tab-pane fade show active" id="dataset-review" role="tabpanel">
+                                        <div class="entity-list" id="dataset-review-list">
+                                            <div class="text-center py-4">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="sr-only">加载中...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="dataset-citation" role="tabpanel">
+                                        <div class="entity-list" id="dataset-citation-list">
+                                            <div class="text-center py-4">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="sr-only">加载中...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tab-pane fade" id="metric" role="tabpanel">
-                                <div class="entity-list" id="metric-list">
-                                    <!-- 指标实体将在此处动态加载 -->
-        </div>
-      </div>
-    </div>
-  </div>
+                                <ul class="nav nav-pills mb-3" id="metric-source-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="metric-review-tab" data-toggle="pill" href="#metric-review" role="tab">综述来源</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="metric-citation-tab" data-toggle="pill" href="#metric-citation" role="tab">引文来源</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="metric-source-content">
+                                    <div class="tab-pane fade show active" id="metric-review" role="tabpanel">
+                                        <div class="entity-list" id="metric-review-list">
+                                            <div class="text-center py-4">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="sr-only">加载中...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="metric-citation" role="tabpanel">
+                                        <div class="entity-list" id="metric-citation-list">
+                                            <div class="text-center py-4">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="sr-only">加载中...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             </div>
@@ -229,14 +327,35 @@
                         </button>
               </div>
                     <div class="modal-body">
-                        <div class="relation-list" id="relation-list">
-                            <div class="text-center py-4">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="sr-only">加载中...</span>
-            </div>
-          </div>
-        </div>
-      </div>
+                        <ul class="nav nav-pills mb-3" id="relation-source-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="relation-review-tab" data-toggle="pill" href="#relation-review" role="tab">综述来源</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="relation-citation-tab" data-toggle="pill" href="#relation-citation" role="tab">引文来源</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="relation-source-content">
+                            <div class="tab-pane fade show active" id="relation-review" role="tabpanel">
+                                <div class="relation-list" id="relation-review-list">
+                                    <div class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="sr-only">加载中...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="relation-citation" role="tabpanel">
+                                <div class="relation-list" id="relation-citation-list">
+                                    <div class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="sr-only">加载中...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
         </div>
@@ -279,6 +398,8 @@
         // 全局变量
         const taskId = "{{ task_id }}";
         let taskData = null;
+        window.entitiesData = null;
+        window.relationsData = null;
         
         // 更新调试区域
         document.getElementById("debug-task-id").textContent = taskId;
@@ -298,8 +419,9 @@
                 return;
             }
             
-            // 为模态框的关闭按钮添加事件
-            try {
+            // 初始化jQuery事件
+            $(document).ready(function() {
+                // 为模态框的关闭按钮添加事件
                 $('.modal .close, .modal .btn-secondary').on('click', function() {
                     $(this).closest('.modal').modal('hide');
                 });
@@ -310,15 +432,29 @@
                     $(this).tab('show');
                 });
                 
-                // 初始化标签页
-                $('#entityTabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                    console.log('标签页切换到:', e.target.id);
+                // 初始化二级标签页
+                $('#algorithm-source-tabs a').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                
+                $('#dataset-source-tabs a').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                
+                $('#metric-source-tabs a').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                
+                $('#relation-source-tabs a').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
                 });
                 
                 console.log("jQuery事件绑定完成");
-            } catch(error) {
-                console.error("绑定jQuery事件时出错:", error);
-            }
+            });
             
             // 立即开始加载任务数据
             loadTaskData();
@@ -346,270 +482,6 @@
             return current === undefined ? defaultValue : current;
         }
 
-        // 页面加载时获取任务数据
-        function loadTaskData() {
-            console.log("开始加载任务数据，任务ID:", taskId);
-            
-            // 更新状态显示
-            safeUpdateElement("api-status", `正在请求API: /api/tasks/${taskId}/status`);
-            
-            const loadingSection = document.getElementById('loadingSection');
-            if (loadingSection) {
-                loadingSection.innerHTML += `<p class="text-muted mt-2">正在请求API: /api/tasks/${taskId}/status</p>`;
-            }
-            
-            // 发送请求前显示一个警告以确认代码执行到此处
-            console.warn(`即将发送请求到: /api/tasks/${taskId}/status`);
-            
-            // 尝试多个可能的API路径
-            fetch(`/api/tasks/${taskId}/status`)
-                .then(response => {
-                    console.log("API响应状态:", response.status);
-                    safeUpdateElement("api-status", `API响应状态码: ${response.status}`);
-                    
-                    if (!response.ok) {
-                        // 如果第一个路径失败，尝试另一个路径
-                        console.log("尝试备用API路径");
-                        return fetch(`/api/comparison/${taskId}/status`).then(r => {
-                            console.log("备用API路径响应状态:", r.status);
-                            return r.json();
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("获取到任务数据:", data);
-                    
-                    // 检查不同可能的数据结构
-                    const taskInfo = safeGetNestedProperty(data, 'task') || 
-                                     safeGetNestedProperty(data, 'data') || 
-                                     (data.success ? data : null);
-                    
-                    if (taskInfo) {
-                        taskData = taskInfo;
-                        
-                        // 显示API返回数据摘要
-                        safeUpdateElement("api-status", `API返回数据: ${JSON.stringify(data).substring(0, 100)}...`);
-                        
-                        // 检查任务状态 - 接受多种可能的状态值
-                        const completedStatuses = ['已完成', '完成', 'COMPLETED', 'completed', 'DONE', 'done'];
-                        if (completedStatuses.includes(taskData.status)) {
-                            console.log("任务已完成，显示结果");
-                            // 显示内容区域
-                            if (document.getElementById('loadingSection')) {
-                                document.getElementById('loadingSection').style.display = 'none';
-                            }
-                            if (document.getElementById('taskContent')) {
-                                document.getElementById('taskContent').style.display = 'block';
-                            }
-                            
-                            // 加载数据
-                            loadEntitiesCount();
-                            loadRelationsCount();
-                            loadMetricsData();
-                        } else {
-                            // 任务未完成，显示进度
-                            console.log("任务未完成，显示进度:", taskData.status, taskData.progress);
-                            if (document.getElementById('errorSection')) {
-                                document.getElementById('errorSection').style.display = 'block';
-                            }
-                            safeUpdateElement('errorMessage',
-                                `任务 ${taskId} 正在进行中 (${(taskData.progress * 100 || 0).toFixed(1)}%)，状态: ${taskData.status || '未知'}，请稍后查看结果。`
-                            );
-                            if (document.getElementById('loadingSection')) {
-                                document.getElementById('loadingSection').style.display = 'none';
-                            }
-                        }
-                    } else {
-                        // 显示错误信息
-                        console.error("加载任务数据失败:", data);
-                        if (document.getElementById('errorSection')) {
-                            document.getElementById('errorSection').style.display = 'block';
-                        }
-                        safeUpdateElement('errorMessage', data.message || `无法加载任务 ${taskId} 的数据。`);
-                        if (document.getElementById('loadingSection')) {
-                            document.getElementById('loadingSection').style.display = 'none';
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('加载任务数据出错:', error);
-                    safeUpdateElement("api-status", `API请求出错: ${error.message}`);
-                    if (document.getElementById('errorSection')) {
-                        document.getElementById('errorSection').style.display = 'block';
-                    }
-                    safeUpdateElement('errorMessage',
-                        `加载任务数据时出错: ${error.message}。请检查网络连接和API状态。`
-                    );
-                    if (document.getElementById('loadingSection')) {
-                        document.getElementById('loadingSection').style.display = 'none';
-                    }
-                });
-        }
-        
-        // 加载实体统计
-        function loadEntitiesCount() {
-            console.log("开始加载实体统计");
-            
-            fetch(`/api/comparison/${taskId}/entities`)
-                .then(response => {
-                    console.log("实体API响应状态:", response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        console.log("获取实体数据成功:", data);
-                        
-                        // 分类计数 - 使用API返回的计数或手动计算
-                        const reviewCount = data.count?.review || 
-                                           data.entities.filter(e => e.source === '综述').length;
-                        const citationCount = data.count?.citation || 
-                                             data.entities.filter(e => e.source === '引文').length;
-                        const algorithms = data.entities.filter(e => e.algorithm_entity);
-                        const datasets = data.entities.filter(e => e.dataset_entity);
-                        const metrics = data.entities.filter(e => e.metric_entity);
-                        
-                        // 更新统计显示
-                        document.getElementById('entitiesCount').textContent = data.entities.length;
-                        document.getElementById('entitiesDetail').textContent = 
-                            `综述: ${reviewCount} | 引文: ${citationCount}`;
-                            
-                        document.getElementById('algorithmsCount').textContent = algorithms.length;
-                        document.getElementById('datasetsCount').textContent = datasets.length;
-                        document.getElementById('metricsCount').textContent = metrics.length;
-                    } else {
-                        console.error('加载实体数据失败:', data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('请求实体数据出错:', error);
-                    
-                    // 显示错误信息但不中断整个页面显示
-                    const errorMsg = document.createElement('div');
-                    errorMsg.className = 'alert alert-warning';
-                    errorMsg.textContent = `加载实体数据失败: ${error.message}`;
-                    document.getElementById('taskContent').prepend(errorMsg);
-                });
-        }
-        
-        // 加载关系统计
-        function loadRelationsCount() {
-            console.log("开始加载关系统计");
-            
-            fetch(`/api/comparison/${taskId}/relations`)
-                .then(response => {
-                    console.log("关系API响应状态:", response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        console.log("获取关系数据成功:", data);
-                        
-                        // 更新关系计数
-                        document.getElementById('relationsCount').textContent = data.relations.length;
-                    } else {
-                        console.error('加载关系数据失败:', data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('请求关系数据出错:', error);
-                    
-                    // 显示错误信息但不中断整个页面显示
-                    const errorMsg = document.createElement('div');
-                    errorMsg.className = 'alert alert-warning';
-                    errorMsg.textContent = `加载关系数据失败: ${error.message}`;
-                    document.getElementById('taskContent').append(errorMsg);
-                });
-        }
-
-        // 加载指标数据
-        function loadMetricsData() {
-            console.log("开始加载指标数据");
-            safeUpdateElement("api-status", "正在加载指标数据...");
-            
-            // 显示加载中的状态
-            safeUpdateElement('entity-stats-content', 
-                '<div class="text-center py-2"><div class="spinner-border text-primary" role="status"><span class="sr-only">加载中...</span></div></div>'
-            );
-            safeUpdateElement('relation-stats-content',
-                '<div class="text-center py-2"><div class="spinner-border text-primary" role="status"><span class="sr-only">加载中...</span></div></div>'
-            );
-            safeUpdateElement('clustering-content',
-                '<div class="text-center py-2"><div class="spinner-border text-primary" role="status"><span class="sr-only">加载中...</span></div></div>'
-            );
-            
-            // 使用与初始请求相同的API路径
-            fetch(`/api/tasks/${taskId}/status`)
-                .then(response => {
-                    if (!response.ok) {
-                        // 如果第一个路径失败，尝试另一个路径
-                        return fetch(`/api/comparison/${taskId}/status`).then(r => r.json());
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // 获取消息数据，考虑各种可能的数据结构
-                    const taskInfo = safeGetNestedProperty(data, 'task') || 
-                                     safeGetNestedProperty(data, 'data');
-                    const message = taskInfo ? taskInfo.message : null;
-                    
-                    if (message) {
-                        try {
-                            console.log("获取到指标数据原始内容:", message);
-                            safeUpdateElement("api-status", "正在解析指标数据...");
-                            const result = JSON.parse(message);
-                            
-                            if (result.metrics) {
-                                console.log("从API加载指标数据:", result.metrics);
-                                safeUpdateElement("api-status", "指标数据已加载成功");
-                                updateMetricsDisplay(result.metrics, 'all');
-                            } else {
-                                console.warn("任务消息中没有指标数据，尝试读取其他字段");
-                                safeUpdateElement("api-status", "尝试从其他字段读取指标数据...");
-                                
-                                // 直接读取任务消息中的实体和关系统计
-                                if (result.review_entities_count !== undefined && result.citation_entities_count !== undefined) {
-                                    // 更新实体统计显示
-                                    safeUpdateElement('entitiesCount', 
-                                        (result.review_entities_count + result.citation_entities_count) || 0
-                                    );
-                                    safeUpdateElement('entitiesDetail',
-                                        `综述: ${result.review_entities_count || 0} | 引文: ${result.citation_entities_count || 0}`
-                                    );
-                                    
-                                    safeUpdateElement("api-status", "已显示可用数据，其他指标需重新计算");
-                                }
-                            }
-                        } catch (e) {
-                            console.error('解析指标数据出错:', e, message);
-                            safeUpdateElement("api-status", "解析指标数据时出错：" + e.message);
-                            
-                            // 安全地更新DOM元素
-                            safeUpdateElement('entity-stats-content', '<div class="alert alert-danger">解析指标数据出错，请尝试重新计算</div>');
-                            safeUpdateElement('relation-stats-content', '<div class="alert alert-danger">解析指标数据出错，请尝试重新计算</div>');
-                            safeUpdateElement('clustering-content', '<div class="alert alert-danger">解析指标数据出错，请尝试重新计算</div>');
-                        }
-                    } else {
-                        console.warn("未找到任务指标数据");
-                        safeUpdateElement("api-status", "未找到任务指标数据，请手动重新计算");
-                        
-                        // 安全地更新DOM元素
-                        safeUpdateElement('entity-stats-content', '<div class="alert alert-warning">未找到指标数据，请点击右上角重新计算按钮</div>');
-                        safeUpdateElement('relation-stats-content', '<div class="alert alert-warning">未找到指标数据，请点击右上角重新计算按钮</div>');
-                        safeUpdateElement('clustering-content', '<div class="alert alert-warning">未找到指标数据，请点击右上角重新计算按钮</div>');
-                    }
-                })
-                .catch(error => {
-                    console.error('获取指标数据出错:', error);
-                    safeUpdateElement("api-status", "获取指标数据出错：" + error.message);
-                    
-                    // 安全地更新DOM元素
-                    safeUpdateElement('entity-stats-content', `<div class="alert alert-danger">获取指标数据出错: ${error.message}</div>`);
-                    safeUpdateElement('relation-stats-content', `<div class="alert alert-danger">获取指标数据出错: ${error.message}</div>`);
-                    safeUpdateElement('clustering-content', `<div class="alert alert-danger">获取指标数据出错: ${error.message}</div>`);
-                });
-        }
-
         // 辅助函数：安全地更新DOM元素
         function safeUpdateElement(elementId, htmlContent) {
             const element = document.getElementById(elementId);
@@ -620,95 +492,236 @@
             }
         }
 
-        // 加载实体数据
-        function loadEntities() {
-            console.log("开始加载实体列表");
-            // 显示加载中指示器
-            document.getElementById('algorithm-list').innerHTML = `
-                <div class="text-center py-4">
+        // 页面加载时获取任务数据
+        function loadTaskData() {
+            console.log("开始加载任务数据，任务ID:", taskId);
+            
+            // 更新状态显示
+            safeUpdateElement("api-status", `正在请求任务数据: ${taskId}`);
+            
+            const loadingSection = document.getElementById('loadingSection');
+            if (loadingSection) {
+                loadingSection.innerHTML = `
                     <div class="spinner-border text-primary" role="status">
                         <span class="sr-only">加载中...</span>
                     </div>
-                </div>
-            `;
-            document.getElementById('dataset-list').innerHTML = `
-                <div class="text-center py-4">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">加载中...</span>
-                    </div>
-                </div>
-            `;
-            document.getElementById('metric-list').innerHTML = `
-                <div class="text-center py-4">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">加载中...</span>
-                    </div>
-                </div>
-            `;
-
-            fetch(`/api/comparison/${taskId}/entities`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("获取到实体数据:", data);
-                        // 分类处理实体
-                        const algorithms = data.entities.filter(e => e.algorithm_entity);
-                        const datasets = data.entities.filter(e => e.dataset_entity);
-                        const metrics = data.entities.filter(e => e.metric_entity);
-
-                        // 更新算法实体列表
-                        const algorithmList = document.getElementById('algorithm-list');
-                        algorithmList.innerHTML = algorithms.length > 0 
-                            ? renderEntitiesList(algorithms, 'algorithm_entity')
-                            : '<div class="alert alert-info">没有找到算法实体</div>';
-
-                        // 更新数据集实体列表
-                        const datasetList = document.getElementById('dataset-list');
-                        datasetList.innerHTML = datasets.length > 0
-                            ? renderEntitiesList(datasets, 'dataset_entity')
-                            : '<div class="alert alert-info">没有找到数据集实体</div>';
-
-                        // 更新指标实体列表
-                        const metricList = document.getElementById('metric-list');
-                        metricList.innerHTML = metrics.length > 0
-                            ? renderEntitiesList(metrics, 'metric_entity')
-                            : '<div class="alert alert-info">没有找到指标实体</div>';
+                    <p class="mt-3">正在加载比较分析结果，请稍候...</p>
+                `;
+            }
+            
+            // 同时请求状态、实体和关系数据
+            Promise.all([
+                fetch(`/api/comparison/${taskId}/status`).then(r => r.json()).catch(e => ({ success: false, message: e.message })),
+                fetch(`/api/comparison/${taskId}/entities`).then(r => r.json()).catch(e => ({ success: false, message: e.message })),
+                fetch(`/api/comparison/${taskId}/relations`).then(r => r.json()).catch(e => ({ success: false, message: e.message })),
+                // 直接请求重新计算的指标，确保数据最新
+                fetch(`/api/comparison/${taskId}/recalculate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ metric_type: 'all' })
+                }).then(r => r.json()).catch(e => ({ success: false }))
+            ])
+            .then(([statusData, entitiesData, relationsData, metricsData]) => {
+                console.log("所有API请求完成");
+                
+                // 检查任务状态
+                const taskInfo = safeGetNestedProperty(statusData, 'task') || 
+                                 safeGetNestedProperty(statusData, 'data') || 
+                                 (statusData.success ? statusData : null);
+                
+                if (taskInfo) {
+                    taskData = taskInfo;
+                    
+                    // 显示API返回数据摘要
+                    safeUpdateElement("api-status", `数据加载完成，任务状态: ${taskInfo.status || '未知'}`);
+                    
+                    // 检查任务状态
+                    const completedStatuses = ['已完成', '完成', 'COMPLETED', 'completed', 'DONE', 'done'];
+                    if (completedStatuses.includes(taskData.status)) {
+                        console.log("任务已完成，显示结果");
+                        
+                        // 显示内容区域
+                        if (document.getElementById('loadingSection')) {
+                            document.getElementById('loadingSection').style.display = 'none';
+                        }
+                        if (document.getElementById('taskContent')) {
+                            document.getElementById('taskContent').style.display = 'block';
+                        }
+                        
+                        // 处理实体数据
+                        if (entitiesData && entitiesData.success) {
+                            // 保存到全局变量供后续使用
+                            window.entitiesData = entitiesData;
+                            processEntitiesData(entitiesData);
+                            // 预加载实体列表，但不显示
+                            prepareEntitiesLists(entitiesData);
+                        } else {
+                            console.error('获取实体数据失败:', entitiesData?.message || '未知错误');
+                        }
+                        
+                        // 处理关系数据
+                        if (relationsData && relationsData.success) {
+                            // 保存到全局变量供后续使用
+                            window.relationsData = relationsData;
+                            processRelationsData(relationsData);
+                            // 预加载关系列表，但不显示
+                            prepareRelationsLists(relationsData);
+                        } else {
+                            console.error('获取关系数据失败:', relationsData?.message || '未知错误');
+                        }
+                        
+                        // 处理指标数据
+                        if (metricsData && metricsData.success && metricsData.metrics) {
+                            updateMetricsDisplay(metricsData.metrics, 'all');
+                        }
                     } else {
-                        console.error('加载实体失败:', data.message);
-                        document.getElementById('algorithm-list').innerHTML = 
-                            '<div class="alert alert-danger">加载实体失败: ' + data.message + '</div>';
-                        document.getElementById('dataset-list').innerHTML = 
-                            '<div class="alert alert-danger">加载实体失败: ' + data.message + '</div>';
-                        document.getElementById('metric-list').innerHTML = 
-                            '<div class="alert alert-danger">加载实体失败: ' + data.message + '</div>';
+                        // 任务未完成，显示进度
+                        console.log("任务未完成，显示进度:", taskData.status, taskData.progress);
+                        if (document.getElementById('errorSection')) {
+                            document.getElementById('errorSection').style.display = 'block';
+                        }
+                        safeUpdateElement('errorMessage',
+                            `任务 ${taskId} 正在进行中 (${(taskData.progress * 100 || 0).toFixed(1)}%)，状态: ${taskData.status || '未知'}，请稍后查看结果。`
+                        );
+                        if (document.getElementById('loadingSection')) {
+                            document.getElementById('loadingSection').style.display = 'none';
+                        }
                     }
-                })
-                .catch(error => {
-                    console.error('请求实体数据出错:', error);
-                    document.getElementById('algorithm-list').innerHTML = 
-                        '<div class="alert alert-danger">加载实体失败: ' + error.message + '</div>';
-                    document.getElementById('dataset-list').innerHTML = 
-                        '<div class="alert alert-danger">加载实体失败: ' + error.message + '</div>';
-                    document.getElementById('metric-list').innerHTML = 
-                        '<div class="alert alert-danger">加载实体失败: ' + error.message + '</div>';
-                });
+                } else {
+                    // 显示错误信息
+                    console.error("加载任务数据失败:", statusData);
+                    if (document.getElementById('errorSection')) {
+                        document.getElementById('errorSection').style.display = 'block';
+                    }
+                    safeUpdateElement('errorMessage', statusData.message || `无法加载任务 ${taskId} 的数据。`);
+                    if (document.getElementById('loadingSection')) {
+                        document.getElementById('loadingSection').style.display = 'none';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('加载任务数据出错:', error);
+                safeUpdateElement("api-status", `API请求出错: ${error.message}`);
+                if (document.getElementById('errorSection')) {
+                    document.getElementById('errorSection').style.display = 'block';
+                }
+                safeUpdateElement('errorMessage',
+                    `加载任务数据时出错: ${error.message}。请检查网络连接和API状态。`
+                );
+                if (document.getElementById('loadingSection')) {
+                    document.getElementById('loadingSection').style.display = 'none';
+                }
+            });
         }
-
-        // 渲染实体列表
-        function renderEntitiesList(entities, type) {
+        
+        // 处理实体数据
+        function processEntitiesData(data) {
+            console.log("处理实体数据");
+            
+            // 统计总数
+            document.getElementById('entitiesCount').textContent = data.count?.total || data.entities.length;
+            document.getElementById('entitiesDetail').textContent = 
+                `综述: ${data.count?.review || 0} | 引文: ${data.count?.citation || 0}`;
+            
+            // 按类型统计
+            document.getElementById('algorithmsCount').textContent = data.count?.algorithm || 0;
+            document.getElementById('datasetsCount').textContent = data.count?.dataset || 0;
+            document.getElementById('metricsCount').textContent = data.count?.metric || 0;
+        }
+        
+        // 处理关系数据
+        function processRelationsData(data) {
+            console.log("处理关系数据");
+            
+            // 更新关系计数
+            document.getElementById('relationsCount').textContent = data.count?.total || data.relations.length;
+            
+            // 更新关系统计显示
+            let relationStatsHtml = `
+                <p>总关系数: ${data.count?.total || data.relations.length}</p>
+                <p>综述关系: ${data.by_source?.综述?.length || 0}</p>
+                <p>引文关系: ${data.by_source?.引文?.length || 0}</p>
+            `;
+            
+            // 添加关系类型统计
+            if (data.count?.by_type) {
+                relationStatsHtml += '<h6 class="mt-3">关系类型统计:</h6><ul>';
+                for (const [type, count] of Object.entries(data.count.by_type)) {
+                    relationStatsHtml += `<li>${type}: ${count}</li>`;
+                }
+                relationStatsHtml += '</ul>';
+            }
+            
+            safeUpdateElement('relation-stats-content', relationStatsHtml);
+        }
+        
+        // 预处理实体数据以便在模态框中显示
+        function prepareEntitiesLists(data) {
+            // 按类型和来源分组实体
+            const reviewEntities = data.by_source?.综述 || [];
+            const citationEntities = data.by_source?.引文 || [];
+            
+            // 分别处理算法、数据集和评价指标实体
+            prepareEntityListByTypeAndSource('algorithm', reviewEntities, citationEntities);
+            prepareEntityListByTypeAndSource('dataset', reviewEntities, citationEntities);
+            prepareEntityListByTypeAndSource('metric', reviewEntities, citationEntities);
+        }
+        
+        // 按实体类型和来源准备列表
+        function prepareEntityListByTypeAndSource(entityType, reviewEntities, citationEntities) {
+            // 过滤实体
+            const reviewData = reviewEntities.filter(entity => {
+                if (entityType === 'algorithm') return entity.entity_type === 'Algorithm';
+                if (entityType === 'dataset') return entity.entity_type === 'Dataset';
+                if (entityType === 'metric') return entity.entity_type === 'Metric';
+                return false;
+            });
+            
+            const citationData = citationEntities.filter(entity => {
+                if (entityType === 'algorithm') return entity.entity_type === 'Algorithm';
+                if (entityType === 'dataset') return entity.entity_type === 'Dataset';
+                if (entityType === 'metric') return entity.entity_type === 'Metric';
+                return false;
+            });
+            
+            // 渲染综述来源实体
+            const reviewListId = `${entityType}-review-list`;
+            if (reviewData.length > 0) {
+                safeUpdateElement(reviewListId, renderSimplifiedEntitiesList(reviewData));
+            } else {
+                safeUpdateElement(reviewListId, '<div class="alert alert-info">没有找到综述来源的实体</div>');
+            }
+            
+            // 渲染引文来源实体
+            const citationListId = `${entityType}-citation-list`;
+            if (citationData.length > 0) {
+                safeUpdateElement(citationListId, renderSimplifiedEntitiesList(citationData));
+            } else {
+                safeUpdateElement(citationListId, '<div class="alert alert-info">没有找到引文来源的实体</div>');
+            }
+        }
+        
+        // 渲染简化的实体列表，只显示ID和名称
+        function renderSimplifiedEntitiesList(entities) {
             try {
                 return entities.map(entity => {
-                    const entityData = entity[type];
-                    const name = entityData?.name || '未命名';
-                    const description = entityData?.description || '无描述';
-                    const source = entity.source || '未知来源';
+                    const entityId = entity.entity_id || '';
+                    const name = entity.name || '未命名';
+                    const authors = Array.isArray(entity.authors) ? entity.authors.join(', ') : entity.authors || '';
                     
                     return `
                         <div class="card mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">${name}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">来源: ${source}</h6>
-                                <p class="card-text">${description}</p>
+                            <div class="card-header" data-toggle="collapse" data-target="#entity-${entityId.replace(/[^a-zA-Z0-9]/g, '-')}">
+                                <strong>${name}</strong>
+                                <small class="text-muted">ID: ${entityId}</small>
+                                <i class="fas fa-chevron-down float-right"></i>
+                            </div>
+                            <div class="collapse" id="entity-${entityId.replace(/[^a-zA-Z0-9]/g, '-')}">
+                                <div class="card-body">
+                                    <p><strong>作者:</strong> ${authors}</p>
+                                    <p><strong>详细信息:</strong></p>
+                                    <pre class="bg-light p-2">${JSON.stringify(entity, null, 2)}</pre>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -718,56 +731,56 @@
                 return '<div class="alert alert-danger">渲染实体列表出错: ' + error.message + '</div>';
             }
         }
-
-        // 加载关系数据
-        function loadRelations() {
-            console.log("开始加载关系列表");
-            // 显示加载中指示器
-            document.getElementById('relation-list').innerHTML = `
-                <div class="text-center py-4">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">加载中...</span>
-                    </div>
-                </div>
-            `;
-
-            fetch(`/api/comparison/${taskId}/relations`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("获取到关系数据:", data);
-                        const relationList = document.getElementById('relation-list');
-                        relationList.innerHTML = data.relations.length > 0
-                            ? renderRelationsList(data.relations)
-                            : '<div class="alert alert-info">没有找到关系数据</div>';
-                    } else {
-                        console.error('加载关系失败:', data.message);
-                        document.getElementById('relation-list').innerHTML = 
-                            '<div class="alert alert-danger">加载关系失败: ' + data.message + '</div>';
-                    }
-                })
-                .catch(error => {
-                    console.error('请求关系数据出错:', error);
-                    document.getElementById('relation-list').innerHTML = 
-                        '<div class="alert alert-danger">加载关系失败: ' + error.message + '</div>';
-                });
+        
+        // 预处理关系数据以便在模态框中显示
+        function prepareRelationsLists(data) {
+            // 按来源分组关系
+            const reviewRelations = data.by_source?.综述 || [];
+            const citationRelations = data.by_source?.引文 || [];
+            
+            // 渲染综述来源关系
+            if (reviewRelations.length > 0) {
+                safeUpdateElement('relation-review-list', renderDetailedRelationsList(reviewRelations));
+            } else {
+                safeUpdateElement('relation-review-list', '<div class="alert alert-info">没有找到综述来源的关系</div>');
+            }
+            
+            // 渲染引文来源关系
+            if (citationRelations.length > 0) {
+                safeUpdateElement('relation-citation-list', renderDetailedRelationsList(citationRelations));
+            } else {
+                safeUpdateElement('relation-citation-list', '<div class="alert alert-info">没有找到引文来源的关系</div>');
+            }
         }
-
-        // 渲染关系列表
-        function renderRelationsList(relations) {
+        
+        // 渲染详细的关系列表
+        function renderDetailedRelationsList(relations) {
             try {
                 return relations.map(relation => {
+                    const relationId = relation.relation_id || '';
                     const fromEntity = relation.from_entity || '未知实体';
                     const toEntity = relation.to_entity || '未知实体';
                     const relationType = relation.relation_type || '未知关系类型';
-                    const source = relation.source || '未知来源';
+                    const structure = relation.structure || '';
+                    const detail = relation.detail || '';
+                    const evidence = relation.evidence || '';
                     
                     return `
                         <div class="card mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">${fromEntity} → ${toEntity}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">关系类型: ${relationType}</h6>
-                                <p class="card-text">来源: ${source}</p>
+                            <div class="card-header" data-toggle="collapse" data-target="#relation-${relationId}">
+                                <strong>${fromEntity} → ${toEntity}</strong>
+                                <small class="text-muted">(${relationType})</small>
+                                <i class="fas fa-chevron-down float-right"></i>
+                            </div>
+                            <div class="collapse" id="relation-${relationId}">
+                                <div class="card-body">
+                                    <p><strong>关系类型:</strong> ${relationType}</p>
+                                    ${structure ? `<p><strong>结构信息:</strong> ${structure}</p>` : ''}
+                                    ${detail ? `<p><strong>详细内容:</strong> ${detail}</p>` : ''}
+                                    ${evidence ? `<p><strong>证据:</strong> ${evidence}</p>` : ''}
+                                    <p><strong>完整数据:</strong></p>
+                                    <pre class="bg-light p-2">${JSON.stringify(relation, null, 2)}</pre>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -782,17 +795,18 @@
         function recalculateMetric(metricType) {
             console.log("开始重新计算指标:", metricType);
             
-            // 安全地更新加载动画
+            // 显示加载动画
             const loadingElement = document.getElementById(`${metricType.replace('_', '-')}-loading`);
-            if (!loadingElement) {
-                console.error(`无法找到加载指示器元素: ${metricType.replace('_', '-')}-loading`);
-                alert(`重新计算失败: 无法找到DOM元素`);
-                return;
+            if (loadingElement) {
+                loadingElement.innerHTML = '<span class="loading ml-2"></span>';
             }
-            
-            loadingElement.innerHTML = '<span class="loading ml-2"></span>';
             document.getElementById("api-status").textContent = `正在重新计算${getMetricTypeName(metricType)}...`;
             
+            // 根据指标类型更新相应的内容区域
+            const contentId = `${metricType.replace('_', '-')}-content`;
+            safeUpdateElement(contentId, '<div class="text-center py-2"><div class="spinner-border text-primary" role="status"><span class="sr-only">计算中...</span></div></div>');
+            
+            // 发送重新计算请求
             fetch(`/api/comparison/${taskId}/recalculate`, {
                 method: 'POST',
                 headers: {
@@ -800,33 +814,44 @@
                 },
                 body: JSON.stringify({ metric_type: metricType })
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log(`重新计算API响应状态: ${response.status}`);
+                if (!response.ok) {
+                    throw new Error(`API响应错误: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
+                // 清除加载动画
+                if (loadingElement) {
+                    loadingElement.innerHTML = '';
+                }
+                
                 if (data.success) {
                     console.log("指标重新计算成功:", data);
-                    // 清除加载动画
-                    loadingElement.innerHTML = '';
                     document.getElementById("api-status").textContent = `${getMetricTypeName(metricType)}计算完成`;
                     
-                    // 根据返回的数据更新页面上的指标
-                    updateMetricsDisplay(data.metrics, metricType);
-                    
-                    // 显示成功消息
-                    alert(`${getMetricTypeName(metricType)}重新计算完成`);
+                    // 更新指标显示
+                    if (data.metrics) {
+                        updateMetricsDisplay(data.metrics, metricType);
+                    } else {
+                        safeUpdateElement(contentId, '<div class="alert alert-warning">重新计算成功，但未返回指标数据</div>');
+                    }
                 } else {
-                    // 清除加载动画
-                    loadingElement.innerHTML = '';
-                    document.getElementById("api-status").textContent = `${getMetricTypeName(metricType)}计算失败: ${data.message}`;
                     console.error('重新计算指标失败:', data.message);
-                    alert(`重新计算指标失败: ${data.message}`);
+                    document.getElementById("api-status").textContent = `${getMetricTypeName(metricType)}计算失败: ${data.message}`;
+                    safeUpdateElement(contentId, `<div class="alert alert-danger">计算失败: ${data.message}</div>`);
                 }
             })
             .catch(error => {
                 // 清除加载动画
-                loadingElement.innerHTML = '';
-                document.getElementById("api-status").textContent = `${getMetricTypeName(metricType)}计算出错: ${error.message}`;
+                if (loadingElement) {
+                    loadingElement.innerHTML = '';
+                }
+                
                 console.error('请求指标重新计算出错:', error);
-                alert(`请求指标重新计算出错: ${error.message}`);
+                document.getElementById("api-status").textContent = `${getMetricTypeName(metricType)}计算出错: ${error.message}`;
+                safeUpdateElement(contentId, `<div class="alert alert-danger">请求出错: ${error.message}</div>`);
             });
         }
 
@@ -947,15 +972,25 @@
         
         // 直接暴露函数到全局作用域，方便调试
         window.debugLoadTask = loadTaskData;
+
+        // 加载实体数据
+        function loadEntities() {
+            console.log("开始加载实体列表");
+            
+            // 准备实体数据
+            // 已经请求过的数据可以直接使用，无需重新加载
+            prepareEntitiesLists(window.entitiesData || {});
+        }
+
+        // 加载关系数据
+        function loadRelations() {
+            console.log("开始加载关系列表");
+            
+            // 准备关系数据
+            // 已经请求过的数据可以直接使用，无需重新加载
+            prepareRelationsLists(window.relationsData || {});
+        }
     })();
 </script>
 
-<!-- 添加手动调试按钮 -->
-<div class="container mt-4">
-    <div class="row">
-        <div class="col text-center">
-            <button onclick="window.debugLoadTask()" class="btn btn-warning">手动加载任务数据</button>
-        </div>
-    </div>
-</div>
 {% endblock %} 

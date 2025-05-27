@@ -12,6 +12,8 @@ from app.config import Config
 from app.modules.data_processing import process_review_paper, process_multiple_papers, normalize_entities, transform_table_data_to_entities, save_data_to_json
 from app.modules.knowledge_graph import build_knowledge_graph, visualize_graph, export_graph_to_json
 from app.modules.db_manager import db_manager
+import mysql.connector
+import time
 
 # 创建蓝图
 combined_api = Blueprint('combined_api', __name__)
@@ -240,16 +242,28 @@ def get_entities():
             if 'algorithm_entity' in entity:
                 algorithm = entity['algorithm_entity']
                 algorithm['entity_type'] = 'Algorithm'
+                # 确保source字段存在
+                if 'source' not in algorithm:
+                    algorithm['source'] = entity.get('source', '未知')
                 processed_entities.append(algorithm)
             elif 'dataset_entity' in entity:
                 dataset = entity['dataset_entity']
                 dataset['entity_type'] = 'Dataset'
+                # 确保source字段存在
+                if 'source' not in dataset:
+                    dataset['source'] = entity.get('source', '未知')
                 processed_entities.append(dataset)
             elif 'metric_entity' in entity:
                 metric = entity['metric_entity']
                 metric['entity_type'] = 'Metric'
+                # 确保source字段存在
+                if 'source' not in metric:
+                    metric['source'] = entity.get('source', '未知')
                 processed_entities.append(metric)
             elif 'entity_type' in entity:
+                # 确保source字段存在
+                if 'source' not in entity:
+                    entity['source'] = '未知'
                 processed_entities.append(entity)
             else:
                 # 如果没有特定结构，则尝试根据字段推断类型
@@ -259,20 +273,48 @@ def get_entities():
                     entity['entity_type'] = 'Dataset'
                 elif any(key.startswith('metric_') for key in entity.keys()):
                     entity['entity_type'] = 'Metric'
+                # 确保source字段存在
+                if 'source' not in entity:
+                    entity['source'] = '未知'
                 processed_entities.append(entity)
         
         logging.info(f"获取到实体总数: {len(processed_entities)}")
+        
         # 记录各类型实体数量
         algo_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Algorithm')
         dataset_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Dataset')
         metric_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Metric')
         
+        # 按来源分类统计
+        review_count = sum(1 for e in processed_entities if e.get('source') == '综述')
+        citation_count = sum(1 for e in processed_entities if e.get('source') == '引文')
+        unknown_count = sum(1 for e in processed_entities if e.get('source') == '未知')
+        
         logging.info(f"算法实体: {algo_count}, 数据集实体: {dataset_count}, 评价指标实体: {metric_count}")
+        logging.info(f"综述来源: {review_count}, 引文来源: {citation_count}, 未知来源: {unknown_count}")
+        
+        # 按来源分组
+        entities_by_source = {
+            '综述': [e for e in processed_entities if e.get('source') == '综述'],
+            '引文': [e for e in processed_entities if e.get('source') == '引文'],
+            '未知': [e for e in processed_entities if e.get('source') == '未知']
+        }
         
         return jsonify({
             'success': True,
             'count': len(processed_entities),
-            'entities': processed_entities
+            'entities': processed_entities,
+            'by_type': {
+                'algorithm': algo_count,
+                'dataset': dataset_count,
+                'metric': metric_count
+            },
+            'by_source': {
+                'review': review_count,
+                'citation': citation_count,
+                'unknown': unknown_count
+            },
+            'groups': entities_by_source
         })
         
     except Exception as e:
@@ -293,20 +335,11 @@ def get_entity_by_id(entity_id):
         entity = db_manager.get_entity_by_id(entity_id)
         
         if entity:
-            # 规范化实体格式
-            if 'algorithm_entity' in entity:
-                result = entity['algorithm_entity']
-                result['entity_type'] = 'Algorithm'
-            elif 'dataset_entity' in entity:
-                result = entity['dataset_entity']
-                result['entity_type'] = 'Dataset'
-            elif 'metric_entity' in entity:
-                result = entity['metric_entity']
-                result['entity_type'] = 'Metric'
-            else:
-                result = entity
-                
-            return jsonify(result)
+            # 直接返回完整数据，不做格式处理，保留所有字段
+            return jsonify({
+                'success': True,
+                'data': entity
+            })
         else:
             logging.warning(f"未找到实体: {entity_id}")
             return jsonify({
@@ -332,7 +365,11 @@ def get_entity(entity_id):
         entity = db_manager.get_entity_by_id(entity_id)
         
         if entity:
-            return jsonify(entity)
+            # 直接返回完整数据，不做格式处理，保留所有字段
+            return jsonify({
+                'success': True,
+                'data': entity
+            })
         else:
             logging.warning(f"未找到实体: {entity_id}")
             return jsonify({
@@ -408,10 +445,45 @@ def get_relations():
         else:
             relations = db_manager.get_all_relations()
         
+        # 确保每个关系都有source字段
+        for relation in relations:
+            if 'source' not in relation or not relation['source']:
+                relation['source'] = '未知'
+        
+        # 按关系类型统计
+        relation_types = {}
+        for relation in relations:
+            relation_type = relation.get('relation_type', 'unknown')
+            if relation_type not in relation_types:
+                relation_types[relation_type] = 0
+            relation_types[relation_type] += 1
+            
+        # 按来源统计
+        review_count = sum(1 for r in relations if r.get('source') == '综述')
+        citation_count = sum(1 for r in relations if r.get('source') == '引文')
+        unknown_count = sum(1 for r in relations if r.get('source') == '未知')
+        
+        logging.info(f"获取到关系总数: {len(relations)}")
+        logging.info(f"综述来源: {review_count}, 引文来源: {citation_count}, 未知来源: {unknown_count}")
+        
+        # 按来源分组
+        relations_by_source = {
+            '综述': [r for r in relations if r.get('source') == '综述'],
+            '引文': [r for r in relations if r.get('source') == '引文'],
+            '未知': [r for r in relations if r.get('source') == '未知']
+        }
+        
         return jsonify({
             'success': True,
             'count': len(relations),
-            'relations': relations
+            'relations': relations,
+            'by_type': relation_types,
+            'by_source': {
+                'review': review_count,
+                'citation': citation_count,
+                'unknown': unknown_count
+            },
+            'groups': relations_by_source
         })
         
     except Exception as e:
@@ -429,7 +501,11 @@ def get_relation(relation_id):
         relation = db_manager.get_relation_by_id(relation_id)
         
         if relation:
-            return jsonify(relation)
+            # 直接返回完整数据，不做格式处理，保留所有字段
+            return jsonify({
+                'success': True,
+                'data': relation
+            })
         else:
             return jsonify({
                 'success': False,
@@ -1094,215 +1170,211 @@ def get_comparison_history():
 @combined_api.route('/comparison/<task_id>/entities', methods=['GET'])
 def get_comparison_entities(task_id):
     """获取比较分析任务的实体列表"""
-    try:
-        # 直接使用原始任务ID获取所有实体
-        all_entities = db_manager.get_entities_by_task(task_id)
-        
-        if not all_entities:
-            logging.warning(f"未找到与任务 {task_id} 关联的实体")
+    max_retries = 3
+    retry_count = 0
+    
+    while retry_count < max_retries:
+        try:
+            # 直接使用原始任务ID获取所有实体
+            all_entities = db_manager.get_entities_by_task(task_id)
+            
+            if not all_entities:
+                logging.warning(f"未找到与任务 {task_id} 关联的实体")
+                return jsonify({
+                    "success": False,
+                    "message": f"未找到任务 {task_id} 的相关实体",
+                    "entities": [],
+                    "count": {
+                        "total": 0,
+                        "algorithm": 0,
+                        "dataset": 0,
+                        "metric": 0,
+                        "review": 0,
+                        "citation": 0
+                    }
+                }), 404
+            
+            # 处理实体确保有正确的source字段
+            processed_entities = []
+            for entity in all_entities:
+                if 'algorithm_entity' in entity:
+                    algorithm = entity['algorithm_entity']
+                    algorithm['entity_type'] = 'Algorithm'
+                    algorithm['source'] = algorithm.get('source', entity.get('source', '未知'))
+                    processed_entities.append(algorithm)
+                elif 'dataset_entity' in entity:
+                    dataset = entity['dataset_entity']
+                    dataset['entity_type'] = 'Dataset'
+                    dataset['source'] = dataset.get('source', entity.get('source', '未知'))
+                    processed_entities.append(dataset)
+                elif 'metric_entity' in entity:
+                    metric = entity['metric_entity']
+                    metric['entity_type'] = 'Metric'
+                    metric['source'] = metric.get('source', entity.get('source', '未知'))
+                    processed_entities.append(metric)
+            
+            # 按类型统计实体数量
+            algorithm_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Algorithm')
+            dataset_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Dataset')
+            metric_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Metric')
+            
+            # 按来源统计实体数量，直接根据数据库中的source字段统计
+            review_count = sum(1 for e in processed_entities if e.get('source') == '综述')
+            citation_count = sum(1 for e in processed_entities if e.get('source') == '引文')
+            unknown_count = sum(1 for e in processed_entities if e.get('source') == '未知')
+            
+            # 按来源分组实体，直接根据数据库中的source字段分组
+            entities_by_source = {
+                '综述': [e for e in processed_entities if e.get('source') == '综述'],
+                '引文': [e for e in processed_entities if e.get('source') == '引文'],
+                '未知': [e for e in processed_entities if e.get('source') == '未知']
+            }
+            
+            return jsonify({
+                "success": True,
+                "entities": processed_entities,
+                "count": {
+                    "total": len(processed_entities),
+                    "algorithm": algorithm_count,
+                    "dataset": dataset_count,
+                    "metric": metric_count,
+                    "review": review_count,
+                    "citation": citation_count,
+                    "unknown": unknown_count
+                },
+                "by_source": entities_by_source
+            })
+            
+        except mysql.connector.errors.OperationalError as e:
+            retry_count += 1
+            logging.error(f"获取任务 {task_id} 的实体列表时数据库连接错误 (尝试 {retry_count}/{max_retries}): {str(e)}")
+            if retry_count >= max_retries:
+                # 重试次数用完后，返回错误信息
+                return jsonify({
+                    "success": False,
+                    "message": f"数据库连接错误，请稍后重试 (错误: {str(e)})",
+                    "error_type": "database_connection",
+                    "task_id": task_id
+                }), 500
+            # 等待后重试
+            time.sleep(2)
+            # 尝试重新连接数据库
+            try:
+                db_manager._reconnect_if_needed()
+            except Exception as reconnect_error:
+                logging.error(f"尝试重新连接数据库时出错: {str(reconnect_error)}")
+                
+        except Exception as e:
+            logging.error(f"获取任务 {task_id} 的实体列表时出错: {str(e)}")
+            logging.error(traceback.format_exc())
             return jsonify({
                 "success": False,
-                "message": f"未找到任务 {task_id} 的相关实体",
-                "entities": [],
-                "count": {
-                    "total": 0,
-                    "algorithm": 0,
-                    "dataset": 0,
-                    "metric": 0,
-                    "review": 0,
-                    "citation": 0
-                }
-            }), 404
-        
-        # 通过source字段区分综述和引文实体
-        review_entities = []
-        citation_entities = []
-        
-        for entity in all_entities:
-            # 获取实体的来源
-            entity_source = None
-            
-            # 处理不同类型的实体
-            if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
-                entity_source = entity['algorithm_entity'].get('source', '未知')
-            elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
-                entity_source = entity['dataset_entity'].get('source', '未知')
-            elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
-                entity_source = entity['metric_entity'].get('source', '未知')
-            else:
-                entity_source = entity.get('source', '未知')
-            
-            # 根据来源分类
-            if entity_source == '综述':
-                review_entities.append(entity)
-            elif entity_source == '引文':
-                citation_entities.append(entity)
-            else:
-                # 对于未知来源的实体，添加默认来源（可能是基于其他特征推断）
-                if '算法' in str(entity) or '方法' in str(entity) or 'algorithm' in str(entity).lower():
-                    entity_source = '综述'  # 假设与算法相关的更可能是综述
-                    review_entities.append(entity)
-                else:
-                    entity_source = '引文'  # 其他默认为引文
-                    citation_entities.append(entity)
-                
-                # 更新实体的source字段
-                if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
-                    entity['algorithm_entity']['source'] = entity_source
-                elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
-                    entity['dataset_entity']['source'] = entity_source
-                elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
-                    entity['metric_entity']['source'] = entity_source
-                else:
-                    entity['source'] = entity_source
-        
-        # 按类型统计实体数量
-        algorithm_count = sum(1 for e in all_entities if 'algorithm_entity' in e)
-        dataset_count = sum(1 for e in all_entities if 'dataset_entity' in e)
-        metric_count = sum(1 for e in all_entities if 'metric_entity' in e)
-        
-        # 按来源统计
-        review_count = len(review_entities)
-        citation_count = len(citation_entities)
-        
-        return jsonify({
-            "success": True,
-            "entities": all_entities,
-            "count": {
-                "total": len(all_entities),
-                "algorithm": algorithm_count,
-                "dataset": dataset_count,
-                "metric": metric_count,
-                "review": review_count,
-                "citation": citation_count
-            }
-        })
-        
-    except Exception as e:
-        logging.error(f"获取任务 {task_id} 的实体列表时出错: {str(e)}")
-        logging.error(traceback.format_exc())
-        return jsonify({
-            "success": False,
-            "message": f"获取实体列表出错: {str(e)}"
-        }), 500
+                "message": f"获取实体列表出错: {str(e)}"
+            }), 500
+    
+    # 如果所有重试都失败
+    return jsonify({
+        "success": False,
+        "message": "获取实体数据失败，请稍后重试",
+        "task_id": task_id
+    }), 500
 
 @combined_api.route('/tasks/<task_id>/relations', methods=['GET'])
 @combined_api.route('/comparison/<task_id>/relations', methods=['GET'])
 def get_comparison_relations(task_id):
     """获取比较分析任务的关系列表"""
-    try:
-        # 获取任务的关系
-        relations = db_manager.get_relations_by_task(task_id)
-        
-        if not relations:
-            logging.warning(f"未找到与任务 {task_id} 关联的关系")
+    max_retries = 3
+    retry_count = 0
+    
+    while retry_count < max_retries:
+        try:
+            # 获取任务的关系
+            relations = db_manager.get_relations_by_task(task_id)
+            
+            if not relations:
+                logging.warning(f"未找到与任务 {task_id} 关联的关系")
+                return jsonify({
+                    "success": False,
+                    "message": f"未找到任务 {task_id} 的相关关系",
+                    "relations": [],
+                    "count": {
+                        "total": 0,
+                        "by_type": {},
+                        "by_source": {'综述': 0, '引文': 0, '未知': 0}
+                    }
+                }), 404
+            
+            # 确保每个关系都有来源字段，如果数据库中没有source字段，默认为"未知"
+            for relation in relations:
+                if 'source' not in relation or not relation['source'] or relation['source'] == '未知':
+                    relation['source'] = '未知'  # 默认为未知来源
+                    
+            # 按类型统计关系
+            relation_types = {}
+            for relation in relations:
+                relation_type = relation.get('relation_type', 'unknown')
+                if relation_type not in relation_types:
+                    relation_types[relation_type] = 0
+                relation_types[relation_type] += 1
+                
+            # 按来源统计关系，直接根据数据库中的source字段统计
+            source_counts = {
+                '综述': len([r for r in relations if r.get('source') == '综述']),
+                '引文': len([r for r in relations if r.get('source') == '引文']),
+                '未知': len([r for r in relations if r.get('source') == '未知'])
+            }
+            
+            # 按来源分组关系，直接根据数据库中的source字段分组
+            relations_by_source = {
+                '综述': [r for r in relations if r.get('source') == '综述'],
+                '引文': [r for r in relations if r.get('source') == '引文'],
+                '未知': [r for r in relations if r.get('source') == '未知']
+            }
+            
+            return jsonify({
+                "success": True,
+                "relations": relations,
+                "count": {
+                    "total": len(relations),
+                    "by_type": relation_types,
+                    "by_source": source_counts
+                },
+                "by_source": relations_by_source
+            })
+            
+        except mysql.connector.errors.OperationalError as e:
+            retry_count += 1
+            logging.error(f"获取任务 {task_id} 的关系列表时数据库连接错误 (尝试 {retry_count}/{max_retries}): {str(e)}")
+            if retry_count >= max_retries:
+                # 重试次数用完后，返回错误信息
+                return jsonify({
+                    "success": False,
+                    "message": f"数据库连接错误，请稍后重试 (错误: {str(e)})",
+                    "error_type": "database_connection",
+                    "task_id": task_id
+                }), 500
+            # 等待后重试
+            time.sleep(2)
+            # 尝试重新连接数据库
+            try:
+                db_manager._reconnect_if_needed()
+            except Exception as reconnect_error:
+                logging.error(f"尝试重新连接数据库时出错: {str(reconnect_error)}")
+                
+        except Exception as e:
+            logging.error(f"获取任务 {task_id} 的关系列表时出错: {str(e)}")
+            logging.error(traceback.format_exc())
             return jsonify({
                 "success": False,
-                "message": f"未找到任务 {task_id} 的相关关系",
-                "relations": [],
-                "count": {
-                    "total": 0,
-                    "by_type": {},
-                    "by_source": {'综述': 0, '引文': 0, '未知': 0}
-                }
-            }), 404
-        
-        # 确保每个关系都有来源字段，如果没有则根据实体推断
-        for relation in relations:
-            if 'source' not in relation or not relation['source'] or relation['source'] == '未知':
-                # 尝试根据关联实体的source字段推断来源
-                try:
-                    from_entity = relation.get('from_entity', '')
-                    to_entity = relation.get('to_entity', '')
-                    
-                    # 查询相关实体的来源
-                    if from_entity:
-                        from_entity_data = db_manager.get_entity_by_id(from_entity)
-                        if from_entity_data:
-                            # 尝试获取来源
-                            if 'algorithm_entity' in from_entity_data:
-                                source = from_entity_data['algorithm_entity'].get('source')
-                                if source and source != '未知':
-                                    relation['source'] = source
-                                    continue
-                            elif 'dataset_entity' in from_entity_data:
-                                source = from_entity_data['dataset_entity'].get('source')
-                                if source and source != '未知':
-                                    relation['source'] = source
-                                    continue
-                            elif 'metric_entity' in from_entity_data:
-                                source = from_entity_data['metric_entity'].get('source')
-                                if source and source != '未知':
-                                    relation['source'] = source
-                                    continue
-                    
-                    # 如果from_entity没有明确来源，尝试to_entity
-                    if to_entity:
-                        to_entity_data = db_manager.get_entity_by_id(to_entity)
-                        if to_entity_data:
-                            # 尝试获取来源
-                            if 'algorithm_entity' in to_entity_data:
-                                source = to_entity_data['algorithm_entity'].get('source')
-                                if source and source != '未知':
-                                    relation['source'] = source
-                                    continue
-                            elif 'dataset_entity' in to_entity_data:
-                                source = to_entity_data['dataset_entity'].get('source')
-                                if source and source != '未知':
-                                    relation['source'] = source
-                                    continue
-                            elif 'metric_entity' in to_entity_data:
-                                source = to_entity_data['metric_entity'].get('source')
-                                if source and source != '未知':
-                                    relation['source'] = source
-                                    continue
-                except Exception as e:
-                    logging.warning(f"无法推断关系来源: {str(e)}")
-                
-                # 如果仍然无法确定来源，尝试使用其他提示信息
-                if relation['source'] == '未知':
-                    # 使用关系自身的特征进行判断
-                    relation_str = str(relation)
-                    if '综述' in relation_str or 'review' in relation_str.lower():
-                        relation['source'] = '综述'
-                    elif '引文' in relation_str or 'citation' in relation_str.lower():
-                        relation['source'] = '引文'
-                    else:
-                        # 保持未知状态
-                        pass
-        
-        # 按类型统计关系
-        relation_types = {}
-        for relation in relations:
-            relation_type = relation.get('relation_type', 'unknown')
-            if relation_type not in relation_types:
-                relation_types[relation_type] = 0
-            relation_types[relation_type] += 1
-            
-        # 按来源统计关系
-        source_counts = {
-            '综述': len([r for r in relations if r.get('source') == '综述']),
-            '引文': len([r for r in relations if r.get('source') == '引文']),
-            '未知': len([r for r in relations if r.get('source') == '未知'])
-        }
-        
-        return jsonify({
-            "success": True,
-            "relations": relations,
-            "count": {
-                "total": len(relations),
-                "by_type": relation_types,
-                "by_source": source_counts
-            }
-        })
-        
-    except Exception as e:
-        logging.error(f"获取任务 {task_id} 的关系列表时出错: {str(e)}")
-        logging.error(traceback.format_exc())
-        return jsonify({
-            "success": False,
-            "message": f"获取关系列表出错: {str(e)}"
-        }), 500
+                "message": f"获取关系列表出错: {str(e)}"
+            }), 500
+    
+    # 如果所有重试都失败
+    return jsonify({
+        "success": False,
+        "message": "获取关系数据失败，请稍后重试",
+        "task_id": task_id
+    }), 500
 
 @combined_api.route('/tasks/<task_id>/recalculate', methods=['POST'])
 @combined_api.route('/comparison/<task_id>/recalculate', methods=['POST'])
@@ -1436,4 +1508,148 @@ def get_comparison_status(task_id):
         return jsonify({
             "success": False,
             "message": f"获取任务状态出错: {str(e)}"
+        }), 500
+
+# =================== 来源统计API ===================
+
+@combined_api.route('/stats/source', methods=['GET'])
+def get_source_stats():
+    """获取按来源分类的实体和关系统计信息"""
+    try:
+        task_id = request.args.get('task_id', None)
+        
+        # 获取实体和关系
+        if task_id:
+            # 如果提供了任务ID，只获取该任务的实体和关系
+            entities = db_manager.get_entities_by_task(task_id)
+            relations = db_manager.get_relations_by_task(task_id)
+        else:
+            # 否则获取所有实体和关系
+            entities = db_manager.get_all_entities()
+            relations = db_manager.get_all_relations()
+        
+        # 处理实体，确保获取正确的source字段
+        processed_entities = []
+        for entity in entities:
+            if 'algorithm_entity' in entity:
+                algorithm = entity['algorithm_entity']
+                algorithm['entity_type'] = 'Algorithm'
+                algorithm['source'] = algorithm.get('source', entity.get('source', '未知'))
+                processed_entities.append(algorithm)
+            elif 'dataset_entity' in entity:
+                dataset = entity['dataset_entity']
+                dataset['entity_type'] = 'Dataset'
+                dataset['source'] = dataset.get('source', entity.get('source', '未知'))
+                processed_entities.append(dataset)
+            elif 'metric_entity' in entity:
+                metric = entity['metric_entity']
+                metric['entity_type'] = 'Metric'
+                metric['source'] = metric.get('source', entity.get('source', '未知'))
+                processed_entities.append(metric)
+            elif 'entity_type' in entity:
+                entity['source'] = entity.get('source', '未知')
+                processed_entities.append(entity)
+        
+        # 确保关系的source字段
+        for relation in relations:
+            if 'source' not in relation or not relation['source']:
+                relation['source'] = '未知'
+        
+        # 统计实体，直接根据数据库中的source字段统计
+        entities_by_source = {
+            '综述': [],
+            '引文': [],
+            '未知': []
+        }
+        
+        for entity in processed_entities:
+            source = entity.get('source', '未知')
+            if source == '综述':
+                entities_by_source['综述'].append(entity)
+            elif source == '引文':
+                entities_by_source['引文'].append(entity)
+            else:
+                entities_by_source['未知'].append(entity)
+        
+        # 按来源和类型统计实体
+        entity_stats = {
+            '综述': {
+                'total': len(entities_by_source['综述']),
+                'algorithm': sum(1 for e in entities_by_source['综述'] if e.get('entity_type') == 'Algorithm'),
+                'dataset': sum(1 for e in entities_by_source['综述'] if e.get('entity_type') == 'Dataset'),
+                'metric': sum(1 for e in entities_by_source['综述'] if e.get('entity_type') == 'Metric')
+            },
+            '引文': {
+                'total': len(entities_by_source['引文']),
+                'algorithm': sum(1 for e in entities_by_source['引文'] if e.get('entity_type') == 'Algorithm'),
+                'dataset': sum(1 for e in entities_by_source['引文'] if e.get('entity_type') == 'Dataset'),
+                'metric': sum(1 for e in entities_by_source['引文'] if e.get('entity_type') == 'Metric')
+            },
+            '未知': {
+                'total': len(entities_by_source['未知']),
+                'algorithm': sum(1 for e in entities_by_source['未知'] if e.get('entity_type') == 'Algorithm'),
+                'dataset': sum(1 for e in entities_by_source['未知'] if e.get('entity_type') == 'Dataset'),
+                'metric': sum(1 for e in entities_by_source['未知'] if e.get('entity_type') == 'Metric')
+            }
+        }
+        
+        # 统计关系，直接根据数据库中的source字段统计
+        relations_by_source = {
+            '综述': [],
+            '引文': [],
+            '未知': []
+        }
+        
+        for relation in relations:
+            source = relation.get('source', '未知')
+            if source == '综述':
+                relations_by_source['综述'].append(relation)
+            elif source == '引文':
+                relations_by_source['引文'].append(relation)
+            else:
+                relations_by_source['未知'].append(relation)
+        
+        # 按来源和类型统计关系
+        relation_stats = {
+            '综述': {
+                'total': len(relations_by_source['综述']),
+                'types': {}
+            },
+            '引文': {
+                'total': len(relations_by_source['引文']),
+                'types': {}
+            },
+            '未知': {
+                'total': len(relations_by_source['未知']),
+                'types': {}
+            }
+        }
+        
+        # 统计关系类型
+        for source, rels in relations_by_source.items():
+            for rel in rels:
+                rel_type = rel.get('relation_type', 'unknown')
+                if rel_type not in relation_stats[source]['types']:
+                    relation_stats[source]['types'][rel_type] = 0
+                relation_stats[source]['types'][rel_type] += 1
+        
+        return jsonify({
+            'success': True,
+            'entities': {
+                'total': len(processed_entities),
+                'by_source': entity_stats
+            },
+            'relations': {
+                'total': len(relations),
+                'by_source': relation_stats
+            },
+            'task_id': task_id
+        })
+        
+    except Exception as e:
+        logging.error(f"获取来源统计信息时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return jsonify({
+            'success': False,
+            'message': f'获取统计信息失败: {str(e)}'
         }), 500 

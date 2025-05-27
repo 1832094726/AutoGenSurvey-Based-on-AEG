@@ -27,88 +27,86 @@ class DatabaseManager:
     
     def _connect_mysql(self):
         """
-        连接到MySQL数据库
+        连接到MySQL数据库，使用单一连接，不使用连接池
         """
-        max_attempts = 5
-        attempt = 0
-        
-        while attempt < max_attempts:
-            attempt += 1
-            try:
-                # 关闭现有连接
-                if hasattr(self, 'conn') and self.conn:
-                    try:
-                        self.conn.close()
-                    except Exception as e:
-                        logging.warning(f"关闭旧连接时出错: {str(e)}")
-                
-                # 建立新连接，增加连接超时和使用纯Python实现
-                self.conn = mysql.connector.connect(
-                    host=Config.MYSQL_HOST,
-                    port=Config.MYSQL_PORT,
-                    user=Config.MYSQL_USER,
-                    password=Config.MYSQL_PASSWORD,
-                    database=Config.MYSQL_DB,
-                    charset='utf8mb4',
-                    use_pure=True,  # 使用纯Python实现，增加稳定性
-                    connection_timeout=30,  # 增加连接超时时间
-                    autocommit=False,  # 显式控制事务
-                    pool_size=5,  # 使用连接池
-                    pool_name="algorithm_pool",
-                    pool_reset_session=True,
-                    get_warnings=True,
-                    raise_on_warnings=False  # 不对警告抛出异常
-                )
-                self.cursor = self.conn.cursor(buffered=True)  # 使用缓冲游标
-                logging.info("MySQL数据库连接成功")
-                return True
-            except (mysql.connector.Error, MySQLError) as e:
-                logging.error(f"连接MySQL数据库时出错 (尝试 {attempt}/{max_attempts}): {str(e)}")
-                if attempt < max_attempts:
-                    time.sleep(2)  # 等待2秒后重试
-                else:
-                    logging.error("已达到最大重试次数，无法连接到MySQL数据库")
-                    raise
-            except Exception as e:
-                logging.error(f"连接MySQL数据库时发生未知错误: {str(e)}")
-                import traceback
-                logging.error(traceback.format_exc())
-                raise
-        return False
+        try:
+            # 关闭现有连接
+            if hasattr(self, 'conn') and self.conn:
+                try:
+                    self.conn.close()
+                except Exception as e:
+                    logging.warning(f"关闭旧连接时出错: {str(e)}")
+            
+            # 建立新连接，增加连接超时时间，禁用连接池
+            self.conn = mysql.connector.connect(
+                host=Config.MYSQL_HOST,
+                port=Config.MYSQL_PORT,
+                user=Config.MYSQL_USER,
+                password=Config.MYSQL_PASSWORD,
+                database=Config.MYSQL_DB,
+                charset='utf8mb4',
+                use_pure=True,  # 使用纯Python实现，增加稳定性
+                connection_timeout=300,  # 增加连接超时时间到5分钟
+                autocommit=False,  # 显式控制事务
+                pool_size=1,  # 不使用连接池，只用一个连接
+                pool_name=None,
+                get_warnings=True,
+                raise_on_warnings=False,  # 不对警告抛出异常
+                # 增加这些参数以防止连接超时断开
+                time_zone='+00:00',
+                sql_mode='TRADITIONAL',
+                client_flags=[mysql.connector.ClientFlag.FOUND_ROWS]
+            )
+            self.cursor = self.conn.cursor(buffered=True)  # 使用缓冲游标
+            
+            # 设置会话超时时间
+            self.cursor.execute("SET SESSION wait_timeout=86400")  # 24小时
+            self.cursor.execute("SET SESSION interactive_timeout=86400")  # 24小时
+            self.conn.commit()
+            
+            logging.info("MySQL数据库连接成功")
+            return True
+        except Exception as e:
+            logging.error(f"连接MySQL数据库时发生错误: {str(e)}")
+            import traceback
+            logging.error(traceback.format_exc())
+            raise
     
     def _reconnect_if_needed(self):
         """
         检查MySQL连接状态并在需要时重连
         """
-        max_retries = 3
-        retry_count = 0
-        
-        while retry_count < max_retries:
+        try:
+            # 尝试执行简单的查询来检查连接
+            if self.conn is None:
+                logging.warning("MySQL连接不存在，创建新连接")
+                self._connect_mysql()
+                return True
+            
+            # 如果连接存在但已断开，则重新连接
+            if not self.conn.is_connected():
+                logging.warning("MySQL连接已断开，正在重新连接")
+                self._connect_mysql()
+                return True
+                
+            # 为防止连接空闲超时，定期ping服务器
             try:
-                # 尝试执行简单的查询来检查连接
-                if self.conn is None or not self.conn.is_connected():
-                    logging.warning("MySQL连接已断开，尝试重连")
-                    self._connect_mysql()
-                    return True
-                # 测试连接是否有效
-                try:
-                    self.cursor.execute("SELECT 1")
-                    self.cursor.fetchone()
-                    return True  # 连接正常
-                except Exception as e:
-                    logging.warning(f"连接测试失败: {str(e)}，尝试重连")
-                    self._connect_mysql()
-                    return True
-            except Exception as e:
-                retry_count += 1
-                logging.error(f"检查MySQL连接时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                if retry_count < max_retries:
-                    logging.error("无法建立MySQL连接，等待5秒后重试")
-                    time.sleep(5)
-                else:
-                    logging.error("达到最大重试次数，无法重新连接MySQL")
-                    return False
-        return False
+                self.conn.ping(reconnect=True, attempts=1, delay=0)
+            except Exception as ping_error:
+                logging.warning(f"Ping失败: {str(ping_error)}，尝试重新连接")
+                self._connect_mysql()
+                return True
+                
+            return True  # 连接正常
+            
+        except Exception as e:
+            logging.error(f"检查MySQL连接状态时出错: {str(e)}")
+            try:
+                self._connect_mysql()
+                return True
+            except Exception as reconnect_error:
+                logging.error(f"重新连接MySQL时出错: {str(reconnect_error)}")
+                return False
     
     def _check_and_init_tables(self):
         """检查表是否存在，并在需要时初始化表"""
@@ -720,7 +718,7 @@ class DatabaseManager:
                 self.cursor.execute("""
                 SELECT relation_id, from_entity, to_entity, relation_type, structure, 
                        detail, evidence, confidence, from_entity_type, to_entity_type
-                FROM EvolutionRelations
+                FROMEvolutionRelations
                 """)
                 rows = self.cursor.fetchall()
                 relations = []
@@ -1266,141 +1264,185 @@ class DatabaseManager:
         Returns:
             dict: 实体信息字典
         """
-        try:
-            # 首先检查是否是算法实体
-            logging.info(f"正在获取实体 {entity_id}")
-            self.cursor.execute('SELECT * FROM Algorithms WHERE algorithm_id = %s', (entity_id,))
-            row = self.cursor.fetchone()
-            if row:
-            # 解析JSON字符串为Python对象
-                try:
-                    authors = json.loads(row[4]) if row[4] else []
-                except:
-                    authors = []
-                try:
-                    dataset = json.loads(row[6]) if row[6] else []
-                except:
-                    dataset = []
-                try:
-                    metrics = json.loads(row[7]) if row[7] else []
-                except:
-                    metrics = []
-                try:
-                    arch_components = json.loads(row[8]) if row[8] else []
-                except:
-                    arch_components = []
-                try:
-                    arch_connections = json.loads(row[9]) if row[9] else []
-                except:
-                    arch_connections = []
-                try:
-                    arch_mechanisms = json.loads(row[10]) if row[10] else []
-                except:
-                    arch_mechanisms = []
-                try:
-                    meth_training = json.loads(row[11]) if row[11] else []
-                except:
-                    meth_training = []
-                try:
-                    meth_params = json.loads(row[12]) if row[12] else []
-                except:
-                    meth_params = []
-                try:
-                    feature_processing = json.loads(row[13]) if row[13] else []
-                except:
-                    feature_processing = []
-                # 构建算法实体对象
-                entity = {
-                    'algorithm_entity': {
-                        'algorithm_id': row[0],
+        max_retries = 3
+        retry_count = 0
+        
+        while retry_count < max_retries:
+            try:
+                # 检查是否需要重连
+                reconnected = self._reconnect_if_needed()
+                if reconnected and retry_count > 0:
+                    logging.info(f"第 {retry_count+1} 次尝试：数据库连接已重新建立")
+                
+                # 首先检查是否是算法实体
+                logging.info(f"正在获取实体 {entity_id}")
+                self.cursor.execute('SELECT * FROM Algorithms WHERE algorithm_id = %s', (entity_id,))
+                row = self.cursor.fetchone()
+                if row:
+                    # 解析JSON字符串为Python对象
+                    try:
+                        authors = json.loads(row[4]) if row[4] else []
+                    except:
+                        authors = []
+                    try:
+                        dataset = json.loads(row[6]) if row[6] else []
+                    except:
+                        dataset = []
+                    try:
+                        metrics = json.loads(row[7]) if row[7] else []
+                    except:
+                        metrics = []
+                    try:
+                        arch_components = json.loads(row[8]) if row[8] else []
+                    except:
+                        arch_components = []
+                    try:
+                        arch_connections = json.loads(row[9]) if row[9] else []
+                    except:
+                        arch_connections = []
+                    try:
+                        arch_mechanisms = json.loads(row[10]) if row[10] else []
+                    except:
+                        arch_mechanisms = []
+                    try:
+                        meth_training = json.loads(row[11]) if row[11] else []
+                    except:
+                        meth_training = []
+                    try:
+                        meth_params = json.loads(row[12]) if row[12] else []
+                    except:
+                        meth_params = []
+                    try:
+                        feature_processing = json.loads(row[13]) if row[13] else []
+                    except:
+                        feature_processing = []
+                    # 构建算法实体对象
+                    entity = {
+                        'algorithm_entity': {
+                            'algorithm_id': row[0],
                             'entity_id': row[0],
-                        'name': row[1],
-                        'title': row[2],
-                        'year': row[3],
-                        'authors': authors,
-                        'task': row[5],
-                        'dataset': dataset,
-                        'metrics': metrics,
-                        'architecture': {
-                            'components': arch_components,
-                            'connections': arch_connections,
-                            'mechanisms': arch_mechanisms
-                        },
-                        'methodology': {
-                            'training_strategy': meth_training,
-                            'parameter_tuning': meth_params
-                        },
-                        'feature_processing': feature_processing,
-                            'entity_type': 'Algorithm'
+                            'name': row[1],
+                            'title': row[2],
+                            'year': row[3],
+                            'authors': authors,
+                            'task': row[5],
+                            'dataset': dataset,
+                            'metrics': metrics,
+                            'architecture': {
+                                'components': arch_components,
+                                'connections': arch_connections,
+                                'mechanisms': arch_mechanisms
+                            },
+                            'methodology': {
+                                'training_strategy': meth_training,
+                                'parameter_tuning': meth_params
+                            },
+                            'feature_processing': feature_processing,
+                            'entity_type': 'Algorithm',
+                            'source': row[16] if len(row) > 16 else '未知'  # 获取source字段
                         }
                     }
-                # 获取演化关系
-                relations = self._get_entity_relations(entity_id)
-                entity['algorithm_entity']['evolution_relations'] = relations
-                return entity
-            # 如果不是算法实体，检查是否是数据集实体
-            self.cursor.execute('SELECT * FROM Datasets WHERE dataset_id = %s', (entity_id,))
-            row = self.cursor.fetchone()
-            
-            if row:
-                # 转换数据集为标准格式
-                dataset = {}
-                for i, col in enumerate(self.cursor.description):
-                    dataset[col[0]] = row[i]
-                
-                # 解析可能的JSON字段
-                if 'creators' in dataset and dataset['creators']:
+                    # 获取演化关系
                     try:
-                        dataset['creators'] = json.loads(dataset['creators'])
-                    except:
-                        # 如果不是有效的JSON，保持原样
-                        pass
+                        relations = self._get_entity_relations(entity_id)
+                        entity['algorithm_entity']['evolution_relations'] = relations
+                    except Exception as rel_err:
+                        logging.error(f"获取实体 {entity_id} 的关系时出错: {str(rel_err)}")
+                        entity['algorithm_entity']['evolution_relations'] = []
+                    
+                    return entity
                 
-                # 确保entity_id字段存在
-                dataset['entity_id'] = dataset['dataset_id']
-                dataset['entity_type'] = 'Dataset'
+                # 如果不是算法实体，检查是否是数据集实体
+                self.cursor.execute('SELECT * FROM Datasets WHERE dataset_id = %s', (entity_id,))
+                row = self.cursor.fetchone()
+                
+                if row:
+                    # 转换数据集为标准格式
+                    dataset = {}
+                    for i, col in enumerate(self.cursor.description):
+                        dataset[col[0]] = row[i]
+                    
+                    # 解析可能的JSON字段
+                    if 'creators' in dataset and dataset['creators']:
+                        try:
+                            dataset['creators'] = json.loads(dataset['creators'])
+                        except:
+                            # 如果不是有效的JSON，保持原样
+                            pass
+                    
+                    # 确保entity_id字段存在
+                    dataset['entity_id'] = dataset['dataset_id']
+                    dataset['entity_type'] = 'Dataset'
+                
+                    # 获取演化关系
+                    try:
+                        relations = self._get_entity_relations(entity_id)
+                        dataset['evolution_relations'] = relations
+                    except Exception as rel_err:
+                        logging.error(f"获取数据集 {entity_id} 的关系时出错: {str(rel_err)}")
+                        dataset['evolution_relations'] = []
+                    
+                    return {'dataset_entity': dataset}
+                    
+                # 如果不是数据集实体，检查是否是评估指标实体
+                self.cursor.execute('SELECT * FROM Metrics WHERE metric_id = %s', (entity_id,))
+                row = self.cursor.fetchone()
+                
+                if row:
+                    # 转换评估指标为标准格式
+                    metric = {}
+                    for i, col in enumerate(self.cursor.description):
+                        metric[col[0]] = row[i]
+                    
+                    # 确保entity_id字段存在
+                    metric['entity_id'] = metric['metric_id']
+                    metric['entity_type'] = 'Metric'
+                    
+                    # 获取演化关系
+                    try:
+                        relations = self._get_entity_relations(entity_id)
+                        metric['evolution_relations'] = relations
+                    except Exception as rel_err:
+                        logging.error(f"获取评价指标 {entity_id} 的关系时出错: {str(rel_err)}")
+                        metric['evolution_relations'] = []
+                    
+                    return {'metric_entity': metric}
+                
+                # 如果没有找到任何实体且这是最后一次重试
+                if retry_count == max_retries - 1:
+                    logging.warning(f"经过 {max_retries} 次尝试，未找到实体 {entity_id}")
+                    return None
+                
+                # 增加重试计数并继续
+                retry_count += 1
+                time.sleep(1)
+                
+            except mysql.connector.errors.OperationalError as e:
+                retry_count += 1
+                logging.error(f"获取实体 {entity_id} 时数据库连接错误 (尝试 {retry_count}/{max_retries}): {str(e)}")
+                
+                if retry_count < max_retries:
+                    # 等待后重试
+                    time.sleep(2 * retry_count)
+                    try:
+                        # 尝试重新连接
+                        self._connect_mysql()
+                        logging.info(f"第 {retry_count} 次重试: 数据库重新连接成功")
+                    except Exception as conn_err:
+                        logging.error(f"尝试重新连接数据库时出错: {str(conn_err)}")
+                else:
+                    # 所有重试都失败
+                    logging.error(f"经过 {max_retries} 次重试后，无法获取实体 {entity_id}")
+                    return None
+                
+            except Exception as e:
+                logging.error(f"通过ID获取实体时出错: {str(e)}")
+                import traceback
+                logging.error(traceback.format_exc())
+                return None
             
-            # 获取演化关系
-                relations = self._get_entity_relations(entity_id)
-                dataset['evolution_relations'] = relations
-                
-                return {'dataset_entity': dataset}
-                
-            # 如果不是数据集实体，检查是否是评估指标实体
-            self.cursor.execute('SELECT * FROM Metrics WHERE metric_id = %s', (entity_id,))
-            row = self.cursor.fetchone()
-            
-            if row:
-                # 转换评估指标为标准格式
-                metric = {}
-                for i, col in enumerate(self.cursor.description):
-                    metric[col[0]] = row[i]
-                
-                # 确保entity_id字段存在
-                metric['entity_id'] = metric['metric_id']
-                metric['entity_type'] = 'Metric'
-                
-                # 获取演化关系
-                relations = self._get_entity_relations(entity_id)
-                metric['evolution_relations'] = relations
-                
-                return {'metric_entity': metric}
-            
-            # 如果没有找到任何实体，返回None
-            return None
-            
-        except Exception as e:
-            logging.error(f"通过ID获取实体时出错: {str(e)}")
-            import traceback
-            logging.error(traceback.format_exc())
-            return None
-    
-    def init_db(self):
-        """初始化数据库"""
-        self._connect_mysql()
-        
-        logging.info("MySQL数据库初始化完成")
-        return True
+        # 如果所有重试都失败
+        return None
 
     def _get_entity_relations(self, entity_id):
         """
@@ -1412,42 +1454,77 @@ class DatabaseManager:
         Returns:
             List[Dict]: 演化关系列表
         """
-        try:
-            logging.info(f"正在获取实体 {entity_id} 的演化关系")
-            
-            # 查询指向该实体的关系
-            self.cursor.execute(
-                """
-                SELECT relation_id, from_entity, to_entity, relation_type, 
-                       structure, detail, evidence, confidence,
-                       from_entity_type, to_entity_type 
-                FROM EvolutionRelations WHERE to_entity = %s
-                """,
-                (entity_id,)
-            )
-            rows = self.cursor.fetchall()
-            
-            relations = []
-            column_names = ['relation_id', 'from_entity', 'to_entity', 'relation_type', 
-                            'structure', 'detail', 'evidence', 'confidence', 
-                            'from_entity_type', 'to_entity_type']
-            
-            for row in rows:
-                relation = {}
-                for i, col in enumerate(column_names):
-                    relation[col] = row[i]
+        max_retries = 3
+        retry_count = 0
+        
+        while retry_count < max_retries:
+            try:
+                # 检查是否需要重连
+                reconnected = self._reconnect_if_needed()
+                if reconnected and retry_count > 0:
+                    logging.info(f"第 {retry_count+1} 次尝试：数据库连接已重新建立")
                 
-                if col == 'confidence' and relation[col] is not None:
-                    relation[col] = float(relation[col])
+                logging.info(f"正在获取实体 {entity_id} 的演化关系")
                 
-                relations.append(relation)
-            
-            logging.info(f"实体 {entity_id} 有 {len(relations)} 个演化关系")
-            return relations
-            
-        except Exception as e:
-            logging.error(f"获取实体 {entity_id} 的演化关系时出错: {str(e)}")
-            return []
+                # 查询指向该实体的关系
+                self.cursor.execute(
+                    """
+                    SELECT relation_id, from_entity, to_entity, relation_type, 
+                           structure, detail, evidence, confidence,
+                           from_entity_type, to_entity_type, source
+                    FROM EvolutionRelations 
+                    WHERE to_entity = %s
+                    """,
+                    (entity_id,)
+                )
+                rows = self.cursor.fetchall()
+                
+                relations = []
+                column_names = [description[0] for description in self.cursor.description]
+                
+                for row in rows:
+                    relation = {}
+                    for i, col in enumerate(column_names):
+                        relation[col] = row[i]
+                        if col == 'confidence' and relation[col] is not None:
+                            relation[col] = float(relation[col])
+                    
+                    relations.append(relation)
+                
+                logging.info(f"实体 {entity_id} 有 {len(relations)} 个演化关系")
+                return relations
+                
+            except mysql.connector.errors.OperationalError as e:
+                retry_count += 1
+                logging.error(f"获取实体 {entity_id} 的演化关系时数据库连接错误 (尝试 {retry_count}/{max_retries}): {str(e)}")
+                
+                if retry_count < max_retries:
+                    # 等待后重试
+                    time.sleep(2 * retry_count)
+                    try:
+                        # 尝试重新连接
+                        self._connect_mysql()
+                        logging.info(f"第 {retry_count} 次重试: 数据库重新连接成功")
+                    except Exception as conn_err:
+                        logging.error(f"尝试重新连接数据库时出错: {str(conn_err)}")
+                else:
+                    # 所有重试都失败
+                    logging.error(f"经过 {max_retries} 次重试后，无法获取实体 {entity_id} 的演化关系")
+                    return []
+                
+            except Exception as e:
+                logging.error(f"获取实体 {entity_id} 的演化关系时出错: {str(e)}")
+                return []
+                
+        # 如果所有重试都失败
+        return []
+    
+    def init_db(self):
+        """初始化数据库"""
+        self._connect_mysql()
+        
+        logging.info("MySQL数据库初始化完成")
+        return True
 
     def delete_entity(self, entity_id):
         """
@@ -1991,7 +2068,7 @@ class DatabaseManager:
             SELECT relation_id, from_entity, to_entity, relation_type, 
                    structure, detail, evidence, confidence,
                    from_entity_type, to_entity_type 
-            FROM EvolutionRelations 
+            FROMEvolutionRelations
             WHERE to_entity = %s
             """
             self.cursor.execute(query, (entity_id,))
@@ -2024,7 +2101,7 @@ class DatabaseManager:
             SELECT relation_id, from_entity, to_entity, relation_type, 
                    structure, detail, evidence, confidence,
                    from_entity_type, to_entity_type  
-            FROM EvolutionRelations 
+            FROMEvolutionRelations
             WHERE from_entity = %s
             """
             self.cursor.execute(query, (entity_id,))
@@ -2088,138 +2165,179 @@ class DatabaseManager:
         Returns:
             list: 相关实体列表
         """
-        try:
-            # 检查是否需要重连
-            self._reconnect_if_needed()
-            
-            # 先查询ProcessingStatus表确认任务是否存在
-            task_sql = "SELECT * FROM ProcessingStatus WHERE task_id = %s"
-            self.cursor.execute(task_sql, (task_id,))
-            task_row = self.cursor.fetchone()
-            
-            if not task_row:
-                logging.warning(f"未找到任务ID: {task_id}")
-                # 如果找不到任务ID，返回空列表
-                return []
-            
-            all_entities = []
-            
-            # 判断任务来源
-            default_source = '未知'
-            if '_review' in task_id:
-                default_source = '综述'
-            elif '_citation' in task_id:
-                default_source = '引文'
-            
-            # 查询算法实体
-            self.cursor.execute("SELECT * FROM Algorithms WHERE task_id = %s", (task_id,))
-            algorithm_rows = self.cursor.fetchall()
-            algorithm_columns = [desc[0] for desc in self.cursor.description]
-            
-            # 处理算法实体
-            for row in algorithm_rows:
-                entity_dict = dict(zip(algorithm_columns, row))
-                # 处理JSON字段
-                for field in ['authors', 'dataset', 'metrics', 'architecture_components', 
-                            'architecture_connections', 'architecture_mechanisms',
-                            'methodology_training_strategy', 'methodology_parameter_tuning', 
-                            'feature_processing']:
-                    if entity_dict.get(field) and isinstance(entity_dict[field], str):
+        max_retries = 5  # 增加最大重试次数
+        retry_count = 0
+        connection_errors = []
+        
+        while retry_count < max_retries:
+            try:
+                # 检查是否需要重连
+                reconnected = self._reconnect_if_needed()
+                if reconnected:
+                    logging.info(f"第 {retry_count+1} 次尝试：数据库连接已重新建立")
+                
+                # 先查询ProcessingStatus表确认任务是否存在
+                try:
+                    task_sql = "SELECT * FROM ProcessingStatus WHERE task_id = %s"
+                    self.cursor.execute(task_sql, (task_id,))
+                    task_row = self.cursor.fetchone()
+                    
+                    if not task_row and retry_count == 0:
+                        logging.warning(f"未找到任务ID: {task_id}")
+                        # 如果找不到任务ID，返回空列表
+                        return []
+                except Exception as e:
+                    logging.error(f"查询任务状态时出错: {str(e)}")
+                    # 任务查询出错，但继续尝试查询实体
+                
+                all_entities = []
+                
+                # 不再根据任务ID后缀判断来源，直接使用数据库的source字段
+                
+                # 查询算法实体
+                self.cursor.execute("SELECT * FROM Algorithms WHERE task_id = %s", (task_id,))
+                algorithm_rows = self.cursor.fetchall()
+                algorithm_columns = [desc[0] for desc in self.cursor.description]
+                
+                # 处理算法实体
+                for row in algorithm_rows:
+                    entity_dict = dict(zip(algorithm_columns, row))
+                    # 处理JSON字段
+                    for field in ['authors', 'dataset', 'metrics', 'architecture_components', 
+                                'architecture_connections', 'architecture_mechanisms',
+                                'methodology_training_strategy', 'methodology_parameter_tuning', 
+                                'feature_processing']:
+                        if entity_dict.get(field) and isinstance(entity_dict[field], str):
+                            try:
+                                entity_dict[field] = json.loads(entity_dict[field])
+                            except json.JSONDecodeError:
+                                # 如果不是有效的JSON，尝试按逗号分隔
+                                if ',' in entity_dict[field]:
+                                    entity_dict[field] = [item.strip() for item in entity_dict[field].split(',')]
+                                else:
+                                    entity_dict[field] = [entity_dict[field]]
+                    
+                    # 获取来源或使用默认值
+                    source = entity_dict.get('source', '未知')
+                    
+                    # 构建规范化的实体对象
+                    algorithm_entity = {
+                        'algorithm_id': entity_dict['algorithm_id'],
+                        'entity_id': entity_dict['algorithm_id'],
+                        'name': entity_dict['name'],
+                        'title': entity_dict.get('title', ''),
+                        'year': entity_dict.get('year', ''),
+                        'authors': entity_dict.get('authors', []),
+                        'task': entity_dict.get('task', ''),
+                        'dataset': entity_dict.get('dataset', []),
+                        'metrics': entity_dict.get('metrics', []),
+                        'architecture': {
+                            'components': entity_dict.get('architecture_components', []),
+                            'connections': entity_dict.get('architecture_connections', []),
+                            'mechanisms': entity_dict.get('architecture_mechanisms', [])
+                        },
+                        'methodology': {
+                            'training_strategy': entity_dict.get('methodology_training_strategy', []),
+                            'parameter_tuning': entity_dict.get('methodology_parameter_tuning', [])
+                        },
+                        'feature_processing': entity_dict.get('feature_processing', []),
+                        'entity_type': 'Algorithm',
+                        'task_id': entity_dict.get('task_id', task_id),
+                        'source': source
+                    }
+                    all_entities.append({'algorithm_entity': algorithm_entity})
+                
+                # 查询数据集实体
+                self.cursor.execute("SELECT * FROM Datasets WHERE task_id = %s", (task_id,))
+                dataset_rows = self.cursor.fetchall()
+                dataset_columns = [desc[0] for desc in self.cursor.description]
+                
+                # 处理数据集实体
+                for row in dataset_rows:
+                    entity_dict = dict(zip(dataset_columns, row))
+                    # 处理JSON字段
+                    if 'creators' in entity_dict and isinstance(entity_dict['creators'], str):
                         try:
-                            entity_dict[field] = json.loads(entity_dict[field])
+                            entity_dict['creators'] = json.loads(entity_dict['creators'])
                         except json.JSONDecodeError:
                             # 如果不是有效的JSON，尝试按逗号分隔
-                            if ',' in entity_dict[field]:
-                                entity_dict[field] = [item.strip() for item in entity_dict[field].split(',')]
+                            if ',' in entity_dict['creators']:
+                                entity_dict['creators'] = [item.strip() for item in entity_dict['creators'].split(',')]
                             else:
-                                entity_dict[field] = [entity_dict[field]]
+                                entity_dict['creators'] = [entity_dict['creators']]
+                    
+                    # 获取来源或使用默认值
+                    source = entity_dict.get('source', '未知')
+                    
+                    # 确保entity_id字段存在
+                    entity_dict['entity_id'] = entity_dict['dataset_id']
+                    entity_dict['source'] = source
+                    all_entities.append({'dataset_entity': entity_dict})
                 
-                # 获取来源或使用默认值
-                source = entity_dict.get('source', default_source)
+                # 查询评价指标实体
+                self.cursor.execute("SELECT * FROM Metrics WHERE task_id = %s", (task_id,))
+                metric_rows = self.cursor.fetchall()
+                metric_columns = [desc[0] for desc in self.cursor.description]
                 
-                # 构建规范化的实体对象
-                algorithm_entity = {
-                    'algorithm_id': entity_dict['algorithm_id'],
-                    'entity_id': entity_dict['algorithm_id'],
-                    'name': entity_dict['name'],
-                    'title': entity_dict.get('title', ''),
-                    'year': entity_dict.get('year', ''),
-                    'authors': entity_dict.get('authors', []),
-                    'task': entity_dict.get('task', ''),
-                    'dataset': entity_dict.get('dataset', []),
-                    'metrics': entity_dict.get('metrics', []),
-                    'architecture': {
-                        'components': entity_dict.get('architecture_components', []),
-                        'connections': entity_dict.get('architecture_connections', []),
-                        'mechanisms': entity_dict.get('architecture_mechanisms', [])
-                    },
-                    'methodology': {
-                        'training_strategy': entity_dict.get('methodology_training_strategy', []),
-                        'parameter_tuning': entity_dict.get('methodology_parameter_tuning', [])
-                    },
-                    'feature_processing': entity_dict.get('feature_processing', []),
-                    'entity_type': 'Algorithm',
-                    'task_id': entity_dict.get('task_id', task_id),
-                    'source': source
-                }
-                all_entities.append({'algorithm_entity': algorithm_entity})
-            
-            # 查询数据集实体
-            self.cursor.execute("SELECT * FROM Datasets WHERE task_id = %s", (task_id,))
-            dataset_rows = self.cursor.fetchall()
-            dataset_columns = [desc[0] for desc in self.cursor.description]
-            
-            # 处理数据集实体
-            for row in dataset_rows:
-                entity_dict = dict(zip(dataset_columns, row))
-                # 处理JSON字段
-                if 'creators' in entity_dict and isinstance(entity_dict['creators'], str):
+                # 处理评价指标实体
+                for row in metric_rows:
+                    entity_dict = dict(zip(metric_columns, row))
+                    
+                    # 获取来源或使用默认值
+                    source = entity_dict.get('source', '未知')
+                    
+                    # 确保entity_id字段存在
+                    entity_dict['entity_id'] = entity_dict['metric_id']
+                    entity_dict['source'] = source
+                    all_entities.append({'metric_entity': entity_dict})
+                
+                # 如果没有找到任何实体，记录警告
+                if not all_entities and retry_count == 0:
+                    logging.warning(f"未找到与任务 {task_id} 关联的实体")
+                
+                if all_entities:
+                    logging.info(f"找到 {len(all_entities)} 个与任务 {task_id} 关联的实体")
+                    return all_entities
+                
+                # 如果是最后一次重试仍未找到实体
+                if retry_count == max_retries - 1 and not all_entities:
+                    logging.warning(f"经过 {max_retries} 次尝试，仍未找到与任务 {task_id} 关联的实体")
+                    return []
+                
+                # 未找到实体但还有重试机会，增加重试计数
+                retry_count += 1
+                time.sleep(1)  # 短暂等待后重试
+                
+            except mysql.connector.errors.OperationalError as e:
+                retry_count += 1
+                error_message = str(e)
+                connection_errors.append(error_message)
+                logging.error(f"获取任务 {task_id} 的实体时数据库连接错误 (尝试 {retry_count}/{max_retries}): {error_message}")
+                
+                if retry_count < max_retries:
+                    # 等待几秒后重试
+                    time.sleep(2 * retry_count)  # 随着重试次数增加等待时间
                     try:
-                        entity_dict['creators'] = json.loads(entity_dict['creators'])
-                    except json.JSONDecodeError:
-                        # 如果不是有效的JSON，尝试按逗号分隔
-                        if ',' in entity_dict['creators']:
-                            entity_dict['creators'] = [item.strip() for item in entity_dict['creators'].split(',')]
-                        else:
-                            entity_dict['creators'] = [entity_dict['creators']]
+                        # 强制重新连接
+                        self._connect_mysql()
+                        logging.info(f"第 {retry_count} 次重试: 数据库重新连接成功")
+                    except Exception as connect_error:
+                        logging.error(f"尝试重新连接数据库时出错: {str(connect_error)}")
+                else:
+                    # 所有重试都失败，记录最后的错误
+                    logging.error(f"经过 {max_retries} 次重试后，无法获取任务 {task_id} 的实体")
+                    logging.error(f"遇到的连接错误: {', '.join(connection_errors)}")
+                    return []
+                    
+            except Exception as e:
+                logging.error(f"获取任务 {task_id} 的实体时出错: {str(e)}")
+                logging.error(traceback.format_exc())
                 
-                # 获取来源或使用默认值
-                source = entity_dict.get('source', default_source)
+                # 对于非连接错误，立即返回
+                return []
                 
-                # 确保entity_id字段存在
-                entity_dict['entity_id'] = entity_dict['dataset_id']
-                entity_dict['source'] = source
-                all_entities.append({'dataset_entity': entity_dict})
-            
-            # 查询评价指标实体
-            self.cursor.execute("SELECT * FROM Metrics WHERE task_id = %s", (task_id,))
-            metric_rows = self.cursor.fetchall()
-            metric_columns = [desc[0] for desc in self.cursor.description]
-            
-            # 处理评价指标实体
-            for row in metric_rows:
-                entity_dict = dict(zip(metric_columns, row))
-                
-                # 获取来源或使用默认值
-                source = entity_dict.get('source', default_source)
-                
-                # 确保entity_id字段存在
-                entity_dict['entity_id'] = entity_dict['metric_id']
-                entity_dict['source'] = source
-                all_entities.append({'metric_entity': entity_dict})
-            
-            # 如果没有找到任何实体，记录警告
-            if not all_entities:
-                logging.warning(f"未找到与任务 {task_id} 关联的实体")
-                return all_entities
-            
-            logging.info(f"找到 {len(all_entities)} 个与任务 {task_id} 关联的实体")
-            return all_entities
-            
-        except Exception as e:
-            logging.error(f"获取任务 {task_id} 的实体时出错: {str(e)}")
-            logging.error(traceback.format_exc())
-            return []
+        # 如果所有重试都失败，返回空列表
+        return []
 
     def get_relations_by_task(self, task_id):
         """
@@ -2231,65 +2349,106 @@ class DatabaseManager:
         Returns:
             list: 关系列表
         """
-        try:
-            # 检查是否需要重连
-            self._reconnect_if_needed()
-            
-            # 检查任务是否存在
-            check_sql = "SELECT task_id FROM ProcessingStatus WHERE task_id = %s"
-            self.cursor.execute(check_sql, (task_id,))
-            task_row = self.cursor.fetchone()
-            
-            if not task_row:
-                logging.warning(f"未找到任务ID: {task_id}")
-                # 如果找不到任务ID，返回空列表
+        max_retries = 5  # 增加最大重试次数
+        retry_count = 0
+        connection_errors = []
+        
+        while retry_count < max_retries:
+            try:
+                # 检查是否需要重连
+                reconnected = self._reconnect_if_needed()
+                if reconnected:
+                    logging.info(f"第 {retry_count+1} 次尝试：数据库连接已重新建立")
+                
+                # 检查任务是否存在
+                try:
+                    check_sql = "SELECT task_id FROM ProcessingStatus WHERE task_id = %s"
+                    self.cursor.execute(check_sql, (task_id,))
+                    task_row = self.cursor.fetchone()
+                    
+                    if not task_row and retry_count == 0:
+                        logging.warning(f"未找到任务ID: {task_id}")
+                        # 如果找不到任务ID，返回空列表
+                        return []
+                except Exception as e:
+                    logging.error(f"查询任务状态时出错: {str(e)}")
+                    # 任务查询出错，但继续尝试查询关系
+                
+                # 不再根据任务ID后缀判断来源，直接使用数据库的source字段
+                
+                # 查询与任务ID相关联的关系
+                relations_sql = """
+                SELECT relation_id, from_entity, to_entity, relation_type, structure, 
+                       detail, evidence, confidence, from_entity_type, to_entity_type,
+                       task_id, source
+                FROM EvolutionRelations
+                WHERE task_id = %s
+                """
+                self.cursor.execute(relations_sql, (task_id,))
+                rows = self.cursor.fetchall()
+                
+                relations = []
+                if not rows and retry_count == 0:
+                    logging.warning(f"未找到与任务 {task_id} 关联的关系记录")
+                    
+                # 如果是最后一次重试仍未找到关系
+                if retry_count == max_retries - 1 and not rows:
+                    logging.warning(f"经过 {max_retries} 次尝试，仍未找到与任务 {task_id} 关联的关系")
+                    return []
+                    
+                # 获取列名
+                column_names = [desc[0] for desc in self.cursor.description]
+                
+                # 处理查询结果
+                for row in rows:
+                    relation = {}
+                    for i, name in enumerate(column_names):
+                        relation[name] = row[i]
+                    
+                    # 确保source字段存在
+                    if 'source' not in relation or not relation['source']:
+                        relation['source'] = '未知'
+                    
+                    relations.append(relation)
+                
+                if relations:
+                    logging.info(f"找到 {len(relations)} 个与任务 {task_id} 关联的关系记录")
+                    return relations
+                
+                # 未找到关系但还有重试机会，增加重试计数
+                retry_count += 1
+                time.sleep(1)  # 短暂等待后重试
+                
+            except mysql.connector.errors.OperationalError as e:
+                retry_count += 1
+                error_message = str(e)
+                connection_errors.append(error_message)
+                logging.error(f"获取任务 {task_id} 的关系时数据库连接错误 (尝试 {retry_count}/{max_retries}): {error_message}")
+                
+                if retry_count < max_retries:
+                    # 等待几秒后重试
+                    time.sleep(2 * retry_count)  # 随着重试次数增加等待时间
+                    try:
+                        # 强制重新连接
+                        self._connect_mysql()
+                        logging.info(f"第 {retry_count} 次重试: 数据库重新连接成功")
+                    except Exception as connect_error:
+                        logging.error(f"尝试重新连接数据库时出错: {str(connect_error)}")
+                else:
+                    # 所有重试都失败，记录最后的错误
+                    logging.error(f"经过 {max_retries} 次重试后，无法获取任务 {task_id} 的关系")
+                    logging.error(f"遇到的连接错误: {', '.join(connection_errors)}")
+                    return []
+                
+            except Exception as e:
+                logging.error(f"获取任务 {task_id} 的关系时出错: {str(e)}")
+                logging.error(traceback.format_exc())
+                
+                # 对于非连接错误，立即返回
                 return []
-            
-            # 判断任务来源
-            default_source = '未知'
-            if '_review' in task_id:
-                default_source = '综述'
-            elif '_citation' in task_id:
-                default_source = '引文'
-            
-            # 查询与任务ID相关联的关系
-            relations_sql = """
-            SELECT relation_id, from_entity, to_entity, relation_type, structure, 
-                   detail, evidence, confidence, from_entity_type, to_entity_type,
-                   task_id, source
-            FROM EvolutionRelations
-            WHERE task_id = %s
-            """
-            self.cursor.execute(relations_sql, (task_id,))
-            rows = self.cursor.fetchall()
-            
-            relations = []
-            if not rows:
-                logging.warning(f"未找到与任务 {task_id} 关联的关系记录")
-                return relations
                 
-            # 获取列名
-            column_names = [desc[0] for desc in self.cursor.description]
-            
-            # 处理查询结果
-            for row in rows:
-                relation = {}
-                for i, name in enumerate(column_names):
-                    relation[name] = row[i]
-                
-                # 确保source字段存在
-                if 'source' not in relation or not relation['source']:
-                    relation['source'] = default_source
-                
-                relations.append(relation)
-            
-            logging.info(f"找到 {len(relations)} 个与任务 {task_id} 关联的关系记录")
-            return relations
-            
-        except Exception as e:
-            logging.error(f"获取任务 {task_id} 的关系时出错: {str(e)}")
-            logging.error(traceback.format_exc())
-            return []
+        # 如果所有重试都失败，返回空列表
+        return []
 
     def get_comparison_history(self, limit=20):
         """
@@ -2390,6 +2549,110 @@ class DatabaseManager:
                 relation_count += 1
         
         logging.info(f"已保存 {entity_count} 个实体和 {relation_count} 个关系到数据库，任务ID: {task_id}")
+
+    def get_relation_by_id(self, relation_id):
+        """
+        通过ID获取关系详情
+        
+        Args:
+            relation_id (str/int): 关系ID
+            
+        Returns:
+            dict: 关系详情，如果未找到则返回None
+        """
+        max_retries = 3
+        retry_count = 0
+        
+        while retry_count < max_retries:
+            try:
+                # 检查是否需要重连
+                reconnected = self._reconnect_if_needed()
+                if reconnected and retry_count > 0:
+                    logging.info(f"第 {retry_count+1} 次尝试：数据库连接已重新建立")
+            
+                # 查询关系
+                sql = """
+                    SELECT relation_id, from_entity, to_entity, relation_type, structure, 
+                          detail, evidence, confidence, from_entity_type, to_entity_type,
+                          created_at, updated_at, task_id, source
+                    FROM EvolutionRelations 
+                    WHERE relation_id = %s
+                    """
+                self.cursor.execute(sql, (relation_id,))
+                row = self.cursor.fetchone()
+                
+                if not row:
+                    logging.warning(f"未找到关系: {relation_id}")
+                    return None
+                
+                # 获取列名
+                column_names = [desc[0] for desc in self.cursor.description]
+                
+                # 构建关系字典
+                relation = {}
+                for i, name in enumerate(column_names):
+                    # 处理日期时间类型
+                    if isinstance(row[i], (datetime.datetime, datetime.date)):
+                        relation[name] = row[i].strftime('%Y-%m-%d %H:%M:%S')
+                    # 处理confidence浮点值
+                    elif name == 'confidence' and row[i] is not None:
+                        relation[name] = float(row[i])
+                    # 其他字段
+                    else:
+                        relation[name] = row[i]
+                
+                # 补充关系信息
+                try:
+                    # 获取来源实体信息
+                    from_entity = self.get_entity_by_id(relation['from_entity'])
+                    if from_entity:
+                        if 'algorithm_entity' in from_entity:
+                            relation['from_entity_name'] = from_entity['algorithm_entity'].get('name', '')
+                        elif 'dataset_entity' in from_entity:
+                            relation['from_entity_name'] = from_entity['dataset_entity'].get('name', '')
+                        elif 'metric_entity' in from_entity:
+                            relation['from_entity_name'] = from_entity['metric_entity'].get('name', '')
+                    
+                    # 获取目标实体信息
+                    to_entity = self.get_entity_by_id(relation['to_entity'])
+                    if to_entity:
+                        if 'algorithm_entity' in to_entity:
+                            relation['to_entity_name'] = to_entity['algorithm_entity'].get('name', '')
+                        elif 'dataset_entity' in to_entity:
+                            relation['to_entity_name'] = to_entity['dataset_entity'].get('name', '')
+                        elif 'metric_entity' in to_entity:
+                            relation['to_entity_name'] = to_entity['metric_entity'].get('name', '')
+                except Exception as e:
+                    logging.warning(f"获取关系 {relation_id} 的相关实体信息时出错: {str(e)}")
+                
+                logging.info(f"成功获取关系: {relation_id}, 类型: {relation.get('relation_type')}, 来源: {relation.get('source', '未知')}")
+                return relation
+                
+            except mysql.connector.errors.OperationalError as e:
+                retry_count += 1
+                logging.error(f"获取关系 {relation_id} 时数据库连接错误 (尝试 {retry_count}/{max_retries}): {str(e)}")
+                
+                if retry_count < max_retries:
+                    # 等待后重试
+                    time.sleep(2 * retry_count)
+                    try:
+                        # 尝试重新连接
+                        self._connect_mysql()
+                        logging.info(f"第 {retry_count} 次重试: 数据库重新连接成功")
+                    except Exception as conn_err:
+                        logging.error(f"尝试重新连接数据库时出错: {str(conn_err)}")
+                else:
+                    # 所有重试都失败
+                    logging.error(f"经过 {max_retries} 次重试后，无法获取关系 {relation_id}")
+                    return None
+                    
+            except Exception as e:
+                logging.error(f"获取关系 {relation_id} 时出错: {str(e)}")
+                logging.error(traceback.format_exc())
+                return None
+                
+        # 如果所有重试都失败
+        return None
 
 # 创建数据库管理器实例
 db_manager = DatabaseManager()
