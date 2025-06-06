@@ -154,7 +154,6 @@
                         <button id="btn-export-png" class="btn btn-sm btn-outline-success">导出PNG</button>
                         <button id="btn-export-json" class="btn btn-sm btn-outline-success">导出JSON</button>
                         <button id="btn-refresh-data" class="btn btn-sm btn-outline-danger">刷新数据</button>
-                        <button id="btn-test-api" class="btn btn-sm btn-outline-warning">测试API连接</button>
                     </div>
                     <div class="search-container mb-2">
                         <div class="input-group">
@@ -281,102 +280,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.21.1/cytoscape.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape-panzoom/2.5.3/cytoscape-panzoom.min.js"></script>
     <script>
-        // 显示加载状态
-        function showLoading(message) {
-            // 检查是否已存在加载提示
-            let loadingEl = document.getElementById('loading-overlay');
-            if (!loadingEl) {
-                loadingEl = document.createElement('div');
-                loadingEl.id = 'loading-overlay';
-                loadingEl.style.position = 'fixed';
-                loadingEl.style.top = '0';
-                loadingEl.style.left = '0';
-                loadingEl.style.width = '100%';
-                loadingEl.style.height = '100%';
-                loadingEl.style.backgroundColor = 'rgba(0,0,0,0.5)';
-                loadingEl.style.display = 'flex';
-                loadingEl.style.justifyContent = 'center';
-                loadingEl.style.alignItems = 'center';
-                loadingEl.style.zIndex = '9999';
-                
-                const spinner = document.createElement('div');
-                spinner.className = 'spinner-border text-light';
-                spinner.setAttribute('role', 'status');
-                
-                const messageEl = document.createElement('div');
-                messageEl.id = 'loading-message';
-                messageEl.style.color = 'white';
-                messageEl.style.marginLeft = '15px';
-                messageEl.textContent = message || '加载中...';
-                
-                const container = document.createElement('div');
-                container.appendChild(spinner);
-                container.appendChild(messageEl);
-                
-                loadingEl.appendChild(container);
-                document.body.appendChild(loadingEl);
-            } else {
-                // 更新消息
-                document.getElementById('loading-message').textContent = message || '加载中...';
-                loadingEl.style.display = 'flex';
-            }
-        }
-
-        // 隐藏加载状态
-        function hideLoading() {
-            const loadingEl = document.getElementById('loading-overlay');
-            if (loadingEl) {
-                loadingEl.style.display = 'none';
-            }
-        }
-
-        // 显示通知消息
-        function showNotification(message, type = 'info') {
-            // 移除现有通知
-            const existingNotifications = document.querySelectorAll('.notification-toast');
-            existingNotifications.forEach(notification => {
-                notification.remove();
-            });
-            
-            // 创建新通知
-            const notification = document.createElement('div');
-            notification.className = `notification-toast toast show bg-${type === 'error' ? 'danger' : type}`;
-            notification.setAttribute('role', 'alert');
-            notification.setAttribute('aria-live', 'assertive');
-            notification.setAttribute('aria-atomic', 'true');
-            
-            notification.style.position = 'fixed';
-            notification.style.top = '20px';
-            notification.style.right = '20px';
-            notification.style.zIndex = '10000';
-            notification.style.minWidth = '300px';
-            
-            notification.innerHTML = `
-                <div class="toast-header bg-${type === 'error' ? 'danger' : type} text-white">
-                    <strong class="me-auto">${type === 'error' ? '错误' : type === 'success' ? '成功' : '提示'}</strong>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body bg-white">
-                    ${message}
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // 点击关闭按钮关闭通知
-            const closeBtn = notification.querySelector('.btn-close');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function() {
-                    notification.remove();
-                });
-            }
-            
-            // 5秒后自动关闭
-            setTimeout(() => {
-                notification.remove();
-            }, 5000);
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             // 初始化cytoscape
             const cy = cytoscape({
@@ -737,52 +640,16 @@
                     taskSelect.selectedIndex = 0; // 选择"全部数据"
                 }
                 
-                // 添加网络请求前的日志
-                console.log('准备向 /api/tasks 发送请求...');
-                
-                // 记录请求开始时间
-                const startTime = new Date();
-                console.log(`请求开始时间: ${startTime.toISOString()}`);
-                
-                // 使用带超时的fetch
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时
-                
-                fetch('/api/tasks', { 
-                    signal: controller.signal,
-                    headers: {
-                        'Cache-Control': 'no-cache',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Pragma': 'no-cache'
-                    }
-                })
+                fetch('/api/tasks')
                     .then(response => {
-                        // 清除超时
-                        clearTimeout(timeoutId);
-                        
-                        // 记录请求完成时间
-                        const endTime = new Date();
-                        const duration = endTime - startTime;
-                        console.log(`请求完成时间: ${endTime.toISOString()}, 请求耗时: ${duration}ms`);
-                        
-                        console.log(`任务列表API响应状态: ${response.status} ${response.statusText}`);
-                        console.log('响应头:', response.headers);
-                        
-                        // 检查响应状态
+                        console.log('任务列表API响应状态:', response.status, response.statusText);
                         if (!response.ok) {
-                            console.error(`API请求失败: ${response.status} ${response.statusText}`);
+                            console.error('API请求失败:', response.status, response.statusText);
                             throw new Error(`API请求失败: ${response.status} ${response.statusText}`);
                         }
-                        
-                        return response.text().then(text => {
-                            console.log('API原始响应内容:', text);
-                            try {
-                                return JSON.parse(text);
-                            } catch (err) {
-                                console.error('JSON解析失败:', err);
-                                console.error('原始响应内容:', text);
-                                throw new Error('解析响应数据失败');
-                            }
+                        return response.json().catch(err => {
+                            console.error('JSON解析失败:', err);
+                            throw new Error('解析响应数据失败');
                         });
                     })
                     .then(tasks => {
@@ -833,45 +700,8 @@
                         hideDatabaseError();
                     })
                     .catch(error => {
-                        // 清除超时
-                        clearTimeout(timeoutId);
-                        
-                        // 检查是否是超时错误
-                        if (error.name === 'AbortError') {
-                            console.error('加载任务列表请求超时');
-                            showNotification('加载任务列表请求超时，请稍后再试', 'error');
-                        } else {
-                            console.error('加载任务列表失败:', error);
-                            console.error('错误详情:', error.stack || '无堆栈信息');
-                            showDatabaseError('加载任务列表失败，可能是数据库连接问题: ' + error.message);
-                        }
-                        
-                        // 尝试手动调用API查看问题
-                        console.log('尝试通过调试代码手动调用API...');
-                        const debugScript = document.createElement('script');
-                        debugScript.innerHTML = `
-                            setTimeout(function() {
-                                const xhr = new XMLHttpRequest();
-                                xhr.open('GET', '/api/tasks', true);
-                                xhr.onreadystatechange = function() {
-                                    console.log('XHR状态变化:', xhr.readyState);
-                                    if (xhr.readyState === 4) {
-                                        console.log('XHR状态码:', xhr.status);
-                                        console.log('XHR响应:', xhr.responseText);
-                                    }
-                                };
-                                xhr.onerror = function(e) {
-                                    console.error('XHR错误:', e);
-                                };
-                                xhr.timeout = 5000;
-                                xhr.ontimeout = function() {
-                                    console.error('XHR请求超时');
-                                };
-                                xhr.send();
-                                console.log('XHR请求已发送');
-                            }, 1000);
-                        `;
-                        document.body.appendChild(debugScript);
+                        console.error('加载任务列表失败:', error);
+                        showDatabaseError('加载任务列表失败，可能是数据库连接问题: ' + error.message);
                         
                         // 移除加载中选项
                         if (taskSelect) {
@@ -979,26 +809,28 @@
             
             // 绑定刷新任务列表按钮事件
             document.getElementById('btn-refresh-tasks').addEventListener('click', function() {
-                console.log('刷新任务列表按钮被点击');
                 showLoading('正在刷新任务列表...');
                 
-                // 添加调试信息
-                showNotification('正在尝试刷新任务列表...', 'info');
-                
-                try {
-                    // 直接调用加载任务列表函数，跳过数据库检查
-                    console.log('直接调用loadTaskList()函数');
-                    loadTaskList();
-                    
-                    setTimeout(function() {
+                // 先检查数据库连接
+                fetch('/api/system/db-status')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // 数据库连接正常，加载任务列表
+                            loadTaskList();
+                            hideLoading();
+                            showNotification('任务列表已刷新', 'success');
+                        } else {
+                            hideLoading();
+                            showNotification('数据库连接失败，无法刷新任务列表', 'error');
+                            showDatabaseError('数据库连接失败: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
                         hideLoading();
-                        showNotification('任务列表刷新操作已完成', 'success');
-                    }, 1000);
-                } catch (error) {
-                    console.error('刷新任务列表时出错:', error);
-                    hideLoading();
-                    showNotification('刷新任务列表时出错: ' + error.message, 'error');
-                }
+                        showNotification('检查数据库连接时出错', 'error');
+                        console.error('检查数据库连接时出错:', error);
+                    });
             });
 
             // 加载图数据的函数，增加taskId参数支持按任务加载
@@ -1253,219 +1085,26 @@
             
             // 显示任务详情
             function showTaskInfo(taskId) {
-                showLoading('正在加载任务信息...');
-                console.log(`正在获取任务详情: ${taskId}`);
-                
-                // 添加时间戳防止缓存
-                const timestamp = new Date().getTime();
-                let apiUrl = `/api/tasks/${taskId}/status?t=${timestamp}`;
-                
-                // 添加详细日志
-                console.log(`请求URL: ${apiUrl}`);
-                
-                // 创建统一的错误处理函数
-                const handleError = (error, message, fallbackUrl = null) => {
-                    console.error(message, error);
-                    
-                    if (fallbackUrl && !fallbackUrl.includes('undefined')) {
-                        console.log(`尝试使用备用路由: ${fallbackUrl}`);
-                        showNotification('正在尝试备用路由获取数据...', 'info');
+                fetch(`/api/tasks/${taskId}/status`)
+                    .then(response => response.json())
+                    .then(taskData => {
+                        // 显示任务信息卡片
+                        const taskInfo = document.getElementById('task-info');
+                        taskInfo.classList.remove('d-none');
                         
-                        fetch(fallbackUrl)
-                            .then(response => {
-                                console.log(`备用路由响应状态:`, response.status);
-                                return response.json();
-                            })
-                            .then(result => {
-                                hideLoading();
-                                console.log(`备用路由返回数据:`, result);
-                                
-                                if (result.success) {
-                                    // 显示任务信息
-                                    const taskInfo = document.getElementById('task-info');
-                                    taskInfo.classList.remove('d-none');
-                                    
-                                    const taskData = result.data;
-                                    document.getElementById('task-id').textContent = taskData.task_id || taskId;
-                                    document.getElementById('task-name').textContent = taskData.task_name || '未命名任务';
-                                    document.getElementById('task-status').textContent = taskData.status || '未知';
-                                    document.getElementById('task-time').textContent = taskData.start_time || '-';
-                                    
-                                    showNotification('使用备用路由成功获取任务信息', 'success');
-                                } else {
-                                    showNotification(`备用路由获取失败: ${result.message}`, 'error');
-                                    // 出错时隐藏任务详情
-                                    document.getElementById('task-info').classList.add('d-none');
-                                }
-                            })
-                            .catch(fallbackError => {
-                                hideLoading();
-                                console.error('备用路由也失败:', fallbackError);
-                                showNotification(`所有API路由均失败，请检查服务器状态`, 'error');
-                                document.getElementById('task-info').classList.add('d-none');
-                                
-                                // 显示诊断按钮
-                                showDiagnosticOptions(taskId);
-                            });
-                    } else {
-                        hideLoading();
-                        showNotification(message, 'error');
+                        // 填充任务详情
+                        document.getElementById('task-id').textContent = taskData.task_id || '-';
+                        document.getElementById('task-name').textContent = taskData.task_name || '-';
+                        document.getElementById('task-status').textContent = taskData.status || '-';
+                        document.getElementById('task-time').textContent = taskData.start_time || '-';
+                    })
+                    .catch(error => {
+                        console.error('获取任务详情失败:', error);
+                        // 出错时隐藏任务详情
                         document.getElementById('task-info').classList.add('d-none');
-                        
-                        // 显示诊断按钮
-                        showDiagnosticOptions(taskId);
-                    }
-                };
-                
-                fetch(apiUrl, {
-                    headers: {
-                        'Cache-Control': 'no-cache',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    console.log(`任务详情API响应状态:`, response.status);
-                    if (!response.ok) {
-                        throw new Error(`API响应错误: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(result => {
-                    hideLoading();
-                    console.log(`获取到任务详情:`, result);
-                    
-                    // 显示任务信息卡片
-                    const taskInfo = document.getElementById('task-info');
-                    taskInfo.classList.remove('d-none');
-                    
-                    if (!result.success) {
-                        console.error('获取任务详情失败:', result.message);
-                        
-                        // 尝试备用路由
-                        const fallbackUrl = `/api/task_status/${taskId}?t=${timestamp}`;
-                        handleError(null, `获取任务详情失败: ${result.message}`, fallbackUrl);
-                        return;
-                    }
-                    
-                    // 从结果中提取任务数据
-                    const taskData = result.data;
-                    
-                    // 填充任务详情
-                    document.getElementById('task-id').textContent = taskData.task_id || taskId;
-                    document.getElementById('task-name').textContent = taskData.task_name || '未命名任务';
-                    document.getElementById('task-status').textContent = taskData.status || '未知';
-                    document.getElementById('task-time').textContent = taskData.start_time || '-';
-                    
-                    // 清除诊断选项（如果存在）
-                    const diagnosticDiv = document.getElementById('api-diagnostic-options');
-                    if (diagnosticDiv) {
-                        diagnosticDiv.remove();
-                    }
-                })
-                .catch(error => {
-                    console.error('获取任务详情失败:', error);
-                    
-                    // 尝试备用路由
-                    const fallbackUrl = `/api/task_status/${taskId}?t=${timestamp}`;
-                    handleError(error, `获取任务详情时发生错误: ${error.message}`, fallbackUrl);
-                });
+                    });
             }
             
-            // 显示API诊断选项
-            function showDiagnosticOptions(taskId) {
-                // 移除现有的诊断选项
-                const existingDiv = document.getElementById('api-diagnostic-options');
-                if (existingDiv) {
-                    existingDiv.remove();
-                }
-                
-                // 创建诊断选项容器
-                const diagnosticDiv = document.createElement('div');
-                diagnosticDiv.id = 'api-diagnostic-options';
-                diagnosticDiv.className = 'alert alert-warning mt-3';
-                diagnosticDiv.innerHTML = `
-                    <h5>API诊断工具</h5>
-                    <p>任务 ID: ${taskId}</p>
-                    <div class="d-flex flex-wrap gap-2">
-                        <button id="btn-test-main-route" class="btn btn-sm btn-outline-primary">测试主路由</button>
-                        <button id="btn-test-alt-route" class="btn btn-sm btn-outline-secondary">测试备用路由</button>
-                        <button id="btn-test-api-endpoint" class="btn btn-sm btn-outline-info">测试API是否可用</button>
-                        <button id="btn-list-routes" class="btn btn-sm btn-outline-dark">列出所有路由</button>
-                    </div>
-                `;
-                
-                // 添加到任务选择区域
-                document.querySelector('.task-selection').appendChild(diagnosticDiv);
-                
-                // 绑定按钮事件
-                document.getElementById('btn-test-main-route').addEventListener('click', function() {
-                    testApiRoute(`/api/tasks/${taskId}/status`);
-                });
-                
-                document.getElementById('btn-test-alt-route').addEventListener('click', function() {
-                    testApiRoute(`/api/task_status/${taskId}`);
-                });
-                
-                document.getElementById('btn-test-api-endpoint').addEventListener('click', function() {
-                    testApiRoute('/api/tasks/test');
-                });
-                
-                document.getElementById('btn-list-routes').addEventListener('click', function() {
-                    testApiRoute('/api/debug/routes');
-                });
-            }
-
-            // 测试API路由
-            function testApiRoute(url) {
-                showLoading(`正在测试路由: ${url}`);
-                console.log(`测试路由: ${url}`);
-                
-                // 添加时间戳防止缓存
-                const fullUrl = `${url}?t=${new Date().getTime()}`;
-                
-                fetch(fullUrl, {
-                    headers: {
-                        'Cache-Control': 'no-cache',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    console.log(`路由测试响应状态:`, response.status);
-                    return response.text().then(text => {
-                        try {
-                            return { status: response.status, data: JSON.parse(text) };
-                        } catch (e) {
-                            return { status: response.status, text: text };
-                        }
-                    });
-                })
-                .then(result => {
-                    hideLoading();
-                    console.log(`路由测试结果:`, result);
-                    
-                    let message;
-                    let type;
-                    
-                    if (result.status >= 200 && result.status < 300) {
-                        message = `路由测试成功: ${url}\n状态码: ${result.status}`;
-                        type = 'success';
-                    } else {
-                        message = `路由测试失败: ${url}\n状态码: ${result.status}`;
-                        type = 'error';
-                    }
-                    
-                    // 显示结果
-                    const resultData = result.data ? JSON.stringify(result.data, null, 2) : result.text;
-                    alert(`${message}\n\n响应数据:\n${resultData}`);
-                    showNotification(message, type);
-                })
-                .catch(error => {
-                    hideLoading();
-                    console.error('路由测试失败:', error);
-                    showNotification(`路由测试失败: ${error.message}`, 'error');
-                });
-            }
-
             // 任务选择框变更事件
             document.getElementById('task-select').addEventListener('change', function() {
                 const taskId = this.value;
@@ -1720,87 +1359,6 @@
                         btn.disabled = false;
                         btn.innerHTML = '刷新数据';
                 }, 1000);
-            });
-            
-            // 测试API连接
-            document.getElementById('btn-test-api').addEventListener('click', function() {
-                const btn = this;
-                btn.disabled = true;
-                btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 测试中...';
-                
-                console.log('开始测试API连接...');
-                showLoading('正在测试API连接...');
-                
-                // 记录请求开始时间
-                const startTime = new Date();
-                
-                fetch('/api/system/ping?t=' + new Date().getTime(), {
-                    headers: {
-                        'Cache-Control': 'no-cache',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    console.log(`API响应状态: ${response.status} ${response.statusText}`);
-                    return response.text().then(text => {
-                        console.log('原始响应内容:', text);
-                        try {
-                            return JSON.parse(text);
-                        } catch (err) {
-                            console.error('解析响应失败:', err);
-                            throw new Error('响应解析失败: ' + text.substring(0, 100));
-                        }
-                    });
-                })
-                .then(data => {
-                    const endTime = new Date();
-                    const duration = endTime - startTime;
-                    
-                    hideLoading();
-                    showNotification(`API连接测试成功! 服务器返回: ${data.message}, 耗时: ${duration}ms`, 'success');
-                    
-                    console.log('API测试成功:', data);
-                    
-                    // 显示详细信息
-                    alert(`
-API连接测试成功!
-服务器返回信息:
-- 状态: ${data.status}
-- 消息: ${data.message}
-- 时间戳: ${data.timestamp}
-- 服务器信息: ${JSON.stringify(data.server_info)}
-- 响应时间: ${duration}ms
-                    `);
-                    
-                    // 自动测试tasks接口
-                    console.log('开始测试任务列表API...');
-                    fetch('/api/tasks?t=' + new Date().getTime(), {
-                        headers: {
-                            'Cache-Control': 'no-cache',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                    .then(response => {
-                        console.log(`任务API响应状态: ${response.status} ${response.statusText}`);
-                        return response.text();
-                    })
-                    .then(text => {
-                        console.log('任务API原始响应:', text.substring(0, 500) + (text.length > 500 ? '...(省略)' : ''));
-                        showNotification('任务列表API测试完成，请查看控制台日志', 'info');
-                    })
-                    .catch(err => {
-                        console.error('任务列表API测试失败:', err);
-                    });
-                })
-                .catch(error => {
-                    hideLoading();
-                    showNotification(`API连接测试失败: ${error.message}`, 'error');
-                    console.error('API测试失败:', error);
-                })
-                .finally(() => {
-                    btn.disabled = false;
-                    btn.innerHTML = '测试API连接';
-                });
             });
         });
     </script>

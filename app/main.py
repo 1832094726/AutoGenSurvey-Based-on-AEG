@@ -11,15 +11,28 @@ from app.modules.knowledge_graph import build_knowledge_graph, visualize_graph, 
 from app.modules.db_manager import db_manager
 from app.config import Config
 import datetime
-from app.modules.relation_generator import generate_relations, update_entities_with_relations
 from threading import Thread
 from app.modules.agents import extract_paper_entities
+import platform
+from flask import current_app
 
 # 设置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # 创建蓝图
 main = Blueprint('main', __name__)
+
+# 数据库连接辅助函数
+def get_db_connection():
+    """获取数据库连接，使用db_manager的连接
+    
+    Returns:
+        connection: 数据库连接对象
+    """
+    logging.info("获取数据库连接")
+    # 确保连接有效
+    db_manager._reconnect_if_needed()
+    return db_manager.conn
 
 @main.route('/')
 def index():
@@ -531,57 +544,203 @@ def clear_all_data():
             "traceback": tb
         }), 500
 
-@main.route('/api/tasks/<task_id>/status', methods=['GET'])
-def get_task_status(task_id):
-    """获取任务处理状态API"""
-    try:
-        # 查询任务状态
-        query = """
-        SELECT id, task_id, status, current_stage, progress, current_file, message, 
-               start_time, update_time, end_time
-        FROM ProcessingStatus
-        WHERE task_id = %s
-        """
-        
-        db_manager.cursor.execute(query, (task_id,))
-        row = db_manager.cursor.fetchone()
-        
-        if not row:
-            return jsonify({
-                "success": False,
-                "message": f"找不到任务ID: {task_id}"
-            }), 404
-            
-        # 解析行数据
-        status_data = {
-            "id": row[0],
-            "task_id": row[1],
-            "status": row[2],
-            "current_stage": row[3],
-            "progress": float(row[4]) if row[4] is not None else 0,
-            "current_file": row[5],
-            "message": row[6],
-            "start_time": row[7].strftime('%Y-%m-%d %H:%M:%S') if row[7] else None,
-            "update_time": row[8].strftime('%Y-%m-%d %H:%M:%S') if row[8] else None,
-            "end_time": row[9].strftime('%Y-%m-%d %H:%M:%S') if row[9] else None,
-            "is_completed": row[2] in ['completed', 'failed']
-        }
-        
-        return jsonify({
-            "success": True,
-            "data": status_data
+@main.route('/api/debug/routes', methods=['GET'])
+def get_all_routes():
+    """返回应用中所有注册的路由"""
+    routes = []
+    for rule in current_app.url_map.iter_rules():
+        methods = ','.join(rule.methods)
+        routes.append({
+            'endpoint': rule.endpoint,
+            'methods': methods,
+            'rule': str(rule)
         })
+    
+    logging.info(f"已请求路由列表，找到 {len(routes)} 个路由")
+    return jsonify({
+        'success': True,
+        'message': f'找到 {len(routes)} 个路由',
+        'data': sorted(routes, key=lambda r: r['rule'])
+    })
+
+@main.route('/api/tasks/test', methods=['GET'])
+def test_tasks_api():
+    """API测试端点"""
+    logging.info(f"API测试端点被调用")
+    return jsonify({
+        'success': True,
+        'message': 'API端点可用',
+        'test_data': {
+            'timestamp': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'request_method': request.method,
+            'request_path': request.path,
+            'request_args': dict(request.args)
+        }
+    })
+
+@main.route('/api/task_status/<task_id>', methods=['GET'])
+def get_task_status_alt(task_id):
+    """获取任务状态（备用路由）"""
+    logging.info(f"备用路由：获取任务状态 - ID: {task_id}")
+    logging.info(f"请求URL: {request.url}")
+    logging.info(f"请求方法: {request.method}")
+    logging.info(f"请求头: {dict(request.headers)}")
+    
+    try:
+        # 记录请求信息
+        logging.info(f"正在查询任务 {task_id} 的状态")
         
+        # 从数据库获取任务状态
+        with get_db_connection() as conn:
+            task_status = get_task_status_from_db(conn, task_id)
+        
+        if task_status:
+            logging.info(f"任务状态获取成功: {task_status}")
+            return jsonify({
+                'success': True,
+                'message': '任务状态获取成功',
+                'data': task_status
+            })
+        else:
+            logging.warning(f"任务 {task_id} 不存在")
+            return jsonify({
+                'success': False,
+                'message': f'找不到任务 {task_id}'
+            }), 404
     except Exception as e:
         logging.error(f"获取任务状态时出错: {str(e)}")
-        import traceback
-        tb = traceback.format_exc()
-        logging.error(tb)
+        logging.exception(e)
         return jsonify({
-            "success": False,
-            "message": f"获取任务状态时出错: {str(e)}",
-            "traceback": tb
+            'success': False,
+            'message': f'获取任务状态时出错: {str(e)}'
         }), 500
+
+@main.route('/api/tasks/<task_id>/status', methods=['GET'])
+def get_task_status(task_id):
+    """获取任务状态"""
+    # 记录详细的请求信息，帮助调试路由问题
+    logging.info(f"主路由：获取任务状态 - ID: {task_id}")
+    logging.info(f"请求URL: {request.url}")
+    logging.info(f"请求方法: {request.method}")
+    logging.info(f"请求头: {dict(request.headers)}")
+    
+    try:
+        # 记录请求信息
+        logging.info(f"正在查询任务 {task_id} 的状态")
+        
+        # 从数据库获取任务状态
+        with get_db_connection() as conn:
+            task_status = get_task_status_from_db(conn, task_id)
+        
+        if task_status:
+            logging.info(f"任务状态获取成功: {task_status}")
+            return jsonify({
+                'success': True,
+                'message': '任务状态获取成功',
+                'data': task_status
+            })
+        else:
+            logging.warning(f"任务 {task_id} 不存在")
+            return jsonify({
+                'success': False,
+                'message': f'找不到任务 {task_id}'
+            }), 404
+    except Exception as e:
+        logging.error(f"获取任务状态时出错: {str(e)}")
+        logging.exception(e)
+        return jsonify({
+            'success': False,
+            'message': f'获取任务状态时出错: {str(e)}'
+        }), 500
+
+# 辅助函数：从数据库获取任务状态
+def get_task_status_from_db(conn, task_id):
+    """从数据库获取任务状态信息"""
+    # 首先检查ProcessingStatus表
+    query = """
+    SELECT task_id, status, current_stage, progress, message, start_time, current_file
+    FROM ProcessingStatus
+    WHERE task_id = %s
+    ORDER BY start_time DESC
+    LIMIT 1
+    """
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(query, (task_id,))
+        task_data = cursor.fetchone()
+        cursor.close()
+        
+        if task_data:
+            logging.info(f"在ProcessingStatus表中找到任务: {task_data}")
+            # 格式化日期时间
+            if 'start_time' in task_data and task_data['start_time']:
+                task_data['start_time'] = task_data['start_time'].strftime('%Y-%m-%d %H:%M:%S')
+                
+            # 确保键名一致，使用current_file作为任务名称
+            task_data['task_name'] = task_data.get('current_file', '未命名任务')
+            return task_data
+            
+        # 如果在ProcessingStatus表中找不到，尝试查找相关实体
+        logging.info(f"在ProcessingStatus表中未找到任务 {task_id}，尝试检查相关实体")
+        entity_data = check_task_entities(conn, task_id)
+        if entity_data:
+            logging.info(f"找到任务相关实体: {entity_data}")
+            return entity_data
+            
+        logging.warning(f"在所有表中均未找到任务 {task_id}")
+        return None
+    except Exception as e:
+        logging.error(f"查询任务状态时出错: {str(e)}")
+        logging.exception(e)
+        raise
+
+# 辅助函数：检查是否存在与任务相关的实体
+def check_task_entities(conn, task_id):
+    """检查是否存在与任务相关的实体（算法、数据集、指标）"""
+    try:
+        # 检查算法表
+        cursor = conn.cursor(dictionary=True)
+        tables = ['Algorithms', 'Datasets', 'Metrics']
+        id_fields = {
+            'Algorithms': 'algorithm_id',
+            'Datasets': 'dataset_id',
+            'Metrics': 'metric_id'
+        }
+        
+        for table in tables:
+            id_field = id_fields[table]
+            query = f"""
+            SELECT {id_field} as entity_id, name, task_id 
+            FROM {table}
+            WHERE task_id = %s
+            LIMIT 1
+            """
+            cursor.execute(query, (task_id,))
+            result = cursor.fetchone()
+            
+            if result:
+                logging.info(f"在{table}表中找到任务相关记录: {result}")
+                entity_type = table[:-1]  # 移除表名末尾的's'
+                
+                # 创建任务状态记录
+                now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                task_data = {
+                    'task_id': task_id,
+                    'task_name': f"{result.get('name', '未命名')}（{entity_type}）",
+                    'status': 'COMPLETED',  # 如果实体存在，说明任务已完成
+                    'current_stage': 'ENTITY_EXTRACTION',
+                    'progress': 100,
+                    'message': f'已完成{entity_type}实体提取',
+                    'start_time': now
+                }
+                return task_data
+        
+        cursor.close()
+        return None
+    except Exception as e:
+        logging.error(f"检查任务实体时出错: {str(e)}")
+        logging.exception(e)
+        return None
 
 @main.route('/comparison/results/<task_id>')
 @main.route('/comparison_results.html/<task_id>')
@@ -759,16 +918,78 @@ def get_graph_data_by_task(task_id):
 @main.route('/api/tasks')
 def get_tasks():
     """获取所有任务的列表"""
+    logging.warning("===== 开始处理任务列表请求 =====")
+    
     try:
+        # 记录请求详情
+        logging.warning("请求头: %s", str(request.headers))
+        logging.warning("请求方法: %s, 路径: %s", request.method, request.path)
+        logging.warning("请求参数: %s", str(request.args))
+        
+        logging.warning("正在获取任务列表...")
+        
+        # 检查数据库连接
+        connection_status = db_manager._reconnect_if_needed()
+        logging.warning(f"数据库连接检查结果: {connection_status}")
+        
         # 使用比较历史获取任务列表
-        tasks = db_manager.get_comparison_history(limit=50)
-        return jsonify(tasks)
+        start_time = datetime.datetime.now()
+        logging.warning(f"开始从数据库获取任务列表: {start_time}")
+        
+        try:
+            tasks = db_manager.get_comparison_history(limit=50)
+            
+            end_time = datetime.datetime.now()
+            duration = (end_time - start_time).total_seconds()
+            
+            logging.warning(f"数据库查询完成时间: {end_time}, 耗时: {duration}秒")
+            logging.warning(f"成功获取 {len(tasks)} 条任务记录")
+            
+            # 打印部分任务数据用于调试
+            if tasks:
+                logging.warning(f"第一条任务数据示例: {tasks[0]}")
+            
+            # 构建响应
+            response = jsonify(tasks)
+            
+            # 添加响应头，解决可能的CORS问题
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+            response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            
+            logging.warning("===== 任务列表请求处理完成，准备返回响应 =====")
+            return response
+            
+        except Exception as db_err:
+            # 数据库操作错误
+            logging.error(f"调用get_comparison_history时出错: {str(db_err)}")
+            import traceback
+            db_tb = traceback.format_exc()
+            logging.error(db_tb)
+            
+            # 返回错误响应
+            error_response = jsonify({
+                'error': f"数据库操作错误: {str(db_err)}",
+                'traceback': db_tb
+            })
+            error_response.headers.add('Access-Control-Allow-Origin', '*')
+            logging.warning("===== 任务列表请求处理失败，返回数据库错误 =====")
+            return error_response
+            
     except Exception as e:
-        logging.error(f"获取任务列表时出错: {str(e)}")
+        # 其他未知错误
+        logging.error(f"获取任务列表过程中出现未知错误: {str(e)}")
         import traceback
         tb = traceback.format_exc()
         logging.error(tb)
-        return jsonify({'error': str(e), 'traceback': tb})
+        
+        error_response = jsonify({
+            'error': str(e), 
+            'traceback': tb
+        })
+        error_response.headers.add('Access-Control-Allow-Origin', '*')
+        logging.warning("===== 任务列表请求处理失败，返回未知错误 =====")
+        return error_response
 
 @main.route('/api/system/db-status', methods=['GET'])
 def check_db_status():
@@ -798,4 +1019,37 @@ def check_db_status():
             'error': str(e),
             'traceback': tb
         })
+
+@main.route('/api/system/ping', methods=['GET'])
+def ping_test():
+    """简单的连接测试接口"""
+    try:
+        logging.warning("收到ping测试请求")
+        
+        # 记录请求头和参数
+        logging.warning("请求头: %s", str(request.headers))
+        logging.warning("请求路径: %s", request.path)
+        
+        # 构造响应
+        response_data = {
+            'status': 'success',
+            'message': 'pong',
+            'timestamp': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'server_info': {
+                'python_version': platform.python_version(),
+                'system': platform.system(),
+                'machine': platform.machine()
+            }
+        }
+        
+        response = jsonify(response_data)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        logging.warning("ping测试请求成功返回")
+        
+        return response
+    except Exception as e:
+        logging.error("ping测试处理出错: %s", str(e))
+        error_response = jsonify({'status': 'error', 'message': str(e)})
+        error_response.headers.add('Access-Control-Allow-Origin', '*')
+        return error_response
 

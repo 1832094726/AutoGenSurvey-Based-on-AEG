@@ -1,13 +1,4952 @@
 {
   "nodes": [
     {
-      "id": "ALGORITHM_ID",
-      "label": "name",
-      "type": "Algorithm",
-      "year": "year",
-      "task": "task",
-      "node_type": "Algorithm"
+      "id": "ABSTRACT SCENES_2015",
+      "label": "Abstract Scenes",
+      "type": "Dataset",
+      "description": "Dataset of abstract scenes for VQA",
+      "domain": "Computer Vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ABSTRACT_SCENES_2015",
+      "label": "Abstract Scenes",
+      "type": "Dataset",
+      "description": "Dataset of abstract scenes for VQA",
+      "domain": "Computer Vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE_2004",
+      "label": "ACE 2004",
+      "type": "Dataset",
+      "description": "A dataset for coreference resolution containing 443 documents.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004",
+      "label": "ACE 2004",
+      "type": "Dataset",
+      "description": "",
+      "domain": "",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004_2004",
+      "label": "ACE 2004 English Training Data",
+      "type": "Dataset",
+      "description": "A dataset for coreference resolution provided by NIST",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004_ENGLISH_2004",
+      "label": "ACE 2004 English",
+      "type": "Dataset",
+      "description": "Official ACE 2004 English training data for coreference resolution",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004_ENGLISHTRAININGDATA",
+      "label": "ACE 2004 English Training Data",
+      "type": "Dataset",
+      "description": "A dataset for coreference resolution provided by NIST",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004_NWIRE_2004",
+      "label": "ACE 2004 Newswire",
+      "type": "Dataset",
+      "description": "Newswire subset of the ACE 2004 corpus",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004-CULOTTA-TEST_2004",
+      "label": "ACE2004-CULOTTA-TEST",
+      "type": "Dataset",
+      "description": "Partition of ACE 2004 corpus reserved for testing by several previous works.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004-CULOTTA-TEST_2009",
+      "label": "ACE2004-CULOTTA-TEST",
+      "type": "Dataset",
+      "description": "Test set split of the ACE 2004 training set",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004-NWIRE_2004",
+      "label": "ACE2004-NWIRE",
+      "type": "Dataset",
+      "description": "Newswire subset of the ACE 2004 corpus utilized for testing.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004-NWIRE_2009",
+      "label": "ACE2004-NWIRE",
+      "type": "Dataset",
+      "description": "ACE 2004 Newswire set",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004-ROTH-DEV_2004",
+      "label": "ACE2004-ROTH-DEV",
+      "type": "Dataset",
+      "description": "Development set split of the ACE 2004 training set",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004-ROTH-DEV_2009",
+      "label": "ACE2004-ROTH-DEV",
+      "type": "Dataset",
+      "description": "Development set split of the ACE 2004 training set",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACE2004-ROTH-DEV2_2004",
+      "label": "ACE2004-ROTH-DEV2",
+      "type": "Dataset",
+      "description": "Development split of Bengston and Roth(2008) from the 2004 Automatic Content Extraction (ACE) evaluation.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ADDSUB_2014",
+      "label": "ADDSUB",
+      "type": "Dataset",
+      "description": "Addition and subtraction word problems with irrelevant distractor quantities",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "AGE_DATASET_2017",
+      "label": "Age Dataset",
+      "type": "Dataset",
+      "description": "Twitter tweets in English, Spanish, and Dutch with age and gender labels",
+      "domain": "Social Media Analysis",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "AGGREGATE_2018",
+      "label": "Aggregate",
+      "type": "Dataset",
+      "description": "A dataset combining AllArith and Perturb",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "AI2_2014",
+      "label": "AI2",
+      "type": "Dataset",
+      "description": "Arithmetic word problems for third, fourth, and fifth graders",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "AI2_DATASET_2014",
+      "label": "AI2 Dataset",
+      "type": "Dataset",
+      "description": "Collection of 395 addition and subtraction problems",
+      "domain": "Arithmetic Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALG514_2014",
+      "label": "Alg514",
+      "type": "Dataset",
+      "description": "A dataset of 514 linear algebra problems",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALGEBRA_COM_2015",
+      "label": "Algebra.com",
+      "type": "Dataset",
+      "description": "A website for users to post math problems and get help from tutors",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALGEBRA_COM_DATASET_2014",
+      "label": "Algebra.com Dataset",
+      "type": "Dataset",
+      "description": "A dataset of algebra word problems collected from Algebra.com",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALGEBRA.COM_2014",
+      "label": "Algebra.com",
+      "type": "Dataset",
+      "description": "从Algebra.com收集的代数文字题数据集",
+      "domain": "代数",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALGEBRA.COM_2015",
+      "label": "Algebra.com",
+      "type": "Dataset",
+      "description": "A website for users to post math problems and get help from tutors",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALGEBRA.COM_DATASET_2014",
+      "label": "Algebra.com Dataset",
+      "type": "Dataset",
+      "description": "A dataset of algebra word problems collected from Algebra.com",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALLARITH_2016",
+      "label": "AllArith",
+      "type": "Dataset",
+      "description": "Mixed data from AI2, IL, CC, and SingleEQ",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALLARITH_2017",
+      "label": "AllArith",
+      "type": "Dataset",
+      "description": "A dataset of arithmetic word problems pooled from multiple sources and normalized.",
+      "domain": "Arithmetic Word Problem Solving",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALLARITH_2018",
+      "label": "AllArith",
+      "type": "Dataset",
+      "description": "A dataset of arithmetic word problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALLARITHLEX_2017",
+      "label": "AllArithLex",
+      "type": "Dataset",
+      "description": "A subset of AllArith with low lexical overlap.",
+      "domain": "Arithmetic Word Problem Solving",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALLARITHLEX_2018",
+      "label": "AllArithLex",
+      "type": "Dataset",
+      "description": "A subset of AllArith to test robustness to new vocabulary",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALLARITHTMPL_2017",
+      "label": "AllArithTmpl",
+      "type": "Dataset",
+      "description": "A subset of AllArith with low template overlap.",
+      "domain": "Arithmetic Word Problem Solving",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ALLARITHTMPL_2018",
+      "label": "AllArithTmpl",
+      "type": "Dataset",
+      "description": "A subset of AllArith to test robustness to new equation forms",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ANSWERS_YAHOO_COM_2015",
+      "label": "Answers.Yahoo.com",
+      "type": "Dataset",
+      "description": "A website where users can ask and answer questions, including math problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "AQUA_2017",
+      "label": "AQuA",
+      "type": "Dataset",
+      "description": "Large-scale dataset for multi-choice math questions",
+      "domain": "Mathematical Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ARITHM",
+      "label": "ArithM",
+      "type": "Dataset",
+      "description": "包含667个多步算术问题，至少涉及两个操作符",
+      "domain": "算术文字题求解",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ARITHM_2018",
+      "label": "ArithM",
+      "type": "Dataset",
+      "description": "Collected from AI2 ∪ IL ∪ CC, multi-step arithmetic problems involving at least two operators",
+      "domain": "Arithmetic Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ARITHS",
+      "label": "ArithS",
+      "type": "Dataset",
+      "description": "包含890个单步算术问题，仅涉及一个操作符",
+      "domain": "算术文字题求解",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ARITHS_2018",
+      "label": "ArithS",
+      "type": "Dataset",
+      "description": "Subset of single-step arithmetic problems involving only one operator",
+      "domain": "Arithmetic Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "BALANCED_VQA_2017",
+      "label": "Balanced VQA",
+      "type": "Dataset",
+      "description": "Balanced Visual Question Answering dataset with complementary images",
+      "domain": "Computer Vision and Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "BLIPP_2000",
+      "label": "BLIPP",
+      "type": "Dataset",
+      "description": "1.8 million sentences of newswire parsed with the Charniak parser",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "BLIPP_2009",
+      "label": "BLIPP",
+      "type": "Dataset",
+      "description": "1.8 million sentences of newswire parsed with the Charniak parser",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "BROWNCORPUS_1964",
+      "label": "Brown Corpus",
+      "type": "Dataset",
+      "description": "A standard corpus of present-day edited American English",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CALTECH101_2004",
+      "label": "Caltech101",
+      "type": "Dataset",
+      "description": "一个包含101个类别的小规模图像数据集，每个类别大约有40到800张图像。",
+      "domain": "计算机视觉",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CALTECH256_2007",
+      "label": "Caltech256",
+      "type": "Dataset",
+      "description": "一个包含256个类别的图像数据集，每个类别大约有80张图像。",
+      "domain": "计算机视觉",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CC_2015",
+      "label": "CC",
+      "type": "Dataset",
+      "description": "Multi-step math problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CHINESE_PENN_TREEBANK_2014",
+      "label": "Chinese Penn Treebank",
+      "type": "Dataset",
+      "description": "A dataset for syntactic parsing of Chinese text.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CHINESEELEMENTARYSCHOOLPROBLEMS_2010",
+      "label": "Chinese Elementary School Word Problems",
+      "type": "Dataset",
+      "description": "Word problems gathered from four publishers in China",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CHINESEELEMENTARYSCHOOLWORDPROBLEMS_2010",
+      "label": "Chinese Elementary School Word Problems",
+      "type": "Dataset",
+      "description": "Word problems gathered from four publishers in Chinese (one book from People’s Education Press, one book from Beijing Normal University Press, and two books from DONGBEI Normal University Press)",
+      "domain": "Mathematics education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "COLLEGELEVELPHYSICSTEXTBOOKS_1988",
+      "label": "College-Level Physics Textbooks",
+      "type": "Dataset",
+      "description": "Collections of ready-made test cases in the form of college-level textbooks",
+      "domain": "Physics Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "COMMONCORE_DATASET_2016",
+      "label": "Commoncore Dataset",
+      "type": "Dataset",
+      "description": "New dataset of multi-step arithmetic problems",
+      "domain": "Arithmetic Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CONLL_2007_2010",
+      "label": "CoNLL 2007 English dataset",
+      "type": "Dataset",
+      "description": "English dataset from the CoNLL 2007 shared task on dependency parsing",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CONLL_2007_ENGLISH_DATASET_2007",
+      "label": "CoNLL 2007 English dataset",
+      "type": "Dataset",
+      "description": "English dataset derived from WSJ Treebank with a different conversion procedure",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CONLL_2007_ENGLISH_DATASET_2010",
+      "label": "CoNLL 2007 English dataset",
+      "type": "Dataset",
+      "description": "English dataset from the CoNLL 2007 shared task",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CONLL2011_2011",
+      "label": "CoNLL 2011",
+      "type": "Dataset",
+      "description": "Coreference dataset from five different domains",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CRAWLEDCORPORA_2014",
+      "label": "Crawled Corpora",
+      "type": "Dataset",
+      "description": "Parallel corpus for statistical machine translation",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CRYOELECTRONMICROSCOPYIMAGES_2003",
+      "label": "Cryo-electron microscopy images",
+      "type": "Dataset",
+      "description": "Images used for detecting particles in cryo-electron microscopy",
+      "domain": "Biomedical Imaging",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CTB_2014",
+      "label": "Chinese Penn Treebank",
+      "type": "Dataset",
+      "description": "Standard dataset for Chinese syntactic parsing",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CUSTOM_WORD_PROBLEMS_2023",
+      "label": "Custom Word Problems",
+      "type": "Dataset",
+      "description": "A collection of multi-step arithmetic word problems with extraneous information.",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "CUSTOMIQTESTSET_2016",
+      "label": "自定义IQ测试集",
+      "type": "Dataset",
+      "description": "从已出版的IQ测试书中收集的语言理解类问题及其答案",
+      "domain": "心理学",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DOLPHIN-S_2016",
+      "label": "Dolphin-S",
+      "type": "Dataset",
+      "description": "Subset of Dolphin18K with single and multiple operators",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DOLPHIN-S_2017",
+      "label": "Dolphin-S",
+      "type": "Dataset",
+      "description": "Subset of Dolphin18K containing arithmetic word problems",
+      "domain": "Mathematical Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DOLPHIN1878_2015",
+      "label": "Dolphin1878",
+      "type": "Dataset",
+      "description": "A dataset of 1,878 number word problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DOLPHIN18K_2016",
+      "label": "Dolphin18K",
+      "type": "Dataset",
+      "description": "Large-scale dataset with 18,460 problems and 5,871 templates",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DRAW_2015",
+      "label": "DRAW",
+      "type": "Dataset",
+      "description": "A challenging and diverse algebra word problem set",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DRAW_2016",
+      "label": "DRAW",
+      "type": "Dataset",
+      "description": "A challenging and diverse algebra word problem set",
+      "domain": "Algebra Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DRAW1K_2016",
+      "label": "DRAW1K",
+      "type": "Dataset",
+      "description": "Dataset for linear equation problems with diverse vocabularies and equation systems",
+      "domain": "Mathematical Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DS1_2014",
+      "label": "DS1",
+      "type": "Dataset",
+      "description": "Dataset for simple word problems",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DS2_2014",
+      "label": "DS2",
+      "type": "Dataset",
+      "description": "Dataset for word problems with irrelevant information",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "DS3_2014",
+      "label": "DS3",
+      "type": "Dataset",
+      "description": "Dataset for complex word problems",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ELEMENTARY_MATH_WORD_PROBLEMS_2015",
+      "label": "Elementary Math Word Problems",
+      "type": "Dataset",
+      "description": "Elementary school math word problems",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ELEMENTARY_SCHOOL_ARITHMETIC_APPLICATION_PROBLEM_2011",
+      "label": "Elementary school arithmetic application problem",
+      "type": "Dataset",
+      "description": "Arithmetic word problems for elementary school students",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ELEMENTARY_SCIENCE_CORPUS_2016",
+      "label": "Elementary Science Corpus",
+      "type": "Dataset",
+      "description": "80k sentences about elementary science",
+      "domain": "Elementary Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ELEMENTARYSCHOOLARITHMETICAPPLICATIONPROBLEM_2011",
+      "label": "Elementary school arithmetic application problem",
+      "type": "Dataset",
+      "description": "Arithmetic word problems for elementary school students",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "EMBEDDEDREBERGRAMMAR_1989",
+      "label": "Embedded Reber Grammar",
+      "type": "Dataset",
+      "description": "A synthetic dataset used for evaluating sequence modeling algorithms.",
+      "domain": "Sequence Modeling",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ENGLISH_PENN_TREEBANK_2014",
+      "label": "English Penn Treebank",
+      "type": "Dataset",
+      "description": "A dataset for syntactic parsing of English text.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ESP_DATASET_2004",
+      "label": "ESP Dataset",
+      "type": "Dataset",
+      "description": "通过在线游戏ESP Game收集的图像数据集，玩家独立为同一张图片提出标签，目标是在限定时间内匹配尽可能多的词汇。",
+      "domain": "计算机视觉",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "EUROPARL_2014",
+      "label": "Europarl",
+      "type": "Dataset",
+      "description": "Parallel corpus for statistical machine translation",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "FIGURES_FROM_GEOMETRY_TEXTBOOKS_2014",
+      "label": "Figures from Geometry Textbooks",
+      "type": "Dataset",
+      "description": "A collection of 110 geometric figures taken from standard mathematics textbooks in India and the United States.",
+      "domain": "High School Geometry",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "FIGURES_FROM_TEXTBOOKS_2014",
+      "label": "Figures from Geometry Textbooks",
+      "type": "Dataset",
+      "description": "A set of 110 geometric figures taken from standard mathematics textbooks in India and the United States.",
+      "domain": "High School Geometry",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "FREEBASEQA_2013",
+      "label": "Freebase QA",
+      "type": "Dataset",
+      "description": "Questions to Freebase, a large community-authored database that spans many sub-domains.",
+      "domain": "General Knowledge",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "GEOMETRY QUESTIONS DATASET_2014",
+      "label": "Geometry Questions Dataset",
+      "type": "Dataset",
+      "description": "Dataset of geometry questions including textual descriptions and diagrams",
+      "domain": "Geometry",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "GEOMETRY_QUESTIONS_DATASET_2014",
+      "label": "Geometry Questions Dataset",
+      "type": "Dataset",
+      "description": "A dataset of geometry questions including textual descriptions and diagrams",
+      "domain": "Geometry",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "GEOQUERY_1996",
+      "label": "GeoQuery",
+      "type": "Dataset",
+      "description": "Geography database with a small ontology and questions with relatively complex, compositional structure.",
+      "domain": "Geography",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "GEOQUERY_2014",
+      "label": "Geoquery",
+      "type": "Dataset",
+      "description": "A dataset of geographical queries and their corresponding logical forms",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "HIGH_CONFIDENCE_CORPUS_2015",
+      "label": "High-Confidence Corpus",
+      "type": "Dataset",
+      "description": "Large corpus for syntactic parsing",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "HIGH_SCHOOL_GEOMETRY_PROBLEMS_2015",
+      "label": "High School Geometry Problems",
+      "type": "Dataset",
+      "description": "A corpus of high school geometry problems from standard geometry textbooks",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "HIGHCONFIDENCECORPUS_2015",
+      "label": "High-Confidence Corpus",
+      "type": "Dataset",
+      "description": "Large corpus for syntactic parsing",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "HIGHSCHOOLGEOMETRYPROBLEMS_2015",
+      "label": "High School Geometry Problems",
+      "type": "Dataset",
+      "description": "A collection of geometry problems from standard high school textbooks",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "HIGHSCHOOLTEXTBOOKS_1959",
+      "label": "High School Textbooks",
+      "type": "Dataset",
+      "description": "Collection of high school geometry textbooks used for theorem proving.",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "HOSSEINI2014_DS1",
+      "label": "DS1",
+      "type": "Dataset",
+      "description": "Dataset with simple word problems",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "HOSSEINI2014_DS2",
+      "label": "DS2",
+      "type": "Dataset",
+      "description": "Dataset with moderate complexity word problems",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "HOSSEINI2014_DS3",
+      "label": "DS3",
+      "type": "Dataset",
+      "description": "Dataset with complex word problems",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IL_2015",
+      "label": "IL",
+      "type": "Dataset",
+      "description": "Single-step word problems with one operator",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IL_DATASET_2015",
+      "label": "IL Dataset",
+      "type": "Dataset",
+      "description": "Collection of arithmetic problems with one operation",
+      "domain": "Arithmetic Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IMAGE_CAPTIONING_DATASET_2015",
+      "label": "Image Captioning Dataset",
+      "type": "Dataset",
+      "description": "Dataset of image and caption pairs",
+      "domain": "Computer Vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IMAGECAPTIONDATASET_2015",
+      "label": "Image Caption Dataset",
+      "type": "Dataset",
+      "description": "Dataset of image-caption pairs",
+      "domain": "Computer Vision and Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IMAGECAPTIONINGDATASET_2015",
+      "label": "Image Captioning Dataset",
+      "type": "Dataset",
+      "description": "Dataset of image and caption pairs",
+      "domain": "Computer Vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IMAGENET_2009",
+      "label": "ImageNet",
+      "type": "Dataset",
+      "description": "一个大规模层次化的图像数据库，基于WordNet结构构建，旨在为每个同义词集合提供500-1000张高质量、全分辨率图像。",
+      "domain": "计算机视觉",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "INTERNAL_GOOGLE_NEWS_DATASET_2013",
+      "label": "Internal Google News Dataset",
+      "type": "Dataset",
+      "description": "A large dataset consisting of various news articles with one billion words.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IWSLT_2014",
+      "label": "IWSLT 2014",
+      "type": "Dataset",
+      "description": "German-to-English translation dataset from TED talks",
+      "domain": "Machine Translation",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IWSLT2014_GERMAN_TO_ENGLISH_2016",
+      "label": "IWSLT 2014 German-to-English",
+      "type": "Dataset",
+      "description": "Dataset for machine translation from German to English",
+      "domain": "Machine Translation",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IWSLT2014_GERMANTOENGLISH",
+      "label": "IWSLT 2014 German-to-English",
+      "type": "Dataset",
+      "description": "Dataset from the IWSLT 2014 machine translation evaluation campaign",
+      "domain": "Machine Translation",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "IXL_2014",
+      "label": "IXL",
+      "type": "Dataset",
+      "description": "Math word problems with more information gaps",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "KUSHMAN2014_DATASET_2014",
+      "label": "Kushman2014_Dataset",
+      "type": "Dataset",
+      "description": "Benchmark dataset for algebra word problems",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "LABELME_2008",
+      "label": "LabelMe",
+      "type": "Dataset",
+      "description": "一个包含30,000张标注和分割的图像数据集。",
+      "domain": "计算机视觉",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "LOTUS_HILL_2007",
+      "label": "Lotus Hill",
+      "type": "Dataset",
+      "description": "一个包含50,000张标注和分割的图像数据集，以及587,000帧视频。",
+      "domain": "计算机视觉",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MA1_2014",
+      "label": "MA1",
+      "type": "Dataset",
+      "description": "Simple math word problems on addition and subtraction for third, fourth, and fifth graders",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MA2_2014",
+      "label": "MA2",
+      "type": "Dataset",
+      "description": "Math word problems with more irrelevant information",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MATH_WORD_PROBLEMS_2015",
+      "label": "Math Word Problems",
+      "type": "Dataset",
+      "description": "Elementary school math word problems",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MATH23K_2014",
+      "label": "Math23K",
+      "type": "Dataset",
+      "description": "包含中文小学数学文字题的数据集",
+      "domain": "数学问题求解",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MATH23K_2017",
+      "label": "Math23K",
+      "type": "Dataset",
+      "description": "Large-scale dataset for math word problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MATH23K_2018",
+      "label": "Math23K",
+      "type": "Dataset",
+      "description": "A large dataset of arithmetic word problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MATH23K_2019",
+      "label": "Math23K",
+      "type": "Dataset",
+      "description": "Chinese math word problems for elementary school students",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MAWPS_2016",
+      "label": "MAWPS",
+      "type": "Dataset",
+      "description": "A math word problem repository",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MAWPS-S_2016",
+      "label": "MAWPS-S",
+      "type": "Dataset",
+      "description": "Arithmetic word problems with one unknown variable",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MS COCO_2014",
+      "label": "MS COCO",
+      "type": "Dataset",
+      "description": "Microsoft Common Objects in Context dataset",
+      "domain": "Computer Vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MS_COCO_2014",
+      "label": "MS COCO",
+      "type": "Dataset",
+      "description": "Microsoft Common Objects in Context dataset",
+      "domain": "Computer Vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MUC-6-TEST_1995",
+      "label": "MUC-6-TEST",
+      "type": "Dataset",
+      "description": "MUC6 formal evaluation set",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MUC-6-TEST_2009",
+      "label": "MUC-6-TEST",
+      "type": "Dataset",
+      "description": "MUC6 formal evaluation set",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "MUC6-TEST_1995",
+      "label": "MUC6-TEST",
+      "type": "Dataset",
+      "description": "Test corpus from the sixth Message Understanding Conference (MUC-6) evaluation.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "NATURALIMAGE_2004",
+      "label": "Natural image",
+      "type": "Dataset",
+      "description": "Natural image used for testing rectangle detection",
+      "domain": "Computer vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "NATURALIMAGES_2004",
+      "label": "Natural images",
+      "type": "Dataset",
+      "description": "Real-world images for testing rectangle detection algorithms",
+      "domain": "Computer Vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "NEWSARTICLES_2013",
+      "label": "News articles dataset",
+      "type": "Dataset",
+      "description": "A large dataset consisting of various news articles",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "NEWSARTICLESDATASET_2013",
+      "label": "News Articles Dataset",
+      "type": "Dataset",
+      "description": "A large dataset consisting of various news articles",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "NEWSCOMMENTARY_2014",
+      "label": "News Commentary",
+      "type": "Dataset",
+      "description": "Parallel corpus for statistical machine translation",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "NEWSWIRE_TEXT_2015",
+      "label": "Newswire Text",
+      "type": "Dataset",
+      "description": "Sentences of newswire text containing quantity mentions",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "NUMWORD_2015",
+      "label": "NumWord",
+      "type": "Dataset",
+      "description": "Contains 2,871 number word problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "NY_REGENTS_SCIENCE_EXAM_2016",
+      "label": "NY Regents Science Exam",
+      "type": "Dataset",
+      "description": "Standardized science exam questions for 4th grade students",
+      "domain": "Elementary Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ONTONOTES_2012",
+      "label": "Ontonotes-5.0",
+      "type": "Dataset",
+      "description": "A large annotated corpus for coreference resolution containing 3,145 documents from various sources.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ONTONOTES_2013",
+      "label": "Ontonotes",
+      "type": "Dataset",
+      "description": "Dataset for coreference resolution",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ONTONOTES2012",
+      "label": "Ontonotes-5.0",
+      "type": "Dataset",
+      "description": "",
+      "domain": "",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PBF_1991",
+      "label": "PBF (in Japanese)",
+      "type": "Dataset",
+      "description": "Pictorial Book of Flora containing diagrams, pictures, and explanation texts about wild flowers of Japan",
+      "domain": "Botanical Illustration",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PBF_DIAGRAMS_1991",
+      "label": "PBF Diagrams",
+      "type": "Dataset",
+      "description": "Diagrams from Pictorial Books of Flora containing information about plant parts, shapes, and relationships.",
+      "domain": "Botanical Illustration",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PENN_TREE_BANK_1993",
+      "label": "Penn Tree Bank",
+      "type": "Dataset",
+      "description": "Corpus for syntactic parsing",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PENNTREEBANK_1993",
+      "label": "Penn Tree Bank",
+      "type": "Dataset",
+      "description": "Corpus for syntactic parsing",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PENNTREEBANK_1999",
+      "label": "Penn Treebank",
+      "type": "Dataset",
+      "description": "A widely used corpus for parsing English sentences.",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PENNTREEBANK_WSJ_2013",
+      "label": "Penn Treebank WSJ",
+      "type": "Dataset",
+      "description": "Wall Street Journal section of the Penn Treebank",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PENNTREEBANKWSJ_2013",
+      "label": "Penn Treebank WSJ",
+      "type": "Dataset",
+      "description": "Wall Street Journal section of the Penn Treebank",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PERTURB_2018",
+      "label": "Perturb",
+      "type": "Dataset",
+      "description": "A dataset created by perturbing AllArith problems to minimize bias",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PHYSICSPROBLEMS_1990",
+      "label": "Physics Problems",
+      "type": "Dataset",
+      "description": "Textbook physics problems specified by a combination of English text and a diagram.",
+      "domain": "Physics Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "POLYGONFIGURES_1996",
+      "label": "Polygon Figures",
+      "type": "Dataset",
+      "description": "Set of randomly-generated polygons used in symmetry detection experiments",
+      "domain": "Symmetry Detection",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PTB_2014",
+      "label": "English Penn Treebank",
+      "type": "Dataset",
+      "description": "Standard dataset for English syntactic parsing",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PTB_2015",
+      "label": "Penn Treebank (PTB)",
+      "type": "Dataset",
+      "description": "A widely used dataset for parsing and language modeling",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "PTB_2016",
+      "label": "PTB",
+      "type": "Dataset",
+      "description": "Penn Treebank dataset for word ordering and dependency parsing",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "RTE_DATASETS_2006",
+      "label": "RTE Datasets",
+      "type": "Dataset",
+      "description": "Recognizing Textual Entailment datasets",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SAT_GEOMETRY_QUESTIONS_2015",
+      "label": "SAT Geometry Questions",
+      "type": "Dataset",
+      "description": "A dataset of SAT plane geometry questions with textual descriptions and diagrams.",
+      "domain": "Educational Testing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SINGLEEQ_2015",
+      "label": "SingleEQ",
+      "type": "Dataset",
+      "description": "Contains single-step and multi-step arithmetic problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SINGLEEQ_2016",
+      "label": "SingleEQ",
+      "type": "Dataset",
+      "description": "Dataset containing single-step and multi-step arithmetic problems",
+      "domain": "Mathematical Word Problems",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SNLI_CORPUS_2015",
+      "label": "SNLI Corpus",
+      "type": "Dataset",
+      "description": "570k human-written English sentence pairs manually labeled for entailment, contradiction, and neutral",
+      "domain": "Textual Entailment",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SOLITAIRECARDGAME_2014",
+      "label": "Solitaire Card Game",
+      "type": "Dataset",
+      "description": "A dataset of solitaire card game rules and their corresponding logical forms",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SUZHOU_EDUCATION_PUBLISHING_HOUSE_DATASET",
+      "label": "Suzhou Education Publishing House dataset",
+      "type": "Dataset",
+      "description": "Arithmetic word problems for training",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SUZHOUEDUCATIONPUBLISHINGHOUSE_2016",
+      "label": "Suzhou Education Publishing House",
+      "type": "Dataset",
+      "description": "Arithmetic word problems for training",
+      "domain": "Education",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SYMMETRYSTUDY_1996",
+      "label": "Symmetry Study",
+      "type": "Dataset",
+      "description": "A dataset of randomly-generated polygons used for symmetry detection experiments.",
+      "domain": "Perception and Symmetry Detection",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SYNTHETICIMAGE_2004",
+      "label": "Synthetic image",
+      "type": "Dataset",
+      "description": "Synthetic image containing several geometric objects",
+      "domain": "Computer vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "SYNTHETICIMAGES_2004",
+      "label": "Synthetic images",
+      "type": "Dataset",
+      "description": "Images containing geometric objects for testing rectangle detection algorithms",
+      "domain": "Computer Vision",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "TINYIMAGE_2008",
+      "label": "TinyImage",
+      "type": "Dataset",
+      "description": "一个包含8000万张32x32低分辨率图像的数据集，通过将WordNet中的所有单词作为查询发送到图像搜索引擎收集。",
+      "domain": "计算机视觉",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "UN_2014",
+      "label": "UN",
+      "type": "Dataset",
+      "description": "Parallel corpus for statistical machine translation",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "VERB395_2014",
+      "label": "Verb395",
+      "type": "Dataset",
+      "description": "A collection of addition/subtraction problems",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "VERBALQUESTIONS_2016",
+      "label": "VerbalQuestions",
+      "type": "Dataset",
+      "description": "A collection of verbal comprehension questions from published IQ test books",
+      "domain": "Intelligence Testing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "VQA_2015",
+      "label": "VQA",
+      "type": "Dataset",
+      "description": "Visual Question Answering dataset with 204K images, 614K questions, and 6M answers",
+      "domain": "Computer Vision and Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "VQA_2016",
+      "label": "VQA",
+      "type": "Dataset",
+      "description": "Visual Question Answering dataset",
+      "domain": "Vision and Language",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "VQA_V2.0_2016",
+      "label": "VQA v2.0",
+      "type": "Dataset",
+      "description": "Balanced Visual Question Answering dataset with 1.1M image-question pairs and 13M answers",
+      "domain": "Computer Vision and Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WIKI_2003",
+      "label": "WIKI",
+      "type": "Dataset",
+      "description": "25k articles of English Wikipedia abstracts parsed by the Klein and Manning parser",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WIKI_2009",
+      "label": "WIKI",
+      "type": "Dataset",
+      "description": "25k articles of English Wikipedia abstracts parsed by the Klein and Manning parser",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WIKIPEDIA_2010",
+      "label": "Wikipedia 2010",
+      "type": "Dataset",
+      "description": "A dump of Wikipedia with 1 billion tokens",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WIKIPEDIA_2014",
+      "label": "Wikipedia 2014",
+      "type": "Dataset",
+      "description": "A dump of Wikipedia with 1.6 billion tokens",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WMT_2015",
+      "label": "WMT'15",
+      "type": "Dataset",
+      "description": "Parallel corpus for English-German translation",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WMT14_ENGLISHTOFRENCH",
+      "label": "WMT'14 English to French",
+      "type": "Dataset",
+      "description": "A large-scale dataset for English to French translation",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WMT15_ENGLISH_GERMAN_2015",
+      "label": "WMT'15 English-German",
+      "type": "Dataset",
+      "description": "Parallel corpus for English-German translation",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WMT15_ENGLISH-GERMAN_2015",
+      "label": "WMT'15 English-German",
+      "type": "Dataset",
+      "description": "Parallel corpus for English-German translation",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WORDPROBLEMS_2023",
+      "label": "Word Problems",
+      "type": "Dataset",
+      "description": "A collection of multi-step arithmetic word problems with extraneous information.",
+      "domain": "Arithmetic Problem Solving",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "WSJ_TREEBANK_2010",
+      "label": "WSJ Treebank",
+      "type": "Dataset",
+      "description": "Wall Street Journal Treebank",
+      "domain": "Natural Language Processing",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "YAHOOANSWERS_2015",
+      "label": "Yahoo Answers",
+      "type": "Dataset",
+      "description": "A question-and-answer website",
+      "domain": "Mathematics",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "YAHOOANSWERS.COM_2015",
+      "label": "Yahoo Answers",
+      "type": "Dataset",
+      "description": "一个问答网站，其中包含数学问题",
+      "domain": "数学教育",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "YELP_DATASET_2017",
+      "label": "Yelp Dataset",
+      "type": "Dataset",
+      "description": "2.7M Yelp reviews with star ratings",
+      "domain": "Sentiment Analysis",
+      "node_type": "Dataset"
+    },
+    {
+      "id": "ACCURACY_ANALOGICAL_REASONING",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of solving analogical reasoning tasks.",
+      "category": "Analogical Reasoning",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_ANALOGICALREASONING",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Accuracy on the analogical reasoning task",
+      "category": "Analogical reasoning evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_ANALOGY",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Accuracy on Word Analogy Task",
+      "category": "Word Analogy Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_ARITHMETIC",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_CLASSIFICATION",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Classification accuracy",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_DETECTION",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Detection accuracy",
+      "category": "Detection Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_GENERATION",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Proportion of correctly generated equation templates",
+      "category": "Generation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_MATH_WORD_PROBLEMS",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Proportion of correct answers",
+      "category": "Math Word Problem Solving",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_MATHPROBLEMSOLVING",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Proportion of correctly solved math word problems",
+      "category": "Math Word Problem Solving Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_MULTIPLE-CHOICE",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Accuracy for multiple-choice task",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_MULTIPLECHOICE",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Accuracy for multiple-choice task",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_OPEN-ANSWER",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Accuracy for open-answer task",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_OPENANSWER",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Accuracy for open-answer task",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_SAT",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Percentage of correctly answered questions penalized by the wrong answers.",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_SYMMETRYJUDGMENT",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of symmetry judgment in polygon perception.",
+      "category": "Perception Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ACCURACY_WORDANALOGY",
+      "label": "Accuracy",
+      "type": "Metric",
+      "description": "Percentage of correctly answered word analogy questions",
+      "category": "Word Analogy Task",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ANSWER_ACCURACY",
+      "label": "Answer Accuracy",
+      "type": "Metric",
+      "description": "Measures how often the generated numerical answer is correct",
+      "category": "Answer Generation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ANSWER_ACCURACY_ALGEBRA",
+      "label": "Answer Accuracy",
+      "type": "Metric",
+      "description": "Evaluates how often the generated numerical answer is correct",
+      "category": "Algebra Problem Solving",
+      "node_type": "Metric"
+    },
+    {
+      "id": "AUC_CLASSIFICATION",
+      "label": "AUC",
+      "type": "Metric",
+      "description": "Area Under the ROC Curve",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "AUC_ROC_CLASSIFICATION",
+      "label": "AUC",
+      "type": "Metric",
+      "description": "ROC曲线下面积",
+      "category": "分类评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "AVERAGE_PRECISION",
+      "label": "Average Precision",
+      "type": "Metric",
+      "description": "Average precision across multiple datasets",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "B-CUBED_F-SCORE",
+      "label": "B-Cubed F-Score",
+      "type": "Metric",
+      "description": "A measure of the overlap of predicted clusters and true clusters",
+      "category": "Clustering Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "B-CUBED_F-SCORE_COREFERENCE",
+      "label": "B-Cubed F-Score",
+      "type": "Metric",
+      "description": "Measure of the overlap of predicted clusters and true clusters",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "B3_CLUSTERING",
+      "label": "B3",
+      "type": "Metric",
+      "description": "Uses the intersection between predicted and gold clusters for a given mention to mark correct mentions and the sizes of the predicted and gold clusters as denominators for precision and recall",
+      "category": "Coreference Resolution",
+      "node_type": "Metric"
+    },
+    {
+      "id": "B3_COREFERENCE",
+      "label": "b3",
+      "type": "Metric",
+      "description": "For each mention, form the intersection between the predicted cluster and the true cluster for that mention",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "B3_SCORING",
+      "label": "B3",
+      "type": "Metric",
+      "description": "Uses the intersection between predicted and gold clusters for a given mention to mark correct mentions and the sizes of the predicted and gold clusters as denominators for precision and recall.",
+      "category": "Coreference Resolution",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BCUB_COREFERENCE",
+      "label": "BCUB",
+      "type": "Metric",
+      "description": "A metric for evaluating coreference resolution systems.",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BLEU_SCORE_TRANSLATION",
+      "label": "BLEU Score",
+      "type": "Metric",
+      "description": "Bilingual Evaluation Understudy Score",
+      "category": "Translation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BLEU_SENTENCELEVEL",
+      "label": "BLEU",
+      "type": "Metric",
+      "description": "Sentence-level BLEU score for evaluating machine translation",
+      "category": "Machine Translation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BLEU_TRANSLATION",
+      "label": "BLEU",
+      "type": "Metric",
+      "description": "Bilingual Evaluation Understudy",
+      "category": "Machine Translation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BLEU_TRANSLATIONQUALITY",
+      "label": "BLEU score",
+      "type": "Metric",
+      "description": "A metric for evaluating the quality of machine translation",
+      "category": "Translation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BLEUSCORE_TRANSLATION",
+      "label": "BLEU Score",
+      "type": "Metric",
+      "description": "Evaluation metric for machine translation",
+      "category": "Translation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CEAF_COREFERENCE",
+      "label": "CEAF",
+      "type": "Metric",
+      "description": "A metric for evaluating coreference resolution systems.",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CEAF_ENTITYBASED",
+      "label": "Entity-based CEAF",
+      "type": "Metric",
+      "description": "Metric for evaluating coreference resolution performance.",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CLASSIFICATION_ACCURACY",
+      "label": "Classification Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of classifying arithmetic word problems into different types",
+      "category": "Classification evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "COINCIDENTPOINTS_DETECTION",
+      "label": "Coincident Points",
+      "type": "Metric",
+      "description": "Detection of colinear or nearly colinear points",
+      "category": "Line Detection",
+      "node_type": "Metric"
+    },
+    {
+      "id": "COMPLETE_CLASSIFICATION",
+      "label": "Complete",
+      "type": "Metric",
+      "description": "Percentage of sentences in which all tokens were assigned their correct parent",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "COMPLETE_CORRECT_PARSES",
+      "label": "Complete",
+      "type": "Metric",
+      "description": "Percentage of sentences in which all tokens were assigned their correct parent",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "COMPLETE_PARSING",
+      "label": "Complete",
+      "type": "Metric",
+      "description": "Percentage of sentences in which all tokens were assigned their correct parent",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "COMPLETENESS_OF_PROBLEMS",
+      "label": "Completeness",
+      "type": "Metric",
+      "description": "Whether the problem is completely defined by the assumptions",
+      "category": "Problem Quality Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CONVERSE_PROBLEMS",
+      "label": "Converse Problems",
+      "type": "Metric",
+      "description": "Problems that reverse the goal and assumptions of the original problem",
+      "category": "Problem Synthesis Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CORRECTNESS_COMPLETENESS",
+      "label": "Correctness and Completeness",
+      "type": "Metric",
+      "description": "Validation of the model's correctness and completeness when supplied as input to a physics problem-solving program",
+      "category": "Model Validation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CORRECTNESS_PROBLEMMODEL",
+      "label": "Correctness",
+      "type": "Metric",
+      "description": "问题模型的正确性",
+      "category": "问题理解评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CORRECTNESS_SOLUTION",
+      "label": "Correctness",
+      "type": "Metric",
+      "description": "The correctness of the solution to word problems.",
+      "category": "Solution Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CORRECTNESS_SOLVING",
+      "label": "Correctness",
+      "type": "Metric",
+      "description": "Whether the system correctly solves multi-step addition and subtraction word problems",
+      "category": "Problem Solving Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CORRECTNESSANDCOMPLETENESS_PHYSICSMODEL",
+      "label": "Correctness and Completeness",
+      "type": "Metric",
+      "description": "Validation of the correctness and completeness of the model produced by BEATRIX",
+      "category": "Physics Problem Solving",
+      "node_type": "Metric"
+    },
+    {
+      "id": "COUNT_COLINEARPOINTS",
+      "label": "Count of Colinear Points",
+      "type": "Metric",
+      "description": "Number of colinear points detected by the Hough Transformation",
+      "category": "Line Detection",
+      "node_type": "Metric"
+    },
+    {
+      "id": "COVERAGE_DIVERSITY",
+      "label": "Coverage and Diversity",
+      "type": "Metric",
+      "description": "Measures the comprehensiveness and variety of images within the dataset",
+      "category": "Dataset Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "CYCLEDETECTION_SEMANTICS",
+      "label": "Cycle Detection",
+      "type": "Metric",
+      "description": "Detection of oriented cycles in directed graphs",
+      "category": "Semantic role validation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "DEDUCTIVE_STEPS",
+      "label": "Deductive Steps",
+      "type": "Metric",
+      "description": "Number of hyperedges in the problem hypergraph",
+      "category": "Problem Complexity",
+      "node_type": "Metric"
+    },
+    {
+      "id": "DEDUCTIVESTEPS_CLASSIFICATION",
+      "label": "Deductive Steps",
+      "type": "Metric",
+      "description": "The number of hyperedges in the problem hypergraph",
+      "category": "Classification Assessment",
+      "node_type": "Metric"
+    },
+    {
+      "id": "DEPENDENCY_PARSING_ACCURACY",
+      "label": "Dependency Parsing Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of dependency parsing structures matching the ground truth annotations.",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "DEPENDENCYACCURACY_CLASSIFICATION",
+      "label": "Dependency Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of dependency relations in a sentence",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "DEPENDENCYACCURACY_PARSING",
+      "label": "Dependency Accuracy",
+      "type": "Metric",
+      "description": "Measures the accuracy of dependency relations in parsing.",
+      "category": "Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "DETECTIONACCURACY_RECTANGLEDETECTION",
+      "label": "Detection accuracy",
+      "type": "Metric",
+      "description": "Accuracy of detecting rectangles in images",
+      "category": "Object Detection",
+      "node_type": "Metric"
+    },
+    {
+      "id": "EFFECTIVENESS_SOLVING",
+      "label": "Effectiveness",
+      "type": "Metric",
+      "description": "Effectiveness of solving multi-step addition and subtraction word problems",
+      "category": "Problem Solving",
+      "node_type": "Metric"
+    },
+    {
+      "id": "EFFECTIVENESS_SOLVINGMULTISTEPWORDPROBLEMS",
+      "label": "Effectiveness",
+      "type": "Metric",
+      "description": "Effectiveness of solving multi-step word problems",
+      "category": "Problem-solving performance",
+      "node_type": "Metric"
+    },
+    {
+      "id": "EFFICIENCY_GEOMETRYTHEOREMPROVING",
+      "label": "Efficiency",
+      "type": "Metric",
+      "description": "Efficiency of geometry theorem proving algorithms",
+      "category": "Algorithm Performance",
+      "node_type": "Metric"
+    },
+    {
+      "id": "EFFICIENCY_SEARCHSPACE",
+      "label": "Efficiency",
+      "type": "Metric",
+      "description": "Measure of the efficiency of search strategies in geometry theorem proving.",
+      "category": "Search Space Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ENTROPY_ANSWERDISTRIBUTION",
+      "label": "Entropy",
+      "type": "Metric",
+      "description": "Measure of uncertainty in the answer distribution",
+      "category": "Distribution Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "EQUATION_ACCURACY",
+      "label": "Equation Accuracy",
+      "type": "Metric",
+      "description": "Measures how often the system generates the correct equation system",
+      "category": "Equation Generation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "EQUATION_ACCURACY_ALGEBRA",
+      "label": "Equation Accuracy",
+      "type": "Metric",
+      "description": "Measures how often the system generates the correct equation system",
+      "category": "Algebra Problem Solving",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ERRORMEASURE_RECTANGLEDETECTION",
+      "label": "Error measure",
+      "type": "Metric",
+      "description": "Error measure for detected rectangles",
+      "category": "Object detection",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ERRORRATE_CLASSIFICATION",
+      "label": "Error Rate",
+      "type": "Metric",
+      "description": "Average error rate over multiple trials",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ERRORRATE_DIFFICULTY",
+      "label": "Error Rate",
+      "type": "Metric",
+      "description": "Measure of the difficulty level of problems based on student error rates.",
+      "category": "Difficulty Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ERRORSIGNALSCALING_ERRORFLOW",
+      "label": "Error Signal Scaling",
+      "type": "Metric",
+      "description": "Scaling of error signals during backpropagation",
+      "category": "Error Flow Analysis",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1 SCORE_ALIGNING VISUAL ELEMENTS",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall for aligning visual elements with textual mentions",
+      "category": "Aligning Visual Elements",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1 SCORE_IDENTIFYING PRIMITIVES",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall for identifying primitives",
+      "category": "Identifying Primitives",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_CLASSIFICATION",
+      "label": "F1",
+      "type": "Metric",
+      "description": "The harmonic mean of precision and recall",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_MATHWORDPROBLEMSOLVING",
+      "label": "F1",
+      "type": "Metric",
+      "description": "The harmonic mean of precision and recall",
+      "category": "Math Word Problem Solving",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_NAMEDENTITYLINKING",
+      "label": "F1",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Named-Entity Linking Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_NEL",
+      "label": "F1",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Named-Entity Linking Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_NER",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "F1 Score on Named Entity Recognition Task",
+      "category": "Named Entity Recognition Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_PARSING",
+      "label": "F1",
+      "type": "Metric",
+      "description": "Evaluation metric for parsing",
+      "category": "Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_QA",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "",
+      "category": "Question Answering Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_ALIGNING_VISUAL_ELEMENTS",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Alignment Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_CLASSIFICATION",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic Mean of Precision and Recall",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_ENTAILMENT",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Entailment Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_IDENTIFYING_PRIMITIVES",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_NER",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall for Named Entity Recognition",
+      "category": "Named Entity Recognition",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_PARSING",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_QA",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of Precision and Recall.",
+      "category": "Question Answering Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_QUANTITATIVE_INFERENCE",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Quantitative Inference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_QUANTITY_SEGMENTATION",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Segmentation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1_SCORE_TEXT_INTERPRETATION",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall for text interpretation.",
+      "category": "Text Interpretation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1SCORE_AVERAGE",
+      "label": "Average F1 Score",
+      "type": "Metric",
+      "description": "Average of F1 scores across multiple metrics.",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1SCORE_PARSING",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "F1SCORE_QA",
+      "label": "F1 Score",
+      "type": "Metric",
+      "description": "Harmonic mean of Precision and Recall.",
+      "category": "Question Answering Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "INTERESTING_PROBLEMS",
+      "label": "Interesting Problems",
+      "type": "Metric",
+      "description": "Problems that require at least one or more of the assumptions and are minimal with respect to the goal",
+      "category": "Problem Synthesis Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "LABELED_ATTACHMENT_SCORE_PARSING",
+      "label": "Labeled Attachment Score",
+      "type": "Metric",
+      "description": "Measures the accuracy of dependency parsing considering both attachments and labels.",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "LABELEDATTACHMENTSCORE_PARSING",
+      "label": "Labeled Attachment Score",
+      "type": "Metric",
+      "description": "标注依存关系的依存解析得分",
+      "category": "依存解析评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "LAS_PARSING",
+      "label": "LAS",
+      "type": "Metric",
+      "description": "Labeled Attachment Score for dependency parsing",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "LOSSAPPROXIMATION_SEMANTICPARSING",
+      "label": "Loss Approximation",
+      "type": "Metric",
+      "description": "Approximated structural loss",
+      "category": "Semantic Parsing",
+      "node_type": "Metric"
+    },
+    {
+      "id": "MUC_CLUSTERING",
+      "label": "MUC",
+      "type": "Metric",
+      "description": "Measures how many predicted clusters need to be merged to cover the gold clusters",
+      "category": "Coreference Resolution",
+      "node_type": "Metric"
+    },
+    {
+      "id": "MUC_COREFERENCE",
+      "label": "MUC",
+      "type": "Metric",
+      "description": "A metric for evaluating coreference resolution systems.",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "MUC_F-SCORE",
+      "label": "MUC F-Score",
+      "type": "Metric",
+      "description": "Official MUC scoring algorithm",
+      "category": "Clustering Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "MUC_F-SCORE_COREFERENCE",
+      "label": "MUC F-Score",
+      "type": "Metric",
+      "description": "Official MUC scoring algorithm for coreference resolution",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "MUC_SCORING",
+      "label": "MUC",
+      "type": "Metric",
+      "description": "Measures how many predicted clusters need to be merged to cover the gold clusters.",
+      "category": "Coreference Resolution",
+      "node_type": "Metric"
+    },
+    {
+      "id": "NUMBER_OF_GENERATED_PROBLEMS",
+      "label": "Number of Generated Problems",
+      "type": "Metric",
+      "description": "The number of geometry proof problems generated by the algorithm",
+      "category": "Problem Generation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "NUMBER_OF_GENERATED_PROBLEMS_2014",
+      "label": "Number of Generated Problems",
+      "type": "Metric",
+      "description": "The number of geometry proof problems generated per figure.",
+      "category": "Problem Generation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "NUMBER_OF_GENERATED_PROBLEMS_GENERATION",
+      "label": "Number of Generated Problems",
+      "type": "Metric",
+      "description": "The number of geometry proof problems generated per figure.",
+      "category": "Problem Generation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ORACLE_ACCURACY",
+      "label": "Oracle Accuracy",
+      "type": "Metric",
+      "description": "The number of test equation templates which appear in the training data",
+      "category": "Upper Bound Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ORACLEACCURACY_CLASSIFICATION",
+      "label": "Oracle Accuracy",
+      "type": "Metric",
+      "description": "Upper bound accuracy based on the presence of test equation templates in the training data",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PAIRWISE_COREFERENCE",
+      "label": "Pairwise",
+      "type": "Metric",
+      "description": "Measures the accuracy of pairwise coreference decisions",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PAIRWISE_F1",
+      "label": "Pairwise F1",
+      "type": "Metric",
+      "description": "Computed over mention pairs in the same entity cluster.",
+      "category": "Coreference Resolution",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PAIRWISE_F1_COREFERENCE",
+      "label": "Pairwise F1",
+      "type": "Metric",
+      "description": "Computed over mention pairs in the same entity cluster.",
+      "category": "Coreference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PARSING_SPEED",
+      "label": "Parsing Speed",
+      "type": "Metric",
+      "description": "Number of sentences parsed per second",
+      "category": "Dependency Parsing Efficiency",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PERPLEXITY_LANGUAGE_MODELING",
+      "label": "Perplexity",
+      "type": "Metric",
+      "description": "Evaluation metric for language modeling",
+      "category": "Language Modeling Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PERPLEXITY_LANGUAGEMODEL",
+      "label": "Perplexity",
+      "type": "Metric",
+      "description": "Measure of how well a probability distribution or probability model predicts a sample",
+      "category": "Language Model Performance",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PERPLEXITY_LANGUAGEMODELING",
+      "label": "Perplexity",
+      "type": "Metric",
+      "description": "Evaluation metric for language modeling",
+      "category": "Language Modeling Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PRECISION_CLASSIFICATION",
+      "label": "Precision",
+      "type": "Metric",
+      "description": "Precision rate",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PRECISION_ENTAILMENT",
+      "label": "Precision",
+      "type": "Metric",
+      "description": "Proportion of true positive predictions",
+      "category": "Entailment Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PRECISION_MATHWORDPROBLEMSOLVING",
+      "label": "Precision",
+      "type": "Metric",
+      "description": "The proportion of correctly solved problems among all attempted problems",
+      "category": "Math Word Problem Solving",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PRECISION_QA",
+      "label": "Precision",
+      "type": "Metric",
+      "description": "Percentage of produced queries with correct answers.",
+      "category": "Question Answering Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PRECISION_QUANTITATIVE_INFERENCE",
+      "label": "Precision",
+      "type": "Metric",
+      "description": "Proportion of true positive predictions among all positive predictions",
+      "category": "Quantitative Inference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PROOF_LENGTH",
+      "label": "Proof Length",
+      "type": "Metric",
+      "description": "Diameter of the problem hypergraph",
+      "category": "Problem Complexity",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PROOF_WIDTH",
+      "label": "Proof Width",
+      "type": "Metric",
+      "description": "Width of the problem hypergraph",
+      "category": "Problem Complexity",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PROOFLENGTH_CLASSIFICATION",
+      "label": "Proof Length",
+      "type": "Metric",
+      "description": "The diameter of the problem hypergraph",
+      "category": "Classification Assessment",
+      "node_type": "Metric"
+    },
+    {
+      "id": "PROOFWIDTH_CLASSIFICATION",
+      "label": "Proof Width",
+      "type": "Metric",
+      "description": "The width of the problem hypergraph",
+      "category": "Classification Assessment",
+      "node_type": "Metric"
+    },
+    {
+      "id": "QUALITATIVEFACTORS_SYMMETRYJUDGMENT",
+      "label": "Qualitative Factors",
+      "type": "Metric",
+      "description": "Effect of qualitative visual structure on symmetry judgment.",
+      "category": "Perception Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RECALL_AT_5",
+      "label": "Recall@5",
+      "type": "Metric",
+      "description": "Proportion of times the human-picked counter-example is among the top-5 in the sorted list",
+      "category": "Explanation Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RECALL_CLASSIFICATION",
+      "label": "Recall",
+      "type": "Metric",
+      "description": "Recall rate",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RECALL_ENTAILMENT",
+      "label": "Recall",
+      "type": "Metric",
+      "description": "Proportion of actual positives predicted correctly",
+      "category": "Entailment Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RECALL_MATHWORDPROBLEMSOLVING",
+      "label": "Recall",
+      "type": "Metric",
+      "description": "The proportion of correctly solved problems among all problems",
+      "category": "Math Word Problem Solving",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RECALL_QA",
+      "label": "Recall",
+      "type": "Metric",
+      "description": "Percentage of total questions answered correctly.",
+      "category": "Question Answering Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RECALL_QUANTITATIVE_INFERENCE",
+      "label": "Recall",
+      "type": "Metric",
+      "description": "Proportion of true positive predictions among all actual positives",
+      "category": "Quantitative Inference Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RECALL@5",
+      "label": "Recall@5",
+      "type": "Metric",
+      "description": "Proportion of times the human-picked counter-example is among the top-5 ranked images",
+      "category": "Ranking Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RELAX_ACCURACY",
+      "label": "Relax Accuracy",
+      "type": "Metric",
+      "description": "Fraction of quantities or quantity pairs correctly predicted",
+      "category": "Partial Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RELAX_ACCURACY_CLASSIFICATION",
+      "label": "Relax Accuracy",
+      "type": "Metric",
+      "description": "放松准确率（部分正确）",
+      "category": "分类评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RELEVANCE_SCHEMA",
+      "label": "Relevance",
+      "type": "Metric",
+      "description": "The relevance of schema instantiations to the problem solution.",
+      "category": "Schema Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ROOT_CLASSIFICATION",
+      "label": "Root",
+      "type": "Metric",
+      "description": "Percentage of sentences in which the ROOT attachment is correct",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "ROOT_PREDICTION",
+      "label": "Root",
+      "type": "Metric",
+      "description": "Percentage of sentences in which the ROOT attachment is correct",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RUNTIMESTATISTICS_PERFORMANCE",
+      "label": "Run-Time Statistics",
+      "type": "Metric",
+      "description": "Statistics collected during program execution to evaluate performance",
+      "category": "Program Performance Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "RUNTIMESTATISTICS_PROBLEMSOLVING",
+      "label": "Run-Time Statistics",
+      "type": "Metric",
+      "description": "Statistics collected during the runtime of the program, including number of production rules fired, number of conversions, number of LTM searches, and maximum number of chunks held over.",
+      "category": "Problem Solving Performance",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SEMANTIC_ACCURACY_ANALOGICAL_REASONING",
+      "label": "Semantic Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of solving semantic analogical reasoning tasks.",
+      "category": "Analogical Reasoning",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SEMANTIC_ANALYSIS_ACCURACY_CLASSIFICATION",
+      "label": "Semantic Analysis Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of correctly classifying words in PBF diagrams into predefined categories.",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SEMANTICACCURACY_ANALOGICALREASONING",
+      "label": "Semantic accuracy",
+      "type": "Metric",
+      "description": "Accuracy on semantic analogical reasoning",
+      "category": "Analogical reasoning evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SEMANTICACCURACY_CLASSIFICATION",
+      "label": "Semantic Accuracy",
+      "type": "Metric",
+      "description": "Accuracy on semantic analogical reasoning",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SEMANTICANALYSISACCURACY_CLASSIFICATION",
+      "label": "Semantic Analysis Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of classifying words in PBF diagrams into five semantic categories",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SEMANTICANALYSISSUCCESSRATE_CLASSIFICATION",
+      "label": "Semantic Analysis Success Rate",
+      "type": "Metric",
+      "description": "Rate of successful semantic interpretation of diagram elements",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SOLUTION_ACCURACY",
+      "label": "Solution Accuracy",
+      "type": "Metric",
+      "description": "The proportion of correctly solved math word problems",
+      "category": "Math Word Problem Solving Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SOLUTION_TYPE_ACCURACY",
+      "label": "Solution Type Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of identifying the correct solution type",
+      "category": "Solution type classification",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SOLUTIONTYPEACCURACY_CLASSIFICATION",
+      "label": "Solution Type Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of identifying the correct solution type",
+      "category": "Classification",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SPACECOMPLEXITY_PARSING",
+      "label": "Space complexity",
+      "type": "Metric",
+      "description": "Memory required to parse a string",
+      "category": "Algorithm performance",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SPEARMAN_RANK_CORRELATION_SIMILARITY",
+      "label": "Spearman Rank Correlation",
+      "type": "Metric",
+      "description": "Correlation between Human Judgments and Cosine Similarity of Word Vectors",
+      "category": "Word Similarity Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SPEARMANRANKCORRELATION_WORDSIMILARITY",
+      "label": "Spearman Rank Correlation",
+      "type": "Metric",
+      "description": "Correlation between predicted and human-rated word similarities",
+      "category": "Word Similarity Task",
+      "node_type": "Metric"
+    },
+    {
+      "id": "STATISTICALINDISTINGUISHABILITY_AUTHENTICITY",
+      "label": "Statistical Indistinguishability",
+      "type": "Metric",
+      "description": "Measure of whether generated problems are statistically indistinguishable from textbook problems.",
+      "category": "Authenticity Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "STRICT_ACCURACY",
+      "label": "Strict Accuracy",
+      "type": "Metric",
+      "description": "Fraction of problems where all quantities or quantity pairs are correctly classified",
+      "category": "Complete Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "STRICT_ACCURACY_CLASSIFICATION",
+      "label": "Strict Accuracy",
+      "type": "Metric",
+      "description": "严格准确率（完全正确）",
+      "category": "分类评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "STRICTLY_COMPLETE_PROBLEMS_GENERATION",
+      "label": "Strictly Complete Problems",
+      "type": "Metric",
+      "description": "The number of strictly complete problems generated.",
+      "category": "Problem Completeness Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "STRICTLY_INTERESTING_PROBLEMS",
+      "label": "Strictly Interesting Problems",
+      "type": "Metric",
+      "description": "Problems that use all the assumptions in the statement for their solution",
+      "category": "Problem Synthesis Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "STRICTLY_INTERESTING_PROBLEMS_GENERATION",
+      "label": "Strictly Interesting Problems",
+      "type": "Metric",
+      "description": "The number of strictly interesting problems generated.",
+      "category": "Problem Quality Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SUCCESSRATE_CLASSIFICATION",
+      "label": "Success Rate",
+      "type": "Metric",
+      "description": "Percentage of successful trials where the model correctly predicts the sequence.",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SYNTACTIC_ACCURACY_ANALOGICAL_REASONING",
+      "label": "Syntactic Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of solving syntactic analogical reasoning tasks.",
+      "category": "Analogical Reasoning",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SYNTACTICACCURACY_ANALOGICALREASONING",
+      "label": "Syntactic accuracy",
+      "type": "Metric",
+      "description": "Accuracy on syntactic analogical reasoning",
+      "category": "Analogical reasoning evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "SYNTACTICACCURACY_CLASSIFICATION",
+      "label": "Syntactic Accuracy",
+      "type": "Metric",
+      "description": "Accuracy on syntactic analogical reasoning",
+      "category": "Classification Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "TIME_EFFICIENCY",
+      "label": "Time Efficiency",
+      "type": "Metric",
+      "description": "Time taken by DEDUCOM to answer each question",
+      "category": "Performance Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "TIME_TAKEN_TO_GENERATE_PROBLEMS",
+      "label": "Time Taken to Generate Problems",
+      "type": "Metric",
+      "description": "The time taken by the algorithm to generate geometry proof problems",
+      "category": "Efficiency Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "TIME_TAKEN_TO_GENERATE_PROBLEMS_2014",
+      "label": "Time Taken to Generate Problems",
+      "type": "Metric",
+      "description": "The average time taken to generate problems per figure.",
+      "category": "Efficiency Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "TIME_TAKEN_TO_GENERATE_PROBLEMS_GENERATION",
+      "label": "Time Taken to Generate Problems",
+      "type": "Metric",
+      "description": "The average time taken to generate problems per figure.",
+      "category": "Efficiency Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "TIMECOMPLEXITY_PARSING",
+      "label": "Time complexity",
+      "type": "Metric",
+      "description": "Time required to parse a string",
+      "category": "Algorithm performance",
+      "node_type": "Metric"
+    },
+    {
+      "id": "TRAININGSEQUENCES_NUMBER",
+      "label": "Number of Training Sequences",
+      "type": "Metric",
+      "description": "Number of training sequences required to achieve success",
+      "category": "Training Efficiency",
+      "node_type": "Metric"
+    },
+    {
+      "id": "TRAININGTIME_PERFORMANCE",
+      "label": "Training Time",
+      "type": "Metric",
+      "description": "Time required to train the model to convergence.",
+      "category": "Performance Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "UAS_PARSING",
+      "label": "UAS",
+      "type": "Metric",
+      "description": "Unlabeled Attachment Score for dependency parsing",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "UNIFIEDMODEL_QUALITY",
+      "label": "Unified Model Quality",
+      "type": "Metric",
+      "description": "Quality of the unified internal model that represents the problem, including information derived from both the English text and the diagram.",
+      "category": "Problem Understanding",
+      "node_type": "Metric"
+    },
+    {
+      "id": "UNLABELED_ATTACHMENT_SCORE_PARSING",
+      "label": "Unlabeled Attachment Score",
+      "type": "Metric",
+      "description": "Measures the accuracy of dependency parsing without considering labels.",
+      "category": "Dependency Parsing Evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "UNLABELEDATTACHMENTSCORE_PARSING",
+      "label": "Unlabeled Attachment Score",
+      "type": "Metric",
+      "description": "未标注依存关系的依存解析得分",
+      "category": "依存解析评估",
+      "node_type": "Metric"
+    },
+    {
+      "id": "VERB_CATEGORIZATION_ACCURACY",
+      "label": "Verb Categorization Accuracy",
+      "type": "Metric",
+      "description": "Accuracy of verb categorization in sentences",
+      "category": "Verb categorization evaluation",
+      "node_type": "Metric"
+    },
+    {
+      "id": "BCUB",
+      "label": "BCUB",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SENTIMENT_CLASSIFICATION",
+      "label": "SENTIMENT_CLASSIFICATION",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "HAJISHIRZI2013_NECO",
+      "label": "HAJISHIRZI2013_NECO",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2017_DEEPNEURALSOLVER",
+      "label": "WANG2017_DEEPNEURALSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ALGES2015_EQUATIONTREE",
+      "label": "ALGES2015_EQUATIONTREE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "LARGE_DATASET",
+      "label": "LARGE_DATASET",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "MATH WORD PROBLEMS",
+      "label": "MATH WORD PROBLEMS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "KONCELKEDZIORSKI2015_ALGES",
+      "label": "KONCELKEDZIORSKI2015_ALGES",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "UNITDEP2017_UNITDEPENDENCYGRAPH",
+      "label": "UNITDEP2017_UNITDEPENDENCYGRAPH",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "HUANG2018_REINFORCEMENTLEARNING",
+      "label": "HUANG2018_REINFORCEMENTLEARNING",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2018_UNITDEPENDENCYGRAPH",
+      "label": "ROY2018_UNITDEPENDENCYGRAPH",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2017_TRANSLATINGMATHWORDPROBLEM",
+      "label": "WANG2017_TRANSLATINGMATHWORDPROBLEM",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2018_DNSHYBRID",
+      "label": "WANG2018_DNSHYBRID",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "KUSHMAN2014_EQUATIONSOLVER",
+      "label": "KUSHMAN2014_EQUATIONSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CHANG2013_LATENTLEFTLINKINGMODEL",
+      "label": "CHANG2013_LATENTLEFTLINKINGMODEL",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "STANDARD_DATASETS",
+      "label": "STANDARD_DATASETS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CHEN2014_NEURALDEPENDENCYPARSER",
+      "label": "CHEN2014_NEURALDEPENDENCYPARSER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ARITHMETIC_WORD_PROBLEMS",
+      "label": "ARITHMETIC_WORD_PROBLEMS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CLARK2016_ARISTO",
+      "label": "CLARK2016_ARISTO",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2019_TEMPLATEBASEDSOLVER",
+      "label": "WANG2019_TEMPLATEBASEDSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "KONCELKEDZIORSKI2015_PARSINGALGEBRAICWORDPROBLEMS",
+      "label": "KONCELKEDZIORSKI2015_PARSINGALGEBRAICWORDPROBLEMS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2018_MATHDQN",
+      "label": "WANG2018_MATHDQN",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "HUANG2016_MATHWORDPROBLEMS",
+      "label": "HUANG2016_MATHWORDPROBLEMS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "FLETCHER1985_WORDPRO",
+      "label": "FLETCHER1985_WORDPRO",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "STANDARD_CORPORA",
+      "label": "STANDARD_CORPORA",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "KWIATKOWSKI2013_SEMANTICPARSER",
+      "label": "KWIATKOWSKI2013_SEMANTICPARSER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "KUSHMAN2014_EQUATIONTEMPLATES",
+      "label": "KUSHMAN2014_EQUATIONTEMPLATES",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CHEN2014_NEURALPARSER",
+      "label": "CHEN2014_NEURALPARSER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "GEHRING2017_CONVOLUTIONALSEQ2SEQ",
+      "label": "GEHRING2017_CONVOLUTIONALSEQ2SEQ",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROBAIDEK2018_BILSTMCLASSIFIER",
+      "label": "ROBAIDEK2018_BILSTMCLASSIFIER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "BAKMAN2023_ROBUST",
+      "label": "BAKMAN2023_ROBUST",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "STANDARD_PRIMARY_SCHOOL_TEST_QUESTIONS",
+      "label": "STANDARD_PRIMARY_SCHOOL_TEST_QUESTIONS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "T-RNN2019_TEMPLATEBASEDSOLVER",
+      "label": "T-RNN2019_TEMPLATEBASEDSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SEO2015_GEOS",
+      "label": "SEO2015_GEOS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "F1 SCORE",
+      "label": "F1 SCORE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ACE 2004",
+      "label": "ACE 2004",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2015_MATHWORDPROBLEMSOLVER",
+      "label": "ROY2015_MATHWORDPROBLEMSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CHIANG2018_SEMANTICALLYALIGNEDEQUATION",
+      "label": "CHIANG2018_SEMANTICALLYALIGNEDEQUATION",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "VASWANI2017_TRANSFORMER",
+      "label": "VASWANI2017_TRANSFORMER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ONTONOTES",
+      "label": "ONTONOTES",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SAT_GEOMETRY_QUESTIONS",
+      "label": "SAT_GEOMETRY_QUESTIONS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SEQ2SEQET2018_SEQ2SEQEXPRESSIONTREE",
+      "label": "SEQ2SEQET2018_SEQ2SEQEXPRESSIONTREE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "STACKDECODER2019_STACKBASEDDECODER",
+      "label": "STACKDECODER2019_STACKBASEDDECODER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CHANG2013_L3M",
+      "label": "CHANG2013_L3M",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "label": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "DOLPHIN18K_2017",
+      "label": "DOLPHIN18K_2017",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2017_TEMPLATEBASEDSOLVER",
+      "label": "WANG2017_TEMPLATEBASEDSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ZHANG2019_DEEPNEURALSOLVER",
+      "label": "ZHANG2019_DEEPNEURALSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2018_KNOWLEDGE",
+      "label": "ROY2018_KNOWLEDGE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "MATHDQN2018_MATHDQN",
+      "label": "MATHDQN2018_MATHDQN",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "GEOMETRY_PROBLEMS",
+      "label": "GEOMETRY_PROBLEMS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2015_EXPRESSIONTREE",
+      "label": "ROY2015_EXPRESSIONTREE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "LIN2017_STRUCTUREDSELFATTENTIVESENTENCEEMBEDDING",
+      "label": "LIN2017_STRUCTUREDSELFATTENTIVESENTENCEEMBEDDING",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "MITRA2016_FORMULASOLVER",
+      "label": "MITRA2016_FORMULASOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SEO2014_G-ALIGNER",
+      "label": "SEO2014_G-ALIGNER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CHANG2013_PROBABILISTICLATENTLEFTLINKINGMODEL",
+      "label": "CHANG2013_PROBABILISTICLATENTLEFTLINKINGMODEL",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "GOLDBERG2010_EASYFIRSTNONDIRECTIONALDEPENDENCYPARSING",
+      "label": "GOLDBERG2010_EASYFIRSTNONDIRECTIONALDEPENDENCYPARSING",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2019_TEMPLATEBASEDMATHWORDPROBLEMSOLVER",
+      "label": "WANG2019_TEMPLATEBASEDMATHWORDPROBLEMSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ALVIN2015_GEOTUTOR",
+      "label": "ALVIN2015_GEOTUTOR",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CLARK2016_IRSOLVER",
+      "label": "CLARK2016_IRSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2018_TRANSLATINGMATHWORDPROBLEM",
+      "label": "WANG2018_TRANSLATINGMATHWORDPROBLEM",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2017_DNS",
+      "label": "WANG2017_DNS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "RAGHUNATHAN2010_MULTIPASSSIEVE",
+      "label": "RAGHUNATHAN2010_MULTIPASSSIEVE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "HUANG2018_NEURALMATHWORDPROBLEMSOLVER",
+      "label": "HUANG2018_NEURALMATHWORDPROBLEMSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "KONCELKEDZIORSKI2015_EQUATIONPARSING",
+      "label": "KONCELKEDZIORSKI2015_EQUATIONPARSING",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "YAHOO_ANSWERS",
+      "label": "YAHOO_ANSWERS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SUTSKEVER2014_SEQUENCETOSEQUENCE",
+      "label": "SUTSKEVER2014_SEQUENCETOSEQUENCE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2018_ENSEMBLEMODEL",
+      "label": "WANG2018_ENSEMBLEMODEL",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2015_UNITDEPENDENCYGRAPH",
+      "label": "ROY2015_UNITDEPENDENCYGRAPH",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2017_MATHDQN",
+      "label": "WANG2017_MATHDQN",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "LIN2017_STRUCTUREDSELFATTENTION",
+      "label": "LIN2017_STRUCTUREDSELFATTENTION",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2015_ARITHMETICWORDPROBLEMS",
+      "label": "ROY2015_ARITHMETICWORDPROBLEMS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CHANG2013_CONSTRAINEDLATENTLEFTLINKINGMODEL",
+      "label": "CHANG2013_CONSTRAINEDLATENTLEFTLINKINGMODEL",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2017_UNITDEPENDENCYGRAPH",
+      "label": "ROY2017_UNITDEPENDENCYGRAPH",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "MUC",
+      "label": "MUC",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "PRIMARY_SCHOOL_TEST_QUESTIONS",
+      "label": "PRIMARY_SCHOOL_TEST_QUESTIONS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "WANG2018_BILSTM",
+      "label": "WANG2018_BILSTM",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2018_DECLARATIVEKNOWLEDGE",
+      "label": "ROY2018_DECLARATIVEKNOWLEDGE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "TEXTUAL_ENTAILMENT",
+      "label": "TEXTUAL_ENTAILMENT",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ENGLISH_PENN_TREEBANK",
+      "label": "ENGLISH_PENN_TREEBANK",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CLARK2016_PMISOLVER",
+      "label": "CLARK2016_PMISOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2015_ARIS",
+      "label": "ROY2015_ARIS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "LIANG2016_TAGBASEDMATHWORDPROBLEMSOLVER",
+      "label": "LIANG2016_TAGBASEDMATHWORDPROBLEMSOLVER",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SOCHER2013_COMPOSITIONALVECTORGRAMMAR",
+      "label": "SOCHER2013_COMPOSITIONALVECTORGRAMMAR",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "UPADHYAY2016_MIXEDSP",
+      "label": "UPADHYAY2016_MIXEDSP",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "RUN-TIME STATISTICS",
+      "label": "RUN-TIME STATISTICS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "AUTHOR_PROFILING",
+      "label": "AUTHOR_PROFILING",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ONTONOTES-5.0",
+      "label": "ONTONOTES-5.0",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CEAF",
+      "label": "CEAF",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ACCURACY",
+      "label": "ACCURACY",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "SEO2014_DIAGRAMUNDERSTANDING",
+      "label": "SEO2014_DIAGRAMUNDERSTANDING",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ROY2015_SOLVINGGENERALARITHMETICWORDPROBLEMS",
+      "label": "ROY2015_SOLVINGGENERALARITHMETICWORDPROBLEMS",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "HUANG2016_LARGESCALEDATASETCONSTRUCTION",
+      "label": "HUANG2016_LARGESCALEDATASETCONSTRUCTION",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "ACE",
+      "label": "ACE",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "CHIANG2018_SEMANTICALLYALIGNEDEQUATIONGENERATION",
+      "label": "CHIANG2018_SEMANTICALLYALIGNEDEQUATIONGENERATION",
+      "type": "Unknown",
+      "node_type": "Unknown"
+    },
+    {
+      "id": "HUANG2016_LARGESCALEEVALUATION",
+      "label": "HUANG2016_LARGESCALEEVALUATION",
+      "type": "Unknown",
+      "node_type": "Unknown"
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "source": "ALG514_2014",
+      "target": "AI2_2014",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "AI2 -> ALG514",
+      "detail": "ALG514 extends AI2 by focusing on algebraic word problems.",
+      "evidence": "ALG514 KAZB[50] 514 28 18.36 91 1.62k 19.3k",
+      "confidence": 0.85
+    },
+    {
+      "source": "DOLPHIN1878_2015",
+      "target": "DOLPHIN18K_2016",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Dolphin1878 -> Dolphin18K",
+      "detail": "Dolphin18K extends Dolphin1878 by increasing the number of problems and templates.",
+      "evidence": "Dolphin18K[12] The dataset is collected and rectified mainly from the math category of Yahoo! Answers1.",
+      "confidence": 0.9
+    },
+    {
+      "source": "DOLPHIN18K_2016",
+      "target": "DOLPHIN1878_2015",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Dolphin1878 -> Dolphin18K",
+      "detail": "Dolphin18K extends Dolphin1878 by increasing the number of problems and templates.",
+      "evidence": "Dolphin18K[12] The dataset is collected and rectified mainly from the math category of Yahoo! Answers1.",
+      "confidence": 0.9
+    },
+    {
+      "source": "DOLPHIN18K_2016",
+      "target": "AI2_2014",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Paragraph context",
+      "detail": "Dolphin18K extends AI2 by providing a larger and more diversified dataset.",
+      "evidence": "The harvested dataset is so far the largest one, with 18,460 problems and 5,871 equation templates. Since the dataset is collected from online forum, there could exist errors in the annotations and answers.",
+      "confidence": 0.9
+    },
+    {
+      "source": "MATH23K_2014",
+      "target": "AI2_2014",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "AI2 -> Math23K",
+      "detail": "Math23K extends AI2 by increasing the number of problems and templates.",
+      "evidence": "Math23K is another large-scale dataset which contains Chinese math word problems.",
+      "confidence": 0.9
+    },
+    {
+      "source": "MATH23K_2019",
+      "target": "AI2_2014",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Paragraph context",
+      "detail": "Math23K extends AI2 by providing a larger and more diversified dataset.",
+      "evidence": "Math23K is another large-scale dataset which contains Chinese math word problems. The results are shown in the last three columns of Table 2. We can see that T-RNN is state-of-the-art method in the two largest datasets Dolphin-S and Math23K.",
+      "confidence": 0.9
+    },
+    {
+      "source": "HAJISHIRZI2013_NECO",
+      "target": "CLARK2016_ARISTO",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Architecture.Component",
+      "detail": "Aristo uses NECO for coreference resolution",
+      "evidence": "Aristo uses a combination of coreference resolution and named-entity linking, which can be achieved using NECO.",
+      "confidence": 0.85
+    },
+    {
+      "source": "WANG2017_DEEPNEURALSOLVER",
+      "target": "LARGE_DATASET",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Deep Neural Solver uses a large dataset for training and evaluation.",
+      "evidence": "Experiments conducted on a large dataset show that the RNN model and the hybrid model significantly outperform state-of-the-art statistical learning methods for math word problem solving.",
+      "confidence": 1.0
+    },
+    {
+      "source": "ALGES2015_EQUATIONTREE",
+      "target": "UNITDEP2017_UNITDEPENDENCYGRAPH",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Architecture.Component",
+      "detail": "ALGES's equation tree extended with Unit Dependency Graph for better feature extraction",
+      "evidence": "UnitDep can be viewed as an extension work of ALGES by the same authors (Roy et al., 2017).",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCELKEDZIORSKI2015_ALGES",
+      "target": "AI2_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "ALGES uses the AI2, IL, and CC datasets for evaluation.",
+      "evidence": "ALGES differs from [30] in two major ways. First, it adopts a more brutal-force manner to exploit all the possible equation trees. More specifically, ALGES does not discard irrevalent quantities, but enumerates all the syntactically valid trees.",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCELKEDZIORSKI2015_ALGES",
+      "target": "IL_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "ALGES uses the AI2, IL, and CC datasets for evaluation.",
+      "evidence": "ALGES differs from [30] in two major ways. First, it adopts a more brutal-force manner to exploit all the possible equation trees. More specifically, ALGES does not discard irrevalent quantities, but enumerates all the syntactically valid trees.",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCELKEDZIORSKI2015_ALGES",
+      "target": "CC_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "ALGES uses the AI2, IL, and CC datasets for evaluation.",
+      "evidence": "ALGES differs from [30] in two major ways. First, it adopts a more brutal-force manner to exploit all the possible equation trees. More specifically, ALGES does not discard irrevalent quantities, but enumerates all the syntactically valid trees.",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCELKEDZIORSKI2015_ALGES",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "ALGES uses Accuracy as a metric for evaluation.",
+      "evidence": "The reported accuracy of seq2seq model is only 16.1% in ALG514. DNS is a hybrid approach that combines a seq2seq model and similarity retrieval model.",
+      "confidence": 0.9
+    },
+    {
+      "source": "HUANG2018_REINFORCEMENTLEARNING",
+      "target": "MATH23K_2018",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Neural Math Word Problem Solver with Reinforcement Learning uses Math23K for training and evaluation.",
+      "evidence": "Experimental results show that our method outperforms existing systems, achieving state-of-the-art performance on benchmark datasets of arithmetic word problems.",
+      "confidence": 1.0
+    },
+    {
+      "source": "WANG2017_TRANSLATINGMATHWORDPROBLEM",
+      "target": "DOLPHIN18K_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Translating Math Word Problem to Expression Tree uses Dolphin18K_2016 for training and evaluation.",
+      "evidence": "We evaluate performance on a large dataset which is more than 9 times the size of previous ones, and contains many more problem types.",
+      "confidence": 1.0
+    },
+    {
+      "source": "WANG2017_TRANSLATINGMATHWORDPROBLEM",
+      "target": "MATH23K_2017",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "Translating Math Word Problem evaluated on Math23K dataset",
+      "evidence": "The proposed approach was evaluated on the Math23K dataset (Wang et al., 2017).",
+      "confidence": 0.95
+    },
+    {
+      "source": "WANG2018_DNSHYBRID",
+      "target": "MATH23K_2017",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "DNS-Hybrid uses the Math23K dataset for evaluation.",
+      "evidence": "Experiments conducted on the new dataset lead to interesting and surprising results.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_DNSHYBRID",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "DNS-Hybrid uses Accuracy Classification metric for evaluation.",
+      "evidence": "Experimental results show that our algorithm achieves 79.7% accuracy.",
+      "confidence": 0.9
+    },
+    {
+      "source": "KUSHMAN2014_EQUATIONSOLVER",
+      "target": "ALGEBRA.COM_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "EquationSolver uses the Algebra.com dataset for evaluation.",
+      "evidence": "We evaluate performance on a test set of over 1,500 number word problems(i.e., verbally expressed number problems) and yield 95.4% precision and 60.2% recall.",
+      "confidence": 0.9
+    },
+    {
+      "source": "KUSHMAN2014_EQUATIONSOLVER",
+      "target": "EQUATION_ACCURACY",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "EquationSolver uses Equation Accuracy and Answer Accuracy metrics for evaluation.",
+      "evidence": "We evaluate performance on a test set of over 1,500 number word problems(i.e., verbally expressed number problems) and yield 95.4% precision and 60.2% recall.",
+      "confidence": 0.9
+    },
+    {
+      "source": "KUSHMAN2014_EQUATIONSOLVER",
+      "target": "ANSWER_ACCURACY",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "EquationSolver uses Equation Accuracy and Answer Accuracy metrics for evaluation.",
+      "evidence": "We evaluate performance on a test set of over 1,500 number word problems(i.e., verbally expressed number problems) and yield 95.4% precision and 60.2% recall.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHANG2013_LATENTLEFTLINKINGMODEL",
+      "target": "CHANG2013_CONSTRAINEDLATENTLEFTLINKINGMODEL",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Architecture.Component",
+      "detail": "CL3M adds constraint injection to L3M",
+      "evidence": "We show that L3M admits efficient inference and can be augmented with knowledge-based constraints; we also present a fast stochastic gradient based learning.",
+      "confidence": 0.95
+    },
+    {
+      "source": "CHANG2013_LATENTLEFTLINKINGMODEL",
+      "target": "CHANG2013_PROBABILISTICLATENTLEFTLINKINGMODEL",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Architecture.Mechanism",
+      "detail": "PL3M introduces a probabilistic approach to L3M",
+      "evidence": "The PL3M uses a probabilistic left-linking model, which extends the original L3M by adding a temperature parameter γ.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHEN2014_NEURALDEPENDENCYPARSER",
+      "target": "ENGLISH_PENN_TREEBANK",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Neural Dependency Parser uses English Penn Treebank for training and evaluation.",
+      "evidence": "Experiments conducted on a test set of over 1,500 number word problems(i.e., verbally expressed number problems) and yield 95.4% precision and 60.2% recall.",
+      "confidence": 1.0
+    },
+    {
+      "source": "CLARK2016_ARISTO",
+      "target": "NY_REGENTS_SCIENCE_EXAM_2016",
+      "label": "Evaluate",
+      "relation_type": "Evaluate",
+      "structure": "Architecture.Component",
+      "detail": "Aristo evaluated on NY Regents Science Exam",
+      "evidence": "Aristo achieves an accuracy of 71.3% on the NY Regents Science Exam.",
+      "confidence": 0.94
+    },
+    {
+      "source": "WANG2019_TEMPLATEBASEDSOLVER",
+      "target": "KONCELKEDZIORSKI2015_PARSINGALGEBRAICWORDPROBLEMS",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Template-based Solver -> Recursive Neural Networks",
+      "detail": "Template-Based Math Word Problem Solver uses recursive neural networks to infer unknown variables in the expression tree, optimizing the template-based approach.",
+      "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+      "confidence": 0.85
+    },
+    {
+      "source": "WANG2019_TEMPLATEBASEDSOLVER",
+      "target": "MATH23K_2017",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Template-Based Math Word Problem Solver uses Math23K and MAWPS datasets for evaluation.",
+      "evidence": "The best performer in Math23K is a seq2seq model based on LSTM to generate the math expression.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2019_TEMPLATEBASEDSOLVER",
+      "target": "MAWPS_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Template-Based Math Word Problem Solver uses Math23K and MAWPS datasets for evaluation.",
+      "evidence": "The best performer in Math23K is a seq2seq model based on LSTM to generate the math expression.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2019_TEMPLATEBASEDSOLVER",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Template-Based Math Word Problem Solver uses Accuracy Classification metric for evaluation.",
+      "evidence": "Experimental results show that our algorithm achieves 79.7% accuracy.",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCELKEDZIORSKI2015_PARSINGALGEBRAICWORDPROBLEMS",
+      "target": "AI2_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Parsing Algebraic Word Problems -> Multiple Datasets",
+      "detail": "Parsing Algebraic Word Problems uses multiple datasets for training and evaluation.",
+      "evidence": "ALGES[31] 2015 52.4 72.9 65 72 60.4 ---",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCELKEDZIORSKI2015_PARSINGALGEBRAICWORDPROBLEMS",
+      "target": "IL_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Parsing Algebraic Word Problems -> Multiple Datasets",
+      "detail": "Parsing Algebraic Word Problems uses multiple datasets for training and evaluation.",
+      "evidence": "ALGES[31] 2015 52.4 72.9 65 72 60.4 ---",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCELKEDZIORSKI2015_PARSINGALGEBRAICWORDPROBLEMS",
+      "target": "CC_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Parsing Algebraic Word Problems -> Multiple Datasets",
+      "detail": "Parsing Algebraic Word Problems uses multiple datasets for training and evaluation.",
+      "evidence": "ALGES[31] 2015 52.4 72.9 65 72 60.4 ---",
+      "confidence": 0.9
+    },
+    {
+      "source": "KONCELKEDZIORSKI2015_PARSINGALGEBRAICWORDPROBLEMS",
+      "target": "KONCELKEDZIORSKI2015_EQUATIONPARSING",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Equation Parsing -> Parsing Algebraic Word Problems",
+      "detail": "Equation Parsing extends Parsing Algebraic Word Problems by focusing on mapping sentences to grounded equations.",
+      "evidence": "Equation Parsing: Mapping sentences to grounded equations.",
+      "confidence": 0.85
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "DOLPHIN18K_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "MathDQN uses the Dolphin18K dataset for evaluation.",
+      "evidence": "The dataset is collected and rectified mainly from the math category of Yahoo! Answers.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "STANDARD_DATASETS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "MathDQN uses standard datasets for training and evaluation.",
+      "evidence": "Extensive experimental results validate our superiority over state-of-the-art methods.",
+      "confidence": 1.0
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "WANG2017_TRANSLATINGMATHWORDPROBLEM",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Algorithm improves Algorithm",
+      "detail": "MathDQN improves Translating Math Word Problem to Expression Tree by using reinforcement learning.",
+      "evidence": "MathDQN yields remarkable improvement on most of datasets and boosts the average precision among all the benchmark datasets by 15%.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "ROY2015_EXPRESSIONTREE",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Citation contexts",
+      "detail": "MathDQN improves upon the Expression Tree method by using deep reinforcement learning to iteratively pick the best operator for two selected quantities.",
+      "evidence": "MathDQN iteratively picks the best operator for two selected quantities. This procedure can be viewed as beam search with k=1 when exploiting candidate expression trees. Its deep Q-network acts as the operator classifier and guides the model to select the most promising operator for tree construction.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "AI2_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "MathDQN -> Multiple Datasets",
+      "detail": "MathDQN uses multiple datasets for training and evaluation.",
+      "evidence": "MathDQN[17] 2018 78.5 73.3 75.5 52.96 72.68 30.06 60.25 -",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "IL_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "MathDQN -> Multiple Datasets",
+      "detail": "MathDQN uses multiple datasets for training and evaluation.",
+      "evidence": "MathDQN[17] 2018 78.5 73.3 75.5 52.96 72.68 30.06 60.25 -",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "CC_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "MathDQN -> Multiple Datasets",
+      "detail": "MathDQN uses multiple datasets for training and evaluation.",
+      "evidence": "MathDQN[17] 2018 78.5 73.3 75.5 52.96 72.68 30.06 60.25 -",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "ALLARITH_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "MathDQN -> Multiple Datasets",
+      "detail": "MathDQN uses multiple datasets for training and evaluation.",
+      "evidence": "MathDQN[17] 2018 78.5 73.3 75.5 52.96 72.68 30.06 60.25 -",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "DOLPHIN-S_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "MathDQN -> Multiple Datasets",
+      "detail": "MathDQN uses multiple datasets for training and evaluation.",
+      "evidence": "MathDQN[17] 2018 78.5 73.3 75.5 52.96 72.68 30.06 60.25 -",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "MAWPS-S_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "MathDQN -> Multiple Datasets",
+      "detail": "MathDQN uses multiple datasets for training and evaluation.",
+      "evidence": "MathDQN[17] 2018 78.5 73.3 75.5 52.96 72.68 30.06 60.25 -",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "MATH23K_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "MathDQN -> Multiple Datasets",
+      "detail": "MathDQN uses multiple datasets for training and evaluation.",
+      "evidence": "MathDQN[17] 2018 78.5 73.3 75.5 52.96 72.68 30.06 60.25 -",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_MATHDQN",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "MathDQN uses Accuracy as a metric for evaluation.",
+      "evidence": "The reported accuracy of seq2seq model is only 16.1% in ALG514. DNS is a hybrid approach that combines a seq2seq model and similarity retrieval model.",
+      "confidence": 0.9
+    },
+    {
+      "source": "HUANG2016_MATHWORDPROBLEMS",
+      "target": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "算法扩展",
+      "detail": "Huang2017_FineGrainedExpressions通过引入细粒度表达式，扩展了数学问题求解器的功能。",
+      "evidence": "We develop a theory for expression trees that can be used to represent and evaluate the target arithmetic expressions.",
+      "confidence": 0.85
+    },
+    {
+      "source": "FLETCHER1985_WORDPRO",
+      "target": "RUN-TIME STATISTICS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "WORDPRO uses Run-Time Statistics for evaluation.",
+      "evidence": "The program is intended to demonstrate the sufficiency of that theory, to assist in communicating it to other researchers, and to serve as a tool for exploring the theory's consequences.",
+      "confidence": 0.8
+    },
+    {
+      "source": "KWIATKOWSKI2013_SEMANTICPARSER",
+      "target": "CLARK2016_ARISTO",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Architecture.Component",
+      "detail": "Aristo uses Semantic Parser for question answering",
+      "evidence": "Aristo uses a semantic parser to understand and answer elementary science questions.",
+      "confidence": 0.87
+    },
+    {
+      "source": "KUSHMAN2014_EQUATIONTEMPLATES",
+      "target": "WANG2017_DEEPNEURALSOLVER",
+      "label": "Replace",
+      "relation_type": "Replace",
+      "structure": "算法替换",
+      "detail": "Wang2017_DeepNeuralSolver使用深度神经网络替换了传统的方程模板方法，提高了数学问题求解的准确性。",
+      "evidence": "Our algorithm reasons across sentence boundaries to construct and solve a system of linear equations, while simultaneously recovering an alignment of the variables and numbers in these equations to the problem text.",
+      "confidence": 0.85
+    },
+    {
+      "source": "CHEN2014_NEURALPARSER",
+      "target": "SUTSKEVER2014_SEQUENCETOSEQUENCE",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "算法扩展",
+      "detail": "Sutskever2014_SequenceToSequence将序列到序列学习应用于自然语言处理任务，扩展了神经网络的应用范围。",
+      "evidence": "Sequence-to-sequence learning with deep neural networks has rapidly become a very useful and surprisingly general-purpose tool for natural language processing.",
+      "confidence": 0.85
+    },
+    {
+      "source": "GEHRING2017_CONVOLUTIONALSEQ2SEQ",
+      "target": "MATH23K_2017",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Convolutional SEQ2SEQ uses the Math23K dataset for evaluation.",
+      "evidence": "Experiments conducted on the new dataset lead to interesting and surprising results.",
+      "confidence": 0.9
+    },
+    {
+      "source": "GEHRING2017_CONVOLUTIONALSEQ2SEQ",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Convolutional SEQ2SEQ uses Accuracy Classification metric for evaluation.",
+      "evidence": "Experimental results show that our algorithm achieves 79.7% accuracy.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROBAIDEK2018_BILSTMCLASSIFIER",
+      "target": "MATH23K_2017",
+      "label": "Evaluate",
+      "relation_type": "Evaluate",
+      "structure": "Architecture.Component",
+      "detail": "BiLSTM Classifier evaluated on Math23K",
+      "evidence": "The BiLSTM Classifier achieves state-of-the-art performance on the Math23K dataset.",
+      "confidence": 0.93
+    },
+    {
+      "source": "BAKMAN2023_ROBUST",
+      "target": "CUSTOM_WORD_PROBLEMS_2023",
+      "label": "Evaluate",
+      "relation_type": "Evaluate",
+      "structure": "Architecture.Component",
+      "detail": "ROBUST evaluated on Custom Word Problems",
+      "evidence": "ROBUST is evaluated on a dataset of multi-step arithmetic word problems with extraneous information.",
+      "confidence": 0.9
+    },
+    {
+      "source": "T-RNN2019_TEMPLATEBASEDSOLVER",
+      "target": "SEQ2SEQET2018_SEQ2SEQEXPRESSIONTREE",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Architecture.Component",
+      "detail": "T-RNN improves Seq2SeqET with recursive neural networks and better quantity encoding",
+      "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction (Wang et al., 2019).",
+      "confidence": 0.9
+    },
+    {
+      "source": "T-RNN2019_TEMPLATEBASEDSOLVER",
+      "target": "SINGLEEQ_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "T-RNN evaluated on SingleEQ dataset",
+      "evidence": "T-RNN was evaluated on the SingleEQ dataset (Wang et al., 2019).",
+      "confidence": 0.95
+    },
+    {
+      "source": "T-RNN2019_TEMPLATEBASEDSOLVER",
+      "target": "ALLARITH_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "T-RNN evaluated on AllArith dataset",
+      "evidence": "T-RNN was evaluated on the AllArith dataset (Wang et al., 2019).",
+      "confidence": 0.95
+    },
+    {
+      "source": "T-RNN2019_TEMPLATEBASEDSOLVER",
+      "target": "MAWPS-S_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "T-RNN evaluated on MAWPS-S dataset",
+      "evidence": "T-RNN was evaluated on the MAWPS-S dataset (Wang et al., 2019).",
+      "confidence": 0.95
+    },
+    {
+      "source": "SEO2015_GEOS",
+      "target": "SAT_GEOMETRY_QUESTIONS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "GEOS uses SAT geometry questions for training and evaluation.",
+      "evidence": "In our experiments, GEOS achieves a 49% score on official SAT questions, and a score of 61% on practice questions.",
+      "confidence": 1.0
+    },
+    {
+      "source": "SEO2015_GEOS",
+      "target": "SEO2014_DIAGRAMUNDERSTANDING",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Diagram Understanding -> Geometry Problem Solving",
+      "detail": "GEOS extends the diagram understanding approach to solve geometry word problems by combining text and diagram parsing.",
+      "evidence": "GEOS can be considered as the first work to tackle a complete geometric word problem as shown in Figure 5.",
+      "confidence": 0.9
+    },
+    {
+      "source": "SEO2015_GEOS",
+      "target": "DOLPHIN18K_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "GEOS -> Dolphin18K",
+      "detail": "GEOS uses the Dolphin18K dataset for training and evaluation.",
+      "evidence": "GEOS[107] can be considered as the first work to tackle a complete geometric word problem as shown in Figure 5.",
+      "confidence": 0.9
+    },
+    {
+      "source": "SEO2015_GEOS",
+      "target": "SEO2015_GEOS",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "算法改进",
+      "detail": "Seo2015_GEOS通过结合文本理解和图表解释，改进了几何问题求解器的性能。",
+      "evidence": "We model the problem of understanding geometry questions as submodular optimization, and identify a formal problem description likely to be compatible with both the question text and diagram.",
+      "confidence": 0.9
+    },
+    {
+      "source": "SEO2015_GEOS",
+      "target": "ALVIN2015_GEOTUTOR",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Architecture.Component",
+      "detail": "GeoTutor uses GEOS for geometry problem synthesis",
+      "evidence": "GeoTutor synthesizes geometry problems using a method similar to GEOS, which combines text and diagram interpretation.",
+      "confidence": 0.88
+    },
+    {
+      "source": "SEO2015_GEOS",
+      "target": "SAT_GEOMETRY_QUESTIONS_2015",
+      "label": "Evaluate",
+      "relation_type": "Evaluate",
+      "structure": "Architecture.Component",
+      "detail": "GEOS evaluated on SAT Geometry Questions",
+      "evidence": "GEOS achieves a 49% score on official SAT questions, and a score of 61% on practice questions.",
+      "confidence": 0.95
+    },
+    {
+      "source": "ROY2015_MATHWORDPROBLEMSOLVER",
+      "target": "MATH WORD PROBLEMS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Math Word Problem Solver uses Math Word Problems dataset for evaluation.",
+      "evidence": "We evaluate performance on a newly gathered corpus of algebra word problems.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_MATHWORDPROBLEMSOLVER",
+      "target": "ACCURACY",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Math Word Problem Solver uses Accuracy metric for evaluation.",
+      "evidence": "Experimental results show that our algorithm achieves 79.7% accuracy.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHIANG2018_SEMANTICALLYALIGNEDEQUATION",
+      "target": "WANG2018_TRANSLATINGMATHWORDPROBLEM",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Expression Tree Generator -> Semantically-Aligned Equation Generation",
+      "detail": "Semantically-Aligned Equation Generation improves upon the expression tree generator by ensuring semantic alignment.",
+      "evidence": "Semantically-aligned equation generation for solving and reasoning math word problems.",
+      "confidence": 0.85
+    },
+    {
+      "source": "VASWANI2017_TRANSFORMER",
+      "target": "MATH23K_2017",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Transformer uses the Math23K dataset for evaluation.",
+      "evidence": "Experiments conducted on the new dataset lead to interesting and surprising results.",
+      "confidence": 0.9
+    },
+    {
+      "source": "VASWANI2017_TRANSFORMER",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Transformer uses Accuracy Classification metric for evaluation.",
+      "evidence": "Experimental results show that our algorithm achieves 79.7% accuracy.",
+      "confidence": 0.9
+    },
+    {
+      "source": "SEQ2SEQET2018_SEQ2SEQEXPRESSIONTREE",
+      "target": "WANG2017_TRANSLATINGMATHWORDPROBLEM",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Architecture.Component",
+      "detail": "Seq2SeqET optimizes Wang et al.'s Seq2Seq model with expression tree generation",
+      "evidence": "Seq2SeqET extended the idea of DNS by using expression tree as the output sequence (Wang et al., 2018).",
+      "confidence": 0.85
+    },
+    {
+      "source": "STACKDECODER2019_STACKBASEDDECODER",
+      "target": "SEQ2SEQET2018_SEQ2SEQEXPRESSIONTREE",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Architecture.Component",
+      "detail": "StackDecoder optimizes Seq2SeqET with operand tracking using a stack",
+      "evidence": "StackDecoder is also based on seq2seq model. Its encoder extracts semantic meanings of quantities in the question text and the decoder is equipped with a stack to facilitate tracking the semantic meanings of operands (Chiang et al., 2019).",
+      "confidence": 0.85
+    },
+    {
+      "source": "STACKDECODER2019_STACKBASEDDECODER",
+      "target": "SINGLEEQ_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "StackDecoder evaluated on SingleEQ dataset",
+      "evidence": "StackDecoder was evaluated on the SingleEQ dataset (Chiang et al., 2019).",
+      "confidence": 0.95
+    },
+    {
+      "source": "STACKDECODER2019_STACKBASEDDECODER",
+      "target": "ALLARITH_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "StackDecoder evaluated on AllArith dataset",
+      "evidence": "StackDecoder was evaluated on the AllArith dataset (Chiang et al., 2019).",
+      "confidence": 0.95
+    },
+    {
+      "source": "STACKDECODER2019_STACKBASEDDECODER",
+      "target": "MAWPS-S_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "StackDecoder evaluated on MAWPS-S dataset",
+      "evidence": "StackDecoder was evaluated on the MAWPS-S dataset (Chiang et al., 2019).",
+      "confidence": 0.95
+    },
+    {
+      "source": "CHANG2013_L3M",
+      "target": "ACE",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Latent Left Linking model (L3M) uses ACE and Ontonotes for training and evaluation.",
+      "evidence": "Experiments on ACE and Ontonotes data show that L3M and its constrained version, CL3M, are more accurate than several state-of-the-art approaches.",
+      "confidence": 1.0
+    },
+    {
+      "source": "CHANG2013_L3M",
+      "target": "ONTONOTES",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Latent Left Linking model (L3M) uses ACE and Ontonotes for training and evaluation.",
+      "evidence": "Experiments on ACE and Ontonotes data show that L3M and its constrained version, CL3M, are more accurate than several state-of-the-art approaches.",
+      "confidence": 1.0
+    },
+    {
+      "source": "CHANG2013_L3M",
+      "target": "CHEN2014_NEURALPARSER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "算法改进",
+      "detail": "Chen2014_NeuralParser在依赖解析任务上引入了神经网络模型，提高了解析的准确性和速度。",
+      "evidence": "In this work, we propose a novel way of learning a neural network classifier for use in a greedy, transition-based dependency parser. Because this classifier learns and uses just a small number of dense features, it can work very fast, while achieving an about 2% improvement in unlabeled and labeled attachment scores on both English and Chinese datasets.",
+      "confidence": 0.9
+    },
+    {
+      "source": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "target": "KONCELKEDZIORSKI2015_PARSINGALGEBRAICWORDPROBLEMS",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Template-based Parsing -> Fine-grained Template Fragments",
+      "detail": "Fine-Grained Expressions parses an equation template into fine-grained units, improving upon the template-based parsing approach.",
+      "evidence": "FG-Expression[13] parses an equation template into fine-grained units, called template fragment.",
+      "confidence": 0.9
+    },
+    {
+      "source": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "target": "KONCELKEDZIORSKI2015_ALGES",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Figure/Table captions",
+      "detail": "Fine-Grained Expressions improves upon ALGES by parsing an equation template into fine-grained units, called template fragments.",
+      "evidence": "FG-Expression parses an equation template into fine-grained units, called template fragment. Each template is represented in a tree structure as in Figure 3 and each fragment represents a sub-tree rooted at an internal node.",
+      "confidence": 0.9
+    },
+    {
+      "source": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Fine-Grained Expressions uses Accuracy as a metric for evaluation.",
+      "evidence": "The reported accuracy of seq2seq model is only 16.1% in ALG514. DNS is a hybrid approach that combines a seq2seq model and similarity retrieval model.",
+      "confidence": 0.9
+    },
+    {
+      "source": "HUANG2017_FINEGRAINEDEXPRESSIONS",
+      "target": "DOLPHIN18K_2017",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "Fine-Grained Expressions evaluated on Dolphin18K dataset",
+      "evidence": "The proposed method was evaluated on the Dolphin18K dataset (Huang et al., 2017).",
+      "confidence": 0.95
+    },
+    {
+      "source": "WANG2017_TEMPLATEBASEDSOLVER",
+      "target": "WANG2017_DEEPNEURALSOLVER",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "算法优化",
+      "detail": "Wang2017_TemplateBasedSolver通过递归神经网络优化了模板基数学问题求解器。",
+      "evidence": "We propose a template-based solution based on recursive neural network for math expression construction.",
+      "confidence": 0.85
+    },
+    {
+      "source": "ZHANG2019_DEEPNEURALSOLVER",
+      "target": "ROY2015_EXPRESSIONTREE",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Sentence-level context",
+      "detail": "Deep Neural Solver (DNS) uses a sequence-to-sequence model with GRU for automatic feature extraction, which optimizes the process of solving arithmetic word problems compared to the Expression Tree method that relies on feature extraction and beam search.",
+      "evidence": "DNS applies word embedding to vectorize the text information and encodes these vectors by GRU network for automatic feature extraction. The limitation is that a large amount of labeled training data is required to make the model effective.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ZHANG2019_DEEPNEURALSOLVER",
+      "target": "MATH23K_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Deep Neural Solver -> Math23K",
+      "detail": "Deep Neural Solver uses the Math23K dataset for training and evaluation.",
+      "evidence": "Deep Neural Solver for math word problems.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ZHANG2019_DEEPNEURALSOLVER",
+      "target": "MATH23K_2019",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Deep Neural Solver uses the Math23K dataset for evaluation.",
+      "evidence": "The dataset contains Chinese math word problems for elementary school students and is crawled from multiple online education websites.",
+      "confidence": 0.95
+    },
+    {
+      "source": "ZHANG2019_DEEPNEURALSOLVER",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Deep Neural Solver uses Accuracy as a metric for evaluation.",
+      "evidence": "The reported accuracy of seq2seq model is only 16.1% in ALG514. DNS is a hybrid approach that combines a seq2seq model and similarity retrieval model.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2018_KNOWLEDGE",
+      "target": "ROBAIDEK2018_BILSTMCLASSIFIER",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Architecture.Mechanism",
+      "detail": "KNOWLEDGE optimizes BiLSTM Classifier by incorporating declarative knowledge",
+      "evidence": "KNOWLEDGE uses declarative rules to map arithmetic word problems to math expressions, enhancing the performance of the BiLSTM Classifier.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2018_KNOWLEDGE",
+      "target": "ALLARITH_2017",
+      "label": "Evaluate",
+      "relation_type": "Evaluate",
+      "structure": "Architecture.Component",
+      "detail": "KNOWLEDGE evaluated on AllArith",
+      "evidence": "KNOWLEDGE achieves state-of-the-art performance on the AllArith dataset.",
+      "confidence": 0.92
+    },
+    {
+      "source": "MATHDQN2018_MATHDQN",
+      "target": "ROY2015_EXPRESSIONTREE",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Mechanism.Reinforcement Learning",
+      "detail": "MathDQN uses reinforcement learning to improve upon ExpressionTree's beam search",
+      "evidence": "MathDQN iteratively picks the best operator for two selected quantities, which can be viewed as beam search with k=1 (Wang et al., 2018).",
+      "confidence": 0.9
+    },
+    {
+      "source": "MATHDQN2018_MATHDQN",
+      "target": "CC_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "MathDQN evaluated on CC dataset",
+      "evidence": "MathDQN was evaluated on the CC dataset (Wang et al., 2018).",
+      "confidence": 0.95
+    },
+    {
+      "source": "MATHDQN2018_MATHDQN",
+      "target": "AI2_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "MathDQN evaluated on AI2 dataset",
+      "evidence": "MathDQN was evaluated on the AI2 dataset (Wang et al., 2018).",
+      "confidence": 0.95
+    },
+    {
+      "source": "MATHDQN2018_MATHDQN",
+      "target": "IL_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation.Dataset",
+      "detail": "MathDQN evaluated on IL dataset",
+      "evidence": "MathDQN was evaluated on the IL dataset (Wang et al., 2018).",
+      "confidence": 0.95
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "WANG2018_TRANSLATINGMATHWORDPROBLEM",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Expression Tree -> Expression Tree Generator",
+      "detail": "Wang et al. (2018) extended the idea of Expression Tree by using an expression tree as the output sequence.",
+      "evidence": "Seq2SeqET[15] extended the idea of DNS by using expression tree as the output sequence.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "AI2_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Expression Tree uses the AI2, IL, and CC datasets for evaluation.",
+      "evidence": "The overall algorithmic framework among the tree-based approaches consists of two processing stages. In the first stage, the quantities are extracted from the text and form the bottom level of the tree.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "IL_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Expression Tree uses the AI2, IL, and CC datasets for evaluation.",
+      "evidence": "The overall algorithmic framework among the tree-based approaches consists of two processing stages. In the first stage, the quantities are extracted from the text and form the bottom level of the tree.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "CC_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Expression Tree uses the AI2, IL, and CC datasets for evaluation.",
+      "evidence": "The overall algorithmic framework among the tree-based approaches consists of two processing stages. In the first stage, the quantities are extracted from the text and form the bottom level of the tree.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "SINGLEEQ_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Expression Tree -> Multiple Datasets",
+      "detail": "Expression Tree uses multiple datasets for training and evaluation.",
+      "evidence": "ExpressionTree[30] 2015 72 73.9 45.2 66.38 79.4 26.11 --",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "ALLARITH_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Expression Tree -> Multiple Datasets",
+      "detail": "Expression Tree uses multiple datasets for training and evaluation.",
+      "evidence": "ExpressionTree[30] 2015 72 73.9 45.2 66.38 79.4 26.11 --",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "MAWPS-S_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Expression Tree -> Multiple Datasets",
+      "detail": "Expression Tree uses multiple datasets for training and evaluation.",
+      "evidence": "ExpressionTree[30] 2015 72 73.9 45.2 66.38 79.4 26.11 --",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Expression Tree uses Accuracy as a metric for evaluation.",
+      "evidence": "The reported accuracy of seq2seq model is only 16.1% in ALG514. DNS is a hybrid approach that combines a seq2seq model and similarity retrieval model.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_EXPRESSIONTREE",
+      "target": "WANG2017_TRANSLATINGMATHWORDPROBLEM",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Architecture.Component",
+      "detail": "ExpressionTree's bottom-up construction extended to use Seq2Seq model for expression tree generation",
+      "evidence": "Seq2SeqET extended the idea of DNS by using expression tree as the output sequence (Wang et al., 2017).",
+      "confidence": 0.85
+    },
+    {
+      "source": "LIN2017_STRUCTUREDSELFATTENTIVESENTENCEEMBEDDING",
+      "target": "AUTHOR_PROFILING",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Structured Self-Attentive Sentence Embedding uses Author Profiling, Sentiment Classification, and Textual Entailment for training and evaluation.",
+      "evidence": "Results show that our model yields a significant performance gain compared to other sentence embedding methods in all of the 3 tasks.",
+      "confidence": 1.0
+    },
+    {
+      "source": "LIN2017_STRUCTUREDSELFATTENTIVESENTENCEEMBEDDING",
+      "target": "SENTIMENT_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Structured Self-Attentive Sentence Embedding uses Author Profiling, Sentiment Classification, and Textual Entailment for training and evaluation.",
+      "evidence": "Results show that our model yields a significant performance gain compared to other sentence embedding methods in all of the 3 tasks.",
+      "confidence": 1.0
+    },
+    {
+      "source": "LIN2017_STRUCTUREDSELFATTENTIVESENTENCEEMBEDDING",
+      "target": "TEXTUAL_ENTAILMENT",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Structured Self-Attentive Sentence Embedding uses Author Profiling, Sentiment Classification, and Textual Entailment for training and evaluation.",
+      "evidence": "Results show that our model yields a significant performance gain compared to other sentence embedding methods in all of the 3 tasks.",
+      "confidence": 1.0
+    },
+    {
+      "source": "MITRA2016_FORMULASOLVER",
+      "target": "PRIMARY_SCHOOL_TEST_QUESTIONS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Formula Solver uses primary school test questions for training and evaluation.",
+      "evidence": "It is able to solve 86.07% of the problems in a corpus of standard primary school test questions.",
+      "confidence": 1.0
+    },
+    {
+      "source": "SEO2014_G-ALIGNER",
+      "target": "GEOMETRY QUESTIONS DATASET_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "G-ALIGNER uses the Geometry Questions Dataset for evaluation.",
+      "evidence": "We empirically evaluate our method on a new dataset of geometry questions(textual descriptions and diagrams).",
+      "confidence": 0.9
+    },
+    {
+      "source": "SEO2014_G-ALIGNER",
+      "target": "F1 SCORE_IDENTIFYING PRIMITIVES",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "G-ALIGNER uses F1 Score for identifying primitives and aligning visual elements.",
+      "evidence": "Our experimental evaluation shows an F1 boost of more than 17% in identifying visual elements and 25% in aligning visual elements with their textual descriptions.",
+      "confidence": 0.9
+    },
+    {
+      "source": "SEO2014_G-ALIGNER",
+      "target": "F1 SCORE_ALIGNING VISUAL ELEMENTS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "G-ALIGNER uses F1 Score for identifying primitives and aligning visual elements.",
+      "evidence": "Our experimental evaluation shows an F1 boost of more than 17% in identifying visual elements and 25% in aligning visual elements with their textual descriptions.",
+      "confidence": 0.9
+    },
+    {
+      "source": "SEO2014_G-ALIGNER",
+      "target": "SEO2015_GEOS",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Architecture.Component",
+      "detail": "GEOS builds on G-ALIGNER by integrating a text parser and a diagram parser",
+      "evidence": "This paper introduces GEOS, the first automated system to solve unaltered SAT geometry questions by combining text understanding and diagram interpretation.",
+      "confidence": 0.95
+    },
+    {
+      "source": "GOLDBERG2010_EASYFIRSTNONDIRECTIONALDEPENDENCYPARSING",
+      "target": "STANDARD_CORPORA",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Easy-First Non-Directional Dependency Parsing uses standard corpora for training and evaluation.",
+      "evidence": "Experiments conducted on the new dataset lead to interesting and surprising results.",
+      "confidence": 1.0
+    },
+    {
+      "source": "WANG2019_TEMPLATEBASEDMATHWORDPROBLEMSOLVER",
+      "target": "DOLPHIN18K_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Template-Based Math Word Problem Solver uses Dolphin18K_2016 for training and evaluation.",
+      "evidence": "We evaluate performance on a large dataset which is more than 9 times the size of previous ones, and contains many more problem types.",
+      "confidence": 1.0
+    },
+    {
+      "source": "WANG2019_TEMPLATEBASEDMATHWORDPROBLEMSOLVER",
+      "target": "WANG2017_TRANSLATINGMATHWORDPROBLEM",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Algorithm extends Algorithm",
+      "detail": "Template-Based Math Word Problem Solver extends Translating Math Word Problem to Expression Tree by using recursive neural networks.",
+      "evidence": "We propose a template-based solution based on recursive neural network for math expression construction.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ALVIN2015_GEOTUTOR",
+      "target": "GEOMETRY_PROBLEMS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "GeoTutor uses geometry problems for training and evaluation.",
+      "evidence": "GeoTutor can provide personalized practice problems that address student deficiencies in the subject matter.",
+      "confidence": 1.0
+    },
+    {
+      "source": "CLARK2016_IRSOLVER",
+      "target": "CLARK2016_ARISTO",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Architecture.Component",
+      "detail": "Aristo integrates IR Solver with other components",
+      "evidence": "Aristo combines multiple solvers including IR Solver, PMI Solver, SVM Solver, RULE Solver, and ILP Solver.",
+      "confidence": 0.92
+    },
+    {
+      "source": "WANG2018_TRANSLATINGMATHWORDPROBLEM",
+      "target": "ROY2015_EXPRESSIONTREE",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Expression Tree -> Expression Tree Generator",
+      "detail": "Translating Math Word Problem to Expression Tree extends the expression tree concept by generating the expression tree from the problem text.",
+      "evidence": "Translating math word problem to expression tree.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_TRANSLATINGMATHWORDPROBLEM",
+      "target": "ZHANG2019_DEEPNEURALSOLVER",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Paragraph context",
+      "detail": "Translating Math Word Problem to Expression Tree extends the idea of DNS by using expression trees as the output sequence, which can be viewed as a template.",
+      "evidence": "Seq2SeqET extended the idea of DNS by using expression tree as the output sequence. In other words, it applied seq2seq model to convert the problem text into an expression tree, which can be viewed as a template.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_TRANSLATINGMATHWORDPROBLEM",
+      "target": "DOLPHIN18K_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Translating Math Word Problem to Expression Tree uses the Dolphin18K dataset for evaluation.",
+      "evidence": "The dataset contains Chinese math word problems for elementary school students and is crawled from multiple online education websites.",
+      "confidence": 0.95
+    },
+    {
+      "source": "WANG2018_TRANSLATINGMATHWORDPROBLEM",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Translating Math Word Problem to Expression Tree uses Accuracy as a metric for evaluation.",
+      "evidence": "The reported accuracy of seq2seq model is only 16.1% in ALG514. DNS is a hybrid approach that combines a seq2seq model and similarity retrieval model.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2017_DNS",
+      "target": "MATH23K_2017",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "DNS uses the Math23K dataset for evaluation.",
+      "evidence": "Experiments conducted on the new dataset lead to interesting and surprising results.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2017_DNS",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "DNS uses Accuracy Classification metric for evaluation.",
+      "evidence": "Experimental results show that our algorithm achieves 79.7% accuracy.",
+      "confidence": 0.9
+    },
+    {
+      "source": "RAGHUNATHAN2010_MULTIPASSSIEVE",
+      "target": "STANDARD_CORPORA",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Multi-Pass Sieve uses standard corpora for training and evaluation.",
+      "evidence": "In spite of its simplicity, our approach outperforms many state-of-the-art supervised and unsupervised models on several standard corpora.",
+      "confidence": 1.0
+    },
+    {
+      "source": "HUANG2018_NEURALMATHWORDPROBLEMSOLVER",
+      "target": "ZHANG2019_DEEPNEURALSOLVER",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Deep Neural Network -> Neural Network with Reinforcement Learning",
+      "detail": "Neural Math Word Problem Solver incorporates reinforcement learning to improve the performance of deep neural networks.",
+      "evidence": "CASS[18] is an extension of seq2seq model. It adjusts the output sequence generation process by incorporating the copy and alignment mechanism. Reinforcement learning(RL) technique is adopted and the model is trained using policy gradient.",
+      "confidence": 0.85
+    },
+    {
+      "source": "HUANG2018_NEURALMATHWORDPROBLEMSOLVER",
+      "target": "WANG2018_MATHDQN",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Section headings",
+      "detail": "Neural Math Word Problem Solver extends MathDQN by incorporating a copy and alignment mechanism and using reinforcement learning with policy gradient.",
+      "evidence": "CASS further improved the accuracy on Dolphin18K to 29%, verifying the effectiveness of their proposed copy and alignment mechanism, as well as the optimization based on policy gradient.",
+      "confidence": 0.85
+    },
+    {
+      "source": "HUANG2018_NEURALMATHWORDPROBLEMSOLVER",
+      "target": "DOLPHIN18K_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Neural Math Word Problem Solver uses the Dolphin18K dataset for evaluation.",
+      "evidence": "The dataset is collected and rectified mainly from the math category of Yahoo! Answers.",
+      "confidence": 0.9
+    },
+    {
+      "source": "HUANG2018_NEURALMATHWORDPROBLEMSOLVER",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Neural Math Word Problem Solver uses Accuracy as a metric for evaluation.",
+      "evidence": "The reported accuracy of seq2seq model is only 16.1% in ALG514. DNS is a hybrid approach that combines a seq2seq model and similarity retrieval model.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_ENSEMBLEMODEL",
+      "target": "MATH23K_2017",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Ensemble Model uses the Math23K dataset for evaluation.",
+      "evidence": "Experiments conducted on the new dataset lead to interesting and surprising results.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_ENSEMBLEMODEL",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Ensemble Model uses Accuracy Classification metric for evaluation.",
+      "evidence": "Experimental results show that our algorithm achieves 79.7% accuracy.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_UNITDEPENDENCYGRAPH",
+      "target": "ARITHMETIC_WORD_PROBLEMS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Unit Dependency Graph uses arithmetic word problems for training and evaluation.",
+      "evidence": "We introduce a decomposed model for inducing UDGs with minimal additional annotations, and use it to augment the expressions used in the arithmetic word problem solver.",
+      "confidence": 1.0
+    },
+    {
+      "source": "LIN2017_STRUCTUREDSELFATTENTION",
+      "target": "ROBAIDEK2018_BILSTMCLASSIFIER",
+      "label": "Optimize",
+      "relation_type": "Optimize",
+      "structure": "Architecture.Component",
+      "detail": "Structured Self-Attention optimizes BiLSTM Classifier by adding self-attention mechanism",
+      "evidence": "Structured Self-Attention uses multi-hop attention to enhance the BiLSTM Classifier's performance.",
+      "confidence": 0.91
+    },
+    {
+      "source": "ROY2015_ARITHMETICWORDPROBLEMS",
+      "target": "ROY2018_DECLARATIVEKNOWLEDGE",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "算法改进",
+      "detail": "Roy2018_DeclarativeKnowledge通过映射到声明性知识，改进了算术问题求解器的性能。",
+      "evidence": "Our method learns to map arithmetic word problem text to math expressions, by learning to select the relevant declarative knowledge for each operation of the solution expression.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_ARITHMETICWORDPROBLEMS",
+      "target": "ROY2018_UNITDEPENDENCYGRAPH",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "算法扩展",
+      "detail": "Roy2018_UnitDependencyGraph引入了单位依赖图，扩展了算术问题求解器的功能。",
+      "evidence": "This paper proposes a principled way to capture and reason about units and shows how it can benefit an arithmetic word problem solver.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_ARITHMETICWORDPROBLEMS",
+      "target": "WANG2017_MATHDQN",
+      "label": "Replace",
+      "relation_type": "Replace",
+      "structure": "算法替换",
+      "detail": "Wang2017_MathDQN使用深度强化学习替换了传统的算术问题求解器，提高了求解性能。",
+      "evidence": "In this paper, we make the first attempt of applying deep reinforcement learning to solve arithmetic word problems.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHANG2013_CONSTRAINEDLATENTLEFTLINKINGMODEL",
+      "target": "ACE 2004",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "CL3M uses ACE 2004 and Ontonotes-5.0 datasets for evaluation.",
+      "evidence": "Experiments on ACE and Ontonotes data show that L3M and its constrained version, CL3M, are more accurate than several state-of-the-art approaches.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHANG2013_CONSTRAINEDLATENTLEFTLINKINGMODEL",
+      "target": "ONTONOTES-5.0",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "CL3M uses ACE 2004 and Ontonotes-5.0 datasets for evaluation.",
+      "evidence": "Experiments on ACE and Ontonotes data show that L3M and its constrained version, CL3M, are more accurate than several state-of-the-art approaches.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHANG2013_CONSTRAINEDLATENTLEFTLINKINGMODEL",
+      "target": "MUC",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "CL3M uses MUC, BCUB, CEAF, and F1 Score metrics for evaluation.",
+      "evidence": "Experiments on ACE and Ontonotes data show that L3M and its constrained version, CL3M, are more accurate than several state-of-the-art approaches as well as some structured prediction models proposed in the literature.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHANG2013_CONSTRAINEDLATENTLEFTLINKINGMODEL",
+      "target": "BCUB",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "CL3M uses MUC, BCUB, CEAF, and F1 Score metrics for evaluation.",
+      "evidence": "Experiments on ACE and Ontonotes data show that L3M and its constrained version, CL3M, are more accurate than several state-of-the-art approaches as well as some structured prediction models proposed in the literature.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHANG2013_CONSTRAINEDLATENTLEFTLINKINGMODEL",
+      "target": "CEAF",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "CL3M uses MUC, BCUB, CEAF, and F1 Score metrics for evaluation.",
+      "evidence": "Experiments on ACE and Ontonotes data show that L3M and its constrained version, CL3M, are more accurate than several state-of-the-art approaches as well as some structured prediction models proposed in the literature.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CHANG2013_CONSTRAINEDLATENTLEFTLINKINGMODEL",
+      "target": "F1 SCORE",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "CL3M uses MUC, BCUB, CEAF, and F1 Score metrics for evaluation.",
+      "evidence": "Experiments on ACE and Ontonotes data show that L3M and its constrained version, CL3M, are more accurate than several state-of-the-art approaches as well as some structured prediction models proposed in the literature.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2017_UNITDEPENDENCYGRAPH",
+      "target": "AI2_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Unit Dependency Graph uses AI2_2014, IL_2015, and CC_2015 for training and evaluation.",
+      "evidence": "We evaluate performance on a large dataset which is more than 9 times the size of previous ones, and contains many more problem types.",
+      "confidence": 1.0
+    },
+    {
+      "source": "ROY2017_UNITDEPENDENCYGRAPH",
+      "target": "IL_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Unit Dependency Graph uses AI2_2014, IL_2015, and CC_2015 for training and evaluation.",
+      "evidence": "We evaluate performance on a large dataset which is more than 9 times the size of previous ones, and contains many more problem types.",
+      "confidence": 1.0
+    },
+    {
+      "source": "ROY2017_UNITDEPENDENCYGRAPH",
+      "target": "CC_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Unit Dependency Graph uses AI2_2014, IL_2015, and CC_2015 for training and evaluation.",
+      "evidence": "We evaluate performance on a large dataset which is more than 9 times the size of previous ones, and contains many more problem types.",
+      "confidence": 1.0
+    },
+    {
+      "source": "ROY2017_UNITDEPENDENCYGRAPH",
+      "target": "ROY2015_SOLVINGGENERALARITHMETICWORDPROBLEMS",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Algorithm extends Algorithm",
+      "detail": "Unit Dependency Graph extends Solving General Arithmetic Word Problems by introducing unit dependency graphs.",
+      "evidence": "We introduce a decomposed model for inducing UDGs with minimal additional annotations, and use it to augment the expressions used in the arithmetic word problem solver.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2017_UNITDEPENDENCYGRAPH",
+      "target": "ROY2015_EXPRESSIONTREE",
+      "label": "Improve",
+      "relation_type": "Improve",
+      "structure": "Expression Tree -> Unit Dependency Graph",
+      "detail": "Unit Dependency Graph improves upon Expression Tree by introducing a new scoring function.",
+      "evidence": "UnitDep[32] can be viewed as an extension work of[30] by the same authors. An important concept, named Unit Dependency Graph(UDG), is proposed to enhance the scoring function.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_BILSTM",
+      "target": "MATH23K_2017",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "BiLSTM uses the Math23K dataset for evaluation.",
+      "evidence": "Experiments conducted on the new dataset lead to interesting and surprising results.",
+      "confidence": 0.9
+    },
+    {
+      "source": "WANG2018_BILSTM",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "BiLSTM uses Accuracy Classification metric for evaluation.",
+      "evidence": "Experimental results show that our algorithm achieves 79.7% accuracy.",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2018_DECLARATIVEKNOWLEDGE",
+      "target": "ARITHMETIC_WORD_PROBLEMS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Declarative Knowledge Mapping uses arithmetic word problems for training and evaluation.",
+      "evidence": "Experimental evaluation suggests that our domain knowledge based solver outperforms all other systems.",
+      "confidence": 1.0
+    },
+    {
+      "source": "ROY2018_DECLARATIVEKNOWLEDGE",
+      "target": "ROY2015_SOLVINGGENERALARITHMETICWORDPROBLEMS",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Algorithm extends Algorithm",
+      "detail": "Declarative Knowledge Mapping extends Solving General Arithmetic Word Problems by incorporating declarative knowledge.",
+      "evidence": "Our method learns to map arithmetic word problem text to math expressions, by learning to select the relevant declarative knowledge for each operation of the solution expression.",
+      "confidence": 0.9
+    },
+    {
+      "source": "CLARK2016_PMISOLVER",
+      "target": "CLARK2016_ARISTO",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Architecture.Component",
+      "detail": "Aristo integrates PMI Solver with other components",
+      "evidence": "Aristo combines multiple solvers including IR Solver, PMI Solver, SVM Solver, RULE Solver, and ILP Solver.",
+      "confidence": 0.92
+    },
+    {
+      "source": "ROY2015_ARIS",
+      "target": "STANDARD_PRIMARY_SCHOOL_TEST_QUESTIONS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "ARIS uses standard primary school test questions for training and evaluation.",
+      "evidence": "ARIS learns to categorize verbs with 81.2% accuracy, and is able to solve 77.7% of the problems in a corpus of standard primary school test questions.",
+      "confidence": 1.0
+    },
+    {
+      "source": "LIANG2016_TAGBASEDMATHWORDPROBLEMSOLVER",
+      "target": "STANDARD_CORPORA",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Tag-based Math Word Problem Solver uses standard corpora for training and evaluation.",
+      "evidence": "Experiments conducted on the new dataset lead to interesting and surprising results.",
+      "confidence": 1.0
+    },
+    {
+      "source": "SOCHER2013_COMPOSITIONALVECTORGRAMMAR",
+      "target": "SUTSKEVER2014_SEQUENCETOSEQUENCE",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "算法扩展",
+      "detail": "Sutskever2014_SequenceToSequence扩展了组合向量语法，应用于更广泛的序列学习任务。",
+      "evidence": "Sequence-to-sequence learning with deep neural networks has rapidly become a very useful and surprisingly general-purpose tool for natural language processing.",
+      "confidence": 0.85
+    },
+    {
+      "source": "UPADHYAY2016_MIXEDSP",
+      "target": "KONCELKEDZIORSKI2015_PARSINGALGEBRAICWORDPROBLEMS",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Template-based Parsing -> Mixed Supervision",
+      "detail": "MixedSP extends the template-based parsing approach by leveraging both explicit and implicit supervision.",
+      "evidence": "MixedSP[60] 2016 83.0 59.5 FG-Expression[13] 2017 28.4",
+      "confidence": 0.85
+    },
+    {
+      "source": "UPADHYAY2016_MIXEDSP",
+      "target": "ALG514_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "MixedSP -> Multiple Datasets",
+      "detail": "MixedSP uses multiple datasets for training and evaluation.",
+      "evidence": "MixedSP[60] 2016 83.0 59.5",
+      "confidence": 0.9
+    },
+    {
+      "source": "UPADHYAY2016_MIXEDSP",
+      "target": "DOLPHIN18K_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "MixedSP -> Multiple Datasets",
+      "detail": "MixedSP uses multiple datasets for training and evaluation.",
+      "evidence": "MixedSP[60] 2016 83.0 59.5",
+      "confidence": 0.9
+    },
+    {
+      "source": "ROY2015_SOLVINGGENERALARITHMETICWORDPROBLEMS",
+      "target": "AI2_2014",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Solving General Arithmetic Word Problems uses AI2_2014, IL_2015, and CC_2015 for training and evaluation.",
+      "evidence": "We evaluate performance on a large dataset which is more than 9 times the size of previous ones, and contains many more problem types.",
+      "confidence": 1.0
+    },
+    {
+      "source": "ROY2015_SOLVINGGENERALARITHMETICWORDPROBLEMS",
+      "target": "IL_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Solving General Arithmetic Word Problems uses AI2_2014, IL_2015, and CC_2015 for training and evaluation.",
+      "evidence": "We evaluate performance on a large dataset which is more than 9 times the size of previous ones, and contains many more problem types.",
+      "confidence": 1.0
+    },
+    {
+      "source": "ROY2015_SOLVINGGENERALARITHMETICWORDPROBLEMS",
+      "target": "CC_2015",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Datasets",
+      "detail": "Solving General Arithmetic Word Problems uses AI2_2014, IL_2015, and CC_2015 for training and evaluation.",
+      "evidence": "We evaluate performance on a large dataset which is more than 9 times the size of previous ones, and contains many more problem types.",
+      "confidence": 1.0
+    },
+    {
+      "source": "HUANG2016_LARGESCALEDATASETCONSTRUCTION",
+      "target": "YAHOO_ANSWERS",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Algorithm uses Dataset",
+      "detail": "Large-Scale Dataset Construction uses Yahoo! Answers for training and evaluation.",
+      "evidence": "Problems in the dataset are semi-automatically obtained from community question-answering (CQA) web pages.",
+      "confidence": 1.0
+    },
+    {
+      "source": "CHIANG2018_SEMANTICALLYALIGNEDEQUATIONGENERATION",
+      "target": "ZHANG2019_DEEPNEURALSOLVER",
+      "label": "Extend",
+      "relation_type": "Extend",
+      "structure": "Pseudocode blocks",
+      "detail": "Semantically-Aligned Equation Generation extends DNS by adding semantic alignment and syntactic parsing mechanisms.",
+      "evidence": "The seq2seq model is integrated with a similarity-based method introduced in Section 3.2. Given a pre-defined threshold, the similarity-based retrieval strategy is selected as the solver if the maximal similarity score is higher than the threshold.",
+      "confidence": 0.85
+    },
+    {
+      "source": "CHIANG2018_SEMANTICALLYALIGNEDEQUATIONGENERATION",
+      "target": "ACCURACY_CLASSIFICATION",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "Semantically-Aligned Equation Generation uses Accuracy as a metric for evaluation.",
+      "evidence": "The reported accuracy of seq2seq model is only 16.1% in ALG514. DNS is a hybrid approach that combines a seq2seq model and similarity retrieval model.",
+      "confidence": 0.9
+    },
+    {
+      "source": "HUANG2016_LARGESCALEEVALUATION",
+      "target": "DOLPHIN18K_2016",
+      "label": "Use",
+      "relation_type": "Use",
+      "structure": "Evaluation Framework -> Large Dataset",
+      "detail": "Large Scale Evaluation Framework uses the Dolphin18K dataset for evaluation.",
+      "evidence": "The findings in[12] are astonishing. The accuracies of existing approaches for equation set problems, which will be introduced in the next section, degrade sharply to less than 25%.",
+      "confidence": 0.9
+    }
+  ]
 }

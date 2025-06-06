@@ -20,6 +20,16 @@ class DatabaseManager:
         # 初始化连接与游标为None
         self.conn = None
         self.cursor = None
+        
+        # 在启动时先清理可能存在的连接池
+        if hasattr(mysql.connector, '_CONNECTION_POOLS'):
+            try:
+                mysql.connector._CONNECTION_POOLS = {}
+                logging.info("应用启动：已清理所有旧连接池")
+            except Exception as e:
+                logging.warning(f"清理连接池时出错: {str(e)}")
+        
+        # 创建新连接，应用启动时只建立一次连接
         self._connect_mysql()
         
         # 检查并初始化表
@@ -29,6 +39,11 @@ class DatabaseManager:
         连接到MySQL数据库，使用单一连接，不使用连接池
         """
         try:
+            # 只有在连接不存在或已关闭时才创建新连接
+            if self.conn is not None and self.conn.is_connected():
+                logging.info("MySQL连接已存在且有效，无需重新连接")
+                return True
+            
             # 先完全清理现有连接和游标
             if hasattr(self, 'cursor') and self.cursor:
                 try:
@@ -49,22 +64,15 @@ class DatabaseManager:
             # 全局禁用连接池以彻底解决pool exhausted问题
             if hasattr(mysql.connector, '_CONNECTION_POOLS'):
                 # 清空所有连接池
-                for pool_name in list(mysql.connector._CONNECTION_POOLS.keys()):
-                    try:
-                        pool = mysql.connector._CONNECTION_POOLS[pool_name]
-                        for _ in range(pool.queue_size()):
-                            try:
-                                conn = pool.get_connection()
-                                conn.close()
-                            except:
-                                pass
-                        del mysql.connector._CONNECTION_POOLS[pool_name]
-                        logging.info(f"成功清理连接池: {pool_name}")
-                    except Exception as e:
-                        logging.warning(f"清理连接池 {pool_name} 时出错: {str(e)}")
+                try:
+                    # 尝试直接重置连接池字典
+                    mysql.connector._CONNECTION_POOLS = {}
+                    logging.info("成功清理所有连接池")
+                except Exception as e:
+                    logging.warning(f"清理连接池时出错: {str(e)}")
             
             logging.info("开始创建新的数据库连接...")
-            # 使用全新连接，确保不使用连接池
+            # 使用持久连接，禁用连接池
             self.conn = mysql.connector.connect(
                 host=Config.MYSQL_HOST,
                 port=Config.MYSQL_PORT,
@@ -75,27 +83,26 @@ class DatabaseManager:
                 use_pure=True,  # 使用纯Python实现，增加稳定性
                 connection_timeout=300,  # 增加连接超时时间到5分钟
                 autocommit=True,  # 使用自动提交避免事务问题
-                pool_size=1,  # 最小连接池设置
+                pool_reset_session=False,  # 禁用会话重置
                 pool_name=None,  # 不使用命名连接池
+                pool_size=1,  # 单连接
                 use_unicode=True,
                 ssl_disabled=True,  # 禁用SSL解决SSL错误
-                get_warnings=True,
-                raise_on_warnings=False,  # 不对警告抛出异常
                 # 增加这些参数以防止连接超时断开
                 time_zone='+00:00',
                 sql_mode='TRADITIONAL'
             )
             
-            # 使用字典游标以保持一致性
+            # 使用字典游标以保持一致性，设置buffered=True避免未读结果错误
             self.cursor = self.conn.cursor(dictionary=True, buffered=True)
             
-            # 设置会话超时时间
-            self.cursor.execute("SET SESSION wait_timeout=86400")  # 24小时
-            self.cursor.execute("SET SESSION interactive_timeout=86400")  # 24小时
+            # 设置会话超时时间很长，避免断开
+            self.cursor.execute("SET SESSION wait_timeout=604800")  # 7天
+            self.cursor.execute("SET SESSION interactive_timeout=604800")  # 7天
             self.cursor.execute("SET SESSION net_read_timeout=3600")  # 1小时
             self.cursor.execute("SET SESSION net_write_timeout=3600")  # 1小时
             
-            logging.info("MySQL数据库连接成功")
+            logging.info("MySQL数据库连接成功，设置为长期保持连接")
             return True
         except Exception as e:
             logging.error(f"连接MySQL数据库时发生错误: {str(e)}")
@@ -328,95 +335,61 @@ class DatabaseManager:
         Returns:
             bool: 如果连接正常或重连成功则返回True，否则返回False
         """
-        max_retries = 3
-        retry_count = 0
-        
-        while retry_count < max_retries:
+        try:
+            # 检查连接是否存在
+            if self.conn is None or self.cursor is None:
+                logging.warning("MySQL连接或游标不存在，创建新连接")
+                self._connect_mysql()
+                logging.info("MySQL连接创建成功")
+                return True
+            
+            # 只检查连接是否已断开，不主动关闭和重建连接
             try:
-                # 检查连接是否存在
-                if self.conn is None or self.cursor is None:
-                    logging.warning("MySQL连接或游标不存在，创建新连接")
-                    self._connect_mysql()
-                    logging.info("MySQL连接创建成功")
-                    return True
-                
-                # 检查连接是否已断开
-                try:
-                    if not self.conn.is_connected():
-                        logging.warning("MySQL连接已断开，正在重新连接")
-                        self._connect_mysql()
-                        logging.info("MySQL重新连接成功")
-                        return True
-                except Exception as conn_error:
-                    logging.warning(f"检查连接状态时出错: {str(conn_error)}，尝试重新连接")
-                    self._connect_mysql()
-                    return True
-                
-                # 为防止连接空闲超时，定期ping服务器
-                try:
-                    self.conn.ping(reconnect=True, attempts=1, delay=0)
-                    logging.debug("MySQL连接ping成功")
-                except Exception as ping_error:
-                    logging.warning(f"MySQL ping失败: {str(ping_error)}，尝试重新连接")
+                if not self.conn.is_connected():
+                    logging.warning("MySQL连接已断开，正在重新连接")
                     self._connect_mysql()
                     logging.info("MySQL重新连接成功")
                     return True
-                
-                # 验证连接可用性
+            except Exception as conn_error:
+                logging.warning(f"检查连接状态时出错: {str(conn_error)}，尝试重新连接")
+                self._connect_mysql()
+                return True
+            
+            # 不再执行ping操作，减少不必要的数据库交互
+            
+            # 验证连接可用性，但不执行查询，减少不必要的数据库操作
+            if hasattr(self.cursor, 'connection') and self.cursor.connection is None:
+                logging.warning("MySQL游标连接无效，重新创建")
+                # 只关闭并重建游标，保留连接
                 try:
-                    # 检查游标是否有效
-                    if hasattr(self.cursor, 'connection') and self.cursor.connection is None:
-                        logging.warning("MySQL游标连接无效，重新创建")
-                        # 关闭旧游标
-                        try:
-                            self.cursor.close()
-                        except:
-                            pass
-                        # 创建新游标
-                        self.cursor = self.conn.cursor(dictionary=True, buffered=True)
-                        logging.info("MySQL游标重新创建成功")
-                    
-                    # 执行测试查询
-                    self.cursor.execute("SELECT 1 as ping")
-                    result = self.cursor.fetchone()
-                    if result and result.get('ping') == 1:
-                        logging.debug("MySQL连接验证成功")
-                        return True
-                    else:
-                        logging.warning("MySQL测试查询返回异常结果，尝试重新连接")
-                        self._connect_mysql()
-                        return True
-                except Exception as verify_error:
-                    logging.warning(f"MySQL连接验证失败: {str(verify_error)}，尝试重新连接")
+                    self.cursor.close()
+                except:
+                    pass
+                # 创建新游标
+                self.cursor = self.conn.cursor(dictionary=True, buffered=True)
+                logging.info("MySQL游标重新创建成功")
+            
+            return True
+                
+        except Exception as e:
+            logging.error(f"检查MySQL连接状态时出错: {str(e)}")
+            
+            # 不再重试多次，直接尝试连接一次
+            try:
+                # 只有在确实需要时才创建新连接
+                if self.conn is None or self.cursor is None or not self.conn.is_connected():
                     self._connect_mysql()
                     logging.info("MySQL重新连接成功")
                     return True
-                
-            except Exception as e:
-                retry_count += 1
-                logging.error(f"检查MySQL连接状态时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                
-                if retry_count < max_retries:
-                    wait_time = 2 * retry_count  # 指数退避
-                    logging.info(f"等待 {wait_time} 秒后重试...")
-                    time.sleep(wait_time)
-                    
-                    # 强制创建新连接
-                    try:
-                        self._connect_mysql()
-                        logging.info(f"第 {retry_count} 次重试: MySQL重新连接成功")
-                        return True
-                    except Exception as reconnect_error:
-                        logging.error(f"第 {retry_count} 次重试重新连接MySQL时出错: {str(reconnect_error)}")
-                else:
-                    logging.critical(f"经过 {max_retries} 次尝试后，无法重新连接MySQL")
-                    # 重置连接和游标为None，强制下次调用重新创建
-                    self.conn = None
-                    self.cursor = None
-                    return False
-        
-        return False
-        
+            except Exception as reconnect_error:
+                logging.error(f"重新连接MySQL时出错: {str(reconnect_error)}")
+                # 重置连接和游标为None，强制下次调用重新创建
+                self.conn = None
+                self.cursor = None
+                return False
+            
+            return self.conn is not None and self.cursor is not None
+    
     def __del__(self):
         """析构函数，关闭数据库连接"""
         # 安全地关闭游标和连接
@@ -1529,51 +1502,51 @@ class DatabaseManager:
                 if row:
                     # 解析JSON字符串为Python对象
                     try:
-                        authors = json.loads(row[4]) if row[4] else []
+                        authors = json.loads(row['authors']) if row['authors'] else []
                     except:
                         authors = []
                     try:
-                        dataset = json.loads(row[6]) if row[6] else []
+                        dataset = json.loads(row['dataset']) if row['dataset'] else []
                     except:
                         dataset = []
                     try:
-                        metrics = json.loads(row[7]) if row[7] else []
+                        metrics = json.loads(row['metrics']) if row['metrics'] else []
                     except:
                         metrics = []
                     try:
-                        arch_components = json.loads(row[8]) if row[8] else []
+                        arch_components = json.loads(row['architecture_components']) if row['architecture_components'] else []
                     except:
                         arch_components = []
                     try:
-                        arch_connections = json.loads(row[9]) if row[9] else []
+                        arch_connections = json.loads(row['architecture_connections']) if row['architecture_connections'] else []
                     except:
                         arch_connections = []
                     try:
-                        arch_mechanisms = json.loads(row[10]) if row[10] else []
+                        arch_mechanisms = json.loads(row['architecture_mechanisms']) if row['architecture_mechanisms'] else []
                     except:
                         arch_mechanisms = []
                     try:
-                        meth_training = json.loads(row[11]) if row[11] else []
+                        meth_training = json.loads(row['methodology_training_strategy']) if row['methodology_training_strategy'] else []
                     except:
                         meth_training = []
                     try:
-                        meth_params = json.loads(row[12]) if row[12] else []
+                        meth_params = json.loads(row['methodology_parameter_tuning']) if row['methodology_parameter_tuning'] else []
                     except:
                         meth_params = []
                     try:
-                        feature_processing = json.loads(row[13]) if row[13] else []
+                        feature_processing = json.loads(row['feature_processing']) if row['feature_processing'] else []
                     except:
                         feature_processing = []
                     # 构建算法实体对象
                     entity = {
                         'algorithm_entity': {
-                            'algorithm_id': row[0],
-                            'entity_id': row[0],
-                            'name': row[1],
-                            'title': row[2],
-                            'year': row[3],
+                            'algorithm_id': row['algorithm_id'],
+                            'entity_id': row['algorithm_id'],
+                            'name': row['name'],
+                            'title': row['title'],
+                            'year': row['year'],
                             'authors': authors,
-                            'task': row[5],
+                            'task': row['task'],
                             'dataset': dataset,
                             'metrics': metrics,
                             'architecture': {
@@ -1587,7 +1560,7 @@ class DatabaseManager:
                             },
                             'feature_processing': feature_processing,
                             'entity_type': 'Algorithm',
-                            'source': row[16] if len(row) > 16 else '未知'  # 获取source字段
+                            'source': row['source'] if 'source' in row else '未知'  # 获取source字段
                         }
                     }
                     # 获取演化关系
@@ -1608,7 +1581,7 @@ class DatabaseManager:
                     # 转换数据集为标准格式
                     dataset = {}
                     for i, col in enumerate(self.cursor.description):
-                        dataset[col[0]] = row[i]
+                        dataset[col[0]] = row[col[0]]
                     
                     # 解析可能的JSON字段
                     if 'creators' in dataset and dataset['creators']:
@@ -1640,7 +1613,7 @@ class DatabaseManager:
                     # 转换评估指标为标准格式
                     metric = {}
                     for i, col in enumerate(self.cursor.description):
-                        metric[col[0]] = row[i]
+                        metric[col[0]] = row[col[0]]
                     
                     # 确保entity_id字段存在
                     metric['entity_id'] = metric['metric_id']
@@ -2573,8 +2546,9 @@ class DatabaseManager:
                 # 处理查询结果
                 for row in rows:
                     relation = {}
-                    for i, name in enumerate(column_names):
-                        relation[name] = row[i]
+                    # 修复：不再使用索引访问row，直接通过字段名访问
+                    for name in column_names:
+                        relation[name] = row[name]
                     
                     # 确保source字段存在
                     if 'source' not in relation or not relation['source']:
@@ -2668,19 +2642,20 @@ class DatabaseManager:
             
             for row in rows:
                 task = {}
-                for i, col_name in enumerate(column_names):
+                # 修复：不再使用枚举索引访问row，直接通过字段名访问
+                for col_name in column_names:
                     # 处理日期时间类型
-                    if isinstance(row[i], (datetime.datetime, datetime.date)):
-                        task[col_name] = row[i].strftime('%Y-%m-%d %H:%M:%S')
+                    if isinstance(row[col_name], (datetime.datetime, datetime.date)):
+                        task[col_name] = row[col_name].strftime('%Y-%m-%d %H:%M:%S')
                     # 处理completed布尔值
                     elif col_name == 'completed':
-                        task[col_name] = row[i] == 1 if row[i] is not None else False
+                        task[col_name] = row[col_name] == 1 if row[col_name] is not None else False
                     # 处理progress浮点值
                     elif col_name == 'progress':
-                        task[col_name] = float(row[i]) if row[i] is not None else 0
+                        task[col_name] = float(row[col_name]) if row[col_name] is not None else 0
                     # 其他字段
                     else:
-                        task[col_name] = row[i] if row[i] is not None else ""
+                        task[col_name] = row[col_name] if row[col_name] is not None else ""
                 
                 tasks.append(task)
             
@@ -2761,16 +2736,18 @@ class DatabaseManager:
                 
                 # 构建关系字典
                 relation = {}
-                for i, name in enumerate(column_names):
+                
+                # 直接通过字典键访问row
+                for name in column_names:
                     # 处理日期时间类型
-                    if isinstance(row[i], (datetime.datetime, datetime.date)):
-                        relation[name] = row[i].strftime('%Y-%m-%d %H:%M:%S')
+                    if isinstance(row[name], (datetime.datetime, datetime.date)):
+                        relation[name] = row[name].strftime('%Y-%m-%d %H:%M:%S')
                     # 处理confidence浮点值
-                    elif name == 'confidence' and row[i] is not None:
-                        relation[name] = float(row[i])
+                    elif name == 'confidence' and row[name] is not None:
+                        relation[name] = float(row[name])
                     # 其他字段
                     else:
-                        relation[name] = row[i]
+                        relation[name] = row[name]
                 
                 # 补充关系信息
                 try:
