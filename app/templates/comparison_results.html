@@ -10,25 +10,25 @@
         height: 100%;
     }
     .metrics-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
     .entity-list, .relation-list {
         max-height: 500px;
         overflow-y: auto;
     }
     .reload-btn {
         cursor: pointer;
-        color: #007bff;
+    color: #007bff;
         font-size: 16px;
-    }
+  }
     .reload-btn:hover {
         color: #0056b3;
         transform: rotate(180deg);
         transition: transform 0.5s;
     }
     .loading {
-        display: inline-block;
+    display: inline-block;
         width: 1em;
         height: 1em;
         border: 2px solid rgba(0,0,0,0.2);
@@ -40,7 +40,7 @@
         to {
             transform: rotate(360deg);
         }
-    }
+  }
     .card-header {
         cursor: pointer;
     }
@@ -70,7 +70,7 @@
     .nav-tabs, .nav-pills {
         border-bottom: 1px solid #dee2e6;
         margin-bottom: 1rem;
-    }
+  }
 </style>
 {% endblock %}
 
@@ -249,9 +249,9 @@
                                 <div class="tab-content" id="algorithm-source-content">
                                     <div class="tab-pane fade show active" id="algorithm-review" role="tabpanel">
                                         <div class="entity-list" id="algorithm-review-list">
-                                            <div class="text-center py-4">
-                                                <div class="spinner-border text-primary" role="status">
-                                                    <span class="sr-only">加载中...</span>
+                                    <div class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="sr-only">加载中...</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -263,10 +263,10 @@
                                                     <span class="sr-only">加载中...</span>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            </div>
+          </div>
+        </div>
+      </div>
                             <div class="tab-pane fade" id="dataset" role="tabpanel">
                                 <ul class="nav nav-pills mb-3" id="dataset-source-tabs" role="tablist">
                                     <li class="nav-item">
@@ -295,8 +295,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+            </div>
+          </div>
                             <div class="tab-pane fade" id="metric" role="tabpanel">
                                 <ul class="nav nav-pills mb-3" id="metric-source-tabs" role="tablist">
                                     <li class="nav-item">
@@ -325,10 +325,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+      </div>
+    </div>
+  </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             </div>
@@ -357,9 +357,9 @@
                         <div class="tab-content" id="relation-source-content">
                             <div class="tab-pane fade show active" id="relation-review" role="tabpanel">
                                 <div class="relation-list" id="relation-review-list">
-                                    <div class="text-center py-4">
-                                        <div class="spinner-border text-primary" role="status">
-                                            <span class="sr-only">加载中...</span>
+                            <div class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="sr-only">加载中...</span>
                                         </div>
                                     </div>
                                 </div>
@@ -371,10 +371,10 @@
                                             <span class="sr-only">加载中...</span>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+          </div>
+        </div>
+      </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
         </div>
@@ -476,8 +476,8 @@
             // 初始化jQuery事件
             if (typeof $ !== 'undefined') {
                 console.log("jQuery准备就绪，开始初始化事件");
-                
-                // 为模态框的关闭按钮添加事件
+            
+            // 为模态框的关闭按钮添加事件
                 $('.modal .close, .modal .btn-secondary').on('click', function() {
                     $(this).closest('.modal').modal('hide');
                 });
@@ -726,7 +726,7 @@
             
             // 统计总数
             document.getElementById('entitiesCount').textContent = data.count?.total || data.entities.length;
-            document.getElementById('entitiesDetail').textContent = 
+                        document.getElementById('entitiesDetail').textContent = 
                 `综述: ${reviewEntities.length || 0} | 引文: ${citationEntities.length || 0}`;
             
             // 按类型统计
@@ -823,7 +823,7 @@
             const citationListId = `${entityType}-citation-list`;
             if (citationData.length > 0) {
                 safeUpdateElement(citationListId, renderSimplifiedEntitiesList(citationData));
-            } else {
+                    } else {
                 safeUpdateElement(citationListId, '<div class="alert alert-info">没有找到引文来源的实体</div>');
             }
         }
@@ -846,7 +846,7 @@
                                 <i class="fas fa-chevron-down float-right"></i>
                             </div>
                             <div class="collapse" id="${safeId}">
-                                <div class="card-body">
+                            <div class="card-body">
                                     <p><strong>作者:</strong> ${authors}</p>
                                     <p><strong>详细信息:</strong></p>
                                     <pre class="bg-light p-2">${JSON.stringify(entity, null, 2)}</pre>
@@ -860,7 +860,7 @@
                 return '<div class="alert alert-danger">渲染实体列表出错: ' + error.message + '</div>';
             }
         }
-        
+
         // 预处理关系数据以便在模态框中显示
         function prepareRelationsLists(data) {
             // 按来源分组关系
@@ -870,7 +870,7 @@
             // 渲染综述来源关系
             if (reviewRelations.length > 0) {
                 safeUpdateElement('relation-review-list', renderDetailedRelationsList(reviewRelations));
-            } else {
+                    } else {
                 safeUpdateElement('relation-review-list', '<div class="alert alert-info">没有找到综述来源的关系</div>');
             }
             
@@ -904,7 +904,7 @@
                                 <i class="fas fa-chevron-down float-right"></i>
                             </div>
                             <div class="collapse" id="${safeId}">
-                                <div class="card-body">
+                            <div class="card-body">
                                     <p><strong>关系类型:</strong> ${relationType}</p>
                                     ${structure ? `<p><strong>结构信息:</strong> ${structure}</p>` : ''}
                                     ${detail ? `<p><strong>详细内容:</strong> ${detail}</p>` : ''}
@@ -929,7 +929,7 @@
             // 显示加载动画
             const loadingElement = document.getElementById(`${metricType.replace('_', '-')}-loading`);
             if (loadingElement) {
-                loadingElement.innerHTML = '<span class="loading ml-2"></span>';
+            loadingElement.innerHTML = '<span class="loading ml-2"></span>';
             }
             document.getElementById("api-status").textContent = `正在重新计算${getMetricTypeName(metricType)}...`;
             
@@ -946,7 +946,7 @@
                 body: JSON.stringify({ metric_type: metricType })
             }, 5, 2000) // 5次重试，每次间隔从2秒开始
             .then(data => {
-                // 清除加载动画
+                    // 清除加载动画
                 if (loadingElement) {
                     loadingElement.innerHTML = '';
                 }
@@ -957,8 +957,8 @@
                     
                     // 更新指标显示
                     if (data.metrics) {
-                        updateMetricsDisplay(data.metrics, metricType);
-                    } else {
+                    updateMetricsDisplay(data.metrics, metricType);
+                } else {
                         safeUpdateElement(contentId, '<div class="alert alert-warning">重新计算成功，但未返回指标数据 <button class="btn btn-sm btn-outline-primary mt-2" onclick="recalculateMetric(\'' + metricType + '\')">再次尝试</button></div>');
                     }
                 } else {
@@ -976,7 +976,7 @@
             .catch(error => {
                 // 清除加载动画
                 if (loadingElement) {
-                    loadingElement.innerHTML = '';
+                loadingElement.innerHTML = '';
                 }
                 
                 console.error('请求指标重新计算出错:', error);
@@ -1082,13 +1082,13 @@
             console.log("点击了查看实体按钮");
             try {
                 console.log("准备加载实体数据...");
-                loadEntities();
+            loadEntities();
                 console.log("准备显示实体模态框...");
                 
                 // 检查jQuery是否可用
                 if (typeof $ !== 'undefined') {
                     console.log("使用jQuery显示模态框");
-                    $('#entitiesModal').modal('show');
+            $('#entitiesModal').modal('show');
                 } else {
                     console.log("jQuery不可用，使用原生JS显示模态框");
                     document.getElementById('entitiesModal').style.display = 'block';
@@ -1107,13 +1107,13 @@
             console.log("点击了查看关系按钮");
             try {
                 console.log("准备加载关系数据...");
-                loadRelations();
+            loadRelations();
                 console.log("准备显示关系模态框...");
                 
                 // 检查jQuery是否可用
                 if (typeof $ !== 'undefined') {
                     console.log("使用jQuery显示模态框");
-                    $('#relationsModal').modal('show');
+            $('#relationsModal').modal('show');
                 } else {
                     console.log("jQuery不可用，使用原生JS显示模态框");
                     document.getElementById('relationsModal').style.display = 'block';
@@ -1295,7 +1295,7 @@
                     }
                 });
         }
-
+        
         // 确保模态框关闭按钮正常工作 - 使用多种方式绑定DOM加载事件
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initPage);

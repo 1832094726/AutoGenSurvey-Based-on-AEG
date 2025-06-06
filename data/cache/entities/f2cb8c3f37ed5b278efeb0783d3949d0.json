@@ -1,0 +1,571 @@
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Huang2017_FineGrainedExpressions",
+        "entity_type": "Algorithm",
+        "name": "Fine-Grained Expressions",
+        "year": 2017,
+        "authors": [
+          "Huang",
+          "Shi",
+          "Yin",
+          "Lin"
+        ],
+        "task": [
+          "Math Word Problem Solving"
+        ],
+        "datasets": [
+          "Dolphin18K"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Template Fragment",
+            "RankSVM"
+          ],
+          "connections": [
+            "Sub-tree"
+          ],
+          "mechanisms": [
+            "Template Parsing"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Max-Margin Objective"
+          ],
+          "parameter_tuning": [
+            "Beam Search"
+          ]
+        },
+        "feature_processing": [
+          "Textual Features",
+          "Quantity Features",
+          "Solution Features"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2018_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "year": 2018,
+        "authors": [
+          "Wang",
+          "Zhang",
+          "Gao",
+          "Song",
+          "Guo",
+          "Shen"
+        ],
+        "task": [
+          "Math Word Problem Solving"
+        ],
+        "datasets": [
+          "AI2",
+          "IL",
+          "CC"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Deep Q-Network",
+            "Feed-Forward Neural Network"
+          ],
+          "connections": [
+            "Markov Decision Process"
+          ],
+          "mechanisms": [
+            "Reinforcement Learning"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Reward Function",
+            "State-Action-Reward-State-Action"
+          ],
+          "parameter_tuning": [
+            "Two-Layer Feed-Forward Neural Network"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Relevance Classifier"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_TranslatingMathWordProblem",
+        "entity_type": "Algorithm",
+        "name": "Translating Math Word Problem",
+        "year": 2017,
+        "authors": [
+          "Wang",
+          "Wang",
+          "Cai",
+          "Zhang",
+          "Liu"
+        ],
+        "task": [
+          "Math Word Problem Solving"
+        ],
+        "datasets": [
+          "AI2",
+          "IL",
+          "CC"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Seq2Seq Model",
+            "Expression Tree"
+          ],
+          "connections": [
+            "Tree Construction"
+          ],
+          "mechanisms": [
+            "GRU Network"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Beam Search"
+          ],
+          "parameter_tuning": [
+            "Normalization"
+          ]
+        },
+        "feature_processing": [
+          "Word Embedding"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AI2_2014",
+        "entity_type": "Dataset",
+        "name": "AI2",
+        "year": 2014,
+        "creators": [
+          "Hosseini",
+          "Hajishirzi",
+          "Etzioni",
+          "Kushman"
+        ],
+        "domain": "Math Word Problem Solving",
+        "size": 395,
+        "description": "Single-step or multi-step arithmetic word problems for third, fourth, and fifth graders."
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "IL_2015",
+        "entity_type": "Dataset",
+        "name": "IL",
+        "year": 2015,
+        "creators": [
+          "Roy",
+          "Roth"
+        ],
+        "domain": "Math Word Problem Solving",
+        "size": 562,
+        "description": "Single-step word problems with one operator, including addition, subtraction, multiplication, and division."
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "CC_2015",
+        "entity_type": "Dataset",
+        "name": "CC",
+        "year": 2015,
+        "creators": [
+          "Koncel-Kedziorski",
+          "Hajishirzi",
+          "Sabharwal",
+          "Etzioni",
+          "Ang"
+        ],
+        "domain": "Math Word Problem Solving",
+        "size": 600,
+        "description": "Multi-step math problems without irrelevant quantities."
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "year": 2017,
+        "creators": [
+          "Wang",
+          "Liu",
+          "Shi"
+        ],
+        "domain": "Math Word Problem Solving",
+        "size": 23162,
+        "description": "Chinese math word problems for elementary school students."
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Classification accuracy",
+        "category": "Classification Evaluation",
+        "formula": "Correct classifications / Total samples"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "ExpressionTree",
+        "year": 2015,
+        "authors": [
+          "Roy",
+          "Roth"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "datasets": [
+          "AI2",
+          "IL",
+          "CC"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Binary Classifier",
+            "Expression Tree"
+          ],
+          "connections": [
+            "Bottom-up Construction"
+          ],
+          "mechanisms": [
+            "Beam Search"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Binary Classification"
+          ],
+          "parameter_tuning": [
+            "Beam Size"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Extraction",
+          "Proposition Transformation"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "ALGES2015_EquationTree",
+        "entity_type": "Algorithm",
+        "name": "ALGES",
+        "year": 2015,
+        "authors": [
+          "Koncel-Kedziorski",
+          "Hajishirzi",
+          "Sabharwal",
+          "Etzioni",
+          "Ang"
+        ],
+        "task": "Algebraic Word Problem Solving",
+        "datasets": [
+          "AI2",
+          "IL",
+          "CC"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Equation Tree",
+            "Integer Linear Programming"
+          ],
+          "connections": [
+            "Syntactic Validity Constraints"
+          ],
+          "mechanisms": [
+            "Brute-force Enumeration"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Integer Linear Programming"
+          ],
+          "parameter_tuning": [
+            "Constraint Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Extraction",
+          "Syntactic Parsing"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "UnitDep2017_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "UnitDep",
+        "year": 2017,
+        "authors": [
+          "Roy",
+          "Roth"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "datasets": [
+          "AI2",
+          "IL",
+          "CC"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Unit Dependency Graph",
+            "Node Classifier",
+            "Edge Classifier"
+          ],
+          "connections": [
+            "Graph Construction"
+          ],
+          "mechanisms": [
+            "Rate Consistency"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Graph-based Scoring"
+          ],
+          "parameter_tuning": [
+            "Classifier Parameters"
+          ]
+        },
+        "feature_processing": [
+          "Rate Detection",
+          "Relation Prediction"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seq2SeqET2018_Seq2SeqExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Seq2SeqET",
+        "year": 2018,
+        "authors": [
+          "Wang",
+          "Liu",
+          "Cai",
+          "Zhang",
+          "Liu"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "datasets": [
+          "SingleEQ",
+          "AllArith",
+          "MAWPS-S"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Seq2Seq Model",
+            "Expression Tree"
+          ],
+          "connections": [
+            "Template Generation"
+          ],
+          "mechanisms": [
+            "Bi-LSTM",
+            "Self-Attention"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Seq2Seq Training"
+          ],
+          "parameter_tuning": [
+            "Normalization"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Encoding",
+          "Template Representation"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "StackDecoder2019_StackBasedDecoder",
+        "entity_type": "Algorithm",
+        "name": "StackDecoder",
+        "year": 2019,
+        "authors": [
+          "Chiang",
+          "Chen"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "datasets": [
+          "SingleEQ",
+          "AllArith",
+          "MAWPS-S"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Seq2Seq Model",
+            "Stack"
+          ],
+          "connections": [
+            "Operand Tracking"
+          ],
+          "mechanisms": [
+            "Bi-LSTM"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Seq2Seq Training"
+          ],
+          "parameter_tuning": [
+            "Normalization"
+          ]
+        },
+        "feature_processing": [
+          "Semantic Meaning Extraction"
+        ]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "T-RNN2019_TemplateBasedSolver",
+        "entity_type": "Algorithm",
+        "name": "T-RNN",
+        "year": 2019,
+        "authors": [
+          "Wang",
+          "Zhang",
+          "Zhang",
+          "Xu",
+          "Gao",
+          "Dai",
+          "Shen"
+        ],
+        "task": "Arithmetic Word Problem Solving",
+        "datasets": [
+          "SingleEQ",
+          "AllArith",
+          "MAWPS-S"
+        ],
+        "metrics": [
+          "Accuracy"
+        ],
+        "architecture": {
+          "components": [
+            "Recursive Neural Network",
+            "Template Representation"
+          ],
+          "connections": [
+            "Tree Construction"
+          ],
+          "mechanisms": [
+            "Bi-LSTM",
+            "Self-Attention"
+          ]
+        },
+        "methodology": {
+          "training_strategy": [
+            "Recursive Training"
+          ],
+          "parameter_tuning": [
+            "Normalization"
+          ]
+        },
+        "feature_processing": [
+          "Quantity Encoding",
+          "Template Representation"
+        ]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "SingleEQ_2015",
+        "entity_type": "Dataset",
+        "name": "SingleEQ",
+        "year": 2015,
+        "creators": [
+          "Koncel-Kedziorski",
+          "Hajishirzi",
+          "Sabharwal",
+          "Etzioni",
+          "Ang"
+        ],
+        "domain": "Arithmetic Word Problem Solving",
+        "size": 508
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AllArith_2016",
+        "entity_type": "Dataset",
+        "name": "AllArith",
+        "year": 2016,
+        "creators": [
+          "Roy",
+          "Roth"
+        ],
+        "domain": "Arithmetic Word Problem Solving",
+        "size": 831
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MAWPS-S_2016",
+        "entity_type": "Dataset",
+        "name": "MAWPS-S",
+        "year": 2016,
+        "creators": [
+          "Koncel-Kedziorski",
+          "Roy",
+          "Amini",
+          "Kushman",
+          "Hajishirzi"
+        ],
+        "domain": "Arithmetic Word Problem Solving",
+        "size": 2373
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Arithmetic",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数/总样本数"
+      }
+    }
+  ],
+  "is_complete": true,
+  "extraction_time": 1748861201.969364
+}

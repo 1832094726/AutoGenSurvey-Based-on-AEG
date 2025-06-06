@@ -1,0 +1,4 @@
+{
+        "training_strategy": [],
+        "parameter_tuning": ["Quantization of θ and p"]
+      }

@@ -1,0 +1,13 @@
+{
+  "nodes": [
+    {
+      "id": "ALGORITHM_ID",
+      "label": "name",
+      "type": "Algorithm",
+      "year": "year",
+      "task": "task",
+      "node_type": "Algorithm"
+    }
+  ],
+  "edges": []
+}

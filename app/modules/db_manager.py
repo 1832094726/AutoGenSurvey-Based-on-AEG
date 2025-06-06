@@ -24,20 +24,47 @@ class DatabaseManager:
         
         # 检查并初始化表
         self._check_and_init_tables()
-    
     def _connect_mysql(self):
         """
         连接到MySQL数据库，使用单一连接，不使用连接池
         """
         try:
-            # 关闭现有连接
+            # 先完全清理现有连接和游标
+            if hasattr(self, 'cursor') and self.cursor:
+                try:
+                    self.cursor.close()
+                    logging.info("成功关闭旧游标")
+                except Exception as e:
+                    logging.warning(f"关闭游标时出错: {str(e)}")
+                self.cursor = None
+                
             if hasattr(self, 'conn') and self.conn:
                 try:
                     self.conn.close()
+                    logging.info("成功关闭旧连接")
                 except Exception as e:
                     logging.warning(f"关闭旧连接时出错: {str(e)}")
+                self.conn = None
             
-            # 建立新连接，增加连接超时时间，禁用连接池
+            # 全局禁用连接池以彻底解决pool exhausted问题
+            if hasattr(mysql.connector, '_CONNECTION_POOLS'):
+                # 清空所有连接池
+                for pool_name in list(mysql.connector._CONNECTION_POOLS.keys()):
+                    try:
+                        pool = mysql.connector._CONNECTION_POOLS[pool_name]
+                        for _ in range(pool.queue_size()):
+                            try:
+                                conn = pool.get_connection()
+                                conn.close()
+                            except:
+                                pass
+                        del mysql.connector._CONNECTION_POOLS[pool_name]
+                        logging.info(f"成功清理连接池: {pool_name}")
+                    except Exception as e:
+                        logging.warning(f"清理连接池 {pool_name} 时出错: {str(e)}")
+            
+            logging.info("开始创建新的数据库连接...")
+            # 使用全新连接，确保不使用连接池
             self.conn = mysql.connector.connect(
                 host=Config.MYSQL_HOST,
                 port=Config.MYSQL_PORT,
@@ -47,22 +74,26 @@ class DatabaseManager:
                 charset='utf8mb4',
                 use_pure=True,  # 使用纯Python实现，增加稳定性
                 connection_timeout=300,  # 增加连接超时时间到5分钟
-                autocommit=False,  # 显式控制事务
-                pool_size=1,  # 不使用连接池，只用一个连接
-                pool_name=None,
+                autocommit=True,  # 使用自动提交避免事务问题
+                pool_size=1,  # 最小连接池设置
+                pool_name=None,  # 不使用命名连接池
+                use_unicode=True,
+                ssl_disabled=True,  # 禁用SSL解决SSL错误
                 get_warnings=True,
                 raise_on_warnings=False,  # 不对警告抛出异常
                 # 增加这些参数以防止连接超时断开
                 time_zone='+00:00',
-                sql_mode='TRADITIONAL',
-                client_flags=[mysql.connector.ClientFlag.FOUND_ROWS]
+                sql_mode='TRADITIONAL'
             )
-            self.cursor = self.conn.cursor(buffered=True)  # 使用缓冲游标
+            
+            # 使用字典游标以保持一致性
+            self.cursor = self.conn.cursor(dictionary=True, buffered=True)
             
             # 设置会话超时时间
             self.cursor.execute("SET SESSION wait_timeout=86400")  # 24小时
             self.cursor.execute("SET SESSION interactive_timeout=86400")  # 24小时
-            self.conn.commit()
+            self.cursor.execute("SET SESSION net_read_timeout=3600")  # 1小时
+            self.cursor.execute("SET SESSION net_write_timeout=3600")  # 1小时
             
             logging.info("MySQL数据库连接成功")
             return True
@@ -70,43 +101,336 @@ class DatabaseManager:
             logging.error(f"连接MySQL数据库时发生错误: {str(e)}")
             import traceback
             logging.error(traceback.format_exc())
+            # 确保连接和游标为空
+            self.conn = None
+            self.cursor = None
+            raise
+
+    def get_all_datasets(self):
+        """获取所有数据集实体"""
+        max_retries = 3
+        retry_count = 0
+        while retry_count < max_retries:
+            try:
+                # 检查连接状态
+                if not self._reconnect_if_needed():
+                    logging.error("无法建立MySQL连接，等待5秒后重试")
+                    retry_count += 1
+                    time.sleep(5)
+                    continue
+                self.cursor.execute('SELECT * FROM Datasets')
+                result = self.cursor.fetchall()
+                if result:
+                    # 转换结果为字典列表
+                    datasets = []
+                    for row in result:
+                        dataset = {}
+                        # 由于使用了字典游标，row已经是字典，直接复制
+                        if isinstance(row, dict):
+                            dataset = row.copy()
+                        else:
+                            # 如果不是字典，则按列名映射
+                            for i, col in enumerate(self.cursor.description):
+                                colname = col[0]
+                                dataset[colname] = row[i]
+                        datasets.append(dataset)
+                    return datasets
+                return []
+            except (mysql.connector.Error, MySQLError) as e:
+                retry_count += 1
+                logging.error(f"获取数据集列表时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
+                time.sleep(5)
+                self._connect_mysql()
+                if retry_count >= max_retries:
+                    logging.error("重试次数已达上限，无法获取数据集列表")
+                    break
+            except Exception as e:
+                logging.error(f"获取数据集列表时出错: {str(e)}")
+                import traceback
+                logging.error(traceback.format_exc())
+                break
+        return []
+
+    def get_all_metrics(self):
+        """获取所有评估指标实体"""
+        max_retries = 3
+        retry_count = 0
+        while retry_count < max_retries:
+            try:
+                # 检查连接状态
+                if not self._reconnect_if_needed():
+                    logging.error("无法建立MySQL连接，等待5秒后重试")
+                    retry_count += 1
+                    time.sleep(5)
+                    continue
+                self.cursor.execute('SELECT * FROM Metrics')
+                result = self.cursor.fetchall()
+                if result:
+                    # 转换结果为字典列表
+                    metrics = []
+                    for row in result:
+                        metric = {}
+                        # 由于使用了字典游标，row已经是字典，直接复制
+                        if isinstance(row, dict):
+                            metric = row.copy()
+                        else:
+                            # 如果不是字典，则按列名映射
+                            for i, col in enumerate(self.cursor.description):
+                                colname = col[0]
+                                metric[colname] = row[i]
+                        metrics.append(metric)
+                    return metrics
+                return []
+            except (mysql.connector.Error, MySQLError) as e:
+                retry_count += 1
+                logging.error(f"获取评估指标列表时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
+                time.sleep(5)
+                self._connect_mysql()
+                if retry_count >= max_retries:
+                    logging.error("重试次数已达上限，无法获取评估指标列表")
+                    break
+            except Exception as e:
+                logging.error(f"获取评估指标列表时出错: {str(e)}")
+                import traceback
+                logging.error(traceback.format_exc())
+                break
+        return []
+
+    def _get_all_relations_mysql(self):
+        """从MySQL获取所有演化关系"""
+        max_retries = 3
+        retry_count = 0
+        while retry_count < max_retries:
+            try:
+                # 检查连接是否已关闭
+                if not self._reconnect_if_needed():
+                    logging.error("无法建立MySQL连接，等待5秒后重试")
+                    retry_count += 1
+                    time.sleep(5)
+                    continue
+                self.cursor.execute("""
+                SELECT relation_id, from_entity, to_entity, relation_type, structure, 
+                       detail, evidence, confidence, from_entity_type, to_entity_type
+                FROM EvolutionRelations
+                """)
+                rows = self.cursor.fetchall()
+                relations = []
+                column_names = [description[0] for description in self.cursor.description]
+                logging.warning("从MySQL获取到 %d 行关系数据", len(rows))
+                for row in rows:
+                    # 将行数据转换为字典
+                    if isinstance(row, dict):
+                        relation_dict = row.copy()
+                    else:
+                        relation_dict = dict(zip(column_names, row))
+                    
+                    # 确保confidence是浮点数
+                    if 'confidence' in relation_dict and relation_dict['confidence'] is not None:
+                        try:
+                            # 添加更多调试信息
+                            confidence_val = relation_dict['confidence']
+                            logging.debug(f"转换confidence值: {confidence_val}, 类型: {type(confidence_val)}")
+                            if isinstance(confidence_val, str) and confidence_val.lower() == 'confidence':
+                                relation_dict['confidence'] = 0.5  # 默认值
+                                logging.warning(f"发现'confidence'作为值，已替换为默认值0.5")
+                            else:
+                                relation_dict['confidence'] = float(confidence_val)
+                        except (ValueError, TypeError) as e:
+                            logging.warning(f"无法将confidence值'{relation_dict['confidence']}'转换为浮点数: {str(e)}，设为默认值0.5")
+                            relation_dict['confidence'] = 0.5  # 设置默认值
+                    relations.append(relation_dict)
+                if not relations:
+                    logging.warning("没有找到任何关系，返回空列表")
+                else:
+                    logging.warning("返回 %d 个关系，示例: %s", 
+                                 len(relations), 
+                                 json.dumps(relations[0], ensure_ascii=False) if relations else "无")
+                return relations
+            except (mysql.connector.Error, MySQLError) as e:
+                retry_count += 1
+                logging.error(f"从MySQL获取关系时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
+                # 如果是连接问题，等待后重试
+                time.sleep(5)
+                # 尝试重新连接
+                self._connect_mysql()
+                if retry_count >= max_retries:
+                    logging.error("重试次数已达上限，无法从数据库获取关系")
+                    break
+            except Exception as e:
+                logging.error("从MySQL获取关系时出错: %s", str(e))
+                import traceback
+                logging.error(traceback.format_exc())
+                break
+        return []    
+        """
+        连接到MySQL数据库，使用单一连接，不使用连接池
+        """
+        try:
+            # 先完全清理现有连接和游标
+            if hasattr(self, 'cursor') and self.cursor:
+                try:
+                    self.cursor.close()
+                except Exception as e:
+                    logging.warning(f"关闭游标时出错: {str(e)}")
+                self.cursor = None
+                
+            if hasattr(self, 'conn') and self.conn:
+                try:
+                    self.conn.close()
+                except Exception as e:
+                    logging.warning(f"关闭旧连接时出错: {str(e)}")
+                self.conn = None
+            
+            # 使用全新连接，确保不使用连接池
+            self.conn = mysql.connector.connect(
+                host=Config.MYSQL_HOST,
+                port=Config.MYSQL_PORT,
+                user=Config.MYSQL_USER,
+                password=Config.MYSQL_PASSWORD,
+                database=Config.MYSQL_DB,
+                charset='utf8mb4',
+                use_pure=True,  # 使用纯Python实现，增加稳定性
+                connection_timeout=300,  # 增加连接超时时间到5分钟
+                autocommit=True,  # 使用自动提交避免事务问题
+                pool_size=1,  # 最小连接池设置
+                pool_reset_session=True,  # 重置会话
+                get_warnings=True,
+                raise_on_warnings=False,  # 不对警告抛出异常
+                # 增加这些参数以防止连接超时断开
+                time_zone='+00:00',
+                sql_mode='TRADITIONAL'
+            )
+            
+            # 使用字典游标以保持一致性
+            self.cursor = self.conn.cursor(dictionary=True, buffered=True)
+            
+            # 设置会话超时时间
+            self.cursor.execute("SET SESSION wait_timeout=86400")  # 24小时
+            self.cursor.execute("SET SESSION interactive_timeout=86400")  # 24小时
+            self.cursor.execute("SET SESSION net_read_timeout=3600")  # 1小时
+            self.cursor.execute("SET SESSION net_write_timeout=3600")  # 1小时
+            
+            logging.info("MySQL数据库连接成功")
+            return True
+        except Exception as e:
+            logging.error(f"连接MySQL数据库时发生错误: {str(e)}")
+            import traceback
+            logging.error(traceback.format_exc())
+            # 确保连接和游标为空
+            self.conn = None
+            self.cursor = None
             raise
     
     def _reconnect_if_needed(self):
         """
         检查MySQL连接状态并在需要时重连
+        
+        Returns:
+            bool: 如果连接正常或重连成功则返回True，否则返回False
         """
+        max_retries = 3
+        retry_count = 0
+        
+        while retry_count < max_retries:
+            try:
+                # 检查连接是否存在
+                if self.conn is None or self.cursor is None:
+                    logging.warning("MySQL连接或游标不存在，创建新连接")
+                    self._connect_mysql()
+                    logging.info("MySQL连接创建成功")
+                    return True
+                
+                # 检查连接是否已断开
+                try:
+                    if not self.conn.is_connected():
+                        logging.warning("MySQL连接已断开，正在重新连接")
+                        self._connect_mysql()
+                        logging.info("MySQL重新连接成功")
+                        return True
+                except Exception as conn_error:
+                    logging.warning(f"检查连接状态时出错: {str(conn_error)}，尝试重新连接")
+                    self._connect_mysql()
+                    return True
+                
+                # 为防止连接空闲超时，定期ping服务器
+                try:
+                    self.conn.ping(reconnect=True, attempts=1, delay=0)
+                    logging.debug("MySQL连接ping成功")
+                except Exception as ping_error:
+                    logging.warning(f"MySQL ping失败: {str(ping_error)}，尝试重新连接")
+                    self._connect_mysql()
+                    logging.info("MySQL重新连接成功")
+                    return True
+                
+                # 验证连接可用性
+                try:
+                    # 检查游标是否有效
+                    if hasattr(self.cursor, 'connection') and self.cursor.connection is None:
+                        logging.warning("MySQL游标连接无效，重新创建")
+                        # 关闭旧游标
+                        try:
+                            self.cursor.close()
+                        except:
+                            pass
+                        # 创建新游标
+                        self.cursor = self.conn.cursor(dictionary=True, buffered=True)
+                        logging.info("MySQL游标重新创建成功")
+                    
+                    # 执行测试查询
+                    self.cursor.execute("SELECT 1 as ping")
+                    result = self.cursor.fetchone()
+                    if result and result.get('ping') == 1:
+                        logging.debug("MySQL连接验证成功")
+                        return True
+                    else:
+                        logging.warning("MySQL测试查询返回异常结果，尝试重新连接")
+                        self._connect_mysql()
+                        return True
+                except Exception as verify_error:
+                    logging.warning(f"MySQL连接验证失败: {str(verify_error)}，尝试重新连接")
+                    self._connect_mysql()
+                    logging.info("MySQL重新连接成功")
+                    return True
+                
+            except Exception as e:
+                retry_count += 1
+                logging.error(f"检查MySQL连接状态时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
+                
+                if retry_count < max_retries:
+                    wait_time = 2 * retry_count  # 指数退避
+                    logging.info(f"等待 {wait_time} 秒后重试...")
+                    time.sleep(wait_time)
+                    
+                    # 强制创建新连接
+                    try:
+                        self._connect_mysql()
+                        logging.info(f"第 {retry_count} 次重试: MySQL重新连接成功")
+                        return True
+                    except Exception as reconnect_error:
+                        logging.error(f"第 {retry_count} 次重试重新连接MySQL时出错: {str(reconnect_error)}")
+                else:
+                    logging.critical(f"经过 {max_retries} 次尝试后，无法重新连接MySQL")
+                    # 重置连接和游标为None，强制下次调用重新创建
+                    self.conn = None
+                    self.cursor = None
+                    return False
+        
+        return False
+        
+    def __del__(self):
+        """析构函数，关闭数据库连接"""
+        # 安全地关闭游标和连接
         try:
-            # 尝试执行简单的查询来检查连接
-            if self.conn is None:
-                logging.warning("MySQL连接不存在，创建新连接")
-                self._connect_mysql()
-                return True
-            
-            # 如果连接存在但已断开，则重新连接
-            if not self.conn.is_connected():
-                logging.warning("MySQL连接已断开，正在重新连接")
-                self._connect_mysql()
-                return True
-                
-            # 为防止连接空闲超时，定期ping服务器
-            try:
-                self.conn.ping(reconnect=True, attempts=1, delay=0)
-            except Exception as ping_error:
-                logging.warning(f"Ping失败: {str(ping_error)}，尝试重新连接")
-                self._connect_mysql()
-                return True
-                
-            return True  # 连接正常
-            
+            if hasattr(self, 'cursor') and self.cursor:
+                self.cursor.close()
         except Exception as e:
-            logging.error(f"检查MySQL连接状态时出错: {str(e)}")
-            try:
-                self._connect_mysql()
-                return True
-            except Exception as reconnect_error:
-                logging.error(f"重新连接MySQL时出错: {str(reconnect_error)}")
-                return False
+            pass
+            
+        try:
+            if hasattr(self, 'conn') and self.conn:
+                self.conn.close()
+        except Exception as e:
+            pass
     
     def _check_and_init_tables(self):
         """检查表是否存在，并在需要时初始化表"""
@@ -232,6 +556,9 @@ class DatabaseManager:
                     confidence FLOAT,
                     from_entity_type VARCHAR(50),
                     to_entity_type VARCHAR(50),
+                    from_entity_relation_type VARCHAR(50),
+                    to_entity_relation_type VARCHAR(50),
+                    problem_addressed TEXT,
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                     task_id VARCHAR(255),
@@ -251,6 +578,24 @@ class DatabaseManager:
                 if not self.cursor.fetchone():
                     self.cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN source VARCHAR(50) DEFAULT '未知'")
                     logging.info("向EvolutionRelations表添加source字段")
+                
+                # 检查problem_addressed字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'problem_addressed'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN problem_addressed TEXT")
+                    logging.info("向EvolutionRelations表添加problem_addressed字段")
+                
+                # 检查from_entity_relation_type字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'from_entity_relation_type'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN from_entity_relation_type VARCHAR(50)")
+                    logging.info("向EvolutionRelations表添加from_entity_relation_type字段")
+                
+                # 检查to_entity_relation_type字段是否存在，如果不存在则添加
+                self.cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'to_entity_relation_type'")
+                if not self.cursor.fetchone():
+                    self.cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN to_entity_relation_type VARCHAR(50)")
+                    logging.info("向EvolutionRelations表添加to_entity_relation_type字段")
             
             self.conn.commit()
         except (mysql.connector.Error, MySQLError) as e:
@@ -262,10 +607,6 @@ class DatabaseManager:
             logging.error(traceback.format_exc())
             self.conn.rollback()
     
-    def __del__(self):
-        """析构函数，关闭数据库连接"""
-        if hasattr(self, 'conn'):
-            self.conn.close()
     
     def store_entities(self, entities):
         """
@@ -386,9 +727,7 @@ class DatabaseManager:
         将单条实体演化关系存储到数据库
         
         Args:
-            relation (dict): 演化关系数据，支持两种格式：
-                1. 数据库格式：{from_entity, to_entity, relation_type, ...}
-                2. API格式：{from_entities, to_entities, relation_type, ...}
+            relation (dict): 演化关系数据，格式为：{from_entity, to_entity, relation_type, ...}
             task_id (str, optional): 关联的任务ID
             
         Returns:
@@ -403,59 +742,13 @@ class DatabaseManager:
             # 获取来源信息
             source = relation.get('source', '未知')
             
-            # 检查是否是数据库格式（from_entity/to_entity）
+            # 检查必要字段
             if "from_entity" in relation and "to_entity" in relation:
                 # 直接使用数据库格式
                 return self._store_relation_mysql(relation, task_id)
-            # 检查是否是API格式（from_entities/to_entities数组）
-            # 验证必要字段
-            required_fields = ["from_entities", "to_entities", "relation_type"]
-            for field in required_fields:
-                if field not in relation:
-                    logging.error(f"关系数据缺少必要字段 '{field}': {relation}")
-                    return False
-            # 验证from_entities和to_entities
-            if not isinstance(relation["from_entities"], list) or not isinstance(relation["to_entities"], list):
-                logging.error(f"from_entities或to_entities必须是列表: {relation}")
+            else:
+                logging.error(f"关系数据缺少必要字段 'from_entity' 或 'to_entity': {relation}")
                 return False
-            if len(relation["from_entities"]) == 0 or len(relation["to_entities"]) == 0:
-                logging.error(f"from_entities或to_entities不能为空: {relation}")
-                return False
-            # 对每一组from_entity和to_entity创建关系
-            success_count = 0
-            relation_count = 0
-            for from_entity in relation["from_entities"]:
-                for to_entity in relation["to_entities"]:
-                    relation_count += 1
-                    # 验证实体数据
-                    if not isinstance(from_entity, dict) or not isinstance(to_entity, dict):
-                        logging.warning(f"实体数据格式错误: {from_entity} -> {to_entity}")
-                        continue
-                    if "entity_id" not in from_entity or "entity_id" not in to_entity:
-                        logging.warning(f"实体数据缺少entity_id字段: {from_entity} -> {to_entity}")
-                        continue
-                    from_entity_id = from_entity["entity_id"]
-                    to_entity_id = to_entity["entity_id"]
-                    from_entity_type = from_entity.get("entity_type", "Algorithm")
-                    to_entity_type = to_entity.get("entity_type", "Algorithm")
-                    # 创建关系记录
-                    relation_data = {
-                        "from_entity": from_entity_id,
-                        "to_entity": to_entity_id,
-                        "relation_type": relation.get("relation_type", "Improve"),
-                        "structure": relation.get("structure", ""),
-                        "detail": relation.get("detail", ""),
-                        "evidence": relation.get("evidence", ""),
-                        "confidence": relation.get("confidence", 0.0),
-                        "from_entity_type": from_entity_type,
-                        "to_entity_type": to_entity_type,
-                        "source": source  # 添加来源字段
-                    }
-                    # 调用数据库存储方法
-                    if self._store_relation_mysql(relation_data, task_id):
-                        success_count += 1
-            logging.info(f"成功存储 {success_count}/{relation_count} 条演化关系，任务ID: {task_id}")
-            return success_count > 0
         except Exception as e:
             logging.error(f"存储演化关系时出错: {str(e)}")
             import traceback
@@ -480,10 +773,13 @@ class DatabaseManager:
             relation_type = relation_data["relation_type"]
             structure = relation_data.get("structure", "")
             detail = relation_data.get("detail", "")
+            problem_addressed = relation_data.get("problem_addressed", "")
             evidence = relation_data.get("evidence", "")
             confidence = relation_data.get("confidence", 0.0)
             from_entity_type = relation_data.get("from_entity_type", "Algorithm")
             to_entity_type = relation_data.get("to_entity_type", "Algorithm")
+            from_entity_relation_type = relation_data.get("from_entity_relation_type", "")
+            to_entity_relation_type = relation_data.get("to_entity_relation_type", "")
             source = relation_data.get("source", "未知")  # 获取来源字段，默认为"未知"
             
             # 检查实体是否存在
@@ -507,14 +803,16 @@ class DatabaseManager:
                 # 关系已存在，执行更新
                 update_sql = """
                 UPDATE EvolutionRelations 
-                SET structure = %s, detail = %s, evidence = %s, confidence = %s,
-                    from_entity_type = %s, to_entity_type = %s, task_id = %s, source = %s
+                SET structure = %s, detail = %s, problem_addressed = %s, evidence = %s, confidence = %s,
+                    from_entity_type = %s, to_entity_type = %s, from_entity_relation_type = %s, 
+                    to_entity_relation_type = %s, task_id = %s, source = %s
                 WHERE from_entity = %s AND to_entity = %s AND relation_type = %s
                 """
                 self.cursor.execute(
                     update_sql, 
-                    (structure, detail, evidence, confidence, 
-                     from_entity_type, to_entity_type, task_id, source,
+                    (structure, detail, problem_addressed, evidence, confidence, 
+                     from_entity_type, to_entity_type, from_entity_relation_type, 
+                     to_entity_relation_type, task_id, source,
                      from_entity, to_entity, relation_type)
                 )
                 logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
@@ -523,15 +821,17 @@ class DatabaseManager:
                 insert_sql = """
                 INSERT INTO EvolutionRelations (
                     from_entity, to_entity, relation_type, 
-                    structure, detail, evidence, confidence, 
-                    from_entity_type, to_entity_type, task_id, source
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    structure, detail, problem_addressed, evidence, confidence, 
+                    from_entity_type, to_entity_type, from_entity_relation_type, to_entity_relation_type,
+                    task_id, source
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """
                 self.cursor.execute(
                     insert_sql, 
                     (from_entity, to_entity, relation_type, 
-                     structure, detail, evidence, confidence,
-                     from_entity_type, to_entity_type, task_id, source)
+                     structure, detail, problem_addressed, evidence, confidence,
+                     from_entity_type, to_entity_type, from_entity_relation_type, to_entity_relation_type,
+                     task_id, source)
                 )
                 logging.info(f"创建新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
             self.conn.commit()
@@ -702,59 +1002,7 @@ class DatabaseManager:
         """
         logging.warning("开始获取所有关系...")
         return self._get_all_relations_mysql()
-            
-    def _get_all_relations_mysql(self):
-        """从MySQL获取所有演化关系"""
-        max_retries = 3
-        retry_count = 0
-        while retry_count < max_retries:
-            try:
-                # 检查连接是否已关闭
-                if not self._reconnect_if_needed():
-                    logging.error("无法建立MySQL连接，等待5秒后重试")
-                    retry_count += 1
-                    time.sleep(5)
-                    continue
-                self.cursor.execute("""
-                SELECT relation_id, from_entity, to_entity, relation_type, structure, 
-                       detail, evidence, confidence, from_entity_type, to_entity_type
-                FROMEvolutionRelations
-                """)
-                rows = self.cursor.fetchall()
-                relations = []
-                column_names = [description[0] for description in self.cursor.description]
-                logging.warning("从MySQL获取到 %d 行关系数据", len(rows))
-                for row in rows:
-                    # 将行数据转换为字典
-                    relation_dict = dict(zip(column_names, row))
-                    # 确保confidence是浮点数
-                    if 'confidence' in relation_dict and relation_dict['confidence'] is not None:
-                        relation_dict['confidence'] = float(relation_dict['confidence'])
-                    relations.append(relation_dict)
-                if not relations:
-                    logging.warning("没有找到任何关系，返回空列表")
-                else:
-                    logging.warning("返回 %d 个关系，示例: %s", 
-                                 len(relations), 
-                                 json.dumps(relations[0], ensure_ascii=False) if relations else "无")
-                return relations
-            except (mysql.connector.Error, MySQLError) as e:
-                retry_count += 1
-                logging.error(f"从MySQL获取关系时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                # 如果是连接问题，等待后重试
-                time.sleep(5)
-                # 尝试重新连接
-                self._connect_mysql()
-                if retry_count >= max_retries:
-                    logging.error("重试次数已达上限，无法从数据库获取关系")
-                    break
-            except Exception as e:
-                logging.error("从MySQL获取关系时出错: %s", str(e))
-                import traceback
-                logging.error(traceback.format_exc())
-                break
-        return []
-    
+
     def update_entity(self, entity_id, updated_data):
         """
         更新指定算法实体的信息。
@@ -1937,83 +2185,6 @@ class DatabaseManager:
             logging.error(f"存储评价指标时出错: {str(e)}")
             return False
 
-    def get_all_datasets(self):
-        """获取所有数据集实体"""
-        max_retries = 3
-        retry_count = 0
-        while retry_count < max_retries:
-            try:
-                # 检查连接状态
-                if not self._reconnect_if_needed():
-                    logging.error("无法建立MySQL连接，等待5秒后重试")
-                    retry_count += 1
-                    time.sleep(5)
-                    continue
-                self.cursor.execute('SELECT * FROM Datasets')
-                result = self.cursor.fetchall()
-                if result:
-                    # 转换结果为字典列表
-                    datasets = []
-                    for row in result:
-                        dataset = {}
-                        for i, col in enumerate(self.cursor.description):
-                            dataset[col[0]] = row[i]
-                        datasets.append(dataset)
-                    return datasets
-                return []
-            except (mysql.connector.Error, MySQLError) as e:
-                retry_count += 1
-                logging.error(f"获取数据集列表时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                time.sleep(5)
-                self._connect_mysql()
-                if retry_count >= max_retries:
-                    logging.error("重试次数已达上限，无法获取数据集列表")
-                    break
-            except Exception as e:
-                logging.error(f"获取数据集列表时出错: {str(e)}")
-                import traceback
-                logging.error(traceback.format_exc())
-                break
-        return []
-
-    def get_all_metrics(self):
-        """获取所有评估指标实体"""
-        max_retries = 3
-        retry_count = 0
-        while retry_count < max_retries:
-            try:
-                # 检查连接状态
-                if not self._reconnect_if_needed():
-                    logging.error("无法建立MySQL连接，等待5秒后重试")
-                    retry_count += 1
-                    time.sleep(5)
-                    continue
-                self.cursor.execute('SELECT * FROM Metrics')
-                result = self.cursor.fetchall()
-                if result:
-                    # 转换结果为字典列表
-                    metrics = []
-                    for row in result:
-                        metric = {}
-                        for i, col in enumerate(self.cursor.description):
-                            metric[col[0]] = row[i]
-                        metrics.append(metric)
-                    return metrics
-                return []
-            except (mysql.connector.Error, MySQLError) as e:
-                retry_count += 1
-                logging.error(f"获取评估指标列表时出错 (尝试 {retry_count}/{max_retries}): {str(e)}")
-                time.sleep(5)
-                self._connect_mysql()
-                if retry_count >= max_retries:
-                    logging.error("重试次数已达上限，无法获取评估指标列表")
-                    break
-            except Exception as e:
-                logging.error(f"获取评估指标列表时出错: {str(e)}")
-                import traceback
-                logging.error(traceback.format_exc())
-                break
-        return []
 
     def get_dataset_by_id(self, dataset_id):
         """获取指定ID的数据集详细信息"""

@@ -122,6 +122,29 @@
             <div class="col-md-9">
                 <div class="control-panel">
                     <h5>图形控制</h5>
+                    <div class="task-selection mb-3">
+                        <label for="task-select" class="form-label">选择任务：</label>
+                        <div class="d-flex">
+                            <select id="task-select" class="form-select form-select-sm me-2">
+                                <option value="">全部数据</option>
+                            </select>
+                            <button id="btn-load-task" class="btn btn-sm btn-primary">加载任务</button>
+                            <button id="btn-refresh-tasks" class="btn btn-sm btn-outline-secondary ms-2">刷新任务列表</button>
+                        </div>
+                        <div id="task-info" class="mt-2 small d-none">
+                            <div class="card">
+                                <div class="card-header bg-light py-1">
+                                    <strong>当前任务信息</strong>
+                                </div>
+                                <div class="card-body py-2">
+                                    <p class="mb-1"><strong>任务ID：</strong> <span id="task-id">-</span></p>
+                                    <p class="mb-1"><strong>任务名称：</strong> <span id="task-name">-</span></p>
+                                    <p class="mb-1"><strong>状态：</strong> <span id="task-status">-</span></p>
+                                    <p class="mb-0"><strong>创建时间：</strong> <span id="task-time">-</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="layout-controls">
                         <button id="btn-reset" class="btn btn-sm btn-outline-secondary">重置视图</button>
                         <button id="btn-layout-circle" class="btn btn-sm btn-outline-primary">圆形布局</button>
@@ -191,11 +214,21 @@
                     <div id="edge-info-content" class="node-info-content d-none">
                         <p><strong>源节点：</strong> <span id="edge-source"></span></p>
                         <p><strong>目标节点：</strong> <span id="edge-target"></span></p>
+                        <div id="edge-relations-container">
                         <p><strong>关系类型：</strong> <span id="edge-type"></span></p>
-                        <p><strong>改进结构：</strong> <span id="edge-structure"></span></p>
+                            <p><strong>结构：</strong> <span id="edge-structure"></span></p>
                         <p><strong>详细内容：</strong> <span id="edge-detail"></span></p>
+                            <p><strong>问题解决：</strong> <span id="edge-problem"></span></p>
                         <p><strong>证据：</strong> <span id="edge-evidence"></span></p>
                         <p><strong>置信度：</strong> <span id="edge-confidence"></span></p>
+                        </div>
+                        <!-- 多关系容器 -->
+                        <div id="multi-relations-container" class="mt-3 d-none">
+                            <h6>多关系详情</h6>
+                            <div id="relations-accordion" class="accordion">
+                                <!-- 动态填充关系卡片 -->
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card mb-3">
@@ -520,13 +553,62 @@
                 const sourceNode = cy.getElementById(edge.data('source'));
                 const targetNode = cy.getElementById(edge.data('target'));
                 
+                // 显示基本信息
                 document.getElementById('edge-source').textContent = sourceNode.data('label');
                 document.getElementById('edge-target').textContent = targetNode.data('label');
-                document.getElementById('edge-type').textContent = edge.data('relation_type') || '未知';
-                document.getElementById('edge-structure').textContent = edge.data('structure') || '未知';
-                document.getElementById('edge-detail').textContent = edge.data('detail') || '无';
-                document.getElementById('edge-evidence').textContent = edge.data('evidence') || '无';
-                document.getElementById('edge-confidence').textContent = edge.data('confidence') || '未知';
+                
+                // 获取边的数据
+                const edgeData = edge.data();
+                const relations = edgeData.relations || [];
+                
+                // 根据是否有多关系显示不同的内容
+                if (relations && relations.length > 0) {
+                    // 多关系情况 - 显示accordion
+                    document.getElementById('edge-relations-container').classList.add('d-none');
+                    document.getElementById('multi-relations-container').classList.remove('d-none');
+                    
+                    // 清空accordion
+                    const accordion = document.getElementById('relations-accordion');
+                    accordion.innerHTML = '';
+                    
+                    // 填充accordion
+                    relations.forEach((relation, index) => {
+                        const relationId = `relation-${index}`;
+                        const cardHtml = `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading-${relationId}">
+                                    <button class="accordion-button ${index > 0 ? 'collapsed' : ''}" type="button" 
+                                            data-bs-toggle="collapse" data-bs-target="#collapse-${relationId}" 
+                                            aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="collapse-${relationId}">
+                                        关系 ${index + 1}: ${relation.type || '未知'}
+                                    </button>
+                                </h2>
+                                <div id="collapse-${relationId}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
+                                     aria-labelledby="heading-${relationId}" data-bs-parent="#relations-accordion">
+                                    <div class="accordion-body">
+                                        <p class="mb-1"><strong>结构:</strong> ${relation.structure || '未知'}</p>
+                                        <p class="mb-1"><strong>详情:</strong> ${relation.detail || '无'}</p>
+                                        <p class="mb-1"><strong>解决问题:</strong> ${relation.problem_addressed || '未指定'}</p>
+                                        <p class="mb-1"><strong>证据:</strong> ${relation.evidence || '无'}</p>
+                                        <p class="mb-1"><strong>置信度:</strong> ${relation.confidence || '未知'}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        accordion.innerHTML += cardHtml;
+                    });
+                } else {
+                    // 单一关系情况 - 显示常规信息
+                    document.getElementById('edge-relations-container').classList.remove('d-none');
+                    document.getElementById('multi-relations-container').classList.add('d-none');
+                    
+                    document.getElementById('edge-type').textContent = edgeData.relation_type || '未知';
+                    document.getElementById('edge-structure').textContent = edgeData.structure || '未知';
+                    document.getElementById('edge-detail').textContent = edgeData.detail || '无';
+                    document.getElementById('edge-problem').textContent = edgeData.problem_addressed || '未指定';
+                    document.getElementById('edge-evidence').textContent = edgeData.evidence || '无';
+                    document.getElementById('edge-confidence').textContent = edgeData.confidence || '未知';
+                }
             });
 
             // 背景点击事件（取消选择）
@@ -539,9 +621,165 @@
                 }
             });
 
-            // 获取图数据
-            console.log('开始获取图数据...');
-            fetch('/api/graph/data')
+            // 加载任务列表
+            function loadTaskList() {
+                fetch('/api/tasks')
+                    .then(response => response.json())
+                    .then(tasks => {
+                        // 检查是否有错误
+                        if (tasks.error) {
+                            console.error('加载任务列表失败:', tasks.error);
+                            showDatabaseError('加载任务列表失败: ' + tasks.error);
+                            return;
+                        }
+                        
+                        const taskSelect = document.getElementById('task-select');
+                        // 清空现有选项，但保留"全部数据"选项
+                        while (taskSelect.options.length > 1) {
+                            taskSelect.options.remove(1);
+                        }
+                        // 添加任务选项
+                        tasks.forEach(task => {
+                            const option = document.createElement('option');
+                            option.value = task.task_id;
+                            option.textContent = `${task.task_name} (${task.task_id})`;
+                            taskSelect.appendChild(option);
+                        });
+                        console.log(`加载了 ${tasks.length} 个任务`);
+                        
+                        // 隐藏错误信息（如果有）
+                        hideDatabaseError();
+                    })
+                    .catch(error => {
+                        console.error('加载任务列表失败:', error);
+                        showDatabaseError('加载任务列表失败，可能是数据库连接问题');
+                    });
+            }
+            
+            // 显示数据库错误信息
+            function showDatabaseError(message) {
+                let errorDiv = document.getElementById('db-error');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.id = 'db-error';
+                    errorDiv.className = 'alert alert-danger mt-2';
+                    
+                    // 添加到任务选择区域
+                    document.querySelector('.task-selection').appendChild(errorDiv);
+                }
+                
+                errorDiv.innerHTML = `
+                    <strong>数据库错误:</strong> ${message}
+                    <div class="mt-2">
+                        <button id="btn-check-db" class="btn btn-sm btn-warning me-2">检查数据库连接</button>
+                        <button id="btn-repair-db" class="btn btn-sm btn-danger">修复数据库</button>
+                    </div>
+                `;
+                
+                // 添加按钮点击事件
+                document.getElementById('btn-check-db').addEventListener('click', checkDatabaseConnection);
+                document.getElementById('btn-repair-db').addEventListener('click', repairDatabase);
+            }
+            
+            // 修复数据库
+            function repairDatabase() {
+                showLoading('正在修复数据库结构...');
+                
+                fetch('/api/system/db-repair', {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    hideLoading();
+                    
+                    if (data.success) {
+                        showNotification('数据库结构已修复', 'success');
+                        console.log('数据库表状态:', data.tables_status);
+                        
+                        // 重新加载任务列表
+                        loadTaskList();
+                    } else {
+                        showNotification('修复数据库失败: ' + data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    hideLoading();
+                    showNotification('修复数据库时出错: ' + error.message, 'error');
+                });
+            }
+            
+            // 隐藏数据库错误信息
+            function hideDatabaseError() {
+                const errorDiv = document.getElementById('db-error');
+                if (errorDiv) {
+                    errorDiv.remove();
+                }
+            }
+            
+            // 检查数据库连接状态
+            function checkDatabaseConnection() {
+                showLoading('正在检查数据库连接...');
+                
+                fetch('/api/system/db-status')
+                    .then(response => response.json())
+                    .then(data => {
+                        hideLoading();
+                        
+                        if (data.success) {
+                            showNotification('数据库连接正常', 'success');
+                            // 重新加载任务列表
+                            loadTaskList();
+                        } else {
+                            showNotification('数据库连接失败: ' + data.error, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        hideLoading();
+                        showNotification('检查数据库连接时出错: ' + error.message, 'error');
+                    });
+            }
+
+            // 页面加载时获取任务列表
+            loadTaskList();
+            
+            // 绑定刷新任务列表按钮事件
+            document.getElementById('btn-refresh-tasks').addEventListener('click', function() {
+                showLoading('正在刷新任务列表...');
+                
+                // 先检查数据库连接
+                fetch('/api/system/db-status')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // 数据库连接正常，加载任务列表
+                            loadTaskList();
+                            hideLoading();
+                            showNotification('任务列表已刷新', 'success');
+                        } else {
+                            hideLoading();
+                            showNotification('数据库连接失败，无法刷新任务列表', 'error');
+                            showDatabaseError('数据库连接失败: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        hideLoading();
+                        showNotification('检查数据库连接时出错', 'error');
+                        console.error('检查数据库连接时出错:', error);
+                    });
+            });
+
+            // 加载图数据的函数，增加taskId参数支持按任务加载
+            function loadGraphData(taskId = null, forceRefresh = false) {
+                // 构建URL
+                let url = '/api/graph/data';
+                if (taskId) {
+                    url = `/api/graph/task/${taskId}`;
+                } else if (forceRefresh) {
+                    url += '?force_refresh=true';
+                }
+                
+                console.log('开始获取图数据...', url);
+                fetch(url)
                 .then(response => {
                     console.log('图数据API响应状态:', response.status, response.statusText);
                     return response.json().then(data => {
@@ -619,7 +857,8 @@
                                 id: node.id,
                                 label: node.label,
                                 entity_type: node.type,
-                                color: color
+                                    color: color,
+                                    full_data: node.data || {}  // 保存完整数据
                             }
                         };
                         
@@ -675,18 +914,35 @@
                         // 构建边ID，确保唯一性
                         const edgeId = `edge_${edge.source}_${edge.target}_${index}`;
                         
+                            // 支持新格式的多关系边
+                            const relations = edge.data && edge.data.relations ? edge.data.relations : [];
+                            const relationTypes = new Set();
+                            
+                            if (relations.length > 0) {
+                                // 提取所有关系类型
+                                relations.forEach(rel => {
+                                    if (rel.type) relationTypes.add(rel.type);
+                                });
+                            } else {
+                                // 兼容旧格式
+                                if (edge.relation_type) relationTypes.add(edge.relation_type);
+                            }
+                            
+                            // 创建边元素
                         elements.push({
                             group: 'edges',
                             data: {
                                 id: edgeId,
                                 source: edge.source,
                                 target: edge.target,
-                                label: edge.label || edge.relation_type || '',
-                                relation_type: edge.relation_type || 'Unknown',
+                                    label: Array.from(relationTypes).join(', ') || edge.label || '',
+                                    relation_type: Array.from(relationTypes)[0] || edge.relation_type || 'Unknown',
+                                    relations: relations, // 保存多关系数据
                                 structure: edge.structure || '',
                                 detail: edge.detail || '',
                                 evidence: edge.evidence || '',
-                                confidence: edge.confidence || 0.5
+                                    confidence: edge.confidence || 0.5,
+                                    full_data: edge.data || {} // 保存完整数据
                             }
                         });
                         
@@ -742,6 +998,56 @@
                 .catch(error => {
                     console.error('获取或处理图数据失败:', error);
                     document.getElementById('cy').innerHTML = `<div class="alert alert-danger m-3">获取图数据失败: ${error.message}</div>`;
+                    });
+            }
+
+            // 初始加载全部数据
+            loadGraphData();
+
+            // 按钮点击事件 - 加载任务
+            document.getElementById('btn-load-task').addEventListener('click', function() {
+                const taskId = document.getElementById('task-select').value;
+                if (taskId) {
+                    // 显示任务详情
+                    showTaskInfo(taskId);
+                    loadGraphData(taskId);
+                } else {
+                    // 隐藏任务详情
+                    document.getElementById('task-info').classList.add('d-none');
+                    loadGraphData(null, true);  // 如果没有选任务，则加载全部数据，并强制刷新
+                }
+            });
+            
+            // 显示任务详情
+            function showTaskInfo(taskId) {
+                fetch(`/api/tasks/${taskId}/status`)
+                    .then(response => response.json())
+                    .then(taskData => {
+                        // 显示任务信息卡片
+                        const taskInfo = document.getElementById('task-info');
+                        taskInfo.classList.remove('d-none');
+                        
+                        // 填充任务详情
+                        document.getElementById('task-id').textContent = taskData.task_id || '-';
+                        document.getElementById('task-name').textContent = taskData.task_name || '-';
+                        document.getElementById('task-status').textContent = taskData.status || '-';
+                        document.getElementById('task-time').textContent = taskData.start_time || '-';
+                    })
+                    .catch(error => {
+                        console.error('获取任务详情失败:', error);
+                        // 出错时隐藏任务详情
+                        document.getElementById('task-info').classList.add('d-none');
+                    });
+            }
+            
+            // 任务选择框变更事件
+            document.getElementById('task-select').addEventListener('change', function() {
+                const taskId = this.value;
+                if (taskId) {
+                    showTaskInfo(taskId);
+                } else {
+                    document.getElementById('task-info').classList.add('d-none');
+                }
                 });
 
             // 布局控制
@@ -974,216 +1280,20 @@
                 
                 console.log('点击刷新数据按钮，开始获取数据...');
                 
+                // 获取当前选择的任务ID
+                const taskId = document.getElementById('task-select').value;
+                
                 // 调用API强制刷新数据
-                fetch('/api/graph/data?force_refresh=true')
-                    .then(response => {
-                        console.log('刷新图数据API响应状态:', response.status, response.statusText);
-                        return response.json().then(data => {
-                            console.log('刷新后API返回内容:', data);
-                            return { status: response.status, data: data };
-                        });
-                    })
-                    .then(result => {
-                        const { status, data } = result;
-                        
-                        // 检查是否有错误消息
-                        if (data.error) {
-                            console.error('API返回错误:', data.error);
-                            document.getElementById('cy').innerHTML = `<div class="alert alert-danger m-3">加载图数据失败: ${data.error}</div>`;
-                            return;
-                        }
-                        
-                        // 如果返回数据为空或格式不正确
-                        if (!data || !data.nodes || !data.edges) {
-                            console.error('API返回的数据为空或格式不正确:', data);
-                            document.getElementById('cy').innerHTML = '<div class="alert alert-warning m-3">没有找到图数据。可能需要先上传文献来生成图谱数据。</div>';
-                            return;
-                        }
-                        
-                        if (data.nodes.length === 0) {
-                            console.warn('API返回的节点列表为空');
-                            document.getElementById('cy').innerHTML = '<div class="alert alert-info m-3">图谱中没有节点。请上传文献或手动添加节点。</div>';
-                            return;
-                        }
-                        
-                        console.log(`准备渲染图形: ${data.nodes.length}个节点, ${data.edges.length}条边`);
-                        
-                        // 每次加载新数据前，清理cy元素，防止重影
-                        cy.elements().remove();
-                        // forceResizeCytoscape(); // 这里不再调用，等数据加载后再调用
-                        
-                        // 处理节点
-                        const elements = [];
-                        const nodeIds = new Set(); // 用于检查节点ID的唯一性
-                        
-                        // 添加节点
-                        data.nodes.forEach((node, index) => {
-                            console.log(`处理节点 ${index+1}/${data.nodes.length}:`, node);
-                            
-                            if (!node.id || !node.label) {
-                                console.warn(`节点缺少必要属性:`, node);
-                                return; // 跳过此节点
-                            }
-                            
-                            if (nodeIds.has(node.id)) {
-                                console.warn(`发现重复节点ID: ${node.id}, 将被跳过`);
-                                return; // 跳过重复节点
-                            }
-                            
-                            nodeIds.add(node.id);
-                            
-                            let color;
-                            switch (node.type) {
-                                case 'Algorithm':
-                                    color = 'skyblue';
-                                    break;
-                                case 'Dataset':
-                                    color = 'lightgreen';
-                                    break;
-                                case 'Metric':
-                                    color = 'orange';
-                                    break;
-                                default:
-                                    color = 'gray';
-                            }
-                            
-                            elements.push({
-                                group: 'nodes',
-                                data: {
-                                    id: node.id,
-                                    label: node.label,
-                                    entity_type: node.type,
-                                    color: color
-                                }
-                            });
-                        });
-                        
-                        console.log(`成功处理 ${nodeIds.size} 个有效节点`);
-                        
-                        // 清空下拉列表并重新填充
-                        document.getElementById('from-entity').innerHTML = '<option value="">-- 选择源节点 --</option>';
-                        document.getElementById('to-entity').innerHTML = '<option value="">-- 选择目标节点 --</option>';
-                        
-                        // 更新下拉列表
-                        nodeIds.forEach(nodeId => {
-                            const node = data.nodes.find(n => n.id === nodeId);
-                            if (node) {
-                                const option = document.createElement('option');
-                                option.value = node.id;
-                                option.textContent = node.label;
-                                document.getElementById('from-entity').appendChild(option.cloneNode(true));
-                                document.getElementById('to-entity').appendChild(option.cloneNode(true));
-                            }
-                        });
-                        
-                        // 检查是否有边的端点不在节点列表中
-                        let validEdges = 0;
-                        let skippedEdges = 0;
-                        
-                        // 添加边
-                        data.edges.forEach((edge, index) => {
-                            console.log(`处理边 ${index+1}/${data.edges.length}:`, edge);
-                            
-                            if (!edge.source || !edge.target) {
-                                console.warn(`边缺少源或目标ID:`, edge);
-                                skippedEdges++;
-                                return; // 跳过此边
-                            }
-                            
-                            // 验证源节点和目标节点是否存在
-                            if (!nodeIds.has(edge.source)) {
-                                console.warn(`边的源节点不存在: ${edge.source}`);
-                                skippedEdges++;
-                                return; // 跳过此边
-                            }
-                            
-                            if (!nodeIds.has(edge.target)) {
-                                console.warn(`边的目标节点不存在: ${edge.target}`);
-                                skippedEdges++;
-                                return; // 跳过此边
-                            }
-                            
-                            // 构建边ID，确保唯一性
-                            const edgeId = `edge_${edge.source}_${edge.target}_${index}`;
-                            
-                            elements.push({
-                                group: 'edges',
-                                data: {
-                                    id: edgeId,
-                                    source: edge.source,
-                                    target: edge.target,
-                                    label: edge.label || edge.relation_type || '',
-                                    relation_type: edge.relation_type || 'Unknown',
-                                    structure: edge.structure || '',
-                                    detail: edge.detail || '',
-                                    evidence: edge.evidence || '',
-                                    confidence: edge.confidence || 0.5
-                                }
-                            });
-                            
-                            validEdges++;
-                        });
-                        
-                        console.log(`成功处理 ${validEdges} 条有效边，跳过了 ${skippedEdges} 条无效边`);
-                        
-                        // 加载元素
-                        cy.elements().remove();
-                        // 不要在这里调用 forceResizeCytoscape
-
-                        if (elements.length === 0) {
-                            console.error('没有有效元素可以添加到图中');
-                            document.getElementById('cy').innerHTML = '<div class="alert alert-warning m-3">处理后没有有效的图形元素。请检查数据格式。</div>';
-                            return;
-                        }
-                        
-                        console.log('开始向图中添加元素...');
-                        cy.add(elements);
-                        console.log('元素添加完成');
-                        
-                        // 应用布局
-                        console.log('开始应用布局...');
-                        const layout = cy.layout({
-                            name: 'cose',
-                            padding: 50,
-                            animate: true,
-                            animationDuration: 1000,
-                            animationEasing: 'ease-out',
-                            randomize: true,
-                            componentSpacing: 80
-                        });
-                        
-                        layout.one('layoutstop', function() {
-                            console.log('布局应用完成');
-                            
-                            // 适应视图
-                            console.log('调整视图大小...');
-                            cy.fit(undefined, 50);
-                            
-                            // 再次强制调整尺寸
-                            forceResizeCytoscape();
-                            
-                            console.log('视图调整完成');
-                            
-                            // 打印最终元素统计
-                            const finalNodes = cy.nodes().length;
-                            const finalEdges = cy.edges().length;
-                            console.log(`图形渲染完成: ${finalNodes} 个节点, ${finalEdges} 条边`);
-                            
-                            // 更新图形统计信息
-                            document.getElementById('graph-stats').textContent = `图形统计: ${finalNodes}个节点, ${finalEdges}条边`;
-                        });
-                        
-                        // 运行布局
-                        layout.run();
-                    })
-                    .catch(error => {
-                        console.error('刷新图数据失败:', error);
-                        alert('刷新数据失败: ' + error.message);
-                    })
-                    .finally(() => {
+                loadGraphData(taskId, true);
+                
+                // 刷新任务列表
+                loadTaskList();
+                
+                // 恢复按钮状态
+                setTimeout(() => {
                         btn.disabled = false;
                         btn.innerHTML = '刷新数据';
-                    });
+                }, 1000);
             });
         });
     </script>

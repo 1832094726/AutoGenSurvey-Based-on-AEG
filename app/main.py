@@ -596,3 +596,206 @@ def comparison_results(task_id):
         flash(f"加载比较结果页面时出错: {str(e)}", 'danger')
         return redirect(url_for('main.comparison'))
 
+@main.route('/api/graph/task/<task_id>')
+def get_graph_data_by_task(task_id):
+    """获取指定任务的图谱数据API接口，支持新的多关系边格式"""
+    try:
+        logging.info(f"请求任务 {task_id} 的图谱数据")
+        
+        # 从数据库获取与任务相关的实体和关系
+        entities = db_manager.get_entities_by_task(task_id)
+        relations = db_manager.get_relations_by_task(task_id)
+        
+        logging.info(f"从数据库获取的实体数量: {len(entities)}, 关系数量: {len(relations)}")
+        
+        # 构建图
+        graph = build_knowledge_graph(entities, relations)
+        
+        # 转换为前端所需的格式，支持多关系边
+        # 节点集合
+        nodes = []
+        node_map = {}
+        
+        # 处理实体
+        for entity in entities:
+            if "algorithm_entity" in entity:
+                entity_data = entity["algorithm_entity"]
+                node_type = "Algorithm"
+                entity_id = entity_data.get("algorithm_id") or entity_data.get("entity_id")
+                name = entity_data.get("name", "")
+            elif "dataset_entity" in entity:
+                entity_data = entity["dataset_entity"]
+                node_type = "Dataset"
+                entity_id = entity_data.get("dataset_id") or entity_data.get("entity_id")
+                name = entity_data.get("name", "")
+            elif "metric_entity" in entity:
+                entity_data = entity["metric_entity"]
+                node_type = "Metric"
+                entity_id = entity_data.get("metric_id") or entity_data.get("entity_id")
+                name = entity_data.get("name", "")
+            else:
+                continue
+                
+            # 避免重复节点
+            if entity_id in node_map:
+                continue
+                
+            node = {
+                "id": entity_id,
+                "label": name,
+                "type": node_type,
+                "data": entity_data
+            }
+            nodes.append(node)
+            node_map[entity_id] = node
+            
+        # 先收集关系中提到的所有实体ID
+        missing_entity_ids = set()
+        for relation in relations:
+            from_entity = relation.get("from_entity")
+            to_entity = relation.get("to_entity")
+            
+            if from_entity and from_entity not in node_map:
+                missing_entity_ids.add(from_entity)
+            if to_entity and to_entity not in node_map:
+                missing_entity_ids.add(to_entity)
+                
+        # 为缺失的节点创建占位符节点
+        for entity_id in missing_entity_ids:
+            logging.info(f"为关系创建占位符节点: {entity_id}")
+            node = {
+                "id": entity_id,
+                "label": entity_id,  # 使用ID作为标签
+                "type": "Unknown",   # 类型未知
+                "data": {"name": entity_id, "placeholder": True}
+            }
+            nodes.append(node)
+            node_map[entity_id] = node
+        
+        # 处理关系，支持多关系边
+        edges = []
+        edge_map = {}  # 用于跟踪已创建的边
+        
+        skipped_count = 0
+        for relation in relations:
+            from_entity = relation.get("from_entity")
+            to_entity = relation.get("to_entity")
+            relation_type = relation.get("relation_type", "Unknown")
+            
+            # 跳过缺少起点或终点的关系
+            if not from_entity or not to_entity:
+                skipped_count += 1
+                continue
+                
+            # 由于已经为所有缺失的节点创建了占位符，这个检查应该不会再跳过任何关系
+            if from_entity not in node_map or to_entity not in node_map:
+                logging.warning(f"关系节点仍然不存在: {from_entity} -> {to_entity}")
+                skipped_count += 1
+                continue
+            
+            # 构建唯一的边键
+            edge_key = f"{from_entity}_{to_entity}"
+            
+            # 如果边已存在，添加到已有边的关系列表中
+            if edge_key in edge_map:
+                edge = edge_map[edge_key]
+                relation_list = edge["data"]["relations"]
+                
+                # 添加新关系
+                relation_list.append({
+                    "type": relation_type,
+                    "structure": relation.get("structure", ""),
+                    "detail": relation.get("detail", ""),
+                    "problem_addressed": relation.get("problem_addressed", ""),
+                    "evidence": relation.get("evidence", ""),
+                    "confidence": relation.get("confidence", 0.5)
+                })
+                
+                # 更新边标签，包含所有关系类型
+                relation_types = set([rel["type"] for rel in relation_list])
+                edge["label"] = ", ".join(relation_types)
+                
+            else:
+                # 创建新边
+                edge = {
+                    "id": f"edge_{len(edges)}",
+                    "source": from_entity,
+                    "target": to_entity,
+                    "label": relation_type,
+                    "relation_type": relation_type,
+                    "data": {
+                        "relations": [{
+                            "type": relation_type,
+                            "structure": relation.get("structure", ""),
+                            "detail": relation.get("detail", ""),
+                            "problem_addressed": relation.get("problem_addressed", ""),
+                            "evidence": relation.get("evidence", ""),
+                            "confidence": relation.get("confidence", 0.5)
+                        }]
+                    }
+                }
+                edges.append(edge)
+                edge_map[edge_key] = edge
+        
+        if skipped_count > 0:
+            logging.warning(f"跳过了 {skipped_count} 条不完整的关系")
+            
+        graph_data = {
+            "nodes": nodes,
+            "edges": edges,
+            "task_id": task_id
+        }
+        
+        logging.info(f"返回图谱数据: 节点数 {len(nodes)}, 边数 {len(edges)}")
+        return jsonify(graph_data)
+        
+    except Exception as e:
+        logging.error(f"获取任务 {task_id} 的图谱数据时出错: {str(e)}")
+        import traceback
+        tb = traceback.format_exc()
+        logging.error(tb)
+        return jsonify({'nodes': [], 'edges': [], 'error': str(e), 'traceback': tb})
+
+@main.route('/api/tasks')
+def get_tasks():
+    """获取所有任务的列表"""
+    try:
+        # 使用比较历史获取任务列表
+        tasks = db_manager.get_comparison_history(limit=50)
+        return jsonify(tasks)
+    except Exception as e:
+        logging.error(f"获取任务列表时出错: {str(e)}")
+        import traceback
+        tb = traceback.format_exc()
+        logging.error(tb)
+        return jsonify({'error': str(e), 'traceback': tb})
+
+@main.route('/api/system/db-status', methods=['GET'])
+def check_db_status():
+    """检查数据库连接状态并尝试重新连接"""
+    try:
+        # 尝试重新连接数据库
+        reconnected = db_manager._reconnect_if_needed()
+        
+        # 执行简单查询测试连接
+        db_manager.cursor.execute("SELECT 1")
+        result = db_manager.cursor.fetchone()
+        
+        return jsonify({
+            'success': True,
+            'status': 'connected',
+            'reconnected': reconnected,
+            'test_query': result[0] == 1
+        })
+    except Exception as e:
+        logging.error(f"检查数据库状态时出错: {str(e)}")
+        import traceback
+        tb = traceback.format_exc()
+        logging.error(tb)
+        return jsonify({
+            'success': False,
+            'status': 'disconnected',
+            'error': str(e),
+            'traceback': tb
+        })
+

@@ -18,7 +18,7 @@ def calculate_entity_statistics(review_entities, citation_entities):
     Returns:
         dict: 实体统计指标
     """
-    # 初始化统计数据
+    logging.info(f"[calculate_entity_statistics] 输入综述实体数: {len(review_entities)}, 引文实体数: {len(citation_entities)}")
     stats = {
         'algorithm_count_review': 0,
         'dataset_count_review': 0,
@@ -40,6 +40,8 @@ def calculate_entity_statistics(review_entities, citation_entities):
         elif 'metric_entity' in entity:
             stats['metric_count_review'] += 1
     
+    logging.info(f"[calculate_entity_statistics] 综述实体类型统计: algorithm={stats['algorithm_count_review']}, dataset={stats['dataset_count_review']}, metric={stats['metric_count_review']}")
+    
     # 统计引用文献中的实体类型
     for entity in citation_entities:
         if 'algorithm_entity' in entity:
@@ -48,6 +50,8 @@ def calculate_entity_statistics(review_entities, citation_entities):
             stats['dataset_count_citations'] += 1
         elif 'metric_entity' in entity:
             stats['metric_count_citations'] += 1
+    
+    logging.info(f"[calculate_entity_statistics] 引文实体类型统计: algorithm={stats['algorithm_count_citations']}, dataset={stats['dataset_count_citations']}, metric={stats['metric_count_citations']}")
     
     # 提取实体ID，用于计算精确率和召回率
     review_entity_ids = set()
@@ -77,8 +81,13 @@ def calculate_entity_statistics(review_entities, citation_entities):
         if entity_id:
             citation_entity_ids.add(entity_id)
     
+    logging.info(f"[calculate_entity_statistics] 综述实体ID: {review_entity_ids}")
+    logging.info(f"[calculate_entity_statistics] 引文实体ID: {citation_entity_ids}")
+    
     # 计算实体精确率和召回率
     common_entities = review_entity_ids.intersection(citation_entity_ids)
+    
+    logging.info(f"[calculate_entity_statistics] 交集实体ID: {common_entities}")
     
     if review_entity_ids:
         stats['entity_recall'] = len(common_entities) / len(review_entity_ids)
@@ -89,6 +98,8 @@ def calculate_entity_statistics(review_entities, citation_entities):
     # 计算F1分数
     if stats['entity_precision'] + stats['entity_recall'] > 0:
         stats['f1_score'] = 2 * stats['entity_precision'] * stats['entity_recall'] / (stats['entity_precision'] + stats['entity_recall'])
+    
+    logging.info(f"[calculate_entity_statistics] 结果: {stats}")
     
     return stats
 
@@ -102,7 +113,7 @@ def calculate_relation_statistics(relations):
     Returns:
         dict: 关系统计指标
     """
-    # 初始化统计数据
+    logging.info(f"[calculate_relation_statistics] 输入关系数: {len(relations)}")
     stats = {
         'total_relations': len(relations),
         'relation_coverage': 0.0,
@@ -146,10 +157,15 @@ def calculate_relation_statistics(relations):
         else:
             stats['other_count'] += 1
     
+    logging.info(f"[calculate_relation_statistics] 关系类型统计: {stats['relation_types']}")
+    logging.info(f"[calculate_relation_statistics] 各类型计数: improve={stats['improve_count']}, optimize={stats['optimize_count']}, extend={stats['extend_count']}, replace={stats['replace_count']}, use={stats['use_count']}, other={stats['other_count']}")
+    
     # 计算关系覆盖率 (参与关系的实体 / 总实体数)
     # 这里需要所有实体的总数，暂时使用参与关系的实体数作为分母
     if entity_in_relations:
         stats['relation_coverage'] = len(entity_in_relations) / (len(entity_in_relations) * 1.2)  # 假设总体实体数比参与关系的实体多20%
+    
+    logging.info(f"[calculate_relation_statistics] 结果: {stats}")
     
     return stats
 
@@ -164,7 +180,7 @@ def calculate_clustering_metrics(entities, relations):
     Returns:
         dict: 聚类指标
     """
-    # 初始化聚类统计数据
+    logging.info(f"[calculate_clustering_metrics] 输入实体数: {len(entities)}, 关系数: {len(relations)}")
     stats = {
         'precision': 0.75,  # 示例值
         'recall': 0.82,     # 示例值
@@ -179,6 +195,8 @@ def calculate_clustering_metrics(entities, relations):
         if from_entity and to_entity:
             entity_relations[from_entity].add(to_entity)
     
+    logging.info(f"[calculate_clustering_metrics] 构建的实体关系图: {dict(entity_relations)}")
+    
     # 简单聚类实现（通过关系连接形成聚类）
     clustered = set()
     clusters = []
@@ -188,6 +206,8 @@ def calculate_clustering_metrics(entities, relations):
     for entity in entities:
         if 'algorithm_entity' in entity and 'algorithm_id' in entity['algorithm_entity']:
             algorithm_entities.append(entity['algorithm_entity']['algorithm_id'])
+    
+    logging.info(f"[calculate_clustering_metrics] 算法实体ID: {algorithm_entities}")
     
     # 对每个未聚类的实体，寻找其关联实体形成聚类
     for entity_id in algorithm_entities:
@@ -217,6 +237,8 @@ def calculate_clustering_metrics(entities, relations):
     
     stats['clusters'] = clusters
     
+    logging.info(f"[calculate_clustering_metrics] 聚类结果: {clusters}")
+    
     return stats
 
 def calculate_comparison_metrics(review_entities, citation_entities, relations):
@@ -231,11 +253,14 @@ def calculate_comparison_metrics(review_entities, citation_entities, relations):
     Returns:
         dict: 包含各种指标的字典
     """
+    logging.info(f"[calculate_comparison_metrics] 输入综述实体数: {len(review_entities)}, 引文实体数: {len(citation_entities)}, 关系数: {len(relations)}")
     metrics = {
         'entity_stats': calculate_entity_statistics(review_entities, citation_entities),
         'relation_stats': calculate_relation_statistics(relations),
         'clustering': calculate_clustering_metrics(review_entities + citation_entities, relations)
     }
+    
+    logging.info(f"[calculate_comparison_metrics] 结果: {json.dumps(metrics, ensure_ascii=False)}")
     
     return metrics
 
@@ -250,11 +275,16 @@ def get_entity_by_id(entities, entity_id):
     Returns:
         dict: 实体信息，未找到则返回None
     """
+    logging.info(f"[get_entity_by_id] 输入实体数: {len(entities)}, 查询ID: {entity_id}")
     for entity in entities:
         if 'algorithm_entity' in entity and entity['algorithm_entity'].get('algorithm_id') == entity_id:
+            logging.info(f"[get_entity_by_id] 命中算法实体: {entity['algorithm_entity']}")
             return entity['algorithm_entity']
         elif 'dataset_entity' in entity and entity['dataset_entity'].get('dataset_id') == entity_id:
+            logging.info(f"[get_entity_by_id] 命中数据集实体: {entity['dataset_entity']}")
             return entity['dataset_entity']
         elif 'metric_entity' in entity and entity['metric_entity'].get('metric_id') == entity_id:
+            logging.info(f"[get_entity_by_id] 命中指标实体: {entity['metric_entity']}")
             return entity['metric_entity']
+    logging.warning(f"[get_entity_by_id] 未找到ID={entity_id}的实体")
     return None 

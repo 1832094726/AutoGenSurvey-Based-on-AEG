@@ -1,0 +1,4 @@
+{
+        "training_strategy": ["监督学习", "最大似然估计"],
+        "parameter_tuning": ["λ参数调整"]
+      }

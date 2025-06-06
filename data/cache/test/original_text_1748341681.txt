@@ -1,0 +1,53 @@
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Duda1972_HoughTransformation",
+      "entity_type": "Algorithm",
+      "name": "Hough Transformation",
+      "title": "Use of the Hough Transformation To Detect Lines and Curves in Pictures",
+      "year": 1972,
+      "authors": ["Richard O. Duda", "Peter E. Hart"],
+      "task": "Line and Curve Detection in Images",
+      "dataset": [],
+      "metrics": [],
+      "architecture": {
+        "components": ["Point-Line Transformation", "Parameter Space Quantization", "Accumulator Array"],
+        "connections": ["Figure Points to Sinusoidal Curves", "Intersection Points to Colinear Points"],
+        "mechanisms": ["Angle-Radius Parameterization", "Normal Parameterization"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": ["Quantization of θ and p"]
+      },
+      "feature_processing": ["Intensity Changes Detection", "Binary Image Conversion"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "BoxImage_1972",
+      "entity_type": "Dataset",
+      "name": "Box Image",
+      "description": "Digitized image of a box used for demonstrating the Hough Transformation",
+      "domain": "Computer Vision",
+      "size": 120x120,
+      "year": 1972,
+      "creators": ["Richard O. Duda", "Peter E. Hart"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "CoincidentPointsDetection",
+      "entity_type": "Metric",
+      "name": "Coincident Points Detection",
+      "description": "Detection of colinear or nearly colinear figure points",
+      "category": "Line Detection",
+      "formula": "Number of points lying on parallel lines within quantization error"
+    }
+  }
+]
+```
+
+EXTRACTION_COMPLETE: true
+
+根据提供的文档内容，已提取所有可能的实体信息。文档主要描述了Hough变换算法及其应用，并未提及具体的数据集和评价指标，因此这些字段为空。如果需要进一步的信息或有其他文档需要处理，请告知。
