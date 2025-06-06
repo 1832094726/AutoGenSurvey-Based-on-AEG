@@ -83,24 +83,15 @@ class DatabaseManager:
                 use_pure=True,  # 使用纯Python实现，增加稳定性
                 connection_timeout=300,  # 增加连接超时时间到5分钟
                 autocommit=True,  # 使用自动提交避免事务问题
-                pool_reset_session=False,  # 禁用会话重置
-                pool_name=None,  # 不使用命名连接池
-                pool_size=1,  # 单连接
-                use_unicode=True,
-                ssl_disabled=True,  # 禁用SSL解决SSL错误
-                # 增加这些参数以防止连接超时断开
-                time_zone='+00:00',
-                sql_mode='TRADITIONAL'
+                pool_size=1,  # 最小连接池设置
+                pool_reset_session=True,  # 重置会话
+                get_warnings=True,
+                raise_on_warnings=False,  # 不对警告抛出异常
             )
             
             # 使用字典游标以保持一致性，设置buffered=True避免未读结果错误
             self.cursor = self.conn.cursor(dictionary=True, buffered=True)
             
-            # 设置会话超时时间很长，避免断开
-            self.cursor.execute("SET SESSION wait_timeout=604800")  # 7天
-            self.cursor.execute("SET SESSION interactive_timeout=604800")  # 7天
-            self.cursor.execute("SET SESSION net_read_timeout=3600")  # 1小时
-            self.cursor.execute("SET SESSION net_write_timeout=3600")  # 1小时
             
             logging.info("MySQL数据库连接成功，设置为长期保持连接")
             return True
@@ -342,7 +333,7 @@ class DatabaseManager:
                 self._connect_mysql()
                 logging.info("MySQL连接创建成功")
                 return True
-            
+                
             # 只检查连接是否已断开，不主动关闭和重建连接
             try:
                 if not self.conn.is_connected():
@@ -354,7 +345,7 @@ class DatabaseManager:
                 logging.warning(f"检查连接状态时出错: {str(conn_error)}，尝试重新连接")
                 self._connect_mysql()
                 return True
-            
+                
             # 不再执行ping操作，减少不必要的数据库交互
             
             # 验证连接可用性，但不执行查询，减少不必要的数据库操作
@@ -368,7 +359,7 @@ class DatabaseManager:
                 # 创建新游标
                 self.cursor = self.conn.cursor(dictionary=True, buffered=True)
                 logging.info("MySQL游标重新创建成功")
-            
+                
             return True
                 
         except Exception as e:
@@ -387,9 +378,9 @@ class DatabaseManager:
                 self.conn = None
                 self.cursor = None
                 return False
-            
+        
             return self.conn is not None and self.cursor is not None
-    
+        
     def __del__(self):
         """析构函数，关闭数据库连接"""
         # 安全地关闭游标和连接
@@ -700,7 +691,9 @@ class DatabaseManager:
         将单条实体演化关系存储到数据库
         
         Args:
-            relation (dict): 演化关系数据，格式为：{from_entity, to_entity, relation_type, ...}
+            relation (dict): 演化关系数据，支持两种格式：
+                1. 数据库格式：{from_entity, to_entity, relation_type, ...}
+                2. API格式：{from_entities, to_entities, relation_type, ...}
             task_id (str, optional): 关联的任务ID
             
         Returns:
@@ -715,13 +708,59 @@ class DatabaseManager:
             # 获取来源信息
             source = relation.get('source', '未知')
             
-            # 检查必要字段
+            # 检查是否是数据库格式（from_entity/to_entity）
             if "from_entity" in relation and "to_entity" in relation:
                 # 直接使用数据库格式
                 return self._store_relation_mysql(relation, task_id)
-            else:
-                logging.error(f"关系数据缺少必要字段 'from_entity' 或 'to_entity': {relation}")
+            # 检查是否是API格式（from_entities/to_entities数组）
+            # 验证必要字段
+            required_fields = ["from_entities", "to_entities", "relation_type"]
+            for field in required_fields:
+                if field not in relation:
+                    logging.error(f"关系数据缺少必要字段 '{field}': {relation}")
                 return False
+            # 验证from_entities和to_entities
+            if not isinstance(relation["from_entities"], list) or not isinstance(relation["to_entities"], list):
+                logging.error(f"from_entities或to_entities必须是列表: {relation}")
+                return False
+            if len(relation["from_entities"]) == 0 or len(relation["to_entities"]) == 0:
+                logging.error(f"from_entities或to_entities不能为空: {relation}")
+                return False
+            # 对每一组from_entity和to_entity创建关系
+            success_count = 0
+            relation_count = 0
+            for from_entity in relation["from_entities"]:
+                for to_entity in relation["to_entities"]:
+                    relation_count += 1
+                    # 验证实体数据
+                    if not isinstance(from_entity, dict) or not isinstance(to_entity, dict):
+                        logging.warning(f"实体数据格式错误: {from_entity} -> {to_entity}")
+                        continue
+                    if "entity_id" not in from_entity or "entity_id" not in to_entity:
+                        logging.warning(f"实体数据缺少entity_id字段: {from_entity} -> {to_entity}")
+                        continue
+                    from_entity_id = from_entity["entity_id"]
+                    to_entity_id = to_entity["entity_id"]
+                    from_entity_type = from_entity.get("entity_type", "Algorithm")
+                    to_entity_type = to_entity.get("entity_type", "Algorithm")
+                    # 创建关系记录
+                    relation_data = {
+                        "from_entity": from_entity_id,
+                        "to_entity": to_entity_id,
+                        "relation_type": relation.get("relation_type", "Improve"),
+                        "structure": relation.get("structure", ""),
+                        "detail": relation.get("detail", ""),
+                        "evidence": relation.get("evidence", ""),
+                        "confidence": relation.get("confidence", 0.0),
+                        "from_entity_type": from_entity_type,
+                        "to_entity_type": to_entity_type,
+                        "source": source  # 添加来源字段
+                    }
+                    # 调用数据库存储方法
+                    if self._store_relation_mysql(relation_data, task_id):
+                        success_count += 1
+            logging.info(f"成功存储 {success_count}/{relation_count} 条演化关系，任务ID: {task_id}")
+            return success_count > 0
         except Exception as e:
             logging.error(f"存储演化关系时出错: {str(e)}")
             import traceback
@@ -746,13 +785,10 @@ class DatabaseManager:
             relation_type = relation_data["relation_type"]
             structure = relation_data.get("structure", "")
             detail = relation_data.get("detail", "")
-            problem_addressed = relation_data.get("problem_addressed", "")
             evidence = relation_data.get("evidence", "")
             confidence = relation_data.get("confidence", 0.0)
             from_entity_type = relation_data.get("from_entity_type", "Algorithm")
             to_entity_type = relation_data.get("to_entity_type", "Algorithm")
-            from_entity_relation_type = relation_data.get("from_entity_relation_type", "")
-            to_entity_relation_type = relation_data.get("to_entity_relation_type", "")
             source = relation_data.get("source", "未知")  # 获取来源字段，默认为"未知"
             
             # 检查实体是否存在
@@ -776,16 +812,14 @@ class DatabaseManager:
                 # 关系已存在，执行更新
                 update_sql = """
                 UPDATE EvolutionRelations 
-                SET structure = %s, detail = %s, problem_addressed = %s, evidence = %s, confidence = %s,
-                    from_entity_type = %s, to_entity_type = %s, from_entity_relation_type = %s, 
-                    to_entity_relation_type = %s, task_id = %s, source = %s
+                SET structure = %s, detail = %s, evidence = %s, confidence = %s,
+                    from_entity_type = %s, to_entity_type = %s, task_id = %s, source = %s
                 WHERE from_entity = %s AND to_entity = %s AND relation_type = %s
                 """
                 self.cursor.execute(
                     update_sql, 
-                    (structure, detail, problem_addressed, evidence, confidence, 
-                     from_entity_type, to_entity_type, from_entity_relation_type, 
-                     to_entity_relation_type, task_id, source,
+                    (structure, detail, evidence, confidence, 
+                     from_entity_type, to_entity_type, task_id, source,
                      from_entity, to_entity, relation_type)
                 )
                 logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
@@ -794,17 +828,15 @@ class DatabaseManager:
                 insert_sql = """
                 INSERT INTO EvolutionRelations (
                     from_entity, to_entity, relation_type, 
-                    structure, detail, problem_addressed, evidence, confidence, 
-                    from_entity_type, to_entity_type, from_entity_relation_type, to_entity_relation_type,
-                    task_id, source
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    structure, detail, evidence, confidence, 
+                    from_entity_type, to_entity_type, task_id, source
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """
                 self.cursor.execute(
                     insert_sql, 
                     (from_entity, to_entity, relation_type, 
-                     structure, detail, problem_addressed, evidence, confidence,
-                     from_entity_type, to_entity_type, from_entity_relation_type, to_entity_relation_type,
-                     task_id, source)
+                     structure, detail, evidence, confidence,
+                     from_entity_type, to_entity_type, task_id, source)
                 )
                 logging.info(f"创建新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
             self.conn.commit()
@@ -836,7 +868,18 @@ class DatabaseManager:
             check_sql = f"SELECT COUNT(*) FROM {table_name} WHERE {id_column} = %s"
             self.cursor.execute(check_sql, (entity_id,))
             result = self.cursor.fetchone()
-            return result and result[0] > 0
+            
+            # 安全获取COUNT(*)值，同时支持字典和元组两种返回格式
+            if result:
+                if isinstance(result, dict):
+                    # 字典格式，通过键名访问
+                    count = result.get('COUNT(*)', 0)
+                else:
+                    # 元组格式，通过索引访问
+                    count = result[0] if len(result) > 0 else 0
+                
+                return count > 0
+            return False
         except Exception as e:
             logging.error(f"检查实体 {entity_id} 是否存在时出错: {str(e)}")
             return False
@@ -921,7 +964,7 @@ class DatabaseManager:
                     # 构建规范化的实体对象
                     algorithm_entity = {
                         'algorithm_id': entity_dict['algorithm_id'],
-                        'entity_id': entity_dict['algorithm_id'],  # 增加统一的entity_id字段
+                        'entity_id': entity_dict['algorithm_id'],
                         'name': entity_dict['name'],
                         'title': entity_dict.get('title', ''),
                         'year': entity_dict.get('year', ''),
@@ -1701,15 +1744,21 @@ class DatabaseManager:
                 rows = self.cursor.fetchall()
                 
                 relations = []
-                column_names = [description[0] for description in self.cursor.description]
                 
                 for row in rows:
-                    relation = {}
-                    for i, col in enumerate(column_names):
-                        relation[col] = row[i]
-                        if col == 'confidence' and relation[col] is not None:
-                            relation[col] = float(relation[col])
-                    
+                    relation = {
+                        'relation_id': row['relation_id'],
+                        'from_entity': row['from_entity'],
+                        'to_entity': row['to_entity'],
+                        'relation_type': row['relation_type'],
+                        'structure': row.get('structure', ''),
+                        'detail': row.get('detail', ''),
+                        'evidence': row.get('evidence', ''),
+                        'confidence': float(row['confidence']) if row['confidence'] is not None else 0.0,
+                        'from_entity_type': row.get('from_entity_type', 'Algorithm'),
+                        'to_entity_type': row.get('to_entity_type', 'Algorithm'),
+                        'source': row.get('source', '未知')
+                    }
                     relations.append(relation)
                 
                 logging.info(f"实体 {entity_id} 有 {len(relations)} 个演化关系")
@@ -1873,7 +1922,7 @@ class DatabaseManager:
         """
         try:
             # 从实体中提取相关字段
-            algorithm_id = entity.get('entity_id', '') or entity.get('algorithm_id', '')
+            algorithm_id = entity.get('algorithm_id', '')
             name = entity.get('name', '')
             title = entity.get('title', '')
             year = str(entity.get('year', ''))
@@ -1881,32 +1930,31 @@ class DatabaseManager:
             # 获取来源信息，默认为"未知"
             source = entity.get('source', '未知')
             
-            # 处理列表类字段，确保是JSON字符串
-            authors = entity.get('authors', [])
-            if not isinstance(authors, list):
-                authors = [authors] if authors else []
-            authors = json.dumps(authors, ensure_ascii=False)
+            # 处理authors字段，确保是JSON字符串
+            authors_value = entity.get('authors', [])
+            if not isinstance(authors_value, list):
+                authors_value = [authors_value] if authors_value else []
+            authors = json.dumps(authors_value, ensure_ascii=False)
             
-            # 处理task字段，可能是字符串或列表
-            task_value = entity.get('task', entity.get('tasks', ''))
-            if isinstance(task_value, list):
-                task = ", ".join(str(t) for t in task_value)
-            else:
-                task = str(task_value)
+            # 处理task字段，确保是JSON字符串
+            task_value = entity.get('task', [])
+            if not isinstance(task_value, list):
+                task_value = [task_value] if task_value else []
+            task = json.dumps(task_value, ensure_ascii=False)
             
-            # 处理dataset字段，兼容dataset和datasets两种命名
-            dataset_value = entity.get('dataset', entity.get('datasets', []))
+            # 处理dataset字段，确保是JSON字符串
+            dataset_value = entity.get('dataset', [])
             if not isinstance(dataset_value, list):
                 dataset_value = [dataset_value] if dataset_value else []
             dataset = json.dumps(dataset_value, ensure_ascii=False)
             
-            # 处理metrics字段，兼容metric和metrics两种命名
-            metrics_value = entity.get('metrics', entity.get('metric', []))
+            # 处理metrics字段，确保是JSON字符串
+            metrics_value = entity.get('metrics', [])
             if not isinstance(metrics_value, list):
                 metrics_value = [metrics_value] if metrics_value else []
             metrics = json.dumps(metrics_value, ensure_ascii=False)
             
-            # 提取架构信息
+            # 处理architecture相关字段
             architecture = entity.get('architecture', {})
             if not isinstance(architecture, dict):
                 architecture = {}
@@ -1929,7 +1977,7 @@ class DatabaseManager:
                 mechanisms = [mechanisms] if mechanisms else []
             arch_mechanisms = json.dumps(mechanisms, ensure_ascii=False)
                 
-            # 提取方法学信息
+            # 处理methodology相关字段
             methodology = entity.get('methodology', {})
             if not isinstance(methodology, dict):
                 methodology = {}
@@ -1954,7 +2002,21 @@ class DatabaseManager:
             
             # 检查是否已存在
             self.cursor.execute('SELECT COUNT(*) FROM Algorithms WHERE algorithm_id = %s', (algorithm_id,))
-            if self.cursor.fetchone()[0] > 0:
+            result = self.cursor.fetchone()
+            exists = False
+            
+            # 安全地获取COUNT(*)的值，同时支持字典和元组两种访问方式
+            if result:
+                if isinstance(result, dict):
+                    # 字典形式访问，使用列名
+                    count = result.get('COUNT(*)', 0)
+                else:
+                    # 元组形式访问，使用索引
+                    count = result[0] if len(result) > 0 else 0
+                
+                exists = count > 0
+            
+            if exists:
                 # 更新现有记录
                 sql = '''
                     UPDATE Algorithms SET
@@ -2052,7 +2114,21 @@ class DatabaseManager:
             
             # 检查是否已存在
             self.cursor.execute('SELECT COUNT(*) FROM Datasets WHERE dataset_id = %s', (dataset_id,))
-            if self.cursor.fetchone()[0] > 0:
+            result = self.cursor.fetchone()
+            exists = False
+            
+            # 安全地获取COUNT(*)的值
+            if result:
+                if isinstance(result, dict):
+                    # 字典形式访问，使用列名
+                    count = result.get('COUNT(*)', 0)
+                else:
+                    # 元组形式访问，使用索引
+                    count = result[0] if len(result) > 0 else 0
+                
+                exists = count > 0
+            
+            if exists:
                 # 更新现有记录
                 sql = '''
                     UPDATE Datasets SET
@@ -2121,7 +2197,21 @@ class DatabaseManager:
             
             # 检查是否已存在
             self.cursor.execute('SELECT COUNT(*) FROM Metrics WHERE metric_id = %s', (metric_id,))
-            if self.cursor.fetchone()[0] > 0:
+            result = self.cursor.fetchone()
+            exists = False
+            
+            # 安全地获取COUNT(*)的值
+            if result:
+                if isinstance(result, dict):
+                    # 字典形式访问，使用列名
+                    count = result.get('COUNT(*)', 0)
+                else:
+                    # 元组形式访问，使用索引
+                    count = result[0] if len(result) > 0 else 0
+                
+                exists = count > 0
+            
+            if exists:
                 # 更新现有记录
                 sql = '''
                 UPDATE Metrics SET
@@ -2336,57 +2426,76 @@ class DatabaseManager:
                 
                 all_entities = []
                 
-                # 不再根据任务ID后缀判断来源，直接使用数据库的source字段
-                
                 # 查询算法实体
                 self.cursor.execute("SELECT * FROM Algorithms WHERE task_id = %s", (task_id,))
                 algorithm_rows = self.cursor.fetchall()
-                algorithm_columns = [desc[0] for desc in self.cursor.description]
                 
                 # 处理算法实体
                 for row in algorithm_rows:
-                    entity_dict = dict(zip(algorithm_columns, row))
                     # 处理JSON字段
-                    for field in ['authors', 'dataset', 'metrics', 'architecture_components', 
-                                'architecture_connections', 'architecture_mechanisms',
-                                'methodology_training_strategy', 'methodology_parameter_tuning', 
-                                'feature_processing']:
-                        if entity_dict.get(field) and isinstance(entity_dict[field], str):
-                            try:
-                                entity_dict[field] = json.loads(entity_dict[field])
-                            except json.JSONDecodeError:
-                                # 如果不是有效的JSON，尝试按逗号分隔
-                                if ',' in entity_dict[field]:
-                                    entity_dict[field] = [item.strip() for item in entity_dict[field].split(',')]
-                                else:
-                                    entity_dict[field] = [entity_dict[field]]
+                    try:
+                        authors = json.loads(row['authors']) if row['authors'] else []
+                    except:
+                        authors = []
+                    try:
+                        dataset = json.loads(row['dataset']) if row['dataset'] else []
+                    except:
+                        dataset = []
+                    try:
+                        metrics = json.loads(row['metrics']) if row['metrics'] else []
+                    except:
+                        metrics = []
+                    try:
+                        arch_components = json.loads(row['architecture_components']) if row['architecture_components'] else []
+                    except:
+                        arch_components = []
+                    try:
+                        arch_connections = json.loads(row['architecture_connections']) if row['architecture_connections'] else []
+                    except:
+                        arch_connections = []
+                    try:
+                        arch_mechanisms = json.loads(row['architecture_mechanisms']) if row['architecture_mechanisms'] else []
+                    except:
+                        arch_mechanisms = []
+                    try:
+                        meth_training = json.loads(row['methodology_training_strategy']) if row['methodology_training_strategy'] else []
+                    except:
+                        meth_training = []
+                    try:
+                        meth_params = json.loads(row['methodology_parameter_tuning']) if row['methodology_parameter_tuning'] else []
+                    except:
+                        meth_params = []
+                    try:
+                        feature_processing = json.loads(row['feature_processing']) if row['feature_processing'] else []
+                    except:
+                        feature_processing = []
                     
                     # 获取来源或使用默认值
-                    source = entity_dict.get('source', '未知')
+                    source = row.get('source', '未知')
                     
                     # 构建规范化的实体对象
                     algorithm_entity = {
-                        'algorithm_id': entity_dict['algorithm_id'],
-                        'entity_id': entity_dict['algorithm_id'],
-                        'name': entity_dict['name'],
-                        'title': entity_dict.get('title', ''),
-                        'year': entity_dict.get('year', ''),
-                        'authors': entity_dict.get('authors', []),
-                        'task': entity_dict.get('task', ''),
-                        'dataset': entity_dict.get('dataset', []),
-                        'metrics': entity_dict.get('metrics', []),
+                        'algorithm_id': row['algorithm_id'],
+                        'entity_id': row['algorithm_id'],
+                        'name': row['name'],
+                        'title': row.get('title', ''),
+                        'year': row.get('year', ''),
+                        'authors': authors,
+                        'task': row.get('task', ''),
+                        'dataset': dataset,
+                        'metrics': metrics,
                         'architecture': {
-                            'components': entity_dict.get('architecture_components', []),
-                            'connections': entity_dict.get('architecture_connections', []),
-                            'mechanisms': entity_dict.get('architecture_mechanisms', [])
+                            'components': arch_components,
+                            'connections': arch_connections,
+                            'mechanisms': arch_mechanisms
                         },
                         'methodology': {
-                            'training_strategy': entity_dict.get('methodology_training_strategy', []),
-                            'parameter_tuning': entity_dict.get('methodology_parameter_tuning', [])
+                            'training_strategy': meth_training,
+                            'parameter_tuning': meth_params
                         },
-                        'feature_processing': entity_dict.get('feature_processing', []),
+                        'feature_processing': feature_processing,
                         'entity_type': 'Algorithm',
-                        'task_id': entity_dict.get('task_id', task_id),
+                        'task_id': row.get('task_id', task_id),
                         'source': source
                     }
                     all_entities.append({'algorithm_entity': algorithm_entity})
@@ -2394,46 +2503,50 @@ class DatabaseManager:
                 # 查询数据集实体
                 self.cursor.execute("SELECT * FROM Datasets WHERE task_id = %s", (task_id,))
                 dataset_rows = self.cursor.fetchall()
-                dataset_columns = [desc[0] for desc in self.cursor.description]
                 
                 # 处理数据集实体
                 for row in dataset_rows:
-                    entity_dict = dict(zip(dataset_columns, row))
                     # 处理JSON字段
-                    if 'creators' in entity_dict and isinstance(entity_dict['creators'], str):
-                        try:
-                            entity_dict['creators'] = json.loads(entity_dict['creators'])
-                        except json.JSONDecodeError:
-                            # 如果不是有效的JSON，尝试按逗号分隔
-                            if ',' in entity_dict['creators']:
-                                entity_dict['creators'] = [item.strip() for item in entity_dict['creators'].split(',')]
-                            else:
-                                entity_dict['creators'] = [entity_dict['creators']]
+                    try:
+                        creators = json.loads(row['creators']) if row['creators'] else []
+                    except:
+                        creators = []
                     
-                    # 获取来源或使用默认值
-                    source = entity_dict.get('source', '未知')
-                    
-                    # 确保entity_id字段存在
-                    entity_dict['entity_id'] = entity_dict['dataset_id']
-                    entity_dict['source'] = source
-                    all_entities.append({'dataset_entity': entity_dict})
+                    # 构建规范化的数据集实体
+                    dataset_entity = {
+                        'dataset_id': row['dataset_id'],
+                        'entity_id': row['dataset_id'],
+                        'name': row['name'],
+                        'description': row.get('description', ''),
+                        'domain': row.get('domain', ''),
+                        'size': row.get('size', 0),
+                        'year': row.get('year', ''),
+                        'creators': creators,
+                        'entity_type': 'Dataset',
+                        'task_id': row.get('task_id', task_id),
+                        'source': row.get('source', '未知')
+                    }
+                    all_entities.append({'dataset_entity': dataset_entity})
                 
                 # 查询评价指标实体
                 self.cursor.execute("SELECT * FROM Metrics WHERE task_id = %s", (task_id,))
                 metric_rows = self.cursor.fetchall()
-                metric_columns = [desc[0] for desc in self.cursor.description]
                 
                 # 处理评价指标实体
                 for row in metric_rows:
-                    entity_dict = dict(zip(metric_columns, row))
-                    
-                    # 获取来源或使用默认值
-                    source = entity_dict.get('source', '未知')
-                    
-                    # 确保entity_id字段存在
-                    entity_dict['entity_id'] = entity_dict['metric_id']
-                    entity_dict['source'] = source
-                    all_entities.append({'metric_entity': entity_dict})
+                    # 构建规范化的指标实体
+                    metric_entity = {
+                        'metric_id': row['metric_id'],
+                        'entity_id': row['metric_id'],
+                        'name': row['name'],
+                        'description': row.get('description', ''),
+                        'category': row.get('category', ''),
+                        'formula': row.get('formula', ''),
+                        'entity_type': 'Metric',
+                        'task_id': row.get('task_id', task_id),
+                        'source': row.get('source', '未知')
+                    }
+                    all_entities.append({'metric_entity': metric_entity})
                 
                 # 如果没有找到任何实体，记录警告
                 if not all_entities and retry_count == 0:
@@ -2518,8 +2631,6 @@ class DatabaseManager:
                     logging.error(f"查询任务状态时出错: {str(e)}")
                     # 任务查询出错，但继续尝试查询关系
                 
-                # 不再根据任务ID后缀判断来源，直接使用数据库的source字段
-                
                 # 查询与任务ID相关联的关系
                 relations_sql = """
                 SELECT relation_id, from_entity, to_entity, relation_type, structure, 
@@ -2539,21 +2650,23 @@ class DatabaseManager:
                 if retry_count == max_retries - 1 and not rows:
                     logging.warning(f"经过 {max_retries} 次尝试，仍未找到与任务 {task_id} 关联的关系")
                     return []
-                    
-                # 获取列名
-                column_names = [desc[0] for desc in self.cursor.description]
                 
                 # 处理查询结果
                 for row in rows:
-                    relation = {}
-                    # 修复：不再使用索引访问row，直接通过字段名访问
-                    for name in column_names:
-                        relation[name] = row[name]
-                    
-                    # 确保source字段存在
-                    if 'source' not in relation or not relation['source']:
-                        relation['source'] = '未知'
-                    
+                    relation = {
+                        'relation_id': row['relation_id'],
+                        'from_entity': row['from_entity'],
+                        'to_entity': row['to_entity'],
+                        'relation_type': row['relation_type'],
+                        'structure': row.get('structure', ''),
+                        'detail': row.get('detail', ''),
+                        'evidence': row.get('evidence', ''),
+                        'confidence': float(row['confidence']) if row['confidence'] is not None else 0.0,
+                        'from_entity_type': row.get('from_entity_type', 'Algorithm'),
+                        'to_entity_type': row.get('to_entity_type', 'Algorithm'),
+                        'task_id': row.get('task_id', task_id),
+                        'source': row.get('source', '未知')
+                    }
                     relations.append(relation)
                 
                 if relations:
@@ -2731,23 +2844,26 @@ class DatabaseManager:
                     logging.warning(f"未找到关系: {relation_id}")
                     return None
                 
-                # 获取列名
-                column_names = [desc[0] for desc in self.cursor.description]
-                
                 # 构建关系字典
-                relation = {}
+                relation = {
+                    'relation_id': row['relation_id'],
+                    'from_entity': row['from_entity'],
+                    'to_entity': row['to_entity'],
+                    'relation_type': row['relation_type'],
+                    'structure': row.get('structure', ''),
+                    'detail': row.get('detail', ''),
+                    'evidence': row.get('evidence', ''),
+                    'confidence': float(row['confidence']) if row['confidence'] is not None else 0.0,
+                    'from_entity_type': row.get('from_entity_type', 'Algorithm'),
+                    'to_entity_type': row.get('to_entity_type', 'Algorithm'),
+                    'source': row.get('source', '未知')
+                }
                 
-                # 直接通过字典键访问row
-                for name in column_names:
                     # 处理日期时间类型
-                    if isinstance(row[name], (datetime.datetime, datetime.date)):
-                        relation[name] = row[name].strftime('%Y-%m-%d %H:%M:%S')
-                    # 处理confidence浮点值
-                    elif name == 'confidence' and row[name] is not None:
-                        relation[name] = float(row[name])
-                    # 其他字段
-                    else:
-                        relation[name] = row[name]
+                if 'created_at' in row and row['created_at']:
+                    relation['created_at'] = row['created_at'].strftime('%Y-%m-%d %H:%M:%S')
+                if 'updated_at' in row and row['updated_at']:
+                    relation['updated_at'] = row['updated_at'].strftime('%Y-%m-%d %H:%M:%S')
                 
                 # 补充关系信息
                 try:

@@ -659,8 +659,8 @@ def get_task_status_from_db(conn, task_id):
     # 首先检查ProcessingStatus表
     query = """
     SELECT task_id, status, current_stage, progress, message, start_time, current_file
-    FROM ProcessingStatus
-    WHERE task_id = %s
+        FROM ProcessingStatus
+        WHERE task_id = %s
     ORDER BY start_time DESC
     LIMIT 1
     """
@@ -768,144 +768,13 @@ def get_graph_data_by_task(task_id):
         logging.info(f"从数据库获取的实体数量: {len(entities)}, 关系数量: {len(relations)}")
         
         # 构建图
-        graph = build_knowledge_graph(entities, relations)
+        graph_data = build_knowledge_graph(entities, relations, task_id)
         
-        # 转换为前端所需的格式，支持多关系边
-        # 节点集合
-        nodes = []
-        node_map = {}
+        # 在返回前移除networkx_graph字段，因为它不可JSON序列化
+        if 'networkx_graph' in graph_data:
+            del graph_data['networkx_graph']
         
-        # 处理实体
-        for entity in entities:
-            if "algorithm_entity" in entity:
-                entity_data = entity["algorithm_entity"]
-                node_type = "Algorithm"
-                entity_id = entity_data.get("algorithm_id") or entity_data.get("entity_id")
-                name = entity_data.get("name", "")
-            elif "dataset_entity" in entity:
-                entity_data = entity["dataset_entity"]
-                node_type = "Dataset"
-                entity_id = entity_data.get("dataset_id") or entity_data.get("entity_id")
-                name = entity_data.get("name", "")
-            elif "metric_entity" in entity:
-                entity_data = entity["metric_entity"]
-                node_type = "Metric"
-                entity_id = entity_data.get("metric_id") or entity_data.get("entity_id")
-                name = entity_data.get("name", "")
-            else:
-                continue
-                
-            # 避免重复节点
-            if entity_id in node_map:
-                continue
-                
-            node = {
-                "id": entity_id,
-                "label": name,
-                "type": node_type,
-                "data": entity_data
-            }
-            nodes.append(node)
-            node_map[entity_id] = node
-            
-        # 先收集关系中提到的所有实体ID
-        missing_entity_ids = set()
-        for relation in relations:
-            from_entity = relation.get("from_entity")
-            to_entity = relation.get("to_entity")
-            
-            if from_entity and from_entity not in node_map:
-                missing_entity_ids.add(from_entity)
-            if to_entity and to_entity not in node_map:
-                missing_entity_ids.add(to_entity)
-                
-        # 为缺失的节点创建占位符节点
-        for entity_id in missing_entity_ids:
-            logging.info(f"为关系创建占位符节点: {entity_id}")
-            node = {
-                "id": entity_id,
-                "label": entity_id,  # 使用ID作为标签
-                "type": "Unknown",   # 类型未知
-                "data": {"name": entity_id, "placeholder": True}
-            }
-            nodes.append(node)
-            node_map[entity_id] = node
-        
-        # 处理关系，支持多关系边
-        edges = []
-        edge_map = {}  # 用于跟踪已创建的边
-        
-        skipped_count = 0
-        for relation in relations:
-            from_entity = relation.get("from_entity")
-            to_entity = relation.get("to_entity")
-            relation_type = relation.get("relation_type", "Unknown")
-            
-            # 跳过缺少起点或终点的关系
-            if not from_entity or not to_entity:
-                skipped_count += 1
-                continue
-                
-            # 由于已经为所有缺失的节点创建了占位符，这个检查应该不会再跳过任何关系
-            if from_entity not in node_map or to_entity not in node_map:
-                logging.warning(f"关系节点仍然不存在: {from_entity} -> {to_entity}")
-                skipped_count += 1
-                continue
-            
-            # 构建唯一的边键
-            edge_key = f"{from_entity}_{to_entity}"
-            
-            # 如果边已存在，添加到已有边的关系列表中
-            if edge_key in edge_map:
-                edge = edge_map[edge_key]
-                relation_list = edge["data"]["relations"]
-                
-                # 添加新关系
-                relation_list.append({
-                    "type": relation_type,
-                    "structure": relation.get("structure", ""),
-                    "detail": relation.get("detail", ""),
-                    "problem_addressed": relation.get("problem_addressed", ""),
-                    "evidence": relation.get("evidence", ""),
-                    "confidence": relation.get("confidence", 0.5)
-                })
-                
-                # 更新边标签，包含所有关系类型
-                relation_types = set([rel["type"] for rel in relation_list])
-                edge["label"] = ", ".join(relation_types)
-                
-            else:
-                # 创建新边
-                edge = {
-                    "id": f"edge_{len(edges)}",
-                    "source": from_entity,
-                    "target": to_entity,
-                    "label": relation_type,
-                    "relation_type": relation_type,
-                    "data": {
-                        "relations": [{
-                            "type": relation_type,
-                            "structure": relation.get("structure", ""),
-                            "detail": relation.get("detail", ""),
-                            "problem_addressed": relation.get("problem_addressed", ""),
-                            "evidence": relation.get("evidence", ""),
-                            "confidence": relation.get("confidence", 0.5)
-                        }]
-                    }
-                }
-                edges.append(edge)
-                edge_map[edge_key] = edge
-        
-        if skipped_count > 0:
-            logging.warning(f"跳过了 {skipped_count} 条不完整的关系")
-            
-        graph_data = {
-            "nodes": nodes,
-            "edges": edges,
-            "task_id": task_id
-        }
-        
-        logging.info(f"返回图谱数据: 节点数 {len(nodes)}, 边数 {len(edges)}")
+        logging.info(f"返回图谱数据: 节点数 {len(graph_data['nodes'])}, 边数 {len(graph_data['edges'])}")
         return jsonify(graph_data)
         
     except Exception as e:
@@ -938,7 +807,7 @@ def get_tasks():
         
         try:
             tasks = db_manager.get_comparison_history(limit=50)
-            
+        
             end_time = datetime.datetime.now()
             duration = (end_time - start_time).total_seconds()
             

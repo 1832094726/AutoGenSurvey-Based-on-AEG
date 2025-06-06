@@ -1,0 +1,4 @@
+{
+        "training_strategy": ["Knowledge Harvesting"],
+        "parameter_tuning": ["Rule-Based Reasoning"]
+      }

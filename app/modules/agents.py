@@ -766,34 +766,34 @@ def extract_paper_entities(pdf_paths, max_attempts=5, batch_size=1, model_name="
             logging.error(f"读取缓存文件出错: {str(e)}")
     
     # 如果没有缓存或读取缓存失败，执行提取
-        all_entities = []
-        is_complete = True
-        
+    all_entities = []
+    is_complete = True
+    
     # 统一分批处理，无论batch_size为多少
-        for i in range(0, len(valid_paths), batch_size):
-            batch_paths = valid_paths[i:i+batch_size]
-            logging.info(f"处理批次 {i//batch_size + 1}/{(len(valid_paths) + batch_size - 1)//batch_size}，包含 {len(batch_paths)} 个PDF文件")
-            batch_entities, batch_complete = extract_entities_with_model(
-                batch_paths, 
-                model_name=model_name,
-                max_attempts=max_attempts,
-                previous_entities=all_entities if all_entities else None
-            )
-            # 合并实体（去重）
-            if all_entities:
-                entity_ids = {_get_entity_id(e): e for e in all_entities if _get_entity_id(e)}
-                for entity in batch_entities:
-                    entity_id = _get_entity_id(entity)
-                    if entity_id and entity_id not in entity_ids:
-                        all_entities.append(entity)
-                        entity_ids[entity_id] = entity
-            else:
-                all_entities = batch_entities
-            # 如果任何批次未完成，则标记整体为未完成
-            if not batch_complete:
-                is_complete = False
-                logging.warning(f"批次 {i//batch_size + 1} 实体提取未完成")
-            logging.info(f"当前已提取 {len(all_entities)} 个唯一实体")
+    for i in range(0, len(valid_paths), batch_size):
+        batch_paths = valid_paths[i:i+batch_size]
+        logging.info(f"处理批次 {i//batch_size + 1}/{(len(valid_paths) + batch_size - 1)//batch_size}，包含 {len(batch_paths)} 个PDF文件")
+        batch_entities, batch_complete = extract_entities_with_model(
+            batch_paths, 
+            model_name=model_name,
+            max_attempts=max_attempts,
+            previous_entities=all_entities if all_entities else None
+        )
+        # 合并实体（去重）
+        if all_entities:
+            entity_ids = {_get_entity_id(e): e for e in all_entities if _get_entity_id(e)}
+            for entity in batch_entities:
+                entity_id = _get_entity_id(entity)
+                if entity_id and entity_id not in entity_ids:
+                    all_entities.append(entity)
+                    entity_ids[entity_id] = entity
+        else:
+            all_entities = batch_entities
+        # 如果任何批次未完成，则标记整体为未完成
+        if not batch_complete:
+            is_complete = False
+            logging.warning(f"批次 {i//batch_size + 1} 实体提取未完成")
+        logging.info(f"当前已提取 {len(all_entities)} 个唯一实体")
     
     # 缓存结果
     try:
@@ -913,7 +913,7 @@ def _get_entity_id(entity):
         return entity["metric_entity"].get("metric_id")
     return None
 
-def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous_relations=None, max_attempts=5, batch_size=1):
+def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous_relations=None, max_attempts=5, batch_size=100):
     """
     从实体列表和PDF文件中提取演化关系，支持多个PDF文件和file-id方式，支持批量处理
     
@@ -1020,6 +1020,8 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
     all_relations = [] if not previous_relations else previous_relations.copy()
     current_attempt = 0
     is_extraction_complete = False
+    initial_relation_count = len(all_relations)
+    consecutive_no_new_relation = 0  # 跟踪连续未找到新关系的次数
 
     # 准备file-id列表
     file_ids = []
@@ -1065,8 +1067,11 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         current_attempt += 1
         logging.info(f"关系提取尝试 {current_attempt}/{max_attempts}")
         
+        # 获取当前关系数量
+        current_relation_count = len(all_relations)
+        
         # 生成关系提取提示
-        system_message, base_user_message = generate_evolution_relation_prompt(all_relations)
+        system_message, user_message = generate_evolution_relation_prompt(all_relations)
         
         # 调用API进行关系提取
         try:
@@ -1086,7 +1091,7 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
             messages.append({"role": "system", "content": file_content})
             
             # 添加用户提示
-            messages.append({"role": "user", "content": base_user_message})
+            messages.append({"role": "user", "content": user_message})
             
             # 调用API
             logging.info(f"调用千问API提取关系，包含 {len(file_ids) if file_ids else 0} 个PDF文件和 1 个JSON内容的TXT文件(ID: {entities_file_id})，共 {len(all_file_ids)} 个文件")
@@ -1113,7 +1118,6 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
             
             # 检查是否包含完成标志
             is_complete = check_extraction_complete(content)
-            is_extraction_complete = is_complete
             
             # 提取JSON部分
             json_text = extract_json_from_text(content)
@@ -1168,8 +1172,10 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
                     # 清理后加入有效关系
                     valid_relations.append(relation)
                 
-                # 添加到全部关系中
+                # 添加到全部关系中，并追踪新增的关系
+                new_relations_added = 0
                 if valid_relations:
+                    # 创建已有关系ID集合
                     existing_ids = {f"{rel.get('from_entity')}_{rel.get('to_entity')}_{rel.get('relation_type')}" 
                                    for rel in all_relations if rel}
                     
@@ -1178,10 +1184,28 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
                         if rel_id not in existing_ids:
                             all_relations.append(rel)
                             existing_ids.add(rel_id)
+                            new_relations_added += 1
                     
-                    logging.info(f"已将 {len(valid_relations)} 个有效关系添加到结果中，当前总关系数: {len(all_relations)}")
+                    logging.info(f"已将 {new_relations_added} 个新关系添加到结果中，当前总关系数: {len(all_relations)}")
+                
+                # 判断是否需要继续提取
+                if new_relations_added == 0:
+                    consecutive_no_new_relation += 1
+                    logging.warning(f"连续 {consecutive_no_new_relation} 次未提取到新关系")
+                else:
+                    consecutive_no_new_relation = 0
+                
+                # 如果连续两次没有提取到新关系，或者显式标记为完成，则结束提取
+                if consecutive_no_new_relation >= 2 or is_complete:
+                    is_extraction_complete = True
+                    logging.info(f"{'模型明确标记提取完成' if is_complete else '连续多次未提取到新关系'}，结束提取")
+                    break
             else:
                 logging.warning("未能从API响应中提取JSON内容")
+                # 如果是最后一次尝试，记录为提取未完成
+                if current_attempt >= max_attempts:
+                    logging.warning("达到最大尝试次数，但未能提取到有效关系")
+                    is_extraction_complete = False
         
         except Exception as e:
             logging.error(f"调用API提取关系时出错: {str(e)}")
@@ -1191,7 +1215,14 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
             if current_attempt >= max_attempts:
                 is_extraction_complete = False
     
+    # 最终检查是否有新增关系
+    if len(all_relations) > initial_relation_count:
+        logging.info(f"总共提取了 {len(all_relations) - initial_relation_count} 个新关系，总计 {len(all_relations)} 个关系")
+    else:
+        logging.warning("未能提取到任何新关系")
+        
     return all_relations, is_extraction_complete
+
 def generate_evolution_relation_prompt(previous_relations=None, entities=None, is_complete=None):
     """
     生成提取演化关系的提示词
@@ -1202,8 +1233,12 @@ def generate_evolution_relation_prompt(previous_relations=None, entities=None, i
         is_complete (bool, optional): 是否完成所有关系提取，默认为None。
         
     Returns:
-        str: 提取演化关系的提示词
+        tuple: (系统消息, 用户消息)
     """
+    # 系统消息
+    system_message = "你是一个专注于从学术论文和实体列表中提取演化关系的AI助手，能够理解算法之间的改进、扩展、替换等关系，以及算法与数据集、评价指标之间的关系。"
+    
+    # 用户消息
     user_message = generate_relation_extraction_prompt_base()
     
     # 添加特征信息
@@ -1212,14 +1247,36 @@ def generate_evolution_relation_prompt(previous_relations=None, entities=None, i
     
     # 添加已有关系信息
     if previous_relations and len(previous_relations) > 0:
-        relations_json = json.dumps(previous_relations, indent=2, ensure_ascii=False)
-        user_message += f"\n\n已识别的关系（仅作参考，您可以添加更多关系或提高已有关系的完整性）:\n{relations_json}"
+        # 创建简化版的关系列表（只包含实体ID和关系类型）
+        simplified_relations = []
+        for rel in previous_relations:
+            simplified_relations.append({
+                "from_entity": rel.get("from_entity"),
+                "to_entity": rel.get("to_entity"),
+                "relation_type": rel.get("relation_type")
+            })
+        
+        # 转换为JSON格式
+        relations_json = json.dumps(simplified_relations, ensure_ascii=False)
+        
+        user_message += f"\n\n我们已经提取了 {len(previous_relations)} 个关系。以下是所有已知关系的简化列表（仅包含实体ID和关系类型）:\n{relations_json}"
+        user_message += f"\n\n重要：请勿重复提取上述任何关系组合，而是发掘新的、尚未提取的关系。"
+        user_message += f"\n特别是考虑那些由不同来源引用的实体之间可能存在的关系，或者不同任务领域之间的跨领域关系。"
+        
+        # 创建已处理实体的集合，便于统计
+        processed_entities = set()
+        for rel in previous_relations:
+            if rel.get('from_entity'):
+                processed_entities.add(rel.get('from_entity'))
+            if rel.get('to_entity'):
+                processed_entities.add(rel.get('to_entity'))
+        
+        user_message += f"\n\n目前已涉及 {len(processed_entities)} 个实体，请尝试发现更多实体之间的关系，尤其是尚未处理过的实体。"
     
     # 提取完成度请求
-    if is_complete is not None:
-        user_message += f"\n\n所有关系提取是否完成? 如果完成，请回复：True，否则回复：False"
+    user_message += f"\n\n如果你认为所有有意义的关系都已经提取完毕，请在JSON响应后单独一行写明：EXTRACTION_COMPLETE: true，否则写EXTRACTION_COMPLETE: false"
     
-    return user_message
+    return system_message, user_message
 
 def generate_relation_extraction_prompt_base():
     """

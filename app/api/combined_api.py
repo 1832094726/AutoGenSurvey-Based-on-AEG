@@ -177,6 +177,13 @@ def get_graph_data():
         # 构建图
         graph = build_knowledge_graph(entities, relations)
         
+        # 获取图的networkx部分用于后续操作
+        nx_graph = graph.get("networkx_graph", None)
+        
+        # 如果需要从graph获取json格式数据
+        nodes = graph.get("nodes", [])
+        edges = graph.get("edges", [])
+        
         # 导出为JSON格式
         output_path = os.path.join(Config.GRAPH_DATA_DIR, 'graph.json')
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -985,7 +992,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             task_id=task_id,
             current_stage='计算指标',
             progress=0.8,
-            message='正在计算比较指标'
+             message='正在计算比较指标'
         )
         
         # 使用calculate_comparison_metrics函数计算比较指标

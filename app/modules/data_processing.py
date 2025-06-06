@@ -189,6 +189,11 @@ def process_review_paper(file_path):
                 export_graph_to_json(graph, graph_file)
                 
                 logging.info(f"图数据已保存到: {graph_file}")
+                
+                # 使用图结构进行其他操作
+                if graph:
+                    # 如果需要，使用networkx图
+                    nx_graph = graph.get("networkx_graph", None)
             except Exception as e:
                 logging.error(f"创建或存储图数据时出错: {str(e)}")
             
