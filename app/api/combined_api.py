@@ -1146,7 +1146,6 @@ def get_comparison_history():
             "message": f"获取历史记录出错: {str(e)}"
         }), 500
 
-@combined_api.route('/tasks/<task_id>/entities', methods=['GET'])
 @combined_api.route('/comparison/<task_id>/entities', methods=['GET'])
 def get_comparison_entities(task_id):
     """获取比较分析任务的实体数据"""
@@ -1220,7 +1219,6 @@ def get_comparison_entities(task_id):
             "entities": []
         }), 500
 
-@combined_api.route('/tasks/<task_id>/relations', methods=['GET'])
 @combined_api.route('/comparison/<task_id>/relations', methods=['GET'])
 def get_comparison_relations(task_id):
     """获取比较分析任务的关系数据"""
@@ -1292,90 +1290,6 @@ def get_comparison_relations(task_id):
             "success": False,
             "message": f"获取关系数据出错: {str(e)}",
             "relations": []
-        }), 500
-
-@combined_api.route('/tasks/<task_id>/recalculate', methods=['POST'])
-@combined_api.route('/comparison/<task_id>/recalculate', methods=['POST'])
-def recalculate_metrics(task_id):
-    """重新计算比较分析指标"""
-    try:
-        # 检查任务ID格式
-        if not task_id or len(task_id) < 10:
-            return jsonify({
-                "success": False,
-                "message": f"无效的任务ID: {task_id}"
-            }), 400
-            
-        # 获取请求参数
-        data = request.get_json(silent=True) or {}
-        metric_type = data.get('metric_type', 'all')
-        
-        # 根据指标类型计算不同的指标
-        metrics = {}
-        
-        try:
-            # 获取实体和关系数据
-            entities = db_manager.get_entities_by_task(task_id)
-            relations = db_manager.get_relations_by_task(task_id)
-            
-            if not entities and not relations:
-                return jsonify({
-                    "success": True,
-                    "message": "没有找到可计算的数据",
-                    "metrics": {
-                        "entity_stats": {
-                            "total": 0,
-                            "message": "无数据"
-                        },
-                        "relation_stats": {
-                            "total": 0,
-                            "message": "无数据"
-                        },
-                        "clustering": {
-                            "clusters": [],
-                            "message": "无数据"
-                        }
-                    }
-                })
-                
-            # 根据请求计算指标
-            if metric_type == 'all' or metric_type == 'entity_stats':
-                metrics['entity_stats'] = calculate_entity_statistics(entities)
-                
-            if metric_type == 'all' or metric_type == 'relation_stats':
-                metrics['relation_stats'] = calculate_relation_statistics(relations)
-                
-            if metric_type == 'all' or metric_type == 'clustering':
-                metrics['clustering'] = calculate_clustering_metrics(entities, relations)
-                
-        except Exception as calc_error:
-            logging.error(f"计算指标时出错: {str(calc_error)}")
-            logging.error(traceback.format_exc())
-            
-            # 返回尽可能多的有效指标，对错误的部分返回错误消息
-            if metric_type == 'all' or metric_type == 'entity_stats':
-                if 'entity_stats' not in metrics:
-                    metrics['entity_stats'] = {"error": str(calc_error)}
-                    
-            if metric_type == 'all' or metric_type == 'relation_stats':
-                if 'relation_stats' not in metrics:
-                    metrics['relation_stats'] = {"error": str(calc_error)}
-                    
-            if metric_type == 'all' or metric_type == 'clustering':
-                if 'clustering' not in metrics:
-                    metrics['clustering'] = {"error": str(calc_error)}
-        
-        return jsonify({
-            "success": True,
-            "metrics": metrics
-        })
-        
-    except Exception as e:
-        logging.error(f"重新计算任务 {task_id} 的指标时出错: {str(e)}")
-        logging.error(traceback.format_exc())
-        return jsonify({
-            "success": False,
-            "message": f"计算指标出错: {str(e)}"
         }), 500
 
 @combined_api.route('/tasks/<task_id>/status', methods=['GET'])
@@ -1576,4 +1490,90 @@ def get_source_stats():
         return jsonify({
             'success': False,
             'message': f'获取统计信息失败: {str(e)}'
+        }), 500
+
+@combined_api.route('/comparison/<task_id>/recalculate', methods=['POST'])
+def recalculate_metrics(task_id):
+    """重新计算比较分析指标"""
+    try:
+        # 检查任务ID格式
+        if not task_id or len(task_id) < 10:
+            return jsonify({
+                "success": False,
+                "message": f"无效的任务ID: {task_id}"
+            }), 400
+            
+        # 获取请求参数
+        data = request.get_json(silent=True) or {}
+        metric_type = data.get('metric_type', 'all')
+        
+        # 根据指标类型计算不同的指标
+        metrics = {}
+        
+        try:
+            # 获取实体和关系数据
+            entities = db_manager.get_entities_by_task(task_id)
+            relations = db_manager.get_relations_by_task(task_id)
+            
+            if not entities and not relations:
+                return jsonify({
+                    "success": True,
+                    "message": "没有找到可计算的数据",
+                    "metrics": {
+                        "entity_stats": {
+                            "total": 0,
+                            "message": "无数据"
+                        },
+                        "relation_stats": {
+                            "total": 0,
+                            "message": "无数据"
+                        },
+                        "clustering": {
+                            "clusters": [],
+                            "message": "无数据"
+                        }
+                    }
+                })
+                
+            # 根据请求计算指标
+            if metric_type == 'all' or metric_type == 'entity_stats':
+                # 按source字段分离综述和引文实体
+                review_entities = [e for e in entities if e.get('source', '') == '综述']
+                citation_entities = [e for e in entities if e.get('source', '') == '引文']
+                metrics['entity_stats'] = calculate_entity_statistics(review_entities, citation_entities)
+                
+            if metric_type == 'all' or metric_type == 'relation_stats':
+                metrics['relation_stats'] = calculate_relation_statistics(relations)
+                
+            if metric_type == 'all' or metric_type == 'clustering':
+                metrics['clustering'] = calculate_clustering_metrics(entities, relations)
+                
+        except Exception as calc_error:
+            logging.error(f"计算指标时出错: {str(calc_error)}")
+            logging.error(traceback.format_exc())
+            
+            # 返回尽可能多的有效指标，对错误的部分返回错误消息
+            if metric_type == 'all' or metric_type == 'entity_stats':
+                if 'entity_stats' not in metrics:
+                    metrics['entity_stats'] = {"error": str(calc_error)}
+                    
+            if metric_type == 'all' or metric_type == 'relation_stats':
+                if 'relation_stats' not in metrics:
+                    metrics['relation_stats'] = {"error": str(calc_error)}
+                    
+            if metric_type == 'all' or metric_type == 'clustering':
+                if 'clustering' not in metrics:
+                    metrics['clustering'] = {"error": str(calc_error)}
+        
+        return jsonify({
+            "success": True,
+            "metrics": metrics
+        })
+        
+    except Exception as e:
+        logging.error(f"重新计算任务 {task_id} 的指标时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return jsonify({
+            "success": False,
+            "message": f"计算指标出错: {str(e)}"
         }), 500 

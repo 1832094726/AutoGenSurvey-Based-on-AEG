@@ -1380,83 +1380,7 @@ class DatabaseManager:
             logging.error(f"更新任务 {task_id} 的处理状态时发生错误: {str(e)}")
             return False
 
-    def get_processing_status(self, task_id):
-        """
-        获取任务处理状态
-        
-        参数:
-            task_id: 任务ID
-            
-        返回:
-            dict: 包含任务状态信息的字典，如果任务不存在则返回None
-        """
-        try:
-            # 检查是否需要重连
-            reconnected = self._reconnect_if_needed()
-            
-            # 使用重试机制执行查询
-            max_retries = 3
-            retry_count = 0
-            
-            while retry_count < max_retries:
-                try:
-                    # 检查连接状态
-                    if retry_count > 0:
-                        reconnected = self._reconnect_if_needed()
-                        if reconnected:
-                            logging.info(f"第 {retry_count+1} 次尝试重连成功，准备获取任务状态")
-                    
-                    # 执行查询
-                    sql = """
-                        SELECT 
-                            task_id, status, current_stage, progress, 
-                            current_file, message, start_time, update_time, end_time
-                        FROM 
-                            ProcessingStatus 
-                        WHERE 
-                            task_id = %s
-                        """
-                    self.cursor.execute(sql, (task_id,))
-                    row = self.cursor.fetchone()
-                    
-                    if not row:
-                        logging.warning(f"未找到任务: {task_id}")
-                        return None
-                    
-                    # 获取字段名
-                    field_names = [desc[0] for desc in self.cursor.description]
-                    
-                    # 将查询结果转换为字典
-                    result = {}
-                    for i, field in enumerate(field_names):
-                        # 将日期时间字段转换为字符串
-                        if isinstance(row[i], (datetime.datetime, datetime.date)):
-                            result[field] = row[i].isoformat()
-                        else:
-                            result[field] = row[i]
-                    
-                    # 计算完成状态
-                    result['completed'] = result['end_time'] is not None
-                    
-                    return result
-                
-                except mysql.connector.Error as err:
-                    retry_count += 1
-                    logging.error(f"获取任务状态时出错 (尝试 {retry_count}/{max_retries}): {str(err)}")
-                    
-                    if retry_count < max_retries:
-                        logging.info(f"5秒后重试获取任务状态...")
-                        time.sleep(5)
-                    else:
-                        logging.error(f"已达到最大重试次数，无法获取任务 {task_id} 的状态")
-                        return None
-            
-            return None
-                
-        except Exception as e:
-            logging.error(f"获取任务 {task_id} 的处理状态时发生错误: {str(e)}")
-            return None
-            
+    
     def _create_processing_task(self, task_id, status=None, current_stage=None, progress=None, 
                                current_file=None, message=None, completed=None):
         """
@@ -2917,6 +2841,85 @@ class DatabaseManager:
                 
         # 如果所有重试都失败
         return None
+
+    def get_processing_status(self, task_id):
+        """
+        获取任务的处理状态
+        
+        Args:
+            task_id (str): 任务ID
+            
+        Returns:
+            dict: 包含任务状态的字典
+        """
+        self._reconnect_if_needed()
+        
+        try:
+            # 查询任务状态
+            self.cursor.execute(
+                "SELECT id, task_id, task_name, status, progress, current_stage, message, created_at, completed FROM processingstatus WHERE task_id = %s",
+                (task_id,)
+            )
+            
+            result = self.cursor.fetchone()
+            
+            if not result:
+                logging.warning(f"未找到任务ID为 {task_id} 的处理状态")
+                return None
+            
+            # 处理结果
+            status = {}
+            
+            # 如果是字典游标，直接处理
+            if isinstance(result, dict):
+                status = result.copy()
+            else:
+                # 如果不是字典，根据列名映射
+                columns = [desc[0] for desc in self.cursor.description]
+                for i, col_name in enumerate(columns):
+                    try:
+                        # 安全地获取值，避免索引超出范围
+                        if i < len(result):
+                            value = result[i]
+                            # 处理二进制数据
+                            if isinstance(value, bytearray) or isinstance(value, bytes):
+                                try:
+                                    value = value.decode('utf-8')
+                                except UnicodeDecodeError:
+                                    value = str(value)
+                            # 处理日期时间
+                            elif isinstance(value, (datetime.datetime, datetime.date)):
+                                value = value.isoformat()
+                            status[col_name] = value
+                        else:
+                            status[col_name] = None
+                    except Exception as e:
+                        logging.error(f"处理任务状态字段 {col_name} 时出错: {str(e)}")
+                        status[col_name] = None
+            
+            # 确保message字段是字符串
+            if 'message' in status and status['message'] is not None:
+                if isinstance(status['message'], (bytearray, bytes)):
+                    try:
+                        status['message'] = status['message'].decode('utf-8')
+                    except UnicodeDecodeError:
+                        status['message'] = str(status['message'])
+            
+            # 尝试将message解析为JSON（如果是JSON字符串）
+            if 'message' in status and status['message'] and isinstance(status['message'], str):
+                try:
+                    message_json = json.loads(status['message'])
+                    status['data'] = message_json
+                except (json.JSONDecodeError, TypeError):
+                    # 如果无法解析为JSON，保持原样
+                    pass
+                    
+            return status
+            
+        except Exception as e:
+            logging.error(f"获取任务 {task_id} 的处理状态时发生错误: {str(e)}")
+            logging.error(traceback.format_exc())
+            return None
 
 # 创建数据库管理器实例
 db_manager = DatabaseManager()
