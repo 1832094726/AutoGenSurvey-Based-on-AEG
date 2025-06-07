@@ -1,0 +1,10 @@
+{
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "LCA++ extends QuantityExtraction with additional components",
+    "problem_addressed": "Need for more sophisticated quantity extraction in arithmetic word problem solving",
+    "evidence": "The architecture of LCA++ includes components like Irrelevance Classifier and LCA Operation Classifier.",
+    "confidence": 0.85
+  }

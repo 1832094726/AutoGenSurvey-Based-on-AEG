@@ -1,0 +1,10 @@
+{
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Multi-pass sieve architecture improves upon the single-pass model by applying tiers of coreference models from highest to lowest precision.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones in single-pass models",
+    "evidence": "This approach can lead to incorrect decisions as lower precision features often overwhelm the smaller number of high precision ones. To overcome this problem, we propose a simple coreference architecture based on a sieve that applies tiers of deterministic coreference models one at a time from highest to lowest precision.",
+    "confidence": 0.95
+  }

@@ -1,0 +1,731 @@
+[
+  {
+    "from_entity": "Hosseini2014_ARIS",
+    "to_entity": "MA1_2014",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "ARIS uses MA1 dataset for evaluation",
+    "problem_addressed": "Need for standardized datasets for arithmetic word problem solving",
+    "evidence": "The datasets include 395 problems and 1,483 sentences in total. MA1 covers simple MWPs on addition and subtraction for third, fourth, and fifth graders.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Hosseini2014_ARIS",
+    "to_entity": "MA2_2014",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "ARIS uses MA2 dataset for evaluation",
+    "problem_addressed": "Need for standardized datasets for arithmetic word problem solving",
+    "evidence": "Problems in MA2 include more irrelevant information compared to the other two datasets.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Hosseini2014_ARIS",
+    "to_entity": "IXL_2014",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "ARIS uses IXL dataset for evaluation",
+    "problem_addressed": "Need for standardized datasets for arithmetic word problem solving",
+    "evidence": "IXL includes more information gaps.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Hosseini2014_ARIS",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "ARIS uses accuracy as a classification metric",
+    "problem_addressed": "Need for standardized metrics for arithmetic word problem solving",
+    "evidence": "The performance of our system is compared with ARIS which is a rule-based system that changes the entity attribute according to the schema.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Kushman2014_KAZB",
+    "to_entity": "LinearT2",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "KAZB uses LinearT2 dataset for training",
+    "problem_addressed": "Need for specialized datasets for algebra word problem solving",
+    "evidence": "The datasets include LinearT2 and LinearT6.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Kushman2014_KAZB",
+    "to_entity": "LinearT6",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "KAZB uses LinearT6 dataset for training",
+    "problem_addressed": "Need for specialized datasets for algebra word problem solving",
+    "evidence": "The datasets include LinearT2 and LinearT6.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Kushman2014_KAZB",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "KAZB uses accuracy as a performance metric",
+    "problem_addressed": "Need for standardized metrics for algebra word problem solving",
+    "evidence": "The metrics include Accuracy.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityExtraction",
+    "to_entity": "RTE_Datasets_2006",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "QuantityExtraction uses RTE datasets for evaluation",
+    "problem_addressed": "Need for diverse datasets for quantity recognition and standardization",
+    "evidence": "The datasets include RTE Datasets and Newswire Text.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityExtraction",
+    "to_entity": "Newswire_Text_2015",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "QuantityExtraction uses Newswire Text dataset for evaluation",
+    "problem_addressed": "Need for diverse datasets for quantity recognition and standardization",
+    "evidence": "The datasets include RTE Datasets and Newswire Text.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityExtraction",
+    "to_entity": "F1_Score_Quantitative_Reasoning",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "QuantityExtraction uses F1 score as a quantitative reasoning metric",
+    "problem_addressed": "Need for standardized metrics for quantity recognition and standardization",
+    "evidence": "The metrics include F1 Score, Precision, and Recall.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityExtraction",
+    "to_entity": "Precision_Quantitative_Reasoning",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "QuantityExtraction uses precision as a quantitative reasoning metric",
+    "problem_addressed": "Need for standardized metrics for quantity recognition and standardization",
+    "evidence": "The metrics include F1 Score, Precision, and Recall.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityExtraction",
+    "to_entity": "Recall_Quantitative_Reasoning",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "QuantityExtraction uses recall as a quantitative reasoning metric",
+    "problem_addressed": "Need for standardized metrics for quantity recognition and standardization",
+    "evidence": "The metrics include F1 Score, Precision, and Recall.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityEntailment",
+    "to_entity": "RTE_Datasets_2006",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "QuantityEntailment uses RTE datasets for evaluation",
+    "problem_addressed": "Need for diverse datasets for quantity entailment",
+    "evidence": "The datasets include RTE Datasets and Newswire Text.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityEntailment",
+    "to_entity": "Newswire_Text_2015",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "QuantityEntailment uses Newswire Text dataset for evaluation",
+    "problem_addressed": "Need for diverse datasets for quantity entailment",
+    "evidence": "The datasets include RTE Datasets and Newswire Text.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityEntailment",
+    "to_entity": "F1_Score_Quantitative_Reasoning",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "QuantityEntailment uses F1 score as a quantitative reasoning metric",
+    "problem_addressed": "Need for standardized metrics for quantity entailment",
+    "evidence": "The metrics include F1 Score, Precision, and Recall.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityEntailment",
+    "to_entity": "Precision_Quantitative_Reasoning",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "QuantityEntailment uses precision as a quantitative reasoning metric",
+    "problem_addressed": "Need for standardized metrics for quantity entailment",
+    "evidence": "The metrics include F1 Score, Precision, and Recall.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_QuantityEntailment",
+    "to_entity": "Recall_Quantitative_Reasoning",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "QuantityEntailment uses recall as a quantitative reasoning metric",
+    "problem_addressed": "Need for standardized metrics for quantity entailment",
+    "evidence": "The metrics include F1 Score, Precision, and Recall.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_MathWordProblemSolver",
+    "to_entity": "Elementary_Math_Word_Problems_2015",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "MathWordProblemSolver uses Elementary Math Word Problems dataset for evaluation",
+    "problem_addressed": "Need for standardized datasets for elementary math word problem solving",
+    "evidence": "The datasets include Elementary Math Word Problems.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_MathWordProblemSolver",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "MathWordProblemSolver uses accuracy as a performance metric",
+    "problem_addressed": "Need for standardized metrics for elementary math word problem solving",
+    "evidence": "The metrics include Accuracy.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "to_entity": "AI2_Dataset_2014",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "ExpressionTreeBasedSolver uses AI2 dataset for evaluation",
+    "problem_addressed": "Need for standardized datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AI2 Dataset, IL Dataset, Commoncore Dataset.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "to_entity": "IL_Dataset_2015",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "ExpressionTreeBasedSolver uses IL dataset for evaluation",
+    "problem_addressed": "Need for standardized datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AI2 Dataset, IL Dataset, Commoncore Dataset.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "to_entity": "Commoncore_Dataset_2016",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "ExpressionTreeBasedSolver uses Commoncore dataset for evaluation",
+    "problem_addressed": "Need for standardized datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AI2 Dataset, IL Dataset, Commoncore Dataset.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "ExpressionTreeBasedSolver uses accuracy as a performance metric",
+    "problem_addressed": "Need for standardized metrics for arithmetic word problem solving",
+    "evidence": "The metrics include Accuracy.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2017_UNITDEP",
+    "to_entity": "AllArith_2017",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "UNITDEP uses AllArith dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2017_UNITDEP",
+    "to_entity": "AllArithLex_2017",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "UNITDEP uses AllArithLex dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2017_UNITDEP",
+    "to_entity": "AllArithTmpl_2017",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "UNITDEP uses AllArithTmpl dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2017_UNITDEP",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "UNITDEP uses accuracy as a performance metric",
+    "problem_addressed": "Need for standardized metrics for arithmetic word problem solving",
+    "evidence": "The metrics include Accuracy.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "AllArith_2017",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "LCA++ uses AllArith dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "AllArithLex_2017",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "LCA++ uses AllArithLex dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "AllArithTmpl_2017",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "LCA++ uses AllArithTmpl dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "LCA++ uses accuracy as a performance metric",
+    "problem_addressed": "Need for standardized metrics for arithmetic word problem solving",
+    "evidence": "The metrics include Accuracy.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2018_KNOWLEDGE",
+    "to_entity": "AllArith_2018",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "KNOWLEDGE uses AllArith dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl, Perturb, Aggregate.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2018_KNOWLEDGE",
+    "to_entity": "AllArithLex_2018",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "KNOWLEDGE uses AllArithLex dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl, Perturb, Aggregate.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2018_KNOWLEDGE",
+    "to_entity": "AllArithTmpl_2018",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "KNOWLEDGE uses AllArithTmpl dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl, Perturb, Aggregate.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2018_KNOWLEDGE",
+    "to_entity": "Perturb_2018",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "KNOWLEDGE uses Perturb dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl, Perturb, Aggregate.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2018_KNOWLEDGE",
+    "to_entity": "Aggregate_2018",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "KNOWLEDGE uses Aggregate dataset for evaluation",
+    "problem_addressed": "Need for comprehensive datasets for arithmetic word problem solving",
+    "evidence": "The datasets include AllArith, AllArithLex, AllArithTmpl, Perturb, Aggregate.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2018_KNOWLEDGE",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "KNOWLEDGE uses accuracy as a performance metric",
+    "problem_addressed": "Need for standardized metrics for arithmetic word problem solving",
+    "evidence": "The metrics include Accuracy.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "LCA++ extends QuantityExtraction with additional components",
+    "problem_addressed": "Need for more sophisticated quantity extraction in arithmetic word problem solving",
+    "evidence": "The architecture of LCA++ includes components like Irrelevance Classifier and LCA Operation Classifier.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "LCA++ extends QuantityEntailment with additional components",
+    "problem_addressed": "Need for more sophisticated quantity entailment in arithmetic word problem solving",
+    "evidence": "The architecture of LCA++ includes components like Irrelevance Classifier and LCA Operation Classifier.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "LCA++ extends MathWordProblemSolver with additional components",
+    "problem_addressed": "Need for more sophisticated math word problem solving",
+    "evidence": "The architecture of LCA++ includes components like Irrelevance Classifier and LCA Operation Classifier.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "LCA++ extends UNITDEP with additional components",
+    "problem_addressed": "Need for more sophisticated unit dependency graph construction",
+    "evidence": "The architecture of LCA++ includes components like Irrelevance Classifier and LCA Operation Classifier.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "LCA++ extends KNOWLEDGE with additional components",
+    "problem_addressed": "Need for more sophisticated declarative knowledge mapping",
+    "evidence": "The architecture of LCA++ includes components like Irrelevance Classifier and LCA Operation Classifier.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "LCA++ extends ExpressionTreeBasedSolver with additional components",
+    "problem_addressed": "Need for more sophisticated expression tree construction",
+    "evidence": "The architecture of LCA++ includes components like Irrelevance Classifier and LCA Operation Classifier.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ uses QuantityExtraction for feature processing",
+    "problem_addressed": "Need for robust quantity extraction in arithmetic word problem solving",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ uses QuantityEntailment for feature processing",
+    "problem_addressed": "Need for robust quantity entailment in arithmetic word problem solving",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ uses MathWordProblemSolver for feature processing",
+    "problem_addressed": "Need for robust math word problem solving",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ uses UNITDEP for feature processing",
+    "problem_addressed": "Need for robust unit dependency graph construction",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ uses KNOWLEDGE for feature processing",
+    "problem_addressed": "Need for robust declarative knowledge mapping",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ uses ExpressionTreeBasedSolver for feature processing",
+    "problem_addressed": "Need for robust expression tree construction",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Improve",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "LCA++ improves QuantityExtraction with beam search",
+    "problem_addressed": "Need for more efficient training strategies in quantity extraction",
+    "evidence": "Training strategy includes Beam Search.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Improve",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "LCA++ improves QuantityEntailment with beam search",
+    "problem_addressed": "Need for more efficient training strategies in quantity entailment",
+    "evidence": "Training strategy includes Beam Search.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Improve",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "LCA++ improves MathWordProblemSolver with beam search",
+    "problem_addressed": "Need for more efficient training strategies in math word problem solving",
+    "evidence": "Training strategy includes Beam Search.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Improve",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "LCA++ improves UNITDEP with beam search",
+    "problem_addressed": "Need for more efficient training strategies in unit dependency graph construction",
+    "evidence": "Training strategy includes Beam Search.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Improve",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "LCA++ improves KNOWLEDGE with beam search",
+    "problem_addressed": "Need for more efficient training strategies in declarative knowledge mapping",
+    "evidence": "Training strategy includes Beam Search.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Improve",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "LCA++ improves ExpressionTreeBasedSolver with beam search",
+    "problem_addressed": "Need for more efficient training strategies in expression tree construction",
+    "evidence": "Training strategy includes Beam Search.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Improve",
+    "structure": "Methodology.Parameter_Tuning",
+    "detail": "LCA++ improves QuantityExtraction with parameter tuning",
+    "problem_addressed": "Need for better parameter tuning in quantity extraction",
+    "evidence": "Parameter tuning includes λIRR.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Improve",
+    "structure": "Methodology.Parameter_Tuning",
+    "detail": "LCA++ improves QuantityEntailment with parameter tuning",
+    "problem_addressed": "Need for better parameter tuning in quantity entailment",
+    "evidence": "Parameter tuning includes λIRR.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Improve",
+    "structure": "Methodology.Parameter_Tuning",
+    "detail": "LCA++ improves MathWordProblemSolver with parameter tuning",
+    "problem_addressed": "Need for better parameter tuning in math word problem solving",
+    "evidence": "Parameter tuning includes λIRR.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Improve",
+    "structure": "Methodology.Parameter_Tuning",
+    "detail": "LCA++ improves UNITDEP with parameter tuning",
+    "problem_addressed": "Need for better parameter tuning in unit dependency graph construction",
+    "evidence": "Parameter tuning includes λIRR.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Improve",
+    "structure": "Methodology.Parameter_Tuning",
+    "detail": "LCA++ improves KNOWLEDGE with parameter tuning",
+    "problem_addressed": "Need for better parameter tuning in declarative knowledge mapping",
+    "evidence": "Parameter tuning includes λIRR.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Improve",
+    "structure": "Methodology.Parameter_Tuning",
+    "detail": "LCA++ improves ExpressionTreeBasedSolver with parameter tuning",
+    "problem_addressed": "Need for better parameter tuning in expression tree construction",
+    "evidence": "Parameter tuning includes λIRR.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ improves QuantityExtraction with feature processing",
+    "problem_addressed": "Need for better feature processing in quantity extraction",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ improves QuantityEntailment with feature processing",
+    "problem_addressed": "Need for better feature processing in quantity entailment",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ improves MathWordProblemSolver with feature processing",
+    "problem_addressed": "Need for better feature processing in math word problem solving",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ improves UNITDEP with feature processing",
+    "problem_addressed": "Need for better feature processing in unit dependency graph construction",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ improves KNOWLEDGE with feature processing",
+    "problem_addressed": "Need for better feature processing in declarative knowledge mapping",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "LCA++ improves ExpressionTreeBasedSolver with feature processing",
+    "problem_addressed": "Need for better feature processing in expression tree construction",
+    "evidence": "Feature processing includes Context Features.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "LCA++ improves QuantityExtraction with connections",
+    "problem_addressed": "Need for better connections in quantity extraction",
+    "evidence": "Connections include Monotonic Expression Tree.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "LCA++ improves QuantityEntailment with connections",
+    "problem_addressed": "Need for better connections in quantity entailment",
+    "evidence": "Connections include Monotonic Expression Tree.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "LCA++ improves MathWordProblemSolver with connections",
+    "problem_addressed": "Need for better connections in math word problem solving",
+    "evidence": "Connections include Monotonic Expression Tree.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "LCA++ improves UNITDEP with connections",
+    "problem_addressed": "Need for better connections in unit dependency graph construction",
+    "evidence": "Connections include Monotonic Expression Tree.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "LCA++ improves KNOWLEDGE with connections",
+    "problem_addressed": "Need for better connections in declarative knowledge mapping",
+    "evidence": "Connections include Monotonic Expression Tree.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Roy2015_LCA++",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "LCA++ improves ExpressionTreeBasedSolver with connections",
+    "problem_addressed": "Need for better connections in expression tree construction",
+    "evidence": "Connections include Monotonic Expression Tree.",
+    "confidence": 0.85
+ 

@@ -1,0 +1,560 @@
+[
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Multi-pass sieve improves upon simple coreference resolution by applying tiers of deterministic coreference models from highest to lowest precision.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones and insufficient local information leading to incorrect decisions.",
+    "evidence": "This approach can lead to incorrect decisions as lower precision features often overwhelm the smaller number of high precision ones. To overcome this problem, we propose a simple coreference architecture based on a sieve that applies tiers of deterministic coreference models one at a time from highest to lowest precision.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004-ROTH-DEV2_2004",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "The multi-pass sieve model was evaluated on the ACE2004-ROTH-DEV2 dataset.",
+    "problem_addressed": "Need for a development dataset to tune and evaluate the coreference resolution model.",
+    "evidence": "We used the first corpus (ACE2004-ROTH-DEV) for development.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004-CULOTTA-TEST_2004",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "The multi-pass sieve model was tested on the ACE2004-CULOTTA-TEST dataset.",
+    "problem_addressed": "Need for a test dataset to evaluate the coreference resolution model.",
+    "evidence": "The other corpora are reserved for testing.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004-NWIRE_2004",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "The multi-pass sieve model was tested on the ACE2004-NWIRE dataset.",
+    "problem_addressed": "Need for a test dataset to evaluate the coreference resolution model.",
+    "evidence": "The other corpora are reserved for testing.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "MUC6-TEST_1995",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "The multi-pass sieve model was tested on the MUC6-TEST dataset.",
+    "problem_addressed": "Need for a test dataset to evaluate the coreference resolution model.",
+    "evidence": "The other corpora are reserved for testing.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Pairwise_F1_Coreference",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "The multi-pass sieve model was evaluated using the pairwise F1 metric.",
+    "problem_addressed": "Need for a metric to evaluate the precision and recall of coreference resolution.",
+    "evidence": "We use three evaluation metrics widely used in the literature: (a) pairwise F1.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "MUC_Scoring",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "The multi-pass sieve model was evaluated using the MUC metric.",
+    "problem_addressed": "Need for a metric to evaluate the coreference resolution system.",
+    "evidence": "We use three evaluation metrics widely used in the literature: (b) MUC.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "B3_Scoring",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "The multi-pass sieve model was evaluated using the B3 metric.",
+    "problem_addressed": "Need for a metric to evaluate the coreference resolution system.",
+    "evidence": "We use three evaluation metrics widely used in the literature: (c) B3.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by incorporating a tiered approach.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones and insufficient local information leading to incorrect decisions.",
+    "evidence": "This is a significant departure from previous work, each model in our framework gets (possibly incomplete) clustering information for each mention from the earlier coreference models in the multi-pass system.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2010_CoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the coreference resolution model by incorporating a tiered approach without requiring labeled corpora.",
+    "problem_addressed": "Need for an unsupervised approach that does not require labeled corpora.",
+    "evidence": "Our system does not rely on labeled corpora for training (like supervised approaches) nor access to corpora during testing (like Haghighi and Klein(2009)).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model extends the simple coreference resolution model by incorporating a tiered approach.",
+    "problem_addressed": "Need for a more robust coreference resolution model.",
+    "evidence": "Our sieve model outperforms all systems on at least two test sets, even though most of the other models are significantly richer.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by maintaining high precision while improving recall.",
+    "problem_addressed": "Need for a model that maintains high precision while improving recall.",
+    "evidence": "This final model raises the pairwise recall of our system almost 22 percentage points, with only an 8 point drop in pairwise precision.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by addressing issues with lower precision features.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones.",
+    "evidence": "This approach can lead to incorrect decisions as lower precision features often overwhelm the smaller number of high precision ones.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by propagating global information.",
+    "problem_addressed": "Insufficient global information leading to incorrect decisions.",
+    "evidence": "Furthermore, each model’s decisions are richly informed by sharing attributes across the mentions clustered in earlier tiers.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by ensuring stronger features are given precedence.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones.",
+    "evidence": "Each tier builds on the entity clusters constructed by previous models in the sieve, guaranteeing that stronger features are given precedence over weaker ones.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a transductive approach.",
+    "problem_addressed": "Need for a model that does not require access to the dataset beforehand.",
+    "evidence": "Our work instead focuses on an approach that does not require access to the dataset beforehand.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a modular design.",
+    "problem_addressed": "Need for a flexible architecture for feature insertion.",
+    "evidence": "The sieve architecture offers benefits beyond improved accuracy. Its modular design provides a flexibility for features that is not available in most supervised or unsupervised systems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by addressing recall errors.",
+    "problem_addressed": "High precision but low recall in coreference resolution.",
+    "evidence": "These four highlighted errors (lengthening, semantics, attributes, ordering) add up to 77% of all recall errors in the selected set.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by prioritizing high precision features.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones.",
+    "evidence": "This is a consequence of our decision to prioritize highly precise features in the sieve.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a transitive closure.",
+    "problem_addressed": "Need for a method to finalize coreference clusters.",
+    "evidence": "After all passes have run, we take the transitive closure of the generated clusters as the system output.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a deterministic approach.",
+    "problem_addressed": "Need for a deterministic approach to coreference resolution.",
+    "evidence": "We implemented all components in our approach using only deterministic models.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a constrained latent variable model.",
+    "problem_addressed": "Need for a constrained latent variable model to improve coreference resolution.",
+    "evidence": "The system of Haghighi and Klein (2009) +S uses a lexicon of semantically-compatible noun pairs acquired transductively.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a rich set of features.",
+    "problem_addressed": "Need for a rich set of features to improve coreference resolution.",
+    "evidence": "We show that a simple scaffolding framework that deploys strong features through tiers of models performs significantly better than a single-pass model.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by using a sieve-like approach.",
+    "problem_addressed": "Need for a sieve-like approach to coreference resolution.",
+    "evidence": "We propose an unsupervised sieve-like approach to coreference resolution that addresses these issues.",
+    "confidence": 0.9

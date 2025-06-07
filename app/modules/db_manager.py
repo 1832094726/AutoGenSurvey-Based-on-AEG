@@ -89,8 +89,8 @@ class DatabaseManager:
                 raise_on_warnings=False,  # 不对警告抛出异常
             )
             
-            # 使用字典游标以保持一致性，设置buffered=True避免未读结果错误
-            self.cursor = self.conn.cursor(dictionary=True, buffered=True)
+            # 设置buffered=True避免未读结果错误
+            self.cursor = self.conn.cursor(dictionary=True,buffered=True)
             
             
             logging.info("MySQL数据库连接成功，设置为长期保持连接")
@@ -333,8 +333,8 @@ class DatabaseManager:
                 self._connect_mysql()
                 logging.info("MySQL连接创建成功")
                 return True
-                
-            # 只检查连接是否已断开，不主动关闭和重建连接
+            
+        # 只检查连接是否已断开，不主动关闭和重建连接
             try:
                 if not self.conn.is_connected():
                     logging.warning("MySQL连接已断开，正在重新连接")
@@ -345,13 +345,13 @@ class DatabaseManager:
                 logging.warning(f"检查连接状态时出错: {str(conn_error)}，尝试重新连接")
                 self._connect_mysql()
                 return True
-                
-            # 不再执行ping操作，减少不必要的数据库交互
             
-            # 验证连接可用性，但不执行查询，减少不必要的数据库操作
+        # 不再执行ping操作，减少不必要的数据库交互
+        
+    # 验证连接可用性，但不执行查询，减少不必要的数据库操作
             if hasattr(self.cursor, 'connection') and self.cursor.connection is None:
                 logging.warning("MySQL游标连接无效，重新创建")
-                # 只关闭并重建游标，保留连接
+        # 只关闭并重建游标，保留连接
                 try:
                     self.cursor.close()
                 except:
@@ -359,27 +359,27 @@ class DatabaseManager:
                 # 创建新游标
                 self.cursor = self.conn.cursor(dictionary=True, buffered=True)
                 logging.info("MySQL游标重新创建成功")
-                
+            
             return True
                 
         except Exception as e:
             logging.error(f"检查MySQL连接状态时出错: {str(e)}")
-            
-            # 不再重试多次，直接尝试连接一次
-            try:
-                # 只有在确实需要时才创建新连接
-                if self.conn is None or self.cursor is None or not self.conn.is_connected():
+        
+        # 不再重试多次，直接尝试连接一次
+        try:
+            # 只有在确实需要时才创建新连接
+            if self.conn is None or self.cursor is None or not self.conn.is_connected():
                     self._connect_mysql()
                     logging.info("MySQL重新连接成功")
                     return True
-            except Exception as reconnect_error:
-                logging.error(f"重新连接MySQL时出错: {str(reconnect_error)}")
-                # 重置连接和游标为None，强制下次调用重新创建
-                self.conn = None
-                self.cursor = None
-                return False
-        
-            return self.conn is not None and self.cursor is not None
+        except Exception as reconnect_error:
+            logging.error(f"重新连接MySQL时出错: {str(reconnect_error)}")
+            # 重置连接和游标为None，强制下次调用重新创建
+            self.conn = None
+            self.cursor = None
+            return False
+    
+        return self.conn is not None and self.cursor is not None
         
     def __del__(self):
         """析构函数，关闭数据库连接"""

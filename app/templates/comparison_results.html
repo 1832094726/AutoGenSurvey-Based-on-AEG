@@ -434,7 +434,33 @@
         async function fetchWithRetry(url, options = {}, retries = 3, retryDelay = 1000) {
             try {
                 const response = await fetch(url, options);
-                if (response.ok) return response.json();
+                
+                // 检查响应状态
+                if (response.ok || response.status === 404) {  // 404也处理为有效响应
+                    const data = await response.json();
+                    
+                    // 检查API返回的成功标志
+                    if (data.success === true) {
+                        return data;  // 返回成功的响应数据
+                    } else {
+                        // API返回了失败状态，但格式正确
+                        console.warn(`API返回失败状态: ${url}, 消息: ${data.message || '未知错误'}`);
+                        
+                        // 创建一个带默认值的返回对象
+                        return {
+                            success: false,
+                            message: data.message || '请求失败',
+                            task: data.task || {
+                                task_id: url.split('/').pop(),
+                                status: 'ERROR',
+                                message: data.message || '请求失败'
+                            },
+                            entities: data.entities || [],
+                            relations: data.relations || [],
+                            metrics: data.metrics || {}
+                        };
+                    }
+                }
                 
                 console.warn(`API请求失败 (${response.status}): ${url}`);
                 
@@ -444,14 +470,39 @@
                     return fetchWithRetry(url, options, retries - 1, retryDelay * 1.5);
                 }
                 
-                throw new Error(`API请求失败，状态码: ${response.status}`);
+                // 创建一个默认的错误响应
+                return {
+                    success: false,
+                    message: `API请求失败，状态码: ${response.status}`,
+                    task: {
+                        task_id: url.split('/').pop(),
+                        status: 'ERROR',
+                        message: `API请求失败，状态码: ${response.status}`
+                    },
+                    entities: [],
+                    relations: [],
+                    metrics: {}
+                };
             } catch (error) {
                 if (retries > 0) {
                     console.log(`请求出错，将在 ${retryDelay}ms 后重试，剩余重试次数: ${retries}`, error);
                     await new Promise(resolve => setTimeout(resolve, retryDelay));
                     return fetchWithRetry(url, options, retries - 1, retryDelay * 1.5);
                 }
-                throw error;
+                
+                // 创建一个默认的错误响应
+                return {
+                    success: false,
+                    message: `API请求出错: ${error.message}`,
+                    task: {
+                        task_id: url.split('/').pop(),
+                        status: 'ERROR',
+                        message: `API请求出错: ${error.message}`
+                    },
+                    entities: [],
+                    relations: [],
+                    metrics: {}
+                };
             }
         }
         
@@ -573,147 +624,145 @@
             }
             
             // 准备Promise数组，使用带重试功能的请求
-            const promises = [
+            Promise.all([
                 // 任务状态
-                fetchWithRetry(`/api/comparison/${taskId}/status`)
-                    .catch(e => ({ success: false, message: `获取任务状态失败: ${e.message}` })),
+                fetchWithRetry(`/api/comparison/${taskId}/status`),
                 
                 // 实体数据
-                fetchWithRetry(`/api/comparison/${taskId}/entities`)
-                    .catch(e => {
-                        console.error("获取实体数据失败:", e);
-                        return { success: false, message: `获取实体数据失败: ${e.message}` };
-                    }),
+                fetchWithRetry(`/api/comparison/${taskId}/entities`),
                 
                 // 关系数据    
-                fetchWithRetry(`/api/comparison/${taskId}/relations`)
-                    .catch(e => {
-                        console.error("获取关系数据失败:", e);
-                        return { success: false, message: `获取关系数据失败: ${e.message}` };
-                    }),
+                fetchWithRetry(`/api/comparison/${taskId}/relations`),
                 
                 // 指标数据 (POST请求)
                 fetchWithRetry(`/api/comparison/${taskId}/recalculate`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ metric_type: 'all' })
-                }).catch(e => {
-                    console.error("重新计算指标失败:", e);
-                    return { success: false, message: `重新计算指标失败: ${e.message}` };
                 })
-            ];
-            
-            // 使用Promise.allSettled确保即使部分请求失败，也能处理成功的请求
-            Promise.allSettled(promises)
-                .then(results => {
-                    console.log("所有API请求完成，状态:", results.map(r => r.status));
+            ])
+            .then(results => {
+                console.log("所有API请求完成");
+                
+                // 提取结果
+                const statusData = results[0];
+                const entitiesData = results[1];
+                const relationsData = results[2];
+                const metricsData = results[3];
+                
+                // 检查任务状态
+                const taskInfo = safeGetNestedProperty(statusData, 'task') || 
+                                (statusData.success ? { status: 'ERROR', message: '任务状态未知' } : null);
+                
+                if (taskInfo) {
+                    taskData = taskInfo;
                     
-                    // 提取结果，使用默认值处理失败的情况
-                    const statusData = results[0].status === 'fulfilled' ? results[0].value : { success: false };
-                    const entitiesData = results[1].status === 'fulfilled' ? results[1].value : { success: false };
-                    const relationsData = results[2].status === 'fulfilled' ? results[2].value : { success: false };
-                    const metricsData = results[3].status === 'fulfilled' ? results[3].value : { success: false };
+                    // 显示API返回数据摘要
+                    safeUpdateElement("api-status", `数据加载完成，任务状态: ${taskInfo.status || '未知'}`);
                     
                     // 检查任务状态
-                    const taskInfo = safeGetNestedProperty(statusData, 'task') || 
-                                     safeGetNestedProperty(statusData, 'data') || 
-                                     (statusData.success ? statusData : null);
+                    const completedStatuses = ['已完成', '完成', 'COMPLETED', 'completed', 'DONE', 'done'];
+                    const errorStatuses = ['ERROR', 'FAILED', 'TIMEOUT', 'NOT_FOUND'];
                     
-                    if (taskInfo) {
-                        taskData = taskInfo;
+                    if (completedStatuses.includes(taskData.status)) {
+                        console.log("任务已完成，显示结果");
                         
-                        // 显示API返回数据摘要
-                        safeUpdateElement("api-status", `数据加载完成，任务状态: ${taskInfo.status || '未知'}`);
-                        
-                        // 检查任务状态
-                        const completedStatuses = ['已完成', '完成', 'COMPLETED', 'completed', 'DONE', 'done'];
-                        if (completedStatuses.includes(taskData.status)) {
-                            console.log("任务已完成，显示结果");
-                            
-                            // 显示内容区域
-                            if (document.getElementById('loadingSection')) {
-                                document.getElementById('loadingSection').style.display = 'none';
-                            }
-                            if (document.getElementById('taskContent')) {
-                                document.getElementById('taskContent').style.display = 'block';
-                            }
-                            
-                            // 处理实体数据
-                            if (entitiesData && entitiesData.success) {
-                                // 保存到全局变量供后续使用
-                                window.entitiesData = entitiesData;
-                                processEntitiesData(entitiesData);
-                                // 预加载实体列表，但不显示
-                                prepareEntitiesLists(entitiesData);
-                            } else {
-                                console.error('获取实体数据失败:', entitiesData?.message || '未知错误');
-                                document.getElementById('entitiesCount').textContent = "N/A";
-                                document.getElementById('entitiesDetail').textContent = "加载失败";
-                                document.getElementById('algorithmsCount').textContent = "N/A";
-                                document.getElementById('datasetsCount').textContent = "N/A";
-                                document.getElementById('metricsCount').textContent = "N/A";
-                            }
-                            
-                            // 处理关系数据
-                            if (relationsData && relationsData.success) {
-                                // 保存到全局变量供后续使用
-                                window.relationsData = relationsData;
-                                processRelationsData(relationsData);
-                                // 预加载关系列表，但不显示
-                                prepareRelationsLists(relationsData);
-                            } else {
-                                console.error('获取关系数据失败:', relationsData?.message || '未知错误');
-                                document.getElementById('relationsCount').textContent = "N/A";
-                                document.getElementById('relationsDetail').textContent = "加载失败";
-                            }
-                            
-                            // 处理指标数据
-                            if (metricsData && metricsData.success && metricsData.metrics) {
-                                updateMetricsDisplay(metricsData.metrics, 'all');
-                            } else {
-                                console.warn("指标数据未能成功加载:", metricsData);
-                                safeUpdateElement('entity-stats-content', '<div class="alert alert-warning">无法加载指标数据。<button class="btn btn-sm btn-primary mt-2" onclick="recalculateMetric(\'entity_stats\')">重试</button></div>');
-                                safeUpdateElement('relation-stats-content', '<div class="alert alert-warning">无法加载指标数据。<button class="btn btn-sm btn-primary mt-2" onclick="recalculateMetric(\'relation_stats\')">重试</button></div>');
-                                safeUpdateElement('clustering-content', '<div class="alert alert-warning">无法加载指标数据。<button class="btn btn-sm btn-primary mt-2" onclick="recalculateMetric(\'clustering\')">重试</button></div>');
-                            }
-                        } else {
-                            // 任务未完成，显示进度
-                            console.log("任务未完成，显示进度:", taskData.status, taskData.progress);
-                            if (document.getElementById('errorSection')) {
-                                document.getElementById('errorSection').style.display = 'block';
-                            }
-                            safeUpdateElement('errorMessage',
-                                `任务 ${taskId} 正在进行中 (${(taskData.progress * 100 || 0).toFixed(1)}%)，状态: ${taskData.status || '未知'}，请稍后查看结果。`
-                            );
-                            if (document.getElementById('loadingSection')) {
-                                document.getElementById('loadingSection').style.display = 'none';
-                            }
+                        // 显示内容区域
+                        if (document.getElementById('loadingSection')) {
+                            document.getElementById('loadingSection').style.display = 'none';
                         }
-                    } else {
-                        // 显示错误信息
-                        console.error("加载任务数据失败:", statusData);
+                        if (document.getElementById('taskContent')) {
+                            document.getElementById('taskContent').style.display = 'block';
+                        }
+                        
+                        // 处理实体数据
+                        if (entitiesData && entitiesData.success) {
+                            // 保存到全局变量供后续使用
+                            window.entitiesData = entitiesData;
+                            processEntitiesData(entitiesData);
+                            // 预加载实体列表，但不显示
+                            prepareEntitiesLists(entitiesData);
+                        } else {
+                            console.error('获取实体数据失败:', entitiesData?.message || '未知错误');
+                            document.getElementById('entitiesCount').textContent = "N/A";
+                            document.getElementById('entitiesDetail').textContent = "加载失败";
+                            document.getElementById('algorithmsCount').textContent = "N/A";
+                            document.getElementById('datasetsCount').textContent = "N/A";
+                            document.getElementById('metricsCount').textContent = "N/A";
+                        }
+                        
+                        // 处理关系数据
+                        if (relationsData && relationsData.success) {
+                            // 保存到全局变量供后续使用
+                            window.relationsData = relationsData;
+                            processRelationsData(relationsData);
+                            // 预加载关系列表，但不显示
+                            prepareRelationsLists(relationsData);
+                        } else {
+                            console.error('获取关系数据失败:', relationsData?.message || '未知错误');
+                            document.getElementById('relationsCount').textContent = "N/A";
+                            document.getElementById('relationsDetail').textContent = "加载失败";
+                        }
+                        
+                        // 处理指标数据
+                        if (metricsData && metricsData.success && metricsData.metrics) {
+                            updateMetricsDisplay(metricsData.metrics, 'all');
+                        } else {
+                            console.warn("指标数据未能成功加载:", metricsData);
+                            safeUpdateElement('entity-stats-content', '<div class="alert alert-warning">无法加载指标数据。<button class="btn btn-sm btn-primary mt-2" onclick="recalculateMetric(\'entity_stats\')">重试</button></div>');
+                            safeUpdateElement('relation-stats-content', '<div class="alert alert-warning">无法加载指标数据。<button class="btn btn-sm btn-primary mt-2" onclick="recalculateMetric(\'relation_stats\')">重试</button></div>');
+                            safeUpdateElement('clustering-content', '<div class="alert alert-warning">无法加载指标数据。<button class="btn btn-sm btn-primary mt-2" onclick="recalculateMetric(\'clustering\')">重试</button></div>');
+                        }
+                    } else if (errorStatuses.includes(taskData.status)) {
+                        // 任务出错，显示错误信息
+                        console.log("任务状态为错误:", taskData.status, taskData.message);
                         if (document.getElementById('errorSection')) {
                             document.getElementById('errorSection').style.display = 'block';
                         }
-                        safeUpdateElement('errorMessage', statusData.message || `无法加载任务 ${taskId} 的数据。`);
+                        safeUpdateElement('errorMessage',
+                            `任务 ${taskId} 出现错误: ${taskData.message || '未知错误'}`
+                        );
+                        if (document.getElementById('loadingSection')) {
+                            document.getElementById('loadingSection').style.display = 'none';
+                        }
+                    } else {
+                        // 任务未完成，显示进度
+                        console.log("任务未完成，显示进度:", taskData.status, taskData.progress);
+                        if (document.getElementById('errorSection')) {
+                            document.getElementById('errorSection').style.display = 'block';
+                        }
+                        safeUpdateElement('errorMessage',
+                            `任务 ${taskId} 正在进行中 (${(taskData.progress * 100 || 0).toFixed(1)}%)，状态: ${taskData.status || '未知'}，请稍后查看结果。`
+                        );
                         if (document.getElementById('loadingSection')) {
                             document.getElementById('loadingSection').style.display = 'none';
                         }
                     }
-                })
-                .catch(error => {
-                    console.error('加载任务数据的总体过程出错:', error);
-                    safeUpdateElement("api-status", `所有API请求失败: ${error.message}`);
+                } else {
+                    // 显示错误信息
+                    console.error("加载任务数据失败:", statusData);
                     if (document.getElementById('errorSection')) {
                         document.getElementById('errorSection').style.display = 'block';
                     }
-                    safeUpdateElement('errorMessage',
-                        `加载任务数据时出错: ${error.message}。请检查网络连接和API状态。`
-                    );
+                    safeUpdateElement('errorMessage', statusData.message || `无法加载任务 ${taskId} 的数据。`);
                     if (document.getElementById('loadingSection')) {
                         document.getElementById('loadingSection').style.display = 'none';
                     }
-                });
+                }
+            })
+            .catch(error => {
+                console.error('加载任务数据的总体过程出错:', error);
+                safeUpdateElement("api-status", `所有API请求失败: ${error.message}`);
+                if (document.getElementById('errorSection')) {
+                    document.getElementById('errorSection').style.display = 'block';
+                }
+                safeUpdateElement('errorMessage',
+                    `加载任务数据时出错: ${error.message}。请检查网络连接和API状态。`
+                );
+                if (document.getElementById('loadingSection')) {
+                    document.getElementById('loadingSection').style.display = 'none';
+                }
+            });
         }
         
         // 处理实体数据

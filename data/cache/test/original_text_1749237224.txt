@@ -1,0 +1,513 @@
+[
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Yelp_Dataset_2017",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "Structured Self-attentive Sentence Embedding evaluated on Yelp Dataset",
+    "problem_addressed": "Need for a large dataset for sentiment analysis",
+    "evidence": "We choose the Yelp dataset for sentiment analysis task. It consists of 2.7M yelp reviews, we take the review as input and predict the number of stars the user who wrote that review assigned to the corresponding business store.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "SNLI_Corpus_2015",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "Structured Self-attentive Sentence Embedding evaluated on SNLI Corpus",
+    "problem_addressed": "Need for a dataset for textual entailment",
+    "evidence": "We use the biggest dataset in textual entailment, the SNLI corpus for our evaluation on this task.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Age_Dataset_2017",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "Structured Self-attentive Sentence Embedding evaluated on Age Dataset",
+    "problem_addressed": "Need for a dataset for author profiling",
+    "evidence": "The Author Profiling dataset consists of Twitter tweets in English, Spanish, and Dutch. For some of the tweets, it also provides an age and gender of the user when writing the tweet.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "Structured Self-attentive Sentence Embedding evaluated using classification accuracy",
+    "problem_addressed": "Need for a metric to evaluate classification performance",
+    "evidence": "We use classification accuracy as a measurement.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chen2014_NeuralNetworkParser",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Structured Self-attentive Sentence Embedding extends Neural Network Parser by incorporating self-attention mechanism",
+    "problem_addressed": "Limited expressiveness of traditional sentence embeddings",
+    "evidence": "Different from previous approaches, the proposed self-attention mechanism allows extracting different aspects of the sentence into multiple vector representations.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Hochreiter1997_LongShortTermMemory",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Structured Self-attentive Sentence Embedding extends LSTM by incorporating self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in LSTM",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "DosSantos2016_AttentivePoolingNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Attentive Pooling Networks by using a penalization term",
+    "problem_addressed": "Redundancy in attention weights",
+    "evidence": "The embedding matrix M can suffer from redundancy problems if the attention mechanism always provides similar summation weights for all the r hops. Thus we need a penalization term to encourage the diversity of summation weight vectors across different hops of attention.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Liang2016_TagBasedSolver",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Tag-based Solver by using a matrix embedding",
+    "problem_addressed": "Limited expressiveness of traditional sentence embeddings",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. Different from previous approaches, the proposed self-attention mechanism allows extracting different aspects of the sentence into multiple vector representations.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Charniak2000_MaximumEntropyParser",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Maximum-Entropy Parser by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Hochreiter1997_LongShortTermMemory",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Structured Self-attentive Sentence Embedding extends LSTM by incorporating self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in LSTM",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "DosSantos2016_AttentivePoolingNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Attentive Pooling Networks by using a penalization term",
+    "problem_addressed": "Redundancy in attention weights",
+    "evidence": "The embedding matrix M can suffer from redundancy problems if the attention mechanism always provides similar summation weights for all the r hops. Thus we need a penalization term to encourage the diversity of summation weight vectors across different hops of attention.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Mikolov2013_SkipGram",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Structured Self-attentive Sentence Embedding uses word embeddings initialized with Skip-gram",
+    "problem_addressed": "Need for effective word representation",
+    "evidence": "We use 100 dimensional word2vec as initialization for word embeddings, and tune the embedding during training across all of our experiments.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Pennington2014_GloVe",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Structured Self-attentive Sentence Embedding uses word embeddings initialized with GloVe",
+    "problem_addressed": "Need for effective word representation",
+    "evidence": "We use 300 dimensional GloVe word embedding to initialize word embeddings.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Hinton2012_Dropout",
+    "relation_type": "Use",
+    "structure": "Methodology.Parameter_Tuning",
+    "detail": "Structured Self-attentive Sentence Embedding uses dropout for regularization",
+    "problem_addressed": "Overfitting in training",
+    "evidence": "During training we use 0.5 dropout on the MLP and 0.0001 L2 regularization.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Duchi2011_AdaptiveSubgradient",
+    "relation_type": "Use",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "Structured Self-attentive Sentence Embedding uses AdaGrad for optimization",
+    "problem_addressed": "Need for efficient optimization",
+    "evidence": "We use AdaGrad as the optimizer, with a learning rate of 0.01.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Constrained Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Structured Self-attentive Sentence Embedding improves upon Probabilistic Latent Left Linking Model by using a self-attention mechanism",
+    "problem_addressed": "Difficulty in capturing long-term dependencies in sequential models",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. This enables attention to be used in those cases when there are no extra inputs.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "

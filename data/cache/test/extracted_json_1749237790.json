@@ -1,0 +1,10 @@
+{
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "Adds domain knowledge-based constraints and probabilistic model to the constrained latent left linking model",
+    "problem_addressed": "Limited effectiveness of deterministic models in coreference resolution",
+    "evidence": "The Constrained Latent Left Linking Model (CL3M) extends the Latent Left Linking Model (L3M) by incorporating domain knowledge-based constraints and a probabilistic model, which improves coreference resolution performance.",
+    "confidence": 0.85
+  }

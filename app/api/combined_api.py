@@ -12,6 +12,7 @@ from app.config import Config
 from app.modules.data_processing import process_review_paper, process_multiple_papers, normalize_entities, transform_table_data_to_entities, save_data_to_json
 from app.modules.knowledge_graph import build_knowledge_graph, visualize_graph, export_graph_to_json
 from app.modules.db_manager import db_manager
+from app.modules.metrics_calculator import calculate_entity_statistics, calculate_relation_statistics, calculate_clustering_metrics
 import mysql.connector
 import time
 
@@ -527,34 +528,6 @@ def get_relation(relation_id):
             'message': f'获取关系详情时出错: {str(e)}'
         }), 500
 
-# =================== 任务状态相关API ===================
-
-@combined_api.route('/task/<task_id>/status', methods=['GET'])
-def get_task_status(task_id):
-    """获取任务处理状态"""
-    try:
-        # 查询任务状态
-        task_status = db_manager.get_processing_status(task_id)
-        
-        if not task_status:
-            return jsonify({
-                "success": False,
-                "message": f"找不到任务ID: {task_id}"
-            }), 404
-            
-        return jsonify({
-            "success": True,
-            "data": task_status
-        })
-        
-    except Exception as e:
-        logging.error(f"获取任务状态时出错: {str(e)}")
-        logging.error(traceback.format_exc())
-        return jsonify({
-            "success": False,
-            "message": f"获取任务状态时出错: {str(e)}",
-            "traceback": traceback.format_exc()
-        }), 500
 
 # =================== 数据导入相关API ===================
 
@@ -1102,7 +1075,7 @@ def extract_entities_from_citations(citation_paths, task_id):
         return all_entities, []
     
     # 批量处理引用文献，每次处理5篇
-    batch_size = 100
+    batch_size = 1
 
     # 提取实体，使用主任务ID
     all_entities, is_complete = extract_paper_entities(
@@ -1176,306 +1149,221 @@ def get_comparison_history():
 @combined_api.route('/tasks/<task_id>/entities', methods=['GET'])
 @combined_api.route('/comparison/<task_id>/entities', methods=['GET'])
 def get_comparison_entities(task_id):
-    """获取比较分析任务的实体列表"""
-    max_retries = 3
-    retry_count = 0
-    
-    while retry_count < max_retries:
-        try:
-            # 直接使用原始任务ID获取所有实体
-            all_entities = db_manager.get_entities_by_task(task_id)
-            
-            if not all_entities:
-                logging.warning(f"未找到与任务 {task_id} 关联的实体")
-                return jsonify({
-                    "success": False,
-                    "message": f"未找到任务 {task_id} 的相关实体",
-                    "entities": [],
-                    "count": {
-                        "total": 0,
-                        "algorithm": 0,
-                        "dataset": 0,
-                        "metric": 0,
-                        "review": 0,
-                        "citation": 0
-                    }
-                }), 404
-            
-            # 处理实体确保有正确的source字段
-            processed_entities = []
-            for entity in all_entities:
-                if 'algorithm_entity' in entity:
-                    algorithm = entity['algorithm_entity']
-                    algorithm['entity_type'] = 'Algorithm'
-                    algorithm['source'] = algorithm.get('source', entity.get('source', '未知'))
-                    processed_entities.append(algorithm)
-                elif 'dataset_entity' in entity:
-                    dataset = entity['dataset_entity']
-                    dataset['entity_type'] = 'Dataset'
-                    dataset['source'] = dataset.get('source', entity.get('source', '未知'))
-                    processed_entities.append(dataset)
-                elif 'metric_entity' in entity:
-                    metric = entity['metric_entity']
-                    metric['entity_type'] = 'Metric'
-                    metric['source'] = metric.get('source', entity.get('source', '未知'))
-                    processed_entities.append(metric)
-            
-            # 按类型统计实体数量
-            algorithm_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Algorithm')
-            dataset_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Dataset')
-            metric_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Metric')
-            
-            # 按来源统计实体数量，直接根据数据库中的source字段统计
-            review_count = sum(1 for e in processed_entities if e.get('source') == '综述')
-            citation_count = sum(1 for e in processed_entities if e.get('source') == '引文')
-            unknown_count = sum(1 for e in processed_entities if e.get('source') == '未知')
-            
-            # 按来源分组实体，直接根据数据库中的source字段分组
-            entities_by_source = {
-                '综述': [e for e in processed_entities if e.get('source') == '综述'],
-                '引文': [e for e in processed_entities if e.get('source') == '引文'],
-                '未知': [e for e in processed_entities if e.get('source') == '未知']
-            }
-            
-            return jsonify({
-                "success": True,
-                "entities": processed_entities,
-                "count": {
-                    "total": len(processed_entities),
-                    "algorithm": algorithm_count,
-                    "dataset": dataset_count,
-                    "metric": metric_count,
-                    "review": review_count,
-                    "citation": citation_count,
-                    "unknown": unknown_count
-                },
-                "by_source": entities_by_source
-            })
-            
-        except mysql.connector.errors.OperationalError as e:
-            retry_count += 1
-            logging.error(f"获取任务 {task_id} 的实体列表时数据库连接错误 (尝试 {retry_count}/{max_retries}): {str(e)}")
-            if retry_count >= max_retries:
-                # 重试次数用完后，返回错误信息
-                return jsonify({
-                    "success": False,
-                    "message": f"数据库连接错误，请稍后重试 (错误: {str(e)})",
-                    "error_type": "database_connection",
-                    "task_id": task_id
-                }), 500
-            # 等待后重试
-            time.sleep(2)
-            # 尝试重新连接数据库
-            try:
-                db_manager._reconnect_if_needed()
-            except Exception as reconnect_error:
-                logging.error(f"尝试重新连接数据库时出错: {str(reconnect_error)}")
-                
-        except Exception as e:
-            logging.error(f"获取任务 {task_id} 的实体列表时出错: {str(e)}")
-            logging.error(traceback.format_exc())
+    """获取比较分析任务的实体数据"""
+    try:
+        # 检查任务ID格式
+        if not task_id or len(task_id) < 10:
             return jsonify({
                 "success": False,
-                "message": f"获取实体列表出错: {str(e)}"
-            }), 500
-    
-    # 如果所有重试都失败
-    return jsonify({
-        "success": False,
-        "message": "获取实体数据失败，请稍后重试",
-        "task_id": task_id
-    }), 500
+                "message": f"无效的任务ID: {task_id}"
+            }), 400
+            
+        # 获取任务关联的实体
+        try:
+            entities_data = db_manager.get_entities_by_task(task_id)
+        except Exception as db_error:
+            # 处理数据库查询错误
+            logging.error(f"数据库查询任务 {task_id} 实体时出错: {str(db_error)}")
+            logging.error(traceback.format_exc())
+            
+            # 返回空的实体列表，避免前端失败
+            return jsonify({
+                "success": True,
+                "message": f"查询实体时出错: {str(db_error)}",
+                "entities": [],
+                "by_source": {},
+                "count": {"total": 0}
+            })
+        
+        if not entities_data or len(entities_data) == 0:
+            return jsonify({
+                "success": True,
+                "message": "未找到实体数据",
+                "entities": [],
+                "by_source": {},
+                "count": {"total": 0}
+            })
+        
+        # 按来源组织实体
+        entities_by_source = {}
+        for entity in entities_data:
+            source = entity.get('source', '未知')
+            if source not in entities_by_source:
+                entities_by_source[source] = []
+            entities_by_source[source].append(entity)
+        
+        # 统计各类型实体数量
+        entity_counts = {
+            "total": len(entities_data),
+            "by_type": {}
+        }
+        
+        for entity in entities_data:
+            entity_type = entity.get('entity_type', '未知')
+            if entity_type not in entity_counts["by_type"]:
+                entity_counts["by_type"][entity_type] = 0
+            entity_counts["by_type"][entity_type] += 1
+        
+        return jsonify({
+            "success": True,
+            "entities": entities_data,
+            "by_source": entities_by_source,
+            "count": entity_counts
+        })
+        
+    except Exception as e:
+        logging.error(f"获取任务 {task_id} 的实体数据时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return jsonify({
+            "success": False,
+            "message": f"获取实体数据出错: {str(e)}",
+            "entities": []
+        }), 500
 
 @combined_api.route('/tasks/<task_id>/relations', methods=['GET'])
 @combined_api.route('/comparison/<task_id>/relations', methods=['GET'])
 def get_comparison_relations(task_id):
-    """获取比较分析任务的关系列表"""
-    max_retries = 3
-    retry_count = 0
-    
-    while retry_count < max_retries:
-        try:
-            # 获取任务的关系
-            relations = db_manager.get_relations_by_task(task_id)
-            
-            if not relations:
-                logging.warning(f"未找到与任务 {task_id} 关联的关系")
-                return jsonify({
-                    "success": False,
-                    "message": f"未找到任务 {task_id} 的相关关系",
-                    "relations": [],
-                    "count": {
-                        "total": 0,
-                        "by_type": {},
-                        "by_source": {'综述': 0, '引文': 0, '未知': 0}
-                    }
-                }), 404
-            
-            # 确保每个关系都有来源字段，如果数据库中没有source字段，默认为"未知"
-            for relation in relations:
-                if 'source' not in relation or not relation['source'] or relation['source'] == '未知':
-                    relation['source'] = '未知'  # 默认为未知来源
-                    
-            # 按类型统计关系
-            relation_types = {}
-            for relation in relations:
-                relation_type = relation.get('relation_type', 'unknown')
-                if relation_type not in relation_types:
-                    relation_types[relation_type] = 0
-                relation_types[relation_type] += 1
-                
-            # 按来源统计关系，直接根据数据库中的source字段统计
-            source_counts = {
-                '综述': len([r for r in relations if r.get('source') == '综述']),
-                '引文': len([r for r in relations if r.get('source') == '引文']),
-                '未知': len([r for r in relations if r.get('source') == '未知'])
-            }
-            
-            # 按来源分组关系，直接根据数据库中的source字段分组
-            relations_by_source = {
-                '综述': [r for r in relations if r.get('source') == '综述'],
-                '引文': [r for r in relations if r.get('source') == '引文'],
-                '未知': [r for r in relations if r.get('source') == '未知']
-            }
-            
-            return jsonify({
-                "success": True,
-                "relations": relations,
-                "count": {
-                    "total": len(relations),
-                    "by_type": relation_types,
-                    "by_source": source_counts
-                },
-                "by_source": relations_by_source
-            })
-            
-        except mysql.connector.errors.OperationalError as e:
-            retry_count += 1
-            logging.error(f"获取任务 {task_id} 的关系列表时数据库连接错误 (尝试 {retry_count}/{max_retries}): {str(e)}")
-            if retry_count >= max_retries:
-                # 重试次数用完后，返回错误信息
-                return jsonify({
-                    "success": False,
-                    "message": f"数据库连接错误，请稍后重试 (错误: {str(e)})",
-                    "error_type": "database_connection",
-                    "task_id": task_id
-                }), 500
-            # 等待后重试
-            time.sleep(2)
-            # 尝试重新连接数据库
-            try:
-                db_manager._reconnect_if_needed()
-            except Exception as reconnect_error:
-                logging.error(f"尝试重新连接数据库时出错: {str(reconnect_error)}")
-                
-        except Exception as e:
-            logging.error(f"获取任务 {task_id} 的关系列表时出错: {str(e)}")
-            logging.error(traceback.format_exc())
+    """获取比较分析任务的关系数据"""
+    try:
+        # 检查任务ID格式
+        if not task_id or len(task_id) < 10:
             return jsonify({
                 "success": False,
-                "message": f"获取关系列表出错: {str(e)}"
-            }), 500
-    
-    # 如果所有重试都失败
-    return jsonify({
-        "success": False,
-        "message": "获取关系数据失败，请稍后重试",
-        "task_id": task_id
-    }), 500
+                "message": f"无效的任务ID: {task_id}"
+            }), 400
+            
+        # 获取任务关联的关系
+        try:
+            relations_data = db_manager.get_relations_by_task(task_id)
+        except Exception as db_error:
+            # 处理数据库查询错误
+            logging.error(f"数据库查询任务 {task_id} 关系时出错: {str(db_error)}")
+            logging.error(traceback.format_exc())
+            
+            # 返回空的关系列表，避免前端失败
+            return jsonify({
+                "success": True,
+                "message": f"查询关系时出错: {str(db_error)}",
+                "relations": [],
+                "by_source": {},
+                "count": {"total": 0}
+            })
+        
+        if not relations_data or len(relations_data) == 0:
+            return jsonify({
+                "success": True,
+                "message": "未找到关系数据",
+                "relations": [],
+                "by_source": {},
+                "count": {"total": 0}
+            })
+        
+        # 按来源组织关系
+        relations_by_source = {}
+        for relation in relations_data:
+            source = relation.get('source', '未知')
+            if source not in relations_by_source:
+                relations_by_source[source] = []
+            relations_by_source[source].append(relation)
+        
+        # 统计各类型关系数量
+        relation_counts = {
+            "total": len(relations_data),
+            "by_type": {}
+        }
+        
+        for relation in relations_data:
+            relation_type = relation.get('relation_type', '未知')
+            if relation_type not in relation_counts["by_type"]:
+                relation_counts["by_type"][relation_type] = 0
+            relation_counts["by_type"][relation_type] += 1
+        
+        return jsonify({
+            "success": True,
+            "relations": relations_data,
+            "by_source": relations_by_source,
+            "count": relation_counts
+        })
+        
+    except Exception as e:
+        logging.error(f"获取任务 {task_id} 的关系数据时出错: {str(e)}")
+        logging.error(traceback.format_exc())
+        return jsonify({
+            "success": False,
+            "message": f"获取关系数据出错: {str(e)}",
+            "relations": []
+        }), 500
 
 @combined_api.route('/tasks/<task_id>/recalculate', methods=['POST'])
 @combined_api.route('/comparison/<task_id>/recalculate', methods=['POST'])
 def recalculate_metrics(task_id):
-    """重新计算比较分析任务的指标"""
+    """重新计算比较分析指标"""
     try:
-        # 获取指标类型
-        metric_type = request.json.get('metric_type', 'all')  # 可选值: all, entity_stats, relation_stats, clustering
-        
-        # 获取任务的所有实体和关系
-        all_entities = db_manager.get_entities_by_task(task_id)
-        all_relations = db_manager.get_relations_by_task(task_id)
-        
-        if not all_entities:
+        # 检查任务ID格式
+        if not task_id or len(task_id) < 10:
             return jsonify({
                 "success": False,
-                "message": f"未找到任务 {task_id} 的实体数据，无法计算指标"
-            }), 404
-        
-        # 根据source字段分离综述和引文实体
-        review_entities = []
-        citation_entities = []
-        
-        for entity in all_entities:
-            # 确定实体来源
-            entity_source = None
+                "message": f"无效的任务ID: {task_id}"
+            }), 400
             
-            # 处理不同类型的实体
-            if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
-                entity_source = entity['algorithm_entity'].get('source', '未知')
-            elif 'dataset_entity' in entity and isinstance(entity['dataset_entity'], dict):
-                entity_source = entity['dataset_entity'].get('source', '未知')
-            elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
-                entity_source = entity['metric_entity'].get('source', '未知')
-            else:
-                entity_source = entity.get('source', '未知')
+        # 获取请求参数
+        data = request.get_json(silent=True) or {}
+        metric_type = data.get('metric_type', 'all')
+        
+        # 根据指标类型计算不同的指标
+        metrics = {}
+        
+        try:
+            # 获取实体和关系数据
+            entities = db_manager.get_entities_by_task(task_id)
+            relations = db_manager.get_relations_by_task(task_id)
             
-            # 根据来源分类
-            if entity_source == '综述':
-                review_entities.append(entity)
-            elif entity_source == '引文':
-                citation_entities.append(entity)
-            else:
-                # 对于未知来源的实体，进行简单分类（实际应用中可能需要更复杂的逻辑）
-                review_entities.append(entity)  # 默认归为综述
-        
-        # 导入指标计算模块
-        from app.modules.metrics_calculator import (
-            calculate_comparison_metrics, 
-            calculate_entity_statistics,
-            calculate_relation_statistics,
-            calculate_clustering_metrics
-        )
-        
-        # 根据类型计算指标
-        if metric_type == 'entity_stats':
-            metrics = {
-                'entity_stats': calculate_entity_statistics(review_entities, citation_entities)
-            }
-        elif metric_type == 'relation_stats':
-            metrics = {
-                'relation_stats': calculate_relation_statistics(all_relations)
-            }
-        elif metric_type == 'clustering':
-            metrics = {
-                'clustering': calculate_clustering_metrics(all_entities, all_relations)
-            }
-        else:  # 'all'
-            metrics = calculate_comparison_metrics(review_entities, citation_entities, all_relations)
-        
-        # 更新任务状态中的结果数据
-        task_status = db_manager.get_processing_status(task_id)
-        if task_status:
-            # 获取现有消息数据
-            message = task_status.get('message', '{}')
-            try:
-                result_data = json.loads(message)
-            except:
-                result_data = {}
-            
-            # 更新指标数据
-            if 'metrics' not in result_data:
-                result_data['metrics'] = {}
+            if not entities and not relations:
+                return jsonify({
+                    "success": True,
+                    "message": "没有找到可计算的数据",
+                    "metrics": {
+                        "entity_stats": {
+                            "total": 0,
+                            "message": "无数据"
+                        },
+                        "relation_stats": {
+                            "total": 0,
+                            "message": "无数据"
+                        },
+                        "clustering": {
+                            "clusters": [],
+                            "message": "无数据"
+                        }
+                    }
+                })
                 
-            if metric_type == 'all':
-                result_data['metrics'] = metrics
-            else:
-                result_data['metrics'][metric_type] = metrics[metric_type]
+            # 根据请求计算指标
+            if metric_type == 'all' or metric_type == 'entity_stats':
+                metrics['entity_stats'] = calculate_entity_statistics(entities)
                 
-            # 保存更新后的结果
-            db_manager.update_processing_status(
-                task_id=task_id,
-                message=json.dumps(result_data, ensure_ascii=False)
-            )
+            if metric_type == 'all' or metric_type == 'relation_stats':
+                metrics['relation_stats'] = calculate_relation_statistics(relations)
+                
+            if metric_type == 'all' or metric_type == 'clustering':
+                metrics['clustering'] = calculate_clustering_metrics(entities, relations)
+                
+        except Exception as calc_error:
+            logging.error(f"计算指标时出错: {str(calc_error)}")
+            logging.error(traceback.format_exc())
+            
+            # 返回尽可能多的有效指标，对错误的部分返回错误消息
+            if metric_type == 'all' or metric_type == 'entity_stats':
+                if 'entity_stats' not in metrics:
+                    metrics['entity_stats'] = {"error": str(calc_error)}
+                    
+            if metric_type == 'all' or metric_type == 'relation_stats':
+                if 'relation_stats' not in metrics:
+                    metrics['relation_stats'] = {"error": str(calc_error)}
+                    
+            if metric_type == 'all' or metric_type == 'clustering':
+                if 'clustering' not in metrics:
+                    metrics['clustering'] = {"error": str(calc_error)}
         
         return jsonify({
             "success": True,
@@ -1495,14 +1383,43 @@ def recalculate_metrics(task_id):
 def get_comparison_status(task_id):
     """获取比较分析任务的状态信息"""
     try:
-        # 获取任务状态
-        task_status = db_manager.get_processing_status(task_id)
-        
-        if not task_status:
+        # 检查任务ID格式
+        if not task_id or len(task_id) < 10:
             return jsonify({
                 "success": False,
-                "message": f"任务 {task_id} 不存在"
-            }), 404
+                "message": f"无效的任务ID: {task_id}"
+            }), 400
+            
+        # 获取任务状态
+        try:
+            task_status = db_manager.get_processing_status(task_id)
+        except Exception as db_error:
+            # 处理数据库查询错误
+            logging.error(f"数据库查询任务 {task_id} 状态时出错: {str(db_error)}")
+            logging.error(traceback.format_exc())
+            
+            # 返回有限的状态信息，避免完全失败
+            return jsonify({
+                "success": True,
+                "task": {
+                    "task_id": task_id,
+                    "status": "ERROR",
+                    "message": f"查询状态时出错: {str(db_error)}",
+                    "progress": 0
+                }
+            })
+        
+        if not task_status:
+            # 如果任务不存在，返回一个通用的空状态
+            return jsonify({
+                "success": True,
+                "task": {
+                    "task_id": task_id,
+                    "status": "NOT_FOUND",
+                    "message": "任务不存在或已被删除",
+                    "progress": 0
+                }
+            })
             
         return jsonify({
             "success": True,

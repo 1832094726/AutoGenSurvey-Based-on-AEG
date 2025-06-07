@@ -1,0 +1,10 @@
+{
+    "from_entity": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+    "to_entity": "Lin2017_StructuredSelfAttention",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Structured Self-attentive Sentence Embedding extends to include multi-hop attention mechanism",
+    "problem_addressed": "Limited representation of sentence semantics with single vector embedding",
+    "evidence": "We propose a self-attention mechanism for these sequential models to replace the max pooling or averaging step. Different from previous approaches, the proposed self-attention mechanism allows extracting different aspects of the sentence into multiple vector representations.",
+    "confidence": 0.95
+  }

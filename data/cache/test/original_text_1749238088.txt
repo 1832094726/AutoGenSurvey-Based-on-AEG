@@ -1,0 +1,561 @@
+```json
+[
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon NECO by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of sieve-based models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like NECO.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Charniak2000_MaximumEntropyParser",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Maximum-Entropy Parser by using a constrained latent variable model.",
+    "problem_addressed": "The limitations of traditional statistical models in capturing complex dependencies.",
+    "evidence": "The CL3M uses a constrained latent variable model, which can better capture dependencies compared to the Maximum-Entropy Parser.",
+    "confidence": 0.80
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model extends Constrained Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the CL3M, enhancing its ability to handle uncertainty.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model extends Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the L3M, enhancing its ability to handle uncertainty.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model improves upon Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The limitations of unconstrained models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of the L3M.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon NECO by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of sieve-based models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like NECO.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model extends Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the L3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model extends Constrained Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the CL3M, enhancing its ability to handle uncertainty.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The limitations of deterministic models in handling uncertainty.",
+    "evidence": "The PL3M adds a probabilistic model component to the L3M, improving its ability to handle uncertainty.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Simple Coreference Resolution by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of simple models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Simple Coreference Resolution.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roth2004_LinearProgrammingFormulation",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Linear Programming Formulation by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the LP formulation, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Bengtson2008_PairwiseCoreferenceModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Pairwise Coreference Model by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of pairwise models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Pairwise Coreference Model.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Finley2005_SupervisedClustering",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Supervised Clustering by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of clustering models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Supervised Clustering.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Structural SVM by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the Structural SVM, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Probabilistic Latent Left Linking Model extends Structural SVM by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the Structural SVM, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model improves upon Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The limitations of unconstrained models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of the L3M.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model extends Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the L3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The limitations of deterministic models in handling uncertainty.",
+    "evidence": "The PL3M adds a probabilistic model component to the L3M, improving its ability to handle uncertainty.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model extends Constrained Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the CL3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roth2004_LinearProgrammingFormulation",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Linear Programming Formulation by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the LP formulation, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Bengtson2008_PairwiseCoreferenceModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Pairwise Coreference Model by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of pairwise models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Pairwise Coreference Model.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Finley2005_SupervisedClustering",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Supervised Clustering by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of clustering models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Supervised Clustering.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Structural SVM by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the Structural SVM, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Probabilistic Latent Left Linking Model extends Structural SVM by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the Structural SVM, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model improves upon Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The limitations of unconstrained models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of the L3M.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model extends Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the L3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The limitations of deterministic models in handling uncertainty.",
+    "evidence": "The PL3M adds a probabilistic model component to the L3M, improving its ability to handle uncertainty.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model extends Constrained Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the CL3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roth2004_LinearProgrammingFormulation",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Linear Programming Formulation by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the LP formulation, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Bengtson2008_PairwiseCoreferenceModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Pairwise Coreference Model by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of pairwise models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Pairwise Coreference Model.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Finley2005_SupervisedClustering",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Supervised Clustering by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of clustering models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Supervised Clustering.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Structural SVM by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the Structural SVM, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Probabilistic Latent Left Linking Model extends Structural SVM by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the Structural SVM, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model improves upon Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The limitations of unconstrained models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of the L3M.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model extends Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the L3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The limitations of deterministic models in handling uncertainty.",
+    "evidence": "The PL3M adds a probabilistic model component to the L3M, improving its ability to handle uncertainty.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model extends Constrained Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the CL3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roth2004_LinearProgrammingFormulation",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Linear Programming Formulation by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the LP formulation, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Bengtson2008_PairwiseCoreferenceModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Pairwise Coreference Model by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of pairwise models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Pairwise Coreference Model.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Finley2005_SupervisedClustering",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Supervised Clustering by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of clustering models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Supervised Clustering.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Structural SVM by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the Structural SVM, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Probabilistic Latent Left Linking Model extends Structural SVM by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the Structural SVM, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model improves upon Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The limitations of unconstrained models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of the L3M.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model extends Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the L3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The limitations of deterministic models in handling uncertainty.",
+    "evidence": "The PL3M adds a probabilistic model component to the L3M, improving its ability to handle uncertainty.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model extends Constrained Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the CL3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roth2004_LinearProgrammingFormulation",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Linear Programming Formulation by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the LP formulation, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Bengtson2008_PairwiseCoreferenceModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Pairwise Coreference Model by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of pairwise models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Pairwise Coreference Model.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Finley2005_SupervisedClustering",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Supervised Clustering by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of clustering models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of coreference resolution models like Supervised Clustering.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Structural SVM by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the Structural SVM, extending its capabilities.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Yu2009_StructuralSVM",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Probabilistic Latent Left Linking Model extends Structural SVM by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the Structural SVM, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model improves upon Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The limitations of unconstrained models in handling complex coreference resolution tasks.",
+    "evidence": "The CL3M incorporates domain knowledge-based constraints, which can enhance the performance of the L3M.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model extends Latent Left Linking Model by adding domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the L3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The limitations of deterministic models in handling uncertainty.",
+    "evidence": "The PL3M adds a probabilistic model component to the L3M, improving its ability to handle uncertainty.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model extends Constrained Latent Left Linking Model by adding a probabilistic model component.",
+    "problem_addressed": "The need for a probabilistic approach to handle uncertainty in coreference resolution.",
+    "evidence": "The PL3M adds a probabilistic model component to the CL3M, extending its capabilities.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roth2004_LinearProgrammingFormulation",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model extends Linear Programming Formulation by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "The need for additional constraints to improve coreference resolution.",
+    "evidence": "The CL3M adds domain knowledge-based constraints to the LP formulation, extending its capabilities.",
+    "confidence": 0.

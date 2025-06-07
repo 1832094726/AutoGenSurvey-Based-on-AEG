@@ -1,0 +1,523 @@
+[
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model improves upon Simple Coreference Resolution by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Incomplete syntactic and semantic features in coreference resolution",
+    "evidence": "Our constrained latent left linking model incorporates domain knowledge-based constraints, which are not present in the simple coreference resolution model (Haghighi and Klein, 2009).",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Bengtson2008_PairwiseCoreferenceModel",
+    "relation_type": "Extend",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model extends Pairwise Coreference Model by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of pairwise coreference models",
+    "evidence": "We extend the pairwise coreference model (Bengtson and Roth, 2008) by employing a likelihood-based approach, which allows for better scalability.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Constrained Latent Left Linking Model improves NECO by adding richer feature connections.",
+    "problem_addressed": "Insufficient feature richness in coreference resolution",
+    "evidence": "Our constrained latent left linking model adds richer feature connections compared to NECO (Hajishirzi et al., 2013), leading to improved performance.",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Neural Network Parser extends Compositional Vector Grammar by using dense representations and a neural network classifier.",
+    "problem_addressed": "Sparsity issues in feature representation",
+    "evidence": "We extend compositional vector grammar (Socher et al., 2013) by using dense representations and a neural network classifier, addressing sparsity issues.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Fan2008_Liblinear",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Neural Network Parser improves upon Liblinear by achieving better accuracy and speed.",
+    "problem_addressed": "Low accuracy and slow speed of traditional parsers",
+    "evidence": "Our parser outperforms MaltParser using liblinear, which is known to be highly optimized, while our parser achieves much better accuracy.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_SimpleSemiSupervised",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing",
+    "detail": "Neural Network Parser improves Simple Semi-supervised Dependency Parsing by reducing the reliance on feature templates.",
+    "problem_addressed": "Heavy reliance on manually designed feature templates",
+    "evidence": "Unlike simple semi-supervised dependency parsing (Koo et al., 2008), our parser does not need to compute conjunction features and look them up in a huge feature table, greatly reducing feature generation time.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Hinton2012_Dropout",
+    "relation_type": "Use",
+    "structure": "Methodology.ParameterTuning",
+    "detail": "Neural Network Parser uses Dropout for regularization.",
+    "problem_addressed": "Overfitting in neural network models",
+    "evidence": "We apply a dropout (Hinton et al., 2012) with a 0.5 rate to prevent overfitting.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Duchi2011_AdaptiveSubgradient",
+    "relation_type": "Use",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Neural Network Parser uses AdaGrad for optimization.",
+    "problem_addressed": "Inefficient optimization in neural network training",
+    "evidence": "We use mini-batched AdaGrad (Duchi et al., 2011) for optimization.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Mikolov2013_SkipGram",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.WordEmbeddings",
+    "detail": "Neural Network Parser uses pre-trained word embeddings from Skip-gram.",
+    "problem_addressed": "Poor initialization of word embeddings",
+    "evidence": "We use the pre-trained word embeddings from (Collobert et al., 2011) for English and our trained 50-dimensional word2vec embeddings (Mikolov et al., 2013) for Chinese.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "deMarneffe2006_TypedDependencyExtractor",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.DependencyParsing",
+    "detail": "Neural Network Parser uses Typed Dependency Extractor for dependency parsing.",
+    "problem_addressed": "Inaccurate dependency parsing",
+    "evidence": "Dependencies are converted using the Penn2Malt tool (de Marneffe et al., 2006) with the head-finding rules.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Nivre2004_ArcStandardSystem",
+    "relation_type": "Use",
+    "structure": "Architecture.Transitions",
+    "detail": "Neural Network Parser uses Arc-standard system for transition-based parsing.",
+    "problem_addressed": "Inefficient parsing algorithms",
+    "evidence": "In this work, we employ the arc-standard system (Nivre, 2004) as the basis of our parser.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Henderson2007_SigmoidBeliefNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.ActivationFunction",
+    "detail": "Neural Network Parser improves upon Sigmoid Belief Networks by using a cube activation function.",
+    "problem_addressed": "Limited expressiveness of activation functions",
+    "evidence": "We introduce a novel activation function: cube g(x)= x³ in our model instead of the commonly used tanh or sigmoid functions.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Stenetorp2013_RecursiveNeuralNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Neural Network Parser improves upon Recursive Neural Networks by achieving better accuracy and speed.",
+    "problem_addressed": "Suboptimal performance of recursive neural networks",
+    "evidence": "Despite the fact that the graph-based MST-Parser achieves a similar result to ours on PTB (CoNLL dependencies), our parser is nearly 100 times faster.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Collins2003_HeadDrivenModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Neural Network Parser improves upon Head-Driven Statistical Model by using dense representations.",
+    "problem_addressed": "Sparsity in feature representation",
+    "evidence": "Our model only relies on dense features, and is able to automatically learn the most useful feature conjunctions for making predictions.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Constrained Latent Left Linking Model improves NECO by adding richer feature connections.",
+    "problem_addressed": "Insufficient feature richness in coreference resolution",
+    "evidence": "Our constrained latent left linking model adds richer feature connections compared to NECO (Hajishirzi et al., 2013), leading to improved performance.",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Probabilistic Latent Left Linking Model improves NECO by adding richer feature connections.",
+    "problem_addressed": "Insufficient feature richness in coreference resolution",
+    "evidence": "Our probabilistic latent left linking model adds richer feature connections compared to NECO (Hajishirzi et al., 2013), leading to improved performance.",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Charniak2000_MaximumEntropyParser",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Maximum-Entropy Parser by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of maximum entropy models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than maximum entropy estimation (Charniak, 2000).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Charniak2000_MaximumEntropyParser",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Maximum-Entropy Parser by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of maximum entropy models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than maximum entropy estimation (Charniak, 2000).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Lin1998_MINIPAR",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Constrained Latent Left Linking Model improves upon MINIPAR by using richer feature sets.",
+    "problem_addressed": "Limited feature richness in rule-based parsing",
+    "evidence": "Our constrained latent left linking model uses richer feature sets compared to MINIPAR (Lin, 1998), leading to improved performance.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Lin1998_MINIPAR",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Probabilistic Latent Left Linking Model improves upon MINIPAR by using richer feature sets.",
+    "problem_addressed": "Limited feature richness in rule-based parsing",
+    "evidence": "Our probabilistic latent left linking model uses richer feature sets compared to MINIPAR (Lin, 1998), leading to improved performance.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Sleator1993_LinkParser",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Constrained Latent Left Linking Model improves upon Link Parser by using richer feature connections.",
+    "problem_addressed": "Limited feature connections in constraint-based parsing",
+    "evidence": "Our constrained latent left linking model uses richer feature connections compared to Link Parser (Sleator and Temperley, 1993), leading to improved performance.",
+    "confidence": 0.84
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Sleator1993_LinkParser",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Link Parser by using richer feature connections.",
+    "problem_addressed": "Limited feature connections in constraint-based parsing",
+    "evidence": "Our probabilistic latent left linking model uses richer feature connections compared to Link Parser (Sleator and Temperley, 1993), leading to improved performance.",
+    "confidence": 0.84
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Combined Feedback Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than combined feedback perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Combined Feedback Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than combined feedback perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_StructuredPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Structured Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than structured perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_StructuredPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Structured Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than structured perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_BinaryPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Binary Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than binary perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_BinaryPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Binary Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than binary perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_LossApproximation",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Loss Approximation by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than loss approximation (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_LossApproximation",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Loss Approximation by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than loss approximation (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Combined Feedback Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than combined feedback perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Combined Feedback Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than combined feedback perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_StructuredPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Structured Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than structured perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_StructuredPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Structured Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than structured perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_BinaryPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Binary Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than binary perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_BinaryPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Binary Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than binary perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_LossApproximation",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Loss Approximation by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than loss approximation (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_LossApproximation",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Loss Approximation by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than loss approximation (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Combined Feedback Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than combined feedback perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Combined Feedback Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than combined feedback perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_StructuredPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Structured Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than structured perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_StructuredPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Structured Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than structured perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_BinaryPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Binary Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than binary perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_BinaryPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Binary Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than binary perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_LossApproximation",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Loss Approximation by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than loss approximation (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_LossApproximation",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Loss Approximation by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than loss approximation (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Combined Feedback Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than combined feedback perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Combined Feedback Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than combined feedback perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_StructuredPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Structured Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than structured perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_StructuredPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Structured Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than structured perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_BinaryPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Constrained Latent Left Linking Model improves upon Binary Perceptron by using a max-margin approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a max-margin approach (Chang et al., 2013) for training, which is more scalable than binary perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Goldwasser2014_BinaryPerceptron",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Probabilistic Latent Left Linking Model improves upon Binary Perceptron by using a likelihood-based approach.",
+    "problem_addressed": "Limited scalability of perceptron models",
+    "evidence": "We adopt a likelihood-based approach (Chang et al., 2013) for training, which is more scalable than binary perceptron (Goldwasser and Roth, 2014).",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Ch

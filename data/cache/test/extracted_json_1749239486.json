@@ -1,0 +1,10 @@
+{
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model incorporates domain knowledge-based constraints, enhancing NECO's coreference resolution and named-entity linking capabilities.",
+    "problem_addressed": "Limited effectiveness of sieve-based models in handling complex coreference scenarios",
+    "evidence": "The CL3M model extends the sieve-based approach by adding domain knowledge-based constraints, which improves the performance of coreference resolution and named-entity linking tasks.",
+    "confidence": 0.85
+  }

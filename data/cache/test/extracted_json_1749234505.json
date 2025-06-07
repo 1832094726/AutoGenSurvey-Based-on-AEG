@@ -1,0 +1,10 @@
+{
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Goldberg2010_EasyFirstNonDirectionalParser",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser optimizes parsing by using dense features instead of sparse indicator features",
+    "problem_addressed": "Sparsity and inefficiency of feature computation in traditional parsers",
+    "evidence": "Almost all current dependency parsers classify based on millions of sparse indicator features. Not only do these features generalize poorly, but the cost of feature computation restricts parsing speed significantly. In this work, we propose a novel way of learning a neural network classifier for use in a greedy, transition-based dependency parser.",
+    "confidence": 0.93
+  }

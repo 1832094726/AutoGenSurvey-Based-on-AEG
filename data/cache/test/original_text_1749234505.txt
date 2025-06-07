@@ -1,0 +1,543 @@
+[
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "English_Penn_Treebank_2014",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "Neural Network Parser evaluated on English Penn Treebank",
+    "problem_addressed": "Need for a robust dataset for dependency parsing",
+    "evidence": "We conduct our experiments on the English Penn Treebank(PTB) and the Chinese Penn Treebank (CTB) datasets.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Chinese_Penn_Treebank_2014",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "Neural Network Parser evaluated on Chinese Penn Treebank",
+    "problem_addressed": "Need for a robust dataset for dependency parsing",
+    "evidence": "We conduct our experiments on the English Penn Treebank(PTB) and the Chinese Penn Treebank (CTB) datasets.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "UAS_Parsing",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "Neural Network Parser evaluated using Unlabeled Attachment Score",
+    "problem_addressed": "Need for a reliable metric to evaluate dependency parsing",
+    "evidence": "On all datasets, we report unlabeled attachment scores(UAS) and labeled attachment scores (LAS) and punctuation is excluded in all evaluation metrics.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "LAS_Parsing",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "Neural Network Parser evaluated using Labeled Attachment Score",
+    "problem_addressed": "Need for a reliable metric to evaluate dependency parsing",
+    "evidence": "On all datasets, we report unlabeled attachment scores(UAS) and labeled attachment scores (LAS) and punctuation is excluded in all evaluation metrics.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "MaltParser",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser outperforms MaltParser in terms of accuracy and speed",
+    "problem_addressed": "Inefficiency and lower accuracy of traditional parsers",
+    "evidence": "Our parser even surpasses MaltParser using liblinear, which is known to be highly optimized, while our parser achieves much better accuracy.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "MSTParser",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser outperforms MSTParser in terms of speed",
+    "problem_addressed": "Inefficiency of graph-based parsers",
+    "evidence": "Also, despite the fact that the graph-based MST-Parser achieves a similar result to ours on PTB (CoNLL dependencies), our parser is nearly 100 times faster.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Goldberg2010_EasyFirstNonDirectionalParser",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser optimizes parsing by using dense features instead of sparse indicator features",
+    "problem_addressed": "Sparsity and inefficiency of feature computation in traditional parsers",
+    "evidence": "Almost all current dependency parsers classify based on millions of sparse indicator features. Not only do these features generalize poorly, but the cost of feature computation restricts parsing speed significantly. In this work, we propose a novel way of learning a neural network classifier for use in a greedy, transition-based dependency parser.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "deMarneffe2006_TypedDependencyExtractor",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends typed dependency extraction with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional dependency parsing",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Collins1999_HeadDrivenStatisticalModel",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser optimizes parsing by using dense features and neural networks",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional statistical models",
+    "evidence": "Almost all current dependency parsers classify based on millions of sparse indicator features. Not only do these features generalize poorly, but the cost of feature computation restricts parsing speed significantly.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Lin1998_MINIPAR",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser optimizes parsing by using dense features and neural networks",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional rule-based parsers",
+    "evidence": "Almost all current dependency parsers classify based on millions of sparse indicator features. Not only do these features generalize poorly, but the cost of feature computation restricts parsing speed significantly.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Sleator1993_LinkParser",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser optimizes parsing by using dense features and neural networks",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional constraint-based parsers",
+    "evidence": "Almost all current dependency parsers classify based on millions of sparse indicator features. Not only do these features generalize poorly, but the cost of feature computation restricts parsing speed significantly.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends compositional vector grammars with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_StandardRecursiveNeuralNetwork",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends standard recursive neural networks with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional recursive neural networks",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_SyntacticallyUntiedRecursiveNeuralNetwork",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends syntactically untied recursive neural networks with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional syntactically untied recursive neural networks",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Henderson2004_DiscriminativeTraining",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser optimizes parsing by using dense features and neural networks",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional discriminative parsers",
+    "evidence": "Almost all current dependency parsers classify based on millions of sparse indicator features. Not only do these features generalize poorly, but the cost of feature computation restricts parsing speed significantly.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Titov2007_IncrementalSigmoidBeliefNetworks",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends incremental sigmoid belief networks with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional incremental sigmoid belief networks",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Garg2011_TemporalRestrictedBoltzmanMachine",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser optimizes parsing by using dense features and neural networks",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional temporal restricted Boltzmann machines",
+    "evidence": "Almost all current dependency parsers classify based on millions of sparse indicator features. Not only do these features generalize poorly, but the cost of feature computation restricts parsing speed significantly.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Stenetorp2013_TransitionBasedDependencyParsing",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser optimizes parsing by using dense features and neural networks",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional transition-based dependency parsers",
+    "evidence": "Almost all current dependency parsers classify based on millions of sparse indicator features. Not only do these features generalize poorly, but the cost of feature computation restricts parsing speed significantly.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Mikolov2013_SkipGram",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Neural Network Parser uses pre-trained word embeddings from Skip-gram",
+    "problem_addressed": "Need for effective word representations",
+    "evidence": "Concretely, we use the pre-trained word embeddings from(Collobert et al., 2011) for English(#dictionary= 130,000, coverage= 72.7%), and our trained 50-dimensional word2vec embeddings(Mikolov et al., 2013) on Wikipedia and Gigaword corpus for Chinese(#dictionary= 285,791, coverage= 79.0%).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Collobert2011_DeepLearningForParsing",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends deep learning for parsing with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional deep learning models for parsing",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Huang2016_SIM",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon SIM by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional similarity-based methods",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Kushman2014_TemplateBased",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon template-based methods by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional template-based methods",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon quantity extraction methods by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional quantity extraction methods",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon quantity entailment methods by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional quantity entailment methods",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon math word problem solvers by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional math word problem solvers",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon KNOWLEDGE by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional declarative knowledge-based methods",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon expression tree-based solvers by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional expression tree-based solvers",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon UNITDEP by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional unit dependency graph methods",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Roy2015_LCA++",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon LCA++ by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional LCA++ methods",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Kushman2014_EquationSystemSolver",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon equation system solvers by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional equation system solvers",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Huang2018_CASS",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon CASS by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Wiseman2016_BeamSearchOptimization",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon beam search optimization methods by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional beam search optimization methods",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends compositional vector grammars with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2014_GroundedCompositionalSemantics",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends grounded compositional semantics with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional grounded compositional semantics",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_ParsingWithCompositionalVectorGrammars",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends parsing with compositional vector grammars using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_ParsingWithCompositionalVectorGrammars",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon parsing with compositional vector grammars by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2014_GroundedCompositionalSemantics",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon grounded compositional semantics by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional grounded compositional semantics",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon compositional vector grammars by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_ParsingWithCompositionalVectorGrammars",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon parsing with compositional vector grammars by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2014_GroundedCompositionalSemantics",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon grounded compositional semantics by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional grounded compositional semantics",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends compositional vector grammars with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_ParsingWithCompositionalVectorGrammars",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends parsing with compositional vector grammars using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2014_GroundedCompositionalSemantics",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends grounded compositional semantics with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional grounded compositional semantics",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon compositional vector grammars by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_ParsingWithCompositionalVectorGrammars",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon parsing with compositional vector grammars by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2014_GroundedCompositionalSemantics",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon grounded compositional semantics by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional grounded compositional semantics",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends compositional vector grammars with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_ParsingWithCompositionalVectorGrammars",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends parsing with compositional vector grammars using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2014_GroundedCompositionalSemantics",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends grounded compositional semantics with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional grounded compositional semantics",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon compositional vector grammars by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_ParsingWithCompositionalVectorGrammars",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon parsing with compositional vector grammars by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2014_GroundedCompositionalSemantics",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser improves upon grounded compositional semantics by using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional grounded compositional semantics",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends compositional vector grammars with dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_ParsingWithCompositionalVectorGrammars",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Parser extends parsing with compositional vector grammars using dense representations",
+    "problem_addressed": "Inefficiency and sparsity issues in traditional compositional vector grammars",
+    "evidence": "Low-dimensional, dense word embeddings can effectively alleviate sparsity by sharing statistical strength between similar words, and can provide us a good starting point to construct features of words and their interactions.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_Ne

@@ -913,7 +913,7 @@ def _get_entity_id(entity):
         return entity["metric_entity"].get("metric_id")
     return None
 
-def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous_relations=None, max_attempts=5, batch_size=100):
+def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous_relations=None, max_attempts=5, batch_size=1):
     """
     从实体列表和PDF文件中提取演化关系，支持多个PDF文件和file-id方式，支持批量处理
     
@@ -1022,6 +1022,7 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
     is_extraction_complete = False
     initial_relation_count = len(all_relations)
     consecutive_no_new_relation = 0  # 跟踪连续未找到新关系的次数
+    uploaded_file_ids = []  # 用于跟踪已上传的文件ID
 
     # 准备file-id列表
     file_ids = []
@@ -1035,7 +1036,7 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         if not file_ids:
             logging.warning("没有有效的file-id，将仅基于实体列表分析关系")
     
-    # 创建临时文件保存所有实体
+    # 创建临时文件保存所有实体 - 只上传一次
     with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as temp_file:
         temp_filename = temp_file.name
         # 将所有实体以JSON格式写入TXT文件
@@ -1043,8 +1044,9 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         temp_file.write(json_content)
         logging.info(f"已将 {len(entities)} 个实体以JSON格式写入TXT文件: {temp_filename}")
     
-    # 上传实体文件并获取file-id
+    # 上传实体文件并获取file-id - 只上传一次
     entities_file_id = upload_and_cache_file(temp_filename, purpose="file-extract")
+    uploaded_file_ids.append(entities_file_id)
     
     # 删除临时文件
     try:
@@ -1073,6 +1075,30 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         # 生成关系提取提示
         system_message, user_message = generate_evolution_relation_prompt(all_relations)
         
+        # 将提示内容保存为文本文件并上传 - 每次尝试都创建新的提示文件
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as prompt_file:
+            prompt_filename = prompt_file.name
+            prompt_content = f"{system_message}\n\n{user_message}"
+            prompt_file.write(prompt_content)
+            logging.info(f"已将提示信息写入TXT文件: {prompt_filename}")
+        
+        # 上传提示文件并获取file-id
+        prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
+        uploaded_file_ids.append(prompt_file_id)
+        
+        # 删除临时提示文件
+        try:
+            os.unlink(prompt_filename)
+        except Exception as e:
+            logging.warning(f"删除临时提示文件时出错: {str(e)}")
+        
+        if not prompt_file_id:
+            logging.error("上传提示文件失败，尝试下一次迭代")
+            continue
+        
+        # 添加提示文件ID到列表
+        all_file_ids.append(prompt_file_id)
+        
         # 调用API进行关系提取
         try:
             from openai import OpenAI
@@ -1081,20 +1107,20 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
                 base_url=Config.QWEN_BASE_URL
             )
             
-            # 构建消息
+            # 构建简化的消息内容，主要内容通过file-id引用
             messages = [
-                {"role": "system", "content": system_message}
+                {"role": "system", "content": "请从实体和文件中提取演化关系。所有详细指令和内容都在文件中提供。"}
             ]
             
             # 添加file-id引用
             file_content = ",".join([f"fileid://{fid}" for fid in all_file_ids])
             messages.append({"role": "system", "content": file_content})
             
-            # 添加用户提示
-            messages.append({"role": "user", "content": user_message})
+            # 添加简短的用户提示
+            messages.append({"role": "user", "content": "请根据提供的文件内容，分析实体之间的演化关系。"})
             
             # 调用API
-            logging.info(f"调用千问API提取关系，包含 {len(file_ids) if file_ids else 0} 个PDF文件和 1 个JSON内容的TXT文件(ID: {entities_file_id})，共 {len(all_file_ids)} 个文件")
+            logging.info(f"调用千问API提取关系，共引用 {len(all_file_ids)} 个文件")
             response = client.chat.completions.create(
                 model=Config.QWEN_MODEL or "qwen-long",
                 messages=messages,

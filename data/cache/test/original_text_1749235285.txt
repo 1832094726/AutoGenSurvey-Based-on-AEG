@@ -1,0 +1,640 @@
+[
+  {
+    "from_entity": "Charniak2000_MaximumEntropyParser",
+    "to_entity": "Chen2014_NeuralNetworkParser",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural network parser extends the maximum entropy model by incorporating dense representations and neural mechanisms.",
+    "problem_addressed": "Limited expressiveness of traditional statistical models",
+    "evidence": "Our parser uses dense representations and neural network mechanisms, extending beyond traditional maximum entropy models (Charniak, 2000).",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Lin1998_MINIPAR",
+    "to_entity": "Chen2014_NeuralNetworkParser",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser improves upon MINIPAR by using neural embeddings and a transition-based approach.",
+    "problem_addressed": "Inefficiency and limited accuracy of rule-based parsing",
+    "evidence": "Unlike MINIPAR which relies on rule-based parsing, our parser uses neural embeddings and a transition-based approach to improve efficiency and accuracy.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Sleator1993_LinkParser",
+    "to_entity": "Chen2014_NeuralNetworkParser",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser improves upon Link Parser by using dense representations and neural network mechanisms.",
+    "problem_addressed": "Limited scalability and efficiency of constraint-based parsing",
+    "evidence": "Our parser uses dense representations and neural network mechanisms, improving scalability and efficiency over constraint-based parsing methods like Link Parser.",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Fan2008_Liblinear",
+    "relation_type": "Use",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Neural network parser uses liblinear for optimization in comparison experiments.",
+    "problem_addressed": "Need for efficient optimization methods",
+    "evidence": "In our comparison experiments, we use liblinear for optimization, which is known to be highly optimized.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Fan2008_Liblinear",
+    "relation_type": "Improve",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Neural network parser outperforms liblinear-based parsers in terms of accuracy and speed.",
+    "problem_addressed": "Limited accuracy and speed of traditional parsers",
+    "evidence": "Despite the fact that MaltParser using liblinear is highly optimized, our parser achieves much better accuracy and speed.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Mikolov2013_SkipGram",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.WordEmbeddings",
+    "detail": "Neural network parser uses pre-trained word embeddings from Skip-gram for initialization.",
+    "problem_addressed": "Need for effective word representation",
+    "evidence": "We use pre-trained word embeddings from Skip-gram for initialization, achieving significant improvements in parsing accuracy.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Hinton2012_Dropout",
+    "relation_type": "Use",
+    "structure": "Methodology.ParameterTuning",
+    "detail": "Neural network parser applies dropout for regularization during training.",
+    "problem_addressed": "Overfitting in neural network models",
+    "evidence": "We apply dropout with a rate of 0.5 during training to prevent overfitting.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Duchi2011_AdaptiveSubgradient",
+    "relation_type": "Use",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Neural network parser uses AdaGrad for optimization.",
+    "problem_addressed": "Need for adaptive learning rates",
+    "evidence": "We use mini-batched AdaGrad for optimization, which adapts the learning rate for each parameter.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_SimpleSemiSupervised",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing.FeatureTemplates",
+    "detail": "Neural network parser improves upon simple semi-supervised dependency parsing by using dense features.",
+    "problem_addressed": "Sparsity and inefficiency of indicator features",
+    "evidence": "Our parser addresses the sparsity and inefficiency issues of indicator features by using dense representations.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Neural network parser extends compositional vector grammar by using dense representations and a novel activation function.",
+    "problem_addressed": "Limited expressiveness of compositional vector grammars",
+    "evidence": "Our parser builds on compositional vector grammars by using dense representations and a novel cube activation function.",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Nivre2004_ArcStandardSystem",
+    "relation_type": "Use",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser uses the arc-standard system as the basis for transition-based parsing.",
+    "problem_addressed": "Need for a robust transition system",
+    "evidence": "We employ the arc-standard system as the basis for our transition-based dependency parser.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Henderson2007_SigmoidBeliefNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Neural network parser improves upon sigmoid belief networks by using a cube activation function.",
+    "problem_addressed": "Limited modeling of higher-order interactions",
+    "evidence": "Our cube activation function better captures higher-order interactions compared to sigmoid belief networks.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Stenetorp2013_RecursiveNeuralNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser improves upon recursive neural networks by using dense features and a transition-based approach.",
+    "problem_addressed": "Limited empirical performance of recursive neural networks",
+    "evidence": "Our parser outperforms recursive neural networks in empirical performance by using dense features and a transition-based approach.",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Collins2003_HeadDrivenModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Neural network parser improves upon head-driven statistical models by using dense representations.",
+    "problem_addressed": "Limited accuracy of traditional statistical models",
+    "evidence": "Our parser achieves better accuracy by using dense representations compared to traditional head-driven statistical models.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "deMarneffe2006_TypedDependencyExtractor",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.DependencyTyping",
+    "detail": "Neural network parser uses typed dependency extraction for feature processing.",
+    "problem_addressed": "Need for accurate dependency typing",
+    "evidence": "We use typed dependency extraction rules for feature processing, ensuring accurate dependency typing.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_HigherOrderFeatures",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing.HigherOrderFeatures",
+    "detail": "Neural network parser improves upon higher-order feature extraction by using dense representations.",
+    "problem_addressed": "Inefficiency of higher-order feature extraction",
+    "evidence": "Our parser addresses the inefficiency of higher-order feature extraction by using dense representations.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Huang2013_FeatureSelection",
+    "relation_type": "Optimize",
+    "structure": "FeatureProcessing.FeatureSelection",
+    "detail": "Neural network parser optimizes feature selection by using dense representations.",
+    "problem_addressed": "Incomplete and expensive feature selection",
+    "evidence": "Our parser optimizes feature selection by using dense representations, addressing incompleteness and computational cost.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Zhang2011_TransitionBasedParser",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser optimizes transition-based parsing by using dense features and a cube activation function.",
+    "problem_addressed": "Limited accuracy and speed of transition-based parsers",
+    "evidence": "Our parser optimizes transition-based parsing by using dense features and a novel cube activation function, achieving better accuracy and speed.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Mikolov2013_SkipGram",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.WordEmbeddings",
+    "detail": "Neural network parser uses pre-trained word embeddings from Skip-gram for initialization.",
+    "problem_addressed": "Need for effective word representation",
+    "evidence": "We use pre-trained word embeddings from Skip-gram for initialization, achieving significant improvements in parsing accuracy.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Hinton2012_Dropout",
+    "relation_type": "Use",
+    "structure": "Methodology.ParameterTuning",
+    "detail": "Neural network parser applies dropout for regularization during training.",
+    "problem_addressed": "Overfitting in neural network models",
+    "evidence": "We apply dropout with a rate of 0.5 during training to prevent overfitting.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Duchi2011_AdaptiveSubgradient",
+    "relation_type": "Use",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Neural network parser uses AdaGrad for optimization.",
+    "problem_addressed": "Need for adaptive learning rates",
+    "evidence": "We use mini-batched AdaGrad for optimization, which adapts the learning rate for each parameter.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_SimpleSemiSupervised",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing.FeatureTemplates",
+    "detail": "Neural network parser improves upon simple semi-supervised dependency parsing by using dense features.",
+    "problem_addressed": "Sparsity and inefficiency of indicator features",
+    "evidence": "Our parser addresses the sparsity and inefficiency issues of indicator features by using dense representations.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Neural network parser extends compositional vector grammar by using dense representations and a novel activation function.",
+    "problem_addressed": "Limited expressiveness of compositional vector grammars",
+    "evidence": "Our parser builds on compositional vector grammars by using dense representations and a novel cube activation function.",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Nivre2004_ArcStandardSystem",
+    "relation_type": "Use",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser uses the arc-standard system as the basis for transition-based parsing.",
+    "problem_addressed": "Need for a robust transition system",
+    "evidence": "We employ the arc-standard system as the basis for our transition-based dependency parser.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Henderson2007_SigmoidBeliefNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Neural network parser improves upon sigmoid belief networks by using a cube activation function.",
+    "problem_addressed": "Limited modeling of higher-order interactions",
+    "evidence": "Our cube activation function better captures higher-order interactions compared to sigmoid belief networks.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Stenetorp2013_RecursiveNeuralNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser improves upon recursive neural networks by using dense features and a transition-based approach.",
+    "problem_addressed": "Limited empirical performance of recursive neural networks",
+    "evidence": "Our parser outperforms recursive neural networks in empirical performance by using dense features and a transition-based approach.",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Collins2003_HeadDrivenModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Neural network parser improves upon head-driven statistical models by using dense representations.",
+    "problem_addressed": "Limited accuracy of traditional statistical models",
+    "evidence": "Our parser achieves better accuracy by using dense representations compared to traditional head-driven statistical models.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "deMarneffe2006_TypedDependencyExtractor",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.DependencyTyping",
+    "detail": "Neural network parser uses typed dependency extraction for feature processing.",
+    "problem_addressed": "Need for accurate dependency typing",
+    "evidence": "We use typed dependency extraction rules for feature processing, ensuring accurate dependency typing.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_HigherOrderFeatures",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing.HigherOrderFeatures",
+    "detail": "Neural network parser improves upon higher-order feature extraction by using dense representations.",
+    "problem_addressed": "Inefficiency of higher-order feature extraction",
+    "evidence": "Our parser addresses the inefficiency of higher-order feature extraction by using dense representations.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Huang2013_FeatureSelection",
+    "relation_type": "Optimize",
+    "structure": "FeatureProcessing.FeatureSelection",
+    "detail": "Neural network parser optimizes feature selection by using dense representations.",
+    "problem_addressed": "Incomplete and expensive feature selection",
+    "evidence": "Our parser optimizes feature selection by using dense representations, addressing incompleteness and computational cost.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Zhang2011_TransitionBasedParser",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser optimizes transition-based parsing by using dense features and a cube activation function.",
+    "problem_addressed": "Limited accuracy and speed of transition-based parsers",
+    "evidence": "Our parser optimizes transition-based parsing by using dense features and a novel cube activation function, achieving better accuracy and speed.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Mikolov2013_SkipGram",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.WordEmbeddings",
+    "detail": "Neural network parser uses pre-trained word embeddings from Skip-gram for initialization.",
+    "problem_addressed": "Need for effective word representation",
+    "evidence": "We use pre-trained word embeddings from Skip-gram for initialization, achieving significant improvements in parsing accuracy.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Hinton2012_Dropout",
+    "relation_type": "Use",
+    "structure": "Methodology.ParameterTuning",
+    "detail": "Neural network parser applies dropout for regularization during training.",
+    "problem_addressed": "Overfitting in neural network models",
+    "evidence": "We apply dropout with a rate of 0.5 during training to prevent overfitting.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Duchi2011_AdaptiveSubgradient",
+    "relation_type": "Use",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Neural network parser uses AdaGrad for optimization.",
+    "problem_addressed": "Need for adaptive learning rates",
+    "evidence": "We use mini-batched AdaGrad for optimization, which adapts the learning rate for each parameter.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_SimpleSemiSupervised",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing.FeatureTemplates",
+    "detail": "Neural network parser improves upon simple semi-supervised dependency parsing by using dense features.",
+    "problem_addressed": "Sparsity and inefficiency of indicator features",
+    "evidence": "Our parser addresses the sparsity and inefficiency issues of indicator features by using dense representations.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Neural network parser extends compositional vector grammar by using dense representations and a novel activation function.",
+    "problem_addressed": "Limited expressiveness of compositional vector grammars",
+    "evidence": "Our parser builds on compositional vector grammars by using dense representations and a novel cube activation function.",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Nivre2004_ArcStandardSystem",
+    "relation_type": "Use",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser uses the arc-standard system as the basis for transition-based parsing.",
+    "problem_addressed": "Need for a robust transition system",
+    "evidence": "We employ the arc-standard system as the basis for our transition-based dependency parser.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Henderson2007_SigmoidBeliefNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Neural network parser improves upon sigmoid belief networks by using a cube activation function.",
+    "problem_addressed": "Limited modeling of higher-order interactions",
+    "evidence": "Our cube activation function better captures higher-order interactions compared to sigmoid belief networks.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Stenetorp2013_RecursiveNeuralNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser improves upon recursive neural networks by using dense features and a transition-based approach.",
+    "problem_addressed": "Limited empirical performance of recursive neural networks",
+    "evidence": "Our parser outperforms recursive neural networks in empirical performance by using dense features and a transition-based approach.",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Collins2003_HeadDrivenModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Neural network parser improves upon head-driven statistical models by using dense representations.",
+    "problem_addressed": "Limited accuracy of traditional statistical models",
+    "evidence": "Our parser achieves better accuracy by using dense representations compared to traditional head-driven statistical models.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "deMarneffe2006_TypedDependencyExtractor",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.DependencyTyping",
+    "detail": "Neural network parser uses typed dependency extraction for feature processing.",
+    "problem_addressed": "Need for accurate dependency typing",
+    "evidence": "We use typed dependency extraction rules for feature processing, ensuring accurate dependency typing.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_HigherOrderFeatures",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing.HigherOrderFeatures",
+    "detail": "Neural network parser improves upon higher-order feature extraction by using dense representations.",
+    "problem_addressed": "Inefficiency of higher-order feature extraction",
+    "evidence": "Our parser addresses the inefficiency of higher-order feature extraction by using dense representations.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Huang2013_FeatureSelection",
+    "relation_type": "Optimize",
+    "structure": "FeatureProcessing.FeatureSelection",
+    "detail": "Neural network parser optimizes feature selection by using dense representations.",
+    "problem_addressed": "Incomplete and expensive feature selection",
+    "evidence": "Our parser optimizes feature selection by using dense representations, addressing incompleteness and computational cost.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Zhang2011_TransitionBasedParser",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser optimizes transition-based parsing by using dense features and a cube activation function.",
+    "problem_addressed": "Limited accuracy and speed of transition-based parsers",
+    "evidence": "Our parser optimizes transition-based parsing by using dense features and a novel cube activation function, achieving better accuracy and speed.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Mikolov2013_SkipGram",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.WordEmbeddings",
+    "detail": "Neural network parser uses pre-trained word embeddings from Skip-gram for initialization.",
+    "problem_addressed": "Need for effective word representation",
+    "evidence": "We use pre-trained word embeddings from Skip-gram for initialization, achieving significant improvements in parsing accuracy.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Hinton2012_Dropout",
+    "relation_type": "Use",
+    "structure": "Methodology.ParameterTuning",
+    "detail": "Neural network parser applies dropout for regularization during training.",
+    "problem_addressed": "Overfitting in neural network models",
+    "evidence": "We apply dropout with a rate of 0.5 during training to prevent overfitting.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Duchi2011_AdaptiveSubgradient",
+    "relation_type": "Use",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Neural network parser uses AdaGrad for optimization.",
+    "problem_addressed": "Need for adaptive learning rates",
+    "evidence": "We use mini-batched AdaGrad for optimization, which adapts the learning rate for each parameter.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_SimpleSemiSupervised",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing.FeatureTemplates",
+    "detail": "Neural network parser improves upon simple semi-supervised dependency parsing by using dense features.",
+    "problem_addressed": "Sparsity and inefficiency of indicator features",
+    "evidence": "Our parser addresses the sparsity and inefficiency issues of indicator features by using dense representations.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Neural network parser extends compositional vector grammar by using dense representations and a novel activation function.",
+    "problem_addressed": "Limited expressiveness of compositional vector grammars",
+    "evidence": "Our parser builds on compositional vector grammars by using dense representations and a novel cube activation function.",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Nivre2004_ArcStandardSystem",
+    "relation_type": "Use",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser uses the arc-standard system as the basis for transition-based parsing.",
+    "problem_addressed": "Need for a robust transition system",
+    "evidence": "We employ the arc-standard system as the basis for our transition-based dependency parser.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Henderson2007_SigmoidBeliefNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Neural network parser improves upon sigmoid belief networks by using a cube activation function.",
+    "problem_addressed": "Limited modeling of higher-order interactions",
+    "evidence": "Our cube activation function better captures higher-order interactions compared to sigmoid belief networks.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Stenetorp2013_RecursiveNeuralNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser improves upon recursive neural networks by using dense features and a transition-based approach.",
+    "problem_addressed": "Limited empirical performance of recursive neural networks",
+    "evidence": "Our parser outperforms recursive neural networks in empirical performance by using dense features and a transition-based approach.",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Collins2003_HeadDrivenModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Components",
+    "detail": "Neural network parser improves upon head-driven statistical models by using dense representations.",
+    "problem_addressed": "Limited accuracy of traditional statistical models",
+    "evidence": "Our parser achieves better accuracy by using dense representations compared to traditional head-driven statistical models.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "deMarneffe2006_TypedDependencyExtractor",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.DependencyTyping",
+    "detail": "Neural network parser uses typed dependency extraction for feature processing.",
+    "problem_addressed": "Need for accurate dependency typing",
+    "evidence": "We use typed dependency extraction rules for feature processing, ensuring accurate dependency typing.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_HigherOrderFeatures",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing.HigherOrderFeatures",
+    "detail": "Neural network parser improves upon higher-order feature extraction by using dense representations.",
+    "problem_addressed": "Inefficiency of higher-order feature extraction",
+    "evidence": "Our parser addresses the inefficiency of higher-order feature extraction by using dense representations.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Huang2013_FeatureSelection",
+    "relation_type": "Optimize",
+    "structure": "FeatureProcessing.FeatureSelection",
+    "detail": "Neural network parser optimizes feature selection by using dense representations.",
+    "problem_addressed": "Incomplete and expensive feature selection",
+    "evidence": "Our parser optimizes feature selection by using dense representations, addressing incompleteness and computational cost.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Zhang2011_TransitionBasedParser",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser optimizes transition-based parsing by using dense features and a cube activation function.",
+    "problem_addressed": "Limited accuracy and speed of transition-based parsers",
+    "evidence": "Our parser optimizes transition-based parsing by using dense features and a novel cube activation function, achieving better accuracy and speed.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Mikolov2013_SkipGram",
+    "relation_type": "Use",
+    "structure": "FeatureProcessing.WordEmbeddings",
+    "detail": "Neural network parser uses pre-trained word embeddings from Skip-gram for initialization.",
+    "problem_addressed": "Need for effective word representation",
+    "evidence": "We use pre-trained word embeddings from Skip-gram for initialization, achieving significant improvements in parsing accuracy.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Hinton2012_Dropout",
+    "relation_type": "Use",
+    "structure": "Methodology.ParameterTuning",
+    "detail": "Neural network parser applies dropout for regularization during training.",
+    "problem_addressed": "Overfitting in neural network models",
+    "evidence": "We apply dropout with a rate of 0.5 during training to prevent overfitting.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Duchi2011_AdaptiveSubgradient",
+    "relation_type": "Use",
+    "structure": "Methodology.TrainingStrategy",
+    "detail": "Neural network parser uses AdaGrad for optimization.",
+    "problem_addressed": "Need for adaptive learning rates",
+    "evidence": "We use mini-batched AdaGrad for optimization, which adapts the learning rate for each parameter.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Koo2008_SimpleSemiSupervised",
+    "relation_type": "Improve",
+    "structure": "FeatureProcessing.FeatureTemplates",
+    "detail": "Neural network parser improves upon simple semi-supervised dependency parsing by using dense features.",
+    "problem_addressed": "Sparsity and inefficiency of indicator features",
+    "evidence": "Our parser addresses the sparsity and inefficiency issues of indicator features by using dense representations.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Socher2013_CompositionalVectorGrammar",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "Neural network parser extends compositional vector grammar by using dense representations and a novel activation function.",
+    "problem_addressed": "Limited expressiveness of compositional vector grammars",
+    "evidence": "Our parser builds on compositional vector grammars by using dense representations and a novel cube activation function.",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Nivre2004_ArcStandardSystem",
+    "relation_type": "Use",
+    "structure": "Architecture.Connections",
+    "detail": "Neural network parser uses the arc-standard system as the basis for transition-based parsing.",
+    "problem_addressed": "Need for a robust transition system",
+    "evidence": "We employ the arc-standard system as the basis for our transition-based dependency parser.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkParser",
+    "to_entity": "Henderson2007_SigmoidBeliefNetworks",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "Neural network parser improves upon sigmoid belief networks by using a cube activation function.",
+    "problem_addressed": "Limited modeling of higher-order interactions",
+    "evidence": "Our cube activation function better captures higher-order interactions compared to sigmoid belief networks.",
+   

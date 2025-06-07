@@ -1,0 +1,613 @@
+[
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Multi-pass sieve model improves upon the single-pass model by applying tiers of coreference models from highest to lowest precision.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones in single-pass models",
+    "evidence": "To overcome this problem, we propose a simple coreference architecture based on a sieve that applies tiers of deterministic coreference models one at a time from highest to lowest precision.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004-ROTH-DEV2_2004",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "The sieve model was evaluated on the ACE2004-ROTH-DEV2 dataset.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We used the following corpora for development and evaluation: ACE2004-ROTH-DEV2",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004-CULOTTA-TEST_2004",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "The sieve model was evaluated on the ACE2004-CULOTTA-TEST dataset.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We used the following corpora for development and evaluation: ACE2004-CULOTTA-TEST",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004-NWIRE_2004",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "The sieve model was evaluated on the ACE2004-NWIRE dataset.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We used the following corpora for development and evaluation: ACE2004-NWIRE",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "MUC6-TEST_1995",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "The sieve model was evaluated on the MUC6-TEST dataset.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We used the following corpora for development and evaluation: MUC6-TEST",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Pairwise_F1_Coreference",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "The sieve model was evaluated using the pairwise F1 metric.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We use three evaluation metrics widely used in the literature: (a) pairwise F1",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "MUC_Scoring",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "The sieve model was evaluated using the MUC metric.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We use three evaluation metrics widely used in the literature: (b) MUC",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "B3_Scoring",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "The sieve model was evaluated using the B3 metric.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We use three evaluation metrics widely used in the literature: (c) B3",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "to_entity": "ACE2004-ROTH-DEV2_2004",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "The simple coreference resolution model was evaluated on the ACE2004-ROTH-DEV2 dataset.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We used the following corpora for development and evaluation: ACE2004-ROTH-DEV2",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "to_entity": "ACE2004-CULOTTA-TEST_2004",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "The simple coreference resolution model was evaluated on the ACE2004-CULOTTA-TEST dataset.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We used the following corpora for development and evaluation: ACE2004-CULOTTA-TEST",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "to_entity": "ACE2004-NWIRE_2004",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "The simple coreference resolution model was evaluated on the ACE2004-NWIRE dataset.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We used the following corpora for development and evaluation: ACE2004-NWIRE",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "to_entity": "MUC6-TEST_1995",
+    "relation_type": "Use",
+    "structure": "Datasets",
+    "detail": "The simple coreference resolution model was evaluated on the MUC6-TEST dataset.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We used the following corpora for development and evaluation: MUC6-TEST",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "to_entity": "Pairwise_F1_Coreference",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "The simple coreference resolution model was evaluated using the pairwise F1 metric.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We use three evaluation metrics widely used in the literature: (a) pairwise F1",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "to_entity": "MUC_Scoring",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "The simple coreference resolution model was evaluated using the MUC metric.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We use three evaluation metrics widely used in the literature: (b) MUC",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "to_entity": "B3_Scoring",
+    "relation_type": "Use",
+    "structure": "Metrics",
+    "detail": "The simple coreference resolution model was evaluated using the B3 metric.",
+    "problem_addressed": "Evaluation of coreference resolution models",
+    "evidence": "We use three evaluation metrics widely used in the literature: (c) B3",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "to_entity": "Haghighi2010_CoreferenceResolution",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "The simple coreference resolution model was extended to include a modular, entity-centered model.",
+    "problem_addressed": "Limited scalability and modularity of coreference resolution models",
+    "evidence": "Haghighi and Klein(2010) propose a generative approach that models entity clusters explicitly using a mostly-unsupervised generative model.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Extend",
+    "structure": "Architecture.Components",
+    "detail": "The simple coreference resolution model was extended to include named-entity linking (NEL) informed sieves.",
+    "problem_addressed": "Limited integration of named-entity linking in coreference resolution",
+    "evidence": "Hajishirzi et al. (2013) extend the sieve-based model to incorporate NEL-informed sieves.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the simple coreference resolution model by ensuring stronger features are given precedence over weaker ones.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones in single-pass models",
+    "evidence": "The approach applies tiers of coreference models one at a time from highest to lowest precision, guaranteeing that stronger features are given precedence over weaker ones.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2010_CoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the entity-centered model by incorporating a more modular and flexible architecture.",
+    "problem_addressed": "Limited scalability and modularity of coreference resolution models",
+    "evidence": "Our sieve-based approach to coreference uniquely allows for such new models to be seamlessly inserted.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the NECO model by providing a more flexible and modular framework.",
+    "problem_addressed": "Limited integration of named-entity linking in coreference resolution",
+    "evidence": "Our sieve-based approach to coreference uniquely allows for such new models to be seamlessly inserted.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Bengtson2008_PairwiseCoreferenceModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the pairwise coreference model by addressing issues with lower precision features.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones in single-pass models",
+    "evidence": "This is problematic for two reasons: (1) lower precision features may overwhelm the smaller number of high precision ones, and (2) local information is often insufficient to make an informed decision.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Finkel2008_EnforcingTransitivity",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the transitivity enforcement model by propagating global information.",
+    "problem_addressed": "Local information being insufficient for informed decisions",
+    "evidence": "Furthermore, each model’s decisions are richly informed by sharing attributes across the mentions clustered in earlier tiers.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SemanticComponent",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "The multi-pass sieve model improves upon the semantic component model by not requiring access to the dataset beforehand.",
+    "problem_addressed": "Transductive learning requiring access to the dataset",
+    "evidence": "We thus did not include a similar semantic component in our system, given that running a bootstrapping learner whenever a new data set is encountered is not practical.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_Apposition",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses apposition detection as one of its features.",
+    "problem_addressed": "Handling appositive constructions in coreference resolution",
+    "evidence": "We use the same syntactic rules to detect appositions as Haghighi and Klein(2009).",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PredicateNominative",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses predicate nominative detection as one of its features.",
+    "problem_addressed": "Handling predicate nominative constructions in coreference resolution",
+    "evidence": "We use the same syntactic rules to detect predicate nominatives as Haghighi and Klein(2009).",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_RoleAppositive",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses role appositive detection as one of its features.",
+    "problem_addressed": "Handling role appositive constructions in coreference resolution",
+    "evidence": "We use the same syntactic rules to detect role appositives as Haghighi and Klein(2009).",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_RelativePronoun",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses relative pronoun detection as one of its features.",
+    "problem_addressed": "Handling relative pronoun constructions in coreference resolution",
+    "evidence": "We use the same syntactic rules to detect relative pronouns as Haghighi and Klein(2009).",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_AcronymDetection",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses acronym detection as one of its features.",
+    "problem_addressed": "Handling acronym constructions in coreference resolution",
+    "evidence": "We use a simple acronym detection algorithm, which marks a mention as an acronym of another if its text equals the sequence of upper case characters in the other mention.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_DemonymDetection",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses demonyms detection as one of its features.",
+    "problem_addressed": "Handling demonyms in coreference resolution",
+    "evidence": "For demonym detection we use a static list of countries and their gentilic forms from Wikipedia.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_NumberDetection",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses number detection as one of its features.",
+    "problem_addressed": "Handling number agreement in coreference resolution",
+    "evidence": "We assign number attributes based on: (a) a static list for pronouns; (b) NER labels; (c) part of speech tags; and (d) a static dictionary.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_GenderDetection",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses gender detection as one of its features.",
+    "problem_addressed": "Handling gender agreement in coreference resolution",
+    "evidence": "We assign gender attributes from static lexicons.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_AnimacyDetection",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses animacy detection as one of its features.",
+    "problem_addressed": "Handling animacy agreement in coreference resolution",
+    "evidence": "We set animacy attributes using: (a) a static list for pronouns; (b) NER labels; and (c) a dictionary boostrapped from the web.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_NERLabel",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses NER labels as one of its features.",
+    "problem_addressed": "Handling named entity recognition in coreference resolution",
+    "evidence": "We use the labels provided by the Stanford named entity recognizer.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SyntacticInformation",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses syntactic information as one of its features.",
+    "problem_addressed": "Handling syntactic information in coreference resolution",
+    "evidence": "We sort candidate antecedents using syntactic information provided by the Stanford parser.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_AttributeDetection",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses attribute detection as one of its features.",
+    "problem_addressed": "Handling attribute agreement in coreference resolution",
+    "evidence": "We perform a union of all mention attributes (e.g., number, gender, animacy) in a given cluster and share the result with all cluster mentions.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_ModifierInformation",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses modifier information as one of its features.",
+    "problem_addressed": "Handling modifiers in coreference resolution",
+    "evidence": "Several of our models use this modifier information.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_DiscourseSalience",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience as one of its features.",
+    "problem_addressed": "Handling discourse salience in coreference resolution",
+    "evidence": "We prune the search space using discourse salience.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_ClusterInformationPropagation",
+    "relation_type": "Use",
+    "structure": "Architecture.Connections",
+    "detail": "The multi-pass sieve model uses cluster information propagation as one of its mechanisms.",
+    "problem_addressed": "Propagating global information across mentions",
+    "evidence": "Each tier builds on the entity clusters constructed by previous models in the sieve, guaranteeing that stronger features are given precedence over weaker ones.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_AttributeSharing",
+    "relation_type": "Use",
+    "structure": "Architecture.Connections",
+    "detail": "The multi-pass sieve model uses attribute sharing as one of its mechanisms.",
+    "problem_addressed": "Sharing attributes across mentions in the same cluster",
+    "evidence": "We perform a union of all mention attributes (e.g., number, gender, animacy) in a given cluster and share the result with all cluster mentions.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_TieredModel",
+    "relation_type": "Use",
+    "structure": "Architecture.Mechanisms",
+    "detail": "The multi-pass sieve model uses a tiered model as one of its mechanisms.",
+    "problem_addressed": "Applying tiers of coreference models from highest to lowest precision",
+    "evidence": "The approach applies tiers of coreference models one at a time from highest to lowest precision.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_DeterministicModels",
+    "relation_type": "Use",
+    "structure": "Architecture.Mechanisms",
+    "detail": "The multi-pass sieve model uses deterministic models as one of its mechanisms.",
+    "problem_addressed": "Ensuring deterministic coreference decisions",
+    "evidence": "All our components are unsupervised, in the sense that they do not require training on gold coreference links.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_ClusterHeadMatch",
+    "relation_type": "Use",
+    "structure": "Architecture.Components",
+    "detail": "The multi-pass sieve model uses cluster head match as one of its components.",
+    "problem_addressed": "Matching mention heads with antecedent clusters",
+    "evidence": "Cluster head match – the mention head word matches any head word in the antecedent cluster.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_WordInclusion",
+    "relation_type": "Use",
+    "structure": "Architecture.Components",
+    "detail": "The multi-pass sieve model uses word inclusion as one of its components.",
+    "problem_addressed": "Including non-stop words in the antecedent cluster",
+    "evidence": "Word inclusion – all the non-stop words in the mention cluster are included in the set of non-stop words in the cluster of the antecedent candidate.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_CompatibleModifiers",
+    "relation_type": "Use",
+    "structure": "Architecture.Components",
+    "detail": "The multi-pass sieve model uses compatible modifiers as one of its components.",
+    "problem_addressed": "Ensuring compatible modifiers between mentions",
+    "evidence": "Compatible modifiers only – the mention’s modifiers are all included in the modifiers of the antecedent candidate.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_NotIWithinI",
+    "relation_type": "Use",
+    "structure": "Architecture.Components",
+    "detail": "The multi-pass sieve model uses not i-within-i as one of its components.",
+    "problem_addressed": "Avoiding i-within-i constructs in coreference resolution",
+    "evidence": "Not i-within-i – the two mentions are not in an i-within-i construct.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounMatch",
+    "relation_type": "Use",
+    "structure": "Architecture.Components",
+    "detail": "The multi-pass sieve model uses pronoun match as one of its components.",
+    "problem_addressed": "Handling pronoun coreference resolution",
+    "evidence": "Pronoun match – the mention is a pronoun that matches the antecedent.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounAttributes",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun attributes as one of its features.",
+    "problem_addressed": "Handling pronoun attributes in coreference resolution",
+    "evidence": "We assign number, gender, person, and animacy attributes to pronouns.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_NERLabel",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses NER labels as one of its features.",
+    "problem_addressed": "Handling named entity recognition in coreference resolution",
+    "evidence": "We use the labels provided by the Stanford named entity recognizer.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounConstraints",
+    "relation_type": "Use",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "The multi-pass sieve model uses pronoun constraints as one of its methodologies.",
+    "problem_addressed": "Handling pronoun constraints in coreference resolution",
+    "evidence": "We enforce agreement constraints between the coreferent mentions.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounHeuristics",
+    "relation_type": "Use",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "The multi-pass sieve model uses pronoun heuristics as one of its methodologies.",
+    "problem_addressed": "Handling pronoun heuristics in coreference resolution",
+    "evidence": "We do not enforce this constraint when linking two pronouns if one appears within quotes.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounDetection",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun detection as one of its features.",
+    "problem_addressed": "Handling pronoun detection in coreference resolution",
+    "evidence": "We assign number, gender, person, and animacy attributes to pronouns.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounGender",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun gender as one of its features.",
+    "problem_addressed": "Handling pronoun gender in coreference resolution",
+    "evidence": "We assign gender attributes from static lexicons.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounPerson",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun person as one of its features.",
+    "problem_addressed": "Handling pronoun person in coreference resolution",
+    "evidence": "We assign person attributes only to pronouns.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounAnimacy",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun animacy as one of its features.",
+    "problem_addressed": "Handling pronoun animacy in coreference resolution",
+    "evidence": "We set animacy attributes using: (a) a static list for pronouns; (b) NER labels; and (c) a dictionary.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounNumber",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun number as one of its features.",
+    "problem_addressed": "Handling pronoun number in coreference resolution",
+    "evidence": "We assign number attributes based on: (a) a static list for pronouns; (b) NER labels; (c) part of speech tags; and (d) a static dictionary.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounGender",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun gender as one of its features.",
+    "problem_addressed": "Handling pronoun gender in coreference resolution",
+    "evidence": "We assign gender attributes from static lexicons.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounPerson",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun person as one of its features.",
+    "problem_addressed": "Handling pronoun person in coreference resolution",
+    "evidence": "We assign person attributes only to pronouns.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounAnimacy",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun animacy as one of its features.",
+    "problem_addressed": "Handling pronoun animacy in coreference resolution",
+    "evidence": "We set animacy attributes using: (a) a static list for pronouns; (b) NER labels; and (c) a dictionary.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounNumber",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun number as one of its features.",
+    "problem_addressed": "Handling pronoun number in coreference resolution",
+    "evidence": "We assign number attributes based on: (a) a static list for pronouns; (b) NER labels; (c) part of speech tags; and (d) a static dictionary.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounGender",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun gender as one of its features.",
+    "problem_addressed": "Handling pronoun gender in coreference resolution",
+    "evidence": "We assign gender attributes from static lexicons.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_PronounPerson",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronoun person as one of its features.",
+    "problem_addressed": "Handling pronoun person in coreference resolution",
+    "evidence": "We assign person attributes only to pronouns.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2

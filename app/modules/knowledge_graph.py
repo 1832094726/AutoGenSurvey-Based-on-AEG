@@ -569,12 +569,12 @@ def export_graph_to_json(graph, output_path):
             'edges': edges
         }
         
-        # 写入文件
+            # 写入文件
         with open(output_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
+                    json.dump(data, f, ensure_ascii=False, indent=2)
         
-                logging.info(f"图数据已保存到: {output_path}")
-                return data
+                    logging.info(f"图数据已保存到: {output_path}")
+                    return data
     
     else:
         logging.warning("无效的图格式，无法导出")

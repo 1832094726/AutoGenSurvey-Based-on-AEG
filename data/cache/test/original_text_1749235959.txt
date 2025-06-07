@@ -1,0 +1,608 @@
+[
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Multi-pass sieve architecture improves upon the single-pass model by applying tiers of coreference models from highest to lowest precision.",
+    "problem_addressed": "Lower precision features overwhelming high precision ones in single-pass models",
+    "evidence": "This approach can lead to incorrect decisions as lower precision features often overwhelm the smaller number of high precision ones. To overcome this problem, we propose a simple coreference architecture based on a sieve that applies tiers of deterministic coreference models one at a time from highest to lowest precision.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004-ROTH-DEV2_2004",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "The multi-pass sieve model was evaluated on the ACE2004-ROTH-DEV2 dataset.",
+    "problem_addressed": "Need for standardized evaluation on coreference resolution",
+    "evidence": "We used the first corpus (ACE2004-ROTH-DEV) for development.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004-CULOTTA-TEST_2004",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "The multi-pass sieve model was evaluated on the ACE2004-CULOTTA-TEST dataset.",
+    "problem_addressed": "Need for standardized evaluation on coreference resolution",
+    "evidence": "The other corpora are reserved for testing. We parse all documents using the Stanford parser.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004-NWIRE_2004",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "The multi-pass sieve model was evaluated on the ACE2004-NWIRE dataset.",
+    "problem_addressed": "Need for standardized evaluation on coreference resolution",
+    "evidence": "The other corpora are reserved for testing. We parse all documents using the Stanford parser.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "MUC6-TEST_1995",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "The multi-pass sieve model was evaluated on the MUC6-TEST dataset.",
+    "problem_addressed": "Need for standardized evaluation on coreference resolution",
+    "evidence": "The other corpora are reserved for testing. We parse all documents using the Stanford parser.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Pairwise_F1_Coreference",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "The multi-pass sieve model was evaluated using the pairwise F1 metric.",
+    "problem_addressed": "Need for comprehensive evaluation metrics",
+    "evidence": "We use three evaluation metrics widely used in the literature: (a) pairwise F1.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "MUC_Scoring",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "The multi-pass sieve model was evaluated using the MUC metric.",
+    "problem_addressed": "Need for comprehensive evaluation metrics",
+    "evidence": "We use three evaluation metrics widely used in the literature: (b) MUC.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "B3_Scoring",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "The multi-pass sieve model was evaluated using the B3 metric.",
+    "problem_addressed": "Need for comprehensive evaluation metrics",
+    "evidence": "We use three evaluation metrics widely used in the literature: (c) B3.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model extends the feature set by incorporating attribute sharing and cluster information propagation.",
+    "problem_addressed": "Limited feature set in previous models",
+    "evidence": "We perform a union of all mention attributes (e.g., number, gender, animacy) in a given cluster and share the result with all cluster mentions.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "The multi-pass sieve model uses an unsupervised learning strategy without requiring labeled corpora during testing.",
+    "problem_addressed": "Dependence on labeled corpora for training and testing",
+    "evidence": "Our system does not rely on labeled corpora for training (like supervised approaches) nor access to corpora during testing (like Haghighi and Klein(2009)).",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanisms",
+    "detail": "The multi-pass sieve model uses deterministic models and a tiered approach to improve precision.",
+    "problem_addressed": "Lower precision in single-pass models",
+    "evidence": "Despite its simplicity, our approach outperforms or performs comparably to the state of the art on several corpora.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience for pruning the search space.",
+    "problem_addressed": "Inefficient search space exploration",
+    "evidence": "Finally, we prune the search space using discourse salience.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses syntactic information for mention processing.",
+    "problem_addressed": "Inadequate syntactic information handling",
+    "evidence": "We sort candidate antecedents using syntactic information provided by the Stanford parser.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses modifier information for mention selection.",
+    "problem_addressed": "Inadequate modifier information handling",
+    "evidence": "Several of our models use this modifier information.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses attribute detection for pronominal coreference resolution.",
+    "problem_addressed": "Inadequate attribute detection for pronominal coreference",
+    "evidence": "We assign number, gender, person, and animacy attributes for pronominal coreference resolution.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses named entity recognition labels.",
+    "problem_addressed": "Inadequate named entity recognition",
+    "evidence": "We use the labels provided by the Stanford named entity recognizer (NER).",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience for search pruning.",
+    "problem_addressed": "Inefficient search pruning",
+    "evidence": "We disable coreference for first cluster mentions that are or start with indefinite pronouns or articles.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses exact extent match for coreference resolution.",
+    "problem_addressed": "Inadequate handling of exact matches",
+    "evidence": "This model links two mentions only if they contain exactly the same extent text.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses precise constructs for coreference resolution.",
+    "problem_addressed": "Inadequate handling of precise constructs",
+    "evidence": "This model links two mentions if any of the conditions below are satisfied: Appositive, Predicate nominative, Role appositive, Relative pronoun, Acronym, Demonym.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses strict head matching for coreference resolution.",
+    "problem_addressed": "Inadequate head matching",
+    "evidence": "Linking a mention to an antecedent based on the naive matching of their head words generates a lot of spurious links.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses relaxed head matching for coreference resolution.",
+    "problem_addressed": "Inadequate handling of relaxed head matching",
+    "evidence": "This pass relaxes the cluster head match heuristic by allowing the mention head to match any word in the cluster of the candidate antecedent.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronominal coreference resolution.",
+    "problem_addressed": "Inadequate pronominal coreference resolution",
+    "evidence": "With one exception (Pass 2), all the previous coreference models focus on nominal coreference resolution. However, it would be incorrect to say that our framework ignores pronominal coreference.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses attribute sharing for pronominal coreference resolution.",
+    "problem_addressed": "Inadequate attribute sharing",
+    "evidence": "To address this issue, we perform a union of all mention attributes (e.g., number, gender, animacy) in a given cluster and share the result with all cluster mentions.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses cluster information propagation.",
+    "problem_addressed": "Inadequate cluster information propagation",
+    "evidence": "Each tier builds on the entity clusters constructed by previous models in the multi-pass system.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience for search pruning.",
+    "problem_addressed": "Inefficient search pruning",
+    "evidence": "We disable coreference for first cluster mentions that are or start with indefinite pronouns or articles.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses syntactic information for mention processing.",
+    "problem_addressed": "Inadequate syntactic information handling",
+    "evidence": "We sort candidate antecedents using syntactic information provided by the Stanford parser.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses attribute detection for pronominal coreference resolution.",
+    "problem_addressed": "Inadequate attribute detection for pronominal coreference",
+    "evidence": "We assign number, gender, person, and animacy attributes for pronominal coreference resolution.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses named entity recognition labels.",
+    "problem_addressed": "Inadequate named entity recognition",
+    "evidence": "We use the labels provided by the Stanford named entity recognizer (NER).",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience for search pruning.",
+    "problem_addressed": "Inefficient search pruning",
+    "evidence": "We disable coreference for first cluster mentions that are or start with indefinite pronouns or articles.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses exact extent match for coreference resolution.",
+    "problem_addressed": "Inadequate handling of exact matches",
+    "evidence": "This model links two mentions only if they contain exactly the same extent text.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses precise constructs for coreference resolution.",
+    "problem_addressed": "Inadequate handling of precise constructs",
+    "evidence": "This model links two mentions if any of the conditions below are satisfied: Appositive, Predicate nominative, Role appositive, Relative pronoun, Acronym, Demonym.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses strict head matching for coreference resolution.",
+    "problem_addressed": "Inadequate head matching",
+    "evidence": "Linking a mention to an antecedent based on the naive matching of their head words generates a lot of spurious links.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses relaxed head matching for coreference resolution.",
+    "problem_addressed": "Inadequate handling of relaxed head matching",
+    "evidence": "This pass relaxes the cluster head match heuristic by allowing the mention head to match any word in the cluster of the candidate antecedent.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronominal coreference resolution.",
+    "problem_addressed": "Inadequate pronominal coreference resolution",
+    "evidence": "With one exception (Pass 2), all the previous coreference models focus on nominal coreference resolution. However, it would be incorrect to say that our framework ignores pronominal coreference.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses attribute sharing for pronominal coreference resolution.",
+    "problem_addressed": "Inadequate attribute sharing",
+    "evidence": "To address this issue, we perform a union of all mention attributes (e.g., number, gender, animacy) in a given cluster and share the result with all cluster mentions.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses cluster information propagation.",
+    "problem_addressed": "Inadequate cluster information propagation",
+    "evidence": "Each tier builds on the entity clusters constructed by previous models in the multi-pass system.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience for search pruning.",
+    "problem_addressed": "Inefficient search pruning",
+    "evidence": "We disable coreference for first cluster mentions that are or start with indefinite pronouns or articles.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses syntactic information for mention processing.",
+    "problem_addressed": "Inadequate syntactic information handling",
+    "evidence": "We sort candidate antecedents using syntactic information provided by the Stanford parser.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses attribute detection for pronominal coreference resolution.",
+    "problem_addressed": "Inadequate attribute detection for pronominal coreference",
+    "evidence": "We assign number, gender, person, and animacy attributes for pronominal coreference resolution.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses named entity recognition labels.",
+    "problem_addressed": "Inadequate named entity recognition",
+    "evidence": "We use the labels provided by the Stanford named entity recognizer (NER).",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience for search pruning.",
+    "problem_addressed": "Inefficient search pruning",
+    "evidence": "We disable coreference for first cluster mentions that are or start with indefinite pronouns or articles.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses exact extent match for coreference resolution.",
+    "problem_addressed": "Inadequate handling of exact matches",
+    "evidence": "This model links two mentions only if they contain exactly the same extent text.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses precise constructs for coreference resolution.",
+    "problem_addressed": "Inadequate handling of precise constructs",
+    "evidence": "This model links two mentions if any of the conditions below are satisfied: Appositive, Predicate nominative, Role appositive, Relative pronoun, Acronym, Demonym.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses strict head matching for coreference resolution.",
+    "problem_addressed": "Inadequate head matching",
+    "evidence": "Linking a mention to an antecedent based on the naive matching of their head words generates a lot of spurious links.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses relaxed head matching for coreference resolution.",
+    "problem_addressed": "Inadequate handling of relaxed head matching",
+    "evidence": "This pass relaxes the cluster head match heuristic by allowing the mention head to match any word in the cluster of the candidate antecedent.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronominal coreference resolution.",
+    "problem_addressed": "Inadequate pronominal coreference resolution",
+    "evidence": "With one exception (Pass 2), all the previous coreference models focus on nominal coreference resolution. However, it would be incorrect to say that our framework ignores pronominal coreference.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses attribute sharing for pronominal coreference resolution.",
+    "problem_addressed": "Inadequate attribute sharing",
+    "evidence": "To address this issue, we perform a union of all mention attributes (e.g., number, gender, animacy) in a given cluster and share the result with all cluster mentions.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses cluster information propagation.",
+    "problem_addressed": "Inadequate cluster information propagation",
+    "evidence": "Each tier builds on the entity clusters constructed by previous models in the multi-pass system.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience for search pruning.",
+    "problem_addressed": "Inefficient search pruning",
+    "evidence": "We disable coreference for first cluster mentions that are or start with indefinite pronouns or articles.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses syntactic information for mention processing.",
+    "problem_addressed": "Inadequate syntactic information handling",
+    "evidence": "We sort candidate antecedents using syntactic information provided by the Stanford parser.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses attribute detection for pronominal coreference resolution.",
+    "problem_addressed": "Inadequate attribute detection for pronominal coreference",
+    "evidence": "We assign number, gender, person, and animacy attributes for pronominal coreference resolution.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses named entity recognition labels.",
+    "problem_addressed": "Inadequate named entity recognition",
+    "evidence": "We use the labels provided by the Stanford named entity recognizer (NER).",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience for search pruning.",
+    "problem_addressed": "Inefficient search pruning",
+    "evidence": "We disable coreference for first cluster mentions that are or start with indefinite pronouns or articles.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses exact extent match for coreference resolution.",
+    "problem_addressed": "Inadequate handling of exact matches",
+    "evidence": "This model links two mentions only if they contain exactly the same extent text.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses precise constructs for coreference resolution.",
+    "problem_addressed": "Inadequate handling of precise constructs",
+    "evidence": "This model links two mentions if any of the conditions below are satisfied: Appositive, Predicate nominative, Role appositive, Relative pronoun, Acronym, Demonym.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses strict head matching for coreference resolution.",
+    "problem_addressed": "Inadequate head matching",
+    "evidence": "Linking a mention to an antecedent based on the naive matching of their head words generates a lot of spurious links.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses relaxed head matching for coreference resolution.",
+    "problem_addressed": "Inadequate handling of relaxed head matching",
+    "evidence": "This pass relaxes the cluster head match heuristic by allowing the mention head to match any word in the cluster of the candidate antecedent.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses pronominal coreference resolution.",
+    "problem_addressed": "Inadequate pronominal coreference resolution",
+    "evidence": "With one exception (Pass 2), all the previous coreference models focus on nominal coreference resolution. However, it would be incorrect to say that our framework ignores pronominal coreference.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses attribute sharing for pronominal coreference resolution.",
+    "problem_addressed": "Inadequate attribute sharing",
+    "evidence": "To address this issue, we perform a union of all mention attributes (e.g., number, gender, animacy) in a given cluster and share the result with all cluster mentions.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses cluster information propagation.",
+    "problem_addressed": "Inadequate cluster information propagation",
+    "evidence": "Each tier builds on the entity clusters constructed by previous models in the multi-pass system.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "The multi-pass sieve model uses discourse salience for search pruning.",
+    "problem_addressed":

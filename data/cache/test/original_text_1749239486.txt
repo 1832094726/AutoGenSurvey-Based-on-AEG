@@ -1,0 +1,569 @@
+[
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model incorporates domain knowledge-based constraints, enhancing NECO's coreference resolution and named-entity linking capabilities.",
+    "problem_addressed": "Limited effectiveness of sieve-based models in handling complex coreference scenarios",
+    "evidence": "The CL3M model extends the sieve-based approach by adding domain knowledge-based constraints, which improves the performance of coreference resolution and named-entity linking tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Hajishirzi2013_NECO",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Probabilistic Latent Left Linking Model introduces probabilistic mechanisms, enhancing NECO's coreference resolution and named-entity linking capabilities.",
+    "problem_addressed": "Limited effectiveness of sieve-based models in handling complex coreference scenarios",
+    "evidence": "The PL3M model extends the sieve-based approach by adding probabilistic mechanisms, which improves the performance of coreference resolution and named-entity linking tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model enhances Simple Coreference Resolution by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of unsupervised learning in coreference resolution",
+    "evidence": "The CL3M model extends the unsupervised learning approach by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Haghighi2009_SimpleCoreferenceResolution",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Probabilistic Latent Left Linking Model enhances Simple Coreference Resolution by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of unsupervised learning in coreference resolution",
+    "evidence": "The PL3M model extends the unsupervised learning approach by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Bengtson2008_PairwiseCoreferenceModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Constrained Latent Left Linking Model enhances Pairwise Coreference Model by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of pairwise coreference models in handling complex coreference scenarios",
+    "evidence": "The CL3M model extends the pairwise coreference approach by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Bengtson2008_PairwiseCoreferenceModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "Probabilistic Latent Left Linking Model enhances Pairwise Coreference Model by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of pairwise coreference models in handling complex coreference scenarios",
+    "evidence": "The PL3M model extends the pairwise coreference approach by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Charniak2000_MaximumEntropyParser",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Constrained Latent Left Linking Model builds on Maximum-Entropy Parser by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of maximum entropy models in coreference resolution",
+    "evidence": "The CL3M model extends the maximum entropy approach by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Charniak2000_MaximumEntropyParser",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Probabilistic Latent Left Linking Model builds on Maximum-Entropy Parser by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of maximum entropy models in coreference resolution",
+    "evidence": "The PL3M model extends the maximum entropy approach by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Charniak1968_CARPS",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Constrained Latent Left Linking Model builds on CARPS by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of rule-based approaches in coreference resolution",
+    "evidence": "The CL3M model extends the rule-based approach by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Charniak1968_CARPS",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Probabilistic Latent Left Linking Model builds on CARPS by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of rule-based approaches in coreference resolution",
+    "evidence": "The PL3M model extends the rule-based approach by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Charniak1969_ComputerSolution",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Constrained Latent Left Linking Model builds on Computer Solution by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of rule-based approaches in coreference resolution",
+    "evidence": "The CL3M model extends the rule-based approach by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Charniak1969_ComputerSolution",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Probabilistic Latent Left Linking Model builds on Computer Solution by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of rule-based approaches in coreference resolution",
+    "evidence": "The PL3M model extends the rule-based approach by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model uses Quantity Extraction for feature processing.",
+    "problem_addressed": "Need for accurate quantity extraction in coreference resolution",
+    "evidence": "The CL3M model uses the Quantity Extraction method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model uses Quantity Extraction for feature processing.",
+    "problem_addressed": "Need for accurate quantity extraction in coreference resolution",
+    "evidence": "The PL3M model uses the Quantity Extraction method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model uses Quantity Entailment for feature processing.",
+    "problem_addressed": "Need for accurate quantity entailment in coreference resolution",
+    "evidence": "The CL3M model uses the Quantity Entailment method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model uses Quantity Entailment for feature processing.",
+    "problem_addressed": "Need for accurate quantity entailment in coreference resolution",
+    "evidence": "The PL3M model uses the Quantity Entailment method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model uses Math Word Problem Solver for feature processing.",
+    "problem_addressed": "Need for accurate math word problem solving in coreference resolution",
+    "evidence": "The CL3M model uses the Math Word Problem Solver method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model uses Math Word Problem Solver for feature processing.",
+    "problem_addressed": "Need for accurate math word problem solving in coreference resolution",
+    "evidence": "The PL3M model uses the Math Word Problem Solver method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model uses UNITDEP for feature processing.",
+    "problem_addressed": "Need for accurate unit dependency graph in coreference resolution",
+    "evidence": "The CL3M model uses the UNITDEP method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model uses UNITDEP for feature processing.",
+    "problem_addressed": "Need for accurate unit dependency graph in coreference resolution",
+    "evidence": "The PL3M model uses the UNITDEP method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_LCA++",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model uses LCA++ for feature processing.",
+    "problem_addressed": "Need for accurate LCA operation prediction in coreference resolution",
+    "evidence": "The CL3M model uses the LCA++ method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_LCA++",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model uses LCA++ for feature processing.",
+    "problem_addressed": "Need for accurate LCA operation prediction in coreference resolution",
+    "evidence": "The PL3M model uses the LCA++ method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model uses Expression Tree Based Solver for feature processing.",
+    "problem_addressed": "Need for accurate expression tree generation in coreference resolution",
+    "evidence": "The CL3M model uses the Expression Tree Based Solver method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model uses Expression Tree Based Solver for feature processing.",
+    "problem_addressed": "Need for accurate expression tree generation in coreference resolution",
+    "evidence": "The PL3M model uses the Expression Tree Based Solver method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model uses KNOWLEDGE for feature processing.",
+    "problem_addressed": "Need for accurate declarative rule selection in coreference resolution",
+    "evidence": "The CL3M model uses the KNOWLEDGE method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model uses KNOWLEDGE for feature processing.",
+    "problem_addressed": "Need for accurate declarative rule selection in coreference resolution",
+    "evidence": "The PL3M model uses the KNOWLEDGE method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model extends Quantity Extraction by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of quantity extraction in coreference resolution",
+    "evidence": "The CL3M model extends the Quantity Extraction method by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model extends Quantity Extraction by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of quantity extraction in coreference resolution",
+    "evidence": "The PL3M model extends the Quantity Extraction method by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model extends Quantity Entailment by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of quantity entailment in coreference resolution",
+    "evidence": "The CL3M model extends the Quantity Entailment method by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model extends Quantity Entailment by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of quantity entailment in coreference resolution",
+    "evidence": "The PL3M model extends the Quantity Entailment method by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model extends Math Word Problem Solver by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of math word problem solving in coreference resolution",
+    "evidence": "The CL3M model extends the Math Word Problem Solver method by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model extends Math Word Problem Solver by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of math word problem solving in coreference resolution",
+    "evidence": "The PL3M model extends the Math Word Problem Solver method by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model extends UNITDEP by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of unit dependency graph in coreference resolution",
+    "evidence": "The CL3M model extends the UNITDEP method by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model extends UNITDEP by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of unit dependency graph in coreference resolution",
+    "evidence": "The PL3M model extends the UNITDEP method by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_LCA++",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model extends LCA++ by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of LCA operation prediction in coreference resolution",
+    "evidence": "The CL3M model extends the LCA++ method by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_LCA++",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model extends LCA++ by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of LCA operation prediction in coreference resolution",
+    "evidence": "The PL3M model extends the LCA++ method by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model extends Expression Tree Based Solver by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of expression tree generation in coreference resolution",
+    "evidence": "The CL3M model extends the Expression Tree Based Solver method by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model extends Expression Tree Based Solver by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of expression tree generation in coreference resolution",
+    "evidence": "The PL3M model extends the Expression Tree Based Solver method by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model extends KNOWLEDGE by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of declarative rule selection in coreference resolution",
+    "evidence": "The CL3M model extends the KNOWLEDGE method by adding domain knowledge-based constraints, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model extends KNOWLEDGE by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of declarative rule selection in coreference resolution",
+    "evidence": "The PL3M model extends the KNOWLEDGE method by adding probabilistic mechanisms, which improves the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model improves Quantity Extraction by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of quantity extraction in coreference resolution",
+    "evidence": "The CL3M model improves the Quantity Extraction method by adding domain knowledge-based constraints, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model improves Quantity Extraction by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of quantity extraction in coreference resolution",
+    "evidence": "The PL3M model improves the Quantity Extraction method by adding probabilistic mechanisms, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model improves Quantity Entailment by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of quantity entailment in coreference resolution",
+    "evidence": "The CL3M model improves the Quantity Entailment method by adding domain knowledge-based constraints, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model improves Quantity Entailment by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of quantity entailment in coreference resolution",
+    "evidence": "The PL3M model improves the Quantity Entailment method by adding probabilistic mechanisms, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model improves Math Word Problem Solver by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of math word problem solving in coreference resolution",
+    "evidence": "The CL3M model improves the Math Word Problem Solver method by adding domain knowledge-based constraints, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_MathWordProblemSolver",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model improves Math Word Problem Solver by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of math word problem solving in coreference resolution",
+    "evidence": "The PL3M model improves the Math Word Problem Solver method by adding probabilistic mechanisms, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model improves UNITDEP by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of unit dependency graph in coreference resolution",
+    "evidence": "The CL3M model improves the UNITDEP method by adding domain knowledge-based constraints, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2017_UNITDEP",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model improves UNITDEP by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of unit dependency graph in coreference resolution",
+    "evidence": "The PL3M model improves the UNITDEP method by adding probabilistic mechanisms, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_LCA++",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model improves LCA++ by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of LCA operation prediction in coreference resolution",
+    "evidence": "The CL3M model improves the LCA++ method by adding domain knowledge-based constraints, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_LCA++",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model improves LCA++ by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of LCA operation prediction in coreference resolution",
+    "evidence": "The PL3M model improves the LCA++ method by adding probabilistic mechanisms, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model improves Expression Tree Based Solver by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of expression tree generation in coreference resolution",
+    "evidence": "The CL3M model improves the Expression Tree Based Solver method by adding domain knowledge-based constraints, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2016_ExpressionTreeBasedSolver",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model improves Expression Tree Based Solver by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of expression tree generation in coreference resolution",
+    "evidence": "The PL3M model improves the Expression Tree Based Solver method by adding probabilistic mechanisms, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model improves KNOWLEDGE by incorporating domain knowledge-based constraints.",
+    "problem_addressed": "Limited effectiveness of declarative rule selection in coreference resolution",
+    "evidence": "The CL3M model improves the KNOWLEDGE method by adding domain knowledge-based constraints, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2018_KNOWLEDGE",
+    "relation_type": "Improve",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model improves KNOWLEDGE by introducing probabilistic mechanisms.",
+    "problem_addressed": "Limited effectiveness of declarative rule selection in coreference resolution",
+    "evidence": "The PL3M model improves the KNOWLEDGE method by adding probabilistic mechanisms, which enhances the performance of coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model uses Quantity Extraction for feature processing.",
+    "problem_addressed": "Need for accurate quantity extraction in coreference resolution",
+    "evidence": "The CL3M model uses the Quantity Extraction method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityExtraction",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Probabilistic Latent Left Linking Model uses Quantity Extraction for feature processing.",
+    "problem_addressed": "Need for accurate quantity extraction in coreference resolution",
+    "evidence": "The PL3M model uses the Quantity Extraction method to improve feature processing in coreference resolution tasks.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Use",
+    "structure": "Feature_Processing",
+    "detail": "Constrained Latent Left Linking Model uses Quantity Entailment for feature processing.",
+    "problem_addressed": "Need for accurate quantity entailment in coreference resolution",
+    "evidence": "The CL3M model uses the Quantity Entailment method to improve
