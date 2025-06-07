@@ -88,7 +88,59 @@ flask run
 2. 算法实体表格：查看、添加、编辑和删除算法实体
 3. 关系图展示：交互式查看算法演化关系图，可以添加新关系
 
+## 最近更新
+
+- **2023-12-20**: 修复了从嵌套数据结构中正确获取`source`字段的问题。现在系统能够正确处理嵌套在`algorithm_entity`、`dataset_entity`和`metric_entity`对象中的数据。
+- **2023-12-20**: 增强了数据库操作，现在能够识别并处理嵌套结构中的实体数据，保障数据的一致性和完整性。
+- **2023-12-20**: 更新了文档，明确说明了系统中使用的嵌套数据结构及其正确的访问方式。
+
 ## 数据格式
+
+本系统使用嵌套结构存储实体数据，实体可能包含在嵌套对象中。
+
+### 实体嵌套结构
+
+系统中的实体数据可能以以下两种形式存在：
+
+1. 直接实体:
+```json
+{
+  "entity_id": "AlexNet_2012",
+  "name": "AlexNet",
+  "entity_type": "Algorithm",
+  "year": 2012,
+  "source": "综述",
+  // 其他字段...
+}
+```
+
+2. 嵌套实体（推荐格式）:
+```json
+{
+  "algorithm_entity": {
+    "entity_id": "AlexNet_2012",
+    "name": "AlexNet",
+    "entity_type": "Algorithm", 
+    "year": 2012,
+    "source": "综述",
+    // 其他字段...
+  }
+}
+```
+
+**重要**: 当处理实体时，必须检查是否存在嵌套结构，并从正确的位置获取字段值。例如，获取`source`字段的正确方式：
+
+```python
+def get_source(entity):
+    if 'algorithm_entity' in entity:
+        return entity['algorithm_entity'].get('source', '未知')
+    elif 'dataset_entity' in entity:
+        return entity['dataset_entity'].get('source', '未知')
+    elif 'metric_entity' in entity:
+        return entity['metric_entity'].get('source', '未知')
+    else:
+        return entity.get('source', '未知')
+```
 
 ### 算法实体
 
@@ -111,7 +163,8 @@ flask run
     "training_strategy": ["SGD with momentum", "Learning rate decay"],
     "parameter_tuning": ["Grid search"]
   },
-  "feature_processing": ["Image augmentation"]
+  "feature_processing": ["Image augmentation"],
+  "source": "综述"  // 实体来源: "综述", "引文" 或 "未知"
 }
 ```
 
@@ -126,7 +179,8 @@ flask run
   "structure": "Architecture.Components",
   "detail": "增加了更深的网络层",
   "evidence": "论文第3节",
-  "confidence": 0.95
+  "confidence": 0.95,
+  "source": "综述"  // 关系来源: "综述", "引文" 或 "未知"
 }
 ```
 

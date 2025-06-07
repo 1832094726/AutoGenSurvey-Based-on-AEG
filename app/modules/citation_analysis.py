@@ -136,7 +136,15 @@ def merge_and_deduplicate_entities(entities):
         # 提取实体ID和类型
         if 'entity_id' in entity:
             entity_id = entity.get('entity_id')
-            entity_type = entity.get('entity_type', 'Algorithm')
+            # 从嵌套结构中获取entity_type
+            if 'algorithm_entity' in entity:
+                entity_type = entity['algorithm_entity'].get('entity_type', 'Algorithm')
+            elif 'dataset_entity' in entity:
+                entity_type = entity['dataset_entity'].get('entity_type', 'Dataset')
+            elif 'metric_entity' in entity:
+                entity_type = entity['metric_entity'].get('entity_type', 'Metric')
+            else:
+                entity_type = entity.get('entity_type', 'Algorithm')
         elif 'algorithm_id' in entity:
             entity_id = entity.get('algorithm_id')
             entity_type = 'Algorithm'
@@ -511,17 +519,43 @@ def compare_method_names(generated_entities, gold_standard_entities):
     # 提取方法名称
     generated_names = set()
     for entity in generated_entities:
-        if entity.get('entity_type', '') == 'Algorithm':
+        # 从嵌套结构中获取entity_type
+        entity_type = None
+        if 'algorithm_entity' in entity:
+            entity_type = entity['algorithm_entity'].get('entity_type', 'Algorithm')
+            name = entity['algorithm_entity'].get('name', '').strip().lower()
+        elif 'dataset_entity' in entity:
+            entity_type = entity['dataset_entity'].get('entity_type', 'Dataset')
+            name = entity['dataset_entity'].get('name', '').strip().lower()
+        elif 'metric_entity' in entity:
+            entity_type = entity['metric_entity'].get('entity_type', 'Metric')
+            name = entity['metric_entity'].get('name', '').strip().lower()
+        else:
+            entity_type = entity.get('entity_type', '')
             name = entity.get('name', '').strip().lower()
-            if name:
-                generated_names.add(name)
+            
+        if entity_type == 'Algorithm' and name:
+            generated_names.add(name)
     
     gold_names = set()
     for entity in gold_standard_entities:
-        if entity.get('entity_type', '') == 'Algorithm':
+        # 从嵌套结构中获取entity_type
+        entity_type = None
+        if 'algorithm_entity' in entity:
+            entity_type = entity['algorithm_entity'].get('entity_type', 'Algorithm')
+            name = entity['algorithm_entity'].get('name', '').strip().lower()
+        elif 'dataset_entity' in entity:
+            entity_type = entity['dataset_entity'].get('entity_type', 'Dataset')
+            name = entity['dataset_entity'].get('name', '').strip().lower()
+        elif 'metric_entity' in entity:
+            entity_type = entity['metric_entity'].get('entity_type', 'Metric')
+            name = entity['metric_entity'].get('name', '').strip().lower()
+        else:
+            entity_type = entity.get('entity_type', '')
             name = entity.get('name', '').strip().lower()
-            if name:
-                gold_names.add(name)
+            
+        if entity_type == 'Algorithm' and name:
+            gold_names.add(name)
     
     # 计算准确率
     matched_names = generated_names.intersection(gold_names)
@@ -549,8 +583,26 @@ def compute_cluster_metrics(generated_entities, gold_standard_entities):
     def cluster_by_task(entities):
         clusters = defaultdict(list)
         for entity in entities:
-            if entity.get('entity_type', '') == 'Algorithm':
+            # 从嵌套结构中获取entity_type和task
+            entity_type = None
+            tasks = []
+            
+            if 'algorithm_entity' in entity:
+                entity_type = entity['algorithm_entity'].get('entity_type', 'Algorithm')
+                tasks = entity['algorithm_entity'].get('task', [])
+            elif 'dataset_entity' in entity:
+                entity_type = entity['dataset_entity'].get('entity_type', 'Dataset')
+                tasks = entity['dataset_entity'].get('task', [])
+            elif 'metric_entity' in entity:
+                entity_type = entity['metric_entity'].get('entity_type', 'Metric')
+                tasks = entity['metric_entity'].get('task', [])
+            else:
+                entity_type = entity.get('entity_type', '')
                 tasks = entity.get('task', [])
+                
+            # 只处理算法实体
+            if entity_type == 'Algorithm':
+                # 统一处理task字段
                 if isinstance(tasks, str):
                     tasks = [tasks]
                 

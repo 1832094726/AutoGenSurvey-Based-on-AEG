@@ -294,19 +294,43 @@ def get_entities():
         metric_count = sum(1 for e in processed_entities if e.get('entity_type') == 'Metric')
         
         # 按来源分类统计
-        review_count = sum(1 for e in processed_entities if e.get('source') == '综述')
-        citation_count = sum(1 for e in processed_entities if e.get('source') == '引文')
-        unknown_count = sum(1 for e in processed_entities if e.get('source') == '未知')
-        
-        logging.info(f"算法实体: {algo_count}, 数据集实体: {dataset_count}, 评价指标实体: {metric_count}")
-        logging.info(f"综述来源: {review_count}, 引文来源: {citation_count}, 未知来源: {unknown_count}")
+        review_count = 0
+        citation_count = 0
+        unknown_count = 0
         
         # 按来源分组
         entities_by_source = {
-            '综述': [e for e in processed_entities if e.get('source') == '综述'],
-            '引文': [e for e in processed_entities if e.get('source') == '引文'],
-            '未知': [e for e in processed_entities if e.get('source') == '未知']
+            '综述': [],
+            '引文': [],
+            '未知': []
         }
+        
+        # 正确处理嵌套结构中的source字段
+        for e in processed_entities:
+            # 从嵌套结构中获取source字段
+            source = '未知'
+            if 'algorithm_entity' in e:
+                source = e['algorithm_entity'].get('source', '未知')
+            elif 'dataset_entity' in e:
+                source = e['dataset_entity'].get('source', '未知')
+            elif 'metric_entity' in e:
+                source = e['metric_entity'].get('source', '未知')
+            else:
+                source = e.get('source', '未知')
+                
+            # 更新计数
+            if source == '综述':
+                review_count += 1
+                entities_by_source['综述'].append(e)
+            elif source == '引文':
+                citation_count += 1
+                entities_by_source['引文'].append(e)
+            else:
+                unknown_count += 1
+                entities_by_source['未知'].append(e)
+        
+        logging.info(f"算法实体: {algo_count}, 数据集实体: {dataset_count}, 评价指标实体: {metric_count}")
+        logging.info(f"综述来源: {review_count}, 引文来源: {citation_count}, 未知来源: {unknown_count}")
         
         return jsonify({
             'success': True,
@@ -1186,7 +1210,17 @@ def get_comparison_entities(task_id):
         # 按来源组织实体
         entities_by_source = {}
         for entity in entities_data:
-            source = entity.get('source', '未知')
+            # 从嵌套结构中获取source字段
+            source = None
+            if 'algorithm_entity' in entity:
+                source = entity['algorithm_entity'].get('source', '未知')
+            elif 'dataset_entity' in entity:
+                source = entity['dataset_entity'].get('source', '未知')
+            elif 'metric_entity' in entity:
+                source = entity['metric_entity'].get('source', '未知')
+            else:
+                source = entity.get('source', '未知')
+                
             if source not in entities_by_source:
                 entities_by_source[source] = []
             entities_by_source[source].append(entity)
@@ -1198,7 +1232,17 @@ def get_comparison_entities(task_id):
         }
         
         for entity in entities_data:
-            entity_type = entity.get('entity_type', '未知')
+            # 从嵌套结构中获取entity_type字段
+            if 'algorithm_entity' in entity:
+                entity_type = entity['algorithm_entity'].get('entity_type', 'Algorithm')
+            elif 'dataset_entity' in entity:
+                entity_type = entity['dataset_entity'].get('entity_type', 'Dataset')
+            elif 'metric_entity' in entity:
+                entity_type = entity['metric_entity'].get('entity_type', 'Metric')
+            else:
+                entity_type = entity.get('entity_type', '未知')
+            
+            # 统计不同类型的实体数量
             if entity_type not in entity_counts["by_type"]:
                 entity_counts["by_type"][entity_type] = 0
             entity_counts["by_type"][entity_type] += 1
@@ -1538,10 +1582,32 @@ def recalculate_metrics(task_id):
             # 根据请求计算指标
             if metric_type == 'all' or metric_type == 'entity_stats':
                 # 按source字段分离综述和引文实体
-                review_entities = [e for e in entities if e.get('source', '') == '综述']
-                citation_entities = [e for e in entities if e.get('source', '') == '引文']
-                metrics['entity_stats'] = calculate_entity_statistics(review_entities, citation_entities)
+                # 从嵌套结构中获取source字段
+                review_entities = []
+                citation_entities = []
+                for e in entities:
+                    # 检查实体类型并从对应的内层字典获取source
+                    if 'algorithm_entity' in e:
+                        source = e['algorithm_entity'].get('source', '')
+                        if source == '综述':
+                            review_entities.append(e)
+                        elif source == '引文':
+                            citation_entities.append(e)
+                    elif 'dataset_entity' in e:
+                        source = e['dataset_entity'].get('source', '')
+                        if source == '综述':
+                            review_entities.append(e)
+                        elif source == '引文':
+                            citation_entities.append(e)
+                    elif 'metric_entity' in e:
+                        source = e['metric_entity'].get('source', '')
+                        if source == '综述':
+                            review_entities.append(e)
+                        elif source == '引文':
+                            citation_entities.append(e)
                 
+                metrics['entity_stats'] = calculate_entity_statistics(review_entities, citation_entities)
+            
             if metric_type == 'all' or metric_type == 'relation_stats':
                 metrics['relation_stats'] = calculate_relation_statistics(relations)
                 

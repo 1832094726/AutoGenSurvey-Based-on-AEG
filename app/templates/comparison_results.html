@@ -775,26 +775,66 @@
             
             // 统计总数
             document.getElementById('entitiesCount').textContent = data.count?.total || data.entities.length;
-                        document.getElementById('entitiesDetail').textContent = 
+            document.getElementById('entitiesDetail').textContent = 
                 `综述: ${reviewEntities.length || 0} | 引文: ${citationEntities.length || 0}`;
             
             // 按类型统计
-            const algorithmsReview = reviewEntities.filter(e => e.entity_type === 'Algorithm').length;
-            const algorithmsCitation = citationEntities.filter(e => e.entity_type === 'Algorithm').length;
-            const datasetsReview = reviewEntities.filter(e => e.entity_type === 'Dataset').length;
-            const datasetsCitation = citationEntities.filter(e => e.entity_type === 'Dataset').length;
-            const metricsReview = reviewEntities.filter(e => e.entity_type === 'Metric').length;
-            const metricsCitation = citationEntities.filter(e => e.entity_type === 'Metric').length;
+            let algorithmsReview = 0;
+            let algorithmsCitation = 0;
+            let datasetsReview = 0;
+            let datasetsCitation = 0;
+            let metricsReview = 0;
+            let metricsCitation = 0;
             
-            document.getElementById('algorithmsCount').textContent = algorithmsReview + algorithmsCitation;
+            // 从count.by_type中获取总计数据
+            if (data.count && data.count.by_type) {
+                document.getElementById('algorithmsCount').textContent = data.count.by_type.Algorithm || 0;
+                document.getElementById('datasetsCount').textContent = data.count.by_type.Dataset || 0;
+                document.getElementById('metricsCount').textContent = data.count.by_type.Metric || 0;
+            }
+            
+            // 遍历实体计算每个来源的数量
+            for (const entity of reviewEntities) {
+                let entityType = null;
+                if (entity.algorithm_entity) {
+                    entityType = entity.algorithm_entity.entity_type || 'Algorithm';
+                } else if (entity.dataset_entity) {
+                    entityType = entity.dataset_entity.entity_type || 'Dataset';
+                } else if (entity.metric_entity) {
+                    entityType = entity.metric_entity.entity_type || 'Metric';
+                } else {
+                    entityType = entity.entity_type || '';
+                }
+                
+                if (entityType === 'Algorithm') algorithmsReview++;
+                else if (entityType === 'Dataset') datasetsReview++;
+                else if (entityType === 'Metric') metricsReview++;
+            }
+            
+            for (const entity of citationEntities) {
+                let entityType = null;
+                if (entity.algorithm_entity) {
+                    entityType = entity.algorithm_entity.entity_type || 'Algorithm';
+                } else if (entity.dataset_entity) {
+                    entityType = entity.dataset_entity.entity_type || 'Dataset';
+                } else if (entity.metric_entity) {
+                    entityType = entity.metric_entity.entity_type || 'Metric';
+                } else {
+                    entityType = entity.entity_type || '';
+                }
+                
+                if (entityType === 'Algorithm') algorithmsCitation++;
+                else if (entityType === 'Dataset') datasetsCitation++;
+                else if (entityType === 'Metric') metricsCitation++;
+            }
+            
+            // 更新详细信息显示
             document.getElementById('algorithmsDetail').textContent = 
                 `综述: ${algorithmsReview} | 引文: ${algorithmsCitation}`;
                 
-            document.getElementById('datasetsCount').textContent = datasetsReview + datasetsCitation;
             document.getElementById('datasetsDetail').textContent = 
                 `综述: ${datasetsReview} | 引文: ${datasetsCitation}`;
                 
-            document.getElementById('metricsCount').textContent = metricsReview + metricsCitation;
             document.getElementById('metricsDetail').textContent = 
                 `综述: ${metricsReview} | 引文: ${metricsCitation}`;
         }
@@ -847,16 +887,40 @@
         function prepareEntityListByTypeAndSource(entityType, reviewEntities, citationEntities) {
             // 过滤实体
             const reviewData = reviewEntities.filter(entity => {
-                if (entityType === 'algorithm') return entity.entity_type === 'Algorithm';
-                if (entityType === 'dataset') return entity.entity_type === 'Dataset';
-                if (entityType === 'metric') return entity.entity_type === 'Metric';
+                let type = null;
+                // 从嵌套结构中获取entity_type
+                if (entity.algorithm_entity) {
+                    type = entity.algorithm_entity.entity_type || 'Algorithm';
+                } else if (entity.dataset_entity) {
+                    type = entity.dataset_entity.entity_type || 'Dataset'; 
+                } else if (entity.metric_entity) {
+                    type = entity.metric_entity.entity_type || 'Metric';
+                } else {
+                    type = entity.entity_type || '';
+                }
+                
+                if (entityType === 'algorithm') return type === 'Algorithm';
+                if (entityType === 'dataset') return type === 'Dataset';
+                if (entityType === 'metric') return type === 'Metric';
                 return false;
             });
             
             const citationData = citationEntities.filter(entity => {
-                if (entityType === 'algorithm') return entity.entity_type === 'Algorithm';
-                if (entityType === 'dataset') return entity.entity_type === 'Dataset';
-                if (entityType === 'metric') return entity.entity_type === 'Metric';
+                let type = null;
+                // 从嵌套结构中获取entity_type
+                if (entity.algorithm_entity) {
+                    type = entity.algorithm_entity.entity_type || 'Algorithm';
+                } else if (entity.dataset_entity) {
+                    type = entity.dataset_entity.entity_type || 'Dataset';
+                } else if (entity.metric_entity) {
+                    type = entity.metric_entity.entity_type || 'Metric';
+                } else {
+                    type = entity.entity_type || '';
+                }
+                
+                if (entityType === 'algorithm') return type === 'Algorithm';
+                if (entityType === 'dataset') return type === 'Dataset';
+                if (entityType === 'metric') return type === 'Metric';
                 return false;
             });
             
@@ -882,10 +946,44 @@
             try {
                 console.log(`正在渲染${entities.length}个实体列表`);
                 return entities.map((entity, index) => {
-                    const entityId = entity.entity_id || `entity-${index}`;
+                    // 从嵌套结构中获取实体属性
+                    let entityId = null;
+                    let name = null;
+                    let authors = null;
+                    let entityDetails = null;
+                    
+                    if (entity.algorithm_entity) {
+                        entityDetails = entity.algorithm_entity;
+                        entityId = entityDetails.algorithm_id || entityDetails.entity_id || `algorithm-${index}`;
+                        name = entityDetails.name || '未命名算法';
+                        authors = entityDetails.authors;
+                    } else if (entity.dataset_entity) {
+                        entityDetails = entity.dataset_entity;
+                        entityId = entityDetails.dataset_id || entityDetails.entity_id || `dataset-${index}`;
+                        name = entityDetails.name || '未命名数据集';
+                        authors = entityDetails.authors;
+                    } else if (entity.metric_entity) {
+                        entityDetails = entity.metric_entity;
+                        entityId = entityDetails.metric_id || entityDetails.entity_id || `metric-${index}`;
+                        name = entityDetails.name || '未命名指标';
+                        authors = entityDetails.authors;
+                    } else {
+                        // 处理非嵌套结构
+                        entityId = entity.entity_id || `entity-${index}`;
+                        name = entity.name || '未命名';
+                        authors = entity.authors;
+                        entityDetails = entity;
+                    }
+                    
+                    // 处理作者信息
+                    let authorStr = '';
+                    if (Array.isArray(authors)) {
+                        authorStr = authors.join(', ');
+                    } else if (typeof authors === 'string') {
+                        authorStr = authors;
+                    }
+                    
                     const safeId = `entity-${entityId.toString().replace(/[^a-zA-Z0-9]/g, '-')}`;
-                    const name = entity.name || '未命名';
-                    const authors = Array.isArray(entity.authors) ? entity.authors.join(', ') : entity.authors || '';
                     
                     return `
                         <div class="card mb-2">
@@ -896,9 +994,9 @@
                             </div>
                             <div class="collapse" id="${safeId}">
                             <div class="card-body">
-                                    <p><strong>作者:</strong> ${authors}</p>
+                                    <p><strong>作者:</strong> ${authorStr}</p>
                                     <p><strong>详细信息:</strong></p>
-                                    <pre class="bg-light p-2">${JSON.stringify(entity, null, 2)}</pre>
+                                    <pre class="bg-light p-2">${JSON.stringify(entityDetails, null, 2)}</pre>
                                 </div>
                             </div>
                         </div>
