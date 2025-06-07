@@ -15,6 +15,7 @@ from threading import Thread
 from app.modules.agents import extract_paper_entities
 import platform
 from flask import current_app
+from app.modules.db_pool import db_utils
 
 # 设置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -24,15 +25,14 @@ main = Blueprint('main', __name__)
 
 # 数据库连接辅助函数
 def get_db_connection():
-    """获取数据库连接，使用db_manager的连接
+    """获取数据库连接，使用db_pool连接池
     
     Returns:
-        connection: 数据库连接对象
+        connection: 数据库连接对象，实际上无需返回连接，应直接使用db_utils
     """
-    logging.info("获取数据库连接")
-    # 确保连接有效
-    db_manager._reconnect_if_needed()
-    return db_manager.conn
+    logging.info("使用连接池获取数据库连接")
+    # 不再需要手动reconnect，连接池会自动管理
+    return db_utils  # 返回db_utils实例，而不是直接的连接
 
 @main.route('/')
 def index():
@@ -797,11 +797,7 @@ def get_tasks():
         
         logging.warning("正在获取任务列表...")
         
-        # 检查数据库连接
-        connection_status = db_manager._reconnect_if_needed()
-        logging.warning(f"数据库连接检查结果: {connection_status}")
-        
-        # 使用比较历史获取任务列表
+        # 使用连接池，不再需要手动检查数据库连接
         start_time = datetime.datetime.now()
         logging.warning(f"开始从数据库获取任务列表: {start_time}")
         
@@ -862,20 +858,18 @@ def get_tasks():
 
 @main.route('/api/system/db-status', methods=['GET'])
 def check_db_status():
-    """检查数据库连接状态并尝试重新连接"""
+    """检查数据库连接状态"""
     try:
-        # 尝试重新连接数据库
-        reconnected = db_manager._reconnect_if_needed()
-        
-        # 执行简单查询测试连接
-        db_manager.cursor.execute("SELECT 1")
-        result = db_manager.cursor.fetchone()
+        # 使用连接池执行简单查询测试连接
+        result = db_utils.select_one("SELECT 1 as test")
         
         return jsonify({
             'success': True,
             'status': 'connected',
-            'reconnected': reconnected,
-            'test_query': result[0] == 1
+            'test_query': result and result.get('test') == 1,
+            'pool_info': {
+                'message': '使用连接池连接数据库正常'
+            }
         })
     except Exception as e:
         logging.error(f"检查数据库状态时出错: {str(e)}")

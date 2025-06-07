@@ -1586,16 +1586,7 @@
                 const diagnosticDiv = document.createElement('div');
                 diagnosticDiv.id = 'api-diagnostic-options';
                 diagnosticDiv.className = 'alert alert-warning mt-3';
-                diagnosticDiv.innerHTML = `
-                    <h5>API诊断工具</h5>
-                    <p>任务 ID: ${taskId}</p>
-                    <div class="d-flex flex-wrap gap-2">
-                        <button id="btn-test-main-route" class="btn btn-sm btn-outline-primary">测试主路由</button>
-                        <button id="btn-test-alt-route" class="btn btn-sm btn-outline-secondary">测试备用路由</button>
-                        <button id="btn-test-api-endpoint" class="btn btn-sm btn-outline-info">测试API是否可用</button>
-                        <button id="btn-list-routes" class="btn btn-sm btn-outline-dark">列出所有路由</button>
-                    </div>
-                `;
+                
                 
                 // 添加到任务选择区域
                 document.querySelector('.task-selection').appendChild(diagnosticDiv);
