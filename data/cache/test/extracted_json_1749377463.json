@@ -1,0 +1,22 @@
+{
+     "algorithm_entity": {
+       "algorithm_id": "Roy2017_UNITDEP",
+       "entity_type": "Algorithm",
+       "name": "UNITDEP",
+       "year": 2017,
+       "authors": ["Roy, S.", "Roth, D."],
+       "task": "Solving Arithmetic Word Problems",
+       "dataset": ["AllArith_2017", "AllArithLex_2017", "AllArithTmpl_2017"],
+       "metrics": ["Accuracy_ArithmeticWordProblem"],
+       "architecture": {
+         "components": ["Unit Dependency Graph", "Vertex Classifier", "Edge Classifier", "Constrained Inference"],
+         "connections": ["Vertex Classifier -> Edge Classifier -> Constrained Inference"],
+         "mechanisms": ["Unit Dependency Graph Prediction", "Joint Inference"]
+       },
+       "methodology": {
+         "training_strategy": ["Supervised Learning"],
+         "parameter_tuning": ["Scaling Parameters"]
+       },
+       "feature_processing": ["Context Features", "Rule-based Extraction Features"]
+     }
+   }

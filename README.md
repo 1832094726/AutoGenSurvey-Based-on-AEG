@@ -99,18 +99,20 @@ flask run
 
 ### 联合主键设计
 
-本系统的数据库表使用联合主键(ID, task_id, source)设计，具有以下优势：
+本系统的主要实体表使用联合主键(ID, task_id, source)设计，具有以下优势：
 
 1. **多任务数据隔离**：不同任务的数据可以使用相同ID但不会冲突
 2. **数据来源区分**：可以区分相同实体在不同来源(综述/引文)中的信息
 3. **数据完整性**：确保每条记录的唯一性由多个关键字段共同决定
 
-主要数据库表的联合主键设计：
+主要数据库表的主键设计：
 
-- **Algorithms表**: (algorithm_id, task_id, source)
-- **Datasets表**: (dataset_id, task_id, source) 
-- **Metrics表**: (metric_id, task_id, source)
-- **EvolutionRelations表**: (relation_id, task_id, source)
+- **Algorithms表**: (algorithm_id, task_id, source) - 联合主键
+- **Datasets表**: (dataset_id, task_id, source) - 联合主键
+- **Metrics表**: (metric_id, task_id, source) - 联合主键
+- **EvolutionRelations表**: relation_id - 单一主键
+
+使用单一主键的EvolutionRelations表能够支持跨任务和跨来源的关系引用，适合存储复杂网络结构的演化关系。这种设计使得不同来源和不同任务的关系能够被统一管理，便于执行全局关系分析。
 
 ### 表间关系
 

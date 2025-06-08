@@ -1,0 +1,336 @@
+### 提取实体信息
+
+#### 第1个文档：《Learning to Solve Arithmetic Word Problems with Verb Categorization》
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hosseini2014_ARIS",
+      "entity_type": "Algorithm",
+      "name": "ARIS",
+      "year": 2014,
+      "authors": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"],
+      "task": "Solving arithmetic word problems",
+      "dataset": ["MA1_2014", "IXL_2014", "MA2_2014"],
+      "metrics": ["Accuracy_MathWordProblem"],
+      "architecture": {
+        "components": ["Entities", "Containers", "Attributes", "Quantities", "State transitions"],
+        "connections": ["Dependency parser", "Coreference resolution"],
+        "mechanisms": ["Verb categorization", "State progression", "Equation generation"]
+      },
+      "methodology": {
+        "training_strategy": ["Cross-validation", "Supervised learning"],
+        "parameter_tuning": ["Verb categories", "Feature extraction"]
+      },
+      "feature_processing": ["Stanford dependency parser", "Named entity recognizer", "Coreference resolution"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "MA1_2014",
+      "entity_type": "Dataset",
+      "name": "MA1",
+      "description": "Arithmetic word problems on addition and subtraction for third, fourth, and fifth graders",
+      "domain": "Elementary education",
+      "size": 134,
+      "year": 2014,
+      "creators": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "IXL_2014",
+      "entity_type": "Dataset",
+      "name": "IXL",
+      "description": "Arithmetic word problems on addition and subtraction for third, fourth, and fifth graders",
+      "domain": "Elementary education",
+      "size": 140,
+      "year": 2014,
+      "creators": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "MA2_2014",
+      "entity_type": "Dataset",
+      "name": "MA2",
+      "description": "Arithmetic word problems on addition and subtraction for third, fourth, and fifth graders",
+      "domain": "Elementary education",
+      "size": 121,
+      "year": 2014,
+      "creators": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MathWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy in solving arithmetic word problems",
+      "category": "Math word problem solving",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  }
+]
+```
+
+#### 第2个文档：《Learning To Use Formulas To Solve Simple Arithmetic Problems》
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mitra2016_FormulaBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Formula-Based Solver",
+      "year": 2016,
+      "authors": ["Arindam Mitra", "Chitta Baral"],
+      "task": "Solving simple arithmetic word problems",
+      "dataset": ["AddSub_2015"],
+      "metrics": ["Accuracy_MathWordProblem"],
+      "architecture": {
+        "components": ["Entities", "Variables", "Formulas"],
+        "connections": ["Dependency parser", "Coreference resolution"],
+        "mechanisms": ["Formula recognition", "Equation generation"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised learning"],
+        "parameter_tuning": ["Formula types", "Variable identification"]
+      },
+      "feature_processing": ["Stanford CoreNLP", "ConceptNet", "WordNet"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AddSub_2015",
+      "entity_type": "Dataset",
+      "name": "AddSub",
+      "description": "Simple addition-subtraction arithmetic problems",
+      "domain": "Elementary education",
+      "size": 395,
+      "year": 2015,
+      "creators": ["Rik Koncel-Kedziorski", "Hannaneh Hajishirzi", "Ashish Sabharwal", "Oren Etzioni", "Siena Dumas Ang"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MathWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy in solving arithmetic word problems",
+      "category": "Math word problem solving",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  }
+]
+```
+
+#### 第3个文档：《Long short-term memory》
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hochreiter1997_LSTM",
+      "entity_type": "Algorithm",
+      "name": "LSTM",
+      "year": 1997,
+      "authors": ["Sepp Hochreiter", "Jürgen Schmidhuber"],
+      "task": "Solving long time lag problems",
+      "dataset": ["Artificial data", "Embedded Reber Grammar", "2-sequence problem", "Adding problem", "Multiplication problem", "Temporal order problem"],
+      "metrics": ["Success rate", "Number of sequence presentations", "Mean squared error"],
+      "architecture": {
+        "components": ["Memory cells", "Input gates", "Output gates"],
+        "connections": ["Fully connected hidden layer", "Fixed self-connections"],
+        "mechanisms": ["Constant error carousel", "Truncated backpropagation"]
+      },
+      "methodology": {
+        "training_strategy": ["Stochastic gradient descent", "Truncated BPTT"],
+        "parameter_tuning": ["Learning rate", "Weight initialization", "Gate biases"]
+      },
+      "feature_processing": ["Logistic sigmoid", "Identity function", "Gaussian noise"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Embedded_Reber_Grammar_1989",
+      "entity_type": "Dataset",
+      "name": "Embedded Reber Grammar",
+      "description": "A synthetic dataset for testing recurrent neural networks",
+      "domain": "Natural language processing",
+      "size": 256,
+      "year": 1989,
+      "creators": ["Smith, A. W.", "Zipser, D."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Success_rate_LongTimeLag",
+      "entity_type": "Metric",
+      "name": "Success rate",
+      "description": "Percentage of successful trials in solving long time lag problems",
+      "category": "Long time lag problem solving",
+      "formula": "Successful trials / Total trials"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "MSE_Error",
+      "entity_type": "Metric",
+      "name": "Mean Squared Error",
+      "description": "Average squared difference between predicted and actual values",
+      "category": "Regression",
+      "formula": "Sum of squared errors / Number of samples"
+    }
+  }
+]
+```
+
+#### 第4个文档：《Elevating the Role of Image Understanding in Visual Question Answering》
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Goyal2017_VQABalancedDataset",
+      "entity_type": "Algorithm",
+      "name": "VQA Balanced Dataset",
+      "year": 2017,
+      "authors": ["Yash Goyal", "Tejas Khot", "Douglas Summers-Stay", "Dhruv Batra", "Devi Parikh"],
+      "task": "Visual Question Answering",
+      "dataset": ["VQA_v2.0_2017"],
+      "metrics": ["Accuracy_VQA", "Recall@5"],
+      "architecture": {
+        "components": ["Image embedding", "Question embedding", "Counter-example explanation"],
+        "connections": ["Point-wise multiplication", "Fully connected layers"],
+        "mechanisms": ["Hard negative mining", "Pairwise hinge ranking loss"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised learning", "Crowdsourcing"],
+        "parameter_tuning": ["Trade-off weight parameter", "Hyperparameter M"]
+      },
+      "feature_processing": ["Stanford dependency parser", "VGGNet features", "ResNet features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "VQA_v2.0_2017",
+      "entity_type": "Dataset",
+      "name": "VQA v2.0",
+      "description": "Balanced Visual Question Answering dataset",
+      "domain": "Computer vision and natural language processing",
+      "size": 1100000,
+      "year": 2017,
+      "creators": ["Yash Goyal", "Tejas Khot", "Douglas Summers-Stay", "Dhruv Batra", "Devi Parikh"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_VQA",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy in Visual Question Answering",
+      "category": "VQA evaluation",
+      "formula": "Correct answers / Total questions"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Recall@5_VQA",
+      "entity_type": "Metric",
+      "name": "Recall@5",
+      "description": "Recall at top-5 predictions in Visual Question Answering",
+      "category": "VQA evaluation",
+      "formula": "Human-picked counter-examples in top-5 predictions / Total counter-examples"
+    }
+  }
+]
+```
+
+#### 第5个文档：《Mapping to Declarative Knowledge for Word Problem Solving》
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2018_DeclarativeKnowledgeSolver",
+      "entity_type": "Algorithm",
+      "name": "Declarative Knowledge Solver",
+      "year": 2018,
+      "authors": ["Subhro Roy", "Dan Roth"],
+      "task": "Solving arithmetic word problems",
+      "dataset": ["AllArith_2015", "Perturb_2018", "Aggregate_2018"],
+      "metrics": ["Accuracy_MathWordProblem"],
+      "architecture": {
+        "components": ["Math concepts", "Declarative rules"],
+        "connections": ["Dependency parser", "Coreference resolution"],
+        "mechanisms": ["Latent variable modeling", "Beam search"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised learning", "Crowdsourcing"],
+        "parameter_tuning": ["Beam size", "GloVe vector similarity"]
+      },
+      "feature_processing": ["Stanford dependency parser", "Coreference resolution", "Rate component extraction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArith_2015",
+      "entity_type": "Dataset",
+      "name": "AllArith",
+      "description": "Arithmetic word problems dataset",
+      "domain": "Elementary education",
+      "size": 854,
+      "year": 2015,
+      "creators": ["Subhro Roy", "Dan Roth"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Perturb_2018",
+      "entity_type": "Dataset",
+      "name": "Perturb",
+      "description": "New word problems created by perturbing original problems",
+      "domain": "Elementary education",
+      "size": 661,
+      "year": 2018,
+      "creators": ["Subhro Roy", "Dan Roth"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Aggregate_2018",
+      "entity_type": "Dataset",
+      "name": "Aggregate",
+      "description": "Combined dataset of AllArith and Perturb",
+      "domain": "Elementary education",
+      "size": 1492,
+      "year": 2018,
+      "creators": ["Subhro Roy", "Dan Roth"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MathWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy in solving arithmetic word problems",
+      "category": "Math word problem solving",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  }
+]
+```
+
+### 提取总结
+
+1. **刚刚提取的是哪个小节**：已完成所有文档的小节提取。
+2. **论文中是否还有其他小节未被提取**：所有文档的小节均已提取完毕。
+3. **如果还有未提取的小节，下一个要提取的小节是什么**：无。
+
+### 提取状态
+
+```json
+EXTRACTION_COMPLETE: true
+```

@@ -1,0 +1,63 @@
+根据提供的文档内容，我将逐步提取各个章节中的实体信息。首先，我会确认当前文档的章节结构，并开始从小节为单位进行实体提取。以下是首次提取的内容：
+
+### 当前处理章节：Understanding Natural Language with Diagrams
+
+#### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Novak1990_BEATRIX",
+      "entity_type": "Algorithm",
+      "name": "BEATRIX",
+      "year": 1990,
+      "authors": ["Novak, G. S.", "Bulko, W. C."],
+      "task": "Understanding textbook physics problems specified by a combination of English text and a diagram",
+      "dataset": ["Custom_Arithmetic_Problems_1986"],
+      "metrics": ["Accuracy_SolvingArithmeticWordProblems"],
+      "architecture": {
+        "components": ["English Parser", "Diagram Parser", "Coreference Resolver"],
+        "connections": ["English Parser -> Coreference Resolver", "Diagram Parser -> Coreference Resolver"],
+        "mechanisms": ["Opportunistic co-parsing", "Blackboard architecture"]
+      },
+      "methodology": {
+        "training_strategy": ["Rule-based parsing", "Production system"],
+        "parameter_tuning": ["None"]
+      },
+      "feature_processing": ["Meaning postulates", "Arithmetic strategies", "Problem-solving procedures"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Custom_Arithmetic_Problems_1986",
+      "entity_type": "Dataset",
+      "name": "Custom Arithmetic Problems",
+      "description": "Problems specified by a combination of English text and a diagram",
+      "domain": "Physics Education",
+      "year": 1986,
+      "creators": ["Novak, G. S.", "Bulko, W. C."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_SolvingArithmeticWordProblems",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Correctness of the solution to arithmetic word problems",
+      "category": "Problem Solving",
+      "formula": "Number of correctly solved problems / Total number of problems"
+    }
+  }
+]
+```
+
+### 提取总结：
+1. **刚刚提取的小节**：Understanding Natural Language with Diagrams
+2. **论文中是否还有其他小节未被提取**：是
+3. **下一个要提取的小节**：Understanding Text With an Accompanying Diagram
+
+### 下一步操作：
+将继续提取下一个章节 "Understanding Text With an Accompanying Diagram" 中的实体信息。
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: Understanding Natural Language with Diagrams, NEXT_SECTION: Understanding Text With an Accompanying Diagram

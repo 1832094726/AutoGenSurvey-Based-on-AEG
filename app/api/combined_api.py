@@ -949,7 +949,8 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             entities=review_entities, 
             pdf_paths=[review_path],  # 只传入综述PDF
             task_id=task_id,
-            previous_relations=review_relations
+            previous_relations=review_relations,
+            batch_size=5
         )
         
         # 确保所有综述关系都有正确的来源标记
@@ -1099,12 +1100,12 @@ def extract_entities_from_citations(citation_paths, task_id):
         return all_entities, []
     
     # 批量处理引用文献，每次处理5篇
-    batch_size = 100
+    batch_size = 5
 
     # 提取实体，使用主任务ID
     all_entities, is_complete = extract_paper_entities(
         pdf_paths=valid_paths,
-        max_attempts=5,
+        max_attempts=8,
         batch_size=batch_size,
         model_name="qwen",
         task_id=task_id  # 使用主任务ID

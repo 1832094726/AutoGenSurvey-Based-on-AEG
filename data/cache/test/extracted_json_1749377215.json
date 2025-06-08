@@ -1,0 +1,68 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_UnitDependencyGraph",
+      "entity_type": "Algorithm",
+      "name": "Unit Dependency Graph (UDG)",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Arithmetic Word Problem Solving",
+      "dataset": ["AllArith_2017", "MAWPS_2016"],
+      "metrics": ["Accuracy_ArithmeticWordProblem", "ErrorReduction_ErrorAnalysis"],
+      "architecture": {
+        "components": ["Vertex Classifier", "Edge Classifier", "Constrained Inference Module"],
+        "connections": ["Vertex Classifier -> Edge Classifier -> Constrained Inference Module"],
+        "mechanisms": ["Rate Detection", "SAME UNIT Edge", "NUM UNIT Edge", "DEN UNIT Edge"]
+      },
+      "methodology": {
+        "training_strategy": ["Decomposed Model", "Joint Inference"],
+        "parameter_tuning": ["Scaling Parameters", "Beam Size"]
+      },
+      "feature_processing": ["Context Features", "Rule Based Extraction Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArith_2017",
+      "entity_type": "Dataset",
+      "name": "AllArith",
+      "description": "A dataset of arithmetic word problems",
+      "domain": "Mathematics",
+      "size": 831,
+      "year": 2017,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "MAWPS_2016",
+      "entity_type": "Dataset",
+      "name": "MAWPS",
+      "description": "A math word problem repository",
+      "domain": "Mathematics",
+      "size": 415,
+      "year": 2016,
+      "creators": ["Koncel-Kedziorski, R.", "Roy, S.", "Amini, A.", "Kushman, N.", "Hajishirzi, H."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy of solving arithmetic word problems",
+      "category": "Arithmetic Word Problem Solving",
+      "formula": "Correct Solutions / Total Problems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "ErrorReduction_ErrorAnalysis",
+      "entity_type": "Metric",
+      "name": "Error Reduction",
+      "description": "Reduction in error rate of the solver",
+      "category": "Error Analysis",
+      "formula": "(Initial Error Rate - Final Error Rate) / Initial Error Rate"
+    }
+  }
+]

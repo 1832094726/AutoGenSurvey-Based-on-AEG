@@ -1,0 +1,75 @@
+好的，我将按照要求逐步从小节中提取实体信息。首先，我会确认当前文档中的章节和小节，并开始从小节为单位进行实体提取。以下是文档的初步分析：
+
+### 文档章节概述
+1. **INTRODUCTION**（已提取）
+2. **ARITHMETIC WORD PROBLEM SOLVER**（已提取）
+3. **FEATURE EXTRACTION**
+4. **DATASET REPOSITORY AND PERFORMANCE ANALYSIS**
+
+接下来，我将从 **FEATURE EXTRACTION** 小节开始提取实体信息。
+
+---
+
+### FEATURE EXTRACTION
+
+#### 提取的实体信息
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Huang2016_RankingSVM",
+      "entity_type": "Algorithm",
+      "name": "Ranking SVM",
+      "year": 2016,
+      "authors": ["Huang, D.", "Shi, S.", "Lin, C.-Y.", "Yin, J.", "Ma, W.-Y."],
+      "task": "自动数学应用题解答",
+      "dataset": ["Yahoo_Answers_2015"],
+      "metrics": ["Accuracy_AnswerExtraction"],
+      "architecture": {
+        "components": ["特征向量", "条件概率模型"],
+        "connections": ["特征向量到条件概率的映射"],
+        "mechanisms": ["最大间隔优化"]
+      },
+      "methodology": {
+        "training_strategy": ["随机梯度下降"],
+        "parameter_tuning": ["正则化参数C"]
+      },
+      "feature_processing": ["相对位置特征", "全局特征", "数值特征", "数值集合特征", "维度特征"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Yahoo_Answers_2015",
+      "entity_type": "Dataset",
+      "name": "Yahoo! Answers",
+      "description": "来自雅虎问答网站的数学问题和答案文本",
+      "domain": "自然语言处理",
+      "size": 18000,
+      "year": 2015,
+      "creators": ["Yahoo!"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_AnswerExtraction",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "答案提取的准确性",
+      "category": "答案提取评估",
+      "formula": "正确提取的答案数量 / 总答案数量"
+    }
+  }
+]
+```
+
+---
+
+### 提取总结
+1. 刚刚提取的是 **FEATURE EXTRACTION** 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 **DATASET REPOSITORY AND PERFORMANCE ANALYSIS**。
+
+---
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: FEATURE_EXTRACTION, NEXT_SECTION: DATASET_REPOSITORY_AND_PERFORMANCE_ANALYSIS

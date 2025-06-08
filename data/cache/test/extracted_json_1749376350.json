@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2018_EquationNormalization",
+      "entity_type": "Algorithm",
+      "name": "Equation Normalization",
+      "year": 2018,
+      "authors": ["Lei Wang", "Yan Wang", "Deng Cai", "Dongxiang Zhang", "Xiaojiang Liu"],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Math23K_2017"],
+      "metrics": ["Accuracy_MathWordProblem"],
+      "architecture": {
+        "components": ["Expression Tree"],
+        "connections": ["Equation Templates"],
+        "mechanisms": ["Order Duplication Normalization", "Bracket Duplication Normalization"]
+      },
+      "methodology": {
+        "training_strategy": ["SEQ2SEQ Framework"],
+        "parameter_tuning": ["Beam Search"]
+      },
+      "feature_processing": ["Significant Number Identification"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Math23K_2017",
+      "entity_type": "Dataset",
+      "name": "Math23K",
+      "description": "A dataset of math word problems with one unknown variable",
+      "domain": "Mathematics",
+      "size": 23162,
+      "year": 2017,
+      "creators": ["Lei Wang", "Dongxiang Zhang", "Lianli Gao", "Jingkuan Song", "Long Guo", "Heng Tao Shen"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MathWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy of solving math word problems",
+      "category": "Math Word Problem Solving",
+      "formula": "Correct Solutions / Total Problems"
+    }
+  }
+]

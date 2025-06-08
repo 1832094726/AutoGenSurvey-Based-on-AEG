@@ -1,0 +1,69 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Chang2013_L3M",
+      "entity_type": "Algorithm",
+      "name": "Latent Left Linking model (L3M)",
+      "title": "A Constrained Latent Variable Model for Coreference Resolution",
+      "year": 2013,
+      "authors": ["Kai-Wei Chang", "Rajhans Samdani", "Dan Roth"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE", "Ontonotes"],
+      "metrics": ["Accuracy", "F1 Score"],
+      "architecture": {
+        "components": ["Latent Variables", "Constraints"],
+        "connections": ["Pairwise Scoring", "Decoding Algorithm"],
+        "mechanisms": ["Stochastic Gradient Learning"]
+      },
+      "methodology": {
+        "training_strategy": ["Stochastic Gradient Descent"],
+        "parameter_tuning": ["Hyperparameters"]
+      },
+      "feature_processing": ["Knowledge-based Constraints"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Ontonotes_2013",
+      "entity_type": "Dataset",
+      "name": "Ontonotes",
+      "description": "A large-scale dataset for coreference resolution and other NLP tasks",
+      "domain": "Natural Language Processing",
+      "size": "Not specified",
+      "year": 2013,
+      "creators": ["Various contributors"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "ACE_2013",
+      "entity_type": "Dataset",
+      "name": "ACE",
+      "description": "A dataset for Automatic Content Extraction tasks",
+      "domain": "Natural Language Processing",
+      "size": "Not specified",
+      "year": 2013,
+      "creators": ["Various contributors"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Classification accuracy",
+      "category": "Classification Evaluation",
+      "formula": "Correct classifications / Total classifications"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "F1_Score_Classification",
+      "entity_type": "Metric",
+      "name": "F1 Score",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Classification Evaluation",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  }
+]

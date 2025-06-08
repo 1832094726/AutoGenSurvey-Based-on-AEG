@@ -1,0 +1,70 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hosseini2014_ARIS",
+      "entity_type": "Algorithm",
+      "name": "ARIS",
+      "year": 2014,
+      "authors": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"],
+      "task": "Solving arithmetic word problems",
+      "dataset": ["MA1_2014", "IXL_2014", "MA2_2014"],
+      "metrics": ["Accuracy_MathWordProblem"],
+      "architecture": {
+        "components": ["Entities", "Containers", "Attributes", "Quantities", "State transitions"],
+        "connections": ["Dependency parser", "Coreference resolution"],
+        "mechanisms": ["Verb categorization", "State progression", "Equation generation"]
+      },
+      "methodology": {
+        "training_strategy": ["Cross-validation", "Supervised learning"],
+        "parameter_tuning": ["Verb categories", "Feature extraction"]
+      },
+      "feature_processing": ["Stanford dependency parser", "Named entity recognizer", "Coreference resolution"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "MA1_2014",
+      "entity_type": "Dataset",
+      "name": "MA1",
+      "description": "Arithmetic word problems on addition and subtraction for third, fourth, and fifth graders",
+      "domain": "Elementary education",
+      "size": 134,
+      "year": 2014,
+      "creators": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "IXL_2014",
+      "entity_type": "Dataset",
+      "name": "IXL",
+      "description": "Arithmetic word problems on addition and subtraction for third, fourth, and fifth graders",
+      "domain": "Elementary education",
+      "size": 140,
+      "year": 2014,
+      "creators": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "MA2_2014",
+      "entity_type": "Dataset",
+      "name": "MA2",
+      "description": "Arithmetic word problems on addition and subtraction for third, fourth, and fifth graders",
+      "domain": "Elementary education",
+      "size": 121,
+      "year": 2014,
+      "creators": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MathWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy in solving arithmetic word problems",
+      "category": "Math word problem solving",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  }
+]

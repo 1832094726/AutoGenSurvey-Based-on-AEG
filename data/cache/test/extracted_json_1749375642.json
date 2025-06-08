@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Socher2013_CompositionalVectorGrammar",
+      "entity_type": "Algorithm",
+      "name": "Compositional Vector Grammar (CVG)",
+      "year": 2013,
+      "authors": ["Socher, R.", "Bauer, J.", "Manning, C. D.", "Ng, A. Y."],
+      "task": "Syntactic Parsing",
+      "dataset": ["Penn_Treebank_WSJ_2013"],
+      "metrics": ["Labeled_F1_Parsing_2013"],
+      "architecture": {
+        "components": ["PCFG", "Recursive Neural Network (RNN)", "Syntactically Untied Recursive Neural Network (SU-RNN)"],
+        "connections": ["PCFG with continuous vector compositions", "SU-RNN with syntactic categories"],
+        "mechanisms": ["Max-margin training", "AdaGrad optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Two-stage training", "CKY dynamic programming", "Beam search"],
+        "parameter_tuning": ["Regularization λ=10^-4", "Mini-batch size=20", "AdaGrad learning rate α=0.1"]
+      },
+      "feature_processing": ["Distributional word vectors", "POS tags", "Syntactic categories"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Penn_Treebank_WSJ_2013",
+      "entity_type": "Dataset",
+      "name": "Penn Treebank WSJ",
+      "description": "Wall Street Journal section of the Penn Treebank",
+      "domain": "Natural Language Processing",
+      "size": "Section 23",
+      "year": 2013,
+      "creators": ["Marcus, M.", "Marcinkiewicz, M.", "Santorini, B."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Labeled_F1_Parsing_2013",
+      "entity_type": "Metric",
+      "name": "Labeled F1",
+      "description": "F1 score for labeled syntactic parsing",
+      "category": "Parsing Evaluation",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  }
+]

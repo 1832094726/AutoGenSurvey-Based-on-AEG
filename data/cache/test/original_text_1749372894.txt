@@ -1,0 +1,143 @@
+根据提供的文档内容，我将逐步提取各章节中的实体信息。首先，我会确认当前处理的章节，并按照要求提取实体信息。以下是首次提取的部分：
+
+### 提取章节：Joint Coreference Resolution and Named-Entity Linking with Multi-pass Sieves
+
+#### 已提取实体：
+- Hajishirzi2013_NECO
+- CoNLL2011_2011
+- F1_NamedEntityLinking
+- Zhou2015_QuadraticProgrammingWordProblemSolver
+- Kushman2014_Dataset_2014
+- Goldwasser2014_LearningFromNaturalInstructions
+- Geoquery_2014
+- Cho2014_RNNEncoderDecoder
+- EnglishFrenchTranslationTask_2014
+- BLEU_Score
+- Kushman2014_AlgebraWordProblemSolver
+- AlgebraCom_Dataset_2014
+- Equation_Accuracy
+- Answer_Accuracy
+- Algebra_com_Dataset_2014
+- Europarl_2014
+- NewsCommentary_2014
+- UN_2014
+- CrawledCorpora_2014
+- Accuracy
+- Algebra.com_2014
+
+#### 新提取实体：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hajishirzi2013_NECO",
+      "entity_type": "Algorithm",
+      "name": "NECO",
+      "title": "Joint Coreference Resolution and Named-Entity Linking with Multi-pass Sieves",
+      "year": 2013,
+      "authors": ["Hajishirzi, H.", "Zilles, L.", "Weld, D. S.", "Zettlemoyer, L."],
+      "task": "Coreference Resolution and Named-Entity Linking",
+      "dataset": ["ACE2004-ROTH-DEV_2004", "ACE2004-CULOTTA-TEST_2004", "ACE2004-NWIRE_2004", "CoNLL2011_2011"],
+      "metrics": ["MUC_Coreference", "B3_Coreference", "PairwiseF1_Coreference", "F1_NamedEntityLinking"],
+      "architecture": {
+        "components": ["Stanford Sieve Model", "NEL Systems", "GLOW", "WikipediaMiner"],
+        "connections": ["NEL Constraints", "Mention Detection", "Cluster Merging"],
+        "mechanisms": ["Multi-pass Sieves", "Relaxed NEL Sieve", "Exact NEL Sieve"]
+      },
+      "methodology": {
+        "training_strategy": ["Deterministic Coreference Rules", "High Precision Linking Results"],
+        "parameter_tuning": ["Confidence Parameters for NEL Systems"]
+      },
+      "feature_processing": ["Fine-grained Attributes from Freebase and Wikipedia", "Contextual Semantic Features", "Syntactic Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "ACE2004-ROTH-DEV_2004",
+      "entity_type": "Dataset",
+      "name": "ACE 2004 Development",
+      "description": "Development set for ACE 2004 dataset",
+      "domain": "Natural Language Processing",
+      "size": 128,
+      "year": 2004,
+      "creators": ["NIST"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "ACE2004-CULOTTA-TEST_2004",
+      "entity_type": "Dataset",
+      "name": "ACE 2004 Test",
+      "description": "Test set for ACE 2004 dataset",
+      "domain": "Natural Language Processing",
+      "size": 128,
+      "year": 2004,
+      "creators": ["NIST"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "ACE2004-NWIRE_2004",
+      "entity_type": "Dataset",
+      "name": "ACE 2004 Newswire",
+      "description": "Newswire subset of ACE 2004 dataset",
+      "domain": "Natural Language Processing",
+      "size": 128,
+      "year": 2004,
+      "creators": ["NIST"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "MUC_Coreference",
+      "entity_type": "Metric",
+      "name": "MUC",
+      "description": "Link-based metric for coreference resolution",
+      "category": "Coreference Resolution",
+      "formula": "Number of clusters needing merging to cover gold clusters"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "B3_Coreference",
+      "entity_type": "Metric",
+      "name": "B3",
+      "description": "Proportion of intersection between predicted and gold clusters",
+      "category": "Coreference Resolution",
+      "formula": "Intersection proportion between predicted and gold clusters"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "PairwiseF1_Coreference",
+      "entity_type": "Metric",
+      "name": "Pairwise F1",
+      "description": "F1 score for pairwise coreference resolution",
+      "category": "Coreference Resolution",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "F1_NamedEntityLinking",
+      "entity_type": "Metric",
+      "name": "F1 Score",
+      "description": "F1 score for named-entity linking",
+      "category": "Named-Entity Linking",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  }
+]
+```
+
+### 提取完成情况：
+1. 刚刚提取的是 `Joint Coreference Resolution and Named-Entity Linking with Multi-pass Sieves` 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个小节是 `Learning to Solve Algebra Word Problems Using Quadratic Programming`。
+
+```json
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: Joint Coreference Resolution and Named-Entity Linking with Multi-pass Sieves, NEXT_SECTION: Learning to Solve Algebra Word Problems Using Quadratic Programming
+```
+
+接下来我将继续提取 `Learning to Solve Algebra Word Problems Using Quadratic Programming` 小节中的实体信息。

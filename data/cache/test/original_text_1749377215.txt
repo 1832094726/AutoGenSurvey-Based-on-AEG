@@ -1,0 +1,308 @@
+### 提取实体信息
+
+#### 第一部分：Unit Dependency Graph and its Application to Arithmetic Word Problem Solving
+
+##### 1. 提取的章节
+- **INTRODUCTION**
+- **UNIT DEPENDENCY GRAPH**
+
+##### 2. 提取的实体
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_UnitDependencyGraph",
+      "entity_type": "Algorithm",
+      "name": "Unit Dependency Graph (UDG)",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Arithmetic Word Problem Solving",
+      "dataset": ["AllArith_2017", "MAWPS_2016"],
+      "metrics": ["Accuracy_ArithmeticWordProblem", "ErrorReduction_ErrorAnalysis"],
+      "architecture": {
+        "components": ["Vertex Classifier", "Edge Classifier", "Constrained Inference Module"],
+        "connections": ["Vertex Classifier -> Edge Classifier -> Constrained Inference Module"],
+        "mechanisms": ["Rate Detection", "SAME UNIT Edge", "NUM UNIT Edge", "DEN UNIT Edge"]
+      },
+      "methodology": {
+        "training_strategy": ["Decomposed Model", "Joint Inference"],
+        "parameter_tuning": ["Scaling Parameters", "Beam Size"]
+      },
+      "feature_processing": ["Context Features", "Rule Based Extraction Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArith_2017",
+      "entity_type": "Dataset",
+      "name": "AllArith",
+      "description": "A dataset of arithmetic word problems",
+      "domain": "Mathematics",
+      "size": 831,
+      "year": 2017,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "MAWPS_2016",
+      "entity_type": "Dataset",
+      "name": "MAWPS",
+      "description": "A math word problem repository",
+      "domain": "Mathematics",
+      "size": 415,
+      "year": 2016,
+      "creators": ["Koncel-Kedziorski, R.", "Roy, S.", "Amini, A.", "Kushman, N.", "Hajishirzi, H."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy of solving arithmetic word problems",
+      "category": "Arithmetic Word Problem Solving",
+      "formula": "Correct Solutions / Total Problems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "ErrorReduction_ErrorAnalysis",
+      "entity_type": "Metric",
+      "name": "Error Reduction",
+      "description": "Reduction in error rate of the solver",
+      "category": "Error Analysis",
+      "formula": "(Initial Error Rate - Final Error Rate) / Initial Error Rate"
+    }
+  }
+]
+```
+
+#### 提取总结
+1. 刚刚提取的是 **INTRODUCTION** 和 **UNIT DEPENDENCY GRAPH** 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 **LEARNING TO PREDICT UDGs**。
+
+```json
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: UNIT DEPENDENCY GRAPH, NEXT_SECTION: LEARNING TO PREDICT UDGs
+```
+
+---
+
+### 继续提取实体信息
+
+#### 第二部分：Learning to Predict UDGs
+
+##### 1. 提取的章节
+- **LEARNING TO PREDICT UDGs**
+
+##### 2. 提取的实体
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_VertexClassifier",
+      "entity_type": "Algorithm",
+      "name": "Vertex Classifier",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Rate Detection in UDG",
+      "dataset": ["AllArith_2017"],
+      "metrics": ["Accuracy_ArithmeticWordProblem"],
+      "architecture": {
+        "components": ["Binary Classifier"],
+        "connections": [],
+        "mechanisms": ["RATE Label", "NOT RATE Label"]
+      },
+      "methodology": {
+        "training_strategy": ["Binary Classification"],
+        "parameter_tuning": ["Context Features", "Rule Based Extraction Features"]
+      },
+      "feature_processing": ["Context Features", "Rule Based Extraction Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_EdgeClassifier",
+      "entity_type": "Algorithm",
+      "name": "Edge Classifier",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Edge Property Prediction in UDG",
+      "dataset": ["AllArith_2017"],
+      "metrics": ["Accuracy_ArithmeticWordProblem"],
+      "architecture": {
+        "components": ["Multiclass Classifier"],
+        "connections": [],
+        "mechanisms": ["SAME UNIT", "NO RELATION", "RATE→Num", "RATE←Num", "RATE→Den", "RATE←Den"]
+      },
+      "methodology": {
+        "training_strategy": ["Multiclass Classification"],
+        "parameter_tuning": ["Context Features", "Rule Based Extraction Features"]
+      },
+      "feature_processing": ["Context Features", "Rule Based Extraction Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_ConstrainedInference",
+      "entity_type": "Algorithm",
+      "name": "Constrained Inference Module",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Combining Vertex and Edge Predictions",
+      "dataset": ["AllArith_2017"],
+      "metrics": ["Accuracy_ArithmeticWordProblem"],
+      "architecture": {
+        "components": ["Constrained Inference"],
+        "connections": ["Vertex Classifier -> Constrained Inference", "Edge Classifier -> Constrained Inference"],
+        "mechanisms": ["Score Aggregation", "Label Mapping"]
+      },
+      "methodology": {
+        "training_strategy": ["Constrained Inference"],
+        "parameter_tuning": ["Scaling Parameters"]
+      },
+      "feature_processing": []
+    }
+  }
+]
+```
+
+#### 提取总结
+1. 刚刚提取的是 **LEARNING TO PREDICT UDGs** 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 **JOINT INFERENCE WITH AN ARITHMETIC SOLVER**。
+
+```json
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: LEARNING TO PREDICT UDGs, NEXT_SECTION: JOINT INFERENCE WITH AN ARITHMETIC SOLVER
+```
+
+---
+
+### 继续提取实体信息
+
+#### 第三部分：Joint Inference With An Arithmetic Solver
+
+##### 1. 提取的章节
+- **JOINT INFERENCE WITH AN ARITHMETIC SOLVER**
+
+##### 2. 提取的实体
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_JointInference",
+      "entity_type": "Algorithm",
+      "name": "Joint Inference",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Joint Prediction of UDG and Solution",
+      "dataset": ["AllArith_2017"],
+      "metrics": ["Accuracy_ArithmeticWordProblem"],
+      "architecture": {
+        "components": ["Joint Inference Module"],
+        "connections": ["Vertex Classifier -> Joint Inference", "Edge Classifier -> Joint Inference"],
+        "mechanisms": ["Score Aggregation", "Label Mapping"]
+      },
+      "methodology": {
+        "training_strategy": ["Joint Inference"],
+        "parameter_tuning": ["Scaling Parameters"]
+      },
+      "feature_processing": []
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2015_ArithmeticWordProblemSolver",
+      "entity_type": "Algorithm",
+      "name": "Arithmetic Word Problem Solver",
+      "year": 2015,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Solving Arithmetic Word Problems",
+      "dataset": ["AllArith_2017"],
+      "metrics": ["Accuracy_ArithmeticWordProblem"],
+      "architecture": {
+        "components": ["Irrelevance Classifier", "LCA Operation Classifier"],
+        "connections": ["Irrelevance Classifier -> LCA Operation Classifier"],
+        "mechanisms": ["Expression Tree Construction", "Monotonic Expression Tree"]
+      },
+      "methodology": {
+        "training_strategy": ["Binary Classification", "Multiclass Classification"],
+        "parameter_tuning": ["Scaling Parameters"]
+      },
+      "feature_processing": ["Context Features", "Rule Based Extraction Features"]
+    }
+  }
+]
+```
+
+#### 提取总结
+1. 刚刚提取的是 **JOINT INFERENCE WITH AN ARITHMETIC SOLVER** 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 **EXPERIMENTS**。
+
+```json
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: JOINT INFERENCE WITH AN ARITHMETIC SOLVER, NEXT_SECTION: EXPERIMENTS
+```
+
+---
+
+### 继续提取实体信息
+
+#### 第四部分：Experiments
+
+##### 1. 提取的章节
+- **EXPERIMENTS**
+
+##### 2. 提取的实体
+
+```json
+[
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArithLex_2017",
+      "entity_type": "Dataset",
+      "name": "AllArithLex",
+      "description": "Subset of AllArith with low lexical overlap",
+      "domain": "Mathematics",
+      "size": 831,
+      "year": 2017,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArithTmpl_2017",
+      "entity_type": "Dataset",
+      "name": "AllArithTmpl",
+      "description": "Subset of AllArith with low template overlap",
+      "domain": "Mathematics",
+      "size": 831,
+      "year": 2017,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_SolvingArithmeticWordProblems",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy of solving arithmetic word problems",
+      "category": "Arithmetic Word Problem Solving",
+      "formula": "Correct Solutions / Total Problems"
+    }
+  }
+]
+```
+
+#### 提取总结
+1. 刚刚提取的是 **EXPERIMENTS** 小节。
+2. 论文中没有其他小节未被提取。
+3. 提取已完成。
+
+```json
+EXTRACTION_COMPLETE: true
+```

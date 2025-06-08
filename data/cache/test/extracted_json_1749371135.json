@@ -1,0 +1,23 @@
+{
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_SkipGram",
+       "entity_type": "Algorithm",
+       "name": "Skip-gram model",
+       "title": "Distributed Representations of Words and Phrases and their Compositionality",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Sutskever, I.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Natural Language Processing",
+       "dataset": ["News Articles"],
+       "metrics": ["Accuracy", "Training Speed"],
+       "architecture": {
+         "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+         "connections": ["Input to Hidden", "Hidden to Output"],
+         "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+       },
+       "methodology": {
+         "training_strategy": ["Subsampling of Frequent Words", "Negative Sampling"],
+         "parameter_tuning": ["Dimensionality", "Context Size"]
+       },
+       "feature_processing": ["Word Tokenization", "Subsampling"]
+     }
+   }

@@ -1,0 +1,66 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2016_ExpressionTreeBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Expression Tree Based Solver",
+      "year": 2016,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Solving arithmetic word problems",
+      "dataset": ["AI2_2014", "IL_2015", "Commoncore_2016"],
+      "metrics": ["Accuracy_ArithmeticWordProblem", "Precision_ArithmeticWordProblem", "Recall_ArithmeticWordProblem"],
+      "architecture": {
+        "components": ["Expression Tree", "Constrained Inference Framework", "Quantity Schemas"],
+        "connections": ["LCA Operations", "Relevance Classification"],
+        "mechanisms": ["Beam Search", "Global Inference"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning", "Gold Annotations"],
+        "parameter_tuning": ["wIRR"]
+      },
+      "feature_processing": ["Unit Features", "NP Features", "Miscellaneous Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Commoncore_2016",
+      "entity_type": "Dataset",
+      "name": "Commoncore",
+      "description": "A dataset of multi-step arithmetic problems",
+      "domain": "Arithmetic Word Problems",
+      "size": 600,
+      "year": 2016,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Correctly solved arithmetic word problems",
+      "category": "Arithmetic Word Problem Evaluation",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Precision_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Precision",
+      "description": "Proportion of correctly identified quantities",
+      "category": "Arithmetic Word Problem Evaluation",
+      "formula": "True positives / (True positives + False positives)"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Recall_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Recall",
+      "description": "Proportion of relevant quantities identified",
+      "category": "Arithmetic Word Problem Evaluation",
+      "formula": "True positives / (True positives + False negatives)"
+    }
+  }
+]

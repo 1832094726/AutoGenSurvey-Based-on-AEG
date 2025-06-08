@@ -349,4 +349,4 @@ class DBUtils:
             self.pool.close_all()
 
 # 创建单例实例
-db_utils = DBUtils(pool_size=3, max_connections=10) 
+db_utils = DBUtils(pool_size=6, max_connections=10) 

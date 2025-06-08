@@ -1,0 +1,68 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_VertexClassifier",
+      "entity_type": "Algorithm",
+      "name": "Vertex Classifier",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Classify vertices in Unit Dependency Graphs",
+      "dataset": ["AllArith_2017"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Binary Classifier"],
+        "connections": ["Input: Problem Text and Vertex", "Output: RATE or NOT RATE"],
+        "mechanisms": ["Context Features", "Rule-based Extraction Features"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Hyperparameters for Binary Classification"]
+      },
+      "feature_processing": ["Unigrams", "Bigrams", "POS Tags", "Conjunctions", "Rule-based Detection"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_EdgeClassifier",
+      "entity_type": "Algorithm",
+      "name": "Edge Classifier",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Classify edges in Unit Dependency Graphs",
+      "dataset": ["AllArith_2017"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Multiclass Classifier"],
+        "connections": ["Input: Pair of Nodes", "Output: Edge Labels"],
+        "mechanisms": ["SAME UNIT", "RATE→Num", "RATE←Num", "RATE→Den", "RATE←Den"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Hyperparameters for Multiclass Classification"]
+      },
+      "feature_processing": ["Context Features", "Rule-based Detection", "Common Tokens in Units"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_ConstrainedInference",
+      "entity_type": "Algorithm",
+      "name": "Constrained Inference Module",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Combine vertex and edge predictions to construct UDG",
+      "dataset": ["AllArith_2017"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Inference Module"],
+        "connections": ["Input: Scores from Vertex and Edge Classifiers", "Output: Unit Dependency Graph"],
+        "mechanisms": ["Scoring Function", "Beam Search"]
+      },
+      "methodology": {
+        "training_strategy": ["Not Applicable"],
+        "parameter_tuning": ["Scaling Parameters"]
+      },
+      "feature_processing": ["Scores from Classifiers"]
+    }
+  }
+]

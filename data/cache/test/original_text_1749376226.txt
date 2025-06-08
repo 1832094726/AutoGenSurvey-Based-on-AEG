@@ -1,0 +1,422 @@
+### 提取实体信息 - 第一部分
+
+#### 当前章节：SOLVING GENERAL ARITHMETIC WORD PROBLEMS
+
+---
+
+### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2016_ExpressionTreeBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Expression Tree Based Solver",
+      "year": 2016,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Solving arithmetic word problems",
+      "dataset": ["AI2_2014", "IL_2015", "Commoncore_2016"],
+      "metrics": ["Accuracy_ArithmeticWordProblem", "Precision_ArithmeticWordProblem", "Recall_ArithmeticWordProblem"],
+      "architecture": {
+        "components": ["Expression Tree", "Constrained Inference Framework", "Quantity Schemas"],
+        "connections": ["LCA Operations", "Relevance Classification"],
+        "mechanisms": ["Beam Search", "Global Inference"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning", "Gold Annotations"],
+        "parameter_tuning": ["wIRR"]
+      },
+      "feature_processing": ["Unit Features", "NP Features", "Miscellaneous Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Commoncore_2016",
+      "entity_type": "Dataset",
+      "name": "Commoncore",
+      "description": "A dataset of multi-step arithmetic problems",
+      "domain": "Arithmetic Word Problems",
+      "size": 600,
+      "year": 2016,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Correctly solved arithmetic word problems",
+      "category": "Arithmetic Word Problem Evaluation",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Precision_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Precision",
+      "description": "Proportion of correctly identified quantities",
+      "category": "Arithmetic Word Problem Evaluation",
+      "formula": "True positives / (True positives + False positives)"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Recall_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Recall",
+      "description": "Proportion of relevant quantities identified",
+      "category": "Arithmetic Word Problem Evaluation",
+      "formula": "True positives / (True positives + False negatives)"
+    }
+  }
+]
+```
+
+### 提取总结：
+
+1. **你刚刚提取的是哪个小节**：SOLVING GENERAL ARITHMETIC WORD PROBLEMS
+2. **论文中是否还有其他小节未被提取**：是
+3. **如果还有未提取的小节，下一个要提取的小节是什么**：SOLVING GEOMETRY PROBLEMS: COMBINING TEXT AND DIAGRAM INTERPRETATION
+
+---
+
+### 提取实体信息 - 第二部分
+
+#### 当前章节：SOLVING GEOMETRY PROBLEMS: COMBINING TEXT AND DIAGRAM INTERPRETATION
+
+---
+
+### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Seo2015_GEOS",
+      "entity_type": "Algorithm",
+      "name": "GEOS",
+      "year": 2015,
+      "authors": ["Seo, M.J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O.", "Malcolm, C."],
+      "task": "Solving geometry problems",
+      "dataset": ["SAT_Geometry_2015"],
+      "metrics": ["Accuracy_GeometryTheoremProving", "Precision_GeometryTheoremProving", "Recall_GeometryTheoremProving"],
+      "architecture": {
+        "components": ["Text Parser", "Diagram Parser", "Geometric Solver"],
+        "connections": ["Text-Diagram Alignment", "Submodular Optimization"],
+        "mechanisms": ["Hypergraph Representation", "Greedy Maximization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning", "Gold Annotations"],
+        "parameter_tuning": ["λ"]
+      },
+      "feature_processing": ["Concept Identification", "Relation Identification", "Relation Completion"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "SAT_Geometry_2015",
+      "entity_type": "Dataset",
+      "name": "SAT Geometry",
+      "description": "A dataset of SAT-level geometry questions",
+      "domain": "Geometry",
+      "size": 186,
+      "year": 2015,
+      "creators": ["Seo, M.J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O.", "Malcolm, C."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_GeometryTheoremProving",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Correctly solved geometry problems",
+      "category": "Geometry Theorem Proving Evaluation",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Precision_GeometryTheoremProving",
+      "entity_type": "Metric",
+      "name": "Precision",
+      "description": "Proportion of correctly identified literals",
+      "category": "Geometry Theorem Proving Evaluation",
+      "formula": "True positives / (True positives + False positives)"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Recall_GeometryTheoremProving",
+      "entity_type": "Metric",
+      "name": "Recall",
+      "description": "Proportion of relevant literals identified",
+      "category": "Geometry Theorem Proving Evaluation",
+      "formula": "True positives / (True positives + False negatives)"
+    }
+  }
+]
+```
+
+### 提取总结：
+
+1. **你刚刚提取的是哪个小节**：SOLVING GEOMETRY PROBLEMS: COMBINING TEXT AND DIAGRAM INTERPRETATION
+2. **论文中是否还有其他小节未被提取**：是
+3. **如果还有未提取的小节，下一个要提取的小节是什么**：SOLVING VERBAL QUESTIONS IN IQ TEST BY KNOWLEDGE-POWERED WORD EMBEDDING
+
+---
+
+### 提取实体信息 - 第三部分
+
+#### 当前章节：SOLVING VERBAL QUESTIONS IN IQ TEST BY KNOWLEDGE-POWERED WORD EMBEDDING
+
+---
+
+### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2016_RelationKnowledgePoweredModel",
+      "entity_type": "Algorithm",
+      "name": "Relation Knowledge Powered Model",
+      "year": 2016,
+      "authors": ["Wang, H.", "Tian, F.", "Gao, B.", "Zhu, C.J.", "Bian, J.", "Liu, T.Y."],
+      "task": "Solving verbal IQ test questions",
+      "dataset": ["VerbalQuestions_2016"],
+      "metrics": ["Accuracy_VerbalComprehension", "F1_VerbalComprehension"],
+      "architecture": {
+        "components": ["Question Classifier", "Word-Sense Embedding", "Relation Embedding"],
+        "connections": ["Text-Diagram Integration", "Submodular Optimization"],
+        "mechanisms": ["Multi-Sense Clustering", "Relation Translation"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning", "Gold Annotations"],
+        "parameter_tuning": ["α", "γ"]
+      },
+      "feature_processing": ["TF-IDF", "Spherical K-Means", "Dependency Parsing"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "VerbalQuestions_2016",
+      "entity_type": "Dataset",
+      "name": "Verbal Questions",
+      "description": "A dataset of verbal comprehension questions from IQ tests",
+      "domain": "Verbal IQ Test",
+      "size": 232,
+      "year": 2016,
+      "creators": ["Wang, H.", "Tian, F.", "Gao, B.", "Zhu, C.J.", "Bian, J.", "Liu, T.Y."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_VerbalComprehension",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Correctly answered verbal comprehension questions",
+      "category": "Verbal Comprehension Evaluation",
+      "formula": "Correctly answered questions / Total questions"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "F1_VerbalComprehension",
+      "entity_type": "Metric",
+      "name": "F1 Score",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Verbal Comprehension Evaluation",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  }
+]
+```
+
+### 提取总结：
+
+1. **你刚刚提取的是哪个小节**：SOLVING VERBAL QUESTIONS IN IQ TEST BY KNOWLEDGE-POWERED WORD EMBEDDING
+2. **论文中是否还有其他小节未被提取**：是
+3. **如果还有未提取的小节，下一个要提取的小节是什么**：SYNTHESIS OF GEOMETRY PROOF PROBLEMS
+
+---
+
+### 提取实体信息 - 第四部分
+
+#### 当前章节：SYNTHESIS OF GEOMETRY PROOF PROBLEMS
+
+---
+
+### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Alvin2014_GeometryProofProblemSynthesis",
+      "entity_type": "Algorithm",
+      "name": "Geometry Proof Problem Synthesis",
+      "year": 2014,
+      "authors": ["Alvin, C.", "Gulwani, S.", "Majumdar, R.", "Mukhopadhyay, S."],
+      "task": "Generating geometry proof problems",
+      "dataset": ["GeometryTextbooks_2006", "GeometryTextbooks_2007"],
+      "metrics": ["Number_of_Problems_Generated", "Time_per_Figure"],
+      "architecture": {
+        "components": ["Hypergraph Construction", "Minimal Assumption Generation", "Strictly Interesting Problem Synthesis"],
+        "connections": ["Template Matching", "Axiom Application"],
+        "mechanisms": ["Hypergraph Reachability", "Fixed-Point Procedure"]
+      },
+      "methodology": {
+        "training_strategy": ["Manual Input of Figures and Axioms"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Implicit Facts", "Explicit Facts"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "GeometryTextbooks_2006",
+      "entity_type": "Dataset",
+      "name": "Geometry Textbooks",
+      "description": "A collection of geometry figures from Indian textbooks",
+      "domain": "Geometry",
+      "size": 110,
+      "year": 2006,
+      "creators": ["Sinclair, P.", "Dikshit, G."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "GeometryTextbooks_2007",
+      "entity_type": "Dataset",
+      "name": "Geometry Textbooks",
+      "description": "A collection of geometry figures from US textbooks",
+      "domain": "Geometry",
+      "size": 110,
+      "year": 2007,
+      "creators": ["Boyd, C.", "Larson, R.", "McDougal, H."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Number_of_Problems_Generated",
+      "entity_type": "Metric",
+      "name": "Number of Problems Generated",
+      "description": "Average number of problems generated per figure",
+      "category": "Geometry Problem Generation Evaluation",
+      "formula": "Total problems generated / Number of figures"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Time_per_Figure",
+      "entity_type": "Metric",
+      "name": "Time per Figure",
+      "description": "Average time taken to generate problems for each figure",
+      "category": "Geometry Problem Generation Evaluation",
+      "formula": "Total time taken / Number of figures"
+    }
+  }
+]
+```
+
+### 提取总结：
+
+1. **你刚刚提取的是哪个小节**：SYNTHESIS OF GEOMETRY PROOF PROBLEMS
+2. **论文中是否还有其他小节未被提取**：是
+3. **如果还有未提取的小节，下一个要提取的小节是什么**：TEMPLATE-BASED MATH WORD PROBLEM SOLVERS WITH RECURSIVE NEURAL NETWORKS
+
+---
+
+### 提取实体信息 - 第五部分
+
+#### 当前章节：TEMPLATE-BASED MATH WORD PROBLEM SOLVERS WITH RECURSIVE NEURAL NETWORKS
+
+---
+
+### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2019_T-RNN",
+      "entity_type": "Algorithm",
+      "name": "T-RNN",
+      "year": 2019,
+      "authors": ["Wang, L.", "Zhang, D.", "Zhang, J.", "Xu, X.", "Gao, L.", "Dai, B.T.", "Shen, H.T."],
+      "task": "Solving math word problems",
+      "dataset": ["MAWPS_2016", "Math23K_2017"],
+      "metrics": ["Accuracy_MathWordProblem", "F1_MathWordProblem"],
+      "architecture": {
+        "components": ["Seq2Seq Model", "Recursive Neural Network", "Bi-LSTM", "Self Attention"],
+        "connections": ["Template Prediction", "Operator Inference"],
+        "mechanisms": ["Suffix Expression", "Expression Tree"]
+      },
+      "methodology": {
+        "training_strategy": ["Deep Learning", "Seq2Seq with Attention"],
+        "parameter_tuning": ["Adam Optimizer", "SGD Optimizer"]
+      },
+      "feature_processing": ["Word Embedding", "Equation Normalization", "Operator Encapsulation"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "MAWPS_2016",
+      "entity_type": "Dataset",
+      "name": "MAWPS",
+      "description": "A dataset of arithmetic word problems",
+      "domain": "Arithmetic Word Problems",
+      "size": 2373,
+      "year": 2016,
+      "creators": ["Koncel-Kedziorski, R.", "Roy, S.", "Amini, A.", "Kushman, N.", "Hajishirzi, H."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Math23K_2017",
+      "entity_type": "Dataset",
+      "name": "Math23K",
+      "description": "A large dataset of Chinese math word problems",
+      "domain": "Arithmetic Word Problems",
+      "size": 23162,
+      "year": 2017,
+      "creators": ["Wang, Y.", "Liu, X.", "Shi, S."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MathWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Proportion of correctly solved math word problems",
+      "category": "Math Word Problem Evaluation",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "F1_MathWordProblem",
+      "entity_type": "Metric",
+      "name": "F1 Score",
+      "description": "Harmonic mean of precision and recall",
+      "category": "Math Word Problem Evaluation",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  }
+]
+```
+
+### 提取总结：
+
+1. **你刚刚提取的是哪个小节**：TEMPLATE-BASED MATH WORD PROBLEM SOLVERS WITH RECURSIVE NEURAL NETWORKS
+2. **论文中是否还有其他小节未被提取**：否
+3. **是否需要继续提取更多实体**：不需要
+
+---
+
+```json
+EXTRACTION_COMPLETE: true
+```

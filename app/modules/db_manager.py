@@ -365,6 +365,8 @@ class DatabaseManager:
                     entity_type VARCHAR(50) DEFAULT 'Metric',
                     task_id VARCHAR(255) NOT NULL,
                     source VARCHAR(50) DEFAULT '未知' NOT NULL,
+                    `range` VARCHAR(255),
+                    tasks TEXT,
                     PRIMARY KEY(metric_id, task_id, source)
                 )
                 ''')
@@ -391,14 +393,30 @@ class DatabaseManager:
                     logging.info("已将Metrics表主键修改为联合主键(metric_id, task_id, source)")
                 except Exception as e:
                     logging.warning(f"修改Metrics表主键时出错: {str(e)}，可能已经是联合主键")
-                    
+                
+                # 检查range字段是否存在，如果存在但没有使用反引号，则重命名
+                try:
+                    cursor.execute("SHOW COLUMNS FROM Metrics LIKE 'range'")
+                    if cursor.fetchone():
+                        # 尝试将range字段重命名为带反引号的版本
+                        cursor.execute("ALTER TABLE Metrics CHANGE COLUMN range `range` VARCHAR(255)")
+                        logging.info("将Metrics表中的range字段修改为使用反引号")
+                except Exception as e:
+                    logging.warning(f"检查或修改range字段时出错: {str(e)}")
+                
+                # 检查tasks字段是否存在，如果不存在则添加
+                cursor.execute("SHOW COLUMNS FROM Metrics LIKE 'tasks'")
+                if not cursor.fetchone():
+                    cursor.execute("ALTER TABLE Metrics ADD COLUMN tasks TEXT")
+                    logging.info("向Metrics表添加tasks字段")
+
             # 检查关系表是否存在
             cursor.execute("SHOW TABLES LIKE 'EvolutionRelations'")
             if not cursor.fetchone():
                 # 创建关系表，确保relation_type非空
                 cursor.execute('''
                 CREATE TABLE IF NOT EXISTS EvolutionRelations (
-                    relation_id INT AUTO_INCREMENT,
+                    relation_id INT AUTO_INCREMENT PRIMARY KEY,
                     from_entity VARCHAR(255) NOT NULL,
                     to_entity VARCHAR(255) NOT NULL,
                     relation_type VARCHAR(100) NOT NULL,
@@ -414,11 +432,10 @@ class DatabaseManager:
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                     task_id VARCHAR(255) NOT NULL,
-                    source VARCHAR(50) DEFAULT '未知' NOT NULL,
-                    PRIMARY KEY(relation_id, task_id, source)
+                    source VARCHAR(50) DEFAULT '未知' NOT NULL
                 )
                 ''')
-                logging.info("创建MySQL EvolutionRelations表，使用联合主键(relation_id, task_id, source)")
+                logging.info("创建MySQL EvolutionRelations表，使用单一主键relation_id")
             else:
                 # 检查task_id字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'task_id'")
@@ -432,15 +449,21 @@ class DatabaseManager:
                     cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN source VARCHAR(50) DEFAULT '未知' NOT NULL")
                     logging.info("向EvolutionRelations表添加source字段")
                 
-                # 尝试修改主键为联合主键
+                # 尝试修改主键为单一主键
                 try:
-                    # 删除旧主键
-                    cursor.execute("ALTER TABLE EvolutionRelations DROP PRIMARY KEY")
-                    # 添加新的联合主键
-                    cursor.execute("ALTER TABLE EvolutionRelations ADD PRIMARY KEY(relation_id, task_id, source)")
-                    logging.info("已将EvolutionRelations表主键修改为联合主键(relation_id, task_id, source)")
+                    # 检查当前是否是联合主键
+                    cursor.execute("SHOW KEYS FROM EvolutionRelations WHERE Key_name = 'PRIMARY'")
+                    keys = cursor.fetchall()
+                    has_compound_key = len(keys) > 1
+                    
+                    if has_compound_key:
+                        # 先删除旧的联合主键
+                        cursor.execute("ALTER TABLE EvolutionRelations DROP PRIMARY KEY")
+                        # 添加新的单一主键
+                        cursor.execute("ALTER TABLE EvolutionRelations ADD PRIMARY KEY(relation_id)")
+                        logging.info("已将EvolutionRelations表主键修改为单一主键relation_id")
                 except Exception as e:
-                    logging.warning(f"修改EvolutionRelations表主键时出错: {str(e)}，可能已经是联合主键")
+                    logging.warning(f"修改EvolutionRelations表主键时出错: {str(e)}，请检查当前主键结构")
                 
                 # 检查problem_addressed字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'problem_addressed'")
@@ -778,28 +801,28 @@ class DatabaseManager:
             if not to_exists:
                 logging.warning(f"目标实体不存在: {to_entity} (类型: {to_entity_type})")
             
-            # 首先检查是否存在相同的关系
+            # 首先检查是否存在相同的关系（按from_entity, to_entity和relation_type查找，不再检查task_id和source）
             check_sql = """
             SELECT relation_id FROM EvolutionRelations 
-            WHERE from_entity = %s AND to_entity = %s AND relation_type = %s AND task_id = %s AND source = %s
+            WHERE from_entity = %s AND to_entity = %s AND relation_type = %s
             """
-            result = db_utils.select_one(check_sql, (from_entity, to_entity, relation_type, task_id, source))
+            result = db_utils.select_one(check_sql, (from_entity, to_entity, relation_type))
             
             if result:
                 # 关系已存在，执行更新
                 update_sql = """
                 UPDATE EvolutionRelations 
                 SET structure = %s, detail = %s, evidence = %s, confidence = %s,
-                    from_entity_type = %s, to_entity_type = %s
-                WHERE relation_id = %s AND task_id = %s AND source = %s
+                    from_entity_type = %s, to_entity_type = %s, task_id = %s, source = %s
+                WHERE relation_id = %s
                 """
                 params = (
                     structure, detail, evidence, confidence, 
-                    from_entity_type, to_entity_type,
-                    result['relation_id'], task_id, source
+                    from_entity_type, to_entity_type, task_id, source,
+                    result['relation_id']
                 )
                 db_utils.update_one(update_sql, params)
-                logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
+                logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 关系ID: {result['relation_id']}, 任务ID: {task_id}, 来源: {source}")
             else:
                 # 关系不存在，执行插入
                 insert_sql = """
@@ -1800,18 +1823,31 @@ class DatabaseManager:
         if 'confidence' in updated_relation:
             set_clauses.append('confidence = %s')
             params.append(updated_relation['confidence'])
+        if 'task_id' in updated_relation:
+            set_clauses.append('task_id = %s')
+            params.append(updated_relation['task_id'])
+        if 'source' in updated_relation:
+            set_clauses.append('source = %s')
+            params.append(updated_relation['source'])
+        if 'from_entity_type' in updated_relation:
+            set_clauses.append('from_entity_type = %s')
+            params.append(updated_relation['from_entity_type'])
+        if 'to_entity_type' in updated_relation:
+            set_clauses.append('to_entity_type = %s')
+            params.append(updated_relation['to_entity_type'])
         
         # 如果没有更新字段，直接返回成功
         if not set_clauses:
             return True
         
-        # 完成SQL语句
+        # 完成SQL语句，只使用relation_id作为条件
         update_sql = 'UPDATE EvolutionRelations SET ' + ', '.join(set_clauses) + ' WHERE relation_id = %s'
         params.append(relation_id)
         
         # 执行更新
         db_utils.update_one(update_sql, params)
         
+        logging.info(f"已更新关系 {relation_id} 的 {len(set_clauses)} 个字段")
         return True
     
     def delete_relation(self, relation_id):
@@ -1832,6 +1868,7 @@ class DatabaseManager:
     
     def _delete_relation_mysql(self, relation_id):
         """在MySQL中删除关系"""
+        # 只使用relation_id作为条件删除
         sql = 'DELETE FROM EvolutionRelations WHERE relation_id = %s'
         db_utils.execute(sql, (relation_id,))
         return True
@@ -2262,10 +2299,11 @@ class DatabaseManager:
                     'confidence': float(row['confidence']) if row['confidence'] is not None else 0.0,
                     'from_entity_type': row.get('from_entity_type', 'Algorithm'),
                     'to_entity_type': row.get('to_entity_type', 'Algorithm'),
-                    'source': row.get('source', '未知')
+                    'source': row.get('source', '未知'),
+                    'task_id': row.get('task_id', '')
                 }
                 
-                # 处理日期时间类型
+                    # 处理日期时间类型
                 if 'created_at' in row and row['created_at']:
                     relation['created_at'] = row['created_at'].strftime('%Y-%m-%d %H:%M:%S')
                 if 'updated_at' in row and row['updated_at']:
@@ -2308,7 +2346,7 @@ class DatabaseManager:
                 else:
                     # 所有重试都失败
                     logging.error(f"经过 {max_retries} 次重试后，无法获取关系 {relation_id}")
-                    return None
+                return None
                 
         # 如果所有重试都失败
         return None
@@ -2722,7 +2760,7 @@ class DatabaseManager:
                 UPDATE Metrics SET
                     name = %s, description = %s, category = %s,
                     formula = %s, entity_type = %s,
-                    range = %s, tasks = %s
+                    `range` = %s, tasks = %s
                 WHERE metric_id = %s AND task_id = %s AND source = %s
                 '''
                 db_utils.update_one(update_sql, (
@@ -2737,7 +2775,7 @@ class DatabaseManager:
                 INSERT INTO Metrics (
                     metric_id, name, description, category,
                     formula, entity_type, task_id, source,
-                    range, tasks
+                    `range`, tasks
                 ) VALUES (
                     %s, %s, %s, %s,
                     %s, %s, %s, %s,
@@ -2792,28 +2830,28 @@ class DatabaseManager:
             if not to_exists:
                 logging.warning(f"目标实体不存在: {to_entity} (类型: {to_entity_type})")
             
-            # 首先检查是否存在相同的关系
+            # 首先检查是否存在相同的关系（按from_entity, to_entity和relation_type查找，不再检查task_id和source）
             check_sql = """
             SELECT relation_id FROM EvolutionRelations 
-            WHERE from_entity = %s AND to_entity = %s AND relation_type = %s AND task_id = %s AND source = %s
+            WHERE from_entity = %s AND to_entity = %s AND relation_type = %s
             """
-            result = db_utils.select_one(check_sql, (from_entity, to_entity, relation_type, task_id, source))
+            result = db_utils.select_one(check_sql, (from_entity, to_entity, relation_type))
             
             if result:
                 # 关系已存在，执行更新
                 update_sql = """
                 UPDATE EvolutionRelations 
                 SET structure = %s, detail = %s, evidence = %s, confidence = %s,
-                    from_entity_type = %s, to_entity_type = %s
-                WHERE relation_id = %s AND task_id = %s AND source = %s
+                    from_entity_type = %s, to_entity_type = %s, task_id = %s, source = %s
+                WHERE relation_id = %s
                 """
                 params = (
                     structure, detail, evidence, confidence, 
-                    from_entity_type, to_entity_type,
-                    result['relation_id'], task_id, source
+                    from_entity_type, to_entity_type, task_id, source,
+                    result['relation_id']
                 )
                 db_utils.update_one(update_sql, params)
-                logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
+                logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 关系ID: {result['relation_id']}, 任务ID: {task_id}, 来源: {source}")
             else:
                 # 关系不存在，执行插入
                 insert_sql = """

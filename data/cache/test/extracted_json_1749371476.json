@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Gelernter1959_GeometryMachine",
+      "entity_type": "Algorithm",
+      "name": "Geometry Machine",
+      "year": 1959,
+      "authors": ["Gelernter, H."],
+      "task": "几何定理证明",
+      "dataset": [],
+      "metrics": [],
+      "architecture": {
+        "components": ["Heuristic Knowledge", "Backward Chaining Search Strategy"],
+        "connections": ["Diagram-based Heuristic", "Search Strategy"],
+        "mechanisms": ["Diagram-based Rejection of False Goals"]
+      },
+      "methodology": {
+        "training_strategy": ["Backward Chaining"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Diagram Analysis"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "HighSchoolTextbooks_1959",
+      "entity_type": "Dataset",
+      "name": "High School Textbooks",
+      "description": "高中几何教科书中的定理",
+      "domain": "几何学",
+      "size": null,
+      "year": 1959,
+      "creators": ["Gelernter, H."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Number_of_Inferences_Layer",
+      "entity_type": "Metric",
+      "name": "Number of Inferences",
+      "description": "每层推理的数量",
+      "category": "几何定理证明",
+      "formula": "每层推理数量随层数增加而迅速增加"
+    }
+  }
+]

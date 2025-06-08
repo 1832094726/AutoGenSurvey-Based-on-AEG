@@ -1,0 +1,58 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Goldwasser2014_LearningFromNaturalInstructions",
+      "entity_type": "Algorithm",
+      "name": "Learning from Natural Instructions",
+      "year": 2014,
+      "authors": ["Dan Goldwasser", "Dan Roth"],
+      "task": "Natural Language Instruction Interpretation",
+      "dataset": ["Solitaire Card Game Rules", "Geoquery"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Semantic Interpreter", "Feedback Mechanism"],
+        "connections": ["Natural Language Input -> Logical Formula Output"],
+        "mechanisms": ["Integer Linear Programming(ILP)", "Lexical and Syntactic Features"]
+      },
+      "methodology": {
+        "training_strategy": ["Response Driven Learning", "Binary Feedback"],
+        "parameter_tuning": ["Weight Vector Updates"]
+      },
+      "feature_processing": ["Lexical Similarity", "Syntactic Dependencies", "External Knowledge Base(WordNet)"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "SolitaireCardGameRules_2014",
+      "entity_type": "Dataset",
+      "name": "Solitaire Card Game Rules",
+      "description": "自然语言指令描述的纸牌游戏规则",
+      "domain": "自然语言处理",
+      "size": "未提供具体大小",
+      "year": 2014,
+      "creators": ["Dan Goldwasser", "Dan Roth"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Geoquery_2014",
+      "entity_type": "Dataset",
+      "name": "Geoquery",
+      "description": "地理查询数据库",
+      "domain": "自然语言处理",
+      "size": 500,
+      "year": 2014,
+      "creators": ["Dan Goldwasser", "Dan Roth"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "formula": "正确分类样本数/总样本数"
+    }
+  }
+]

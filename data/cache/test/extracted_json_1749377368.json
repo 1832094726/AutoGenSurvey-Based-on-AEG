@@ -1,0 +1,91 @@
+[
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArith_2017",
+      "entity_type": "Dataset",
+      "name": "AllArith",
+      "description": "包含来自多个数据集的算术文字题，经过归一化处理，去除了80%以上相似的问题。",
+      "domain": "算术文字题求解",
+      "size": 831,
+      "year": 2017,
+      "creators": ["Subhro Roy", "Dan Roth"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArithLex_2017",
+      "entity_type": "Dataset",
+      "name": "AllArithLex",
+      "description": "AllArith数据集的子集，具有低词汇重叠。",
+      "domain": "算术文字题求解",
+      "size": 415,
+      "year": 2017,
+      "creators": ["Subhro Roy", "Dan Roth"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArithTmpl_2017",
+      "entity_type": "Dataset",
+      "name": "AllArithTmpl",
+      "description": "AllArith数据集的子集，具有低模板重叠。",
+      "domain": "算术文字题求解",
+      "size": 415,
+      "year": 2017,
+      "creators": ["Subhro Roy", "Dan Roth"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "算术文字题求解的准确率",
+      "category": "分类评估",
+      "formula": "正确解答的数量 / 总问题数量"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Precision_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Precision",
+      "description": "算术文字题求解的精确率",
+      "category": "分类评估",
+      "formula": "正确预测为正类的数量 / 预测为正类的总数"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Recall_ArithmeticWordProblem",
+      "entity_type": "Metric",
+      "name": "Recall",
+      "description": "算术文字题求解的召回率",
+      "category": "分类评估",
+      "formula": "正确预测为正类的数量 / 实际为正类的总数"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_UNITDEP",
+      "entity_type": "Algorithm",
+      "name": "UNITDEP",
+      "title": "Unit Dependency Graph and its Application to Arithmetic Word Problem Solving",
+      "year": 2017,
+      "authors": ["Subhro Roy", "Dan Roth"],
+      "task": "算术文字题求解",
+      "dataset": ["AllArith", "AllArithLex", "AllArithTmpl"],
+      "metrics": ["Accuracy", "Precision", "Recall"],
+      "architecture": {
+        "components": ["Unit Dependency Graph", "Vertex Classifier", "Edge Classifier", "Constrained Inference"],
+        "connections": ["Vertex Classifier -> Edge Classifier -> Constrained Inference"],
+        "mechanisms": ["使用单位依赖图来改进算术文字题求解器的性能"]
+      },
+      "methodology": {
+        "training_strategy": ["使用带约束的推理框架进行训练"],
+        "parameter_tuning": ["调整λ参数以优化性能"]
+      },
+      "feature_processing": ["context_features", "rule_based_extraction_features"]
+    }
+  }
+]
