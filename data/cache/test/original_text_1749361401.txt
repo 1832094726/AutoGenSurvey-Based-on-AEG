@@ -1,0 +1,138 @@
+好的，我将按照要求逐步提取文档中的实体信息。首先，我会确认当前需要处理的章节，并开始从小节为单位进行实体提取。根据已有的指示，以下章节已经被提取过，请不要重复提取：
+
+- INTRODUCTION
+- ARITHMETIC WORD PROBLEM SOLVER
+- EQUATION SET SOLVER
+- FEATURE_EXTRACTION
+- GEOMETRIC WORD PROBLEM (GWP) SOLVER
+- Dataset Repository and Performance Analysis
+- MISCELLANEOUS MATH TASKS
+
+接下来，我将从剩余的章节中选择一个进行提取。根据文档内容，下一个合适的章节是 **CONCLUSIONS AND FUTURE DIRECTIONS**。
+
+### 提取 CONCLUSIONS AND FUTURE DIRECTIONS 小节的实体
+
+#### 1. 算法实体
+- **DNS2017_DeepNeuralSolver**
+  - **algorithm_id**: DNS2017_DeepNeuralSolver
+  - **entity_type**: Algorithm
+  - **name**: Deep Neural Solver (DNS)
+  - **year**: 2017
+  - **authors**: ["Y. Wang", "X. Liu", "S. Shi"]
+  - **task**: Solving math word problems
+  - **dataset**: ["AI2", "Dolphin18K", "Math23K"]
+  - **metrics**: ["Accuracy"]
+  - **architecture**: {"components": ["GRU", "seq2seq"], "connections": ["encoder-decoder"], "mechanisms": ["word embedding"]}
+  - **methodology**: {"training_strategy": ["supervised learning"], "parameter_tuning": ["learning rate", "batch size"]}
+  - **feature_processing**: ["word embedding"]
+
+- **T-RNN2019_TemplateBasedSolver**
+  - **algorithm_id**: T-RNN2019_TemplateBasedSolver
+  - **entity_type**: Algorithm
+  - **name**: Template-based Math Word Problem Solver with Recursive Neural Networks (T-RNN)
+  - **year**: 2019
+  - **authors**: ["L. Wang", "D. Zhang", "J. Zhang", "X. Xu", "L. Gao", "B. Dai", "H. T. Shen"]
+  - **task**: Solving math word problems
+  - **dataset**: ["Math23K"]
+  - **metrics**: ["Accuracy"]
+  - **architecture**: {"components": ["Bi-LSTM", "self-attention", "recursive neural networks"], "connections": ["encoder-decoder"], "mechanisms": ["quantity representation"]}
+  - **methodology**: {"training_strategy": ["supervised learning"], "parameter_tuning": ["learning rate", "batch size"]}
+  - **feature_processing**: ["quantity representation"]
+
+#### 2. 数据集实体
+- **Math23K_2019**
+  - **dataset_id**: Math23K_2019
+  - **entity_type**: Dataset
+  - **name**: Math23K
+  - **description**: Chinese math word problems for elementary school students
+  - **domain**: Elementary school mathematics
+  - **size**: 23,162
+  - **year**: 2019
+  - **creators**: ["Y. Wang", "X. Liu", "S. Shi"]
+
+#### 3. 评价指标实体
+- **Accuracy_Classification**
+  - **metric_id**: Accuracy_Classification
+  - **entity_type**: Metric
+  - **name**: Accuracy
+  - **description**: Classification accuracy
+  - **category**: Classification evaluation
+  - **formula**: "正确分类样本数 / 总样本数"
+
+### 提取完成情况
+1. 刚刚提取的是 **CONCLUSIONS AND FUTURE DIRECTIONS** 小节。
+2. 论文中是否还有其他小节未被提取：否。
+3. 提取已完成。
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "DNS2017_DeepNeuralSolver",
+      "entity_type": "Algorithm",
+      "name": "Deep Neural Solver (DNS)",
+      "year": 2017,
+      "authors": ["Y. Wang", "X. Liu", "S. Shi"],
+      "task": "Solving math word problems",
+      "dataset": ["AI2", "Dolphin18K", "Math23K"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["GRU", "seq2seq"],
+        "connections": ["encoder-decoder"],
+        "mechanisms": ["word embedding"]
+      },
+      "methodology": {
+        "training_strategy": ["supervised learning"],
+        "parameter_tuning": ["learning rate", "batch size"]
+      },
+      "feature_processing": ["word embedding"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "T-RNN2019_TemplateBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Template-based Math Word Problem Solver with Recursive Neural Networks (T-RNN)",
+      "year": 2019,
+      "authors": ["L. Wang", "D. Zhang", "J. Zhang", "X. Xu", "L. Gao", "B. Dai", "H. T. Shen"],
+      "task": "Solving math word problems",
+      "dataset": ["Math23K"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Bi-LSTM", "self-attention", "recursive neural networks"],
+        "connections": ["encoder-decoder"],
+        "mechanisms": ["quantity representation"]
+      },
+      "methodology": {
+        "training_strategy": ["supervised learning"],
+        "parameter_tuning": ["learning rate", "batch size"]
+      },
+      "feature_processing": ["quantity representation"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Math23K_2019",
+      "entity_type": "Dataset",
+      "name": "Math23K",
+      "description": "Chinese math word problems for elementary school students",
+      "domain": "Elementary school mathematics",
+      "size": 23162,
+      "year": 2019,
+      "creators": ["Y. Wang", "X. Liu", "S. Shi"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Classification accuracy",
+      "category": "Classification evaluation",
+      "formula": "正确分类样本数 / 总样本数"
+    }
+  }
+]
+```
+
+EXTRACTION_COMPLETE: true

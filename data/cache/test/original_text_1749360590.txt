@@ -1,0 +1,95 @@
+为了确保提取过程的准确性和完整性，我将按照文档的章节逐步提取实体信息，并在每次完成一个小节后进行汇报。我们将从文档的第一个主要章节开始，即“INTRODUCTION”。
+
+### 提取实体信息：INTRODUCTION
+
+#### 1. 算法实体
+- **算法ID**: Zhang2019_SemanticParser
+- **实体类型**: Algorithm
+- **名称**: Semantic Parser
+- **发表年份**: 2019
+- **作者**: Dongxiang Zhang, Lei Wang, Luming Zhang, Bing Tian Dai, Heng Tao Shen
+- **任务领域**: 自动解数学应用题 (Automatic Math Word Problem Solvers)
+- **用于评估的数据集**: 未提及具体数据集
+- **用于评估的指标**: 未提及具体指标
+- **算法架构**:
+  - 组件: 句子解析器, 逻辑表示生成器
+  - 连接: 句子到逻辑表达式的映射
+  - 机制: 语义解析, 逻辑推理
+- **方法论**:
+  - 训练策略: 未提及
+  - 参数调优: 未提及
+- **特征处理方法**: 未提及
+
+#### 2. 数据集实体
+- **数据集ID**: AI2_2019
+- **实体类型**: Dataset
+- **名称**: AI2
+- **描述**: 包含395个单步或多步算术应用题，适用于三至五年级学生
+- **领域**: 数学教育
+- **大小**: 395个问题
+- **发表年份**: 2019
+- **创建者**: 未提及
+
+#### 3. 评价指标实体
+- **评价实体ID**: Accuracy_Classification
+- **实体类型**: Metric
+- **名称**: Accuracy
+- **描述**: 分类准确率
+- **类别**: 分类评估
+- **公式**: 正确分类样本数 / 总样本数
+
+### 提取总结
+1. 刚刚提取的是 INTRODUCTION 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 ARITHMETIC WORD PROBLEM SOLVER。
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Zhang2019_SemanticParser",
+      "entity_type": "Algorithm",
+      "name": "Semantic Parser",
+      "year": 2019,
+      "authors": ["Dongxiang Zhang", "Lei Wang", "Luming Zhang", "Bing Tian Dai", "Heng Tao Shen"],
+      "task": "自动解数学应用题 (Automatic Math Word Problem Solvers)",
+      "dataset": [],
+      "metrics": [],
+      "architecture": {
+        "components": ["句子解析器", "逻辑表示生成器"],
+        "connections": ["句子到逻辑表达式的映射"],
+        "mechanisms": ["语义解析", "逻辑推理"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": []
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AI2_2019",
+      "entity_type": "Dataset",
+      "name": "AI2",
+      "description": "包含395个单步或多步算术应用题，适用于三至五年级学生",
+      "domain": "数学教育",
+      "size": 395,
+      "year": 2019,
+      "creators": []
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "formula": "正确分类样本数 / 总样本数"
+    }
+  }
+]
+```
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: INTRODUCTION, NEXT_SECTION: ARITHMETIC WORD PROBLEM SOLVER

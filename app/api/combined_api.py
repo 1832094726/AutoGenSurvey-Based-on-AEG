@@ -1099,7 +1099,7 @@ def extract_entities_from_citations(citation_paths, task_id):
         return all_entities, []
     
     # 批量处理引用文献，每次处理5篇
-    batch_size = 1
+    batch_size = 100
 
     # 提取实体，使用主任务ID
     all_entities, is_complete = extract_paper_entities(

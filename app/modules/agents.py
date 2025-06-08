@@ -423,13 +423,18 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
         logging.error("没有有效的file-id，无法提取实体")
         return [], False, []
         
-    all_entities = []  # 所有已提取的实体
+    all_entities = [] if previous_entities is None else previous_entities.copy()
     current_attempt = 0
     is_extraction_complete = False
     
+
     extracted_sections = []
+
     
     logging.info(f"开始提取，已提取的章节: {extracted_sections}")
+    
+    # 创建提示词文件并上传（只上传一次）
+    prompt_file_id = None
     
     while current_attempt < max_attempts and not is_extraction_complete:
         current_attempt += 1
@@ -441,6 +446,38 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             previous_entities=all_entities,
             extracted_sections=extracted_sections
         )
+        
+        # 每次迭代时创建新的提示词文件，但只获取一次file_id
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as prompt_file:
+            prompt_filename = prompt_file.name
+            prompt_file.write(current_prompt)
+            
+        # 只在第一次上传提示词文件
+        if prompt_file_id is None:
+            prompt_file_id = upload_and_cache_file(prompt_filename)
+            logging.info(f"上传提示词文件: {prompt_filename}, file_id: {prompt_file_id}")
+        else:
+            # 如果已有file_id，只更新文件内容
+            try:
+                from openai import OpenAI
+                client = OpenAI(
+                    api_key=Config.QWEN_API_KEY,
+                    base_url=Config.QWEN_BASE_URL
+                )
+                
+                # 更新提示词文件内容
+                with open(prompt_filename, 'rb') as f:
+                    client.files.update(
+                        file_id=prompt_file_id,
+                        file=f,
+                        purpose="file-extract"
+                    )
+                logging.info(f"更新提示词文件内容: {prompt_filename}, file_id: {prompt_file_id}")
+            except Exception as e:
+                logging.warning(f"更新提示词文件失败，将重新上传: {str(e)}")
+                prompt_file_id = upload_and_cache_file(prompt_filename)
+                logging.info(f"重新上传提示词文件: {prompt_filename}, file_id: {prompt_file_id}")
         
         # 使用模型API提取实体
         entities = []
@@ -457,15 +494,19 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             ]
             
             # 添加file-id引用
-            if file_ids:
-                file_content = ",".join([f"fileid://{fid}" for fid in file_ids])
+            content_file_ids = file_ids.copy()
+            if prompt_file_id:
+                content_file_ids.append(prompt_file_id)
+                
+            if content_file_ids:
+                file_content = ",".join([f"fileid://{fid}" for fid in content_file_ids])
                 messages.append({"role": "system", "content": file_content})
             
-            # 添加用户提示
-            messages.append({"role": "user", "content": current_prompt})
+            # 添加用户提示 - 简化提示，因为主要内容已经在文件中
+            messages.append({"role": "user", "content": "请根据提供的PDF文件和提示词文件，提取相关实体信息。"})
             
             # 调用API
-            logging.info(f"调用千问API提取实体，文件数: {len(file_ids)}")
+            logging.info(f"调用千问API提取实体，文件数: {len(content_file_ids)}")
             response = client.chat.completions.create(
                 model=Config.QWEN_MODEL or "qwen-long",
                 messages=messages,
@@ -561,6 +602,21 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             logging.error(f"提取实体时出错: {str(e)}")
             logging.error(traceback.format_exc())
             # 继续下一次尝试
+            
+        # 尝试删除临时文件
+        try:
+            if os.path.exists(prompt_filename):
+                os.unlink(prompt_filename)
+        except Exception as e:
+            logging.warning(f"删除临时文件失败: {str(e)}")
+    
+    # 清理临时文件和资源
+    try:
+        if prompt_file_id:
+            # 可以选择在这里删除已上传的提示词文件
+            pass
+    except Exception as e:
+        logging.warning(f"清理资源时出错: {str(e)}")
     
     logging.info(f"完成实体提取，共 {len(all_entities)} 个实体，完成状态: {is_extraction_complete}，已提取章节: {extracted_sections}")
     return all_entities, is_extraction_complete
@@ -728,7 +784,7 @@ def extract_json_from_text(text):
     logging.warning("未能从文本中提取有效的JSON")
     return None
 
-def extract_paper_entities(pdf_paths, max_attempts=25, batch_size=1, model_name="qwen", task_id=None):
+def extract_paper_entities(pdf_paths, max_attempts=25, batch_size=100, model_name="qwen", task_id=None):
     """
     从PDF文件中提取实体，支持批量处理和文件ID模式
     
@@ -946,7 +1002,7 @@ def _get_entity_id(entity):
         return entity["metric_entity"].get("metric_id")
     return None
 
-def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous_relations=None, max_attempts=5, batch_size=1):
+def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous_relations=None, max_attempts=15, batch_size=100):
     """
     从实体列表和PDF文件中提取演化关系，支持多个PDF文件和file-id方式，支持批量处理
     
@@ -1036,7 +1092,7 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
         logging.error(traceback.format_exc())
         return all_relations if 'all_relations' in locals() else []
 
-def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, max_attempts=5):
+def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, max_attempts=15):
     """
     处理一批PDF文件中的关系
     
@@ -1056,6 +1112,7 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
     initial_relation_count = len(all_relations)
     consecutive_no_new_relation = 0  # 跟踪连续未找到新关系的次数
     uploaded_file_ids = []  # 用于跟踪已上传的文件ID
+    prompt_file_id = None  # 用于跟踪提示文件ID
 
     # 准备file-id列表
     file_ids = []
@@ -1092,13 +1149,14 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         return all_relations, False
     
     # 添加file-id引用（包括PDF文件和实体文件）
-    all_file_ids = []
-    if file_ids:
-        all_file_ids.extend(file_ids)
-    all_file_ids.append(entities_file_id)
+
     
     # 添加重试循环结构
     while current_attempt < max_attempts and not is_extraction_complete:
+        all_file_ids = []
+        if file_ids:
+            all_file_ids.extend(file_ids)
+        all_file_ids.append(entities_file_id)
         current_attempt += 1
         logging.info(f"关系提取尝试 {current_attempt}/{max_attempts}")
         
@@ -1108,16 +1166,40 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         # 生成关系提取提示
         system_message, user_message = generate_evolution_relation_prompt(all_relations)
         
-        # 将提示内容保存为文本文件并上传 - 每次尝试都创建新的提示文件
+        # 将提示内容保存为文本文件
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as prompt_file:
             prompt_filename = prompt_file.name
             prompt_content = f"{system_message}\n\n{user_message}"
             prompt_file.write(prompt_content)
             logging.info(f"已将提示信息写入TXT文件: {prompt_filename}")
         
-        # 上传提示文件并获取file-id
-        prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
-        uploaded_file_ids.append(prompt_file_id)
+        # 上传或更新提示文件
+        if prompt_file_id is None:
+            # 首次上传提示文件
+            prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
+            uploaded_file_ids.append(prompt_file_id)
+            logging.info(f"首次上传提示文件: {prompt_filename}, file_id: {prompt_file_id}")
+        else:
+            # 更新已有提示文件内容
+            try:
+                from openai import OpenAI
+                client = OpenAI(
+                    api_key=Config.QWEN_API_KEY,
+                    base_url=Config.QWEN_BASE_URL
+                )
+                
+                # 更新提示词文件内容
+                with open(prompt_filename, 'rb') as f:
+                    client.files.update(
+                        file_id=prompt_file_id,
+                        file=f,
+                        purpose="file-extract"
+                    )
+                logging.info(f"更新提示文件内容: {prompt_filename}, file_id: {prompt_file_id}")
+            except Exception as e:
+                logging.warning(f"更新提示文件失败，将重新上传: {str(e)}")
+                prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
+                logging.info(f"重新上传提示文件: {prompt_filename}, file_id: {prompt_file_id}")
         
         # 删除临时提示文件
         try:
@@ -1129,8 +1211,9 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
             logging.error("上传提示文件失败，尝试下一次迭代")
             continue
         
-        # 添加提示文件ID到列表
-        all_file_ids.append(prompt_file_id)
+        # 添加提示文件ID到列表（如果是首次添加）
+        if prompt_file_id not in all_file_ids:
+            all_file_ids.append(prompt_file_id)
         
         # 调用API进行关系提取
         try:

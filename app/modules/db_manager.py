@@ -759,7 +759,7 @@ class DatabaseManager:
                     from_entity, to_entity, relation_type, 
                     structure, detail, evidence, confidence, 
                     from_entity_type, to_entity_type, task_id, source
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """
                 params = (
                     from_entity, to_entity, relation_type, 
