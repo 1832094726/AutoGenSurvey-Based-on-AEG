@@ -264,7 +264,7 @@ class DatabaseManager:
                 # 创建算法表
                 cursor.execute('''
                 CREATE TABLE IF NOT EXISTS Algorithms (
-                    algorithm_id VARCHAR(255) PRIMARY KEY,
+                    algorithm_id VARCHAR(255) NOT NULL,
                     name VARCHAR(255),
                     title TEXT,
                     year VARCHAR(50),
@@ -279,23 +279,34 @@ class DatabaseManager:
                     methodology_parameter_tuning TEXT,
                     feature_processing TEXT,
                     entity_type VARCHAR(50) DEFAULT 'Algorithm',
-                    task_id VARCHAR(255),
-                    source VARCHAR(50) DEFAULT '未知'
+                    task_id VARCHAR(255) NOT NULL,
+                    source VARCHAR(50) DEFAULT '未知' NOT NULL,
+                    PRIMARY KEY(algorithm_id, task_id, source)
                 )
                 ''')
-                logging.info("创建MySQL Algorithms表")
+                logging.info("创建MySQL Algorithms表，使用联合主键(algorithm_id, task_id, source)")
             else:
                 # 检查task_id字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM Algorithms LIKE 'task_id'")
                 if not cursor.fetchone():
-                    cursor.execute("ALTER TABLE Algorithms ADD COLUMN task_id VARCHAR(255)")
+                    cursor.execute("ALTER TABLE Algorithms ADD COLUMN task_id VARCHAR(255) NOT NULL")
                     logging.info("向Algorithms表添加task_id字段")
                 
                 # 检查source字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM Algorithms LIKE 'source'")
                 if not cursor.fetchone():
-                    cursor.execute("ALTER TABLE Algorithms ADD COLUMN source VARCHAR(50) DEFAULT '未知'")
+                    cursor.execute("ALTER TABLE Algorithms ADD COLUMN source VARCHAR(50) DEFAULT '未知' NOT NULL")
                     logging.info("向Algorithms表添加source字段")
+                
+                # 尝试修改主键为联合主键
+                try:
+                    # 删除旧主键
+                    cursor.execute("ALTER TABLE Algorithms DROP PRIMARY KEY")
+                    # 添加新的联合主键
+                    cursor.execute("ALTER TABLE Algorithms ADD PRIMARY KEY(algorithm_id, task_id, source)")
+                    logging.info("已将Algorithms表主键修改为联合主键(algorithm_id, task_id, source)")
+                except Exception as e:
+                    logging.warning(f"修改Algorithms表主键时出错: {str(e)}，可能已经是联合主键")
             
             # 检查数据集表是否存在
             cursor.execute("SHOW TABLES LIKE 'Datasets'")
@@ -303,7 +314,7 @@ class DatabaseManager:
                 # 创建数据集表
                 cursor.execute('''
                 CREATE TABLE IF NOT EXISTS Datasets (
-                    dataset_id VARCHAR(255) PRIMARY KEY,
+                    dataset_id VARCHAR(255) NOT NULL,
                     name VARCHAR(255),
                     description TEXT,
                     domain VARCHAR(255),
@@ -311,23 +322,34 @@ class DatabaseManager:
                     year VARCHAR(50),
                     creators TEXT,
                     entity_type VARCHAR(50) DEFAULT 'Dataset',
-                    task_id VARCHAR(255),
-                    source VARCHAR(50) DEFAULT '未知'
+                    task_id VARCHAR(255) NOT NULL,
+                    source VARCHAR(50) DEFAULT '未知' NOT NULL,
+                    PRIMARY KEY(dataset_id, task_id, source)
                 )
                 ''')
-                logging.info("创建MySQL Datasets表")
+                logging.info("创建MySQL Datasets表，使用联合主键(dataset_id, task_id, source)")
             else:
                 # 检查task_id字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM Datasets LIKE 'task_id'")
                 if not cursor.fetchone():
-                    cursor.execute("ALTER TABLE Datasets ADD COLUMN task_id VARCHAR(255)")
+                    cursor.execute("ALTER TABLE Datasets ADD COLUMN task_id VARCHAR(255) NOT NULL")
                     logging.info("向Datasets表添加task_id字段")
                 
                 # 检查source字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM Datasets LIKE 'source'")
                 if not cursor.fetchone():
-                    cursor.execute("ALTER TABLE Datasets ADD COLUMN source VARCHAR(50) DEFAULT '未知'")
+                    cursor.execute("ALTER TABLE Datasets ADD COLUMN source VARCHAR(50) DEFAULT '未知' NOT NULL")
                     logging.info("向Datasets表添加source字段")
+                
+                # 尝试修改主键为联合主键
+                try:
+                    # 删除旧主键
+                    cursor.execute("ALTER TABLE Datasets DROP PRIMARY KEY")
+                    # 添加新的联合主键
+                    cursor.execute("ALTER TABLE Datasets ADD PRIMARY KEY(dataset_id, task_id, source)")
+                    logging.info("已将Datasets表主键修改为联合主键(dataset_id, task_id, source)")
+                except Exception as e:
+                    logging.warning(f"修改Datasets表主键时出错: {str(e)}，可能已经是联合主键")
             
             # 检查指标表是否存在
             cursor.execute("SHOW TABLES LIKE 'Metrics'")
@@ -335,29 +357,40 @@ class DatabaseManager:
                 # 创建指标表
                 cursor.execute('''
                 CREATE TABLE IF NOT EXISTS Metrics (
-                    metric_id VARCHAR(255) PRIMARY KEY,
+                    metric_id VARCHAR(255) NOT NULL,
                     name VARCHAR(255),
                     description TEXT,
                     category VARCHAR(255),
                     formula TEXT,
                     entity_type VARCHAR(50) DEFAULT 'Metric',
-                    task_id VARCHAR(255),
-                    source VARCHAR(50) DEFAULT '未知'
+                    task_id VARCHAR(255) NOT NULL,
+                    source VARCHAR(50) DEFAULT '未知' NOT NULL,
+                    PRIMARY KEY(metric_id, task_id, source)
                 )
                 ''')
-                logging.info("创建MySQL Metrics表")
+                logging.info("创建MySQL Metrics表，使用联合主键(metric_id, task_id, source)")
             else:
                 # 检查task_id字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM Metrics LIKE 'task_id'")
                 if not cursor.fetchone():
-                    cursor.execute("ALTER TABLE Metrics ADD COLUMN task_id VARCHAR(255)")
+                    cursor.execute("ALTER TABLE Metrics ADD COLUMN task_id VARCHAR(255) NOT NULL")
                     logging.info("向Metrics表添加task_id字段")
                 
                 # 检查source字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM Metrics LIKE 'source'")
                 if not cursor.fetchone():
-                    cursor.execute("ALTER TABLE Metrics ADD COLUMN source VARCHAR(50) DEFAULT '未知'")
+                    cursor.execute("ALTER TABLE Metrics ADD COLUMN source VARCHAR(50) DEFAULT '未知' NOT NULL")
                     logging.info("向Metrics表添加source字段")
+                
+                # 尝试修改主键为联合主键
+                try:
+                    # 删除旧主键
+                    cursor.execute("ALTER TABLE Metrics DROP PRIMARY KEY")
+                    # 添加新的联合主键
+                    cursor.execute("ALTER TABLE Metrics ADD PRIMARY KEY(metric_id, task_id, source)")
+                    logging.info("已将Metrics表主键修改为联合主键(metric_id, task_id, source)")
+                except Exception as e:
+                    logging.warning(f"修改Metrics表主键时出错: {str(e)}，可能已经是联合主键")
                     
             # 检查关系表是否存在
             cursor.execute("SHOW TABLES LIKE 'EvolutionRelations'")
@@ -365,7 +398,7 @@ class DatabaseManager:
                 # 创建关系表，确保relation_type非空
                 cursor.execute('''
                 CREATE TABLE IF NOT EXISTS EvolutionRelations (
-                    relation_id INT AUTO_INCREMENT PRIMARY KEY,
+                    relation_id INT AUTO_INCREMENT,
                     from_entity VARCHAR(255) NOT NULL,
                     to_entity VARCHAR(255) NOT NULL,
                     relation_type VARCHAR(100) NOT NULL,
@@ -380,23 +413,34 @@ class DatabaseManager:
                     problem_addressed TEXT,
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                    task_id VARCHAR(255),
-                    source VARCHAR(50) DEFAULT '未知'
+                    task_id VARCHAR(255) NOT NULL,
+                    source VARCHAR(50) DEFAULT '未知' NOT NULL,
+                    PRIMARY KEY(relation_id, task_id, source)
                 )
                 ''')
-                logging.info("创建MySQL EvolutionRelations表")
+                logging.info("创建MySQL EvolutionRelations表，使用联合主键(relation_id, task_id, source)")
             else:
                 # 检查task_id字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'task_id'")
                 if not cursor.fetchone():
-                    cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN task_id VARCHAR(255)")
+                    cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN task_id VARCHAR(255) NOT NULL")
                     logging.info("向EvolutionRelations表添加task_id字段")
                     
                 # 检查source字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'source'")
                 if not cursor.fetchone():
-                    cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN source VARCHAR(50) DEFAULT '未知'")
+                    cursor.execute("ALTER TABLE EvolutionRelations ADD COLUMN source VARCHAR(50) DEFAULT '未知' NOT NULL")
                     logging.info("向EvolutionRelations表添加source字段")
+                
+                # 尝试修改主键为联合主键
+                try:
+                    # 删除旧主键
+                    cursor.execute("ALTER TABLE EvolutionRelations DROP PRIMARY KEY")
+                    # 添加新的联合主键
+                    cursor.execute("ALTER TABLE EvolutionRelations ADD PRIMARY KEY(relation_id, task_id, source)")
+                    logging.info("已将EvolutionRelations表主键修改为联合主键(relation_id, task_id, source)")
+                except Exception as e:
+                    logging.warning(f"修改EvolutionRelations表主键时出错: {str(e)}，可能已经是联合主键")
                 
                 # 检查problem_addressed字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM EvolutionRelations LIKE 'problem_addressed'")
@@ -722,6 +766,10 @@ class DatabaseManager:
             to_entity_type = relation_data.get("to_entity_type", "Algorithm")
             source = relation_data.get("source", "未知")  # 获取来源字段，默认为"未知"
             
+            # 确保task_id不为空，如果为空则使用默认值
+            if not task_id:
+                task_id = relation_data.get("task_id", "default_task")
+            
             # 检查实体是否存在
             from_exists = self._check_entity_exists(from_entity, from_entity_type)
             to_exists = self._check_entity_exists(to_entity, to_entity_type)
@@ -733,22 +781,22 @@ class DatabaseManager:
             # 首先检查是否存在相同的关系
             check_sql = """
             SELECT relation_id FROM EvolutionRelations 
-            WHERE from_entity = %s AND to_entity = %s AND relation_type = %s
+            WHERE from_entity = %s AND to_entity = %s AND relation_type = %s AND task_id = %s AND source = %s
             """
-            result = db_utils.select_one(check_sql, (from_entity, to_entity, relation_type))
+            result = db_utils.select_one(check_sql, (from_entity, to_entity, relation_type, task_id, source))
             
             if result:
                 # 关系已存在，执行更新
                 update_sql = """
                 UPDATE EvolutionRelations 
                 SET structure = %s, detail = %s, evidence = %s, confidence = %s,
-                    from_entity_type = %s, to_entity_type = %s, task_id = %s, source = %s
-                WHERE from_entity = %s AND to_entity = %s AND relation_type = %s
+                    from_entity_type = %s, to_entity_type = %s
+                WHERE relation_id = %s AND task_id = %s AND source = %s
                 """
                 params = (
                     structure, detail, evidence, confidence, 
-                    from_entity_type, to_entity_type, task_id, source,
-                    from_entity, to_entity, relation_type
+                    from_entity_type, to_entity_type,
+                    result['relation_id'], task_id, source
                 )
                 db_utils.update_one(update_sql, params)
                 logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
@@ -1838,8 +1886,8 @@ class DatabaseManager:
                 
                 all_entities = []
                 
-                # 查询算法实体
-                algo_sql = "SELECT * FROM Algorithms WHERE task_id = %s"
+                # 查询所有来源的算法实体
+                algo_sql = "SELECT * FROM Algorithms WHERE task_id = %s ORDER BY source"
                 algorithm_rows = db_utils.select_all(algo_sql, (task_id,))
                 
                 # 处理算法实体
@@ -1912,8 +1960,8 @@ class DatabaseManager:
                     }
                     all_entities.append({'algorithm_entity': algorithm_entity})
                 
-                # 查询数据集实体
-                dataset_sql = "SELECT * FROM Datasets WHERE task_id = %s"
+                # 查询所有来源的数据集实体
+                dataset_sql = "SELECT * FROM Datasets WHERE task_id = %s ORDER BY source"
                 dataset_rows = db_utils.select_all(dataset_sql, (task_id,))
                 
                 # 处理数据集实体
@@ -1940,8 +1988,8 @@ class DatabaseManager:
                     }
                     all_entities.append({'dataset_entity': dataset_entity})
                 
-                # 查询评价指标实体
-                metric_sql = "SELECT * FROM Metrics WHERE task_id = %s"
+                # 查询所有来源的评价指标实体
+                metric_sql = "SELECT * FROM Metrics WHERE task_id = %s ORDER BY source"
                 metric_rows = db_utils.select_all(metric_sql, (task_id,))
                 
                 # 处理评价指标实体
@@ -1988,7 +2036,7 @@ class DatabaseManager:
                 else:
                     # 所有重试都失败
                     logging.error(f"经过 {max_retries} 次重试后，无法获取任务 {task_id} 的实体")
-                    return []
+                return []
                 
         # 如果所有重试都失败，返回空列表
         return []
@@ -2021,13 +2069,14 @@ class DatabaseManager:
                     logging.error(f"查询任务状态时出错: {str(e)}")
                     # 任务查询出错，但继续尝试查询关系
                 
-                # 查询与任务ID相关联的关系
+                # 查询与任务ID相关联的所有来源的关系
                 relations_sql = """
                 SELECT relation_id, from_entity, to_entity, relation_type, structure, 
                        detail, evidence, confidence, from_entity_type, to_entity_type,
                        task_id, source
                 FROM EvolutionRelations
                 WHERE task_id = %s
+                ORDER BY source, relation_id
                 """
                 rows = db_utils.select_all(relations_sql, (task_id,))
                 
@@ -2077,7 +2126,7 @@ class DatabaseManager:
                 else:
                     # 所有重试都失败
                     logging.error(f"经过 {max_retries} 次重试后，无法获取任务 {task_id} 的关系")
-                    return []
+                return []
                 
         # 如果所有重试都失败，返回空列表
         return []
@@ -2383,6 +2432,10 @@ class DatabaseManager:
             # 获取来源信息，默认为"未知"
             source = entity_data.get('source', '未知')
             
+            # 确保task_id不为空，如果为空则使用默认值
+            if not task_id:
+                task_id = entity_data.get('task_id', 'default_task')
+            
             # 处理authors字段，确保是JSON字符串
             authors_value = entity_data.get('authors', [])
             if not isinstance(authors_value, list):
@@ -2453,9 +2506,9 @@ class DatabaseManager:
                 feature_proc = [feature_proc] if feature_proc else []
             feature_processing = json.dumps(feature_proc, ensure_ascii=False)
             
-            # 检查是否已存在
-            check_sql = 'SELECT COUNT(*) as count FROM Algorithms WHERE algorithm_id = %s'
-            result = db_utils.select_one(check_sql, (algorithm_id,))
+            # 检查是否已存在相同的联合主键记录
+            check_sql = 'SELECT COUNT(*) as count FROM Algorithms WHERE algorithm_id = %s AND task_id = %s AND source = %s'
+            result = db_utils.select_one(check_sql, (algorithm_id, task_id, source))
             exists = result and result['count'] > 0
             
             if exists:
@@ -2467,8 +2520,8 @@ class DatabaseManager:
                         architecture_components = %s, architecture_connections = %s,
                         architecture_mechanisms = %s, methodology_training_strategy = %s,
                         methodology_parameter_tuning = %s, feature_processing = %s,
-                        entity_type = %s, task_id = %s, source = %s
-                    WHERE algorithm_id = %s
+                        entity_type = %s
+                    WHERE algorithm_id = %s AND task_id = %s AND source = %s
                     '''
                 db_utils.update_one(update_sql, (
                         name, title, year, authors,
@@ -2476,7 +2529,7 @@ class DatabaseManager:
                         arch_components, arch_connections,
                         arch_mechanisms, training_strategy,
                         parameter_tuning, feature_processing,
-                        'Algorithm', task_id, source, algorithm_id
+                        'Algorithm', algorithm_id, task_id, source
                     ))
                 logging.info(f"更新算法: {algorithm_id}, 任务ID: {task_id}, 来源: {source}")
             else:
@@ -2540,6 +2593,10 @@ class DatabaseManager:
             # 获取来源信息，默认为"未知"
             source = entity_data.get('source', '未知')
             
+            # 确保task_id不为空，如果为空则使用默认值
+            if not task_id:
+                task_id = entity_data.get('task_id', 'default_task')
+            
             # 处理size字段，确保是整数
             size_value = entity_data.get('size', 0)
             try:
@@ -2561,9 +2618,9 @@ class DatabaseManager:
                 creators_value = [creators_value] if creators_value else []
             creators = json.dumps(creators_value, ensure_ascii=False)
             
-            # 检查是否已存在
-            check_sql = 'SELECT COUNT(*) as count FROM Datasets WHERE dataset_id = %s'
-            result = db_utils.select_one(check_sql, (dataset_id,))
+            # 检查是否已存在相同的联合主键记录
+            check_sql = 'SELECT COUNT(*) as count FROM Datasets WHERE dataset_id = %s AND task_id = %s AND source = %s'
+            result = db_utils.select_one(check_sql, (dataset_id, task_id, source))
             exists = result and result['count'] > 0
             
             if exists:
@@ -2572,13 +2629,13 @@ class DatabaseManager:
                     UPDATE Datasets SET
                         name = %s, description = %s, domain = %s,
                         size = %s, year = %s, creators = %s,
-                        entity_type = %s, task_id = %s, source = %s
-                    WHERE dataset_id = %s
+                        entity_type = %s
+                    WHERE dataset_id = %s AND task_id = %s AND source = %s
                     '''
                 db_utils.update_one(update_sql, (
                         name, description, domain,
                         size, year, creators,
-                        'Dataset', task_id, source, dataset_id
+                        'Dataset', dataset_id, task_id, source
                     ))
                 logging.info(f"更新数据集: {dataset_id}, 任务ID: {task_id}, 来源: {source}")
             else:
@@ -2634,6 +2691,10 @@ class DatabaseManager:
             # 获取来源信息，默认为"未知"
             source = entity_data.get('source', '未知')
             
+            # 确保task_id不为空，如果为空则使用默认值
+            if not task_id:
+                task_id = entity_data.get('task_id', 'default_task')
+            
             # 确保所有字段都是字符串类型
             name = str(name) if name else ''
             description = str(description) if description else ''
@@ -2650,9 +2711,9 @@ class DatabaseManager:
                 tasks_value = [tasks_value] if tasks_value else []
             tasks = json.dumps(tasks_value, ensure_ascii=False)
             
-            # 检查是否已存在
-            check_sql = 'SELECT COUNT(*) as count FROM Metrics WHERE metric_id = %s'
-            result = db_utils.select_one(check_sql, (metric_id,))
+            # 检查是否已存在相同的联合主键记录
+            check_sql = 'SELECT COUNT(*) as count FROM Metrics WHERE metric_id = %s AND task_id = %s AND source = %s'
+            result = db_utils.select_one(check_sql, (metric_id, task_id, source))
             exists = result and result['count'] > 0
             
             if exists:
@@ -2660,14 +2721,14 @@ class DatabaseManager:
                 update_sql = '''
                 UPDATE Metrics SET
                     name = %s, description = %s, category = %s,
-                    formula = %s, entity_type = %s, task_id = %s, source = %s,
+                    formula = %s, entity_type = %s,
                     range = %s, tasks = %s
-                WHERE metric_id = %s
+                WHERE metric_id = %s AND task_id = %s AND source = %s
                 '''
                 db_utils.update_one(update_sql, (
                     name, description, category,
-                    formula, 'Metric', task_id, source,
-                    range_value, tasks, metric_id
+                    formula, 'Metric',
+                    range_value, tasks, metric_id, task_id, source
                 ))
                 logging.info(f"更新评价指标: {metric_id}, 任务ID: {task_id}, 来源: {source}")
             else:
@@ -2693,6 +2754,88 @@ class DatabaseManager:
             return True
         except Exception as e:
             logging.error(f"存储评价指标时出错: {str(e)}")
+            return False
+            
+    def _store_relation_mysql(self, relation_data, task_id=None):
+        """
+        将实体演化关系存储到MySQL数据库
+        
+        Args:
+            relation_data (dict): 演化关系数据
+            task_id (str, optional): 关联的任务ID
+            
+        Returns:
+            bool: 是否成功存储
+        """
+        try:
+            # 准备数据
+            from_entity = relation_data["from_entity"]
+            to_entity = relation_data["to_entity"]
+            relation_type = relation_data["relation_type"]
+            structure = relation_data.get("structure", "")
+            detail = relation_data.get("detail", "")
+            evidence = relation_data.get("evidence", "")
+            confidence = relation_data.get("confidence", 0.0)
+            from_entity_type = relation_data.get("from_entity_type", "Algorithm")
+            to_entity_type = relation_data.get("to_entity_type", "Algorithm")
+            source = relation_data.get("source", "未知")  # 获取来源字段，默认为"未知"
+            
+            # 确保task_id不为空，如果为空则使用默认值
+            if not task_id:
+                task_id = relation_data.get("task_id", "default_task")
+            
+            # 检查实体是否存在
+            from_exists = self._check_entity_exists(from_entity, from_entity_type)
+            to_exists = self._check_entity_exists(to_entity, to_entity_type)
+            if not from_exists:
+                logging.warning(f"来源实体不存在: {from_entity} (类型: {from_entity_type})")
+            if not to_exists:
+                logging.warning(f"目标实体不存在: {to_entity} (类型: {to_entity_type})")
+            
+            # 首先检查是否存在相同的关系
+            check_sql = """
+            SELECT relation_id FROM EvolutionRelations 
+            WHERE from_entity = %s AND to_entity = %s AND relation_type = %s AND task_id = %s AND source = %s
+            """
+            result = db_utils.select_one(check_sql, (from_entity, to_entity, relation_type, task_id, source))
+            
+            if result:
+                # 关系已存在，执行更新
+                update_sql = """
+                UPDATE EvolutionRelations 
+                SET structure = %s, detail = %s, evidence = %s, confidence = %s,
+                    from_entity_type = %s, to_entity_type = %s
+                WHERE relation_id = %s AND task_id = %s AND source = %s
+                """
+                params = (
+                    structure, detail, evidence, confidence, 
+                    from_entity_type, to_entity_type,
+                    result['relation_id'], task_id, source
+                )
+                db_utils.update_one(update_sql, params)
+                logging.info(f"更新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
+            else:
+                # 关系不存在，执行插入
+                insert_sql = """
+                INSERT INTO EvolutionRelations (
+                    from_entity, to_entity, relation_type, 
+                    structure, detail, evidence, confidence, 
+                    from_entity_type, to_entity_type, task_id, source
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                params = (
+                    from_entity, to_entity, relation_type, 
+                    structure, detail, evidence, confidence,
+                    from_entity_type, to_entity_type, task_id, source
+                )
+                db_utils.insert_one(insert_sql, params)
+                logging.info(f"创建新演化关系: {from_entity} -> {to_entity} ({relation_type}), 任务ID: {task_id}, 来源: {source}")
+            
+            return True
+        except Exception as e:
+            logging.error(f"存储演化关系到MySQL时出错: {str(e)}")
+            import traceback
+            logging.error(traceback.format_exc())
             return False
 
 # 创建数据库管理器实例
