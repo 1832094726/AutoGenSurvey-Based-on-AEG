@@ -1,0 +1,162 @@
+### 提取章节：Discussion
+
+#### 6.1 Comparison to Previous Work
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Haghighi2009_SemanticComponent",
+      "entity_type": "Algorithm",
+      "name": "Semantic Component",
+      "year": 2009,
+      "authors": ["Haghighi, A.", "Klein, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE2004-ROTH-DEV", "ACE2004-CULOTTA-TEST", "MUC6-TEST"],
+      "metrics": ["Pairwise F1", "MUC Scoring", "B3 Scoring"],
+      "architecture": {
+        "components": ["Semantic Head Matching", "Transductive Learning"],
+        "connections": ["Syntactic Patterns", "Wikipedia Articles"],
+        "mechanisms": ["Bootstrapping", "Syntactic Patterns"]
+      },
+      "methodology": {
+        "training_strategy": ["Transductive Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Semantic Head Matching"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Bengston2008_SupervisedModel",
+      "entity_type": "Algorithm",
+      "name": "Supervised Model",
+      "year": 2008,
+      "authors": ["Bengston, E.", "Roth, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE2004-CULOTTA-TEST"],
+      "metrics": ["Pairwise F1", "MUC Scoring", "B3 Scoring"],
+      "architecture": {
+        "components": ["Feature-rich Models"],
+        "connections": [],
+        "mechanisms": []
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": []
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Finkel2008_SupervisedModel",
+      "entity_type": "Algorithm",
+      "name": "Supervised Model",
+      "year": 2008,
+      "authors": ["Finkel, J.", "Manning, C."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE2004-NWIRE"],
+      "metrics": ["Pairwise F1", "MUC Scoring", "B3 Scoring"],
+      "architecture": {
+        "components": ["Feature-rich Models"],
+        "connections": [],
+        "mechanisms": []
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": []
+    }
+  }
+]
+```
+
+#### 6.2 Semantic Head Matching
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Haghighi2009_SemanticHeadMatching",
+      "entity_type": "Algorithm",
+      "name": "Semantic Head Matching",
+      "year": 2009,
+      "authors": ["Haghighi, A.", "Klein, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE2004-ROTH-DEV", "ACE2004-CULOTTA-TEST", "MUC6-TEST"],
+      "metrics": ["Pairwise F1", "MUC Scoring", "B3 Scoring"],
+      "architecture": {
+        "components": ["Semantic Head Matching", "Transductive Learning"],
+        "connections": ["Syntactic Patterns", "Wikipedia Articles"],
+        "mechanisms": ["Bootstrapping", "Syntactic Patterns"]
+      },
+      "methodology": {
+        "training_strategy": ["Transductive Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Semantic Head Matching"]
+    }
+  }
+]
+```
+
+#### 6.3 Flexible Architecture
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Raghunathan2010_SieveArchitecture",
+      "entity_type": "Algorithm",
+      "name": "Sieve Architecture",
+      "year": 2010,
+      "authors": ["Raghunathan, K.", "Lee, H.", "Rangarajan, S.", "Chambers, N.", "Surdeanu, M.", "Jurafsky, D.", "Manning, C."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE2004-ROTH-DEV", "ACE2004-CULOTTA-TEST", "MUC6-TEST"],
+      "metrics": ["Pairwise F1", "MUC Scoring", "B3 Scoring"],
+      "architecture": {
+        "components": ["Multi-pass Sieve", "Deterministic Models"],
+        "connections": ["Sequential Application of Models"],
+        "mechanisms": ["Cluster Building", "Attribute Sharing"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Attribute Sharing", "Cluster Information"]
+    }
+  }
+]
+```
+
+#### 6.4 Error Analysis
+```json
+[
+  {
+    "metric_entity": {
+      "metric_id": "Precision_Error",
+      "entity_type": "Metric",
+      "name": "Precision Error",
+      "description": "Number of incorrect precision errors",
+      "category": "Error Analysis",
+      "formula": "Number of incorrect precision errors / Total number of precision errors"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Recall_Error",
+      "entity_type": "Metric",
+      "name": "Recall Error",
+      "description": "Number of incorrect recall errors",
+      "category": "Error Analysis",
+      "formula": "Number of incorrect recall errors / Total number of recall errors"
+    }
+  }
+]
+```
+
+### 提取总结
+1. 刚刚提取的是 **Discussion** 小节。
+2. 论文中没有其他小节未被提取。
+3. 提取已完成。
+
+EXTRACTION_COMPLETE: true

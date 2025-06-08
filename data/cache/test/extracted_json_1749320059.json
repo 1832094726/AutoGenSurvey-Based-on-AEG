@@ -1,0 +1,10 @@
+{
+       "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+       "to_entity": "Chang2013_LatentLeftLinkingModel",
+       "relation_type": "Extend",
+       "structure": "Architecture.Components",
+       "detail": "CL3M adds constraint injection to L3M's pairwise scorer and left-linking model.",
+       "problem_addressed": "Enhancing coreference resolution by incorporating constraints.",
+       "evidence": "The CL3M includes additional components like Constraint Injection.",
+       "confidence": 0.95
+     }

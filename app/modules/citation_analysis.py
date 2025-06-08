@@ -144,7 +144,7 @@ def merge_and_deduplicate_entities(entities):
             elif 'metric_entity' in entity:
                 entity_type = entity['metric_entity'].get('entity_type', 'Metric')
             else:
-                entity_type = entity.get('entity_type', 'Algorithm')
+            entity_type = entity.get('entity_type', 'Algorithm')
         elif 'algorithm_id' in entity:
             entity_id = entity.get('algorithm_id')
             entity_type = 'Algorithm'
@@ -535,7 +535,7 @@ def compare_method_names(generated_entities, gold_standard_entities):
             name = entity.get('name', '').strip().lower()
             
         if entity_type == 'Algorithm' and name:
-            generated_names.add(name)
+                generated_names.add(name)
     
     gold_names = set()
     for entity in gold_standard_entities:
@@ -555,7 +555,7 @@ def compare_method_names(generated_entities, gold_standard_entities):
             name = entity.get('name', '').strip().lower()
             
         if entity_type == 'Algorithm' and name:
-            gold_names.add(name)
+                gold_names.add(name)
     
     # 计算准确率
     matched_names = generated_names.intersection(gold_names)

@@ -1,0 +1,346 @@
+### 提取实体的章节：MISCELLANEOUS MATH TASKS
+
+#### 已提取的实体：
+- Zhang2019_DeepNeuralSolver
+- Math23K_2014
+- Accuracy_Classification
+- Roy2015_ExpressionTree
+- ALGES2015_EquationTree
+- UNITDEP2017_UnitDependencyGraph
+- MathDQN2018_MathDQN
+- Seq2SeqET2018_Seq2SeqET
+- StackDecoder2019_StackDecoder
+- T-RNN2019_T-RNN
+- AI2_2014
+- IL_2015
+- CC_2015
+- Kushman2014_TemplateBasedSolver
+- Zhou2015_EnhancedTemplateBasedSolver
+- Huang2017_FGExpression
+- ALG514_2014
+- Dolphin1878_2015
+- DRAW1K_2016
+- Dolphin18K_2016
+- Roy2017_UnitDependencyGraph
+- SingleEQ_2016
+- AllArith_2016
+- Accuracy_Arithmetic
+- Huang2017_CASS
+- Seo2014_GEOREP
+- Seo2014_Geos
+- Seo2014_GAlinger
+- Alvin2017_GeoShader
+- GeoTutor_2014
+- Accuracy_Geometry
+
+### 新提取的实体：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clark2016_Aristo",
+      "entity_type": "Algorithm",
+      "name": "Aristo",
+      "year": 2016,
+      "authors": ["Clark, P.", "Etzioni, O.", "Khot, T.", "Sabharwal, A.", "Tafjord, O.", "Turney, P. D.", "Khashabi, D."],
+      "task": "Solving non-diagram multiple-choice questions",
+      "dataset": ["Various datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Text solver", "Statistic solvers", "Inference solvers"],
+        "connections": ["Parallel processing"],
+        "mechanisms": ["Combining scores from multiple solvers"]
+      },
+      "methodology": {
+        "training_strategy": ["Parallel training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AI2_2015",
+      "entity_type": "Dataset",
+      "name": "AI2",
+      "description": "Dataset for arithmetic word problems",
+      "domain": "Mathematical word problems",
+      "size": 395,
+      "year": 2015,
+      "creators": ["Hosseini, M. J.", "Hajishirzi, H.", "Etzioni, O.", "Kushman, N."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MultipleChoice",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy for multiple-choice questions",
+      "category": "Multiple choice evaluation",
+      "formula": "Correct answers / Total questions"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Cheng2016_GaokaoChallenge",
+      "entity_type": "Algorithm",
+      "name": "Gaokao Challenge",
+      "year": 2016,
+      "authors": ["Cheng, G.", "Zhu, W.", "Wang, Z.", "Chen, J.", "Qu, Y."],
+      "task": "Solving Gaokao questions",
+      "dataset": ["Gaokao dataset"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Information retrieval"],
+        "connections": ["Knowledge base integration"],
+        "mechanisms": ["Retrieving relevant pages"]
+      },
+      "methodology": {
+        "training_strategy": ["Ranking and filtering"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Gaokao_2016",
+      "entity_type": "Dataset",
+      "name": "Gaokao",
+      "description": "Dataset for Gaokao questions",
+      "domain": "Chinese college entrance exam",
+      "size": "Varies",
+      "year": 2016,
+      "creators": ["Cheng, G.", "Zhu, W.", "Wang, Z.", "Chen, J.", "Qu, Y."]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hernandez2017_IQTestModels",
+      "entity_type": "Algorithm",
+      "name": "IQ Test Models",
+      "year": 2017,
+      "authors": ["Hernández-Orallo, J.", "Martínez-Plumed, F.", "Schmid, U.", "Siebers, M.", "Dowe, D. L."],
+      "task": "Solving IQ test problems",
+      "dataset": ["Various IQ test datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Computer models"],
+        "connections": ["Intelligence test problem solving"],
+        "mechanisms": ["Progress and implications"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Lev2004_LogicPuzzles",
+      "entity_type": "Algorithm",
+      "name": "Logic Puzzles Solver",
+      "year": 2004,
+      "authors": ["Lev, I.", "MacCartney, B.", "Manning, C. D.", "Levy, R."],
+      "task": "Solving logic puzzles",
+      "dataset": ["Various logic puzzle datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Robust natural language processing"],
+        "connections": ["Precise semantics"],
+        "mechanisms": ["Transforming robust natural language to precise semantics"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Dries2017_ProbabilitySolver",
+      "entity_type": "Algorithm",
+      "name": "Probability Solver",
+      "year": 2017,
+      "authors": ["Dries, A.", "Kimmig, A.", "Davis, J.", "Belle, V.", "Raedt, L. D."],
+      "task": "Solving probability problems",
+      "dataset": ["Probability problem datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Declarative language formulation"],
+        "connections": ["Solver implementation"],
+        "mechanisms": ["Formulating questions and computing answers"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Ling2017_AlgebraicWordProblemSolver",
+      "entity_type": "Algorithm",
+      "name": "Algebraic Word Problem Solver",
+      "year": 2017,
+      "authors": ["Ling, W.", "Yogatama, D.", "Dyer, C.", "Blunsom, P."],
+      "task": "Solving algebraic word problems",
+      "dataset": ["Various algebraic word problem datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Sequence-to-sequence model"],
+        "connections": ["Answer rationale generation"],
+        "mechanisms": ["Generating answer rationales"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Yu2015_ChineseEquationSetSolver",
+      "entity_type": "Algorithm",
+      "name": "Chinese Equation Set Solver",
+      "year": 2015,
+      "authors": ["Yu, X.", "Wang, M.", "Zeng, Z.", "Fan, J."],
+      "task": "Solving Chinese equation set problems",
+      "dataset": ["Chinese equation set datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Syntax-semantics model"],
+        "connections": ["Quantity relation extraction"],
+        "mechanisms": ["Keyword structure, POS pattern, quantity relation"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Yu2016_ChineseArithmeticWordProblemSolver",
+      "entity_type": "Algorithm",
+      "name": "Chinese Arithmetic Word Problem Solver",
+      "year": 2016,
+      "authors": ["Yu, X.", "Jian, P.", "Wang, M.", "Wu, S."],
+      "task": "Solving Chinese arithmetic word problems",
+      "dataset": ["Chinese arithmetic word problem datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Implicit quantity relation extraction"],
+        "connections": ["Quantity relation extraction"],
+        "mechanisms": ["Extracting implicit quantity relations"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Siyam2017_ArabicArithmeticWordProblemSolver",
+      "entity_type": "Algorithm",
+      "name": "Arabic Arithmetic Word Problem Solver",
+      "year": 2017,
+      "authors": ["Siyam, B.", "Saa, A. A.", "Alqaryouti, O.", "Shaalan, K."],
+      "task": "Solving Arabic arithmetic word problems",
+      "dataset": ["Arabic arithmetic word problem datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Verb categorization"],
+        "connections": ["Syntactic parser and named entity recognition"],
+        "mechanisms": ["Customization for Arabic language"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2016_DimensionallyGuidedSynthesis",
+      "entity_type": "Algorithm",
+      "name": "Dimensionally Guided Synthesis",
+      "year": 2016,
+      "authors": ["Wang, K.", "Su, Z."],
+      "task": "Generating mathematical word problems",
+      "dataset": ["Various mathematical word problem datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Expression tree"],
+        "connections": ["Story construction"],
+        "mechanisms": ["Recursive construction of sub-stories"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Koncel2016_ThemeRewriting",
+      "entity_type": "Algorithm",
+      "name": "Theme Rewriting",
+      "year": 2016,
+      "authors": ["Koncel-Kedziorski, R.", "Konstas, I.", "Zettlemoyer, L.", "Hajishirzi, H."],
+      "task": "Generating algebra word problems",
+      "dataset": ["Various algebra word problem datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Theme rewriting"],
+        "connections": ["Generating algebra word problems"],
+        "mechanisms": ["Rewriting given problems to fit themes"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Polozov2015_PersonalizedMathProblemGenerator",
+      "entity_type": "Algorithm",
+      "name": "Personalized Math Problem Generator",
+      "year": 2015,
+      "authors": ["Polozov, O.", "O’Rourke, E.", "Smith, A. M.", "Zettlemoyer, L.", "Gulwani, S.", "Popovic, Z."],
+      "task": "Generating personalized math problems",
+      "dataset": ["Various math problem datasets"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Answer Set Programming"],
+        "connections": ["Pedagogical and narrative requirements"],
+        "mechanisms": ["Generating coherent and personalized story problems"]
+      },
+      "methodology": {
+        "training_strategy": ["Model training"],
+        "parameter_tuning": ["Hyperparameter tuning"]
+      },
+      "feature_processing": ["Textual feature extraction"]
+    }
+  }
+]
+```
+
+### 提取总结：
+1. 刚刚提取的是 `MISCELLANEOUS MATH TASKS` 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 `CONCLUSIONS AND FUTURE DIRECTIONS`。
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: MISCELLANEOUS MATH TASKS, NEXT_SECTION: CONCLUSIONS AND FUTURE DIRECTIONS

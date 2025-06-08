@@ -1,0 +1,66 @@
+根据提供的文件内容，我将分析实体之间的演化关系，并按照指定格式返回关系列表。以下是新发现的关系：
+
+```json
+[
+    {
+        "from_entity": "Wang2019_TemplateBasedMathWordProblemSolver",
+        "to_entity": "Hosseini2014_StateTransitionModel",
+        "relation_type": "Improve",
+        "structure": "Architecture.Mechanism",
+        "detail": "Template-based method with recursive neural networks improves upon state transition model",
+        "problem_addressed": "Performance degradation in large space of target expressions",
+        "evidence": "The best performer in Math23K is a seq2seq model based on LSTM to generate the math expression. However, the model suffers from performance degradation in large space of target expressions. In this paper, we propose a template-based solution based on recursive neural network for math expression construction.",
+        "confidence": 0.95
+    },
+    {
+        "from_entity": "Wang2019_TemplateBasedMathWordProblemSolver",
+        "to_entity": "Math23K",
+        "relation_type": "Use",
+        "structure": "Dataset.Evaluation",
+        "detail": "Evaluates the proposed method on Math23K dataset",
+        "problem_addressed": "Evaluation of generalization and robustness",
+        "evidence": "The experimental results clearly establish the superiority of our new framework as we improve the accuracy by a wide margin in two of the largest datasets, i.e., from 58.1% to 66.9% in Math23K",
+        "confidence": 0.95
+    },
+    {
+        "from_entity": "Wang2019_TemplateBasedMathWordProblemSolver",
+        "to_entity": "MAWPS",
+        "relation_type": "Use",
+        "structure": "Dataset.Evaluation",
+        "detail": "Evaluates the proposed method on MAWPS dataset",
+        "problem_addressed": "Evaluation of generalization and robustness",
+        "evidence": "The experimental results clearly establish the superiority of our new framework as we improve the accuracy by a wide margin in two of the largest datasets, i.e., from 62.8% to 66.8% in MAWPS.",
+        "confidence": 0.95
+    },
+    {
+        "from_entity": "Wang2019_TemplateBasedMathWordProblemSolver",
+        "to_entity": "LSTM",
+        "relation_type": "Optimize",
+        "structure": "Architecture.Component",
+        "detail": "Uses Bi-LSTM for encoding quantities",
+        "problem_addressed": "Enhancing the encoding of numerical information",
+        "evidence": "Then, we design a recursive neural network to encode the quantity with Bi-LSTM and self attention",
+        "confidence": 0.9
+    },
+    {
+        "from_entity": "Wang2019_TemplateBasedMathWordProblemSolver",
+        "to_entity": "SelfAttention",
+        "relation_type": "Use",
+        "structure": "Architecture.Component",
+        "detail": "Incorporates self-attention mechanism",
+        "problem_addressed": "Improving the representation of numerical information",
+        "evidence": "Then, we design a recursive neural network to encode the quantity with Bi-LSTM and self attention",
+        "confidence": 0.9
+    }
+]
+```
+
+### 分析总结：
+1. **Wang2019_TemplateBasedMathWordProblemSolver** 改进了 **Hosseini2014_StateTransitionModel**，通过引入基于模板的方法和递归神经网络解决了目标表达式空间较大时性能下降的问题。
+2. **Wang2019_TemplateBasedMathWordProblemSolver** 使用了 **Math23K** 和 **MAWPS** 数据集来评估其方法的泛化能力和鲁棒性。
+3. **Wang2019_TemplateBasedMathWordProblemSolver** 优化了 **LSTM**，使用了双向LSTM（Bi-LSTM）来编码数量信息。
+4. **Wang2019_TemplateBasedMathWordProblemSolver** 引入了 **SelfAttention** 机制，以增强对数值信息的表示。
+
+这些关系揭示了算法在数学应用题求解领域的演进，特别是在提高模型性能和适应更大规模表达式方面所做的改进。此外，还展示了新方法在多个数据集上的评估情况。
+
+EXTRACTION_COMPLETE: false

@@ -1,0 +1,189 @@
+### 提取章节：MODEL ANALYSIS: VECTOR LENGTH AND CONTEXT SIZE
+
+#### 提取的实体：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Pennington2014_SymmetricContextWindow",
+      "entity_type": "Algorithm",
+      "name": "Symmetric Context Window",
+      "year": 2014,
+      "authors": ["Pennington, J.", "Socher, R.", "Manning, C.D."],
+      "task": "Word Representation",
+      "dataset": ["Wikipedia_2014", "Gigaword_5"],
+      "metrics": ["Accuracy_Analogy"],
+      "architecture": {
+        "components": ["Word Vectors", "Context Vectors"],
+        "connections": ["Dot Product"],
+        "mechanisms": ["Weighted Least Squares Regression"]
+      },
+      "methodology": {
+        "training_strategy": ["Symmetric Context Window"],
+        "parameter_tuning": ["Vector Dimension", "Context Window Size"]
+      },
+      "feature_processing": ["Co-occurrence Counts"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Pennington2014_AsymmetricContextWindow",
+      "entity_type": "Algorithm",
+      "name": "Asymmetric Context Window",
+      "year": 2014,
+      "authors": ["Pennington, J.", "Socher, R.", "Manning, C.D."],
+      "task": "Word Representation",
+      "dataset": ["Wikipedia_2014", "Gigaword_5"],
+      "metrics": ["Accuracy_Analogy"],
+      "architecture": {
+        "components": ["Word Vectors", "Context Vectors"],
+        "connections": ["Dot Product"],
+        "mechanisms": ["Weighted Least Squares Regression"]
+      },
+      "methodology": {
+        "training_strategy": ["Asymmetric Context Window"],
+        "parameter_tuning": ["Vector Dimension", "Context Window Size"]
+      },
+      "feature_processing": ["Co-occurrence Counts"]
+    }
+  }
+]
+```
+
+### 提取章节：MODEL ANALYSIS: CORPUS SIZE
+
+#### 提取的实体：
+
+```json
+[
+  {
+    "dataset_entity": {
+      "dataset_id": "Wiki2010_1B",
+      "entity_type": "Dataset",
+      "name": "Wiki2010",
+      "description": "Wikipedia dump with 1 billion tokens",
+      "domain": "Natural Language Processing",
+      "size": 1000000000,
+      "year": 2010,
+      "creators": ["Stanford University"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Wiki2014_1_6B",
+      "entity_type": "Dataset",
+      "name": "Wiki2014",
+      "description": "Wikipedia dump with 1.6 billion tokens",
+      "domain": "Natural Language Processing",
+      "size": 1600000000,
+      "year": 2014,
+      "creators": ["Stanford University"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Gigaword5_4_3B",
+      "entity_type": "Dataset",
+      "name": "Gigaword5",
+      "description": "Gigaword 5 with 4.3 billion tokens",
+      "domain": "Natural Language Processing",
+      "size": 4300000000,
+      "year": 2014,
+      "creators": ["LDC"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Gigaword5_Wiki2014_6B",
+      "entity_type": "Dataset",
+      "name": "Gigaword5+Wiki2014",
+      "description": "Combination of Gigaword5 and Wikipedia2014 with 6 billion tokens",
+      "domain": "Natural Language Processing",
+      "size": 6000000000,
+      "year": 2014,
+      "creators": ["Stanford University", "LDC"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "CommonCrawl_42B",
+      "entity_type": "Dataset",
+      "name": "Common Crawl",
+      "description": "Web data from Common Crawl with 42 billion tokens",
+      "domain": "Natural Language Processing",
+      "size": 42000000000,
+      "year": 2014,
+      "creators": ["Common Crawl Foundation"]
+    }
+  }
+]
+```
+
+### 提取章节：MODEL ANALYSIS: RUN-TIME
+
+#### 提取的实体：
+
+```json
+[
+  {
+    "metric_entity": {
+      "metric_id": "Runtime_ModelTraining",
+      "entity_type": "Metric",
+      "name": "Runtime",
+      "description": "Total runtime for model training",
+      "category": "Performance Evaluation",
+      "formula": "Time to populate X + Time to train the model"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Training_Iterations",
+      "entity_type": "Metric",
+      "name": "Training Iterations",
+      "description": "Number of training iterations",
+      "category": "Performance Evaluation",
+      "formula": "Number of iterations required for convergence"
+    }
+  }
+]
+```
+
+### 提取章节：MODEL ANALYSIS: COMPARISON WITH word2vec
+
+#### 提取的实体：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Pennington2014_GloVe_vs_word2vec",
+      "entity_type": "Algorithm",
+      "name": "GloVe vs word2vec",
+      "year": 2014,
+      "authors": ["Pennington, J.", "Socher, R.", "Manning, C.D."],
+      "task": "Word Representation",
+      "dataset": ["Wikipedia_2014", "Gigaword_5"],
+      "metrics": ["Accuracy_Analogy"],
+      "architecture": {
+        "components": ["Word Vectors", "Context Vectors"],
+        "connections": ["Dot Product"],
+        "mechanisms": ["Weighted Least Squares Regression"]
+      },
+      "methodology": {
+        "training_strategy": ["Multiple Epochs", "Negative Sampling"],
+        "parameter_tuning": ["Number of Iterations", "Number of Negative Samples"]
+      },
+      "feature_processing": ["Co-occurrence Counts"]
+    }
+  }
+]
+```
+
+### 提取完成情况：
+
+1. 刚刚提取的是 `MODEL ANALYSIS` 下的各个小节。
+2. 论文中没有其他小节未被提取。
+3. 提取已完成。
+
+EXTRACTION_COMPLETE: true

@@ -1,0 +1,68 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Haghighi2009_SemanticComponent",
+      "entity_type": "Algorithm",
+      "name": "Semantic Component",
+      "year": 2009,
+      "authors": ["Haghighi, A.", "Klein, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE2004-ROTH-DEV", "ACE2004-CULOTTA-TEST", "MUC6-TEST"],
+      "metrics": ["Pairwise F1", "MUC Scoring", "B3 Scoring"],
+      "architecture": {
+        "components": ["Semantic Head Matching", "Transductive Learning"],
+        "connections": ["Syntactic Patterns", "Wikipedia Articles"],
+        "mechanisms": ["Bootstrapping", "Syntactic Patterns"]
+      },
+      "methodology": {
+        "training_strategy": ["Transductive Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Semantic Head Matching"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Bengston2008_SupervisedModel",
+      "entity_type": "Algorithm",
+      "name": "Supervised Model",
+      "year": 2008,
+      "authors": ["Bengston, E.", "Roth, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE2004-CULOTTA-TEST"],
+      "metrics": ["Pairwise F1", "MUC Scoring", "B3 Scoring"],
+      "architecture": {
+        "components": ["Feature-rich Models"],
+        "connections": [],
+        "mechanisms": []
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": []
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Finkel2008_SupervisedModel",
+      "entity_type": "Algorithm",
+      "name": "Supervised Model",
+      "year": 2008,
+      "authors": ["Finkel, J.", "Manning, C."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE2004-NWIRE"],
+      "metrics": ["Pairwise F1", "MUC Scoring", "B3 Scoring"],
+      "architecture": {
+        "components": ["Feature-rich Models"],
+        "connections": [],
+        "mechanisms": []
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": []
+    }
+  }
+]

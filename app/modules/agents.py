@@ -22,14 +22,19 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # 添加检查提取完成状态的公共函数
 def check_extraction_complete(text):
     """
-    检查API响应中是否包含完成标志
+    检查API响应中是否包含完成标志，并提取当前章节信息
     
     Args:
         text (str): API响应文本
         
     Returns:
-        bool: 是否已完成提取
+        tuple: (是否已完成提取, 当前章节名称, 下一章节名称)
     """
+    # 初始化返回值
+    is_complete = False
+    current_section = None
+    next_section = None
+    
     # 寻找完成标志
     completion_patterns = [
         r'EXTRACTION_COMPLETE:\s*true',
@@ -40,35 +45,52 @@ def check_extraction_complete(text):
     
     for pattern in completion_patterns:
         if re.search(pattern, text, re.IGNORECASE):
-            return True
-            
-    # 检查是否明确未完成
-    incomplete_patterns = [
-        r'EXTRACTION_COMPLETE:\s*false',
-        r'extraction_complete"?\s*:\s*false',
-        r'{"extraction_complete"?\s*:\s*false}',
-        r'需要继续提取',
-        r'提取未完成'
-    ]
+            is_complete = True
+            break
     
-    for pattern in incomplete_patterns:
-        if re.search(pattern, text, re.IGNORECASE):
-            return False
-            
-    # 默认为未完成
-    return False
+    # 提取当前章节信息
+    current_section_pattern = r'CURRENT_SECTION:\s*([^,\n]+)'
+    current_section_match = re.search(current_section_pattern, text, re.IGNORECASE)
+    if current_section_match:
+        current_section = current_section_match.group(1).strip()
+    
+    # 提取下一章节信息
+    next_section_pattern = r'NEXT_SECTION:\s*([^,\n]+)'
+    next_section_match = re.search(next_section_pattern, text, re.IGNORECASE)
+    if next_section_match:
+        next_section = next_section_match.group(1).strip()
+    if next_section:
+        is_complete = False
+    # 如果没有明确指出当前章节，尝试从文本中推断
+    if not current_section:
+        # 尝试从文本中查找"正在处理"、"提取的是"等关键词附近的章节名称
+        inference_patterns = [
+            r'正在处理[的是]?\s*[第]?([^，。,.\n]+)[章节]',
+            r'提取的是\s*[第]?([^，。,.\n]+)[章节]',
+            r'已完成\s*[第]?([^，。,.\n]+)[章节]',
+            r'处理了\s*[第]?([^，。,.\n]+)[章节]'
+        ]
+        
+        for pattern in inference_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                current_section = match.group(1).strip()
+                break
+    
+    return (is_complete, current_section, next_section)
 
 
 
 
 # 修改生成提取提示词的函数
-def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None):
+def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None, extracted_sections=None):
     """
-    生成用于实体提取的提示词，不再需要包含论文文本内容
+    生成用于实体提取的提示词，支持分章节提取
     
     Args:
         model_name (str): 使用的模型名称
         previous_entities (list): 之前提取的实体列表，用于断点续传
+        extracted_sections (list): 已提取的章节列表
     
     Returns:
         str: 实体提取的提示词
@@ -82,13 +104,31 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None)
     # 组合提示词
     prompt = base_prompt + "\n\n" + features_prompt
     
+    # 添加分章节提取的指令
+    chapter_extraction_prompt = """
+请按小节提取实体，首先分析有几个章节和小节，每次以小节为单位提取一个部分。请先确认你正在处理哪个章节（例如：INTRODUCTION，ARITHMETIC WORD PROBLEM SOLVER，FEATURE EXTRACTION，Dataset Repository and Performance Analysis	等）。
+
+在提取完当前小节的实体后，请明确告知：
+1. 你刚刚提取的是哪个小节
+2. 论文中是否还有其他小节未被提取
+3. 如果还有未提取的小节，下一个要提取的小节是什么
+"""
+    prompt += chapter_extraction_prompt
+    
     # 添加完成状态请求
     completion_request = """
 最后，请明确告知我提取是否已完成，还是需要继续提取更多实体。请根据你对文本的分析，判断是否已经提取了所有可能的实体。
 
-在JSON返回后，请单独一行写明"EXTRACTION_COMPLETE: true"（找不到任何实体请输出）或"EXTRACTION_COMPLETE: false"（如果有任何没有被抽取的实体存在或需要分段提取,请输出）。
+在JSON返回后，请单独一行写明"EXTRACTION_COMPLETE: true"（找不到任何实体请输出）或"EXTRACTION_COMPLETE: false, CURRENT_SECTION: [章节名称], NEXT_SECTION: [下一章节名称]"。
 """
     prompt += completion_request
+
+    # 如果有已提取的章节，添加到提示中
+    if extracted_sections and len(extracted_sections) > 0:
+        sections_hint = "\n\n以下章节已经被提取过，请不要重复提取：\n- "
+        sections_hint += "\n- ".join(extracted_sections)
+        sections_hint += "\n\n请继续提取下一个章节的实体。"
+        prompt += sections_hint
 
     # 如果有之前提取的实体，添加到提示中
     if previous_entities and len(previous_entities) > 0:
@@ -254,30 +294,6 @@ def generate_entity_extraction_prompt_with_features():
     }
 }
 
-实体结构示例:
-{
-  "algorithm_entity": {
-    "algorithm_id": "Huang2017_NeuralSolver",
-    "entity_type": "Algorithm",
-    "name": "NeuralSolver",
-    "title": "A Neural Solver for Math Word Problems",
-    "year": 2017,
-    "authors": ["Huang", "Zhang"],
-    "task": ["Math Word Problem Solving"],
-    "datasets": ["Math23K"],
-    "metrics": ["Accuracy"],
-    "architecture": {
-      "components": ["Encoder", "Decoder"],
-      "connections": ["Attention"],
-      "mechanisms": ["Gated Recurrent Unit"]
-    },
-    "methodology": {
-      "training_strategy": ["CrossEntropyLoss", "Normalization"],
-      "parameter_tuning": ["Adam", "Dropout"]
-    },
-    "feature_processing": ["Tokenization", "Stopword Removal"]
-  }
-}
 """
 
 # 更新 extract_entities_with_openai 函数
@@ -376,7 +392,7 @@ def extract_entities_with_openai(prompt, model_name="gpt-3.5-turbo", max_attempt
 
 
 # 创建一个通用的实体提取函数，替代多个API特定的函数
-def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=5, previous_entities=None, agent=None):
+def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, previous_entities=None):
     """
     使用指定模型从PDF文件中提取实体，支持多个文件和file-id方式
     
@@ -385,7 +401,6 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=5, pr
         model_name (str): 模型名称 ("qwen", "openai")
         max_attempts (int): 最大尝试次数
         previous_entities (list, optional): 之前提取的实体，用于断点续传
-        agent: 可选的agent实例（如果使用agent调用）
         
     Returns:
         tuple: (提取的实体列表, 是否处理完成)
@@ -406,23 +421,28 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=5, pr
     
     if not file_ids:
         logging.error("没有有效的file-id，无法提取实体")
-        return [], False
+        return [], False, []
         
-    
     all_entities = []  # 所有已提取的实体
     current_attempt = 0
     is_extraction_complete = False
     
+    extracted_sections = []
+    
+    logging.info(f"开始提取，已提取的章节: {extracted_sections}")
+    
     while current_attempt < max_attempts and not is_extraction_complete:
         current_attempt += 1
-        logging.info(f"提取尝试 {current_attempt}/{max_attempts},是否完成: {is_extraction_complete}")
+        logging.info(f"提取尝试 {current_attempt}/{max_attempts}, 是否完成: {is_extraction_complete}")
         
-        # 如果已有提取的实体，将其加入到提示词中
+        # 获取提取当前章节的提示词
         current_prompt = generate_entity_extraction_prompt(
-        model_name, 
-        previous_entities=all_entities, 
-    )
-        # 使用千问API提取实体
+            model_name, 
+            previous_entities=all_entities,
+            extracted_sections=extracted_sections
+        )
+        
+        # 使用模型API提取实体
         entities = []
         try:
             from openai import OpenAI
@@ -467,14 +487,25 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=5, pr
             
             logging.info(f"响应接收完成，共 {chunk_count} 个响应块，总长度: {len(content)} 字符")
             
-            # 检查是否包含完成标志
-            is_complete = check_extraction_complete(content)
-            is_extraction_complete=is_complete
+            # 检查是否包含完成标志，并提取章节信息
+            is_complete, current_section, next_section = check_extraction_complete(content)
+            logging.info(f"当前章节: {current_section}")
+            logging.info(f"下一个章节: {next_section}")
+            logging.info(f"完成状态: {is_complete}")
+            is_extraction_complete = is_complete
+            
+            # 记录当前章节
+            if current_section and current_section not in extracted_sections:
+                extracted_sections.append(current_section)
+                logging.info(f"已提取的章节列表更新为: {extracted_sections}")
+            
+            
             # 提取JSON部分
             logging.info(f"提取到的文本长度: {len(content)}")
             json_text = extract_json_from_text(content)
-            logging.info(f"提取到的JSON文本长度: {len(json_text)}")
+            
             if json_text:
+                logging.info(f"提取到的JSON文本长度: {len(json_text)}")
                 try:
                     entities = json.loads(json_text)
                     if not isinstance(entities, list):
@@ -518,7 +549,9 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=5, pr
             else:
                 # 如果是首次提取，直接使用结果
                 all_entities = entities
+                
             previous_entities = all_entities
+            
             # 如果提取已完成
             if is_complete:
                 is_extraction_complete = True
@@ -529,7 +562,7 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=5, pr
             logging.error(traceback.format_exc())
             # 继续下一次尝试
     
-    logging.info(f"完成实体提取，共 {len(all_entities)} 个实体，完成状态: {is_extraction_complete}")
+    logging.info(f"完成实体提取，共 {len(all_entities)} 个实体，完成状态: {is_extraction_complete}，已提取章节: {extracted_sections}")
     return all_entities, is_extraction_complete
 
 def extract_json_from_text(text):
@@ -695,7 +728,7 @@ def extract_json_from_text(text):
     logging.warning("未能从文本中提取有效的JSON")
     return None
 
-def extract_paper_entities(pdf_paths, max_attempts=5, batch_size=1, model_name="qwen", task_id=None):
+def extract_paper_entities(pdf_paths, max_attempts=25, batch_size=1, model_name="qwen", task_id=None):
     """
     从PDF文件中提取实体，支持批量处理和文件ID模式
     

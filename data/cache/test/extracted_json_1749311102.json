@@ -1,0 +1,25 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Zhou2015_LogLinearModel",
+      "entity_type": "Algorithm",
+      "name": "Log-Linear Model",
+      "title": "Learn to Solve Algebra Word Problems Using Quadratic Programming",
+      "year": 2015,
+      "authors": ["Lipu Zhou", "Shuaixiang Dai", "Liwei Chen"],
+      "task": "Algebra Word Problem Solving",
+      "dataset": ["Kushman2014_Dataset_2014"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Feature Function", "Parameter Vector"],
+        "connections": ["Template Selection", "Number Assignment"],
+        "mechanisms": ["Max-Margin Objective"]
+      },
+      "methodology": {
+        "training_strategy": ["Max-Margin Objective", "Quadratic Programming"],
+        "parameter_tuning": ["Parameter Vector θ"]
+      },
+      "feature_processing": ["Feature Extraction"]
+    }
+  }
+]

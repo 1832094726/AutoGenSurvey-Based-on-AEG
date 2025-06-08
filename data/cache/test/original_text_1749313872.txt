@@ -1,0 +1,70 @@
+### Extracting Entities from Section: Reinforcement Learning
+
+#### Section Content Summary:
+This section discusses the use of reinforcement learning (RL) to optimize the solution accuracy of the math word problem solver. It explains the challenges of using Maximum Likelihood Estimation (MLE) and how RL can address these issues. The section also describes the policy learning approach using the REINFORCE algorithm and the mixed objective function that incorporates alignment loss.
+
+#### Extracted Entities:
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Huang2018_PolicyGradient",
+      "entity_type": "Algorithm",
+      "name": "Policy Gradient",
+      "year": 2018,
+      "authors": ["Danqing Huang", "Jing Liu", "Chin-Yew Lin", "Jian Yin"],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Alg514", "NumWord", "Dolphin18K"],
+      "metrics": ["Solution Accuracy"],
+      "architecture": {
+        "components": ["Policy Network", "Reward Function"],
+        "connections": ["Input: Math Problem Description", "Output: Equation Tokens"],
+        "mechanisms": ["REINFORCE Algorithm", "Policy Gradient Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Pre-training with MLE", "Reinforcement Learning"],
+        "parameter_tuning": ["Learning Rate Decay", "Beam Size for Sampling"]
+      },
+      "feature_processing": ["Equation Generation", "Number Alignment"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Reward_Function_TaskLevel",
+      "entity_type": "Metric",
+      "name": "Reward Function",
+      "description": "A binary reward function that assigns +1 for correct solutions and -1 for incorrect or invalid equations.",
+      "category": "Reinforcement Learning Evaluation",
+      "formula": "R(xi, yi) = +1 if yi yields correct solution, -1 otherwise"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Gradient_Approximation",
+      "entity_type": "Metric",
+      "name": "Gradient Approximation",
+      "description": "Approximation of the gradient using top-k equations in the beam to handle large search spaces.",
+      "category": "Reinforcement Learning Training",
+      "formula": "∇θLRL ≈ −∑i ∑yi pθ(yi|xi)R(xi, yi)∇θ log pθ(yi|xi)"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Mixed_Objective_Function",
+      "entity_type": "Metric",
+      "name": "Mixed Objective Function",
+      "description": "Combines the reinforcement learning loss with the alignment loss to improve number alignment.",
+      "category": "Reinforcement Learning Training",
+      "formula": "L = LRL + λ * δ(ai, âi)"
+    }
+  }
+]
+```
+
+### Extraction Summary:
+1. **Just Extracted Section:** Reinforcement Learning
+2. **Remaining Sections:** Experiments, Conclusion, Related Work
+3. **Next Section to Extract:** Experiments
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: Reinforcement Learning, NEXT_SECTION: Experiments

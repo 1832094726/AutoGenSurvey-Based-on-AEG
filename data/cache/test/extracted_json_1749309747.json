@@ -1,0 +1,23 @@
+{
+  "algorithm_entity": {
+    "algorithm_id": "Yu2016_SVMAlgorithm",
+    "entity_type": "Algorithm",
+    "name": "SVM Algorithm",
+    "title": "Extraction of Implicit Quantity Relations for Arithmetic Word Problems in Chinese",
+    "year": 2016,
+    "authors": ["Xinguo Yu", "Pengpeng Jian", "Mingshu Wang", "Shuang Wu"],
+    "task": "Arithmetic Word Problem Solving",
+    "dataset": ["Elementary_school_arithmetic_application_problem_2011"],
+    "metrics": ["Classification_Accuracy", "Classification_Error_Rate"],
+    "architecture": {
+      "components": ["Kernel Function", "Slack Variable"],
+      "connections": ["Hyperplane Calculation", "Margin Maximization"],
+      "mechanisms": ["Support Vector Identification", "Classification Boundary"]
+    },
+    "methodology": {
+      "training_strategy": ["Cross-validation", "Grid Search"],
+      "parameter_tuning": ["C (Regularization Parameter)", "Gamma"]
+    },
+    "feature_processing": ["Bag of Words", "TF-IDF"]
+  }
+}

@@ -1,0 +1,120 @@
+根据提供的文件内容，我将分析实体之间的演化关系，并确保不重复已有的关系。以下是新发现的关系：
+
+### 新发现的关系
+
+1. **Compositional Vector Grammar (CVG) 使用特定数据集**
+   ```json
+   {
+     "from_entity": "Socher2013_CompositionalVectorGrammar",
+     "from_entity_type": "Algorithm",
+     "to_entity": "PennTreebank",
+     "to_entity_type": "Dataset",
+     "relation_type": "Use",
+     "structure": "Evaluation.Dataset",
+     "detail": "CVG was evaluated on the Penn Treebank dataset.",
+     "problem_addressed": "Evaluating the effectiveness of CVG on a standard parsing benchmark",
+     "evidence": "The CVG improves the PCFG of the Stanford Parser by 3.8% to obtain an F1 score of 90.4%",
+     "confidence": 0.95
+   }
+   ```
+
+2. **Compositional Vector Grammar (CVG) 使用特定评估指标**
+   ```json
+   {
+     "from_entity": "Socher2013_CompositionalVectorGrammar",
+     "from_entity_type": "Algorithm",
+     "to_entity": "F1_Score",
+     "to_entity_type": "Metric",
+     "relation_type": "Use",
+     "structure": "Evaluation.Metric",
+     "detail": "CVG's performance was measured using the F1 score.",
+     "problem_addressed": "Quantifying the improvement of CVG over traditional PCFG",
+     "evidence": "The CVG improves the PCFG of the Stanford Parser by 3.8% to obtain an F1 score of 90.4%",
+     "confidence": 0.95
+   }
+   ```
+
+3. **Compositional Vector Grammar (CVG) 改进 Probabilistic Context-Free Grammar (PCFG)**
+   ```json
+   {
+     "from_entity": "Socher2013_CompositionalVectorGrammar",
+     "from_entity_type": "Algorithm",
+     "to_entity": "ProbabilisticContextFreeGrammar",
+     "to_entity_type": "Algorithm",
+     "relation_type": "Improve",
+     "structure": "Architecture.Improvement",
+     "detail": "CVG integrates a recursive neural network with PCFG to learn syntactico-semantic vector representations.",
+     "problem_addressed": "Capturing richer syntactic and semantic information in parsing",
+     "evidence": "Instead, we introduce a Compositional Vector Grammar (CVG), which combines PCFGs with a syntactically untied recursive neural network that learns syntactico-semantic, compositional vector representations.",
+     "confidence": 0.95
+   }
+   ```
+
+4. **Compositional Vector Grammar (CVG) 使用特定任务**
+   ```json
+   {
+     "from_entity": "Socher2013_CompositionalVectorGrammar",
+     "from_entity_type": "Algorithm",
+     "to_entity": "SyntacticParsing",
+     "to_entity_type": "Task",
+     "relation_type": "Use",
+     "structure": "Application.Task",
+     "detail": "CVG is used for syntactic parsing tasks.",
+     "problem_addressed": "Improving the accuracy of syntactic parsing",
+     "evidence": "Natural language parsing has typically been done with small sets of discrete categories such as NP and VP, but this representation does not capture the full syntactic nor semantic richness of linguistic phrases.",
+     "confidence": 0.95
+   }
+   ```
+
+5. **Latent Left-Linking Model (L3M) 使用特定数据集**
+   ```json
+   {
+     "from_entity": "Chang2013_LatentLeftLinkingModel",
+     "from_entity_type": "Algorithm",
+     "to_entity": "ACE_2004",
+     "to_entity_type": "Dataset",
+     "relation_type": "Use",
+     "structure": "Evaluation.Dataset",
+     "detail": "L3M was evaluated on the ACE 2004 dataset.",
+     "problem_addressed": "Evaluating coreference resolution performance on a standard benchmark",
+     "evidence": "The L3M was tested on the ACE 2004 dataset.",
+     "confidence": 0.95
+   }
+   ```
+
+6. **Latent Left-Linking Model (L3M) 使用特定评估指标**
+   ```json
+   {
+     "from_entity": "Chang2013_LatentLeftLinkingModel",
+     "from_entity_type": "Algorithm",
+     "to_entity": "MUC",
+     "to_entity_type": "Metric",
+     "relation_type": "Use",
+     "structure": "Evaluation.Metric",
+     "detail": "L3M's performance was measured using the MUC metric.",
+     "problem_addressed": "Quantifying the coreference resolution performance",
+     "evidence": "The L3M was evaluated using MUC, BCUB, CEAF, and F1 metrics.",
+     "confidence": 0.95
+   }
+   ```
+
+7. **Constrained Latent Left-Linking Model (CL3M) 扩展 Latent Left-Linking Model (L3M)**
+   ```json
+   {
+     "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+     "from_entity_type": "Algorithm",
+     "to_entity": "Chang2013_LatentLeftLinkingModel",
+     "to_entity_type": "Algorithm",
+     "relation_type": "Extend",
+     "structure": "Architecture.Extension",
+     "detail": "CL3M adds constraint injection to the L3M architecture.",
+     "problem_addressed": "Incorporating knowledge-based constraints into coreference resolution",
+     "evidence": "The CL3M extends the L3M by adding a constraint injection component.",
+     "confidence": 0.95
+   }
+   ```
+
+### 结论
+以上关系是从提供的文件内容中提取的新关系。这些关系涵盖了算法之间的改进、扩展、使用特定数据集和评估指标等方面。如果认为所有有意义的关系都已经提取完毕，请在JSON响应后单独一行写明：EXTRACTION_COMPLETE: true，否则写EXTRACTION_COMPLETE: false。
+
+EXTRACTION_COMPLETE: false

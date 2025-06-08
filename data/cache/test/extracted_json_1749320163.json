@@ -1,0 +1,52 @@
+[
+    {
+        "from_entity": "Huang2018_NeuralMathWordProblemSolver",
+        "to_entity": "Hosseini2014_StateTransitionModel",
+        "relation_type": "Optimize",
+        "structure": "Architecture.Mechanism",
+        "detail": "Incorporates copy and alignment mechanisms into the sequence-to-sequence model to address issues of generating spurious numbers and placing numbers at wrong positions.",
+        "problem_addressed": "Issues of generating spurious numbers and placing numbers at wrong positions in math word problem solving.",
+        "evidence": "However, our experimental analysis reveals that this model suffers from two shortcomings: (1) generate spurious numbers; (2) generate numbers at wrong positions. In this paper, we propose incorporating copy and alignment mechanism to the sequence-to-sequence model (namely CASS) to address these shortcomings.",
+        "confidence": 0.95
+    },
+    {
+        "from_entity": "Huang2018_NeuralMathWordProblemSolver",
+        "to_entity": "ReinforcementLearning",
+        "relation_type": "Use",
+        "structure": "Training.Strategy",
+        "detail": "Applies reinforcement learning to directly optimize the solution accuracy.",
+        "problem_addressed": "Train-test discrepancy issue of maximum likelihood estimation.",
+        "evidence": "To train our model, we apply reinforcement learning to directly optimize the solution accuracy. It overcomes the 'train-test discrepancy' issue of maximum likelihood estimation.",
+        "confidence": 0.95
+    },
+    {
+        "from_entity": "Huang2018_NeuralMathWordProblemSolver",
+        "to_entity": "ArithmeticWordProblems_2014",
+        "relation_type": "Use",
+        "structure": "Evaluation.Dataset",
+        "detail": "Uses Arithmetic Word Problems dataset for evaluation.",
+        "problem_addressed": "Evaluation of math word problem solving models.",
+        "evidence": "Furthermore, to explore the effectiveness of our neural model, we use our model output as a feature and incorporate it into the feature-based model.",
+        "confidence": 0.90
+    },
+    {
+        "from_entity": "Huang2018_NeuralMathWordProblemSolver",
+        "to_entity": "Solution_Accuracy",
+        "relation_type": "Use",
+        "structure": "Evaluation.Metric",
+        "detail": "Uses solution accuracy as an evaluation metric.",
+        "problem_addressed": "Evaluation of math word problem solving models.",
+        "evidence": "Experimental results show that reinforcement learning leads to better performance than maximum likelihood on this task.",
+        "confidence": 0.90
+    },
+    {
+        "from_entity": "Huang2018_NeuralMathWordProblemSolver",
+        "to_entity": "FeatureBasedModel",
+        "relation_type": "Complement",
+        "structure": "Model.Integration",
+        "detail": "Combines neural model output with feature-based model for improved performance.",
+        "problem_addressed": "Limited performance of individual models.",
+        "evidence": "Our neural model is complementary to the feature-based model and their combination significantly outperforms the state-of-the-art results.",
+        "confidence": 0.95
+    }
+]
