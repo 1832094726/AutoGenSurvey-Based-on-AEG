@@ -1,0 +1,336 @@
+### 提取实体信息
+
+#### 第1个文档：Distributed Representations of Words and Phrases and their Compositionality
+
+##### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_SkipGram",
+      "entity_type": "Algorithm",
+      "name": "Skip-gram",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Word and Phrase Representation",
+      "dataset": ["News Articles_2013"],
+      "metrics": ["Accuracy_Classification", "Syntactic_Analogy", "Semantic_Analogy"],
+      "architecture": {
+        "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+        "connections": ["Input to Hidden", "Hidden to Output"],
+        "mechanisms": ["Negative Sampling", "Hierarchical Softmax", "Subsampling"]
+      },
+      "methodology": {
+        "training_strategy": ["Negative Sampling", "Hierarchical Softmax", "Subsampling"],
+        "parameter_tuning": ["Dimensionality", "Context Size", "Subsampling Rate"]
+      },
+      "feature_processing": ["Word Frequency Filtering", "Subsampling of Frequent Words"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "News_Articles_2013",
+      "entity_type": "Dataset",
+      "name": "News Articles",
+      "description": "Large dataset of news articles used for training word and phrase representations",
+      "domain": "Natural Language Processing",
+      "size": 1000000000,
+      "year": 2013,
+      "creators": ["Google Inc."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Overall accuracy of the model on the analogical reasoning task",
+      "category": "Classification Evaluation",
+      "formula": "Correct predictions / Total predictions"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Syntactic_Analogy",
+      "entity_type": "Metric",
+      "name": "Syntactic Analogy",
+      "description": "Accuracy on syntactic analogy tasks",
+      "category": "Analogy Evaluation",
+      "formula": "Correct syntactic analogies / Total syntactic analogies"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Semantic_Analogy",
+      "entity_type": "Metric",
+      "name": "Semantic Analogy",
+      "description": "Accuracy on semantic analogy tasks",
+      "category": "Analogy Evaluation",
+      "formula": "Correct semantic analogies / Total semantic analogies"
+    }
+  }
+]
+```
+
+#### 第2个文档：Experiments with a deductive question-answering program
+
+##### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_DEDUCOM",
+      "entity_type": "Algorithm",
+      "name": "DEDUCOM",
+      "year": 1965,
+      "authors": ["Slagle, J.R."],
+      "task": "Deductive Question-Answering",
+      "dataset": ["Custom Facts_1965"],
+      "metrics": ["Answer Accuracy", "Response Time"],
+      "architecture": {
+        "components": ["Fact Base", "Search Procedure", "Logical Deduction"],
+        "connections": ["Fact Base to Search Procedure", "Search Procedure to Logical Deduction"],
+        "mechanisms": ["Depth-First Search", "Predicate Calculus"]
+      },
+      "methodology": {
+        "training_strategy": ["Providing Relevant Facts"],
+        "parameter_tuning": ["Fact Order", "Fact Form"]
+      },
+      "feature_processing": ["Fact Transformation", "Logical Equivalence"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Custom_Facts_1965",
+      "entity_type": "Dataset",
+      "name": "Custom Facts",
+      "description": "Set of facts used for training and testing DEDUCOM",
+      "domain": "Artificial Intelligence",
+      "size": 68,
+      "year": 1965,
+      "creators": ["Slagle, J.R."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Answer_Accuracy",
+      "entity_type": "Metric",
+      "name": "Answer Accuracy",
+      "description": "Accuracy of answers provided by DEDUCOM",
+      "category": "Question-Answering Evaluation",
+      "formula": "Correct answers / Total questions"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Response_Time",
+      "entity_type": "Metric",
+      "name": "Response Time",
+      "description": "Time taken by DEDUCOM to answer a question",
+      "category": "Performance Evaluation",
+      "formula": "Time taken to respond"
+    }
+  }
+]
+```
+
+#### 第3个文档：Extraction of Implicit Quantity Relations for Arithmetic Word Problems in Chinese
+
+##### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Yu2016_ImplicitQuantityRelationExtractor",
+      "entity_type": "Algorithm",
+      "name": "Implicit Quantity Relation Extractor",
+      "year": 2016,
+      "authors": ["Yu, X.", "Jian, P.", "Wang, M.", "Wu, S."],
+      "task": "Extracting Implicit Quantity Relations",
+      "dataset": ["Chinese Arithmetic Word Problems_2016"],
+      "metrics": ["Classification Accuracy", "Equation Formation Accuracy"],
+      "architecture": {
+        "components": ["Chinese Phrase Parse", "SVM Classification", "Semantic Models"],
+        "connections": ["Phrase Parse to SVM Classification", "SVM Classification to Semantic Models"],
+        "mechanisms": ["Frame-Based Parsing", "Support Vector Machines", "Semantic Matching"]
+      },
+      "methodology": {
+        "training_strategy": ["Training SVM Classifier", "Preparing Semantic Models"],
+        "parameter_tuning": ["Kernel Type", "Regularization Parameter"]
+      },
+      "feature_processing": ["Part-of-Speech Tagging", "Bag of Words"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Chinese_Arithmetic_Word_Problems_2016",
+      "entity_type": "Dataset",
+      "name": "Chinese Arithmetic Word Problems",
+      "description": "Dataset of arithmetic word problems in Chinese",
+      "domain": "Mathematics Education",
+      "size": 627,
+      "year": 2016,
+      "creators": ["People's Education Press"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Classification_Accuracy",
+      "entity_type": "Metric",
+      "name": "Classification Accuracy",
+      "description": "Accuracy of classifying arithmetic word problems",
+      "category": "Classification Evaluation",
+      "formula": "Correct classifications / Total classifications"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Equation_Formation_Accuracy",
+      "entity_type": "Metric",
+      "name": "Equation Formation Accuracy",
+      "description": "Accuracy of forming equations from word problems",
+      "category": "Equation Formation Evaluation",
+      "formula": "Correct equations / Total equations"
+    }
+  }
+]
+```
+
+#### 第4个文档：Frame-Based Calculus of solving Arithmetic Multi-Step Addition and Subtraction word problems
+
+##### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Ma2010_FrameBasedCalculus",
+      "entity_type": "Algorithm",
+      "name": "Frame-Based Calculus",
+      "year": 2010,
+      "authors": ["Ma, Y.", "Zhou, Y.", "Cui, G.", "Ren, Y.", "Huang, R."],
+      "task": "Solving Multi-Step Addition and Subtraction Word Problems",
+      "dataset": ["Elementary School Arithmetic Word Problems_2010"],
+      "metrics": ["Problem Solving Accuracy", "Sub-Goal Achievement"],
+      "architecture": {
+        "components": ["Problem Frames", "Rule Base", "Working Memory", "Goal Stack"],
+        "connections": ["Problem Frames to Rule Base", "Rule Base to Working Memory", "Working Memory to Goal Stack"],
+        "mechanisms": ["Means-End Analysis", "Frame-Based Calculus"]
+      },
+      "methodology": {
+        "training_strategy": ["Training on One-Step Problems", "Expanding Knowledge Base"],
+        "parameter_tuning": ["Rule Definitions", "Frame Structures"]
+      },
+      "feature_processing": ["Natural Language Processing", "Frame Construction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Elementary_School_Arithmetic_Word_Problems_2010",
+      "entity_type": "Dataset",
+      "name": "Elementary School Arithmetic Word Problems",
+      "description": "Dataset of multi-step addition and subtraction word problems",
+      "domain": "Mathematics Education",
+      "size": 283,
+      "year": 2010,
+      "creators": ["Suzhou Education Publishing House"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Problem_Solving_Accuracy",
+      "entity_type": "Metric",
+      "name": "Problem Solving Accuracy",
+      "description": "Accuracy of solving multi-step arithmetic word problems",
+      "category": "Problem Solving Evaluation",
+      "formula": "Correct solutions / Total problems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Sub_Goal_Achievement",
+      "entity_type": "Metric",
+      "name": "Sub-Goal Achievement",
+      "description": "Accuracy of achieving sub-goals in problem solving",
+      "category": "Sub-Goal Evaluation",
+      "formula": "Achieved sub-goals / Total sub-goals"
+    }
+  }
+]
+```
+
+#### 第5个文档：Generating Typed Dependency Parses from Phrase Structure Parses
+
+##### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "deMarneffe2006_TypedDependencyParser",
+      "entity_type": "Algorithm",
+      "name": "Typed Dependency Parser",
+      "year": 2006,
+      "authors": ["de Marneffe, M.-C.", "MacCartney, B.", "Manning, C.D."],
+      "task": "Generating Typed Dependency Parses",
+      "dataset": ["Penn_Treebank_2006"],
+      "metrics": ["Dependency Accuracy", "Dependency Structure Accuracy"],
+      "architecture": {
+        "components": ["Phrase Structure Parser", "Dependency Extraction Rules", "Dependency Typing Rules"],
+        "connections": ["Phrase Structure Parser to Dependency Extraction Rules", "Dependency Extraction Rules to Dependency Typing Rules"],
+        "mechanisms": ["Rule-Based Dependency Extraction", "Pattern Matching"]
+      },
+      "methodology": {
+        "training_strategy": ["Training on Penn Treebank"],
+        "parameter_tuning": ["Rule Definitions", "Pattern Matching Criteria"]
+      },
+      "feature_processing": ["Phrase Structure Parsing", "Head Identification"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Penn_Treebank_2006",
+      "entity_type": "Dataset",
+      "name": "Penn Treebank",
+      "description": "Corpus of English sentences with phrase structure annotations",
+      "domain": "Natural Language Processing",
+      "size": "Varies",
+      "year": 2006,
+      "creators": ["Various Contributors"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Dependency_Accuracy",
+      "entity_type": "Metric",
+      "name": "Dependency Accuracy",
+      "description": "Accuracy of dependency relations",
+      "category": "Dependency Parsing Evaluation",
+      "formula": "Correct dependencies / Total dependencies"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Dependency_Structure_Accuracy",
+      "entity_type": "Metric",
+      "name": "Dependency Structure Accuracy",
+      "description": "Accuracy of dependency structure",
+      "category": "Dependency Parsing Evaluation",
+      "formula": "Correct dependency structures / Total dependency structures"
+    }
+  }
+]
+```
+
+### 提取总结
+
+1. **刚刚提取的是哪个小节**：已完成所有文档的小节提取。
+2. **论文中是否还有其他小节未被提取**：所有文档的小节均已提取完毕。
+3. **如果还有未提取的小节，下一个要提取的小节是什么**：无。
+
+```json
+EXTRACTION_COMPLETE: true
+```

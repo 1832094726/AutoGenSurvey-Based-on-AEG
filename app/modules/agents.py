@@ -962,15 +962,15 @@ def upload_and_cache_file(file_path, purpose="file-extract"):
             file_id = response.id
             logging.info(f"文件上传成功，file-id: {file_id}")
             
-            # 缓存file-id
-            with open(cache_file, 'w', encoding='utf-8') as f:
-                cache_data = {
-                    "file_id": file_id,
-                    "file_name": file_name,
-                    "upload_time": time.time()
-                }
-                json.dump(cache_data, f, indent=2, ensure_ascii=False)
-            logging.info(f"file-id已缓存到 {cache_file}")
+            # # 缓存file-id
+            # with open(cache_file, 'w', encoding='utf-8') as f:
+            #     cache_data = {
+            #         "file_id": file_id,
+            #         "file_name": file_name,
+            #         "upload_time": time.time()
+            #     }
+            #     json.dump(cache_data, f, indent=2, ensure_ascii=False)
+            # logging.info(f"file-id已缓存到 {cache_file}")
             return file_id
         else:
             logging.error("上传文件失败，API没有返回有效的file-id")

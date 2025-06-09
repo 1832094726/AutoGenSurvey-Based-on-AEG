@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Robaidek2018_SignificantNumberIdentifier",
+      "entity_type": "Algorithm",
+      "name": "Significant Number Identifier (SNI)",
+      "year": 2018,
+      "authors": ["Benjamin Robaidek", "Rik Koncel-Kedziorski", "Hannaneh Hajishirzi"],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Math23K_2017"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["LSTM"],
+        "connections": ["Input Layer", "LSTM Layer", "Output Layer"],
+        "mechanisms": ["Binary Classification"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Learning Rate", "Batch Size"]
+      },
+      "feature_processing": ["Number Mapping"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Math23K_2017",
+      "entity_type": "Dataset",
+      "name": "Math23K",
+      "description": "A large dataset of Chinese algebra word problems",
+      "domain": "Mathematics",
+      "size": 23161,
+      "year": 2017,
+      "creators": ["Wang, Y.", "Liu, X.", "Shi, S."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "formula": "正确分类样本数/总样本数"
+    }
+  }
+]

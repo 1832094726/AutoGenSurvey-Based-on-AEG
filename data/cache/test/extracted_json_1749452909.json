@@ -1,0 +1,36 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Gelernter1959_GeometryMachine",
+      "entity_type": "Algorithm",
+      "name": "Geometry Machine",
+      "year": 1959,
+      "authors": ["Gelernter, H."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["High-school textbooks"],
+      "metrics": ["Number of theorems proved"],
+      "architecture": {
+        "components": ["Heuristic knowledge", "Backward chaining search strategy"],
+        "connections": ["Uses diagram to reject false goal statements"],
+        "mechanisms": ["Specific heuristic knowledge about geometry domain"]
+      },
+      "methodology": {
+        "training_strategy": ["Backward chaining"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Diagram analysis"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "HighSchoolTextbooks_1959",
+      "entity_type": "Dataset",
+      "name": "High-school textbooks",
+      "description": "Collection of geometry problems from high-school textbooks",
+      "domain": "Geometry",
+      "size": "Not specified",
+      "year": 1959,
+      "creators": ["Gelernter, H."]
+    }
+  }
+]

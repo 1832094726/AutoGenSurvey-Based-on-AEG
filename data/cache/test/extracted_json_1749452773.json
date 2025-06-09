@@ -1,0 +1,66 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_SkipGram",
+      "entity_type": "Algorithm",
+      "name": "Skip-gram",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Word and Phrase Representation",
+      "dataset": ["News Articles_2013"],
+      "metrics": ["Accuracy_Classification", "Syntactic_Analogy", "Semantic_Analogy"],
+      "architecture": {
+        "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+        "connections": ["Input to Hidden", "Hidden to Output"],
+        "mechanisms": ["Negative Sampling", "Hierarchical Softmax", "Subsampling"]
+      },
+      "methodology": {
+        "training_strategy": ["Negative Sampling", "Hierarchical Softmax", "Subsampling"],
+        "parameter_tuning": ["Dimensionality", "Context Size", "Subsampling Rate"]
+      },
+      "feature_processing": ["Word Frequency Filtering", "Subsampling of Frequent Words"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "News_Articles_2013",
+      "entity_type": "Dataset",
+      "name": "News Articles",
+      "description": "Large dataset of news articles used for training word and phrase representations",
+      "domain": "Natural Language Processing",
+      "size": 1000000000,
+      "year": 2013,
+      "creators": ["Google Inc."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Overall accuracy of the model on the analogical reasoning task",
+      "category": "Classification Evaluation",
+      "formula": "Correct predictions / Total predictions"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Syntactic_Analogy",
+      "entity_type": "Metric",
+      "name": "Syntactic Analogy",
+      "description": "Accuracy on syntactic analogy tasks",
+      "category": "Analogy Evaluation",
+      "formula": "Correct syntactic analogies / Total syntactic analogies"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Semantic_Analogy",
+      "entity_type": "Metric",
+      "name": "Semantic Analogy",
+      "description": "Accuracy on semantic analogy tasks",
+      "category": "Analogy Evaluation",
+      "formula": "Correct semantic analogies / Total semantic analogies"
+    }
+  }
+]

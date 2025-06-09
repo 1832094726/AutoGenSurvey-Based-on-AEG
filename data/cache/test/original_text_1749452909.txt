@@ -1,0 +1,380 @@
+### 提取实体信息
+
+#### 第1个文档 《[21]Geometry Theorem Proving.pdf》
+
+**章节：2. Geometry Theorem Proving**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Gelernter1959_GeometryMachine",
+      "entity_type": "Algorithm",
+      "name": "Geometry Machine",
+      "year": 1959,
+      "authors": ["Gelernter, H."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["High-school textbooks"],
+      "metrics": ["Number of theorems proved"],
+      "architecture": {
+        "components": ["Heuristic knowledge", "Backward chaining search strategy"],
+        "connections": ["Uses diagram to reject false goal statements"],
+        "mechanisms": ["Specific heuristic knowledge about geometry domain"]
+      },
+      "methodology": {
+        "training_strategy": ["Backward chaining"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Diagram analysis"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "HighSchoolTextbooks_1959",
+      "entity_type": "Dataset",
+      "name": "High-school textbooks",
+      "description": "Collection of geometry problems from high-school textbooks",
+      "domain": "Geometry",
+      "size": "Not specified",
+      "year": 1959,
+      "creators": ["Gelernter, H."]
+    }
+  }
+]
+```
+
+**章节：2.1 Historical Background**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Cerutti1969_FORMAC",
+      "entity_type": "Algorithm",
+      "name": "FORMAC",
+      "year": 1969,
+      "authors": ["Cerutti, E.", "Davis, R."],
+      "task": "Elementary analytic geometry theorem proving",
+      "dataset": ["Elementary analytic geometry problems"],
+      "metrics": ["Number of theorems proved"],
+      "architecture": {
+        "components": ["Symbolic manipulation", "Descartes' method"],
+        "connections": ["Assigns coordinates to points"],
+        "mechanisms": ["Algebraic approach"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Coordinate assignment"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "ElementaryAnalyticGeometryProblems_1969",
+      "entity_type": "Dataset",
+      "name": "Elementary analytic geometry problems",
+      "description": "Collection of problems in elementary analytic geometry",
+      "domain": "Geometry",
+      "size": "Not specified",
+      "year": 1969,
+      "creators": ["Cerutti, E.", "Davis, R."]
+    }
+  }
+]
+```
+
+**章节：2. Geometry Theorem Proving**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hilbert1899_FormalGeometry",
+      "entity_type": "Algorithm",
+      "name": "Formal Geometry",
+      "year": 1899,
+      "authors": ["Hilbert, D."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["Plane (Euclidean) geometry problems"],
+      "metrics": ["Consistency and independence of axioms"],
+      "architecture": {
+        "components": ["Points", "lines", "planes", "relations"],
+        "connections": ["Angle congruence", "incidence"],
+        "mechanisms": ["Axiomatic system"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Primitive elements"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "PlaneGeometryProblems_1899",
+      "entity_type": "Dataset",
+      "name": "Plane (Euclidean) geometry problems",
+      "description": "Collection of problems in plane (Euclidean) geometry",
+      "domain": "Geometry",
+      "size": "Not specified",
+      "year": 1899,
+      "creators": ["Hilbert, D."]
+    }
+  }
+]
+```
+
+**章节：2.1 Historical Background**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Poincare1902_LogicalPiano",
+      "entity_type": "Algorithm",
+      "name": "Logical Piano",
+      "year": 1902,
+      "authors": ["Poincare, H."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["Geometry problems"],
+      "metrics": ["Number of theorems proved"],
+      "architecture": {
+        "components": ["Logic machine"],
+        "connections": ["Applies rules to axioms"],
+        "mechanisms": ["Mechanical rules"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Axioms"]
+    }
+  }
+]
+```
+
+**章节：2. Geometry Theorem Proving**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Koedinger1990_GeometryProblemSolving",
+      "entity_type": "Algorithm",
+      "name": "Geometry Problem Solving",
+      "year": 1990,
+      "authors": ["Koedinger, K.R."],
+      "task": "Geometry Problem Solving",
+      "dataset": ["Geometry problems"],
+      "metrics": ["Number of inferences"],
+      "architecture": {
+        "components": ["Search strategies", "Heuristic knowledge"],
+        "connections": ["Applies rules in problem space"],
+        "mechanisms": ["Backward chaining", "Forward chaining"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Problem representation"]
+    }
+  }
+]
+```
+
+**章节：2.1 Historical Background**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Gilmore1960_GeometryReasoner",
+      "entity_type": "Algorithm",
+      "name": "Geometry Reasoner",
+      "year": 1960,
+      "authors": ["Gilmore, C.J."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["Geometry problems"],
+      "metrics": ["Number of theorems proved"],
+      "architecture": {
+        "components": ["Axiomatic or synthetic approaches"],
+        "connections": ["Applies rules to axioms"],
+        "mechanisms": ["Backward chaining"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Axioms"]
+    }
+  }
+]
+```
+
+**章节：2. Geometry Theorem Proving**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Elcock1960_GeometryReasoner",
+      "entity_type": "Algorithm",
+      "name": "Geometry Reasoner",
+      "year": 1960,
+      "authors": ["Elcock, E.W."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["Geometry problems"],
+      "metrics": ["Number of theorems proved"],
+      "architecture": {
+        "components": ["Axiomatic or synthetic approaches"],
+        "connections": ["Applies rules to axioms"],
+        "mechanisms": ["Backward chaining"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Axioms"]
+    }
+  }
+]
+```
+
+**章节：2.1 Historical Background**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Nevins1976_GeometryReasoner",
+      "entity_type": "Algorithm",
+      "name": "Geometry Reasoner",
+      "year": 1976,
+      "authors": ["Nevins, J.A."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["Geometry problems"],
+      "metrics": ["Number of theorems proved"],
+      "architecture": {
+        "components": ["Axiomatic or synthetic approaches"],
+        "connections": ["Applies rules to axioms"],
+        "mechanisms": ["Backward chaining"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Axioms"]
+    }
+  }
+]
+```
+
+**章节：2. Geometry Theorem Proving**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Koedinger1990_GeometryProblemSolving",
+      "entity_type": "Algorithm",
+      "name": "Geometry Problem Solving",
+      "year": 1990,
+      "authors": ["Koedinger, K.R."],
+      "task": "Geometry Problem Solving",
+      "dataset": ["Geometry problems"],
+      "metrics": ["Number of inferences"],
+      "architecture": {
+        "components": ["Search strategies", "Heuristic knowledge"],
+        "connections": ["Applies rules in problem space"],
+        "mechanisms": ["Backward chaining", "Forward chaining"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Problem representation"]
+    }
+  }
+]
+```
+
+**章节：2.1 Historical Background**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Tarski1926_AxiomSystem",
+      "entity_type": "Algorithm",
+      "name": "Axiom System",
+      "year": 1926,
+      "authors": ["Tarski, A."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["Euclidean geometry problems"],
+      "metrics": ["Number of theorems proved"],
+      "architecture": {
+        "components": ["Points", "betweenness", "equidistance"],
+        "connections": ["Applies rules to axioms"],
+        "mechanisms": ["Axiomatic system"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Primitive relations"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "EuclideanGeometryProblems_1926",
+      "entity_type": "Dataset",
+      "name": "Euclidean geometry problems",
+      "description": "Collection of problems in Euclidean geometry",
+      "domain": "Geometry",
+      "size": "Not specified",
+      "year": 1926,
+      "creators": ["Tarski, A."]
+    }
+  }
+]
+```
+
+**章节：2. Geometry Theorem Proving**
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Fleuriot2001_Isabelle",
+      "entity_type": "Algorithm",
+      "name": "Isabelle",
+      "year": 2001,
+      "authors": ["Fleuriot, J."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["Geometry problems"],
+      "metrics": ["Number of theorems proved"],
+      "architecture": {
+        "components": ["Formalization"],
+        "connections": ["Applies rules to axioms"],
+        "mechanisms": ["Mechanical theorem proving"]
+      },
+      "methodology": {
+        "training_strategy": [],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Axioms"]
+    }
+  }
+]
+```
+
+### 提取总结
+
+1. 刚刚提取的是 **2. Geometry Theorem Proving** 和 **2.1 Historical Background** 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 **第2个文档 《[22]Georep_ A flexible tool for spatial representation of line drawings.pdf》** 的 **Introduction** 部分。
+
+```json
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: "2. Geometry Theorem Proving", NEXT_SECTION: "Introduction of [22]Georep_ A flexible tool for spatial representation of line drawings.pdf"
+```

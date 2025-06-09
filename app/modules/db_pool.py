@@ -5,6 +5,7 @@
 import logging
 import mysql.connector
 import time
+import threading
 from app.config import Config
 
 # 设置日志
@@ -24,6 +25,8 @@ class MySQLConnectionPool:
         self.max_connections = max_connections
         self.connections = []
         self.in_use = set()
+        # 添加线程锁以保证并发安全
+        self.lock = threading.RLock()
         self.init_pool()
         
     def init_pool(self):
@@ -76,51 +79,57 @@ class MySQLConnectionPool:
         Returns:
             connection: 数据库连接
         """
-        # 先检查现有空闲连接
-        for conn in self.connections:
-            if conn not in self.in_use:
-                try:
-                    # 验证连接是否有效
-                    if conn.is_connected():
-                        self.in_use.add(conn)
-                        return conn
-                    else:
-                        # 无效连接，从池中移除
-                        self.connections.remove(conn)
-                except:
-                    # 连接出错，从池中移除
-                    if conn in self.connections:
-                        self.connections.remove(conn)
-        
-        # 如果没有可用连接且未达到最大连接数，创建新连接
-        if len(self.connections) < self.max_connections:
-            conn = self._create_connection()
-            if conn:
-                self.connections.append(conn)
-                self.in_use.add(conn)
-                return conn
-        
-        # 如果所有连接都在使用中且达到最大连接数，等待并重试
-        for _ in range(3):  # 最多重试3次
-            time.sleep(1)
-            # 再次检查是否有连接被释放
-            for conn in self.connections:
+        # 使用线程锁保护共享资源访问
+        with self.lock:
+            # 先检查现有空闲连接
+            for conn in self.connections[:]:  # 使用副本遍历，避免迭代中修改
                 if conn not in self.in_use:
                     try:
+                        # 验证连接是否有效
                         if conn.is_connected():
                             self.in_use.add(conn)
                             return conn
+                        else:
+                            # 无效连接，从池中移除
+                            self.connections.remove(conn)
                     except:
                         # 连接出错，从池中移除
                         if conn in self.connections:
                             self.connections.remove(conn)
+            
+            # 如果没有可用连接且未达到最大连接数，创建新连接
+            if len(self.connections) < self.max_connections:
+                conn = self._create_connection()
+                if conn:
+                    self.connections.append(conn)
+                    self.in_use.add(conn)
+                    return conn
+        
+        # 如果所有连接都在使用中且达到最大连接数，等待并重试
+        for _ in range(3):  # 最多重试3次
+            time.sleep(1)
+            # 再次检查是否有连接被释放，需要重新获取锁
+            with self.lock:
+                # 再次检查是否有连接被释放
+                for conn in self.connections[:]:  # 使用副本遍历
+                    if conn not in self.in_use:
+                        try:
+                            if conn.is_connected():
+                                self.in_use.add(conn)
+                                return conn
+                        except:
+                            # 连接出错，从池中移除
+                            if conn in self.connections:
+                                self.connections.remove(conn)
         
         # 如果仍然没有可用连接，作为最后手段，强制创建一个新连接
         logging.warning("连接池已满但仍需要连接，创建临时连接")
         conn = self._create_connection()
         if conn:
-            # 这个连接不加入池中，使用后会被关闭
-            self.in_use.add(conn)
+            # 需要加锁以安全地修改in_use集合
+            with self.lock:
+                # 这个连接不加入池中，使用后会被关闭
+                self.in_use.add(conn)
             return conn
             
         raise Exception("无法获取数据库连接，连接池已满且无法创建新连接")
@@ -131,46 +140,50 @@ class MySQLConnectionPool:
         Args:
             conn: 数据库连接
         """
-        if conn in self.in_use:
-            self.in_use.remove(conn)
-            # 检查连接是否仍然有效
-            try:
-                if conn.is_connected():
-                    # 有效连接保留在池中
-                    pass
-                else:
-                    # 无效连接从池中移除
+        # 使用线程锁保护共享资源访问
+        with self.lock:
+            if conn in self.in_use:
+                self.in_use.remove(conn)
+                # 检查连接是否仍然有效
+                try:
+                    if conn.is_connected():
+                        # 有效连接保留在池中
+                        pass
+                    else:
+                        # 无效连接从池中移除
+                        if conn in self.connections:
+                            self.connections.remove(conn)
+                        conn.close()
+                except:
+                    # 连接出错，从池中移除
                     if conn in self.connections:
                         self.connections.remove(conn)
-                    conn.close()
-            except:
-                # 连接出错，从池中移除
-                if conn in self.connections:
-                    self.connections.remove(conn)
+                    try:
+                        conn.close()
+                    except:
+                        pass
+            elif conn in self.connections:
+                # 如果连接在池中但不在使用中，什么都不做
+                pass
+            else:
+                # 如果是临时连接（不在池中），直接关闭
                 try:
                     conn.close()
                 except:
                     pass
-        elif conn in self.connections:
-            # 如果连接在池中但不在使用中，什么都不做
-            pass
-        else:
-            # 如果是临时连接（不在池中），直接关闭
-            try:
-                conn.close()
-            except:
-                pass
     
     def close_all(self):
         """关闭所有连接"""
-        for conn in self.connections:
-            try:
-                conn.close()
-            except:
-                pass
-        self.connections = []
-        self.in_use = set()
-        logging.info("已关闭所有数据库连接")
+        # 使用线程锁保护共享资源访问
+        with self.lock:
+            for conn in self.connections:
+                try:
+                    conn.close()
+                except:
+                    pass
+            self.connections = []
+            self.in_use = set()
+            logging.info("已关闭所有数据库连接")
 
 # 数据库操作辅助类
 class DBUtils:
@@ -349,4 +362,4 @@ class DBUtils:
             self.pool.close_all()
 
 # 创建单例实例
-db_utils = DBUtils(pool_size=6, max_connections=10) 
+db_utils = DBUtils(pool_size=18, max_connections=18) 

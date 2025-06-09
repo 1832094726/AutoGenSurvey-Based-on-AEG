@@ -1,0 +1,102 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2017_RecurrentNeuralNetworkModel",
+      "entity_type": "Algorithm",
+      "name": "Recurrent Neural Network (RNN) Model",
+      "year": 2017,
+      "authors": ["Wang, Y.", "Liu, X.", "Shi, S."],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Math23K_2017", "Alg514_2014"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Encoder", "Decoder"],
+        "connections": ["GRU", "LSTM"],
+        "mechanisms": ["Seq2Seq", "Attention"]
+      },
+      "methodology": {
+        "training_strategy": ["Cross-entropy Loss", "Mini-batch Size 256", "Learning Rate 0.01"],
+        "parameter_tuning": ["Dropout Probability 0.5", "5-Layer Deep Model"]
+      },
+      "feature_processing": ["Significant Number Identification"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Math23K_2017",
+      "entity_type": "Dataset",
+      "name": "Math23K",
+      "description": "Large dataset of Chinese math word problems",
+      "domain": "Mathematics",
+      "size": 23161,
+      "year": 2017,
+      "creators": ["Wang, Y.", "Liu, X.", "Shi, S."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Alg514_2014",
+      "entity_type": "Dataset",
+      "name": "Alg514",
+      "description": "Dataset of linear algebra problems",
+      "domain": "Mathematics",
+      "size": 514,
+      "year": 2014,
+      "creators": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "formula": "正确分类样本数/总样本数"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2017_HybridModel",
+      "entity_type": "Algorithm",
+      "name": "Hybrid Model",
+      "year": 2017,
+      "authors": ["Wang, Y.", "Liu, X.", "Shi, S."],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Math23K_2017", "Alg514_2014"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Seq2Seq Model", "Retrieval Model"],
+        "connections": ["Jaccard Similarity", "Cosine Similarity"],
+        "mechanisms": ["Threshold-based Selection"]
+      },
+      "methodology": {
+        "training_strategy": ["Cross-entropy Loss", "Mini-batch Size 256", "Learning Rate 0.01"],
+        "parameter_tuning": ["Threshold θ"]
+      },
+      "feature_processing": ["Significant Number Identification"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2017_SignificantNumberIdentifier",
+      "entity_type": "Algorithm",
+      "name": "Significant Number Identifier (SNI)",
+      "year": 2017,
+      "authors": ["Wang, Y.", "Liu, X.", "Shi, S."],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Math23K_2017"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["LSTM"],
+        "connections": ["Symmetric Window of Length 3"],
+        "mechanisms": ["Binary Classification"]
+      },
+      "methodology": {
+        "training_strategy": ["Cross-entropy Loss"],
+        "parameter_tuning": ["128 Nodes"]
+      },
+      "feature_processing": ["Number Context Extraction"]
+    }
+  }
+]
