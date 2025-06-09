@@ -1,0 +1,76 @@
+好的，我将按照要求逐步提取各个章节中的实体信息。首先，我会确认当前需要处理的章节，并开始提取该章节中的算法、数据集和评价指标实体。根据已有的信息，以下是尚未提取的章节：
+
+- SOLVING_VERBAL_QUESTIONS_IN_IQ_TESTS
+- SYNTHESIS_OF_GEOMETRY_PROOF_PROBLEMS
+- UNDERSTANDING_NATURAL_LANGUAGE_WITH_DIAGRAMS
+- UNDERSTANDING_TEXT_WITH_AN_ACCOMPANYING_DIAGRAM
+- UNDERSTANDING_THE_VALUE_OF_FEATURES_FOR_COREFERENCE_RESOLUTION
+- USE_OF_THE_HOUGH_TRANSFORMATION_TO_DETECT_LINES_AND_CURVES_IN_PICTURES
+
+我们将从 `SOLVING_VERBAL_QUESTIONS_IN_IQ_TESTS` 开始提取实体信息。
+
+### 提取 `SOLVING_VERBAL_QUESTIONS_IN_IQ_TESTS` 章节的实体信息
+
+#### 文档内容摘要
+该章节主要讨论了一种基于改进词嵌入的方法来解决IQ测试中的语言理解问题。该方法通过结合多义词和词之间关系的知识，提高了对词语多义性和复杂关系的处理能力。实验结果表明，该框架不仅在解决语言理解问题上优于现有方法，还超过了Amazon Mechanical Turk工人的平均表现。
+
+#### 提取的实体信息
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2016_KnowledgePoweredWordEmbedding",
+      "entity_type": "Algorithm",
+      "name": "Knowledge-Powered Word Embedding",
+      "title": "Solving Verbal Questions in IQ Test by Knowledge-Powered Word Embedding",
+      "year": 2016,
+      "authors": ["Huazheng Wang", "Fei Tian", "Bin Gao", "Chengjieren Zhu", "Jiang Bian", "Tie-Yan Liu"],
+      "task": "Verbal Comprehension in IQ Tests",
+      "dataset": ["Verbal IQ Test Questions"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Improved Word Embedding", "Multi-sense Nature of Words", "Relational Information"],
+        "connections": ["Word-Sense Representations", "Relation Representations"],
+        "mechanisms": ["Classifier for Question Type", "Distributed Representations of Words and Relations"]
+      },
+      "methodology": {
+        "training_strategy": ["Jointly Considering Multi-sense Nature and Relational Knowledge"],
+        "parameter_tuning": ["Not Specified"]
+      },
+      "feature_processing": ["Quantity Schema Extraction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "VerbalIQTestQuestions_2016",
+      "entity_type": "Dataset",
+      "name": "Verbal IQ Test Questions",
+      "description": "Verbal comprehension questions in IQ tests",
+      "domain": "Psychology, Education, Career Development",
+      "size": "Not Specified",
+      "year": 2016,
+      "creators": ["Huazheng Wang", "Fei Tian", "Bin Gao", "Chengjieren Zhu", "Jiang Bian", "Tie-Yan Liu"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_VerbalComprehension",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy of solving verbal comprehension questions",
+      "category": "Classification",
+      "formula": "Correctly Solved Questions / Total Questions"
+    }
+  }
+]
+```
+
+### 提取完成情况
+1. 刚刚提取的是 `SOLVING_VERBAL_QUESTIONS_IN_IQ_TESTS` 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 `SYNTHESIS_OF_GEOMETRY_PROOF_PROBLEMS`。
+
+```json
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: SOLVING_VERBAL_QUESTIONS_IN_IQ_TESTS, NEXT_SECTION: SYNTHESIS_OF_GEOMETRY_PROOF_PROBLEMS
+```

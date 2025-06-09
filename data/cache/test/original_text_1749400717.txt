@@ -1,0 +1,99 @@
+为了确保提取工作的系统性和完整性，我将按照章节逐步提取实体信息。首先，我会确认当前文档中的章节结构，并从尚未提取的章节开始工作。根据已有的信息，以下是尚未提取的章节：
+
+- Diagram Understanding in Geometry Questions
+- Experiments with a deductive question-answering program
+- Extraction of Implicit Quantity Relations for Arithmetic Word Problems in Chinese
+- Frame-Based Calculus of solving Arithmetic Multi-Step Addition and Subtraction word problems
+- Geometry Theorem Proving
+- GloVe: Global Vectors for Word Representation
+- ImageNet: A Large-Scale Hierarchical Image Database
+- Joint Coreference Resolution and Named-Entity Linking with Multi-pass Sieves
+- Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation
+- Making the V in VQA Matter: Elevating the Role of Image Understanding in Visual Question Answering
+- MathDQN: Solving Arithmetic Word Problems via Deep Reinforcement Learning
+- Neural Math Word Problem Solver with Reinforcement Learning
+- Parsing with Compositional Vector Grammars
+- Rectangle detection based on a windowed Hough transform
+- ROBUST UNDERSTANDING OF WORD PROBLEMS WITH EXTRANEOUS INFORMATION
+- Scaling Semantic Parsers with On-the-fly Ontology Matching
+- Semantically-Aligned Equation Generation for Solving and Reasoning Math Word Problems
+- Semantics of context-free languages
+- Sequence to Sequence Learning with Neural Networks
+- Sequence-to-Sequence Learning as Beam-Search Optimization
+- Simple Coreference Resolution with Rich Syntactic and Semantic Features
+- Tag-based English Math Word Problem Solver with Understanding, Reasoning and Explanation
+- Understanding using integration of layout information and textual information
+
+我们将从“Diagram Understanding in Geometry Questions”这一章节开始提取实体信息。
+
+### 提取的实体信息
+
+#### Diagram Understanding in Geometry Questions
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Seo2014_DiagramUnderstanding",
+      "entity_type": "Algorithm",
+      "name": "Diagram Understanding",
+      "title": "Diagram Understanding in Geometry Questions",
+      "year": 2014,
+      "authors": ["Min Joon Seo", "Hannaneh Hajishirzi", "Ali Farhadi", "Oren Etzioni"],
+      "task": "Geometry Question Solving",
+      "dataset": ["Geometry Questions Dataset_2014"],
+      "metrics": ["F1 Score_DiagramUnderstanding", "Accuracy_DiagramAlignment"],
+      "architecture": {
+        "components": ["Visual Element Identification", "Textual Alignment"],
+        "connections": ["Visual Elements to Textual Descriptions"],
+        "mechanisms": ["Submodular Objective Function"]
+      },
+      "methodology": {
+        "training_strategy": ["Maximizing Agreement Between Textual and Visual Data"],
+        "parameter_tuning": ["Submodular Function Optimization"]
+      },
+      "feature_processing": ["Visual Feature Extraction", "Textual Feature Extraction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "GeometryQuestionsDataset_2014",
+      "entity_type": "Dataset",
+      "name": "Geometry Questions Dataset",
+      "description": "Dataset of geometry questions with textual descriptions and diagrams",
+      "domain": "Geometry Education",
+      "size": "Not specified",
+      "year": 2014,
+      "creators": ["Min Joon Seo", "Hannaneh Hajishirzi", "Ali Farhadi", "Oren Etzioni"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "F1_Score_DiagramUnderstanding",
+      "entity_type": "Metric",
+      "name": "F1 Score",
+      "description": "F1 score for identifying visual elements",
+      "category": "Diagram Understanding",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_DiagramAlignment",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy for aligning visual elements with textual descriptions",
+      "category": "Diagram Alignment",
+      "formula": "Correct Alignments / Total Alignments"
+    }
+  }
+]
+```
+
+### 提取总结
+
+1. 刚刚提取的是“Diagram Understanding in Geometry Questions”章节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是“Experiments with a deductive question-answering program”。
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: Diagram Understanding in Geometry Questions, NEXT_SECTION: Experiments with a deductive question-answering program

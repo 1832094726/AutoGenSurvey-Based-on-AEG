@@ -1,0 +1,90 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Seo2014_GEOREP",
+      "entity_type": "Algorithm",
+      "name": "GEOREP",
+      "year": 2000,
+      "authors": ["Ferguson, R. W.", "Forbus, K. D."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["Line Diagrams"],
+      "metrics": ["Qualitative Spatial Descriptions"],
+      "architecture": {
+        "components": ["Structure Mapping Engine"],
+        "connections": ["Line Diagrams to Qualitative Descriptions"],
+        "mechanisms": ["Two-Level Representation Architecture"]
+      },
+      "methodology": {
+        "training_strategy": ["Not Applicable"],
+        "parameter_tuning": ["Not Applicable"]
+      },
+      "feature_processing": ["Feature Points Graph Generation"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Seo2014_GEOS",
+      "entity_type": "Algorithm",
+      "name": "GEOS",
+      "year": 2015,
+      "authors": ["Seo, M. J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O.", "Malcolm, C."],
+      "task": "Solving Geometry Problems",
+      "dataset": ["Geometry Word Problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Text Parsing", "Diagram Parsing", "Logical Expression Generation"],
+        "connections": ["Text-Diagram Alignment"],
+        "mechanisms": ["Primitive Detection", "Logical Expression Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Not Applicable"],
+        "parameter_tuning": ["Not Applicable"]
+      },
+      "feature_processing": ["Logical Expression Confidence Scores"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Sachan2017_TextbookAxiomaticKnowledge",
+      "entity_type": "Algorithm",
+      "name": "Textbook Axiomatic Knowledge",
+      "year": 2017,
+      "authors": ["Sachan, M.", "Dubey, A.", "Xing, E. P."],
+      "task": "Solving Geometry Problems",
+      "dataset": ["Geometry Word Problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Axiomatic Knowledge Extraction", "Reasoning Engine"],
+        "connections": ["Textbook to Logical Inference"],
+        "mechanisms": ["Structured Axiomatic Knowledge"]
+      },
+      "methodology": {
+        "training_strategy": ["Not Applicable"],
+        "parameter_tuning": ["Not Applicable"]
+      },
+      "feature_processing": ["Axiomatic Knowledge Harvesting"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Alvin2017_GeoShader",
+      "entity_type": "Algorithm",
+      "name": "GeoShader",
+      "year": 2017,
+      "authors": ["Alvin, C.", "Gulwani, S.", "Majumdar, R.", "Mukhopadhyay, S."],
+      "task": "Solving Geometry Problems",
+      "dataset": ["Shaded Area Geometry Problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Hypergraph Analysis", "Intermediate Fact Extraction"],
+        "connections": ["Fact Relationships"],
+        "mechanisms": ["Deductive Reasoning"]
+      },
+      "methodology": {
+        "training_strategy": ["Not Applicable"],
+        "parameter_tuning": ["Not Applicable"]
+      },
+      "feature_processing": ["Hypergraph Construction"]
+    }
+  }
+]

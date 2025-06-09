@@ -1,0 +1,47 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2016_ExpressionTree",
+      "entity_type": "Algorithm",
+      "name": "Expression Tree",
+      "title": "Solving General Arithmetic Word Problems",
+      "year": 2016,
+      "authors": ["Subhro Roy", "Dan Roth"],
+      "task": "Arithmetic Word Problem Solving",
+      "dataset": ["Benchmark datasets of arithmetic word problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Expression Tree", "Constrained Inference Framework", "Quantity Schemas"],
+        "connections": ["Decomposition of arithmetic problem into classification problems", "Combination of world knowledge"],
+        "mechanisms": ["Unique decomposition properties", "Joint inference problem formulation"]
+      },
+      "methodology": {
+        "training_strategy": ["Decomposing the problem into simpler prediction problems"],
+        "parameter_tuning": ["Not explicitly mentioned"]
+      },
+      "feature_processing": ["Quantity Schemas for better feature extraction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "BenchmarkArithmeticWordProblems_2016",
+      "entity_type": "Dataset",
+      "name": "Benchmark datasets of arithmetic word problems",
+      "description": "Benchmark datasets used for evaluating arithmetic word problem solving algorithms",
+      "domain": "Natural Language Processing",
+      "size": "Not explicitly mentioned",
+      "year": 2016,
+      "creators": ["Subhro Roy", "Dan Roth"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_ArithmeticWordProblems",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy of solving arithmetic word problems",
+      "category": "Arithmetic Word Problem Solving",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  }
+]

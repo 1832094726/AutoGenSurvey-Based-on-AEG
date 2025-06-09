@@ -1,0 +1,47 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Cho2014_RNNEncoderDecoder",
+      "entity_type": "Algorithm",
+      "name": "RNN Encoder–Decoder",
+      "title": "Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation",
+      "year": 2014,
+      "authors": ["Kyunghyun Cho", "Bart van Merriënboer", "Caglar Gulcehre", "Dzmitry Bahdanau", "Fethi Bougares", "Holger Schwenk", "Yoshua Bengio"],
+      "task": "Statistical Machine Translation",
+      "dataset": ["English-French translation dataset"],
+      "metrics": ["BLEU Score"],
+      "architecture": {
+        "components": ["Encoder RNN", "Decoder RNN"],
+        "connections": ["Fixed-length vector representation"],
+        "mechanisms": ["Conditional probability maximization"]
+      },
+      "methodology": {
+        "training_strategy": ["Joint training of encoder and decoder"],
+        "parameter_tuning": ["Learning rate", "Batch size"]
+      },
+      "feature_processing": ["Phrase representation"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "EnglishFrenchTranslationDataset_2014",
+      "entity_type": "Dataset",
+      "name": "English-French translation dataset",
+      "description": "Dataset for translating English to French",
+      "domain": "Natural Language Processing",
+      "size": "Not specified",
+      "year": 2014,
+      "creators": ["Not specified"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "BLEU_Score_Translation",
+      "entity_type": "Metric",
+      "name": "BLEU Score",
+      "description": "Bilingual Evaluation Understudy Score",
+      "category": "Translation Evaluation",
+      "formula": "Not specified"
+    }
+  }
+]

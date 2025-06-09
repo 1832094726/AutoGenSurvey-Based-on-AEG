@@ -365,7 +365,6 @@ class DatabaseManager:
                     entity_type VARCHAR(50) DEFAULT 'Metric',
                     task_id VARCHAR(255) NOT NULL,
                     source VARCHAR(50) DEFAULT '未知' NOT NULL,
-                    `range` VARCHAR(255),
                     tasks TEXT,
                     PRIMARY KEY(metric_id, task_id, source)
                 )
@@ -394,15 +393,6 @@ class DatabaseManager:
                 except Exception as e:
                     logging.warning(f"修改Metrics表主键时出错: {str(e)}，可能已经是联合主键")
                 
-                # 检查range字段是否存在，如果存在但没有使用反引号，则重命名
-                try:
-                    cursor.execute("SHOW COLUMNS FROM Metrics LIKE 'range'")
-                    if cursor.fetchone():
-                        # 尝试将range字段重命名为带反引号的版本
-                        cursor.execute("ALTER TABLE Metrics CHANGE COLUMN range `range` VARCHAR(255)")
-                        logging.info("将Metrics表中的range字段修改为使用反引号")
-                except Exception as e:
-                    logging.warning(f"检查或修改range字段时出错: {str(e)}")
                 
                 # 检查tasks字段是否存在，如果不存在则添加
                 cursor.execute("SHOW COLUMNS FROM Metrics LIKE 'tasks'")
@@ -2738,11 +2728,7 @@ class DatabaseManager:
             description = str(description) if description else ''
             category = str(category) if category else ''
             formula = str(formula) if formula else ''
-            
-            # 处理range字段
-            range_value = entity_data.get('range', '')
-            range_value = str(range_value) if range_value else ''
-            
+
             # 处理tasks字段，确保是JSON字符串
             tasks_value = entity_data.get('tasks', [])
             if not isinstance(tasks_value, list):
@@ -2760,13 +2746,13 @@ class DatabaseManager:
                 UPDATE Metrics SET
                     name = %s, description = %s, category = %s,
                     formula = %s, entity_type = %s,
-                    `range` = %s, tasks = %s
+                    tasks = %s
                 WHERE metric_id = %s AND task_id = %s AND source = %s
                 '''
                 db_utils.update_one(update_sql, (
                     name, description, category,
                     formula, 'Metric',
-                    range_value, tasks, metric_id, task_id, source
+                    tasks, metric_id, task_id, source
                 ))
                 logging.info(f"更新评价指标: {metric_id}, 任务ID: {task_id}, 来源: {source}")
             else:
@@ -2774,18 +2760,16 @@ class DatabaseManager:
                 insert_sql = '''
                 INSERT INTO Metrics (
                     metric_id, name, description, category,
-                    formula, entity_type, task_id, source,
-                    `range`, tasks
+                    formula, entity_type, task_id, source, tasks
                 ) VALUES (
                     %s, %s, %s, %s,
                     %s, %s, %s, %s,
-                    %s, %s
+                    %s
                 )
                 '''
                 db_utils.insert_one(insert_sql, (
                     metric_id, name, description, category,
-                    formula, 'Metric', task_id, source,
-                    range_value, tasks
+                    formula, 'Metric', task_id, source, tasks
                 ))
                 logging.info(f"存储评价指标: {metric_id}, 任务ID: {task_id}, 来源: {source}")
             

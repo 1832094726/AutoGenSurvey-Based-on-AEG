@@ -1,0 +1,84 @@
+好的，我将根据提供的PDF文件和提示词文件逐步提取相关实体信息。为了确保提取的准确性，我将按照章节和小节进行处理，并在每次提取后告知当前进度。
+
+### 当前处理章节：Parsing Algebraic Word Problems into Equations
+
+#### 提取的实体信息：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "KoncelKedziorski2015_ALGES",
+      "entity_type": "Algorithm",
+      "name": "ALGES",
+      "title": "Parsing Algebraic Word Problems into Equations",
+      "year": 2015,
+      "authors": ["Koncel-Kedziorski, R.", "Hajishirzi, H.", "Sabharwal, A.", "Etzioni, O.", "Ang, S.D."],
+      "task": "Solving algebraic word problems",
+      "dataset": ["Alg514", "Dolphin1878"],
+      "metrics": ["Equation likelihood", "Solution accuracy"],
+      "architecture": {
+        "components": ["Integer Linear Programming(ILP)", "Local and global discriminative models"],
+        "connections": ["Equation tree generation", "Scoring equation likelihood"],
+        "mechanisms": ["Learning local and global models"]
+      },
+      "methodology": {
+        "training_strategy": ["Integer Linear Programming(ILP)"],
+        "parameter_tuning": ["Equation likelihood maximization"]
+      },
+      "feature_processing": ["Equation tree generation"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Alg514_2015",
+      "entity_type": "Dataset",
+      "name": "Alg514",
+      "description": "A dataset containing 514 algebra problems",
+      "domain": "Mathematics",
+      "size": 514,
+      "year": 2015,
+      "creators": ["Koncel-Kedziorski, R.", "Hajishirzi, H.", "Sabharwal, A.", "Etzioni, O.", "Ang, S.D."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Dolphin1878_2015",
+      "entity_type": "Dataset",
+      "name": "Dolphin1878",
+      "description": "A dataset containing 1878 algebra problems",
+      "domain": "Mathematics",
+      "size": 1878,
+      "year": 2015,
+      "creators": ["Koncel-Kedziorski, R.", "Hajishirzi, H.", "Sabharwal, A.", "Etzioni, O.", "Ang, S.D."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "EquationLikelihood_Classification",
+      "entity_type": "Metric",
+      "name": "Equation likelihood",
+      "description": "The likelihood of an equation being correct",
+      "category": "Classification",
+      "formula": "Not explicitly defined"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "SolutionAccuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Solution accuracy",
+      "description": "The accuracy of the solution to the word problem",
+      "category": "Classification",
+      "formula": "Correct solutions / Total solutions"
+    }
+  }
+]
+```
+
+### 提取完成情况：
+1. 刚刚提取的是章节 **Parsing Algebraic Word Problems into Equations**。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 **Learning to Solve Arithmetic Word Problems with Verb Categorization**。
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: Parsing Algebraic Word Problems into Equations, NEXT_SECTION: Learning to Solve Arithmetic Word Problems with Verb Categorization

@@ -1,0 +1,47 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2016_KnowledgePoweredWordEmbedding",
+      "entity_type": "Algorithm",
+      "name": "Knowledge-Powered Word Embedding",
+      "title": "Solving Verbal Questions in IQ Test by Knowledge-Powered Word Embedding",
+      "year": 2016,
+      "authors": ["Huazheng Wang", "Fei Tian", "Bin Gao", "Chengjieren Zhu", "Jiang Bian", "Tie-Yan Liu"],
+      "task": "Verbal Comprehension in IQ Tests",
+      "dataset": ["Verbal IQ Test Questions"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Improved Word Embedding", "Multi-sense Nature of Words", "Relational Information"],
+        "connections": ["Word-Sense Representations", "Relation Representations"],
+        "mechanisms": ["Classifier for Question Type", "Distributed Representations of Words and Relations"]
+      },
+      "methodology": {
+        "training_strategy": ["Jointly Considering Multi-sense Nature and Relational Knowledge"],
+        "parameter_tuning": ["Not Specified"]
+      },
+      "feature_processing": ["Quantity Schema Extraction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "VerbalIQTestQuestions_2016",
+      "entity_type": "Dataset",
+      "name": "Verbal IQ Test Questions",
+      "description": "Verbal comprehension questions in IQ tests",
+      "domain": "Psychology, Education, Career Development",
+      "size": "Not Specified",
+      "year": 2016,
+      "creators": ["Huazheng Wang", "Fei Tian", "Bin Gao", "Chengjieren Zhu", "Jiang Bian", "Tie-Yan Liu"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_VerbalComprehension",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy of solving verbal comprehension questions",
+      "category": "Classification",
+      "formula": "Correctly Solved Questions / Total Questions"
+    }
+  }
+]
