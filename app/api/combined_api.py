@@ -909,7 +909,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         )
         
         # 处理引用文献，提取实体，使用相同的任务ID
-        citation_entities, citation_relations = extract_entities_from_citations(citation_paths, task_id)
+        citation_entities, citation_relations = extract_entities_from_citations(review_entities,citation_paths, task_id)
         
         # 确保所有引文实体都有正确的来源标记
         for entity in citation_entities:
@@ -1057,6 +1057,7 @@ def extract_entities_from_review(review_path, task_id):
     
     # 从综述论文中提取实体，使用主任务ID
     entities, is_complete = extract_paper_entities(
+        review_entities=None,
         pdf_paths=review_path,
         model_name="qwen",
         task_id=task_id  # 使用主任务ID
@@ -1081,7 +1082,7 @@ def extract_entities_from_review(review_path, task_id):
     # 暂时返回空的关系列表，关系将在后续步骤中提取
     return entities, []
 
-def extract_entities_from_citations(citation_paths, task_id):
+def extract_entities_from_citations(review_entities, citation_paths, task_id):
     """从引用文献中提取实体和关系"""
     from app.modules.agents import extract_paper_entities
     
@@ -1104,6 +1105,7 @@ def extract_entities_from_citations(citation_paths, task_id):
 
     # 提取实体，使用主任务ID
     all_entities, is_complete = extract_paper_entities(
+        review_entities=review_entities,
         pdf_paths=valid_paths,
         max_attempts=8,
         batch_size=batch_size,

@@ -83,7 +83,7 @@ def check_extraction_complete(text):
 
 
 # 修改生成提取提示词的函数
-def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None, extracted_sections=None):
+def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None, extracted_sections=None,review_entities=None):
     """
     生成用于实体提取的提示词，支持分章节提取
     
@@ -114,7 +114,11 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
 3. 如果还有未提取的小节，下一个要提取的小节是什么
 """
     prompt += chapter_extraction_prompt
-    
+    if review_entities:
+        prompt += "\n\n重点关注是否存在以下实体，存在则提取\n- "
+        for entity in review_entities:
+            entity_name = entity["algorithm_entity"].get("algorithm_id")
+            prompt += f"{entity_name}\n"
     # 添加完成状态请求
     completion_request = """
 最后，请明确告知我提取是否已完成，还是需要继续提取更多实体。请根据你对文本的分析，判断是否已经提取了所有可能的实体。
@@ -151,7 +155,7 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
         logging.info(f"已提取的实体: {entity_examples}")
         previous_entities_hint = "\n\n以下实体已经被提取过，请不要重复提取，并继续识别其他实体：\n- "
         previous_entities_hint += "\n- ".join(entity_examples)
-        previous_entities_hint += "\n\n请确保你提取的是新实体，不要包含上述已提取的实体。"
+        previous_entities_hint += "\n\n请确保你提取的是新实体，不要包含上述已提取的实体。例如Chen2014_NeuralNetworkDependencyParser和Chen2014_NeuralNetworkDependencyParserWithCubeActivation，Chen2014_NeuralNetworkDependencyParserWithIdentityActivation,Chen2014_NeuralNetworkDependencyParserWithPretrainedEmbeddings,xxxwith Random Initialization 是同一个实体，不要重复提取。同一类模型提取一个即可。"
         prompt += previous_entities_hint
     
     return prompt
@@ -392,7 +396,7 @@ def extract_entities_with_openai(prompt, model_name="gpt-3.5-turbo", max_attempt
 
 
 # 创建一个通用的实体提取函数，替代多个API特定的函数
-def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, previous_entities=None):
+def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, previous_entities=None,review_entities=None):
     """
     使用指定模型从PDF文件中提取实体，支持多个文件和file-id方式
     
@@ -444,7 +448,8 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
         current_prompt = generate_entity_extraction_prompt(
             model_name, 
             previous_entities=all_entities,
-            extracted_sections=extracted_sections
+            extracted_sections=extracted_sections,
+            review_entities=review_entities
         )
         
         # 每次迭代时创建新的提示词文件，但只获取一次file_id
@@ -784,7 +789,7 @@ def extract_json_from_text(text):
     logging.warning("未能从文本中提取有效的JSON")
     return None
 
-def extract_paper_entities(pdf_paths, max_attempts=25, batch_size=100, model_name="qwen", task_id=None):
+def extract_paper_entities(review_entities,pdf_paths, max_attempts=25, batch_size=100, model_name="qwen", task_id=None):
     """
     从PDF文件中提取实体，支持批量处理和文件ID模式
     
@@ -855,7 +860,7 @@ def extract_paper_entities(pdf_paths, max_attempts=25, batch_size=100, model_nam
             logging.error(f"读取缓存文件出错: {str(e)}")
     
     # 如果没有缓存或读取缓存失败，执行提取
-    all_entities = []
+    all_entities = [] 
     is_complete = True
     
     # 统一分批处理，无论batch_size为多少
@@ -866,7 +871,8 @@ def extract_paper_entities(pdf_paths, max_attempts=25, batch_size=100, model_nam
             batch_paths, 
             model_name=model_name,
             max_attempts=max_attempts,
-            previous_entities=all_entities if all_entities else None
+            previous_entities=all_entities if all_entities else None,
+            review_entities=review_entities
         )
         # 合并实体（去重）
         if all_entities:
