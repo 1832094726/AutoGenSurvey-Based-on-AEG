@@ -1,0 +1,4 @@
+{
+        "training_strategy": ["Structured Averaged Perceptron"],
+        "parameter_tuning": ["Liblinear Optimization"]
+      }

@@ -1,0 +1,4 @@
+{
+        "training_strategy": ["joint training", "gradient-based optimization"],
+        "parameter_tuning": ["initialization with Gaussian distribution", "AdaDelta optimizer"]
+      }

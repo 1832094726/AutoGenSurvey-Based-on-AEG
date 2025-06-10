@@ -1,0 +1,141 @@
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hajishirzi2013_NECO",
+      "entity_type": "Algorithm",
+      "name": "NECO",
+      "title": "Joint Coreference Resolution and Named-Entity Linking with Multi-pass Sieves",
+      "year": 2013,
+      "authors": ["Hannaneh Hajishirzi", "Leila Zilles", "Daniel S. Weld", "Luke Zettlemoyer"],
+      "task": "Coreference Resolution and Named-Entity Linking",
+      "dataset": ["ACE2004-NWIRE_2004", "CONLL2011_2011"],
+      "metrics": ["MUC_F1", "B3_F1", "Pairwise_F1"],
+      "architecture": {
+        "components": ["Stanford Sieve Model", "NEL-informed sieves", "GLOW", "WikipediaMiner"],
+        "connections": ["mention detection", "cluster merging", "NEL constraints"],
+        "mechanisms": ["mention pruning", "attribute propagation", "exact and head entity links"]
+      },
+      "methodology": {
+        "training_strategy": ["joint learning", "deterministic rules"],
+        "parameter_tuning": ["confidence thresholds for NEL systems"]
+      },
+      "feature_processing": ["semantic attributes from Freebase and Wikipedia", "mention entity links", "pruning spurious mentions"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Zhou2015_QuadraticProgrammingSolver",
+      "entity_type": "Algorithm",
+      "name": "Quadratic Programming Solver",
+      "title": "Learn to Solve Algebra Word Problems Using Quadratic Programming",
+      "year": 2015,
+      "authors": ["Lipu Zhou", "Shuaixiang Dai", "Liwei Chen"],
+      "task": "Solving Algebra Word Problems",
+      "dataset": ["Kushman2014_Dataset_2014"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["log-linear model", "quadratic programming"],
+        "connections": ["template selection", "number assignment"],
+        "mechanisms": ["max-margin objective", "constraint generation"]
+      },
+      "methodology": {
+        "training_strategy": ["max-margin learning", "constraint generation"],
+        "parameter_tuning": ["C parameter for QP"]
+      },
+      "feature_processing": ["single slot features", "slot pair features", "solution features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Goldwasser2014_LearningFromNaturalInstructions",
+      "entity_type": "Algorithm",
+      "name": "Learning from Natural Instructions",
+      "title": "Learning from Natural Instructions",
+      "year": 2014,
+      "authors": ["Dan Goldwasser", "Dan Roth"],
+      "task": "Semantic Parsing",
+      "dataset": ["Freecell Solitaire Card Game", "Geoquery_Dataset_1996"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["semantic interpreter", "Integer Linear Programming(ILP)"],
+        "connections": ["lexical alignment", "compositional decisions"],
+        "mechanisms": ["feedback-driven learning", "loss approximation"]
+      },
+      "methodology": {
+        "training_strategy": ["response-driven learning", "binary feedback"],
+        "parameter_tuning": ["weight vector updates"]
+      },
+      "feature_processing": ["lexical similarity", "syntactic dependencies", "external knowledge base"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Cho2014_RNNEncoderDecoder",
+      "entity_type": "Algorithm",
+      "name": "RNN Encoder-Decoder",
+      "title": "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation",
+      "year": 2014,
+      "authors": ["Kyunghyun Cho", "Bart van Merrienboer", "Caglar Gulcehre", "Dzmitry Bahdanau", "Fethi Bougares", "Holger Schwenk", "Yoshua Bengio"],
+      "task": "Statistical Machine Translation",
+      "dataset": ["English-French_Translation_Task_2014"],
+      "metrics": ["BLEU_Score"],
+      "architecture": {
+        "components": ["RNN Encoder", "RNN Decoder", "hidden unit with reset and update gates"],
+        "connections": ["sequence encoding", "sequence decoding"],
+        "mechanisms": ["adaptive memory", "conditional probability maximization"]
+      },
+      "methodology": {
+        "training_strategy": ["joint training", "gradient-based optimization"],
+        "parameter_tuning": ["initialization of weight matrices", "hyperparameters for Adadelta"]
+      },
+      "feature_processing": ["word embeddings", "deep neural network layers"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Kushman2014_Dataset_2014",
+      "entity_type": "Dataset",
+      "name": "Kushman2014 Dataset",
+      "description": "A dataset of algebra word problems",
+      "domain": "Natural Language Processing",
+      "size": 514,
+      "year": 2014,
+      "creators": ["Nate Kushman", "Yoav Artzi", "Luke Zettlemoyer", "Regina Barzilay"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Equation_Accuracy",
+      "entity_type": "Metric",
+      "name": "Equation Accuracy",
+      "description": "Measures how often the system generates the correct equation system",
+      "category": "Algebra Word Problem Evaluation",
+      "formula": "Number of correct equation systems / Total number of equation systems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Answer_Accuracy",
+      "entity_type": "Metric",
+      "name": "Answer Accuracy",
+      "description": "Measures how often the generated numerical answer is correct",
+      "category": "Algebra Word Problem Evaluation",
+      "formula": "Number of correct numerical answers / Total number of numerical answers"
+    }
+  }
+]
+```
+
+### 提取总结
+1. **刚刚提取的小节**：从提供的文档中提取了算法、数据集和评价指标实体。
+2. **论文中是否还有其他小节未被提取**：是的，还有一些章节未被提取。
+3. **下一个要提取的小节**：接下来将提取与“Learning to Automatically Solve Algebra Word Problems”相关的剩余部分。
+
+### 下一步行动
+- 继续提取“Learning to Automatically Solve Algebra Word Problems”的剩余部分，特别是其方法论、实验设置和结果部分。
+- 确保不重复提取已有的实体，如Kushman2014_TemplateBasedSolver等。
+
+```json
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: Joint Coreference Resolution and Named-Entity Linking with Multi-pass Sieves, NEXT_SECTION: Learning to Solve Algebra Word Problems Using Quadratic Programming
+```

@@ -1,0 +1,124 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Seo2014_GEOREP",
+      "entity_type": "Algorithm",
+      "name": "GEOREP",
+      "year": 2000,
+      "authors": ["Ferguson, R. W.", "Forbus, K. D."],
+      "task": "Geometry Theorem Proving",
+      "dataset": ["Line Diagrams"],
+      "metrics": ["Qualitative Spatial Descriptions"],
+      "architecture": {
+        "components": ["Structure Mapping Engine"],
+        "connections": ["Two-Level Representation Architecture"],
+        "mechanisms": ["Spatial Representation"]
+      },
+      "methodology": {
+        "training_strategy": ["Not Applicable"],
+        "parameter_tuning": ["Not Applicable"]
+      },
+      "feature_processing": ["Line Diagram Parsing"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Seo2014_GEOS",
+      "entity_type": "Algorithm",
+      "name": "GEOS",
+      "year": 2015,
+      "authors": ["Seo, M. J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O.", "Malcolm, C."],
+      "task": "Solving Geometry Problems",
+      "dataset": ["Geometry Word Problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Text Parsing", "Diagram Parsing"],
+        "connections": ["Logical Expression Generation"],
+        "mechanisms": ["Numerical Method for Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Not Applicable"],
+        "parameter_tuning": ["Not Applicable"]
+      },
+      "feature_processing": ["Textual and Diagrammatic Information Integration"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Sachan2017_TextbookAxiomaticKnowledge",
+      "entity_type": "Algorithm",
+      "name": "Textbook Axiomatic Knowledge",
+      "year": 2017,
+      "authors": ["Sachan, M.", "Dubey, A.", "Xing, E. P."],
+      "task": "Solving Geometry Problems",
+      "dataset": ["Geometry Word Problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Axiomatic Knowledge Extraction"],
+        "connections": ["Logical Inference"],
+        "mechanisms": ["Structured Axiomatic Knowledge"]
+      },
+      "methodology": {
+        "training_strategy": ["Not Applicable"],
+        "parameter_tuning": ["Not Applicable"]
+      },
+      "feature_processing": ["Textbook Parsing"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Alvin2017_GeoShader",
+      "entity_type": "Algorithm",
+      "name": "GeoShader",
+      "year": 2017,
+      "authors": ["Alvin, C.", "Gulwani, S.", "Majumdar, R.", "Mukhopadhyay, S."],
+      "task": "Solving Geometry Problems",
+      "dataset": ["Shaded Area Geometry Problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Hypergraph Analysis"],
+        "connections": ["Intermediate Fact Extraction"],
+        "mechanisms": ["Deductive Reasoning"]
+      },
+      "methodology": {
+        "training_strategy": ["Not Applicable"],
+        "parameter_tuning": ["Not Applicable"]
+      },
+      "feature_processing": ["Diagram Parsing"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "ALG514_2014",
+      "entity_type": "Dataset",
+      "name": "ALG514",
+      "description": "Crowdsourced algebra problems from Algebra.com",
+      "domain": "Mathematics",
+      "size": 514,
+      "year": 2014,
+      "creators": ["Kushman, N.", "Zettlemoyer, L.", "Barzilay, R.", "Artzi, Y."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Dolphin1878_2015",
+      "entity_type": "Dataset",
+      "name": "Dolphin1878",
+      "description": "Math problems crawled from algebra.com and answers.yahoo.com",
+      "domain": "Mathematics",
+      "size": 1878,
+      "year": 2015,
+      "creators": ["Shi, S.", "Wang, Y.", "Lin, C.", "Liu, X.", "Rui, Y."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Classification accuracy",
+      "category": "Classification Evaluation",
+      "formula": "Correct classifications / Total samples"
+    }
+  }
+]

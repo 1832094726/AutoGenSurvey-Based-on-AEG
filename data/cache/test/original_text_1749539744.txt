@@ -1,0 +1,878 @@
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roth2004_LinearProgrammingFormulation",
+      "entity_type": "Algorithm",
+      "name": "Linear Programming Formulation for Global Inference",
+      "year": 2004,
+      "authors": ["Roth, D.", "Yih, W.T."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Linear Programming", "Global Inference"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Samdani2012_UnifiedExpectationMaximization",
+      "entity_type": "Algorithm",
+      "name": "Unified Expectation Maximization",
+      "year": 2012,
+      "authors": ["Samdani, R.", "Chang, M.", "Roth, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Expectation Maximization"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clarke2006_ConstraintBasedSentenceCompression",
+      "entity_type": "Algorithm",
+      "name": "Constraint-Based Sentence Compression",
+      "year": 2006,
+      "authors": ["Clarke, J.", "Lapata, M."],
+      "task": "Sentence Compression",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Finley2005_SupervisedClustering",
+      "entity_type": "Algorithm",
+      "name": "Supervised Clustering with Support Vector Machines",
+      "year": 2005,
+      "authors": ["Finley, T.", "Joachims, T."],
+      "task": "Clustering",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Support Vector Machines"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Yu2009_LatentSSVM",
+      "entity_type": "Algorithm",
+      "name": "Latent Structural SVM",
+      "year": 2009,
+      "authors": ["Yu, C.", "Joachims, T."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Latent Variables", "Structural SVM"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Ganchev2010_PosteriorRegularization",
+      "entity_type": "Algorithm",
+      "name": "Posterior Regularization for Structured Latent Variable Models",
+      "year": 2010,
+      "authors": ["Ganchev, K.", "Graca, J.", "Gillenwater, J.", "Taskar, B."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Posterior Regularization", "Latent Variables"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Soon2001_MachineLearningApproach",
+      "entity_type": "Algorithm",
+      "name": "Machine Learning Approach to Coreference Resolution",
+      "year": 2001,
+      "authors": ["Soon, W.M.", "Ng, H.T.", "Lim, D.C.Y."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Machine Learning"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "McCallum2003_ConditionalModelsWithIdentityUncertainty",
+      "entity_type": "Algorithm",
+      "name": "Conditional Models of Identity Uncertainty",
+      "year": 2003,
+      "authors": ["McCallum, A.", "Wellner, B."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Conditional Models"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Denis2007_JointDeterminationOfAnaphoricity",
+      "entity_type": "Algorithm",
+      "name": "Joint Determination of Anaphoricity and Coreference Resolution",
+      "year": 2007,
+      "authors": ["Denis, P.", "Baldridge, J."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Durrett2013_DecentralizedEntityLevelModeling",
+      "entity_type": "Algorithm",
+      "name": "Decentralized Entity-Level Modeling",
+      "year": 2013,
+      "authors": ["Durrett, G.", "Hall, D.", "Klein, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Probabilistic Model", "Entity-Level Modeling"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Fernandes2012_LatentStructurePerceptron",
+      "entity_type": "Algorithm",
+      "name": "Latent Structure Perceptron with Feature Induction",
+      "year": 2012,
+      "authors": ["Fernandes, E.R.", "dos Santos, C.N.", "Milidiu, R.L."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Latent Structure Perceptron", "Feature Induction"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Lee2011_MultiPassSieveCoreferenceResolution",
+      "entity_type": "Algorithm",
+      "name": "Multi-Pass Sieve Coreference Resolution",
+      "year": 2011,
+      "authors": ["Lee, H.", "Chang, A.", "Peirsman, Y.", "Chambers, N.", "Surdeanu, M.", "Jurafsky, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Multi-Pass Sieve", "Deterministic Models"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Titov2007_IncrementalSigmoidBeliefNetworks",
+      "entity_type": "Algorithm",
+      "name": "Incremental Sigmoid Belief Networks",
+      "year": 2007,
+      "authors": ["Titov, I.", "Henderson, J."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Sigmoid Belief Networks"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Poon2008_JointUnsupervisedCoreferenceResolution",
+      "entity_type": "Algorithm",
+      "name": "Joint Unsupervised Coreference Resolution",
+      "year": 2008,
+      "authors": ["Poon, H.", "Domingos, P."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Markov Logic"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Haghighi2010_EntityCenteredModel",
+      "entity_type": "Algorithm",
+      "name": "Entity-Centered Model for Coreference Resolution",
+      "year": 2010,
+      "authors": ["Haghighi, A.", "Klein, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Entity-Centered Model"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roth2012_LearningBasedMultiSieve",
+      "entity_type": "Algorithm",
+      "name": "Learning-Based Multi-Sieve Co-reference Resolution",
+      "year": 2012,
+      "authors": ["Ratinov, L.", "Roth, D.", "Downey, D.", "Anderson, M."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Multi-Sieve", "Deterministic Models"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mihalcea2007_Wikify",
+      "entity_type": "Algorithm",
+      "name": "Wikify!",
+      "year": 2007,
+      "authors": ["Mihalcea, R.", "Csomai, A."],
+      "task": "Document Linking",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Linking Documents to Encyclopedic Knowledge"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Rahman2011_ClusterRankingApproach",
+      "entity_type": "Algorithm",
+      "name": "Cluster-Ranking Approach to Coreference Resolution",
+      "year": 2011,
+      "authors": ["Rahman, A.", "Ng, V."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Cluster Ranking"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Haghighi2009_SimpleCoreferenceResolution",
+      "entity_type": "Algorithm",
+      "name": "Simple Coreference Resolution with Rich Syntactic and Semantic Features",
+      "year": 2009,
+      "authors": ["Haghighi, A.", "Klein, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Rich Syntactic and Semantic Features"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Bengtson2008_BestLeftLink",
+      "entity_type": "Algorithm",
+      "name": "Best-Left-Link Approach",
+      "year": 2008,
+      "authors": ["Bengtson, E.", "Roth, D."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Best-Left-Link"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Ng2005_SupervisedRanking",
+      "entity_type": "Algorithm",
+      "name": "Supervised Ranking for Pronoun Resolution",
+      "year": 2005,
+      "authors": ["Ng, V."],
+      "task": "Pronoun Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Supervised Ranking"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roth2004_ConstrainedConditionalModels",
+      "entity_type": "Algorithm",
+      "name": "Constrained Conditional Models",
+      "year": 2004,
+      "authors": ["Roth, D.", "Yih, W."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Constrained Conditional Models"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clarke2006_ConstraintBasedSentenceCompression",
+      "entity_type": "Algorithm",
+      "name": "Constraint-Based Sentence Compression",
+      "year": 2006,
+      "authors": ["Clarke, J.", "Lapata, M."],
+      "task": "Sentence Compression",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "He2013_DynamicFeatureSelection",
+      "entity_type": "Algorithm",
+      "name": "Dynamic Feature Selection for Dependency Parsing",
+      "year": 2013,
+      "authors": ["He, H.", "Daumé III, H.", "Eisner, J."],
+      "task": "Dependency Parsing",
+      "dataset": ["English_Penn_Treebank_2014", "Chinese_Penn_Treebank_2014"],
+      "metrics": ["UAS", "LAS"],
+      "architecture": {
+        "components": ["Dynamic Feature Selection"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Koo2008_SimpleSemiSupervisedDependencyParsing",
+      "entity_type": "Algorithm",
+      "name": "Simple Semi-Supervised Dependency Parsing",
+      "year": 2008,
+      "authors": ["Koo, T.", "Carreras, X.", "Collins, M."],
+      "task": "Dependency Parsing",
+      "dataset": ["English_Penn_Treebank_2014", "Chinese_Penn_Treebank_2014"],
+      "metrics": ["UAS", "LAS"],
+      "architecture": {
+        "components": ["Semi-Supervised Learning"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Semi-Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Collobert2011_DeepLearningForParsing",
+      "entity_type": "Algorithm",
+      "name": "Deep Learning for Efficient Discriminative Parsing",
+      "year": 2011,
+      "authors": ["Collobert, R."],
+      "task": "Dependency Parsing",
+      "dataset": ["English_Penn_Treebank_2014", "Chinese_Penn_Treebank_2014"],
+      "metrics": ["UAS", "LAS"],
+      "architecture": {
+        "components": ["Deep Learning"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Garg2011_TemporalRestrictedBoltzmannMachines",
+      "entity_type": "Algorithm",
+      "name": "Temporal Restricted Boltzmann Machines",
+      "year": 2011,
+      "authors": ["Garg, N.", "Henderson, J."],
+      "task": "Dependency Parsing",
+      "dataset": ["English_Penn_Treebank_2014", "Chinese_Penn_Treebank_2014"],
+      "metrics": ["UAS", "LAS"],
+      "architecture": {
+        "components": ["Temporal Restricted Boltzmann Machines"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Koo2010_DualDecomposition",
+      "entity_type": "Algorithm",
+      "name": "Dual Decomposition for Parsing with Non-Projective Head Automata",
+      "year": 2010,
+      "authors": ["Koo, T.", "Rush, A.M.", "Collins, M.", "Jaakkola, T.", "Sontag, D."],
+      "task": "Dependency Parsing",
+      "dataset": ["English_Penn_Treebank_2014", "Chinese_Penn_Treebank_2014"],
+      "metrics": ["UAS", "LAS"],
+      "architecture": {
+        "components": ["Dual Decomposition", "Non-Projective Head Automata"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Titov2007_FastAndRobustDependencyParsing",
+      "entity_type": "Algorithm",
+      "name": "Fast and Robust Dependency Parsing",
+      "year": 2007,
+      "authors": ["Titov, I.", "Henderson, J."],
+      "task": "Dependency Parsing",
+      "dataset": ["English_Penn_Treebank_2014", "Chinese_Penn_Treebank_2014"],
+      "metrics": ["UAS", "LAS"],
+      "architecture": {
+        "components": ["Generative Latent Variable Model"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Pletscher2010_EntropyAndMarginMaximization",
+      "entity_type": "Algorithm",
+      "name": "Entropy and Margin Maximization for Structured Output Learning",
+      "year": 2010,
+      "authors": ["Pletscher, P.", "Ong, C.S.", "Buhmann, J.M."],
+      "task": "Structured Output Learning",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Accuracy", "F1 Score"],
+      "architecture": {
+        "components": ["Entropy Maximization", "Margin Maximization"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Yuille2003_ConcaveConvexProcedure",
+      "entity_type": "Algorithm",
+      "name": "Concave-Convex Procedure",
+      "year": 2003,
+      "authors": ["Yuille, A.L.", "Rangarajan, A."],
+      "task": "Optimization",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Accuracy", "F1 Score"],
+      "architecture": {
+        "components": ["Concave-Convex Procedure"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roth2004_ConstrainedConditionalModels",
+      "entity_type": "Algorithm",
+      "name": "Constrained Conditional Models",
+      "year": 2004,
+      "authors": ["Roth, D.", "Yih, W."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Constrained Conditional Models"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clarke2006_ConstraintBasedSentenceCompression",
+      "entity_type": "Algorithm",
+      "name": "Constraint-Based Sentence Compression",
+      "year": 2006,
+      "authors": ["Clarke, J.", "Lapata, M."],
+      "task": "Sentence Compression",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roth2004_LinearProgrammingFormulation",
+      "entity_type": "Algorithm",
+      "name": "Linear Programming Formulation for Global Inference",
+      "year": 2004,
+      "authors": ["Roth, D.", "Yih, W."],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Linear Programming", "Global Inference"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clarke2006_ConstraintBasedSentenceCompression",
+      "entity_type": "Algorithm",
+      "name": "Constraint-Based Sentence Compression",
+      "year": 2006,
+      "authors": ["Clarke, J.", "Lapata, M."],
+      "task": "Sentence Compression",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clarke2006_ConstraintBasedSentenceCompression",
+      "entity_type": "Algorithm",
+      "name": "Constraint-Based Sentence Compression",
+      "year": 2006,
+      "authors": ["Clarke, J.", "Lapata, M."],
+      "task": "Sentence Compression",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clarke2006_ConstraintBasedSentenceCompression",
+      "entity_type": "Algorithm",
+      "name": "Constraint-Based Sentence Compression",
+      "year": 2006,
+      "authors": ["Clarke, J.", "Lapata, M."],
+      "task": "Sentence Compression",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clarke2006_ConstraintBasedSentenceCompression",
+      "entity_type": "Algorithm",
+      "name": "Constraint-Based Sentence Compression",
+      "year": 2006,
+      "authors": ["Clarke, J.", "Lapata, M."],
+      "task": "Sentence Compression",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clarke2006_ConstraintBasedSentenceCompression",
+      "entity_type": "Algorithm",
+      "name": "Constraint-Based Sentence Compression",
+      "year": 2006,
+      "authors": ["Clarke, J.", "Lapata, M."],
+      "task": "Sentence Compression",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Clarke2006_ConstraintBasedSentenceCompression",
+      "entity_type": "Algorithm",
+      "name": "Constraint-Based Sentence Compression",
+      "year": 2006,
+      "authors": ["Clarke, J.", "Lapata, M."],
+      "task": "Sentence Compression",
+      "dataset": ["ACE_2004", "Ontonotes-5.0"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Integer Programming"],
+        "connections": ["Feature Extraction", "Constraint Handling"],
+        "mechanisms": ["Optimization"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["Regular

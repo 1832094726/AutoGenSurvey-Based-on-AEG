@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Chiang2019_SemanticallyAlignedEquationGeneration",
+      "entity_type": "Algorithm",
+      "name": "Semantically-Aligned Equation Generation",
+      "year": 2019,
+      "authors": ["Ting-Rui Chiang", "Yun-Nung Chen"],
+      "task": "Solving and Reasoning Math Word Problems",
+      "dataset": ["Math23K_2017"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Encoder", "Decoder", "Stack"],
+        "connections": ["Encoder-Decoder", "Decoder-Stack"],
+        "mechanisms": ["Semantic Transformer", "Attention Mechanism"]
+      },
+      "methodology": {
+        "training_strategy": ["End-to-End Training"],
+        "parameter_tuning": ["Adam Optimizer", "Learning Rate"]
+      },
+      "feature_processing": ["Bidirectional LSTM", "Semantic Representation Extraction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Math23K_2017",
+      "entity_type": "Dataset",
+      "name": "Math23K",
+      "description": "A large benchmark dataset for math word problems",
+      "domain": "Mathematics",
+      "size": 23162,
+      "year": 2017,
+      "creators": ["Wang, Yan", "Liu, Xiaojiang", "Shi, Shuming"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "formula": "正确分类样本数/总样本数"
+    }
+  }
+]

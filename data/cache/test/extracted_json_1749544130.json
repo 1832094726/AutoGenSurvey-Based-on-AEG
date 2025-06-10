@@ -1,0 +1,178 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Zhou2015_EnhancedTemplateBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Enhanced Template-Based Solver",
+      "year": 2015,
+      "authors": ["Lipu Zhou", "Shuaixiang Dai", "Liwei Chen"],
+      "task": "Solving algebra word problems",
+      "dataset": ["Kushman2014_Dataset"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Log-linear model", "Quadratic Programming"],
+        "connections": ["Template selection", "Number assignment"],
+        "mechanisms": ["Max-margin objective", "Beam search"]
+      },
+      "methodology": {
+        "training_strategy": ["Max-margin objective"],
+        "parameter_tuning": ["C parameter"]
+      },
+      "feature_processing": ["Lexical decisions", "Compositional decisions"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Kushman2014_Dataset",
+      "entity_type": "Dataset",
+      "name": "Kushman2014",
+      "description": "A dataset of algebra word problems",
+      "domain": "Mathematics",
+      "size": 1024,
+      "year": 2014,
+      "creators": ["Nate Kushman", "Yoav Artzi", "Luke Zettlemoyer", "Regina Barzilay"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "formula": "正确分类样本数/总样本数"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Equation_Accuracy",
+      "entity_type": "Metric",
+      "name": "Equation Accuracy",
+      "description": "方程系统的准确性",
+      "category": "代数问题求解评估",
+      "formula": "正确生成方程系统的次数/总次数"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Answer_Accuracy",
+      "entity_type": "Metric",
+      "name": "Answer Accuracy",
+      "description": "数值答案的准确性",
+      "category": "代数问题求解评估",
+      "formula": "正确生成数值答案的次数/总次数"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Goldwasser2014_LearningFromNaturalInstructions",
+      "entity_type": "Algorithm",
+      "name": "Learning from Natural Instructions",
+      "year": 2014,
+      "authors": ["Dan Goldwasser", "Dan Roth"],
+      "task": "Interpreting natural language instructions",
+      "dataset": ["Freecell Solitaire card game", "Geoquery_Dataset_1996"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Semantic interpreter", "Integer Linear Programming(ILP)"],
+        "connections": ["Lexical alignment", "Logical formula composition"],
+        "mechanisms": ["Feedback-driven learning", "Loss approximation"]
+      },
+      "methodology": {
+        "training_strategy": ["Feedback-driven learning"],
+        "parameter_tuning": ["Weight vector updates"]
+      },
+      "feature_processing": ["Lexical features", "Syntactic features", "Semantic features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Geoquery_Dataset_1996",
+      "entity_type": "Dataset",
+      "name": "Geoquery",
+      "description": "A dataset of geographical queries",
+      "domain": "Geography",
+      "size": 500,
+      "year": 1996,
+      "creators": ["John Zelle", "Raymond Mooney"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Cho2014_RNNEncoderDecoder",
+      "entity_type": "Algorithm",
+      "name": "RNN Encoder-Decoder",
+      "year": 2014,
+      "authors": ["Kyunghyun Cho", "Bart van Merrienboer", "Caglar Gulcehre", "Dzmitry Bahdanau", "Fethi Bougares", "Holger Schwenk", "Yoshua Bengio"],
+      "task": "Phrase representation for statistical machine translation",
+      "dataset": ["English-French_Translation_Task_2014"],
+      "metrics": ["BLEU_Score"],
+      "architecture": {
+        "components": ["Recurrent Neural Network (RNN)", "Encoder", "Decoder"],
+        "connections": ["Sequence-to-sequence mapping"],
+        "mechanisms": ["Reset gate", "Update gate", "Adaptive memory"]
+      },
+      "methodology": {
+        "training_strategy": ["Gradient-based optimization"],
+        "parameter_tuning": ["Weight initialization", "Hyperparameters (ε, ρ)"]
+      },
+      "feature_processing": ["Word embeddings", "Continuous space representation"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "English-French_Translation_Task_2014",
+      "entity_type": "Dataset",
+      "name": "English-French Translation Task",
+      "description": "A dataset for English to French translation",
+      "domain": "Machine Translation",
+      "size": "Large",
+      "year": 2014,
+      "creators": ["Various contributors"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "BLEU_Score",
+      "entity_type": "Metric",
+      "name": "BLEU Score",
+      "description": "评估翻译质量的度量",
+      "category": "机器翻译评估",
+      "formula": "基于n-gram重叠的评分公式"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Kushman2014_TemplateBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Template-Based Solver",
+      "year": 2014,
+      "authors": ["Nate Kushman", "Yoav Artzi", "Luke Zettlemoyer", "Regina Barzilay"],
+      "task": "Solving algebra word problems",
+      "dataset": ["Algebra.com_Dataset_2014"],
+      "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+      "architecture": {
+        "components": ["Log-linear model", "Equation templates"],
+        "connections": ["Template instantiation", "Variable alignment"],
+        "mechanisms": ["Canonicalization", "Beam search"]
+      },
+      "methodology": {
+        "training_strategy": ["Conditional log-likelihood maximization"],
+        "parameter_tuning": ["L-BFGS optimization", "L2 regularization"]
+      },
+      "feature_processing": ["Document level features", "Single slot features", "Slot pair features", "Solution features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Algebra.com_Dataset_2014",
+      "entity_type": "Dataset",
+      "name": "Algebra.com",
+      "description": "A crowdsourced tutoring website dataset of algebra word problems",
+      "domain": "Mathematics",
+      "size": 514,
+      "year": 2014,
+      "creators": ["Various contributors"]
+    }
+  }
+]

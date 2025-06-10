@@ -1,0 +1,738 @@
+[
+  {
+    "from_entity": "Zhang2019_DeepNeuralSolver",
+    "to_entity": "Math23K_2019",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Deep Neural Solver uses the Math23K dataset for evaluation",
+    "problem_addressed": "Evaluation on large-scale and diverse datasets",
+    "evidence": "The proposed Deep Neural Solver was evaluated on the Math23K dataset, which contains 23,162 Chinese math word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "AI2_2015",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Expression Tree algorithm uses the AI2 dataset for evaluation",
+    "problem_addressed": "Evaluation on small-scale and single/multi-step arithmetic word problems",
+    "evidence": "The Expression Tree algorithm was evaluated on the AI2 dataset, which contains 395 arithmetic word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "IL_2015",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Expression Tree algorithm uses the IL dataset for evaluation",
+    "problem_addressed": "Evaluation on single-step arithmetic word problems",
+    "evidence": "The Expression Tree algorithm was evaluated on the IL dataset, which contains 562 single-step arithmetic word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "CC_2015",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Expression Tree algorithm uses the CC dataset for evaluation",
+    "problem_addressed": "Evaluation on multi-step arithmetic word problems",
+    "evidence": "The Expression Tree algorithm was evaluated on the CC dataset, which contains 600 multi-step arithmetic word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Huang2017_FGExpression",
+    "to_entity": "Dolphin18K_2017",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "FG-Expression algorithm uses the Dolphin18K dataset for evaluation",
+    "problem_addressed": "Evaluation on large-scale and diverse equation set problems",
+    "evidence": "The FG-Expression algorithm was evaluated on the Dolphin18K dataset, which contains 18,460 math word problems with multiple unknown variables.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2018_MathDQN",
+    "to_entity": "AI2",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "MathDQN algorithm uses the AI2 dataset for evaluation",
+    "problem_addressed": "Evaluation on small-scale arithmetic word problems",
+    "evidence": "The MathDQN algorithm was evaluated on the AI2 dataset, which contains 395 arithmetic word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2018_MathDQN",
+    "to_entity": "IL",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "MathDQN algorithm uses the IL dataset for evaluation",
+    "problem_addressed": "Evaluation on single-step arithmetic word problems",
+    "evidence": "The MathDQN algorithm was evaluated on the IL dataset, which contains 562 single-step arithmetic word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2018_MathDQN",
+    "to_entity": "CC",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "MathDQN algorithm uses the CC dataset for evaluation",
+    "problem_addressed": "Evaluation on multi-step arithmetic word problems",
+    "evidence": "The MathDQN algorithm was evaluated on the CC dataset, which contains 600 multi-step arithmetic word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2018_MathDQN",
+    "to_entity": "SingleEQ",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "MathDQN algorithm uses the SingleEQ dataset for evaluation",
+    "problem_addressed": "Evaluation on arithmetic word problems with single and multi-step equations",
+    "evidence": "The MathDQN algorithm was evaluated on the SingleEQ dataset, which contains arithmetic word problems with single and multi-step equations.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2018_MathDQN",
+    "to_entity": "AllArith",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "MathDQN algorithm uses the AllArith dataset for evaluation",
+    "problem_addressed": "Evaluation on arithmetic word problems with diverse operators",
+    "evidence": "The MathDQN algorithm was evaluated on the AllArith dataset, which contains arithmetic word problems with diverse operators.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2018_MathDQN",
+    "to_entity": "Dolphin-S",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "MathDQN algorithm uses the Dolphin-S dataset for evaluation",
+    "problem_addressed": "Evaluation on arithmetic word problems with multiple operators",
+    "evidence": "The MathDQN algorithm was evaluated on the Dolphin-S dataset, which contains arithmetic word problems with multiple operators.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2018_MathDQN",
+    "to_entity": "MAWPS-S",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "MathDQN algorithm uses the MAWPS-S dataset for evaluation",
+    "problem_addressed": "Evaluation on arithmetic word problems with one unknown variable",
+    "evidence": "The MathDQN algorithm was evaluated on the MAWPS-S dataset, which contains arithmetic word problems with one unknown variable.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2019_T_RNN",
+    "to_entity": "SingleEQ",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "T-RNN algorithm uses the SingleEQ dataset for evaluation",
+    "problem_addressed": "Evaluation on arithmetic word problems with single and multi-step equations",
+    "evidence": "The T-RNN algorithm was evaluated on the SingleEQ dataset, which contains arithmetic word problems with single and multi-step equations.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2019_T_RNN",
+    "to_entity": "AllArith",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "T-RNN algorithm uses the AllArith dataset for evaluation",
+    "problem_addressed": "Evaluation on arithmetic word problems with diverse operators",
+    "evidence": "The T-RNN algorithm was evaluated on the AllArith dataset, which contains arithmetic word problems with diverse operators.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2019_T_RNN",
+    "to_entity": "Dolphin-S",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "T-RNN algorithm uses the Dolphin-S dataset for evaluation",
+    "problem_addressed": "Evaluation on arithmetic word problems with multiple operators",
+    "evidence": "The T-RNN algorithm was evaluated on the Dolphin-S dataset, which contains arithmetic word problems with multiple operators.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2019_T_RNN",
+    "to_entity": "Math23K",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "T-RNN algorithm uses the Math23K dataset for evaluation",
+    "problem_addressed": "Evaluation on large-scale and diverse arithmetic word problems",
+    "evidence": "The T-RNN algorithm was evaluated on the Math23K dataset, which contains 23,162 Chinese math word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Shi2015_DOL",
+    "to_entity": "Dolphin1878_2015",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "DOL algorithm uses the Dolphin1878 dataset for evaluation",
+    "problem_addressed": "Evaluation on equation set problems",
+    "evidence": "The DOL algorithm was evaluated on the Dolphin1878 dataset, which contains 1,878 math problems with 1,183 equation templates.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Kushman2014_TemplateBasedSolver",
+    "to_entity": "ALG514_2014",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Template-Based Solver uses the ALG514 dataset for evaluation",
+    "problem_addressed": "Evaluation on algebra word problems",
+    "evidence": "The Template-Based Solver was evaluated on the ALG514 dataset, which contains algebra word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Zhou2015_EnhancedTemplateBasedSolver",
+    "to_entity": "ALG514_2014",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Enhanced Template-Based Solver uses the ALG514 dataset for evaluation",
+    "problem_addressed": "Evaluation on algebra word problems",
+    "evidence": "The Enhanced Template-Based Solver was evaluated on the ALG514 dataset, which contains algebra word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Upadhyay2016_MixedSP",
+    "to_entity": "DRAW1K_2016",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "MixedSP algorithm uses the DRAW1K dataset for evaluation",
+    "problem_addressed": "Evaluation on linear equation problems",
+    "evidence": "The MixedSP algorithm was evaluated on the DRAW1K dataset, which contains linear equation problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "DNS2017_DeepNeuralSolver",
+    "to_entity": "Dolphin18K_2017",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Deep Neural Solver uses the Dolphin18K dataset for evaluation",
+    "problem_addressed": "Evaluation on large-scale and diverse equation set problems",
+    "evidence": "The Deep Neural Solver was evaluated on the Dolphin18K dataset, which contains 18,460 math word problems with multiple unknown variables.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "CASS2018_ReinforcementLearningSolver",
+    "to_entity": "Dolphin18K_2017",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "CASS algorithm uses the Dolphin18K dataset for evaluation",
+    "problem_addressed": "Evaluation on large-scale and diverse equation set problems",
+    "evidence": "The CASS algorithm was evaluated on the Dolphin18K dataset, which contains 18,460 math word problems with multiple unknown variables.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Seo2014_GEOREP",
+    "to_entity": "Line Diagrams",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "GEOREP algorithm uses line diagrams for evaluation",
+    "problem_addressed": "Evaluation on geometry theorem proving",
+    "evidence": "The GEOREP algorithm was evaluated on line diagrams for geometry theorem proving.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Seo2014_GEOS",
+    "to_entity": "Geometry Word Problems",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "GEOS algorithm uses geometry word problems for evaluation",
+    "problem_addressed": "Evaluation on geometry problems",
+    "evidence": "The GEOS algorithm was evaluated on geometry word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Sachan2017_TextbookAxiomaticKnowledge",
+    "to_entity": "Geometry Word Problems",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Textbook Axiomatic Knowledge algorithm uses geometry word problems for evaluation",
+    "problem_addressed": "Evaluation on geometry problems",
+    "evidence": "The Textbook Axiomatic Knowledge algorithm was evaluated on geometry word problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Alvin2017_GeoShader",
+    "to_entity": "Shaded Area Geometry Problems",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "GeoShader algorithm uses shaded area geometry problems for evaluation",
+    "problem_addressed": "Evaluation on shaded area geometry problems",
+    "evidence": "The GeoShader algorithm was evaluated on shaded area geometry problems.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Clark2016_Aristo",
+    "to_entity": "Various datasets",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Aristo algorithm uses various datasets for evaluation",
+    "problem_addressed": "Evaluation on non-diagram multiple-choice questions",
+    "evidence": "The Aristo algorithm was evaluated on various datasets for non-diagram multiple-choice questions.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2016_VerbalIQFramework",
+    "to_entity": "Verbal IQ dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Verbal IQ Framework uses the Verbal IQ dataset for evaluation",
+    "problem_addressed": "Evaluation on verbal IQ questions",
+    "evidence": "The Verbal IQ Framework was evaluated on the Verbal IQ dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lev2004_LogicPuzzleSolver",
+    "to_entity": "Logic puzzle dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Logic Puzzle Solver uses the logic puzzle dataset for evaluation",
+    "problem_addressed": "Evaluation on logic puzzles",
+    "evidence": "The Logic Puzzle Solver was evaluated on the logic puzzle dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Dries2017_ProbabilityProblemSolver",
+    "to_entity": "Probability problem dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Probability Problem Solver uses the probability problem dataset for evaluation",
+    "problem_addressed": "Evaluation on probability problems",
+    "evidence": "The Probability Problem Solver was evaluated on the probability problem dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Ling2017_AlgebraicWordProblemSolver",
+    "to_entity": "Algebraic word problem dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Algebraic Word Problem Solver uses the algebraic word problem dataset for evaluation",
+    "problem_addressed": "Evaluation on algebraic word problems",
+    "evidence": "The Algebraic Word Problem Solver was evaluated on the algebraic word problem dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Yu2015_ChineseEquationSetSolver",
+    "to_entity": "Chinese equation set dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Chinese Equation Set Solver uses the Chinese equation set dataset for evaluation",
+    "problem_addressed": "Evaluation on Chinese equation set problems",
+    "evidence": "The Chinese Equation Set Solver was evaluated on the Chinese equation set dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Yu2016_ChineseArithmeticWordProblemSolver",
+    "to_entity": "Chinese arithmetic word problem dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Chinese Arithmetic Word Problem Solver uses the Chinese arithmetic word problem dataset for evaluation",
+    "problem_addressed": "Evaluation on Chinese arithmetic word problems",
+    "evidence": "The Chinese Arithmetic Word Problem Solver was evaluated on the Chinese arithmetic word problem dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Siyam2017_ArabicArithmeticWordProblemSolver",
+    "to_entity": "Arabic arithmetic word problem dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Arabic Arithmetic Word Problem Solver uses the Arabic arithmetic word problem dataset for evaluation",
+    "problem_addressed": "Evaluation on Arabic arithmetic word problems",
+    "evidence": "The Arabic Arithmetic Word Problem Solver was evaluated on the Arabic arithmetic word problem dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2016_MathWordProblemGenerator",
+    "to_entity": "Generated math word problem dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Math Word Problem Generator uses the generated math word problem dataset for evaluation",
+    "problem_addressed": "Evaluation on generated math word problems",
+    "evidence": "The Math Word Problem Generator was evaluated on the generated math word problem dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "KoncelKedziorski2016_ThemeRewriting",
+    "to_entity": "Algebra word problem dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Theme Rewriting Approach uses the algebra word problem dataset for evaluation",
+    "problem_addressed": "Evaluation on algebra word problems",
+    "evidence": "The Theme Rewriting Approach was evaluated on the algebra word problem dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Polozov2015_PersonalizedMathProblemGenerator",
+    "to_entity": "Generated math word problem dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Personalized Math Problem Generator uses the generated math word problem dataset for evaluation",
+    "problem_addressed": "Evaluation on personalized math word problems",
+    "evidence": "The Personalized Math Problem Generator was evaluated on the generated math word problem dataset.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Narasimhan2015_LanguageUnderstanding",
+    "to_entity": "Text-based Games",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Language Understanding for Text-based Games uses text-based games for evaluation",
+    "problem_addressed": "Evaluation on text-based games",
+    "evidence": "The Language Understanding for Text-based Games was evaluated on text-based games.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Narasimhan2016_InformationExtraction",
+    "to_entity": "Text Corpora",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Improving Information Extraction uses text corpora for evaluation",
+    "problem_addressed": "Evaluation on information extraction from text",
+    "evidence": "The Improving Information Extraction algorithm was evaluated on text corpora.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Guo2015_TextGeneration",
+    "to_entity": "Text Corpora",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Generating Text with Deep Reinforcement Learning uses text corpora for evaluation",
+    "problem_addressed": "Evaluation on text generation",
+    "evidence": "The Generating Text with Deep Reinforcement Learning algorithm was evaluated on text corpora.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Caicedo2015_ActiveObjectLocalization",
+    "to_entity": "Image Datasets",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Active Object Localization uses image datasets for evaluation",
+    "problem_addressed": "Evaluation on object localization",
+    "evidence": "The Active Object Localization algorithm was evaluated on image datasets.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Zhang2019_DeepNeuralSolver",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Deep Neural Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Deep Neural Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Expression Tree uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Expression Tree algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Huang2017_FGExpression",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "FG-Expression uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The FG-Expression algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2018_MathDQN",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "MathDQN uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The MathDQN algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2019_T_RNN",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "T-RNN uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The T-RNN algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Shi2015_DOL",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "DOL uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The DOL algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Kushman2014_TemplateBasedSolver",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Template-Based Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Template-Based Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Zhou2015_EnhancedTemplateBasedSolver",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Enhanced Template-Based Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Enhanced Template-Based Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Upadhyay2016_MixedSP",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "MixedSP uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The MixedSP algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "DNS2017_DeepNeuralSolver",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Deep Neural Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Deep Neural Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "CASS2018_ReinforcementLearningSolver",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "CASS uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The CASS algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Seo2014_GEOREP",
+    "to_entity": "Qualitative Spatial Descriptions",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "GEOREP uses Qualitative Spatial Descriptions as an evaluation metric",
+    "problem_addressed": "Evaluation of spatial descriptions",
+    "evidence": "The GEOREP algorithm was evaluated using Qualitative Spatial Descriptions.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Seo2014_GEOS",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "GEOS uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The GEOS algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Sachan2017_TextbookAxiomaticKnowledge",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Textbook Axiomatic Knowledge uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Textbook Axiomatic Knowledge algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Alvin2017_GeoShader",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "GeoShader uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The GeoShader algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Clark2016_Aristo",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Aristo uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Aristo algorithm was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2016_VerbalIQFramework",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Verbal IQ Framework uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Verbal IQ Framework was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Lev2004_LogicPuzzleSolver",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Logic Puzzle Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Logic Puzzle Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Dries2017_ProbabilityProblemSolver",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Probability Problem Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Probability Problem Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Ling2017_AlgebraicWordProblemSolver",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Algebraic Word Problem Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Algebraic Word Problem Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Yu2015_ChineseEquationSetSolver",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Chinese Equation Set Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Chinese Equation Set Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Yu2016_ChineseArithmeticWordProblemSolver",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Chinese Arithmetic Word Problem Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Chinese Arithmetic Word Problem Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Siyam2017_ArabicArithmeticWordProblemSolver",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Arabic Arithmetic Word Problem Solver uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Arabic Arithmetic Word Problem Solver was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2016_MathWordProblemGenerator",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Math Word Problem Generator uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Math Word Problem Generator was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "KoncelKedziorski2016_ThemeRewriting",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Theme Rewriting Approach uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Theme Rewriting Approach was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Polozov2015_PersonalizedMathProblemGenerator",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Personalized Math Problem Generator uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Personalized Math Problem Generator was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Narasimhan2015_LanguageUnderstanding",
+    "to_entity": "Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Language Understanding for Text-based Games uses Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of classification accuracy",
+    "evidence": "The Language Understanding for Text-based Games was evaluated using the Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Narasimhan2016_InformationExtraction",
+    "to_entity": "Precision",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Improving Information Extraction uses Precision as an evaluation metric",
+    "problem_addressed": "Evaluation of information extraction",
+    "evidence": "The Improving Information Extraction algorithm was evaluated using the Precision metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Narasimhan2016_InformationExtraction",
+    "to_entity": "Recall",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Improving Information Extraction uses Recall as an evaluation metric",
+    "problem_addressed": "Evaluation of information extraction",
+    "evidence": "The Improving Information Extraction algorithm was evaluated using the Recall metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Guo2015_TextGeneration",
+    "to_entity": "BLEU Score",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Generating Text with Deep Reinforcement Learning uses BLEU Score as an evaluation metric",
+    "problem_addressed": "Evaluation of text generation",
+    "evidence": "The Generating Text with Deep Reinforcement Learning algorithm was evaluated using the BLEU Score metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Caicedo2015_ActiveObjectLocalization",
+    "to_entity": "Localization Accuracy",
+    "relation_type": "Use",
+    "structure": "Metric.Use",
+    "detail": "Active Object Localization uses Localization Accuracy as an evaluation metric",
+    "problem_addressed": "Evaluation of object localization",
+    "evidence": "The Active Object Localization algorithm was evaluated using the Localization Accuracy metric.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Zhang2019_DeepNeuralSolver",
+    "to_entity": "ExpressionTree",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Deep Neural Solver optimizes the Expression Tree mechanism",
+    "problem_addressed": "Improving the accuracy of arithmetic word problem solving",
+    "evidence": "The Deep Neural Solver optimizes the Expression Tree mechanism by using a seq2seq model with GRU network.",
+    "confidence": 0.9
+  },
+  {
+    "from_entity": "Wang2018_MathDQN",
+    "to_entity": "ExpressionTree",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "MathDQN optimizes the Expression Tree mechanism",
+    "problem_addressed":

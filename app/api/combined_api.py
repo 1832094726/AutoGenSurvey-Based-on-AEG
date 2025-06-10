@@ -969,7 +969,8 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
                 entities=citation_entities, 
                 pdf_paths=citation_paths,  # 只传入引文PDF
                 task_id=task_id,
-                previous_relations=citation_relations
+                previous_relations=citation_relations,
+                batch_size=5
             )
             
             # 确保所有引文关系都有正确的来源标记

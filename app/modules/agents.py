@@ -117,8 +117,15 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
     if review_entities:
         prompt += "\n\n重点关注是否存在以下实体，存在则提取\n- "
         for entity in review_entities:
-            entity_name = entity["algorithm_entity"].get("algorithm_id")
-            prompt += f"{entity_name}\n"
+            if "algorithm_entity" in entity:
+                entity_name = entity["algorithm_entity"].get("algorithm_id")
+                prompt += f"{entity_name}\n"
+            elif "dataset_entity" in entity:
+                entity_name = entity["dataset_entity"].get("dataset_id")
+                prompt += f"{entity_name}\n"
+            elif "metric_entity" in entity:
+                entity_name = entity["metric_entity"].get("metric_id")
+                prompt += f"{entity_name}\n"
     # 添加完成状态请求
     completion_request = """
 最后，请明确告知我提取是否已完成，还是需要继续提取更多实体。请根据你对文本的分析，判断是否已经提取了所有可能的实体。

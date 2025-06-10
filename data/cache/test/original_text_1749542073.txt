@@ -1,0 +1,87 @@
+为了更好地帮助您提取相关实体信息，我将按照文档内容逐步进行提取，并确保遵循您的要求。我们将从第一个文档开始，逐步处理每个文档中的实体信息。以下是第一个文档的实体提取结果：
+
+### 第一个文档：`Distributed representations of words and phrases and their compositionality.pdf`
+
+#### 提取的实体信息
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_SkipGram",
+      "entity_type": "Algorithm",
+      "name": "Skip-gram",
+      "title": "Distributed Representations of Words and Phrases and their Compositionality",
+      "year": 2013,
+      "authors": ["Tomas Mikolov", "Ilya Sutskever", "Kai Chen", "Greg Corrado", "Jeffrey Dean"],
+      "task": "Word and Phrase Representation Learning",
+      "dataset": ["News Articles_2013"],
+      "metrics": ["Accuracy_Classification", "Syntactic_Analogy", "Semantic_Analogy"],
+      "architecture": {
+        "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+        "connections": ["Input to Hidden", "Hidden to Output"],
+        "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+      },
+      "methodology": {
+        "training_strategy": ["Subsampling of Frequent Words", "Negative Sampling", "Hierarchical Softmax"],
+        "parameter_tuning": ["Dimensionality", "Context Size", "Subsampling Rate"]
+      },
+      "feature_processing": ["Word Tokenization", "Subsampling of Frequent Words"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "News_Articles_2013",
+      "entity_type": "Dataset",
+      "name": "News Articles",
+      "description": "A large dataset consisting of various news articles",
+      "domain": "Natural Language Processing",
+      "size": 1000000000,
+      "year": 2013,
+      "creators": ["Google Inc."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Overall accuracy of the model on the analogical reasoning task",
+      "category": "Classification",
+      "formula": "Correct predictions / Total predictions"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Syntactic_Analogy",
+      "entity_type": "Metric",
+      "name": "Syntactic Analogy",
+      "description": "Accuracy on syntactic analogy tasks",
+      "category": "Analogy Reasoning",
+      "formula": "Correct syntactic analogies / Total syntactic analogies"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Semantic_Analogy",
+      "entity_type": "Metric",
+      "name": "Semantic Analogy",
+      "description": "Accuracy on semantic analogy tasks",
+      "category": "Analogy Reasoning",
+      "formula": "Correct semantic analogies / Total semantic analogies"
+    }
+  }
+]
+```
+
+### 提取总结
+
+1. **刚刚提取的小节**：Introduction, The Skip-gram Model, Empirical Results, Learning Phrases, Additive Compositionality, Comparison to Published Word Representations, Conclusion
+2. **论文中是否还有其他小节未被提取**：没有其他小节未被提取。
+3. **提取是否已完成**：已完成。
+
+```json
+EXTRACTION_COMPLETE: true
+```
+
+接下来，我们将继续处理第二个文档 `Experiments with a deductive question-answering program.pdf`。请确认是否继续提取该文档的实体信息。

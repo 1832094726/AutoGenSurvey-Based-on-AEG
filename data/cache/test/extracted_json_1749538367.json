@@ -1,0 +1,4 @@
+{
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": ["Regularization"]
+      }

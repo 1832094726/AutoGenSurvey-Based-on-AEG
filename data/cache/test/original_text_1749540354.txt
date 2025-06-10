@@ -1,0 +1,837 @@
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Chang2013_ProbabilisticLatentLeftLinkingModelWithConstraints",
+      "entity_type": "Algorithm",
+      "name": "Probabilistic Latent Left-Linking Model with Constraints (CPL3M)",
+      "title": "A Constrained Latent Variable Model for Coreference Resolution",
+      "year": 2013,
+      "authors": ["Kai-Wei Chang", "Rajhans Samdani", "Dan Roth"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF", "Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Neural Network", "Pairwise Scorer", "Left-Linking Model", "Constraint Module"],
+        "connections": ["Pairwise Scorer -> Left-Linking Model", "Left-Linking Model -> Constraint Module"],
+        "mechanisms": ["Probabilistic Generalization", "Temperature-like Parameter", "Stochastic Gradient Descent"]
+      },
+      "methodology": {
+        "training_strategy": ["Stochastic Gradient Descent"],
+        "parameter_tuning": ["Temperature Parameter γ"]
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "ACE2004-GoldMentions_2010",
+      "entity_type": "Dataset",
+      "name": "ACE 2004 Gold Mentions",
+      "description": "ACE 2004 dataset with gold mentions",
+      "domain": "Natural Language Processing",
+      "size": 44352,
+      "year": 2010,
+      "creators": ["NIST"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Pairwise_F1_Score",
+      "entity_type": "Metric",
+      "name": "Pairwise F1 Score",
+      "description": "F1 score calculated over mention pairs in the same entity cluster",
+      "category": "Coreference Evaluation",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Lee2011_DeterministicCoreferenceResolution",
+      "entity_type": "Algorithm",
+      "name": "Deterministic Coreference Resolution",
+      "title": "Deterministic Coreference Resolution Based on Entity-Centric, Precision-Ranked Rules",
+      "year": 2011,
+      "authors": ["H. Lee", "A. Chang", "Y. Peirsman", "N. Chambers", "M. Surdeanu", "D. Jurafsky"],
+      "task": "Coreference Resolution",
+      "dataset": ["Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Rule-based System", "Entity-Centric Rules", "Precision-Ranked Rules"],
+        "connections": ["Rule-based System -> Entity-Centric Rules", "Entity-Centric Rules -> Precision-Ranked Rules"],
+        "mechanisms": ["Deterministic Decision Making"]
+      },
+      "methodology": {
+        "training_strategy": ["Rule-based"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Entity Attributes", "Precision-Ranked Rules"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Fernandes2012_LatentStructurePerceptron",
+      "entity_type": "Algorithm",
+      "name": "Latent Structure Perceptron",
+      "title": "Latent Structure Perceptron with Feature Induction for Unrestricted Coreference Resolution",
+      "year": 2012,
+      "authors": ["E. R. Fernandes", "C. N. dos Santos", "R. L. Milidiú"],
+      "task": "Coreference Resolution",
+      "dataset": ["Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Perceptron", "Feature Induction"],
+        "connections": ["Perceptron -> Feature Induction"],
+        "mechanisms": ["Latent Structure Learning"]
+      },
+      "methodology": {
+        "training_strategy": ["Perceptron"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Ontonotes5.0-GoldMentions_2012",
+      "entity_type": "Dataset",
+      "name": "Ontonotes 5.0 Gold Mentions",
+      "description": "Ontonotes 5.0 dataset with gold mentions",
+      "domain": "Natural Language Processing",
+      "size": 3145,
+      "year": 2012,
+      "creators": ["Pradhan et al."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "TransitiveClosure_F1_Score",
+      "entity_type": "Metric",
+      "name": "Transitive Closure F1 Score",
+      "description": "F1 score calculated over transitive closure of mention clusters",
+      "category": "Coreference Evaluation",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Chang2012_IllinoisCoref",
+      "entity_type": "Algorithm",
+      "name": "Illinois-Coref",
+      "title": "Illinois-Coref: The UI System in the CoNLL-2012 Shared Task",
+      "year": 2012,
+      "authors": ["K.-W. Chang", "R. Samdani", "A. Rozovskaya", "M. Sammons", "D. Roth"],
+      "task": "Coreference Resolution",
+      "dataset": ["Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Coreference Resolver", "Feature Extractor"],
+        "connections": ["Coreference Resolver -> Feature Extractor"],
+        "mechanisms": ["Rich Feature Set"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Lexical Features", "Syntactic Features", "Semantic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "MaltParser2006_TransitionBasedDependencyParser",
+      "entity_type": "Algorithm",
+      "name": "Malt-Parser",
+      "title": "A Data-Driven Parser-Generator for Dependency Parsing",
+      "year": 2006,
+      "authors": ["J. Nivre", "J. Hall", "J. Nilsson"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Transition-Based Parser", "StackProj", "NivreEager"],
+        "connections": ["Transition-Based Parser -> StackProj", "Transition-Based Parser -> NivreEager"],
+        "mechanisms": ["Greedy Decoding", "Beam Search"]
+      },
+      "methodology": {
+        "training_strategy": ["Structured Averaged Perceptron"],
+        "parameter_tuning": ["Liblinear Optimization"]
+      },
+      "feature_processing": ["Feature Templates"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "MSTParser2006_GraphBasedDependencyParser",
+      "entity_type": "Algorithm",
+      "name": "MSTParser",
+      "title": "Online Learning of Approximate Dependency Parsing Algorithms",
+      "year": 2006,
+      "authors": ["R. McDonald", "F. Pereira"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Graph-Based Parser"],
+        "connections": [],
+        "mechanisms": ["First-Order Graph-Based Parsing"]
+      },
+      "methodology": {
+        "training_strategy": ["Default Options"],
+        "parameter_tuning": []
+      },
+      "feature_processing": []
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "MUC6-TEST_2006",
+      "entity_type": "Dataset",
+      "name": "MUC6-TEST",
+      "description": "Test corpus from the sixth Message Understanding Conference (MUC-6) evaluation",
+      "domain": "Natural Language Processing",
+      "size": 2068,
+      "year": 2006,
+      "creators": ["Sixth Message Understanding Conference"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "B3_F1_Score",
+      "entity_type": "Metric",
+      "name": "B3 F1 Score",
+      "description": "F1 score using the intersection between predicted and gold clusters for a given mention",
+      "category": "Coreference Evaluation",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Haghighi2009_SimpleCoreferenceResolution",
+      "entity_type": "Algorithm",
+      "name": "Simple Coreference Resolution",
+      "title": "Simple Coreference Resolution with Rich Syntactic and Semantic Features",
+      "year": 2009,
+      "authors": ["A. Haghighi", "D. Klein"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Coreference Resolver", "Feature Extractor"],
+        "connections": ["Coreference Resolver -> Feature Extractor"],
+        "mechanisms": ["Rich Feature Set"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Lexical Features", "Syntactic Features", "Semantic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Poon2008_JointUnsupervisedCoreferenceResolution",
+      "entity_type": "Algorithm",
+      "name": "Joint Unsupervised Coreference Resolution",
+      "title": "Joint Unsupervised Coreference Resolution with Markov Logic",
+      "year": 2008,
+      "authors": ["H. Poon", "P. Domingos"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Markov Logic Network"],
+        "connections": [],
+        "mechanisms": ["Joint Inference"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Patterns", "Predicate-Nominatives"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Finkel2008_EnforcingTransitivityInCoreferenceResolution",
+      "entity_type": "Algorithm",
+      "name": "Enforcing Transitivity in Coreference Resolution",
+      "title": "Enforcing Transitivity in Coreference Resolution",
+      "year": 2008,
+      "authors": ["J. Finkel", "C. Manning"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Coreference Resolver", "Transitivity Enforcer"],
+        "connections": ["Coreference Resolver -> Transitivity Enforcer"],
+        "mechanisms": ["Transitivity Enforcement"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features", "Semantic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Culotta2007_FirstOrderProbabilisticModels",
+      "entity_type": "Algorithm",
+      "name": "First-Order Probabilistic Models",
+      "title": "First-Order Probabilistic Models for Coreference Resolution",
+      "year": 2007,
+      "authors": ["A. Culotta", "M. Wick", "R. Hall", "A. McCallum"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Probabilistic Model"],
+        "connections": [],
+        "mechanisms": ["First-Order Probabilistic Inference"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features", "Semantic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Haghighi2010_CoreferenceResolutionInEntityCenteredModel",
+      "entity_type": "Algorithm",
+      "name": "Coreference Resolution in a Modular, Entity-Centered Model",
+      "title": "Coreference Resolution in a Modular, Entity-Centered Model",
+      "year": 2010,
+      "authors": ["A. Haghighi", "D. Klein"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Entity-Centered Model", "Coreference Resolver"],
+        "connections": ["Entity-Centered Model -> Coreference Resolver"],
+        "mechanisms": ["Modular Inference"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Lexical Features", "Syntactic Features", "Semantic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Bengtson2008_UnderstandingValueOfFeatures",
+      "entity_type": "Algorithm",
+      "name": "Understanding the Value of Features",
+      "title": "Understanding the Value of Features for Coreference Resolution",
+      "year": 2008,
+      "authors": ["E. Bengtson", "D. Roth"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Feature Extractor", "Coreference Resolver"],
+        "connections": ["Feature Extractor -> Coreference Resolver"],
+        "mechanisms": ["Feature Importance Analysis"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Lexical Features", "Syntactic Features", "Semantic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Haghighi2009_SimpleCoreferenceResolution",
+      "entity_type": "Algorithm",
+      "name": "Simple Coreference Resolution",
+      "title": "Simple Coreference Resolution with Rich Syntactic and Semantic Features",
+      "year": 2009,
+      "authors": ["A. Haghighi", "D. Klein"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Coreference Resolver", "Feature Extractor"],
+        "connections": ["Coreference Resolver -> Feature Extractor"],
+        "mechanisms": ["Rich Feature Set"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Lexical Features", "Syntactic Features", "Semantic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Finkel2008_NonLocalInformation",
+      "entity_type": "Algorithm",
+      "name": "Non-Local Information",
+      "title": "Enforcing Transitivity in Coreference Resolution",
+      "year": 2008,
+      "authors": ["J. Finkel", "C. Manning"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Coreference Resolver", "Transitivity Enforcer"],
+        "connections": ["Coreference Resolver -> Transitivity Enforcer"],
+        "mechanisms": ["Transitivity Enforcement"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features", "Semantic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Haghighi2010_GenerativeApproach",
+      "entity_type": "Algorithm",
+      "name": "Generative Approach",
+      "title": "Coreference Resolution in a Modular, Entity-Centered Model",
+      "year": 2010,
+      "authors": ["A. Haghighi", "D. Klein"],
+      "task": "Coreference Resolution",
+      "dataset": ["ACE 2004", "Ontonotes-5.0"],
+      "metrics": ["MUC", "BCUB", "CEAF"],
+      "architecture": {
+        "components": ["Entity-Centered Model", "Coreference Resolver"],
+        "connections": ["Entity-Centered Model -> Coreference Resolver"],
+        "mechanisms": ["Generative Inference"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Lexical Features", "Syntactic Features", "Semantic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Spitkovsky2010_BabySteps",
+      "entity_type": "Algorithm",
+      "name": "Baby Steps",
+      "title": "From Baby Steps to Leapfrog: How 'Less is More' in Unsupervised Dependency Parsing",
+      "year": 2010,
+      "authors": ["V. I. Spitkovsky", "H. Alshawi", "D. Jurafsky"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Unsupervised Dependency Parser"],
+        "connections": [],
+        "mechanisms": ["Unsupervised Learning"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Koo2008_SimpleSemiSupervisedDependencyParsing",
+      "entity_type": "Algorithm",
+      "name": "Simple Semi-Supervised Dependency Parsing",
+      "title": "Simple Semi-Supervised Dependency Parsing",
+      "year": 2008,
+      "authors": ["T. Koo", "X. Carreras", "M. Collins"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Semi-Supervised Dependency Parser"],
+        "connections": [],
+        "mechanisms": ["Semi-Supervised Learning"]
+      },
+      "methodology": {
+        "training_strategy": ["Semi-Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Collobert2011_DeepLearningForParsing",
+      "entity_type": "Algorithm",
+      "name": "Deep Learning for Parsing",
+      "title": "Deep Learning for Efficient Discriminative Parsing",
+      "year": 2011,
+      "authors": ["R. Collobert"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Deep Neural Network"],
+        "connections": [],
+        "mechanisms": ["Deep Learning"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Titov2007_IncrementalSigmoidBeliefNetworks",
+      "entity_type": "Algorithm",
+      "name": "Incremental Sigmoid Belief Networks",
+      "title": "Fast and Robust Multilingual Dependency Parsing with a Generative Latent Variable Model",
+      "year": 2007,
+      "authors": ["I. Titov", "J. Henderson"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Sigmoid Belief Network"],
+        "connections": [],
+        "mechanisms": ["Generative Latent Variable Model"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Garg2011_TemporalRestrictedBoltzmannMachine",
+      "entity_type": "Algorithm",
+      "name": "Temporal Restricted Boltzmann Machine",
+      "title": "Temporal Restricted Boltzmann Machines for Dependency Parsing",
+      "year": 2011,
+      "authors": ["N. Garg", "J. Henderson"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Temporal Restricted Boltzmann Machine"],
+        "connections": [],
+        "mechanisms": ["Temporal RBM"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mayberry2005_BroadCoverageParsing",
+      "entity_type": "Algorithm",
+      "name": "Broad-Coverage Parsing",
+      "title": "Broad-Coverage Parsing with Neural Networks",
+      "year": 2005,
+      "authors": ["M. R. Mayberry III", "R. Miikkulainen"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Neural Network"],
+        "connections": [],
+        "mechanisms": ["Neural Network Parsing"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Koo2010_DualDecomposition",
+      "entity_type": "Algorithm",
+      "name": "Dual Decomposition",
+      "title": "Dual Decomposition for Parsing with Non-Projective Head Automata",
+      "year": 2010,
+      "authors": ["T. Koo", "A. M. Rush", "M. Collins", "T. Jaakkola", "D. Sontag"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Dual Decomposition", "Head Automata"],
+        "connections": ["Dual Decomposition -> Head Automata"],
+        "mechanisms": ["Non-Projective Parsing"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Socher2013_ParsingWithCompositionalVectorGrammars",
+      "entity_type": "Algorithm",
+      "name": "Parsing with Compositional Vector Grammars",
+      "title": "Parsing with Compositional Vector Grammars",
+      "year": 2013,
+      "authors": ["R. Socher", "J. Bauer", "C. D. Manning", "A. Y. Ng"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Compositional Vector Grammar"],
+        "connections": [],
+        "mechanisms": ["Vector Composition"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Socher2014_GroundedCompositionalSemantics",
+      "entity_type": "Algorithm",
+      "name": "Grounded Compositional Semantics",
+      "title": "Grounded Compositional Semantics for Finding and Describing Images with Sentences",
+      "year": 2014,
+      "authors": ["R. Socher", "A. Karpathy", "Q. V. Le", "C. D. Manning", "A. Y. Ng"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Compositional Semantics Model"],
+        "connections": [],
+        "mechanisms": ["Grounded Semantics"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Stenetorp2013_TransitionBasedDependencyParsing",
+      "entity_type": "Algorithm",
+      "name": "Transition-Based Dependency Parsing",
+      "title": "Transition-Based Dependency Parsing Using Recursive Neural Networks",
+      "year": 2013,
+      "authors": ["P. Stenetorp"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Recursive Neural Network"],
+        "connections": [],
+        "mechanisms": ["Recursive Neural Networks"]
+      },
+      "methodology": {
+        "training_strategy": ["Unsupervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Syntactic Features"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Schwartz2003_AbbreviationDetection",
+      "entity_type": "Algorithm",
+      "name": "Abbreviation Detection",
+      "title": "A Simple Algorithm for Identifying Abbreviation Definitions in Biomedical Text",
+      "year": 2003,
+      "authors": ["A. S. Schwartz", "M. A. Hearst"],
+      "task": "Abbreviation Detection",
+      "dataset": ["Biomedical Text"],
+      "metrics": ["Precision", "Recall", "F1 Score"],
+      "architecture": {
+        "components": ["Abbreviation Detector"],
+        "connections": [],
+        "mechanisms": ["Pattern Matching"]
+      },
+      "methodology": {
+        "training_strategy": ["Rule-based"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Pattern Recognition"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Tai2015_TreeStructuredLSTM",
+      "entity_type": "Algorithm",
+      "name": "Tree-Structured LSTM",
+      "title": "Improved Semantic Representations From Tree-Structured Long Short-Term Memory Networks",
+      "year": 2015,
+      "authors": ["K. S. Tai", "R. Socher", "C. D. Manning"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Tree-Structured LSTM"],
+        "connections": [],
+        "mechanisms": ["Tree-Structured LSTM"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Munkhdalai2016_NeuralTreeIndexers",
+      "entity_type": "Algorithm",
+      "name": "Neural Tree Indexers",
+      "title": "Neural Tree Indexers for Text Understanding",
+      "year": 2016,
+      "authors": ["T. Munkhdalai", "H. Yu"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Neural Tree Indexer"],
+        "connections": [],
+        "mechanisms": ["Tree Indexing"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Munkhdalai2016_NeuralSemanticEncoders",
+      "entity_type": "Algorithm",
+      "name": "Neural Semantic Encoders",
+      "title": "Neural Semantic Encoders",
+      "year": 2016,
+      "authors": ["T. Munkhdalai", "H. Yu"],
+      "task": "Dependency Parsing",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["Neural Semantic Encoder"],
+        "connections": [],
+        "mechanisms": ["Semantic Encoding"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Palangi2016_DeepSentenceEmbedding",
+      "entity_type": "Algorithm",
+      "name": "Deep Sentence Embedding",
+      "title": "Deep Sentence Embedding Using Long Short-Term Memory Networks: Analysis and Application to Information Retrieval",
+      "year": 2016,
+      "authors": ["H. Palangi", "L. Deng", "Y. Shen", "J. Gao", "X. He", "J. Chen", "X. Song", "R. Ward"],
+      "task": "Sentence Embedding",
+      "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+      "metrics": ["Unlabeled Attachment Score", "Labeled Attachment Score"],
+      "architecture": {
+        "components": ["LSTM Network"],
+        "connections": [],
+        "mechanisms": ["Long Short-Term Memory"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Parikh2016_DecomposableAttentionModel",
+      "entity_type": "Algorithm",
+      "name": "Decomposable Attention Model",
+      "title": "A Decomposable Attention Model for Natural Language Inference",
+      "year": 2016,
+      "authors": ["A. P. Parikh", "O. Tackstrom", "D. Das", "J. Uszkoreit"],
+      "task": "Natural Language Inference",
+      "dataset": ["SNLI Corpus"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Attention Model"],
+        "connections": [],
+        "mechanisms": ["Decomposable Attention"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Yu2015_ChineseEquationSetSolver",
+      "entity_type": "Algorithm",
+      "name": "Chinese Equation Set Solver",
+      "title": "Dataset and Neural Recurrent Sequence Labeling Model for Open-Domain Factoid Question Answering",
+      "year": 2015,
+      "authors": ["P. Li", "W. Li", "Z. He", "X. Wang", "Y. Cao", "J. Zhou", "W. Xu"],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Chinese Math Word Problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Recurrent Neural Network"],
+        "connections": [],
+        "mechanisms": ["Sequence Labeling"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Yu2016_ChineseArithmeticWordProblemSolver",
+      "entity_type": "Algorithm",
+      "name": "Chinese Arithmetic Word Problem Solver",
+      "title": "Learning Natural Language Inference Using Bidirectional LSTM Model and Inner-Attention",
+      "year": 2016,
+      "authors": ["Y. Liu", "C. Sun", "L. Lin", "X. Wang"],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Chinese Math Word Problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Bidirectional LSTM", "Inner-Attention"],
+        "connections": ["Bidirectional LSTM -> Inner-Attention"],
+        "mechanisms": ["Bidirectional LSTM", "Inner-Attention"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": []
+      },
+      "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Siyam2017_ArabicArithmeticWordProblemSolver",
+      "entity_type": "Algorithm",
+      "name": "Arabic Arithmetic Word Problem Solver",
+      "title": "Dataset and Neural Recurrent Sequence Labeling Model for Open-Domain Factoid Question Answering",
+      "year": 2017,
+      "authors": ["S. Siyam", "C. Gulcehre"],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Arabic Math Word

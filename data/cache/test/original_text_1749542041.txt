@@ -1,0 +1,549 @@
+### 提取实体信息
+
+#### 第1个文档：Distributed representations of words and phrases and their compositionality.pdf
+
+**章节：Introduction**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_SkipGram",
+       "entity_type": "Algorithm",
+       "name": "Skip-gram model",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Sutskever, I.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Learning high-quality distributed vector representations",
+       "dataset": ["News articles dataset"],
+       "metrics": ["Accuracy", "Training speed"],
+       "architecture": {
+         "components": ["Input layer", "Hidden layer", "Output layer"],
+         "connections": ["Word embeddings", "Softmax function"],
+         "mechanisms": ["Negative sampling", "Hierarchical softmax"]
+       },
+       "methodology": {
+         "training_strategy": ["Subsampling of frequent words"],
+         "parameter_tuning": ["Dimensionality of vectors", "Context size"]
+       },
+       "feature_processing": ["Subsampling of frequent words"]
+     }
+   }
+   ```
+
+2. **数据集**
+   ```json
+   {
+     "dataset_entity": {
+       "dataset_id": "NewsArticles_2013",
+       "entity_type": "Dataset",
+       "name": "News articles dataset",
+       "description": "A large dataset consisting of various news articles",
+       "domain": "Natural Language Processing",
+       "size": 1000000000,
+       "year": 2013,
+       "creators": ["Google Inc."]
+     }
+   }
+   ```
+
+3. **评价指标**
+   ```json
+   {
+     "metric_entity": {
+       "metric_id": "Accuracy_Classification",
+       "entity_type": "Metric",
+       "name": "Accuracy",
+       "description": "Accuracy of the model on the analogical reasoning task",
+       "category": "Classification",
+       "formula": "Correct predictions / Total predictions"
+     }
+   }
+   ```
+
+**章节：Empirical Results**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_HierarchicalSoftmax",
+       "entity_type": "Algorithm",
+       "name": "Hierarchical Softmax",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Sutskever, I.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Efficient computation of log probability",
+       "dataset": ["News articles dataset"],
+       "metrics": ["Accuracy", "Training speed"],
+       "architecture": {
+         "components": ["Binary tree", "Inner nodes", "Leaf nodes"],
+         "connections": ["Probability distributions"],
+         "mechanisms": ["Random walk", "Logarithmic cost"]
+       },
+       "methodology": {
+         "training_strategy": ["Binary Huffman tree"],
+         "parameter_tuning": ["Threshold for subsampling"]
+       },
+       "feature_processing": ["Subsampling of frequent words"]
+     }
+   }
+   ```
+
+2. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_NegativeSampling",
+       "entity_type": "Algorithm",
+       "name": "Negative Sampling",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Sutskever, I.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Efficient training of Skip-gram model",
+       "dataset": ["News articles dataset"],
+       "metrics": ["Accuracy", "Training speed"],
+       "architecture": {
+         "components": ["Noise distribution", "Logistic regression"],
+         "connections": ["Input vectors", "Output vectors"],
+         "mechanisms": ["Logistic regression", "Noise distribution"]
+       },
+       "methodology": {
+         "training_strategy": ["Negative sampling"],
+         "parameter_tuning": ["Number of negative samples"]
+       },
+       "feature_processing": ["Subsampling of frequent words"]
+     }
+   }
+   ```
+
+**章节：Learning Phrases**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_PhraseSkipGram",
+       "entity_type": "Algorithm",
+       "name": "Phrase Skip-gram",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Sutskever, I.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Learning vector representations for phrases",
+       "dataset": ["News articles dataset"],
+       "metrics": ["Accuracy"],
+       "architecture": {
+         "components": ["Input layer", "Hidden layer", "Output layer"],
+         "connections": ["Phrase embeddings", "Softmax function"],
+         "mechanisms": ["Negative sampling", "Hierarchical softmax"]
+       },
+       "methodology": {
+         "training_strategy": ["Subsampling of frequent words"],
+         "parameter_tuning": ["Dimensionality of vectors", "Context size"]
+       },
+       "feature_processing": ["Phrase identification", "Subsampling of frequent words"]
+     }
+   }
+   ```
+
+**章节：Additive Compositionality**
+
+1. **评价指标**
+   ```json
+   {
+     "metric_entity": {
+       "metric_id": "Syntactic_AnalogicalReasoning",
+       "entity_type": "Metric",
+       "name": "Syntactic analogical reasoning",
+       "description": "Performance on syntactic analogies",
+       "category": "Analogical reasoning",
+       "formula": "Correct answers / Total questions"
+     }
+   }
+   ```
+
+2. **评价指标**
+   ```json
+   {
+     "metric_entity": {
+       "metric_id": "Semantic_AnalogicalReasoning",
+       "entity_type": "Metric",
+       "name": "Semantic analogical reasoning",
+       "description": "Performance on semantic analogies",
+       "category": "Analogical reasoning",
+       "formula": "Correct answers / Total questions"
+     }
+   }
+   ```
+
+**章节：Comparison to Published Word Representations**
+
+1. **数据集**
+   ```json
+   {
+     "dataset_entity": {
+       "dataset_id": "QuestionsWords_2013",
+       "entity_type": "Dataset",
+       "name": "Questions-words dataset",
+       "description": "A dataset for evaluating word representations",
+       "domain": "Natural Language Processing",
+       "size": 3218,
+       "year": 2013,
+       "creators": ["Google Inc."]
+     }
+   }
+   ```
+
+**章节：Conclusion**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_ContinuousBagOfWords",
+       "entity_type": "Algorithm",
+       "name": "Continuous Bag-of-Words model",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Sutskever, I.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Learning distributed representations of words",
+       "dataset": ["News articles dataset"],
+       "metrics": ["Accuracy", "Training speed"],
+       "architecture": {
+         "components": ["Input layer", "Hidden layer", "Output layer"],
+         "connections": ["Word embeddings", "Softmax function"],
+         "mechanisms": ["Hierarchical softmax", "Negative sampling"]
+       },
+       "methodology": {
+         "training_strategy": ["Subsampling of frequent words"],
+         "parameter_tuning": ["Dimensionality of vectors", "Context size"]
+       },
+       "feature_processing": ["Subsampling of frequent words"]
+     }
+   }
+   ```
+
+### 提取总结
+
+1. 刚刚提取的是 `Introduction`、`Empirical Results`、`Learning Phrases`、`Additive Compositionality` 和 `Comparison to Published Word Representations` 小节。
+2. 论文中还有其他小节未被提取，下一个要提取的小节是 `Conclusion`。
+3. EXTRACTION_COMPLETE: false, CURRENT_SECTION: Conclusion, NEXT_SECTION: None
+
+---
+
+### 提取实体信息
+
+#### 第2个文档：Experiments with a deductive question-answering program.pdf
+
+**章节：Introduction**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Slagle1965_DEDUCOM",
+       "entity_type": "Algorithm",
+       "name": "DEDUCOM",
+       "year": 1965,
+       "authors": ["Slagle, J.R."],
+       "task": "Deductive question-answering",
+       "dataset": ["Custom facts dataset"],
+       "metrics": ["Accuracy", "Response time"],
+       "architecture": {
+         "components": ["Fact storage", "Question reduction", "Answer generation"],
+         "connections": ["Logical deductions", "Predicate calculus"],
+         "mechanisms": ["Depth-first search", "Logical deductions"]
+       },
+       "methodology": {
+         "training_strategy": ["Providing facts"],
+         "parameter_tuning": ["Fact order", "Fact form"]
+       },
+       "feature_processing": ["Fact representation"]
+     }
+   }
+   ```
+
+**章节：General Nature of the Investigation**
+
+1. **数据集**
+   ```json
+   {
+     "dataset_entity": {
+       "dataset_id": "CustomFacts_1965",
+       "entity_type": "Dataset",
+       "name": "Custom facts dataset",
+       "description": "A dataset containing 68 facts for deductive question-answering",
+       "domain": "Artificial Intelligence",
+       "size": 68,
+       "year": 1965,
+       "creators": ["Slagle, J.R."]
+     }
+   }
+   ```
+
+**章节：Performance of the Program**
+
+1. **评价指标**
+   ```json
+   {
+     "metric_entity": {
+       "metric_id": "ResponseTime_QuestionAnswering",
+       "entity_type": "Metric",
+       "name": "Response time",
+       "description": "Time taken by DEDUCOM to answer each question",
+       "category": "Performance",
+       "formula": "Time taken to answer a question"
+     }
+   }
+   ```
+
+### 提取总结
+
+1. 刚刚提取的是 `Introduction`、`General Nature of the Investigation` 和 `Performance of the Program` 小节。
+2. 论文中还有其他小节未被提取，下一个要提取的小节是 `Conclusions`。
+3. EXTRACTION_COMPLETE: false, CURRENT_SECTION: Conclusions, NEXT_SECTION: None
+
+---
+
+### 提取实体信息
+
+#### 第3个文档：ction of implicit quantity relations for arithmetic word problems in chinese.pdf
+
+**章节：Introduction**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Yu2016_ImplicitQuantityRelationsExtractor",
+       "entity_type": "Algorithm",
+       "name": "Implicit Quantity Relations Extractor",
+       "year": 2016,
+       "authors": ["Yu, X.", "Jian, P.", "Wang, M.", "Wu, S."],
+       "task": "Extracting implicit quantity relations in arithmetic word problems",
+       "dataset": ["Chinese arithmetic word problems"],
+       "metrics": ["Accuracy"],
+       "architecture": {
+         "components": ["Chinese phrase parse", "SVM classification", "Instantiation method"],
+         "connections": ["Semantic models", "Equations"],
+         "mechanisms": ["Matching", "Constructing equations"]
+       },
+       "methodology": {
+         "training_strategy": ["Chinese phrase parse", "SVM classification"],
+         "parameter_tuning": ["Keywords", "Classification list"]
+       },
+       "feature_processing": ["Normalized common units", "Chinese phrase parse"]
+     }
+   }
+   ```
+
+**章节：Method and Procedure for Extracting Implicit Quantity Relation**
+
+1. **数据集**
+   ```json
+   {
+     "dataset_entity": {
+       "dataset_id": "ChineseArithmeticWordProblems_2016",
+       "entity_type": "Dataset",
+       "name": "Chinese arithmetic word problems",
+       "description": "A dataset of arithmetic word problems in Chinese",
+       "domain": "Mathematics",
+       "size": 283,
+       "year": 2016,
+       "creators": ["Yu, X.", "Jian, P.", "Wang, M.", "Wu, S."]
+     }
+   }
+   ```
+
+2. **评价指标**
+   ```json
+   {
+     "metric_entity": {
+       "metric_id": "Accuracy_ImplicitRelationsExtraction",
+       "entity_type": "Metric",
+       "name": "Accuracy",
+       "description": "Accuracy of extracting implicit quantity relations",
+       "category": "Extraction",
+       "formula": "Correct extractions / Total extractions"
+     }
+   }
+   ```
+
+### 提取总结
+
+1. 刚刚提取的是 `Introduction` 和 `Method and Procedure for Extracting Implicit Quantity Relation` 小节。
+2. 论文中还有其他小节未被提取，下一个要提取的小节是 `Experiments`。
+3. EXTRACTION_COMPLETE: false, CURRENT_SECTION: Experiments, NEXT_SECTION: None
+
+---
+
+### 提取实体信息
+
+#### 第4个文档：ulus of solving arithmetic multi-step addition and subtraction word problems.pdf
+
+**章节：Introduction**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Ma2010_MSWPAS",
+       "entity_type": "Algorithm",
+       "name": "MSWPAS",
+       "year": 2010,
+       "authors": ["Ma, Y.", "Zhou, Y.", "Cui, G.", "Ren, Y.", "Huang, R."],
+       "task": "Solving multi-step addition and subtraction word problems",
+       "dataset": ["Elementary school arithmetic word problems"],
+       "metrics": ["Accuracy"],
+       "architecture": {
+         "components": ["MSWPAS-NP", "MSWPAS-CP"],
+         "connections": ["Problem frames", "Calculus"],
+         "mechanisms": ["Frame-based calculus", "Means-end analysis"]
+       },
+       "methodology": {
+         "training_strategy": ["Natural language processing", "Frame construction"],
+         "parameter_tuning": ["Frame slots", "Domain knowledge"]
+       },
+       "feature_processing": ["Natural language processing", "Frame construction"]
+     }
+   }
+   ```
+
+**章节：Category of Addition and Subtraction Word Problems**
+
+1. **数据集**
+   ```json
+   {
+     "dataset_entity": {
+       "dataset_id": "ElementarySchoolArithmeticWordProblems_2010",
+       "entity_type": "Dataset",
+       "name": "Elementary school arithmetic word problems",
+       "description": "A dataset of one-step and multi-step addition and subtraction word problems",
+       "domain": "Mathematics",
+       "size": 627,
+       "year": 2010,
+       "creators": ["Ma, Y.", "Zhou, Y.", "Cui, G.", "Ren, Y.", "Huang, R."]
+     }
+   }
+   ```
+
+### 提取总结
+
+1. 刚刚提取的是 `Introduction` 和 `Category of Addition and Subtraction Word Problems` 小节。
+2. 论文中还有其他小节未被提取，下一个要提取的小节是 `System Architecture`。
+3. EXTRACTION_COMPLETE: false, CURRENT_SECTION: System Architecture, NEXT_SECTION: None
+
+---
+
+### 提取实体信息
+
+#### 第5个文档：Generating typed dependency parses from phrase structure parses.pdf
+
+**章节：Introduction**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "deMarneffe2006_TypedDependencyParser",
+       "entity_type": "Algorithm",
+       "name": "Typed Dependency Parser",
+       "year": 2006,
+       "authors": ["de Marneffe, M.-C.", "MacCartney, B.", "Manning, C.D."],
+       "task": "Generating typed dependency parses from phrase structure parses",
+       "dataset": ["Penn Treebank"],
+       "metrics": ["Per-dependency accuracy"],
+       "architecture": {
+         "components": ["Dependency extraction", "Dependency typing"],
+         "connections": ["Phrase structure trees", "Typed dependencies"],
+         "mechanisms": ["Pattern matching", "Tree-expression syntax"]
+       },
+       "methodology": {
+         "training_strategy": ["Phrase structure parsing"],
+         "parameter_tuning": ["Collins head rules", "Semantic heads"]
+       },
+       "feature_processing": ["Phrase structure parsing", "Head identification"]
+     }
+   }
+   ```
+
+**章节：Comparison**
+
+1. **数据集**
+   ```json
+   {
+     "dataset_entity": {
+       "dataset_id": "PennTreebank_2006",
+       "entity_type": "Dataset",
+       "name": "Penn Treebank",
+       "description": "A dataset of English sentences with phrase structure annotations",
+       "domain": "Natural Language Processing",
+       "size": "Varies",
+       "year": 2006,
+       "creators": ["Various contributors"]
+     }
+   }
+   ```
+
+2. **评价指标**
+   ```json
+   {
+     "metric_entity": {
+       "metric_id": "PerDependencyAccuracy_Parsing",
+       "entity_type": "Metric",
+       "name": "Per-dependency accuracy",
+       "description": "Accuracy of each dependency in the parse",
+       "category": "Parsing",
+       "formula": "Correct dependencies / Total dependencies"
+     }
+   }
+   ```
+
+### 提取总结
+
+1. 刚刚提取的是 `Introduction` 和 `Comparison` 小节。
+2. 论文中还有其他小节未被提取，下一个要提取的小节是 `Application`。
+3. EXTRACTION_COMPLETE: false, CURRENT_SECTION: Application, NEXT_SECTION: None
+
+---
+
+### 提取实体信息
+
+#### 第6个文档：tmp8xm7ia55.txt
+
+**章节：Introduction**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Yu2016_ChineseArithmeticWordProblemSolver",
+       "entity_type": "Algorithm",
+       "name": "Chinese Arithmetic Word Problem Solver",
+       "year": 2016,
+       "authors": ["Yu, X.", "Jian, P.", "Wang, M.", "Wu, S."],
+       "task": "Solving Chinese arithmetic word problems",
+       "dataset": ["Chinese arithmetic word problems"],
+       "metrics": ["Accuracy"],
+       "architecture": {
+         "components": ["Chinese phrase parse", "SVM classification", "Instantiation method"],
+         "connections": ["Semantic models", "Equations"],
+         "mechanisms": ["Matching", "Constructing equations"]
+       },
+       "methodology": {
+         "training_strategy": ["Chinese phrase parse", "SVM classification"],
+         "parameter_tuning": ["Keywords", "Classification list"]
+       },
+       "feature_processing": ["Normalized common units", "Chinese phrase parse"]
+     }
+   }
+   ```
+
+### 提取总结
+
+1. 刚刚提取的是 `Introduction` 小节。
+2. 论文中还有其他小节未被提取，下一个要提取的小节是 `Method and Procedure for Extracting Implicit Quantity Relation`。
+3. EXTRACTION_COMPLETE: false, CURRENT_SECTION: Method and Procedure for Extracting Implicit Quantity Relation, NEXT_SECTION: None
+
+---
+
+### 总结
+
+以上是从各个文档中提取的部分实体信息。由于篇幅限制，每个文档的提取尚未完成。请确认是否需要继续提取更多实体，或者是否有特定的文档或章节需要优先处理。
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: Method and Procedure for Extracting Implicit Quantity Relation, NEXT_SECTION: Experiments

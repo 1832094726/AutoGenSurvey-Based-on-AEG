@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_UnitDependencyGraph",
+      "entity_type": "Algorithm",
+      "name": "Unit Dependency Graph (UDG)",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Arithmetic Word Problem Solving",
+      "dataset": ["AllArith_2015"],
+      "metrics": ["Accuracy_MathProblemSolving"],
+      "architecture": {
+        "components": ["Vertex Classifier", "Edge Classifier", "Constrained Inference Module"],
+        "connections": ["Vertex Classifier -> Edge Classifier -> Constrained Inference Module"],
+        "mechanisms": ["Decomposed Model", "Joint Inference"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning", "Beam Search"],
+        "parameter_tuning": ["Scaling Parameters"]
+      },
+      "feature_processing": ["Context Features", "Rule-based Extraction Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArith_2015",
+      "entity_type": "Dataset",
+      "name": "AllArith",
+      "description": "A dataset of arithmetic word problems",
+      "domain": "Mathematics",
+      "size": 831,
+      "year": 2015,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MathProblemSolving",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy of solving arithmetic word problems",
+      "category": "Math Problem Solving",
+      "formula": "Correct Solutions / Total Problems"
+    }
+  }
+]

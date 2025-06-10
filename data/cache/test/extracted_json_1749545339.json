@@ -1,0 +1,246 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2015_KnowledgeBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Knowledge-Based Solver",
+      "year": 2015,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Arithmetic Word Problem Solving",
+      "dataset": ["AllArith_2015"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Concept Selection", "Declarative Rule Selection"],
+        "connections": ["Concept to Rule", "Rule to Operation"],
+        "mechanisms": ["Latent Variable Modeling"]
+      },
+      "methodology": {
+        "training_strategy": ["Two Stage Learning"],
+        "parameter_tuning": ["C", "λ"]
+      },
+      "feature_processing": ["Dependency Parse Labels", "Coreference Resolution", "Rate Component Detection"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArith_2015",
+      "entity_type": "Dataset",
+      "name": "AllArith",
+      "description": "Arithmetic word problems dataset",
+      "domain": "Natural Language Processing",
+      "size": 832,
+      "year": 2015,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "formula": "正确分类样本数/总样本数"
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Perturb_2018",
+      "entity_type": "Dataset",
+      "name": "Perturb",
+      "description": "Perturbed arithmetic word problems dataset",
+      "domain": "Natural Language Processing",
+      "size": 661,
+      "year": 2018,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Aggregate_2018",
+      "entity_type": "Dataset",
+      "name": "Aggregate",
+      "description": "Combined dataset of AllArith and Perturb",
+      "domain": "Natural Language Processing",
+      "size": 1492,
+      "year": 2018,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Recall@5",
+      "entity_type": "Metric",
+      "name": "Recall@5",
+      "description": "前五预测中包含正确答案的比例",
+      "category": "检索评估",
+      "formula": "正确答案出现在前五预测中的次数/总预测次数"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_UnitDependencyGraph",
+      "entity_type": "Algorithm",
+      "name": "Unit Dependency Graph",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Arithmetic Word Problem Solving",
+      "dataset": ["AllArith_2015"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Unit Detection", "Dependency Graph Construction"],
+        "connections": ["Unit to Graph Node", "Graph Node to Operation"],
+        "mechanisms": ["Graph-Based Reasoning"]
+      },
+      "methodology": {
+        "training_strategy": ["Structured Learning"],
+        "parameter_tuning": ["C"]
+      },
+      "feature_processing": ["Unit Extraction", "Dependency Parsing"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hosseini2014_ARIS",
+      "entity_type": "Algorithm",
+      "name": "ARIS",
+      "year": 2014,
+      "authors": ["Hosseini, M.J.", "Hajishirzi, H.", "Etzioni, O.", "Kushman, N."],
+      "task": "Arithmetic Word Problem Solving",
+      "dataset": ["MA1_2014", "MA2_2014", "IXL_2014"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Entity Recognition", "Container Identification", "Attribute Extraction", "Quantity Tracking"],
+        "connections": ["Entity to Container", "Container to Quantity"],
+        "mechanisms": ["Verb Categorization", "State Transition Modeling"]
+      },
+      "methodology": {
+        "training_strategy": ["Cross Validation"],
+        "parameter_tuning": ["C"]
+      },
+      "feature_processing": ["Dependency Parsing", "Coreference Resolution", "Named Entity Recognition"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mitra2016_FormulaBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Formula-Based Solver",
+      "year": 2016,
+      "authors": ["Mitra, A.", "Baral, C."],
+      "task": "Arithmetic Word Problem Solving",
+      "dataset": ["AddSub_2014"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Formula Recognition", "Variable Mapping"],
+        "connections": ["Formula to Equation", "Variable to Quantity"],
+        "mechanisms": ["Semantic Parsing", "Reasoning"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["C"]
+      },
+      "feature_processing": ["Dependency Parsing", "Coreference Resolution"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hochreiter1997_LSTM",
+      "entity_type": "Algorithm",
+      "name": "LSTM",
+      "year": 1997,
+      "authors": ["Hochreiter, S.", "Schmidhuber, J."],
+      "task": "Sequence Prediction",
+      "dataset": ["Various synthetic and real-world datasets"],
+      "metrics": ["MSE_Regression"],
+      "architecture": {
+        "components": ["Memory Cells", "Input Gates", "Output Gates"],
+        "connections": ["Cell to Cell", "Gate to Cell", "Input to Gate"],
+        "mechanisms": ["Constant Error Flow", "Truncated Backpropagation"]
+      },
+      "methodology": {
+        "training_strategy": ["Gradient Descent"],
+        "parameter_tuning": ["Learning Rate", "Bias Initialization"]
+      },
+      "feature_processing": ["Input Encoding", "Temporal Order Extraction"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AddSub_2014",
+      "entity_type": "Dataset",
+      "name": "AddSub",
+      "description": "Addition and subtraction arithmetic word problems dataset",
+      "domain": "Natural Language Processing",
+      "size": 395,
+      "year": 2014,
+      "creators": ["Hosseini, M.J.", "Hajishirzi, H.", "Etzioni, O.", "Kushman, N."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "MSE_Regression",
+      "entity_type": "Metric",
+      "name": "Mean Squared Error",
+      "description": "均方误差",
+      "category": "回归评估",
+      "formula": "平方误差之和/样本数"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Kushman2014_TemplateBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Template-Based Solver",
+      "year": 2014,
+      "authors": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."],
+      "task": "Algebra Word Problem Solving",
+      "dataset": ["Algebra.com_Dataset_2014"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Template Matching", "Equation Generation"],
+        "connections": ["Template to Equation", "Equation to Solution"],
+        "mechanisms": ["Pattern Recognition", "Symbolic Reasoning"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning"],
+        "parameter_tuning": ["C"]
+      },
+      "feature_processing": ["Template Alignment", "Equation Templates"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Algebra.com_Dataset_2014",
+      "entity_type": "Dataset",
+      "name": "Algebra.com Dataset",
+      "description": "Algebra word problems dataset",
+      "domain": "Natural Language Processing",
+      "size": "Not specified",
+      "year": 2014,
+      "creators": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2015_LowestCommonAncestors",
+      "entity_type": "Algorithm",
+      "name": "Lowest Common Ancestors",
+      "year": 2015,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "Arithmetic Word Problem Solving",
+      "dataset": ["AllArith_2015"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Tree Construction", "Common Ancestor Detection"],
+        "connections": ["Node to Node", "Tree to Operation"],
+        "mechanisms": ["Tree-Based Reasoning"]
+      },
+      "methodology": {
+        "training_strategy": ["Structured Learning"],
+        "parameter_tuning": ["C"]
+      },
+      "feature_processing": ["Dependency Parsing", "Tree Structure Extraction"]
+    }
+  }
+]

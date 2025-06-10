@@ -1,0 +1,10 @@
+{
+    "from_entity": "Yu2016_ChineseArithmeticWordProblemSolver",
+    "to_entity": "Chinese arithmetic word problem dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Use",
+    "detail": "Chinese Arithmetic Word Problem Solver uses the Chinese arithmetic word problem dataset for evaluation",
+    "problem_addressed": "Evaluation on Chinese arithmetic word problems",
+    "evidence": "The Chinese Arithmetic Word Problem Solver was evaluated on the Chinese arithmetic word problem dataset.",
+    "confidence": 0.95
+  }

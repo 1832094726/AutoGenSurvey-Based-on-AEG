@@ -1,0 +1,323 @@
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Luong2016_MultiTaskSeq2Seq",
+      "entity_type": "Algorithm",
+      "name": "Multi-task Sequence to Sequence Learning",
+      "title": "MULTI-TASK SEQUENCE TO SEQUENCE LEARNING",
+      "year": 2016,
+      "authors": ["Luong, Minh-Thang", "Le, Quoc V.", "Sutskever, Ilya", "Vinyals, Oriol", "Kaiser, Lukasz"],
+      "task": "机器翻译、句法分析、图像字幕生成",
+      "dataset": ["WMT'15 English-German", "Penn Tree Bank Parsing", "High-Confidence Corpus Parsing", "Image Captioning"],
+      "metrics": ["BLEU Score", "Perplexity", "F1 Score"],
+      "architecture": {
+        "components": ["Encoder", "Decoder"],
+        "connections": ["One-to-many", "Many-to-one", "Many-to-many"],
+        "mechanisms": ["Attention Mechanism", "Autoencoder", "Skip-thought Vectors"]
+      },
+      "methodology": {
+        "training_strategy": ["Alternating Training", "Mixing Ratio"],
+        "parameter_tuning": ["Learning Rate", "Mini-batch Size", "Dropout"]
+      },
+      "feature_processing": ["Stanford Parser", "Monolingual Corpora"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "WMT15_English-German_2015",
+      "entity_type": "Dataset",
+      "name": "WMT'15 English-German",
+      "description": "英语到德语的翻译数据集",
+      "domain": "自然语言处理",
+      "size": 4500000,
+      "year": 2015,
+      "creators": ["Bojar, Ondřej", "Federmann, Christian", "Haddow, Barry", "Huck, Matthias", "Koehn, Philipp", "Logacheva, Varvara", "Monz, Christof", "Negri, Matteo", "Post, Matt", "Scarton, Carolina", "Specia, Lucia", "Turchi, Marco"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Penn_Tree_Bank_Parsing_2015",
+      "entity_type": "Dataset",
+      "name": "Penn Tree Bank Parsing",
+      "description": "句法分析数据集",
+      "domain": "自然语言处理",
+      "size": 40000,
+      "year": 2015,
+      "creators": ["Marcus, Mitchell P.", "Marcinkiewicz, Mary Ann", "Santorini, Beatrice"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "High_Confidence_Corpus_Parsing_2015",
+      "entity_type": "Dataset",
+      "name": "High-Confidence Corpus Parsing",
+      "description": "高置信度句法分析数据集",
+      "domain": "自然语言处理",
+      "size": 11000000,
+      "year": 2015,
+      "creators": ["Vinyals, Oriol", "Kaiser, Lukasz", "Koo, Terry", "Petrov, Slav", "Sutskever, Ilya", "Hinton, Geoffrey"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Image_Captioning_2015",
+      "entity_type": "Dataset",
+      "name": "Image Captioning",
+      "description": "图像字幕生成数据集",
+      "domain": "计算机视觉",
+      "size": 596000,
+      "year": 2015,
+      "creators": ["Vinyals, Oriol", "Toshev, Alexander", "Bengio, Samy", "Erhan, Dumitru"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "BLEU_Score_Translation",
+      "entity_type": "Metric",
+      "name": "BLEU Score",
+      "description": "翻译任务中的双语评估替代分数",
+      "category": "翻译评估",
+      "formula": "BP * exp(sum_{n=1}^N w_n * log p_n)"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Perplexity_Language_Modeling",
+      "entity_type": "Metric",
+      "name": "Perplexity",
+      "description": "语言模型困惑度",
+      "category": "语言模型评估",
+      "formula": "exp(-1/N * sum_{i=1}^N log p(w_i))"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "F1_Score_Parsing",
+      "entity_type": "Metric",
+      "name": "F1 Score",
+      "description": "句法分析任务中的F1分数",
+      "category": "句法分析评估",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  }
+]
+```
+
+### 提取完成情况说明：
+
+1. **刚刚提取的小节**：MULTI-TASK SEQUENCE TO SEQUENCE LEARNING
+2. **论文中是否还有其他小节未被提取**：是
+3. **下一个要提取的小节**：NATURAL LANGUAGE PROCESSING FOR SOLVING SIMPLE WORD PROBLEMS
+
+### 下一步计划：
+接下来将提取"NATURAL LANGUAGE PROCESSING FOR SOLVING SIMPLE WORD PROBLEMS"小节中的实体信息。
+
+---
+
+### 提取完成情况说明：
+
+1. **刚刚提取的小节**：NATURAL LANGUAGE PROCESSING FOR SOLVING SIMPLE WORD PROBLEMS
+2. **论文中是否还有其他小节未被提取**：是
+3. **下一个要提取的小节**：NEURAL MATH WORD PROBLEM SOLVER WITH REINFORCEMENT LEARNING
+
+### 下一步计划：
+接下来将提取"NEURAL MATH WORD PROBLEM SOLVER WITH REINFORCEMENT LEARNING"小节中的实体信息。
+
+---
+
+### 提取完成情况说明：
+
+1. **刚刚提取的小节**：NEURAL MATH WORD PROBLEM SOLVER WITH REINFORCEMENT LEARNING
+2. **论文中是否还有其他小节未被提取**：是
+3. **下一个要提取的小节**：PARSING ALGEBRAIC WORD PROBLEMS INTO EQUATIONS
+
+### 下一步计划：
+接下来将提取"PARSING ALGEBRAIC WORD PROBLEMS INTO EQUATIONS"小节中的实体信息。
+
+---
+
+### 提取完成情况说明：
+
+1. **刚刚提取的小节**：PARSING ALGEBRAIC WORD PROBLEMS INTO EQUATIONS
+2. **论文中是否还有其他小节未被提取**：否
+3. **是否需要继续提取**：否
+
+### 提取结果汇总：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Luong2016_MultiTaskSeq2Seq",
+      "entity_type": "Algorithm",
+      "name": "Multi-task Sequence to Sequence Learning",
+      "title": "MULTI-TASK SEQUENCE TO SEQUENCE LEARNING",
+      "year": 2016,
+      "authors": ["Luong, Minh-Thang", "Le, Quoc V.", "Sutskever, Ilya", "Vinyals, Oriol", "Kaiser, Lukasz"],
+      "task": "机器翻译、句法分析、图像字幕生成",
+      "dataset": ["WMT'15 English-German", "Penn Tree Bank Parsing", "High-Confidence Corpus Parsing", "Image Captioning"],
+      "metrics": ["BLEU Score", "Perplexity", "F1 Score"],
+      "architecture": {
+        "components": ["Encoder", "Decoder"],
+        "connections": ["One-to-many", "Many-to-one", "Many-to-many"],
+        "mechanisms": ["Attention Mechanism", "Autoencoder", "Skip-thought Vectors"]
+      },
+      "methodology": {
+        "training_strategy": ["Alternating Training", "Mixing Ratio"],
+        "parameter_tuning": ["Learning Rate", "Mini-batch Size", "Dropout"]
+      },
+      "feature_processing": ["Stanford Parser", "Monolingual Corpora"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "WMT15_English-German_2015",
+      "entity_type": "Dataset",
+      "name": "WMT'15 English-German",
+      "description": "英语到德语的翻译数据集",
+      "domain": "自然语言处理",
+      "size": 4500000,
+      "year": 2015,
+      "creators": ["Bojar, Ondřej", "Federmann, Christian", "Haddow, Barry", "Huck, Matthias", "Koehn, Philipp", "Logacheva, Varvara", "Monz, Christof", "Negri, Matteo", "Post, Matt", "Scarton, Carolina", "Specia, Lucia", "Turchi, Marco"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Penn_Tree_Bank_Parsing_2015",
+      "entity_type": "Dataset",
+      "name": "Penn Tree Bank Parsing",
+      "description": "句法分析数据集",
+      "domain": "自然语言处理",
+      "size": 40000,
+      "year": 2015,
+      "creators": ["Marcus, Mitchell P.", "Marcinkiewicz, Mary Ann", "Santorini, Beatrice"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "High_Confidence_Corpus_Parsing_2015",
+      "entity_type": "Dataset",
+      "name": "High-Confidence Corpus Parsing",
+      "description": "高置信度句法分析数据集",
+      "domain": "自然语言处理",
+      "size": 11000000,
+      "year": 2015,
+      "creators": ["Vinyals, Oriol", "Kaiser, Lukasz", "Koo, Terry", "Petrov, Slav", "Sutskever, Ilya", "Hinton, Geoffrey"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Image_Captioning_2015",
+      "entity_type": "Dataset",
+      "name": "Image Captioning",
+      "description": "图像字幕生成数据集",
+      "domain": "计算机视觉",
+      "size": 596000,
+      "year": 2015,
+      "creators": ["Vinyals, Oriol", "Toshev, Alexander", "Bengio, Samy", "Erhan, Dumitru"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "BLEU_Score_Translation",
+      "entity_type": "Metric",
+      "name": "BLEU Score",
+      "description": "翻译任务中的双语评估替代分数",
+      "category": "翻译评估",
+      "formula": "BP * exp(sum_{n=1}^N w_n * log p_n)"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Perplexity_Language_Modeling",
+      "entity_type": "Metric",
+      "name": "Perplexity",
+      "description": "语言模型困惑度",
+      "category": "语言模型评估",
+      "formula": "exp(-1/N * sum_{i=1}^N log p(w_i))"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "F1_Score_Parsing",
+      "entity_type": "Metric",
+      "name": "F1 Score",
+      "description": "句法分析任务中的F1分数",
+      "category": "句法分析评估",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Sundaram2015_SimpleWordProblemSolver",
+      "entity_type": "Algorithm",
+      "name": "Simple Word Problem Solver",
+      "title": "Natural Language Processing for Solving Simple Word Problems",
+      "year": 2015,
+      "authors": ["Sundaram, Sowmya S.", "Khemani, Deepak"],
+      "task": "简单算术问题求解",
+      "dataset": ["Hosseini et al. 2014"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Natural Language Processor", "Knowledge Representation"],
+        "connections": ["Schemas", "Temporal Schemas"],
+        "mechanisms": ["Co-reference Resolution", "Conjunction Resolution"]
+      },
+      "methodology": {
+        "training_strategy": ["无监督学习"],
+        "parameter_tuning": ["无"]
+      },
+      "feature_processing": ["Stanford CoreNLP"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Huang2018_CASS",
+      "entity_type": "Algorithm",
+      "name": "CASS",
+      "title": "Neural Math Word Problem Solver with Reinforcement Learning",
+      "year": 2018,
+      "authors": ["Huang, Danqing", "Liu, Jing", "Lin, Chin-Yew", "Yin, Jian"],
+      "task": "数学文字题求解",
+      "dataset": ["Alg514", "NumWord", "Dolphin18K"],
+      "metrics": ["Solution Accuracy", "BLEU Score"],
+      "architecture": {
+        "components": ["Sequence-to-Sequence Model", "Copy Mechanism", "Alignment Mechanism"],
+        "connections": ["Encoder-Decoder"],
+        "mechanisms": ["Reinforcement Learning", "Policy Gradient"]
+      },
+      "methodology": {
+        "training_strategy": ["最大似然估计", "强化学习"],
+        "parameter_tuning": ["超参数λ", "学习率衰减"]
+      },
+      "feature_processing": ["Stanford CoreNLP"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "KoncelKedziorski2015_ALGES",
+      "entity_type": "Algorithm",
+      "name": "ALGES",
+      "title": "Parsing Algebraic Word Problems into Equations",
+      "year": 2015,
+      "authors": ["Koncel-Kedziorski, Rik", "Hajishirzi, Hannaneh", "Sabharwal, Ashish", "Etzioni, Oren", "Ang, Siena Dumas"],
+      "task": "代数文字题解析为方程",
+      "dataset": ["SINGLEEQ"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Integer Linear Programming", "Local Discriminative Model", "Global Discriminative Model"],
+        "connections": ["Equation Trees"],
+        "mechanisms": ["Type Consistency Constraints", "Soft Constraints"]
+      },
+      "methodology": {
+        "training_strategy": ["弱监督学习"],
+        "parameter_tuning": ["无"]
+      },
+      "feature_processing": ["Stanford Dependency Parser"]
+    }
+  }
+]
+```
+
+EXTRACTION_COMPLETE: true

@@ -1,0 +1,4 @@
+{
+        "training_strategy": ["Stochastic gradient descent"],
+        "parameter_tuning": ["Learning rate", "Bias initialization"]
+      }

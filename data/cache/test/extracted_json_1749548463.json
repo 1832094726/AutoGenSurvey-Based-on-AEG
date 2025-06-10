@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Roy2017_UnitDependencyGraphPrediction",
+      "entity_type": "Algorithm",
+      "name": "Unit Dependency Graph Prediction",
+      "year": 2017,
+      "authors": ["Roy, S.", "Roth, D."],
+      "task": "预测数学应用题中的单位依赖图",
+      "dataset": ["AllArith_2015"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Vertex Classifier", "Edge Classifier", "Constrained Inference Module"],
+        "connections": ["Vertex Classifier -> Edge Classifier -> Constrained Inference Module"],
+        "mechanisms": ["Decomposed Model", "Joint Inference"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning", "Beam Search"],
+        "parameter_tuning": ["Scaling Parameters"]
+      },
+      "feature_processing": ["Context Features", "Rule-based Extraction Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AllArith_2015",
+      "entity_type": "Dataset",
+      "name": "AllArith",
+      "description": "包含多种算术应用题的数据集",
+      "domain": "数学应用题求解",
+      "size": 831,
+      "year": 2015,
+      "creators": ["Roy, S.", "Roth, D."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "formula": "正确分类样本数 / 总样本数"
+    }
+  }
+]

@@ -1,0 +1,144 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Goldwasser2014_LearningFromNaturalInstructions",
+      "entity_type": "Algorithm",
+      "name": "Learning from Natural Instructions",
+      "year": 2014,
+      "authors": ["Dan Goldwasser", "Dan Roth"],
+      "task": "Interpreting natural language instructions",
+      "dataset": ["Freecell Solitaire Card Game", "Geoquery"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Semantic Interpreter", "Feedback Mechanism"],
+        "connections": ["Input Sentence -> Alignment Decisions -> Output Structure", "Output Structure -> Feedback Function -> Model Update"],
+        "mechanisms": ["Integer Linear Programming(ILP)", "Lexical and Syntactic Features"]
+      },
+      "methodology": {
+        "training_strategy": ["Response-driven Learning", "Iterative Learning with Feedback"],
+        "parameter_tuning": ["Weight Vector Updates", "Loss Approximation"]
+      },
+      "feature_processing": ["Lexical Similarity Features", "Syntactic Dependency Features", "External Knowledge Base Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Geoquery_Dataset_1996",
+      "entity_type": "Dataset",
+      "name": "Geoquery",
+      "description": "A dataset of geographical queries and their corresponding logical forms",
+      "domain": "Natural Language Processing",
+      "size": 500,
+      "year": 1996,
+      "creators": ["Zelle, J.", "Mooney, R."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Proportion of correct predictions",
+      "category": "Classification Evaluation",
+      "formula": "Correct Predictions / Total Predictions"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Cho2014_RNNEncoderDecoder",
+      "entity_type": "Algorithm",
+      "name": "RNN Encoder-Decoder",
+      "year": 2014,
+      "authors": ["Kyunghyun Cho", "Bart van Merrienboer", "Caglar Gulcehre", "Dzmitry Bahdanau", "Fethi Bougares", "Holger Schwenk", "Yoshua Bengio"],
+      "task": "Phrase Representation for Statistical Machine Translation",
+      "dataset": ["English-French Translation Task"],
+      "metrics": ["BLEU Score"],
+      "architecture": {
+        "components": ["Encoder RNN", "Decoder RNN"],
+        "connections": ["Input Sequence -> Fixed-Length Vector -> Output Sequence"],
+        "mechanisms": ["Reset Gate", "Update Gate", "Continuous Space Representation"]
+      },
+      "methodology": {
+        "training_strategy": ["Joint Training", "Conditional Probability Maximization"],
+        "parameter_tuning": ["Gradient-Based Optimization", "Adadelta", "Stochastic Gradient Descent"]
+      },
+      "feature_processing": ["Word Embedding", "Deep Neural Network Layers"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "English-French_Translation_Task_2014",
+      "entity_type": "Dataset",
+      "name": "English-French Translation Task",
+      "description": "A dataset for translating English to French",
+      "domain": "Statistical Machine Translation",
+      "size": "Large scale",
+      "year": 2014,
+      "creators": ["WMT’14 workshop organizers"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "BLEU_Score",
+      "entity_type": "Metric",
+      "name": "BLEU Score",
+      "description": "A metric for evaluating the quality of text which has been machine-translated from one natural language to another",
+      "category": "Translation Evaluation",
+      "formula": "BP * exp(Σw_i * log p_i)"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Kushman2014_TemplateBasedSolver",
+      "entity_type": "Algorithm",
+      "name": "Template-Based Solver",
+      "year": 2014,
+      "authors": ["Nate Kushman", "Yoav Artzi", "Luke Zettlemoyer", "Regina Barzilay"],
+      "task": "Automatically Solving Algebra Word Problems",
+      "dataset": ["Algebra.com Dataset"],
+      "metrics": ["Equation Accuracy", "Answer Accuracy"],
+      "architecture": {
+        "components": ["Equation Templates", "Alignment Model"],
+        "connections": ["Text -> Equation Template -> Instantiated Equations -> Final Answer"],
+        "mechanisms": ["Canonicalization", "Beam Search Inference"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning", "Weak Supervision"],
+        "parameter_tuning": ["L-BFGS", "Beam Search Parameters"]
+      },
+      "feature_processing": ["Document-Level Features", "Single Slot Features", "Slot Pair Features", "Solution Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Algebra.com_Dataset_2014",
+      "entity_type": "Dataset",
+      "name": "Algebra.com Dataset",
+      "description": "A dataset of algebra word problems collected from Algebra.com",
+      "domain": "Natural Language Processing",
+      "size": 514,
+      "year": 2014,
+      "creators": ["Nate Kushman", "Yoav Artzi", "Luke Zettlemoyer", "Regina Barzilay"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Equation_Accuracy",
+      "entity_type": "Metric",
+      "name": "Equation Accuracy",
+      "description": "Proportion of correctly generated equation systems",
+      "category": "Algebra Word Problem Evaluation",
+      "formula": "Correct Equation Systems / Total Equation Systems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Answer_Accuracy",
+      "entity_type": "Metric",
+      "name": "Answer Accuracy",
+      "description": "Proportion of correctly generated numerical answers",
+      "category": "Algebra Word Problem Evaluation",
+      "formula": "Correct Answers / Total Answers"
+    }
+  }
+]

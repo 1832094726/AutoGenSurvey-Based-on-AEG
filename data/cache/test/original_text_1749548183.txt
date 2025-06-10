@@ -1,0 +1,221 @@
+### 提取实体信息
+
+#### 第1个文档：《Translating a Math Word Problem to an Expression Tree》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Wang2018_EquationNormalization",
+    "entity_type": "Algorithm",
+    "name": "Equation Normalization",
+    "year": 2018,
+    "authors": ["Lei Wang", "Yan Wang", "Deng Cai", "Dongxiang Zhang", "Xiaojiang Liu"],
+    "task": "Math Word Problem Solving",
+    "dataset": ["Math23K_2017"],
+    "metrics": ["Accuracy_Classification"],
+    "architecture": {
+      "components": ["Rule 1", "Rule 2", "Expression Tree"],
+      "connections": ["Rule 1 -> Equation Template", "Rule 2 -> Equation Template", "Equation Template -> Expression Tree"],
+      "mechanisms": ["Order Duplication Handling", "Bracket Duplication Handling"]
+    },
+    "methodology": {
+      "training_strategy": ["SEQ2SEQ Framework"],
+      "parameter_tuning": ["Beam Search", "Adam Optimizer"]
+    },
+    "feature_processing": ["Significant Number Identification"]
+  }
+}
+```
+
+##### 2. 数据集实体
+```json
+{
+  "dataset_entity": {
+    "dataset_id": "Math23K_2017",
+    "entity_type": "Dataset",
+    "name": "Math23K",
+    "description": "A dataset of 23,162 labeled math word problems",
+    "domain": "Mathematics",
+    "size": 23162,
+    "year": 2017,
+    "creators": ["Wang, Y.", "Liu, X.", "Shi, S."]
+  }
+}
+```
+
+##### 3. 评价指标实体
+```json
+{
+  "metric_entity": {
+    "metric_id": "Accuracy_Classification",
+    "entity_type": "Metric",
+    "name": "Accuracy",
+    "description": "Classification accuracy",
+    "category": "Classification Evaluation",
+    "formula": "Correct classifications / Total classifications"
+  }
+}
+```
+
+#### 第2个文档：《Understanding and solving arithmetic word problems_a computer simulation》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Fletcher1986_WORDPRO",
+    "entity_type": "Algorithm",
+    "name": "WORDPRO",
+    "year": 1986,
+    "authors": ["Charles R. Fletcher"],
+    "task": "Arithmetic Word Problem Solving",
+    "dataset": [],
+    "metrics": [],
+    "architecture": {
+      "components": ["Production Rules", "Text Base", "Problem Model"],
+      "connections": ["Text Base -> Problem Model", "Propositional Representation -> Text Base"],
+      "mechanisms": ["Meaning Postulates", "Arithmetic Strategies", "Problem-Solving Procedures"]
+    },
+    "methodology": {
+      "training_strategy": ["Rule-Based System"],
+      "parameter_tuning": []
+    },
+    "feature_processing": ["Propositional Representation"]
+  }
+}
+```
+
+#### 第3个文档：《Understanding natural language with diagrams》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Novak1990_BEATRIX",
+    "entity_type": "Algorithm",
+    "name": "BEATRIX",
+    "year": 1990,
+    "authors": ["Gordon S. Novak Jr.", "William C. Bulko"],
+    "task": "Physics Problem Solving with Text and Diagrams",
+    "dataset": [],
+    "metrics": [],
+    "architecture": {
+      "components": ["English Parser", "Diagram Parser", "Coreference Resolver"],
+      "connections": ["English Parser -> Problem Model", "Diagram Parser -> Problem Model", "Coreference Resolver -> Problem Model"],
+      "mechanisms": ["Opportunistic Co-parsers", "Blackboard Architecture"]
+    },
+    "methodology": {
+      "training_strategy": ["Rule-Based System"],
+      "parameter_tuning": []
+    },
+    "feature_processing": ["Propositional Representation", "Diagram Elements"]
+  }
+}
+```
+
+#### 第4个文档：《Understanding text with an accompanying diagram》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Bulko1988_BEATRIX",
+    "entity_type": "Algorithm",
+    "name": "BEATRIX",
+    "year": 1988,
+    "authors": ["William C. Bulko"],
+    "task": "Physics Problem Solving with Text and Diagrams",
+    "dataset": [],
+    "metrics": [],
+    "architecture": {
+      "components": ["Graphic Interface", "English Parser", "Blackboard Structure"],
+      "connections": ["Graphic Interface -> Picture Level", "English Parser -> Text Level", "Blackboard Structure -> Problem Model"],
+      "mechanisms": ["Opportunistic Control", "Coreference Resolution"]
+    },
+    "methodology": {
+      "training_strategy": ["Rule-Based System"],
+      "parameter_tuning": []
+    },
+    "feature_processing": ["Propositional Representation", "Diagram Elements"]
+  }
+}
+```
+
+#### 第5个文档：《Understanding the value of features for coreference resolution》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Bengtson2008_PairwiseCoreferenceModel",
+    "entity_type": "Algorithm",
+    "name": "Pairwise Coreference Model",
+    "year": 2008,
+    "authors": ["Eric Bengtson", "Dan Roth"],
+    "task": "Coreference Resolution",
+    "dataset": ["ACE_2004"],
+    "metrics": ["B-Cubed F-Score", "MUC F-Score"],
+    "architecture": {
+      "components": ["Pairwise Coreference Function", "Best-Link Decision Model"],
+      "connections": ["Pairwise Coreference Function -> Coreference Graph", "Best-Link Decision Model -> Coreference Graph"],
+      "mechanisms": ["Coreference Classification", "Distance Features", "Apposition Features"]
+    },
+    "methodology": {
+      "training_strategy": ["Averaged Perceptron Learning"],
+      "parameter_tuning": ["Threshold Optimization", "Regularization Parameter"]
+    },
+    "feature_processing": ["String Relation Features", "Semantic Features", "Relative Location Features", "Learned Features", "Aligned Modifiers", "Memorization Features", "Predicted Entity Types"]
+  }
+}
+```
+
+##### 2. 数据集实体
+```json
+{
+  "dataset_entity": {
+    "dataset_id": "ACE_2004",
+    "entity_type": "Dataset",
+    "name": "ACE 2004",
+    "description": "A dataset for coreference resolution",
+    "domain": "Natural Language Processing",
+    "size": 336,
+    "year": 2004,
+    "creators": ["NIST"]
+  }
+}
+```
+
+##### 3. 评价指标实体
+```json
+{
+  "metric_entity": {
+    "metric_id": "B-Cubed_F-Score",
+    "entity_type": "Metric",
+    "name": "B-Cubed F-Score",
+    "description": "A measure of the overlap of predicted clusters and true clusters",
+    "category": "Coreference Evaluation",
+    "formula": "Harmonic mean of precision and recall"
+  }
+}
+```
+
+```json
+{
+  "metric_entity": {
+    "metric_id": "MUC_F-Score",
+    "entity_type": "Metric",
+    "name": "MUC F-Score",
+    "description": "Official MUC scoring algorithm",
+    "category": "Coreference Evaluation",
+    "formula": "Harmonic mean of precision and recall"
+  }
+}
+```
+
+### 提取总结
+1. 刚刚提取的是第1个文档的算法、数据集和评价指标实体。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是第2个文档的剩余部分。
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: [第1个文档], NEXT_SECTION: [第2个文档]
