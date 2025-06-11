@@ -1,0 +1,305 @@
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Hajishirzi2013_NECO",
+      "entity_type": "Algorithm",
+      "name": "NECO",
+      "title": "Joint Coreference Resolution and Named-Entity Linking with Multi-pass Sieves",
+      "year": 2013,
+      "authors": ["Hajishirzi, H.", "Zilles, L.", "Weld, D. S.", "Zettlemoyer, L."],
+      "task": "Coreference Resolution and Named-Entity Linking",
+      "dataset": ["ACE2004_NWIRE_2013", "CONLL2011_2013", "ACE2004_NWIRE_NEL_2013"],
+      "metrics": ["MUC_Coreference", "B3_Coreference", "Pairwise_F1_Coreference", "F1_NEL"],
+      "architecture": {
+        "components": ["Stanford sieve-based model", "NEL-informed sieves", "GLOW", "WikipediaMiner"],
+        "connections": ["mention detection", "cluster merging", "NEL constraints", "attribute propagation"],
+        "mechanisms": ["multi-pass sieves", "automatic mention detection", "mention pruning", "fine-grained attributes"]
+      },
+      "methodology": {
+        "training_strategy": ["joint learning", "deterministic rules"],
+        "parameter_tuning": ["confidence thresholds for NEL systems"]
+      },
+      "feature_processing": ["semantic attributes from Freebase and Wikipedia", "mention boundaries updating", "spurious mentions removal"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "ACE2004_NWIRE_2013",
+      "entity_type": "Dataset",
+      "name": "ACE2004 Newswire",
+      "description": "Newswire subset of the ACE 2004 corpus",
+      "domain": "Natural Language Processing",
+      "size": 128,
+      "year": 2013,
+      "creators": ["NIST"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "CONLL2011_2013",
+      "entity_type": "Dataset",
+      "name": "CoNLL 2011",
+      "description": "Coreference dataset from five different domains",
+      "domain": "Natural Language Processing",
+      "size": 625,
+      "year": 2013,
+      "creators": ["Pradhan, S.", "Ramshaw, L.", "Marcus, M.", "Palmer, M.", "Weischedel, R.", "Xue, N."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "ACE2004_NWIRE_NEL_2013",
+      "entity_type": "Dataset",
+      "name": "ACE2004 Newswire with NEL",
+      "description": "Subset of ACE2004 Newswire annotated with gold-standard entity links",
+      "domain": "Natural Language Processing",
+      "size": 12,
+      "year": 2013,
+      "creators": ["Hajishirzi, H.", "Zilles, L.", "Weld, D. S.", "Zettlemoyer, L."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "MUC_Coreference",
+      "entity_type": "Metric",
+      "name": "MUC",
+      "description": "Link-based metric for coreference resolution",
+      "category": "Coreference Resolution",
+      "formula": "Number of clusters needed to cover the gold clusters"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "B3_Coreference",
+      "entity_type": "Metric",
+      "name": "B3",
+      "description": "Proportion of intersection between predicted and gold clusters",
+      "category": "Coreference Resolution",
+      "formula": "Proportion of intersection between predicted and gold clusters for every mention"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Pairwise_F1_Coreference",
+      "entity_type": "Metric",
+      "name": "Pairwise F1",
+      "description": "Pairwise F1 score for coreference resolution",
+      "category": "Coreference Resolution",
+      "formula": "F1 score based on pairwise mentions"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "F1_NEL",
+      "entity_type": "Metric",
+      "name": "F1",
+      "description": "F1 score for named-entity linking",
+      "category": "Named-Entity Linking",
+      "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Zhou2015_QuadraticProgrammingSolver",
+      "entity_type": "Algorithm",
+      "name": "Quadratic Programming Solver",
+      "title": "Learn to Solve Algebra Word Problems Using Quadratic Programming",
+      "year": 2015,
+      "authors": ["Zhou, L.", "Dai, S.", "Chen, L."],
+      "task": "Solving Algebra Word Problems",
+      "dataset": ["Geoquery_2015"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["log-linear model", "quadratic programming"],
+        "connections": ["template selection", "number assignment"],
+        "mechanisms": ["max-margin objective", "constraint generation"]
+      },
+      "methodology": {
+        "training_strategy": ["max-margin learning", "constraint generation"],
+        "parameter_tuning": ["C parameter for QP problem"]
+      },
+      "feature_processing": ["single slot features", "slot pair features", "solution features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Geoquery_2015",
+      "entity_type": "Dataset",
+      "name": "Geoquery",
+      "description": "Database of U.S. geographical information and natural language queries",
+      "domain": "Natural Language Processing",
+      "size": 880,
+      "year": 2015,
+      "creators": ["Zelle, J.", "Mooney, R."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Proportion of correct predictions",
+      "category": "Classification",
+      "formula": "Correct predictions / Total predictions"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Goldwasser2014_LearningFromNaturalInstructions",
+      "entity_type": "Algorithm",
+      "name": "Learning from Natural Instructions",
+      "title": "Learning from natural instructions",
+      "year": 2014,
+      "authors": ["Goldwasser, D.", "Roth, D."],
+      "task": "Interpreting Natural Language Instructions",
+      "dataset": ["Solitaire Card Game Rules_2014", "Geoquery_2014"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["semantic interpreter", "game rule classifier"],
+        "connections": ["instruction interpretation", "game move prediction"],
+        "mechanisms": ["integer linear programming", "feedback-driven learning"]
+      },
+      "methodology": {
+        "training_strategy": ["response-driven learning", "binary feedback"],
+        "parameter_tuning": ["learning rate", "batch size"]
+      },
+      "feature_processing": ["lexical features", "syntactic features", "compositional features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Solitaire_Card_Game_Rules_2014",
+      "entity_type": "Dataset",
+      "name": "Solitaire Card Game Rules",
+      "description": "Set of instructions for playing solitaire card games",
+      "domain": "Natural Language Processing",
+      "size": 10,
+      "year": 2014,
+      "creators": ["Goldwasser, D.", "Roth, D."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Geoquery_2014",
+      "entity_type": "Dataset",
+      "name": "Geoquery",
+      "description": "Database of U.S. geographical information and natural language queries",
+      "domain": "Natural Language Processing",
+      "size": 500,
+      "year": 2014,
+      "creators": ["Zelle, J.", "Mooney, R."]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Cho2014_RNNEncoderDecoder",
+      "entity_type": "Algorithm",
+      "name": "RNN Encoder-Decoder",
+      "title": "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation",
+      "year": 2014,
+      "authors": ["Cho, K.", "van Merrienboer, B.", "Gulcehre, C.", "Bahdanau, D.", "Bougares, F.", "Schwenk, H.", "Bengio, Y."],
+      "task": "Statistical Machine Translation",
+      "dataset": ["English-French Translation_2014"],
+      "metrics": ["BLEU_score"],
+      "architecture": {
+        "components": ["encoder RNN", "decoder RNN"],
+        "connections": ["sequence-to-sequence mapping", "fixed-length vector representation"],
+        "mechanisms": ["reset gate", "update gate", "adaptive memory"]
+      },
+      "methodology": {
+        "training_strategy": ["joint training", "conditional probability maximization"],
+        "parameter_tuning": ["initialization with Gaussian distribution", "AdaDelta optimizer"]
+      },
+      "feature_processing": ["word embeddings", "continuous space representation"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "English_French_Translation_2014",
+      "entity_type": "Dataset",
+      "name": "English-French Translation",
+      "description": "Parallel corpus for English to French translation",
+      "domain": "Machine Translation",
+      "size": 850M,
+      "year": 2014,
+      "creators": ["WMT'14 workshop"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "BLEU_score",
+      "entity_type": "Metric",
+      "name": "BLEU",
+      "description": "Bilingual Evaluation Understudy score for machine translation",
+      "category": "Machine Translation",
+      "formula": "Modified n-gram precision with brevity penalty"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Kushman2014_EquationSetSolver",
+      "entity_type": "Algorithm",
+      "name": "Equation Set Solver",
+      "title": "Learning to automatically solve algebra word problems",
+      "year": 2014,
+      "authors": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."],
+      "task": "Solving Algebra Word Problems",
+      "dataset": ["Algebra.com_2014"],
+      "metrics": ["Equation_accuracy", "Answer_accuracy"],
+      "architecture": {
+        "components": ["log-linear model", "equation templates"],
+        "connections": ["template instantiation", "variable alignment"],
+        "mechanisms": ["canonicalization", "beam search"]
+      },
+      "methodology": {
+        "training_strategy": ["varied supervision", "full equations", "numerical answers"],
+        "parameter_tuning": ["L-BFGS optimization", "L2 regularization"]
+      },
+      "feature_processing": ["document level features", "single slot features", "slot pair features", "solution features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Algebra_com_2014",
+      "entity_type": "Dataset",
+      "name": "Algebra.com",
+      "description": "Crowdsourced tutoring website with algebra word problems",
+      "domain": "Natural Language Processing",
+      "size": 514,
+      "year": 2014,
+      "creators": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Equation_accuracy",
+      "entity_type": "Metric",
+      "name": "Equation Accuracy",
+      "description": "Accuracy of generated equation systems",
+      "category": "Algebra Word Problem Solving",
+      "formula": "Proportion of correct equation systems"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Answer_accuracy",
+      "entity_type": "Metric",
+      "name": "Answer Accuracy",
+      "description": "Accuracy of generated numerical answers",
+      "category": "Algebra Word Problem Solving",
+      "formula": "Proportion of correct numerical answers"
+    }
+  }
+]
+```
+
+### 提取总结：
+1. **你刚刚提取的是哪个小节**：从提供的文档中提取了算法、数据集和评价指标实体信息，涵盖了多个章节的内容，包括但不限于Introduction、Methodology、Experimental Setup、Results等。
+2. **论文中是否还有其他小节未被提取**：已提取完所有主要章节中的实体信息。
+3. **如果还有未提取的小节，下一个要提取的小节是什么**：无需进一步提取，所有主要章节已覆盖。
+
+### 最终确认：
+- **EXTRACTION_COMPLETE: true**
+
+以上JSON包含了从提供的文档中提取的所有新实体信息，确保没有重复提取已有的实体。

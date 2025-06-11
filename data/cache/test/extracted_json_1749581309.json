@@ -1,0 +1,10 @@
+{
+    "from_entity": "Ma2010_MSMPAS_CP",
+    "to_entity": "Yu2016_ImplicitQuantityRelations",
+    "relation_type": "Extend",
+    "structure": "Architecture.Methodology",
+    "detail": "Yu et al. (2016) extended the frame-based calculus approach of Ma et al. (2010) to extract implicit quantity relations in arithmetic word problems.",
+    "problem_addressed": "Limited ability to extract implicit quantity relations in arithmetic word problems",
+    "evidence": "Ma et al. (2010) proposed a frame-based calculus method for solving multi-step addition and subtraction word problems. Yu et al. (2016) extended this approach to extract implicit quantity relations in arithmetic word problems.",
+    "confidence": 0.93
+  }

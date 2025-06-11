@@ -1,0 +1,613 @@
+[
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "Expression Tree's bottom-up construction extended by Seq2SeqET with sequence-to-sequence model",
+    "problem_addressed": "Limited scalability of Expression Tree in handling complex arithmetic problems",
+    "evidence": "Seq2SeqET extended the idea of DNS by using expression tree as the output sequence. In other words, it applied seq2seq model to convert the problem text into an expression tree, which can be viewed as a template.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Optimize",
+    "structure": "Methodology.Training_Strategy",
+    "detail": "Expression Tree's supervised learning replaced by MathDQN's reinforcement learning",
+    "problem_addressed": "Inefficiency in handling large search spaces with supervised learning",
+    "evidence": "MathDQN models the tree construction as Markov Decision Process and leverage the strengths of deep Q-network (DQN).",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Component",
+    "detail": "Expression Tree's binary classifier replaced by T-RNN's Bi-LSTM and self-attention",
+    "problem_addressed": "Limited expressiveness of binary classifiers in capturing complex dependencies",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Huang2017_FineGrainedInference",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Contextual_Features",
+    "detail": "Fine-Grained Inference's contextual features extended by MathDQN's deep Q-network",
+    "problem_addressed": "Limited ability to handle complex reasoning in math word problems",
+    "evidence": "MathDQN iteratively picks the best operator for two selected quantities. This procedure can be viewed as beam search with k=1 when exploiting candidate expression trees.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Zhang2019_DeepNeuralSolver",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Deep Neural Solver's GRU extended by Seq2SeqET's seq2seq model",
+    "problem_addressed": "Limited ability to generalize across different types of math word problems",
+    "evidence": "Seq2SeqET extended the idea of DNS by using expression tree as the output sequence.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Zhang2019_DeepNeuralSolver",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Deep Neural Solver's GRU extended by T-RNN's Bi-LSTM and self-attention",
+    "problem_addressed": "Limited ability to capture long-range dependencies in math word problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Zhang2019_DeepNeuralSolver",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Deep Neural Solver's GRU extended by MathDQN's deep Q-network",
+    "problem_addressed": "Limited ability to handle large search spaces in math word problems",
+    "evidence": "MathDQN models the tree construction as Markov Decision Process and leverage the strengths of deep Q-network (DQN).",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Kushman2014_EquationSetSolver",
+    "to_entity": "Upadhyay2016_MixedSP",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Lexical_Features",
+    "detail": "Equation Set Solver's lexical features extended by MixedSP's implicit supervision signals",
+    "problem_addressed": "Limited scalability of Equation Set Solver in handling large datasets",
+    "evidence": "MixedSP outperforms KAZB and ZDC because it benefits from the mined implicit supervision from an external source of additional 2,000 samples.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Kushman2014_EquationSetSolver",
+    "to_entity": "Zhou2015_EnhancedTemplateBasedSolver",
+    "relation_type": "Optimize",
+    "structure": "Methodology.Parameter_Tuning",
+    "detail": "Equation Set Solver's L-BFGS parameter tuning optimized by Enhanced Template-Based Solver's constraint generation algorithm",
+    "problem_addressed": "Inefficient parameter tuning in Equation Set Solver",
+    "evidence": "The training process is turned into a QP problem that can be efficiently solved with the constraint generation algorithm.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Seo2014_G_ALINGER",
+    "to_entity": "Seo2015_GEOS",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "G-ALINGER's primitive detection extended by GEOS's logic expression generator",
+    "problem_addressed": "Limited ability to handle complex geometry problems",
+    "evidence": "GEOS can be considered as the first work to tackle a complete geometric word problem.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Seo2014_G_ALINGER",
+    "to_entity": "Seo2015_GEOS",
+    "relation_type": "Use",
+    "structure": "Architecture.Component",
+    "detail": "G-ALINGER's primitive detection used in GEOS's geometry problem solving",
+    "problem_addressed": "Need for robust primitive detection in geometry problems",
+    "evidence": "Despite the superiority of automated solving process, the performance of the system would be undermined if the answer choices are unavailable in a geometry problem.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_Seq2SeqET",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by Seq2SeqET's expression normalization",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "To reduce the template space, equation normalization was proposed in Seq2SeqET so that duplicate representation of expression trees can be unified.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2019_T_RNN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by T-RNN's quantity encoding",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "T-RNN can be viewed as an improvement of Seq2SeqET, in terms of quantity encoding, template representation and tree construction.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Wang2018_MathDQN",
+    "relation_type": "Extend",
+    "structure": "Feature_Processing.Rate_Detection",
+    "detail": "Unit Dependency Graph's rate detection extended by MathDQN's quantity relevance",
+    "problem_addressed": "Limited ability to handle complex rate-related problems",
+    "evidence": "MathDQN builds a LSTM-based binary classification model to determine whether a number is relevant.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Roy20

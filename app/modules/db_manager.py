@@ -318,7 +318,7 @@ class DatabaseManager:
                     name VARCHAR(255),
                     description TEXT,
                     domain VARCHAR(255),
-                    size INT,
+                    size BIGINT,
                     year VARCHAR(50),
                     creators TEXT,
                     entity_type VARCHAR(50) DEFAULT 'Dataset',
@@ -340,16 +340,7 @@ class DatabaseManager:
                 if not cursor.fetchone():
                     cursor.execute("ALTER TABLE Datasets ADD COLUMN source VARCHAR(50) DEFAULT '未知' NOT NULL")
                     logging.info("向Datasets表添加source字段")
-                
-                # 尝试修改主键为联合主键
-                try:
-                    # 删除旧主键
-                    cursor.execute("ALTER TABLE Datasets DROP PRIMARY KEY")
-                    # 添加新的联合主键
-                    cursor.execute("ALTER TABLE Datasets ADD PRIMARY KEY(dataset_id, task_id, source)")
-                    logging.info("已将Datasets表主键修改为联合主键(dataset_id, task_id, source)")
-                except Exception as e:
-                    logging.warning(f"修改Datasets表主键时出错: {str(e)}，可能已经是联合主键")
+
             
             # 检查指标表是否存在
             cursor.execute("SHOW TABLES LIKE 'Metrics'")

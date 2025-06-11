@@ -1,0 +1,579 @@
+[
+  {
+    "from_entity": "Chang2013_LatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "L3M extended with a Constraint Module to form CL3M",
+    "problem_addressed": "Incorporating domain-specific constraints into coreference resolution",
+    "evidence": "We augment this model with a temperature-like parameter(Samdani et al., 2012) to provide additional flexibility. CL3M augments L3M with knowledge-based constraints following(Roth and Yih, 2004; Denis and Baldridge, 2007).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_LatentLeftLinkingModel",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "L3M optimized into PL3M with probabilistic generalization",
+    "problem_addressed": "Considering multiple left-links for more expressive mention-to-entity interactions",
+    "evidence": "We also present a probabilistic generalization of this model that can take into account entity-mention links by considering multiple possible coreference links.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Component",
+    "detail": "CL3M extended with Temperature Parameter to form CPL3M",
+    "problem_addressed": "Incorporating probabilistic generalization and domain-specific constraints",
+    "evidence": "We also present a probabilistic generalization of this model that can take into account entity-mention links by considering multiple possible coreference links. Furthermore, while their model performs only slightly better than the Stanford rule-based system(Lee et al., 2011), we significantly outperform this system.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkDependencyParser",
+    "to_entity": "Chen2014_NeuralNetworkDependencyParserWithCubeActivation",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "Neural Network Dependency Parser optimized with Cube Activation Function",
+    "problem_addressed": "Modeling higher-order interactions between words",
+    "evidence": "We introduce a novel activation function: cube g(x)= x3 in our model instead of the commonly used tanh or sigmoid functions.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Replace",
+    "structure": "Architecture.Mechanism",
+    "detail": "Best-Left-Link approach replaces Multi-Pass Sieve",
+    "problem_addressed": "Efficiency and accuracy of coreference resolution",
+    "evidence": "This paper focuses on a novel and principled machine learning framework that pushes the state-of-the-art while operating at a mention-pair granularity. We present two models — the Latent Left-Linking Model(L3M), and a version of that is augmented with domain knowledge-based constraints, the Constrained Latent Left-Linking Model(CL3M).",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chang2013_LatentLeftLinkingModel",
+    "to_entity": "ACE_2004",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "L3M evaluated on ACE 2004 dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "Experiments on ACE and Ontonotes are reported in the paper.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_LatentLeftLinkingModel",
+    "to_entity": "Ontonotes_5.0",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "L3M evaluated on Ontonotes 5.0 dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "Experiments on ACE and Ontonotes are reported in the paper.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "ACE_2004",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "CL3M evaluated on ACE 2004 dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "Experiments on ACE and Ontonotes are reported in the paper.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Ontonotes_5.0",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "CL3M evaluated on Ontonotes 5.0 dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "Experiments on ACE and Ontonotes are reported in the paper.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "ACE_2004",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "PL3M evaluated on ACE 2004 dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "Experiments on ACE and Ontonotes are reported in the paper.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Ontonotes_5.0",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "PL3M evaluated on Ontonotes 5.0 dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "Experiments on ACE and Ontonotes are reported in the paper.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "ACE_2004",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "CPL3M evaluated on ACE 2004 dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "Experiments on ACE and Ontonotes are reported in the paper.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "Ontonotes_5.0",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "CPL3M evaluated on Ontonotes 5.0 dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "Experiments on ACE and Ontonotes are reported in the paper.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_LatentLeftLinkingModel",
+    "to_entity": "MUC",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "L3M evaluated using MUC metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_LatentLeftLinkingModel",
+    "to_entity": "BCUB",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "L3M evaluated using BCUB metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_LatentLeftLinkingModel",
+    "to_entity": "CEAFe",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "L3M evaluated using CEAFe metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "MUC",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "CL3M evaluated using MUC metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "BCUB",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "CL3M evaluated using BCUB metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "CEAFe",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "CL3M evaluated using CEAFe metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "MUC",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "PL3M evaluated using MUC metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "BCUB",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "PL3M evaluated using BCUB metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "CEAFe",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "PL3M evaluated using CEAFe metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "MUC",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "CPL3M evaluated using MUC metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "BCUB",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "CPL3M evaluated using BCUB metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "CEAFe",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "CPL3M evaluated using CEAFe metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We compare the systems using three popular metrics for coreference — MUC(Vilain et al., 1995), BCUB(Bagga and Baldwin, 1998), and Entity-based CEAF(CEAFe)(Luo, 2005).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004_ROTH_DEV_2010",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "Multi-Pass Sieve evaluated on ACE2004-ROTH-DEV dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "We used the first corpus(ACE2004-ROTH-DEV) for development.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004_CULOTTA_TEST_2010",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "Multi-Pass Sieve evaluated on ACE2004-CULOTTA-TEST dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "The other corpora are reserved for testing.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "ACE2004_NWIRE_2010",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "Multi-Pass Sieve evaluated on ACE2004-NWIRE dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "The other corpora are reserved for testing.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "MUC6_TEST_2010",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "Multi-Pass Sieve evaluated on MUC6-TEST dataset",
+    "problem_addressed": "Benchmarking coreference resolution models",
+    "evidence": "The other corpora are reserved for testing.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "MUC",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "Multi-Pass Sieve evaluated using MUC metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We use three evaluation metrics widely used in the literature:(a) pairwise F1(Ghosh, 2003) – computed over mention pairs in the same entity cluster;(b) MUC(Vilain et al., 1995) – which measures how many predicted clusters need to be merged to cover the gold clusters;",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "B3",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "Multi-Pass Sieve evaluated using B3 metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We use three evaluation metrics widely used in the literature:(a) pairwise F1(Ghosh, 2003) – computed over mention pairs in the same entity cluster;(b) MUC(Vilain et al., 1995) – which measures how many predicted clusters need to be merged to cover the gold clusters;",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Raghunathan2010_MultiPassSieve",
+    "to_entity": "Pairwise_F1",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "Multi-Pass Sieve evaluated using Pairwise F1 metric",
+    "problem_addressed": "Evaluating coreference resolution performance",
+    "evidence": "We use three evaluation metrics widely used in the literature:(a) pairwise F1(Ghosh, 2003) – computed over mention pairs in the same entity cluster;",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_LatentLeftLinkingModel",
+    "to_entity": "Raghunathan2010_MultiPassSieve",
+    "relation_type": "Replace",
+    "structure": "Architecture.Mechanism",
+    "detail": "L3M replaces Multi-Pass Sieve with a principled machine learning framework",
+    "problem_addressed": "Inefficiency and lower precision of rule-based coreference resolution",
+    "evidence": "This paper focuses on a novel and principled machine learning framework that pushes the state-of-the-art while operating at a mention-pair granularity.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkDependencyParser",
+    "to_entity": "English_Penn_Treebank_2014",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "Neural Network Dependency Parser evaluated on English Penn Treebank",
+    "problem_addressed": "Benchmarking dependency parsing models",
+    "evidence": "We conduct our experiments on the English Penn Treebank(PTB) and the Chinese Penn Treebank (CTB) datasets.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkDependencyParser",
+    "to_entity": "Chinese_Penn_Treebank_2014",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "Neural Network Dependency Parser evaluated on Chinese Penn Treebank",
+    "problem_addressed": "Benchmarking dependency parsing models",
+    "evidence": "We conduct our experiments on the English Penn Treebank(PTB) and the Chinese Penn Treebank (CTB) datasets.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkDependencyParser",
+    "to_entity": "UAS",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "Neural Network Dependency Parser evaluated using UAS metric",
+    "problem_addressed": "Evaluating dependency parsing performance",
+    "evidence": "On all datasets, we report unlabeled attachment scores(UAS) and labeled attachment scores (LAS) and punctuation is excluded in all evaluation metrics.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkDependencyParser",
+    "to_entity": "LAS",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "Neural Network Dependency Parser evaluated using LAS metric",
+    "problem_addressed": "Evaluating dependency parsing performance",
+    "evidence": "On all datasets, we report unlabeled attachment scores(UAS) and labeled attachment scores (LAS) and punctuation is excluded in all evaluation metrics.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkDependencyParser",
+    "to_entity": "MaltParser",
+    "relation_type": "Outperform",
+    "structure": "Algorithm.Comparison",
+    "detail": "Neural Network Dependency Parser outperforms MaltParser",
+    "problem_addressed": "Improving parsing speed and accuracy",
+    "evidence": "Our parser even surpasses MaltParser using liblinear, which is known to be highly optimized, while our parser achieves much better accuracy.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkDependencyParser",
+    "to_entity": "MSTParser",
+    "relation_type": "Outperform",
+    "structure": "Algorithm.Comparison",
+    "detail": "Neural Network Dependency Parser outperforms MSTParser",
+    "problem_addressed": "Improving parsing speed and accuracy",
+    "evidence": "Also, despite the fact that the graph-based MST-Parser achieves a similar result to ours on PTB (CoNLL dependencies), our parser is nearly 100 times faster.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chen2014_NeuralNetworkDependencyParser",
+    "to_entity": "Chang2012a_IllinoisCoref",
+    "relation_type": "Outperform",
+    "structure": "Algorithm.Comparison",
+    "detail": "Neural Network Dependency Parser outperforms IllinoisCoref",
+    "problem_addressed": "Improving parsing speed and accuracy",
+    "evidence": "Our parser and the baseline arc-standard and arc-eager parsers are all implemented in Java. The parsing speeds are measured on an Intel Core i7 2.7GHz CPU with 16GB RAM and the runtime does not include pre-computation or parameter loading time.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_LatentLeftLinkingModel",
+    "to_entity": "BestLeftLink",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "L3M extends Best-Left-Link approach with a principled machine learning framework",
+    "problem_addressed": "Incorporating machine learning into coreference resolution",
+    "evidence": "Our inference algorithm is inspired by the best-left-link approach. In particular, the score s(C; d, w) is defined so that each mention links to the antecedent mention(to its left) with the highest score.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "BestLeftLink",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "CL3M extends Best-Left-Link approach with domain-specific constraints",
+    "problem_addressed": "Incorporating domain-specific constraints into coreference resolution",
+    "evidence": "CL3M augments L3M with knowledge-based constraints following(Roth and Yih, 2004; Denis and Baldridge, 2007).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "to_entity": "BestLeftLink",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "PL3M extends Best-Left-Link approach with probabilistic generalization",
+    "problem_addressed": "Considering multiple left-links for more expressive mention-to-entity interactions",
+    "evidence": "In PL3M, we assume that mention i links to mention j, j ≤ i, with probability given by P r[j ← i; d, w]= e1 γ(w·φ(i,j)) Zi(w, γ).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "BestLeftLink",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "CPL3M extends Best-Left-Link approach with probabilistic generalization and domain-specific constraints",
+    "problem_addressed": "Incorporating probabilistic generalization and domain-specific constraints into coreference resolution",
+    "evidence": "Finally, in the presence of constraints, we can fold them inside the pairwise link probabilities as in Eq.(6).",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "SameSpan",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CL3M uses SameSpan constraint",
+    "problem_addressed": "Ensuring mentions with the same span are linked",
+    "evidence": "SameSpan: two mentions must be linked to each other if they share the same surface text span and the number of words in the text span is larger than a threshold.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "SameDetNom",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CL3M uses SameDetNom constraint",
+    "problem_addressed": "Ensuring mentions with similar determiner and head word are linked",
+    "evidence": "SameDetNom: two mentions must be linked to each other if both mentions start with a determiner and the[0,1] wordnet-based similarity score between the mention head words is above a threshold.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "SameProperName",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CL3M uses SameProperName constraint",
+    "problem_addressed": "Ensuring proper name mentions are linked",
+    "evidence": "SameProperName: two mentions must be linked if they are both proper names and the similarity score measured by a named entity-based similarity metric, Illinois NESim2, are higher than a threshold.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "ModifierMismatch",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CL3M uses ModifierMismatch constraint",
+    "problem_addressed": "Preventing mentions with conflicting modifiers from being linked",
+    "evidence": "ModifierMismatch: the constraint prevents two mentions to be linked if the head modifiers conflict.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "PropertyMismatch",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CL3M uses PropertyMismatch constraint",
+    "problem_addressed": "Preventing mentions with conflicting properties from being linked",
+    "evidence": "PropertyMismatch: the constraint prevents two mentions to be linked if their properties conflict.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "SameSpan",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CPL3M uses SameSpan constraint",
+    "problem_addressed": "Ensuring mentions with the same span are linked",
+    "evidence": "SameSpan: two mentions must be linked to each other if they share the same surface text span and the number of words in the text span is larger than a threshold.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "SameDetNom",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CPL3M uses SameDetNom constraint",
+    "problem_addressed": "Ensuring mentions with similar determiner and head word are linked",
+    "evidence": "SameDetNom: two mentions must be linked to each other if both mentions start with a determiner and the[0,1] wordnet-based similarity score between the mention head words is above a threshold.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "SameProperName",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CPL3M uses SameProperName constraint",
+    "problem_addressed": "Ensuring proper name mentions are linked",
+    "evidence": "SameProperName: two mentions must be linked if they are both proper names and the similarity score measured by a named entity-based similarity metric, Illinois NESim2, are higher than a threshold.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "ModifierMismatch",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CPL3M uses ModifierMismatch constraint",
+    "problem_addressed": "Preventing mentions with conflicting modifiers from being linked",
+    "evidence": "ModifierMismatch: the constraint prevents two mentions to be linked if the head modifiers conflict.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "to_entity": "PropertyMismatch",
+    "relation_type": "Use",
+    "structure": "Feature.Processing",
+    "detail": "CPL3M uses PropertyMismatch constraint",
+    "problem_addressed": "Preventing mentions with conflicting properties from being linked",
+    "evidence": "PropertyMismatch: the constraint prevents two mentions to be linked if their properties conflict.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "StanfordCoref",
+    "relation_type": "Outperform",
+    "structure": "Algorithm.Comparison",
+    "detail": "CL3M outperforms Stanford Coreference system",
+    "problem_addressed": "Improving coreference resolution accuracy",
+    "evidence": "Our proposed approach is L3M(Sec. 3) and PL3M(sec. 4). CL3M and CPL3M are the version with incorporating constraints.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Fernandes2012",
+    "relation_type": "Outperform",
+    "structure": "Algorithm.Comparison",
+    "detail": "CL3M outperforms Fernandes et al. (2012) system",
+    "problem_addressed": "Improving coreference resolution accuracy",
+    "evidence": "Our proposed approach is L3M(Sec. 3) and PL3M(sec. 4). CL3M and CPL3M are the version with incorporating constraints.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Haghighi2009",
+    "relation_type": "Outperform",
+    "structure": "Algorithm.Comparison",
+    "detail": "CL3M outperforms Haghighi and Klein (2009) system",
+    "problem_addressed": "Improving coreference resolution accuracy",
+    "evidence": "Our proposed approach is L3M(Sec. 3) and PL3M(sec. 4). CL3M and CPL3M are the version with incorporating constraints.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Bengtson2008",
+    "relation_type": "Outperform",
+    "structure": "Algorithm.Comparison",
+    "detail": "CL3M outperforms Bengtson and Roth (2008) system",
+    "problem_addressed": "Improving coreference resolution accuracy",
+    "evidence": "Our proposed approach is L3M(Sec. 3) and PL3M(sec. 4). CL3M and CPL3

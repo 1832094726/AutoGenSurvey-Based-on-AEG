@@ -1,0 +1,10 @@
+{
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "引入了更复杂的模型来预测UDG，并结合了约束推理框架",
+    "problem_addressed": "提高对单位依赖图的预测准确性",
+    "evidence": "We introduce a decomposed model for inducing UDGs with minimal additional annotations, and use it to augment the expressions used in the arithmetic word problem solver of(Roy and Roth 2015) via a constrained inference framework.",
+    "confidence": 0.95
+  }

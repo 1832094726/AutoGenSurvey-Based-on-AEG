@@ -1,0 +1,442 @@
+### 提取实体信息
+
+#### 当前处理章节：Frame-Based Calculus of solving Arithmetic Multi-Step Addition and Subtraction word problems
+
+#### 已提取实体：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Ma2010_MSMPAS_CP",
+      "entity_type": "Algorithm",
+      "name": "MSMPAS-CP",
+      "year": 2010,
+      "authors": ["Ma Yuhui", "Zhou Ying", "Cui Guangzuo", "Ren Yun", "Huang Ronghuai"],
+      "task": "Solving multi-step addition and subtraction word problems",
+      "dataset": ["Elementary school arithmetic application problem"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Frame-based calculus", "SVM classification", "Semantic models"],
+        "connections": ["Natural language processing", "Frame construction", "Dependency resolution"],
+        "mechanisms": ["Means-end Analysis", "Frame-based problem solving"]
+      },
+      "methodology": {
+        "training_strategy": ["Frame-based parsing", "SVM classification"],
+        "parameter_tuning": ["Kernel parameters for SVM"]
+      },
+      "feature_processing": ["Normalization of common units", "Chinese phrase parsing"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Elementary_school_arithmetic_application_problem_2011",
+      "entity_type": "Dataset",
+      "name": "Elementary school arithmetic application problem",
+      "description": "Arithmetic word problems for elementary school students",
+      "domain": "Education",
+      "size": 627,
+      "year": 2011,
+      "creators": ["People's Education Press"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Proportion of correctly classified instances",
+      "category": "Classification",
+      "formula": "Correct classifications / Total classifications"
+    }
+  }
+]
+```
+
+### 提取总结
+
+1. **刚刚提取的小节**：Frame-Based Calculus of solving Arithmetic Multi-Step Addition and Subtraction word problems
+2. **论文中是否还有其他小节未被提取**：是
+3. **下一个要提取的小节**：Extraction of Implicit Quantity Relations for Arithmetic Word Problems in Chinese
+
+### 下一步操作
+
+请继续提取下一个章节的实体。
+
+---
+
+#### 当前处理章节：Extraction of Implicit Quantity Relations for Arithmetic Word Problems in Chinese
+
+#### 已提取实体：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Yu2016_ImplicitQuantityRelationExtractor",
+      "entity_type": "Algorithm",
+      "name": "Implicit Quantity Relation Extractor",
+      "year": 2016,
+      "authors": ["Xinguo Yu", "Pengpeng Jian", "Mingshu Wang", "Shuang Wu"],
+      "task": "Extracting implicit quantity relations from arithmetic word problems",
+      "dataset": ["Chinese arithmetic word problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Chinese phrase parse", "SVM classification", "Semantic models"],
+        "connections": ["Natural language processing", "Frame construction", "Dependency resolution"],
+        "mechanisms": ["Means-end Analysis", "Frame-based problem solving"]
+      },
+      "methodology": {
+        "training_strategy": ["Chinese phrase parsing", "SVM classification"],
+        "parameter_tuning": ["Kernel parameters for SVM"]
+      },
+      "feature_processing": ["Normalization of common units", "Chinese phrase parsing"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Chinese_arithmetic_word_problems_2016",
+      "entity_type": "Dataset",
+      "name": "Chinese arithmetic word problems",
+      "description": "Arithmetic word problems in Chinese for elementary school students",
+      "domain": "Education",
+      "size": 283,
+      "year": 2016,
+      "creators": ["National Engineering Research Center for E-Learning"]
+    }
+  }
+]
+```
+
+### 提取总结
+
+1. **刚刚提取的小节**：Extraction of Implicit Quantity Relations for Arithmetic Word Problems in Chinese
+2. **论文中是否还有其他小节未被提取**：是
+3. **下一个要提取的小节**：Generating Typed Dependency Parses from Phrase Structure Parses
+
+### 下一步操作
+
+请继续提取下一个章节的实体。
+
+---
+
+#### 当前处理章节：Generating Typed Dependency Parses from Phrase Structure Parses
+
+#### 已提取实体：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "deMarneffe2006_TypedDependencyExtractor",
+      "entity_type": "Algorithm",
+      "name": "Typed Dependency Extractor",
+      "year": 2006,
+      "authors": ["Marie-Catherine de Marneffe", "Bill MacCartney", "Christopher D. Manning"],
+      "task": "Generating typed dependency parses from phrase structure parses",
+      "dataset": ["Penn Treebank English", "Penn Treebank Chinese"],
+      "metrics": ["Dependency accuracy"],
+      "architecture": {
+        "components": ["Phrase structure parsing", "Dependency extraction", "Dependency typing"],
+        "connections": ["Tree structure", "Dependency graph"],
+        "mechanisms": ["Pattern matching", "Collapsing dependencies"]
+      },
+      "methodology": {
+        "training_strategy": ["Treebank parsing"],
+        "parameter_tuning": ["Pattern matching rules"]
+      },
+      "feature_processing": ["Phrase structure tree parsing"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Penn_Treebank_English_2006",
+      "entity_type": "Dataset",
+      "name": "Penn Treebank English",
+      "description": "Corpus of English sentences with phrase structure annotations",
+      "domain": "Natural Language Processing",
+      "size": "Varies",
+      "year": 2006,
+      "creators": ["Various contributors"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Penn_Treebank_Chinese_2006",
+      "entity_type": "Dataset",
+      "name": "Penn Treebank Chinese",
+      "description": "Corpus of Chinese sentences with phrase structure annotations",
+      "domain": "Natural Language Processing",
+      "size": "Varies",
+      "year": 2006,
+      "creators": ["Various contributors"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Dependency_accuracy",
+      "entity_type": "Metric",
+      "name": "Dependency accuracy",
+      "description": "Proportion of correctly extracted dependencies",
+      "category": "Dependency parsing",
+      "formula": "Correct dependencies / Total dependencies"
+    }
+  }
+]
+```
+
+### 提取总结
+
+1. **刚刚提取的小节**：Generating Typed Dependency Parses from Phrase Structure Parses
+2. **论文中是否还有其他小节未被提取**：是
+3. **下一个要提取的小节**：Experiments with a deductive question-answering program
+
+### 下一步操作
+
+请继续提取下一个章节的实体。
+
+---
+
+#### 当前处理章节：Experiments with a deductive question-answering program
+
+#### 已提取实体：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_DEDUCOM",
+      "entity_type": "Algorithm",
+      "name": "DEDUCOM",
+      "year": 1965,
+      "authors": ["James R. Slagle"],
+      "task": "Deductive question-answering",
+      "dataset": ["Custom facts and questions"],
+      "metrics": ["Accuracy", "Response time"],
+      "architecture": {
+        "components": ["LISP program", "Depth-first search", "Predicate calculus"],
+        "connections": ["Fact representation", "Question reduction"],
+        "mechanisms": ["Logical deduction", "Recursive question reduction"]
+      },
+      "methodology": {
+        "training_strategy": ["Providing facts and questions"],
+        "parameter_tuning": ["Search depth", "Fact ordering"]
+      },
+      "feature_processing": ["Fact representation", "Question parsing"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_QuestionAnswering",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Proportion of correctly answered questions",
+      "category": "Question answering",
+      "formula": "Correct answers / Total questions"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Response_time_QuestionAnswering",
+      "entity_type": "Metric",
+      "name": "Response time",
+      "description": "Time taken to answer a question",
+      "category": "Question answering",
+      "formula": "Time taken for each question"
+    }
+  }
+]
+```
+
+### 提取总结
+
+1. **刚刚提取的小节**：Experiments with a deductive question-answering program
+2. **论文中是否还有其他小节未被提取**：否
+3. **是否需要继续提取**：否
+
+### 最终总结
+
+所有章节均已提取完毕，以下是最终的JSON输出：
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Ma2010_MSMPAS_CP",
+      "entity_type": "Algorithm",
+      "name": "MSMPAS-CP",
+      "year": 2010,
+      "authors": ["Ma Yuhui", "Zhou Ying", "Cui Guangzuo", "Ren Yun", "Huang Ronghuai"],
+      "task": "Solving multi-step addition and subtraction word problems",
+      "dataset": ["Elementary school arithmetic application problem"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Frame-based calculus", "SVM classification", "Semantic models"],
+        "connections": ["Natural language processing", "Frame construction", "Dependency resolution"],
+        "mechanisms": ["Means-end Analysis", "Frame-based problem solving"]
+      },
+      "methodology": {
+        "training_strategy": ["Frame-based parsing", "SVM classification"],
+        "parameter_tuning": ["Kernel parameters for SVM"]
+      },
+      "feature_processing": ["Normalization of common units", "Chinese phrase parsing"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Elementary_school_arithmetic_application_problem_2011",
+      "entity_type": "Dataset",
+      "name": "Elementary school arithmetic application problem",
+      "description": "Arithmetic word problems for elementary school students",
+      "domain": "Education",
+      "size": 627,
+      "year": 2011,
+      "creators": ["People's Education Press"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Proportion of correctly classified instances",
+      "category": "Classification",
+      "formula": "Correct classifications / Total classifications"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Yu2016_ImplicitQuantityRelationExtractor",
+      "entity_type": "Algorithm",
+      "name": "Implicit Quantity Relation Extractor",
+      "year": 2016,
+      "authors": ["Xinguo Yu", "Pengpeng Jian", "Mingshu Wang", "Shuang Wu"],
+      "task": "Extracting implicit quantity relations from arithmetic word problems",
+      "dataset": ["Chinese arithmetic word problems"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Chinese phrase parse", "SVM classification", "Semantic models"],
+        "connections": ["Natural language processing", "Frame construction", "Dependency resolution"],
+        "mechanisms": ["Means-end Analysis", "Frame-based problem solving"]
+      },
+      "methodology": {
+        "training_strategy": ["Chinese phrase parsing", "SVM classification"],
+        "parameter_tuning": ["Kernel parameters for SVM"]
+      },
+      "feature_processing": ["Normalization of common units", "Chinese phrase parsing"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Chinese_arithmetic_word_problems_2016",
+      "entity_type": "Dataset",
+      "name": "Chinese arithmetic word problems",
+      "description": "Arithmetic word problems in Chinese for elementary school students",
+      "domain": "Education",
+      "size": 283,
+      "year": 2016,
+      "creators": ["National Engineering Research Center for E-Learning"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "deMarneffe2006_TypedDependencyExtractor",
+      "entity_type": "Algorithm",
+      "name": "Typed Dependency Extractor",
+      "year": 2006,
+      "authors": ["Marie-Catherine de Marneffe", "Bill MacCartney", "Christopher D. Manning"],
+      "task": "Generating typed dependency parses from phrase structure parses",
+      "dataset": ["Penn Treebank English", "Penn Treebank Chinese"],
+      "metrics": ["Dependency accuracy"],
+      "architecture": {
+        "components": ["Phrase structure parsing", "Dependency extraction", "Dependency typing"],
+        "connections": ["Tree structure", "Dependency graph"],
+        "mechanisms": ["Pattern matching", "Collapsing dependencies"]
+      },
+      "methodology": {
+        "training_strategy": ["Treebank parsing"],
+        "parameter_tuning": ["Pattern matching rules"]
+      },
+      "feature_processing": ["Phrase structure tree parsing"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Penn_Treebank_English_2006",
+      "entity_type": "Dataset",
+      "name": "Penn Treebank English",
+      "description": "Corpus of English sentences with phrase structure annotations",
+      "domain": "Natural Language Processing",
+      "size": "Varies",
+      "year": 2006,
+      "creators": ["Various contributors"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Penn_Treebank_Chinese_2006",
+      "entity_type": "Dataset",
+      "name": "Penn Treebank Chinese",
+      "description": "Corpus of Chinese sentences with phrase structure annotations",
+      "domain": "Natural Language Processing",
+      "size": "Varies",
+      "year": 2006,
+      "creators": ["Various contributors"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Dependency_accuracy",
+      "entity_type": "Metric",
+      "name": "Dependency accuracy",
+      "description": "Proportion of correctly extracted dependencies",
+      "category": "Dependency parsing",
+      "formula": "Correct dependencies / Total dependencies"
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_DEDUCOM",
+      "entity_type": "Algorithm",
+      "name": "DEDUCOM",
+      "year": 1965,
+      "authors": ["James R. Slagle"],
+      "task": "Deductive question-answering",
+      "dataset": ["Custom facts and questions"],
+      "metrics": ["Accuracy", "Response time"],
+      "architecture": {
+        "components": ["LISP program", "Depth-first search", "Predicate calculus"],
+        "connections": ["Fact representation", "Question reduction"],
+        "mechanisms": ["Logical deduction", "Recursive question reduction"]
+      },
+      "methodology": {
+        "training_strategy": ["Providing facts and questions"],
+        "parameter_tuning": ["Search depth", "Fact ordering"]
+      },
+      "feature_processing": ["Fact representation", "Question parsing"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_QuestionAnswering",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Proportion of correctly answered questions",
+      "category": "Question answering",
+      "formula": "Correct answers / Total questions"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Response_time_QuestionAnswering",
+      "entity_type": "Metric",
+      "name": "Response time",
+      "description": "Time taken to answer a question",
+      "category": "Question answering",
+      "formula": "Time taken for each question"
+    }
+  }
+]
+```
+
+EXTRACTION_COMPLETE: true

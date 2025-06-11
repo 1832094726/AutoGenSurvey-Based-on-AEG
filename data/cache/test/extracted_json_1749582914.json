@@ -1,0 +1,10 @@
+{
+    "from_entity": "Roy2015_ArithmeticWordProblemSolver",
+    "to_entity": "MathDQN",
+    "relation_type": "Replace",
+    "structure": "Architecture.Mechanism",
+    "detail": "用深度强化学习框架替代原有的表达树构建方法",
+    "problem_addressed": "表达树构建方法在面对大量数量时效率低下且准确性不足",
+    "evidence": "In this paper, we make the first attempt of applying deep reinforcement learning as a general framework to solve math word problems. The motivation is that deep Q-network has witnessed success in solving various problems with big search space.",
+    "confidence": 0.88
+  }

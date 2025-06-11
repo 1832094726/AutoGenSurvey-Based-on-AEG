@@ -1,0 +1,644 @@
+[
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "引入了更复杂的模型来预测UDG，并结合了约束推理框架",
+    "problem_addressed": "提高对单位依赖图的预测准确性",
+    "evidence": "We introduce a decomposed model for inducing UDGs with minimal additional annotations, and use it to augment the expressions used in the arithmetic word problem solver of(Roy and Roth 2015) via a constrained inference framework.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Roy2015_ArithmeticWordProblemSolver",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "将UDG引入到算术应用题求解器中",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ArithmeticWordProblemSolver",
+    "to_entity": "Roy2016_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "引入单调表达树和约束推理框架",
+    "problem_addressed": "提高表达式树生成的准确性",
+    "evidence": "We introduce a decomposed model for inducing UDGs with minimal additional annotations, and use it to augment the expressions used in the arithmetic word problem solver of(Roy and Roth 2015) via a constrained inference framework.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ArithmeticWordProblemSolver",
+    "to_entity": "Roy2015_ExpressionTree",
+    "relation_type": "Use",
+    "structure": "Architecture.Component",
+    "detail": "使用单调表达树和LCA操作分类器",
+    "problem_addressed": "提高表达式树生成的准确性",
+    "evidence": "Given a problem P with quantities q1, q2,..., qn, the solver uses the following two classifiers.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraphPrediction",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入了顶点分类器和边分类器",
+    "problem_addressed": "提高对UDG的预测能力",
+    "evidence": "We train a binary classifier to detect rate quantities and a multiclass classifier to determine the properties of the edges of the UDG.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "引入了更复杂的模型来预测UDG",
+    "problem_addressed": "提高对单位依赖图的预测准确性",
+    "evidence": "We introduce a decomposed model for inducing UDGs with minimal additional annotations, and use it to augment the expressions used in the arithmetic word problem solver of(Roy and Roth 2015) via a constrained inference framework.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ArithmeticWordProblemSolver",
+    "relation_type": "Use",
+    "structure": "Architecture.Component",
+    "detail": "用于增强算术应用题求解器",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "AllArith_2016",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "在AllArith数据集上进行实验",
+    "problem_addressed": "验证UDG的有效性",
+    "evidence": "We report random 5-fold cross validation results on all these datasets. For each fold, we choose 20% of the training data as development set, and tune the scaling parameters on this set.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "AllArithLex_2016",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "在AllArithLex数据集上进行实验",
+    "problem_addressed": "验证UDG在低词汇重叠情况下的有效性",
+    "evidence": "We create two subsets of 415 problems each - one with low lexical overlap called AllArithLex, and one with low template overlap called AllArithTmpl.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "AllArithTmpl_2016",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "在AllArithTmpl数据集上进行实验",
+    "problem_addressed": "验证UDG在低模板重叠情况下的有效性",
+    "evidence": "We create two subsets of 415 problems each - one with low lexical overlap called AllArithLex, and one with low template overlap called AllArithTmpl.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Accuracy_ArithmeticWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "使用准确性作为评估指标",
+    "problem_addressed": "评估UDG对算术应用题求解器的改进效果",
+    "evidence": "We show that introduction of UDGs reduces the error of the solver by over 10%, surpassing all existing systems for solving arithmetic word problems.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "F1_Classification",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "评估UDG对算术应用题求解器的改进效果",
+    "evidence": "We show that introduction of UDGs reduces the error of the solver by over 10%, surpassing all existing systems for solving arithmetic word problems.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Precision_Classification",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "评估UDG对算术应用题求解器的改进效果",
+    "evidence": "We show that introduction of UDGs reduces the error of the solver by over 10%, surpassing all existing systems for solving arithmetic word problems.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Recall_Classification",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "评估UDG对算术应用题求解器的改进效果",
+    "evidence": "We show that introduction of UDGs reduces the error of the solver by over 10%, surpassing all existing systems for solving arithmetic word problems.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "KoncelKedziorski2015_EquationTrees",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了Equation Trees方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ArithmeticWordProblemSolver",
+    "relation_type": "Improve",
+    "structure": "Algorithm.Architecture",
+    "detail": "改进了算术应用题求解器",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了基于知识的求解器",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Algorithm.Architecture",
+    "detail": "改进了表达树方法",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraphPrediction",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了UDG预测方法",
+    "problem_addressed": "提高对单位依赖图的预测能力",
+    "evidence": "We train a binary classifier to detect rate quantities and a multiclass classifier to determine the properties of the edges of the UDG.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_DimensionalAnalysis",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了维度分析方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2018_DeclarativeKnowledge",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了声明性知识方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了数量蕴含方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了基于知识的求解器",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Algorithm.Architecture",
+    "detail": "改进了表达树方法",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraphPrediction",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了UDG预测方法",
+    "problem_addressed": "提高对单位依赖图的预测能力",
+    "evidence": "We train a binary classifier to detect rate quantities and a multiclass classifier to determine the properties of the edges of the UDG.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_DimensionalAnalysis",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了维度分析方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2018_DeclarativeKnowledge",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了声明性知识方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了数量蕴含方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了基于知识的求解器",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Algorithm.Architecture",
+    "detail": "改进了表达树方法",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraphPrediction",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了UDG预测方法",
+    "problem_addressed": "提高对单位依赖图的预测能力",
+    "evidence": "We train a binary classifier to detect rate quantities and a multiclass classifier to determine the properties of the edges of the UDG.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_DimensionalAnalysis",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了维度分析方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2018_DeclarativeKnowledge",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了声明性知识方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了数量蕴含方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了基于知识的求解器",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Algorithm.Architecture",
+    "detail": "改进了表达树方法",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraphPrediction",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了UDG预测方法",
+    "problem_addressed": "提高对单位依赖图的预测能力",
+    "evidence": "We train a binary classifier to detect rate quantities and a multiclass classifier to determine the properties of the edges of the UDG.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_DimensionalAnalysis",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了维度分析方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2018_DeclarativeKnowledge",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了声明性知识方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了数量蕴含方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了基于知识的求解器",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Algorithm.Architecture",
+    "detail": "改进了表达树方法",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraphPrediction",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了UDG预测方法",
+    "problem_addressed": "提高对单位依赖图的预测能力",
+    "evidence": "We train a binary classifier to detect rate quantities and a multiclass classifier to determine the properties of the edges of the UDG.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_DimensionalAnalysis",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了维度分析方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2018_DeclarativeKnowledge",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了声明性知识方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了数量蕴含方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了基于知识的求解器",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Algorithm.Architecture",
+    "detail": "改进了表达树方法",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraphPrediction",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了UDG预测方法",
+    "problem_addressed": "提高对单位依赖图的预测能力",
+    "evidence": "We train a binary classifier to detect rate quantities and a multiclass classifier to determine the properties of the edges of the UDG.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_DimensionalAnalysis",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了维度分析方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2018_DeclarativeKnowledge",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了声明性知识方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了数量蕴含方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了基于知识的求解器",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Algorithm.Architecture",
+    "detail": "改进了表达树方法",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraphPrediction",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了UDG预测方法",
+    "problem_addressed": "提高对单位依赖图的预测能力",
+    "evidence": "We train a binary classifier to detect rate quantities and a multiclass classifier to determine the properties of the edges of the UDG.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_DimensionalAnalysis",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了维度分析方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2018_DeclarativeKnowledge",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了声明性知识方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了数量蕴含方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了基于知识的求解器",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Algorithm.Architecture",
+    "detail": "改进了表达树方法",
+    "problem_addressed": "提高对单位一致性的处理能力",
+    "evidence": "We augment the arithmetic word problem solver of(Roy and Roth 2015) to predict a unit dependency graph, along with the solution expression of the input arithmetic word problem.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2017_UnitDependencyGraphPrediction",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了UDG预测方法",
+    "problem_addressed": "提高对单位依赖图的预测能力",
+    "evidence": "We train a binary classifier to detect rate quantities and a multiclass classifier to determine the properties of the edges of the UDG.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_DimensionalAnalysis",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了维度分析方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2018_DeclarativeKnowledge",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了声明性知识方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_QuantityEntailment",
+    "relation_type": "Extend",
+    "structure": "Algorithm.Architecture",
+    "detail": "扩展了数量蕴含方法",
+    "problem_addressed": "增强对单位一致性的处理能力",
+    "evidence": "None of them explicitly model the relations between rates, units and the question asked. In contrast, we model these relations via unit dependency graphs.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Roy2015_UnitDependencyGraph",
+    "to_entity": "Roy2015_KnowledgeBased

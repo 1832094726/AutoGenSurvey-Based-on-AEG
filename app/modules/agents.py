@@ -35,6 +35,34 @@ def check_extraction_complete(text):
     current_section = None
     next_section = None
     
+    # 尝试从JSON格式中提取信息
+    try:
+        # 提取JSON部分
+        json_text = extract_json_from_text(text)
+        if json_text:
+            data = json.loads(json_text)
+            
+            # 检查是否有extraction_info字段
+            if "extraction_info" in data:
+                info = data["extraction_info"]
+                is_complete = info.get("is_complete", False)
+                current_section = info.get("current_section")
+                next_section = info.get("next_section")
+                
+                # 如果明确标记为完成，则返回结果
+                if is_complete:
+                    return (True, current_section, None)
+                # 如果有下一章节，则标记为未完成
+                if next_section:
+                    return (False, current_section, next_section)
+                
+                # 如果只有is_complete字段（关系提取的情况）
+                return (is_complete, current_section, next_section)
+    except:
+        # 如果JSON解析失败，继续使用原有的正则表达式方法
+        pass
+    
+    # 如果无法从JSON中提取，使用原有的正则表达式方法
     # 寻找完成标志
     completion_patterns = [
         r'EXTRACTION_COMPLETE:\s*true',
@@ -61,6 +89,7 @@ def check_extraction_complete(text):
         next_section = next_section_match.group(1).strip()
     if next_section:
         is_complete = False
+    
     # 如果没有明确指出当前章节，尝试从文本中推断
     if not current_section:
         # 尝试从文本中查找"正在处理"、"提取的是"等关键词附近的章节名称
@@ -104,16 +133,83 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
     # 组合提示词
     prompt = base_prompt + "\n\n" + features_prompt
     
+    # 添加JSON格式要求
+    json_format_prompt = """
+你必须严格按照以下JSON格式返回结果，不要包含任何额外的文本说明：
+
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhang2016_TemplateSolver",
+        "entity_type": "Algorithm",
+        "name": "TemplateSolver",
+        "title": "论文标题",
+        "year": 2016,
+        "authors": ["Zhang, Y.", "Li, W."],
+        "task": "任务类型",
+        "dataset": ["数据集1", "数据集2"],
+        "metrics": ["评价指标1", "评价指标2"],
+        "architecture": {
+          "components": ["组件1", "组件2"],
+          "connections": ["连接1", "连接2"],
+          "mechanisms": ["机制1", "机制2"]
+        },
+        "methodology": {
+          "training_strategy": ["策略1", "策略2"],
+          "parameter_tuning": ["参数1", "参数2"]
+        },
+        "feature_processing": ["处理方法1", "处理方法2"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MNIST_2010",
+        "entity_type": "Dataset",
+        "name": "MNIST",
+        "description": "手写数字识别数据集",
+        "domain": "计算机视觉",
+        "size": 70000,
+        "year": 2010,
+        "creators": ["LeCun, Y.", "Cortes, C."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数/总样本数"
+      }
+    },...
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "INTRODUCTION",
+    "next_section": "METHODOLOGY"
+  }
+}
+
+注意：
+1. 实体列表放在"entities"字段中
+2. 提取状态信息放在"extraction_info"字段中
+3. 不要在JSON外添加任何文本说明
+"""
+    prompt += json_format_prompt
+    
     # 添加分章节提取的指令
     chapter_extraction_prompt = """
-请按小节提取实体，首先分析有几个章节和小节，每次以小节为单位提取一个部分。请先确认你正在处理哪个章节（例如：INTRODUCTION，ARITHMETIC WORD PROBLEM SOLVER，FEATURE EXTRACTION，Dataset Repository and Performance Analysis	等）。
+请按小节提取实体，首先分析有几个章节和小节，每次以小节为单位提取一个部分。请先确认你正在处理哪个章节（例如：INTRODUCTION，ARITHMETIC WORD PROBLEM SOLVER，FEATURE EXTRACTION，Dataset Repository and Performance Analysis 等）。
 
-在提取完当前小节的实体后，请明确告知：
-1. 你刚刚提取的是哪个小节
-2. 论文中是否还有其他小节未被提取
-3. 如果还有未提取的小节，下一个要提取的小节是什么
+在提取完当前小节的实体后，请在JSON的"extraction_info"字段中明确告知：
+1. 当前提取的章节名称（current_section字段）
+2. 是否已完成所有章节提取（is_complete字段，true或false）
+3. 如果还有未提取的小节，下一个要提取的小节是什么（next_section字段）
 """
     prompt += chapter_extraction_prompt
+    
     if review_entities:
         prompt += "\n\n重点关注是否存在以下实体，存在则提取\n- "
         for entity in review_entities:
@@ -126,14 +222,7 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
             elif "metric_entity" in entity:
                 entity_name = entity["metric_entity"].get("metric_id")
                 prompt += f"{entity_name}\n"
-    # 添加完成状态请求
-    completion_request = """
-最后，请明确告知我提取是否已完成，还是需要继续提取更多实体。请根据你对文本的分析，判断是否已经提取了所有可能的实体。
-
-在JSON返回后，请单独一行写明"EXTRACTION_COMPLETE: true"（找不到任何实体请输出）或"EXTRACTION_COMPLETE: false, CURRENT_SECTION: [章节名称], NEXT_SECTION: [下一章节名称]"。
-"""
-    prompt += completion_request
-
+    
     # 如果有已提取的章节，添加到提示中
     if extracted_sections and len(extracted_sections) > 0:
         sections_hint = "\n\n以下章节已经被提取过，请不要重复提取：\n- "
@@ -164,6 +253,9 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
         previous_entities_hint += "\n- ".join(entity_examples)
         previous_entities_hint += "\n\n请确保你提取的是新实体，不要包含上述已提取的实体。例如Chen2014_NeuralNetworkDependencyParser和Chen2014_NeuralNetworkDependencyParserWithCubeActivation，Chen2014_NeuralNetworkDependencyParserWithIdentityActivation,Chen2014_NeuralNetworkDependencyParserWithPretrainedEmbeddings,xxxwith Random Initialization 是同一个实体，不要重复提取。同一类模型提取一个即可。"
         prompt += previous_entities_hint
+    
+    # 最后再次强调JSON格式
+    prompt += "\n\n请记住：必须严格返回JSON格式，不要包含任何额外的文本说明。所有提取状态信息必须包含在JSON的extraction_info字段中。"
     
     return prompt
 
@@ -197,64 +289,11 @@ def generate_entity_extraction_prompt_base():
 - 方法论（如果是算法）
 - 特征处理方法（如果是算法）
 
-请以JSON格式输出，确保包含以下结构，不要包含任何其他内容：
-```json
-                    [
-                      {
-                        "algorithm_entity": {
-                          "algorithm_id": "Zhang2016_TemplateSolver",
-                          "entity_type": "Algorithm",
-                          "name": "TemplateSolver",
-                          "title": "论文标题",
-                          "year": 2016,
-                          "authors": ["Zhang, Y.", "Li, W.", ...],
-                          "task": "任务类型",
-                          "dataset": ["数据集1", "数据集2", ...],
-                          "metrics": ["评价指标1", "评价指标2", ...],
-                          "architecture": {
-                            "components": ["组件1", "组件2", ...],
-                            "connections": ["连接1", "连接2", ...],
-                            "mechanisms": ["机制1", "机制2", ...]
-                          },
-                          "methodology": {
-                            "training_strategy": ["策略1", "策略2", ...],
-                            "parameter_tuning": ["参数1", "参数2", ...]
-                          },
-                          "feature_processing": ["处理方法1", "处理方法2", ...]
-                        }
-                      },
-                      {
-                        "dataset_entity": {
-                          "dataset_id": "MNIST_2010",
-                          "entity_type": "Dataset",
-                          "name": "MNIST",
-                          "description": "手写数字识别数据集",
-                          "domain": "计算机视觉",
-                          "size": 70000,
-                          "year": 2010,
-                          "creators": ["LeCun, Y.", "Cortes, C.", ...]
-                          ]
-                        }
-                      },
-                      {
-                        "metric_entity": {
-                          "metric_id": "Accuracy_Classification",
-                          "entity_type": "Metric",
-                          "name": "Accuracy",
-                          "description": "分类准确率",
-                          "category": "分类评估",
-                          "formula": "正确分类样本数/总样本数"
-                        }
-                      },...//其他实体
-                    ]
-                    ```
-
 尽量提取论文中所有可能的实体信息，如果某些字段信息不可用，可以省略（如果论文中出现实体名字也可以抽取）。
 注意:
 1.尤其注意带有大写或代表性名称，表格内或加黑的实体[例子:RNN,CNN,LSTM等],尤其注意请生成全部实体
 2.例如如果有130个引文，尽量生成120个实体
 3.你可以分段提取
-请确保JSON格式正确，避免语义错误。
 """
 
 def generate_entity_extraction_prompt_with_features():
@@ -349,6 +388,7 @@ def extract_entities_with_openai(prompt, model_name="gpt-3.5-turbo", max_attempt
                 messages=messages,
                 temperature=0.2,
                 max_tokens=None,  # 不限制token数量
+                response_format={"type": "json_object"},
                 stream=True
             )
             # 收集流式响应内容
@@ -524,6 +564,7 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
                 messages=messages,
                 temperature=0.2,
                 stream=True,
+                response_format={"type": "json_object"},
                 max_tokens=None  # 不限制token数量
             )
             
@@ -560,7 +601,12 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             if json_text:
                 logging.info(f"提取到的JSON文本长度: {len(json_text)}")
                 try:
-                    entities = json.loads(json_text)
+                    data = json.loads(json_text)
+                    if "entities" in data:
+                        entities = data["entities"]
+                    else:
+                        entities = []
+                        logging.warning(f"提取到的JSON中没有entities字段")
                     if not isinstance(entities, list):
                         entities = [entities]  # 确保是列表格式
                     logging.info(f"成功从API响应提取 {len(entities)} 个实体")
@@ -647,7 +693,7 @@ def extract_json_from_text(text):
         return None
         
     logging.info(f"开始从文本中提取JSON，文本长度：{len(text)} 字符")
-    
+    return text
     # 首先尝试从代码块中提取JSON
     json_block_pattern = r'```(?:json)?\s*([\s\S]*?)(?:\s*```|\s*EXTRACTION_COMPLETE\s*:)'
     matches = re.findall(json_block_pattern, text)
@@ -1255,6 +1301,7 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
                 messages=messages,
                 temperature=0.2,
                 stream=True,
+                response_format={"type": "json_object"},
                 max_tokens=None  # 不限制token数量
             )
             
@@ -1272,15 +1319,26 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
             logging.info(f"响应接收完成，共 {chunk_count} 个响应块，总长度: {len(content)} 字符")
             
             # 检查是否包含完成标志
-            is_complete = check_extraction_complete(content)
+            is_complete,_,_ = check_extraction_complete(content)
             
             # 提取JSON部分
             json_text = extract_json_from_text(content)
             if json_text:
                 try:
-                    relations = json.loads(json_text)
-                    if not isinstance(relations, list):
-                        relations = [relations]  # 确保是列表格式
+                    data = json.loads(json_text)
+                    # 检查是否使用了新的JSON格式
+                    if "relations" in data:
+                        relations = data["relations"]
+                        # 如果有extraction_info字段，更新完成状态
+                        if "extraction_info" in data:
+                            is_complete = data["extraction_info"].get("is_complete", False)
+                            logging.info(f"从JSON中提取到完成状态: {is_complete}")
+                    else:
+                        # 兼容旧格式，假设整个JSON就是关系列表
+                        relations = data
+                        if not isinstance(relations, list):
+                            relations = [relations]  # 确保是列表格式
+                    
                     logging.info(f"成功从API响应提取 {len(relations)} 个关系,是否完成: {is_complete}")
                 except json.JSONDecodeError as e:
                     logging.warning(f"JSON解析错误: {str(e)}，尝试清理后重新解析")
@@ -1391,11 +1449,11 @@ def generate_evolution_relation_prompt(previous_relations=None, entities=None, i
         tuple: (系统消息, 用户消息)
     """
     # 系统消息
-    system_message = "你是一个专注于从学术论文和实体列表中提取演化关系的AI助手，能够理解算法之间的改进、扩展、替换等关系，以及算法与数据集、评价指标之间的关系。"
+    system_message = "你是一个专注于从学术论文和实体列表中提取演化关系的AI助手，能够理解算法之间的改进、扩展、替换等关系，以及算法与数据集、评价指标之间的关系。请以JSON格式返回结果。"
     
-    # 用户消息
-    user_message = generate_relation_extraction_prompt_base()
-    
+    # # 用户消息
+    # user_message = generate_relation_extraction_prompt_base()
+    user_message=''
     # 添加特征信息
     feature_message = generate_relation_extraction_prompt_with_features()
     user_message += "\n\n" + feature_message
@@ -1428,8 +1486,27 @@ def generate_evolution_relation_prompt(previous_relations=None, entities=None, i
         
         user_message += f"\n\n目前已涉及 {len(processed_entities)} 个实体，请尝试发现更多实体之间的关系，尤其是尚未处理过的实体。"
     
-    # 提取完成度请求
-    user_message += f"\n\n如果你认为所有有意义的关系都已经提取完毕，请在JSON响应后单独一行写明：EXTRACTION_COMPLETE: true，否则写EXTRACTION_COMPLETE: false"
+    # 添加完成状态请求
+    user_message += f"\n\n请以以下JSON格式返回结果，包含关系列表和提取完成状态：\n"
+    user_message += """{
+  "relations": [
+    {
+      "from_entity": "实体A的ID",
+      "to_entity": "实体B的ID",
+      "relation_type": "主要关系类型：Improve/Optimize/Extend/Replace/Use",
+      "structure": "关系的结构描述",
+      "detail": "关系的详细说明",
+      "problem_addressed": "该关系解决的问题",
+      "evidence": "支持这种关系判断的证据（引用论文中的文字）",
+      "confidence": 0.95
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false
+  }
+}"""
+    
+    user_message += "\n\n请确保在JSON的extraction_info字段中指明是否已完成所有关系提取（is_complete字段设为true或false）。"
     
     return system_message, user_message
 
@@ -1446,6 +1523,7 @@ def generate_relation_extraction_prompt_base():
 1. 所有实体信息都在已上传的文本文件中，内容是JSON格式，包含算法、数据集和评价指标实体
 2. 请不要创建文件中不存在的实体，必须严格使用文件中提供的实体ID
 3. 对于每个关系，请提供它解决的问题（problem_addressed字段）
+4. 必须以JSON格式返回结果，包含关系列表和提取完成状态
 
 实体之间的演化关系可以是：
 - 算法改进/优化/扩展/替换另一个算法
@@ -1454,32 +1532,25 @@ def generate_relation_extraction_prompt_base():
 - 数据集改进/扩展另一个数据集
 - 评估指标改进/扩展另一个评估指标
 
-请以以下格式返回关系列表，不要包含任何其他内容：
-[
-  {
-    "from_entity": "实体A的ID",
-    "to_entity": "实体B的ID",
-    "relation_type": "主要关系类型：Improve/Optimize/Extend/Replace/Use",
-    "structure": "关系的结构描述",
-    "detail": "关系的详细说明",
-    "problem_addressed": "该关系解决的问题",
-    "evidence": "支持这种关系判断的证据（引用论文中的文字）",
-    "confidence": 置信度（0.0-1.0）
-  }
-]
-
-关系结构示例:
+返回格式示例：
 {
-  "from_entity": "Zhang2016_TemplateSolver",
-  "from_entity_type": "Algorithm",
-  "to_entity": "Huang2017_NeuralSolver",
-  "to_entity_type": "Algorithm",
-  "relation_type": "Replace",
-  "structure": "Architecture.Mechanism",
-  "detail": "Template-based parser replaced by neural encoder-decoder",
-  "problem_addressed": "Low adaptability of rule-based template parser",
-  "evidence": "Instead of using a rule-based parser (Zhang et al. 2016), we adopt a neural sequence-to-sequence architecture.",
-  "confidence": 0.91
+  "relations": [
+    {
+      "from_entity": "Zhang2016_TemplateSolver",
+      "from_entity_type": "Algorithm",
+      "to_entity": "Huang2017_NeuralSolver",
+      "to_entity_type": "Algorithm",
+      "relation_type": "Replace",
+      "structure": "Architecture.Mechanism",
+      "detail": "Template-based parser replaced by neural encoder-decoder",
+      "problem_addressed": "Low adaptability of rule-based template parser",
+      "evidence": "Instead of using a rule-based parser (Zhang et al. 2016), we adopt a neural sequence-to-sequence architecture.",
+      "confidence": 0.91
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false
+  }
 }"""
 
 def generate_relation_extraction_prompt_with_features():
@@ -1506,40 +1577,31 @@ def generate_relation_extraction_prompt_with_features():
 
 识别特征：
 "relation_patterns": {
-      "Improvement": ["improves upon", "outperforms", "better than", "surpasses", "exceeds"],
-      "Usage": ["use", "apply", "employ", "adopt"],
-      "Extension": ["extends", "generalizes", "based on", "builds on"],
-      "Evaluation": ["evaluated on", "tested using", "in terms of", "measured by", "achieved"],
-      "Comparison": ["compared to", "unlike", "versus", "whereas"]
-    },
-    "structural_features": ["Sentence-level context", "Paragraph context", "Citation contexts", "Section headings", "Figure/Table captions", "Pseudocode blocks"]
+  "Improvement": ["improves upon", "outperforms", "better than", "surpasses", "exceeds"],
+  "Usage": ["use", "apply", "employ", "adopt"],
+  "Extension": ["extends", "generalizes", "based on", "builds on"],
+  "Evaluation": ["evaluated on", "tested using", "in terms of", "measured by", "achieved"],
+  "Comparison": ["compared to", "unlike", "versus", "whereas"]
+},
+"structural_features": ["Sentence-level context", "Paragraph context", "Citation contexts", "Section headings", "Figure/Table captions", "Pseudocode blocks"]
 
-请以以下格式返回关系列表，不要包含任何其他内容：
-[
-  {
-    "from_entity": "实体A的ID",
-    "to_entity": "实体B的ID",
-    "relation_type": "主要关系类型：Improve/Optimize/Extend/Replace/Use",
-    "structure": "关系的结构描述",
-    "detail": "关系的详细说明",
-    "problem_addressed": "该关系解决的问题",
-    "evidence": "支持这种关系判断的证据（引用论文中的文字）",
-    "confidence": 置信度（0.0-1.0）
-  }
-]
-
-关系结构示例:
+请以JSON格式返回结果，包含关系列表和提取完成状态：
 {
-  "from_entity": "Zhang2016_TemplateSolver",
-  "from_entity_type": "Algorithm",
-  "to_entity": "Huang2017_NeuralSolver",
-  "to_entity_type": "Algorithm",
-  "relation_type": "Replace",
-  "structure": "Architecture.Mechanism",
-  "detail": "Template-based parser replaced by neural encoder-decoder",
-  "problem_addressed": "Low adaptability of rule-based template parser",
-  "evidence": "Instead of using a rule-based parser (Zhang et al. 2016), we adopt a neural sequence-to-sequence architecture.",
-  "confidence": 0.91
+  "relations": [
+    {
+      "from_entity": "实体A的ID",
+      "to_entity": "实体B的ID",
+      "relation_type": "主要关系类型：Improve/Optimize/Extend/Replace/Use",
+      "structure": "关系的结构描述",
+      "detail": "关系的详细说明",
+      "problem_addressed": "该关系解决的问题",
+      "evidence": "支持这种关系判断的证据（引用论文中的文字）",
+      "confidence": 0.95
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false
+  }
 }"""
 
 def validate_and_add_relation(db_manager, relation_data, task_id):

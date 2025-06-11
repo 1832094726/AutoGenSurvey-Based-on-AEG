@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Chiang2018_SemanticallyAlignedEquationGeneration",
+      "entity_type": "Algorithm",
+      "name": "Semantically-Aligned Equation Generation",
+      "year": 2018,
+      "authors": ["Ting-Rui Chiang", "Yun-Nung Chen"],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Math23K_2017"],
+      "metrics": ["Accuracy_MathWordProblemSolving"],
+      "architecture": {
+        "components": ["Encoder", "Decoder", "Stack", "Semantic Transformer"],
+        "connections": ["Encoder to Decoder", "Stack to Semantic Transformer"],
+        "mechanisms": ["Attention Mechanism", "Stack Actions", "Semantic Representation"]
+      },
+      "methodology": {
+        "training_strategy": ["End-to-End Training", "Fully Supervised"],
+        "parameter_tuning": ["Learning Rate", "Hidden State Size", "Dropout Rate"]
+      },
+      "feature_processing": ["Constant Representation Extraction", "External Constant Leveraging", "Operand Selection"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Math23K_2017",
+      "entity_type": "Dataset",
+      "name": "Math23K",
+      "description": "Contains 23,162 math problems with annotated equations",
+      "domain": "Mathematics",
+      "size": 23162,
+      "year": 2017,
+      "creators": ["Wang, Yan", "Xiaojiang Liu", "Shuming Shi"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MathWordProblemSolving",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Proportion of correctly solved math word problems",
+      "category": "Math Word Problem Solving",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  }
+]

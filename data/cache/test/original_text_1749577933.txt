@@ -1,0 +1,396 @@
+### 提取实体信息
+
+#### 第1个文档：《[41]Parsing with compositional vector grammars.pdf》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Socher2013_CompositionalVectorGrammar",
+    "entity_type": "Algorithm",
+    "name": "Compositional Vector Grammar (CVG)",
+    "year": 2013,
+    "authors": ["Richard Socher", "John Bauer", "Christopher D. Manning", "Andrew Y. Ng"],
+    "task": "自然语言解析",
+    "dataset": ["Penn Treebank WSJ_1993"],
+    "metrics": ["F1_Score_Parsing", "Labeled_F1_Parsing"],
+    "architecture": {
+      "components": ["PCFG", "递归神经网络(RNN)", "连续向量表示"],
+      "connections": ["PCFG与RNN结合", "语法类别条件下的权重解绑"],
+      "mechanisms": ["最大间隔训练目标", "上下文无关语法的概率估计"]
+    },
+    "methodology": {
+      "training_strategy": ["最大间隔训练", "AdaGrad优化"],
+      "parameter_tuning": ["学习率调整", "正则化参数设置"]
+    },
+    "feature_processing": ["分布相似性表示", "词向量初始化"]
+  }
+}
+```
+
+##### 2. 数据集实体
+```json
+{
+  "dataset_entity": {
+    "dataset_id": "PennTreebank_WSJ_1993",
+    "entity_type": "Dataset",
+    "name": "Penn Treebank WSJ",
+    "description": "华尔街日报语料库，用于句法分析",
+    "domain": "自然语言处理",
+    "year": 1993,
+    "creators": ["Marcus, M.", "Santorini, B.", "Marcinkiewicz, M."]
+  }
+}
+```
+
+##### 3. 评价指标实体
+```json
+{
+  "metric_entity": {
+    "metric_id": "F1_Score_Parsing",
+    "entity_type": "Metric",
+    "name": "F1 Score",
+    "description": "句法分析中的F1得分",
+    "category": "句法分析评估",
+    "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+  }
+},
+{
+  "metric_entity": {
+    "metric_id": "Labeled_F1_Parsing",
+    "entity_type": "Metric",
+    "name": "Labeled F1",
+    "description": "带标签的句法分析F1得分",
+    "category": "句法分析评估",
+    "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+  }
+}
+```
+
+#### 第2个文档：《[42]Reasoning about quantities in natural language.pdf》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Roy2015_QuantityEntailment",
+    "entity_type": "Algorithm",
+    "name": "Quantity Entailment (QE)",
+    "year": 2015,
+    "authors": ["Subhro Roy", "Tim Vieira", "Dan Roth"],
+    "task": "数量推理",
+    "dataset": ["RTE_Datasets_2006", "Newswire_Text_2015"],
+    "metrics": ["F1_Score_TextualEntailment", "Precision_TextualEntailment", "Recall_TextualEntailment"],
+    "architecture": {
+      "components": ["数量表示", "语义角色标注(SRL)", "共指消解"],
+      "connections": ["数量表示与上下文关联", "SRL与共指消解结合"],
+      "mechanisms": ["数量比较规则", "隐含数量生成规则"]
+    },
+    "methodology": {
+      "training_strategy": ["监督学习", "交叉验证"],
+      "parameter_tuning": ["特征选择", "阈值设定"]
+    },
+    "feature_processing": ["词类特征", "字符基础特征", "词性标签"]
+  }
+}
+```
+
+##### 2. 数据集实体
+```json
+{
+  "dataset_entity": {
+    "dataset_id": "RTE_Datasets_2006",
+    "entity_type": "Dataset",
+    "name": "RTE Datasets",
+    "description": "文本蕴含数据集",
+    "domain": "自然语言处理",
+    "year": 2006,
+    "creators": ["Dagan, I.", "Glickman, O.", "Magnini, B."]
+  }
+},
+{
+  "dataset_entity": {
+    "dataset_id": "Newswire_Text_2015",
+    "entity_type": "Dataset",
+    "name": "Newswire Text",
+    "description": "新闻电讯文本数据集",
+    "domain": "自然语言处理",
+    "year": 2015,
+    "creators": ["Subhro Roy", "Tim Vieira", "Dan Roth"]
+  }
+}
+```
+
+##### 3. 评价指标实体
+```json
+{
+  "metric_entity": {
+    "metric_id": "F1_Score_TextualEntailment",
+    "entity_type": "Metric",
+    "name": "F1 Score",
+    "description": "文本蕴含中的F1得分",
+    "category": "文本蕴含评估",
+    "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+  }
+},
+{
+  "metric_entity": {
+    "metric_id": "Precision_TextualEntailment",
+    "entity_type": "Metric",
+    "name": "Precision",
+    "description": "文本蕴含中的精确率",
+    "category": "文本蕴含评估",
+    "formula": "正确预测的数量 / 总预测数量"
+  }
+},
+{
+  "metric_entity": {
+    "metric_id": "Recall_TextualEntailment",
+    "entity_type": "Metric",
+    "name": "Recall",
+    "description": "文本蕴含中的召回率",
+    "category": "文本蕴含评估",
+    "formula": "正确预测的数量 / 总实际数量"
+  }
+}
+```
+
+#### 第3个文档：《[43]Rectangle detection based on a windowed hough transform.pdf》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Jung2004_WindowedHoughTransform",
+    "entity_type": "Algorithm",
+    "name": "Windowed Hough Transform",
+    "year": 2004,
+    "authors": ["Cláudio Rosito Jung", "Rodrigo Schramm"],
+    "task": "矩形检测",
+    "dataset": ["Synthetic_Images_2004", "Natural_Images_2004"],
+    "metrics": ["Detection_Rate_RectangleDetection", "False_Positive_Rate_RectangleDetection"],
+    "architecture": {
+      "components": ["滑动窗口", "霍夫变换", "局部极大值检测"],
+      "connections": ["边缘图到霍夫空间转换", "几何约束匹配"],
+      "mechanisms": ["环形搜索区域", "蝴蝶图案增强"]
+    },
+    "methodology": {
+      "training_strategy": ["无监督学习"],
+      "parameter_tuning": ["角度和距离量化步长", "阈值设定"]
+    },
+    "feature_processing": ["边缘检测", "噪声去除"]
+  }
+}
+```
+
+##### 2. 数据集实体
+```json
+{
+  "dataset_entity": {
+    "dataset_id": "Synthetic_Images_2004",
+    "entity_type": "Dataset",
+    "name": "Synthetic Images",
+    "description": "合成图像数据集",
+    "domain": "计算机视觉",
+    "year": 2004,
+    "creators": ["Cláudio Rosito Jung", "Rodrigo Schramm"]
+  }
+},
+{
+  "dataset_entity": {
+    "dataset_id": "Natural_Images_2004",
+    "entity_type": "Dataset",
+    "name": "Natural Images",
+    "description": "自然图像数据集",
+    "domain": "计算机视觉",
+    "year": 2004,
+    "creators": ["Cláudio Rosito Jung", "Rodrigo Schramm"]
+  }
+}
+```
+
+##### 3. 评价指标实体
+```json
+{
+  "metric_entity": {
+    "metric_id": "Detection_Rate_RectangleDetection",
+    "entity_type": "Metric",
+    "name": "Detection Rate",
+    "description": "矩形检测率",
+    "category": "矩形检测评估",
+    "formula": "正确检测的矩形数量 / 总矩形数量"
+  }
+},
+{
+  "metric_entity": {
+    "metric_id": "False_Positive_Rate_RectangleDetection",
+    "entity_type": "Metric",
+    "name": "False Positive Rate",
+    "description": "误检率",
+    "category": "矩形检测评估",
+    "formula": "误检的矩形数量 / 总检测数量"
+  }
+}
+```
+
+#### 第4个文档：《[44]ROBUST UNDERSTANDING OF WORD PROBLEMS WITH EXTRANEOUS INFORMATION.pdf》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Bakman2013_RobustUnderstanding",
+    "entity_type": "Algorithm",
+    "name": "Robust Understanding",
+    "year": 2013,
+    "authors": ["Yefim Bakman"],
+    "task": "多步算术文字题理解",
+    "dataset": ["Multi_step_Arithmetic_Word_Problems_2013"],
+    "metrics": ["Accuracy_ArithmeticWordProblemSolving", "Solution_Time_ArithmeticWordProblemSolving"],
+    "architecture": {
+      "components": ["模式识别", "句子分割", "逻辑公式生成"],
+      "connections": ["模式识别与逻辑公式生成结合", "句子分割与模式识别结合"],
+      "mechanisms": ["谨慎策略", "模式相关性评估"]
+    },
+    "methodology": {
+      "training_strategy": ["监督学习"],
+      "parameter_tuning": ["阈值设定", "权重调整"]
+    },
+    "feature_processing": ["词类特征", "句子结构分析"]
+  }
+}
+```
+
+##### 2. 数据集实体
+```json
+{
+  "dataset_entity": {
+    "dataset_id": "Multi_step_Arithmetic_Word_Problems_2013",
+    "entity_type": "Dataset",
+    "name": "Multi-step Arithmetic Word Problems",
+    "description": "多步算术文字题数据集",
+    "domain": "自然语言处理",
+    "year": 2013,
+    "creators": ["Yefim Bakman"]
+  }
+}
+```
+
+##### 3. 评价指标实体
+```json
+{
+  "metric_entity": {
+    "metric_id": "Accuracy_ArithmeticWordProblemSolving",
+    "entity_type": "Metric",
+    "name": "Accuracy",
+    "description": "算术文字题解决的准确率",
+    "category": "算术文字题评估",
+    "formula": "正确解答的数量 / 总问题数量"
+  }
+},
+{
+  "metric_entity": {
+    "metric_id": "Solution_Time_ArithmeticWordProblemSolving",
+    "entity_type": "Metric",
+    "name": "Solution Time",
+    "description": "算术文字题解决时间",
+    "category": "算术文字题评估",
+    "formula": "平均解决时间"
+  }
+}
+```
+
+#### 第5个文档：《[45]Scaling Semantic Parsers with On-the-fly Ontology Matching.pdf》
+
+##### 1. 算法实体
+```json
+{
+  "algorithm_entity": {
+    "algorithm_id": "Kwiatkowski2013_OnTheFlyOntologyMatching",
+    "entity_type": "Algorithm",
+    "name": "On-the-fly Ontology Matching",
+    "year": 2013,
+    "authors": ["Tom Kwiatkowski", "Eunsol Choi", "Yoav Artzi", "Luke Zettlemoyer"],
+    "task": "语义解析",
+    "dataset": ["GeoQuery_1996", "Freebase_Query_2013"],
+    "metrics": ["Recall_SemanticParsing", "Precision_SemanticParsing", "F1_Score_SemanticParsing"],
+    "architecture": {
+      "components": ["概率组合范畴语法(CCG)", "本体匹配模型"],
+      "connections": ["CCG与本体匹配结合", "逻辑形式生成"],
+      "mechanisms": ["动态本体匹配", "隐式中间表示"]
+    },
+    "methodology": {
+      "training_strategy": ["感知机训练", "弱监督学习"],
+      "parameter_tuning": ["特征权重初始化", "阈值设定"]
+    },
+    "feature_processing": ["词类特征", "知识库特征"]
+  }
+}
+```
+
+##### 2. 数据集实体
+```json
+{
+  "dataset_entity": {
+    "dataset_id": "GeoQuery_1996",
+    "entity_type": "Dataset",
+    "name": "GeoQuery",
+    "description": "地理查询数据集",
+    "domain": "自然语言处理",
+    "year": 1996,
+    "creators": ["Zelle, J.", "Mooney, R."]
+  }
+},
+{
+  "dataset_entity": {
+    "dataset_id": "Freebase_Query_2013",
+    "entity_type": "Dataset",
+    "name": "Freebase Query",
+    "description": "Freebase查询数据集",
+    "domain": "自然语言处理",
+    "year": 2013,
+    "creators": ["Cai, Q.", "Yates, A."]
+  }
+}
+```
+
+##### 3. 评价指标实体
+```json
+{
+  "metric_entity": {
+    "metric_id": "Recall_SemanticParsing",
+    "entity_type": "Metric",
+    "name": "Recall",
+    "description": "语义解析的召回率",
+    "category": "语义解析评估",
+    "formula": "正确解析的数量 / 总问题数量"
+  }
+},
+{
+  "metric_entity": {
+    "metric_id": "Precision_SemanticParsing",
+    "entity_type": "Metric",
+    "name": "Precision",
+    "description": "语义解析的精确率",
+    "category": "语义解析评估",
+    "formula": "正确解析的数量 / 总解析数量"
+  }
+},
+{
+  "metric_entity": {
+    "metric_id": "F1_Score_SemanticParsing",
+    "entity_type": "Metric",
+    "name": "F1 Score",
+    "description": "语义解析的F1得分",
+    "category": "语义解析评估",
+    "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+  }
+}
+```
+
+### 提取完成情况
+1. 刚刚提取的是第1个文档的INTRODUCTION、第2个文档的INTRODUCTION、第3个文档的INTRODUCTION、第4个文档的INTRODUCTION和第5个文档的INTRODUCTION。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是第1个文档的RELATED WORK。
+
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: INTRODUCTION, NEXT_SECTION: RELATED WORK

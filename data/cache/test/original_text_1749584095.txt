@@ -1,0 +1,709 @@
+[
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2016_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "引入单调表达树和约束推理框架来改进算术表达式的解析",
+    "problem_addressed": "多步算术问题的求解",
+    "evidence": "We develop a theory for expression trees that can be used to represent and evaluate the target arithmetic expressions; we use it to uniquely decompose the target arithmetic problem to multiple classification problems; we then compose an expression tree, combining these with world knowledge through a constrained inference framework.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Seo2014_G_ALIGNER",
+    "to_entity": "Seo2015_GEOS",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "结合文本和图表解释来改进几何问题求解",
+    "problem_addressed": "几何问题求解需要同时理解文本和图表",
+    "evidence": "GEOS combines text and diagram interpretation to solve geometry problems (Seo et al. 2015).",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Seo2015_GEOS",
+    "to_entity": "Commoncore_Dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用Commoncore数据集进行评估",
+    "problem_addressed": "多步几何问题的求解",
+    "evidence": "In order to test our system’s ability to handle multi-step problems, we create a new dataset of multi-step arithmetic problems.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Seo2015_GEOS",
+    "to_entity": "AI2_Dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AI2数据集进行评估",
+    "problem_addressed": "几何问题的求解",
+    "evidence": "We evaluate our method on publicly available datasets of arithmetic word problems. We evaluate separately the relevance and LCA operation classifiers, and show the contribution of various features.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Seo2015_GEOS",
+    "to_entity": "IL_Dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用IL数据集进行评估",
+    "problem_addressed": "几何问题的求解",
+    "evidence": "We evaluate our method on publicly available datasets of arithmetic word problems. We evaluate separately the relevance and LCA operation classifiers, and show the contribution of various features.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Seo2015_GEOS",
+    "to_entity": "CC_Dataset",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用CC数据集进行评估",
+    "problem_addressed": "几何问题的求解",
+    "evidence": "We evaluate our method on publicly available datasets of arithmetic word problems. We evaluate separately the relevance and LCA operation classifiers, and show the contribution of various features.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AllArith数据集进行评估",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We evaluate our method on two existing datasets of arithmetic word problems, achieving state of the art performance on both.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用分类准确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "F1_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Precision_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Recall_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AllArith数据集进行评估",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We evaluate our method on two existing datasets of arithmetic word problems, achieving state of the art performance on both.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用算术问题求解准确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "F1_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Precision_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Recall_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AllArith数据集进行评估",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We evaluate our method on two existing datasets of arithmetic word problems, achieving state of the art performance on both.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用算术问题求解准确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "F1_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Precision_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Recall_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AllArith数据集进行评估",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We evaluate our method on two existing datasets of arithmetic word problems, achieving state of the art performance on both.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用算术问题求解准确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "F1_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Precision_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Recall_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AllArith数据集进行评估",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We evaluate our method on two existing datasets of arithmetic word problems, achieving state of the art performance on both.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用算术问题求解准确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "F1_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Precision_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Recall_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AllArith数据集进行评估",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We evaluate our method on two existing datasets of arithmetic word problems, achieving state of the art performance on both.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用算术问题求解准确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "F1_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Precision_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Recall_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AllArith数据集进行评估",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We evaluate our method on two existing datasets of arithmetic word problems, achieving state of the art performance on both.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用算术问题求解准确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "F1_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Precision_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Recall_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AllArith数据集进行评估",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We evaluate our method on two existing datasets of arithmetic word problems, achieving state of the art performance on both.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用算术问题求解准确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "F1_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Precision_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Recall_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入声明性知识映射以增强算术问题求解能力",
+    "problem_addressed": "提高对复杂算术问题的理解和求解",
+    "evidence": "Mapping to declarative knowledge for word problem solving (Roy and Roth 2018).",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2017_UnitDependencyGraph",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "引入单位依赖图以增强对算术问题的理解",
+    "problem_addressed": "单位一致性问题",
+    "evidence": "UnitDep (Roy and Roth 2017) further takes into account the consistence of rate unit associated with the quantities and treats it as a scoring factor.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2018_KnowledgeBasedSolver",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用AllArith数据集进行评估",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We evaluate our method on two existing datasets of arithmetic word problems, achieving state of the art performance on both.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Accuracy_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用算术问题求解准确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "F1_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Precision_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art results in both AI2 and IL datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Recall_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "算术问题求解",
+    "evidence": "We achieve state of the art

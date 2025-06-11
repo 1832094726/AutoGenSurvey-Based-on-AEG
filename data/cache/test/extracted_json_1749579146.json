@@ -1,0 +1,22 @@
+{
+     "algorithm_entity": {
+       "algorithm_id": "Roy2017_UnitDependencyGraph",
+       "entity_type": "Algorithm",
+       "name": "Unit Dependency Graph (UDG)",
+       "year": 2017,
+       "authors": ["Roy, S.", "Roth, D."],
+       "task": "Arithmetic Word Problem Solving",
+       "dataset": ["AllArith_2016"],
+       "metrics": ["Accuracy_ArithmeticWordProblemSolving"],
+       "architecture": {
+         "components": ["Vertices", "Edges"],
+         "connections": ["SAME UNIT", "NUM UNIT", "DEN UNIT"],
+         "mechanisms": ["Rate Detection", "Context Features", "Rule-based Extraction"]
+       },
+       "methodology": {
+         "training_strategy": ["Decomposed Model", "Constrained Inference"],
+         "parameter_tuning": ["Scaling Parameters"]
+       },
+       "feature_processing": ["Context Features", "Rule-based Extraction"]
+     }
+   }

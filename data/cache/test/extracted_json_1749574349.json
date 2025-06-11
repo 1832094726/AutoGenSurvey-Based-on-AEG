@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_SkipGram",
+      "entity_type": "Algorithm",
+      "name": "Skip-gram model",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Word and Phrase Representation",
+      "dataset": ["Internal Google dataset with one billion words"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+        "connections": ["Input to Hidden", "Hidden to Output"],
+        "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+      },
+      "methodology": {
+        "training_strategy": ["Subsampling of frequent words", "Negative Sampling", "Hierarchical Softmax"],
+        "parameter_tuning": ["Dimensionality", "Context size", "Subsampling rate"]
+      },
+      "feature_processing": ["Word tokenization", "Subsampling of frequent words"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "NewsArticles_2013",
+      "entity_type": "Dataset",
+      "name": "News Articles",
+      "description": "A large dataset consisting of various news articles",
+      "domain": "Natural Language Processing",
+      "size": 1000000000,
+      "year": 2013,
+      "creators": ["Google Inc."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Classification accuracy",
+      "category": "Classification Evaluation",
+      "formula": "Correct predictions / Total predictions"
+    }
+  }
+]

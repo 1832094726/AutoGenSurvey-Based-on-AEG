@@ -1,0 +1,709 @@
+```json
+[
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "Wang2018_Seq2SeqModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "引入了方程归一化方法来解决方程重复问题",
+    "problem_addressed": "方程重复导致的最大似然估计性能下降",
+    "evidence": "In this paper, by considering the uniqueness of expression tree, we propose an equation normalization method to normalize the duplicated equations. Moreover, we analyze the performance of three popular SEQ2SEQ models on the math word problem solving.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "Wang2018_HybridModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "结合了SEQ2SEQ模型和基于检索的求解器",
+    "problem_addressed": "单一模型难以处理复杂问题",
+    "evidence": "The DNS-Hybrid is a hybrid model that combines DNS and a retrieval-based solver to achieve better performance.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "Math23K_2017",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用Math23K数据集进行评估",
+    "problem_addressed": "需要大规模数据集验证模型性能",
+    "evidence": "We compare our methods with two baselines: DNS and DNS-Hybrid. Both of them are proposed in(Wang et al., 2017), with state-of-the-art performance on dataset Math23K.",
+    "confidence": 0.98
+  },
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用分类准确率作为评估指标",
+    "problem_addressed": "需要评估模型的分类性能",
+    "evidence": "Evaluation results are summarized in Table 2. First, to examine the effectiveness of equation normalization, model performance with and without equation normalization are compared.",
+    "confidence": 0.97
+  },
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "B3_Coreference",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用B3核心ference分数作为评估指标",
+    "problem_addressed": "需要评估模型的核心ference性能",
+    "evidence": "The output of BEATRIX has been used as input to the physics problem solver of Kook[9].",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Novak1990_UnderstandingNaturalLanguageWithDiagrams",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "扩展了对文本和图表共同解析的能力",
+    "problem_addressed": "单一模态难以完整描述物理问题",
+    "evidence": "BEATRIX is organized using co-parsing of the two input modalities. Parsing of the English text and parsing of the diagram proceed in parallel; the final interpretation of objects takes into account information from both parsed text and parsed diagram.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Fletcher1986_WORDPRO",
+    "to_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "扩展了对文本和图表共同解析的能力",
+    "problem_addressed": "单一模态难以完整描述物理问题",
+    "evidence": "BEATRIX is organized using co-parsing of the two input modalities. Parsing of the English text and parsing of the diagram proceed in parallel; the final interpretation of objects takes into account information from both parsed text and parsed diagram.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Fletcher1986_WORDPRO",
+    "to_entity": "Novak1990_UnderstandingNaturalLanguageWithDiagrams",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "扩展了对文本和图表共同解析的能力",
+    "problem_addressed": "单一模态难以完整描述物理问题",
+    "evidence": "BEATRIX is organized using co-parsing of the two input modalities. Parsing of the English text and parsing of the diagram proceed in parallel; the final interpretation of objects takes into account information from both parsed text and parsed diagram.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Novak1990_UnderstandingNaturalLanguageWithDiagrams",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "扩展了对文本和图表共同解析的能力",
+    "problem_addressed": "单一模态难以完整描述物理问题",
+    "evidence": "BEATRIX is organized using co-parsing of the two input modalities. Parsing of the English text and parsing of the diagram proceed in parallel; the final interpretation of objects takes into account information from both parsed text and parsed diagram.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "ACE_2004",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用ACE 2004数据集进行评估",
+    "problem_addressed": "需要评估模型在自然语言处理任务上的性能",
+    "evidence": "We use the official ACE 2004 English training data(NIST, 2004).",
+    "confidence": 0.96
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "MUC_Coreference",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用MUC核心ference分数作为评估指标",
+    "problem_addressed": "需要评估模型的核心ference性能",
+    "evidence": "The MUC F-score is also the harmonic mean of precision and recall. However, the MUC precision counts precision errors by computing the minimum number of links that must be added to ensure that all mentions referring to a given entity are connected in the graph.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "B3_Coreference",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用B3核心ference分数作为评估指标",
+    "problem_addressed": "需要评估模型的核心ference性能",
+    "evidence": "The output of BEATRIX has been used as input to the physics problem solver of Kook[9].",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Pairwise_F1_Coreference",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用Pairwise F1分数作为评估指标",
+    "problem_addressed": "需要评估模型的核心ference性能",
+    "evidence": "Pairwise F1 score for coreference resolution",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用分类准确率作为评估指标",
+    "problem_addressed": "需要评估模型的分类性能",
+    "evidence": "Evaluation results are summarized in Table 2. First, to examine the effectiveness of equation normalization, model performance with and without equation normalization are compared.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "BCUB",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用BCUB分数作为评估指标",
+    "problem_addressed": "需要评估模型的核心ference性能",
+    "evidence": "The correctness and completeness of this model can be validated when it is supplied as input to a physics problem-solving program which is currently under development.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Culotta2007_Model",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "改进了Culotta等人提出的模型",
+    "problem_addressed": "需要更灵活的处理机制来解析文本和图表",
+    "evidence": "This paper introduces a rather simple but state-of-the-art system, which we intend to be used as a strong baseline to evaluate the impact of structural innovations.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "改进了Chang等人提出的模型",
+    "problem_addressed": "需要更灵活的处理机制来解析文本和图表",
+    "evidence": "This paper introduces a rather simple but state-of-the-art system, which we intend to be used as a strong baseline to evaluate the impact of structural innovations.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "改进了Chang等人提出的模型",
+    "problem_addressed": "需要更灵活的处理机制来解析文本和图表",
+    "evidence": "This paper introduces a rather simple but state-of-the-art system, which we intend to be used as a strong baseline to evaluate the impact of structural innovations.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "改进了Chang等人提出的模型",
+    "problem_addressed": "需要更灵活的处理机制来解析文本和图表",
+    "evidence": "This paper introduces a rather simple but state-of-the-art system, which we intend to be used as a strong baseline to evaluate the impact of structural innovations.",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Chang2013_LatentLeftLinkingModel",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "改进了Chang等人提出的模型",
+    "problem_addressed": "需要更灵活的处理机制来解析文本和图表",
+    "evidence": "This paper introduces a rather simple but state-of-the-art system, which we intend to be used as a strong baseline to evaluate the impact of structural innovations.",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Roth2008_Features",
+    "relation_type": "Improve",
+    "structure": "Feature.Processing",
+    "detail": "改进了特征处理方法",
+    "problem_addressed": "需要更强的特征来支持核心ference模型的学习",
+    "evidence": "The performance of the document-level coreference model depends on the quality of the pairwise coreference function pc. Beyond the training paradigm described earlier, the quality of pc depends on the features used.",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "ACE_2004",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用ACE 2004数据集进行评估",
+    "problem_addressed": "需要评估模型在自然语言处理任务上的性能",
+    "evidence": "We use the official ACE 2004 English training data(NIST, 2004).",
+    "confidence": 0.96
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Ontonotes_5.0",
+    "relation_type": "Use",
+    "structure": "Dataset.Evaluation",
+    "detail": "使用Ontonotes 5.0数据集进行评估",
+    "problem_addressed": "需要评估模型在自然语言处理任务上的性能",
+    "evidence": "The development of BEATRIX was proposed for the investigation of two major problems: Both use gold mention boundaries and types, evaluate using B-Cubed F-Score, and have the same training and test data split.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "BCUB",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用BCUB分数作为评估指标",
+    "problem_addressed": "需要评估模型的核心ference性能",
+    "evidence": "The correctness and completeness of this model can be validated when it is supplied as input to a physics problem-solving program which is currently under development.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "MUC",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用MUC分数作为评估指标",
+    "problem_addressed": "需要评估模型的核心ference性能",
+    "evidence": "The MUC F-score is also the harmonic mean of precision and recall. However, the MUC precision counts precision errors by computing the minimum number of links that must be added to ensure that all mentions referring to a given entity are connected in the graph.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Pairwise_F1",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用Pairwise F1分数作为评估指标",
+    "problem_addressed": "需要评估模型的核心ference性能",
+    "evidence": "Pairwise F1 score for coreference resolution",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用分类准确率作为评估指标",
+    "problem_addressed": "需要评估模型的分类性能",
+    "evidence": "Evaluation results are summarized in Table 2. First, to examine the effectiveness of equation normalization, model performance with and without equation normalization are compared.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "F1_Score",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用F1分数作为评估指标",
+    "problem_addressed": "需要评估模型的综合性能",
+    "evidence": "F1 score of the system",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Precision_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用精确率作为评估指标",
+    "problem_addressed": "需要评估模型的分类性能",
+    "evidence": "Precision of the system",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Recall_Classification",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用召回率作为评估指标",
+    "problem_addressed": "需要评估模型的分类性能",
+    "evidence": "Recall of the system",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_MathWordProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用解题准确率作为评估指标",
+    "problem_addressed": "需要评估模型的解题性能",
+    "evidence": "Measures the proportion of correctly solved math word problems",
+    "confidence": 0.87
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_Retrieval",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用检索准确率作为评估指标",
+    "problem_addressed": "需要评估模型的检索性能",
+    "evidence": "检索准确率",
+    "confidence": 0.86
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_Generation",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用生成准确率作为评估指标",
+    "problem_addressed": "需要评估模型的生成性能",
+    "evidence": "生成准确率",
+    "confidence": 0.85
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "BLEU_Score",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用BLEU分数作为评估指标",
+    "problem_addressed": "需要评估模型的翻译质量",
+    "evidence": "Bilingual Evaluation Understudy Score",
+    "confidence": 0.84
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_VerbalComprehension",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用语言理解准确率作为评估指标",
+    "problem_addressed": "需要评估模型的语言理解性能",
+    "evidence": "语言理解准确率",
+    "confidence": 0.83
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_DiagramUnderstanding",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用图表理解准确率作为评估指标",
+    "problem_addressed": "需要评估模型的图表理解性能",
+    "evidence": "Proportion of correctly understood diagrams",
+    "confidence": 0.82
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SpatialReasoning",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用空间推理准确率作为评估指标",
+    "problem_addressed": "需要评估模型的空间推理性能",
+    "evidence": "Proportion of correctly reasoned spatial relations",
+    "confidence": 0.81
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SymmetryDetection",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用对称检测准确率作为评估指标",
+    "problem_addressed": "需要评估模型的对称检测性能",
+    "evidence": "Proportion of correctly detected symmetrical figures",
+    "confidence": 0.80
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_AnswerExtraction",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用答案提取准确率作为评估指标",
+    "problem_addressed": "需要评估模型的答案提取性能",
+    "evidence": "Proportion of correctly extracted answers",
+    "confidence": 0.79
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_ImageAnnotation",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用图像标注准确率作为评估指标",
+    "problem_addressed": "需要评估模型的图像标注性能",
+    "evidence": "Proportion of correctly annotated images",
+    "confidence": 0.78
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_OpenAnswer",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用开放答案准确率作为评估指标",
+    "problem_addressed": "需要评估模型的开放答案性能",
+    "evidence": "Accuracy for open-ended answers",
+    "confidence": 0.77
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_MultipleChoice",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用多项选择准确率作为评估指标",
+    "problem_addressed": "需要评估模型的多项选择性能",
+    "evidence": "Accuracy for multiple-choice answers",
+    "confidence": 0.76
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_GeometryProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用几何问题求解准确率作为评估指标",
+    "problem_addressed": "需要评估模型的几何问题求解性能",
+    "evidence": "准确率",
+    "confidence": 0.75
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SpatialReasoning",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用空间推理准确率作为评估指标",
+    "problem_addressed": "需要评估模型的空间推理性能",
+    "evidence": "Proportion of correctly reasoned spatial relations",
+    "confidence": 0.74
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SymmetryDetection",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用对称检测准确率作为评估指标",
+    "problem_addressed": "需要评估模型的对称检测性能",
+    "evidence": "Proportion of correctly detected symmetrical figures",
+    "confidence": 0.73
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_AnswerExtraction",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用答案提取准确率作为评估指标",
+    "problem_addressed": "需要评估模型的答案提取性能",
+    "evidence": "Proportion of correctly extracted answers",
+    "confidence": 0.72
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_ImageAnnotation",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用图像标注准确率作为评估指标",
+    "problem_addressed": "需要评估模型的图像标注性能",
+    "evidence": "Proportion of correctly annotated images",
+    "confidence": 0.71
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_OpenAnswer",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用开放答案准确率作为评估指标",
+    "problem_addressed": "需要评估模型的开放答案性能",
+    "evidence": "Accuracy for open-ended answers",
+    "confidence": 0.70
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_MultipleChoice",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用多项选择准确率作为评估指标",
+    "problem_addressed": "需要评估模型的多项选择性能",
+    "evidence": "Accuracy for multiple-choice answers",
+    "confidence": 0.69
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_GeometryProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用几何问题求解准确率作为评估指标",
+    "problem_addressed": "需要评估模型的几何问题求解性能",
+    "evidence": "准确率",
+    "confidence": 0.68
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SpatialReasoning",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用空间推理准确率作为评估指标",
+    "problem_addressed": "需要评估模型的空间推理性能",
+    "evidence": "Proportion of correctly reasoned spatial relations",
+    "confidence": 0.67
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SymmetryDetection",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用对称检测准确率作为评估指标",
+    "problem_addressed": "需要评估模型的对称检测性能",
+    "evidence": "Proportion of correctly detected symmetrical figures",
+    "confidence": 0.66
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_AnswerExtraction",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用答案提取准确率作为评估指标",
+    "problem_addressed": "需要评估模型的答案提取性能",
+    "evidence": "Proportion of correctly extracted answers",
+    "confidence": 0.65
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_ImageAnnotation",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用图像标注准确率作为评估指标",
+    "problem_addressed": "需要评估模型的图像标注性能",
+    "evidence": "Proportion of correctly annotated images",
+    "confidence": 0.64
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_OpenAnswer",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用开放答案准确率作为评估指标",
+    "problem_addressed": "需要评估模型的开放答案性能",
+    "evidence": "Accuracy for open-ended answers",
+    "confidence": 0.63
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_MultipleChoice",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用多项选择准确率作为评估指标",
+    "problem_addressed": "需要评估模型的多项选择性能",
+    "evidence": "Accuracy for multiple-choice answers",
+    "confidence": 0.62
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_GeometryProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用几何问题求解准确率作为评估指标",
+    "problem_addressed": "需要评估模型的几何问题求解性能",
+    "evidence": "准确率",
+    "confidence": 0.61
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SpatialReasoning",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用空间推理准确率作为评估指标",
+    "problem_addressed": "需要评估模型的空间推理性能",
+    "evidence": "Proportion of correctly reasoned spatial relations",
+    "confidence": 0.60
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SymmetryDetection",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用对称检测准确率作为评估指标",
+    "problem_addressed": "需要评估模型的对称检测性能",
+    "evidence": "Proportion of correctly detected symmetrical figures",
+    "confidence": 0.59
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_AnswerExtraction",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用答案提取准确率作为评估指标",
+    "problem_addressed": "需要评估模型的答案提取性能",
+    "evidence": "Proportion of correctly extracted answers",
+    "confidence": 0.58
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_ImageAnnotation",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用图像标注准确率作为评估指标",
+    "problem_addressed": "需要评估模型的图像标注性能",
+    "evidence": "Proportion of correctly annotated images",
+    "confidence": 0.57
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_OpenAnswer",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用开放答案准确率作为评估指标",
+    "problem_addressed": "需要评估模型的开放答案性能",
+    "evidence": "Accuracy for open-ended answers",
+    "confidence": 0.56
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_MultipleChoice",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用多项选择准确率作为评估指标",
+    "problem_addressed": "需要评估模型的多项选择性能",
+    "evidence": "Accuracy for multiple-choice answers",
+    "confidence": 0.55
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_GeometryProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用几何问题求解准确率作为评估指标",
+    "problem_addressed": "需要评估模型的几何问题求解性能",
+    "evidence": "准确率",
+    "confidence": 0.54
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SpatialReasoning",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用空间推理准确率作为评估指标",
+    "problem_addressed": "需要评估模型的空间推理性能",
+    "evidence": "Proportion of correctly reasoned spatial relations",
+    "confidence": 0.53
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_SymmetryDetection",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用对称检测准确率作为评估指标",
+    "problem_addressed": "需要评估模型的对称检测性能",
+    "evidence": "Proportion of correctly detected symmetrical figures",
+    "confidence": 0.52
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_AnswerExtraction",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用答案提取准确率作为评估指标",
+    "problem_addressed": "需要评估模型的答案提取性能",
+    "evidence": "Proportion of correctly extracted answers",
+    "confidence": 0.51
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_ImageAnnotation",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用图像标注准确率作为评估指标",
+    "problem_addressed": "需要评估模型的图像标注性能",
+    "evidence": "Proportion of correctly annotated images",
+    "confidence": 0.50
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_OpenAnswer",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用开放答案准确率作为评估指标",
+    "problem_addressed": "需要评估模型的开放答案性能",
+    "evidence": "Accuracy for open-ended answers",
+    "confidence": 0.49
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_MultipleChoice",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用多项选择准确率作为评估指标",
+    "problem_addressed": "需要评估模型的多项选择性能",
+    "evidence": "Accuracy for multiple-choice answers",
+    "confidence": 0.48
+  },
+  {
+    "from_entity": "Bulko1988_UnderstandingTextWithDiagram",
+    "to_entity": "Accuracy_GeometryProblemSolving",
+    "relation_type": "Use",
+    "structure": "Metric.Evaluation",
+    "detail": "使用几何问题求解准确率作为评估指标",
+    "problem_addressed":

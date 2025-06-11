@@ -1,0 +1,22 @@
+{
+    "algorithm_entity": {
+      "algorithm_id": "Hough1962_HoughTransformation",
+      "entity_type": "Algorithm",
+      "name": "Hough Transformation",
+      "year": 1962,
+      "authors": ["Hough, P.V.C."],
+      "task": "Line and Curve Detection",
+      "dataset": ["Synthetic_Images_2004", "Natural_Images_2004"],
+      "metrics": ["Detection Rate_RectangleDetection", "False Positive Rate_RectangleDetection"],
+      "architecture": {
+        "components": ["Angle-Radius Parameterization", "Parameter Space"],
+        "connections": ["Point-Line Transformation"],
+        "mechanisms": ["Accumulator Array"]
+      },
+      "methodology": {
+        "training_strategy": ["Quantization of Parameter Space"],
+        "parameter_tuning": ["Quantization Intervals"]
+      },
+      "feature_processing": ["Point Transformation"]
+    }
+  }

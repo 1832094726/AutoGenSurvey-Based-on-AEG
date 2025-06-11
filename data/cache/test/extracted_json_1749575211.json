@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Ma2010_MSMPAS_CP",
+      "entity_type": "Algorithm",
+      "name": "MSMPAS-CP",
+      "year": 2010,
+      "authors": ["Ma Yuhui", "Zhou Ying", "Cui Guangzuo", "Ren Yun", "Huang Ronghuai"],
+      "task": "Solving multi-step addition and subtraction word problems",
+      "dataset": ["Elementary school arithmetic application problem"],
+      "metrics": ["Accuracy"],
+      "architecture": {
+        "components": ["Frame-based calculus", "SVM classification", "Semantic models"],
+        "connections": ["Natural language processing", "Frame construction", "Dependency resolution"],
+        "mechanisms": ["Means-end Analysis", "Frame-based problem solving"]
+      },
+      "methodology": {
+        "training_strategy": ["Frame-based parsing", "SVM classification"],
+        "parameter_tuning": ["Kernel parameters for SVM"]
+      },
+      "feature_processing": ["Normalization of common units", "Chinese phrase parsing"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Elementary_school_arithmetic_application_problem_2011",
+      "entity_type": "Dataset",
+      "name": "Elementary school arithmetic application problem",
+      "description": "Arithmetic word problems for elementary school students",
+      "domain": "Education",
+      "size": 627,
+      "year": 2011,
+      "creators": ["People's Education Press"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Proportion of correctly classified instances",
+      "category": "Classification",
+      "formula": "Correct classifications / Total classifications"
+    }
+  }
+]

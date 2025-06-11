@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Chiang2018_SemanticallyAlignedEquationGeneration",
+      "entity_type": "Algorithm",
+      "name": "Semantically-Aligned Equation Generation",
+      "year": 2018,
+      "authors": ["Ting-Rui Chiang", "Yun-Nung Chen"],
+      "task": "Solving and Reasoning Math Word Problems",
+      "dataset": ["Math23K_2017"],
+      "metrics": ["Accuracy_MathWordProblemSolving"],
+      "architecture": {
+        "components": ["Encoder", "Decoder", "Stack", "Semantic Transformer"],
+        "connections": ["Encoder to Decoder", "Decoder to Stack", "Stack to Semantic Transformer"],
+        "mechanisms": ["Semantic Meaning Extraction", "Stack Actions", "Operand Selection", "Operator Application"]
+      },
+      "methodology": {
+        "training_strategy": ["End-to-end training", "Reinforcement learning"],
+        "parameter_tuning": ["Learning rate", "Batch size", "Hidden state size"]
+      },
+      "feature_processing": ["Word embeddings", "FastText embeddings", "Attention mechanism"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Math23K_2017",
+      "entity_type": "Dataset",
+      "name": "Math23K",
+      "description": "A large benchmark dataset for math word problems",
+      "domain": "Mathematics",
+      "size": 23162,
+      "year": 2017,
+      "creators": ["Yan Wang", "Xiaojiang Liu", "Shuming Shi"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MathWordProblemSolving",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy of solving math word problems",
+      "category": "Math Word Problem Solving",
+      "formula": "Correctly solved problems / Total problems"
+    }
+  }
+]

@@ -1,0 +1,10 @@
+{
+    "from_entity": "Socher2013_CompositionalVectorGrammar",
+    "to_entity": "Kwiatkowski2013_OnTheFlyOntologyMatching",
+    "relation_type": "Extend",
+    "structure": "Architecture.Mechanism",
+    "detail": "CVG extends the PCFG with continuous vector compositions, while On-the-fly Ontology Matching extends semantic parsing to handle large, open-domain ontologies.",
+    "problem_addressed": "Limited representation of phrase meaning in PCFGs and ontological mismatches in semantic parsing",
+    "evidence": "Unlike them, it jointly learns how to parse and how to represent phrases as both discrete categories and continuous vectors as illustrated in Fig. 1. CVGs combine the advantages of standard probabilistic context free grammars(PCFG) with those of recursive neural networks(RNNs). (Socher et al., 2013) We introduce a new semantic parsing approach that learns to resolve such ontological mismatches. (Kwiatkowski et al., 2013)",
+    "confidence": 0.89
+  }

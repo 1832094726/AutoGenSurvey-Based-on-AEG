@@ -1,0 +1,46 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Wang2018_Seq2SeqET",
+      "entity_type": "Algorithm",
+      "name": "Seq2Seq with Equation Normalization",
+      "year": 2018,
+      "authors": ["Lei Wang", "Yan Wang", "Deng Cai", "Dongxiang Zhang", "Xiaojiang Liu"],
+      "task": "Math Word Problem Solving",
+      "dataset": ["Math23K_2017"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Encoder", "Decoder", "Equation Normalization"],
+        "connections": ["Input Sequence -> Encoder -> Decoder -> Output Sequence"],
+        "mechanisms": ["Equation Normalization", "Beam Search"]
+      },
+      "methodology": {
+        "training_strategy": ["Maximum Likelihood Estimation"],
+        "parameter_tuning": ["Learning Rate", "Dropout Rate"]
+      },
+      "feature_processing": ["Significant Number Identification", "Equation Template Transformation"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Math23K_2017",
+      "entity_type": "Dataset",
+      "name": "Math23K",
+      "description": "A dataset of 23,162 labeled math word problems",
+      "domain": "Mathematics",
+      "size": 23162,
+      "year": 2017,
+      "creators": ["Wang et al."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Classification accuracy",
+      "category": "Classification Evaluation",
+      "formula": "Correct classifications / Total classifications"
+    }
+  }
+]

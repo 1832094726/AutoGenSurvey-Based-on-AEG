@@ -1,0 +1,68 @@
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Antol2015_VQA",
+      "entity_type": "Algorithm",
+      "name": "VQA",
+      "year": 2015,
+      "authors": ["Stanislaw Antol", "Aishwarya Agrawal", "Jiasen Lu", "Margaret Mitchell", "Dhruv Batra", "C. Lawrence Zitnick", "Devi Parikh"],
+      "task": "Visual Question Answering",
+      "dataset": ["MS COCO_2014", "Abstract Scenes_2015"],
+      "metrics": ["Accuracy_OpenAnswer", "Accuracy_MultipleChoice"],
+      "architecture": {
+        "components": ["Multi-Layer Perceptron", "LSTM"],
+        "connections": ["Question Encoder", "Image Feature Extractor", "Answer Generator"],
+        "mechanisms": ["Attention Mechanism", "Element-wise Multiplication"]
+      },
+      "methodology": {
+        "training_strategy": ["Supervised Learning", "Transfer Learning"],
+        "parameter_tuning": ["Learning Rate", "Dropout Rate"]
+      },
+      "feature_processing": ["Bag-of-Words", "VGGNet Features"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "MS_COCO_2014",
+      "entity_type": "Dataset",
+      "name": "MS COCO",
+      "description": "Microsoft Common Objects in Context dataset",
+      "domain": "Computer Vision",
+      "size": 204721,
+      "year": 2014,
+      "creators": ["Tsung-Yi Lin", "Michael Maire", "Serge Belongie", "James Hays", "Pietro Perona", "Devon Ramanan", "Piotr Dollár", "C. Lawrence Zitnick"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Abstract_Scenes_2015",
+      "entity_type": "Dataset",
+      "name": "Abstract Scenes",
+      "description": "Dataset of abstract scenes for VQA",
+      "domain": "Computer Vision",
+      "size": 50000,
+      "year": 2015,
+      "creators": ["Stanislaw Antol", "Aishwarya Agrawal", "Jiasen Lu", "Margaret Mitchell", "Dhruv Batra", "C. Lawrence Zitnick", "Devi Parikh"]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_OpenAnswer",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy for open-ended answers",
+      "category": "Classification Evaluation",
+      "formula": "Correct Answers / Total Answers"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_MultipleChoice",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Accuracy for multiple-choice answers",
+      "category": "Classification Evaluation",
+      "formula": "Correct Answers / Total Answers"
+    }
+  }
+]

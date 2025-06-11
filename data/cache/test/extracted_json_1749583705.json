@@ -1,0 +1,10 @@
+{
+    "from_entity": "Chen2014_NeuralNetworkDependencyParser",
+    "to_entity": "Goldberg2010_EasyFirstNonDirectionalDependencyParsing",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Mechanism",
+    "detail": "通过神经网络优化了依赖句法分析器",
+    "problem_addressed": "提高依赖句法分析的效率和准确性",
+    "evidence": "The Neural Network Dependency Parser uses a cube activation function to improve the efficiency and accuracy of dependency parsing over the Easy-First Non-Directional Dependency Parsing.",
+    "confidence": 0.88
+  }

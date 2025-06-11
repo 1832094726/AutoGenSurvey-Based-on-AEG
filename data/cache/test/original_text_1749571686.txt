@@ -1,0 +1,127 @@
+好的，我将按照要求逐步提取文档中的实体信息。首先，我会确认当前文档的章节结构，并从小节开始逐一提取实体信息。根据您提供的信息，以下章节已经被提取过：
+
+- INTRODUCTION
+- ARITHMETIC WORD PROBLEM SOLVER
+- EQUATION SET SOLVER
+- FEATURE_EXTRACTION
+
+接下来，我将从“GEOMETRIC WORD PROBLEM(GWP) SOLVER”这一章节开始提取实体信息。
+
+### 提取的实体信息
+
+#### GEOMETRIC WORD PROBLEM(GWP) SOLVER
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Seo2015_GEOS",
+      "entity_type": "Algorithm",
+      "name": "GEOS",
+      "year": 2015,
+      "authors": ["Seo, M.J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."],
+      "task": "几何文字问题求解",
+      "dataset": ["AI2_2014", "Dolphin18K_2016"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["逻辑表达生成器", "数值方法优化器"],
+        "connections": ["文本解析", "图解析"],
+        "mechanisms": ["逻辑表达对齐", "数值方法求解"]
+      },
+      "methodology": {
+        "training_strategy": ["手动定义指示函数"],
+        "parameter_tuning": ["逻辑表达生成器参数"]
+      },
+      "feature_processing": ["文本特征提取", "图特征提取"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Seo2014_G_ALINGER",
+      "entity_type": "Algorithm",
+      "name": "G-ALINGER",
+      "year": 2014,
+      "authors": ["Seo, M.J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."],
+      "task": "几何理解与文本理解",
+      "dataset": ["AI2_2014", "Dolphin18K_2016"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["霍夫变换初始化", "目标函数"],
+        "connections": ["像素覆盖", "视觉一致性", "文本-视觉对齐"],
+        "mechanisms": ["贪婪算法选择原始", "停止条件"]
+      },
+      "methodology": {
+        "training_strategy": ["无"],
+        "parameter_tuning": ["无"]
+      },
+      "feature_processing": ["几何图元检测"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Alvin2017_GeoShader",
+      "entity_type": "Algorithm",
+      "name": "GeoShader",
+      "year": 2017,
+      "authors": ["Alvin, C.", "Gulwani, S.", "Majumdar, R.", "Mukhopadhyay, S."],
+      "task": "几何阴影区域求解",
+      "dataset": ["未知"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["超图分析", "节点表示中间事实", "边表示推导关系"],
+        "connections": ["目标节点计算", "路径查找"],
+        "mechanisms": ["超图路径搜索"]
+      },
+      "methodology": {
+        "training_strategy": ["无"],
+        "parameter_tuning": ["无"]
+      },
+      "feature_processing": ["图元分析"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "AI2_2014",
+      "entity_type": "Dataset",
+      "name": "AI2",
+      "description": "包含395个单步或多步算术文字问题的数据集",
+      "domain": "数学教育",
+      "size": 395,
+      "year": 2014,
+      "creators": ["Hosseini, M.J.", "Hajishirzi, H.", "Etzioni, O.", "Kushman, N."]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "Dolphin18K_2016",
+      "entity_type": "Dataset",
+      "name": "Dolphin18K",
+      "description": "包含18,460个数学问题和5,871个方程模板的数据集",
+      "domain": "数学教育",
+      "size": 18460,
+      "year": 2016,
+      "creators": ["Huang, D.", "Shi, S.", "Lin, C.", "Yin, J.", "Ma, W."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "分类准确率",
+      "category": "分类评估",
+      "formula": "正确分类样本数/总样本数"
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. 刚刚提取的是 **GEOMETRIC WORD PROBLEM(GWP) SOLVER** 小节。
+2. 论文中还有其他小节未被提取。
+3. 下一个要提取的小节是 **MISCELLANEOUS MATH TASKS**。
+
+```json
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: GEOMETRIC_WORD_PROBLEM_SOLVER, NEXT_SECTION: MISCELLANEOUS_MATH_TASKS
+```

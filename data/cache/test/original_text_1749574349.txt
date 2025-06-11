@@ -1,0 +1,1026 @@
+为了提取相关实体信息，我将按照文档内容逐步进行分析，并根据提供的提示词文件中的要求，以JSON格式返回提取到的实体信息。以下是逐步提取的过程：
+
+### 第一步：确认章节并开始提取
+
+#### 文档1：Distributed representations of words and phrases and their compositionality.pdf
+
+**章节确认：**
+1. **Introduction**
+2. **The Skip-gram Model**
+3. **Empirical Results**
+4. **Learning Phrases**
+5. **Additive Compositionality**
+6. **Comparison to Published Word Representations**
+7. **Conclusion**
+
+**开始提取：Introduction**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_SkipGram",
+      "entity_type": "Algorithm",
+      "name": "Skip-gram model",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Word and Phrase Representation",
+      "dataset": ["Internal Google dataset with one billion words"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+        "connections": ["Input to Hidden", "Hidden to Output"],
+        "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+      },
+      "methodology": {
+        "training_strategy": ["Subsampling of frequent words", "Negative Sampling", "Hierarchical Softmax"],
+        "parameter_tuning": ["Dimensionality", "Context size", "Subsampling rate"]
+      },
+      "feature_processing": ["Word tokenization", "Subsampling of frequent words"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "NewsArticles_2013",
+      "entity_type": "Dataset",
+      "name": "News Articles",
+      "description": "A large dataset consisting of various news articles",
+      "domain": "Natural Language Processing",
+      "size": 1000000000,
+      "year": 2013,
+      "creators": ["Google Inc."]
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Accuracy_Classification",
+      "entity_type": "Metric",
+      "name": "Accuracy",
+      "description": "Classification accuracy",
+      "category": "Classification Evaluation",
+      "formula": "Correct predictions / Total predictions"
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Introduction**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：The Skip-gram Model**
+
+---
+
+### 继续提取下一章节
+
+#### 文档1：Distributed representations of words and phrases and their compositionality.pdf
+
+**章节：The Skip-gram Model**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_SkipGram",
+      "entity_type": "Algorithm",
+      "name": "Skip-gram model",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Word and Phrase Representation",
+      "dataset": ["Internal Google dataset with one billion words"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+        "connections": ["Input to Hidden", "Hidden to Output"],
+        "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+      },
+      "methodology": {
+        "training_strategy": ["Subsampling of frequent words", "Negative Sampling", "Hierarchical Softmax"],
+        "parameter_tuning": ["Dimensionality", "Context size", "Subsampling rate"]
+      },
+      "feature_processing": ["Word tokenization", "Subsampling of frequent words"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_HierarchicalSoftmax",
+      "entity_type": "Algorithm",
+      "name": "Hierarchical Softmax",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Efficient computation of softmax probabilities",
+      "dataset": ["Internal Google dataset with one billion words"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Binary Tree", "Inner Nodes", "Leaf Nodes"],
+        "connections": ["Root to Leaf Path"],
+        "mechanisms": ["Random Walk", "Logarithmic Complexity"]
+      },
+      "methodology": {
+        "training_strategy": ["Binary Huffman Tree"],
+        "parameter_tuning": ["Tree Structure"]
+      },
+      "feature_processing": ["Word Frequency Grouping"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_NegativeSampling",
+      "entity_type": "Algorithm",
+      "name": "Negative Sampling",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Efficient training of word vectors",
+      "dataset": ["Internal Google dataset with one billion words"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Noise Distribution", "Logistic Regression"],
+        "connections": ["Target Word to Noise Samples"],
+        "mechanisms": ["Logistic Regression Loss"]
+      },
+      "methodology": {
+        "training_strategy": ["Noise Contrastive Estimation"],
+        "parameter_tuning": ["Number of Negative Samples"]
+      },
+      "feature_processing": ["Word Frequency Grouping"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：The Skip-gram Model**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Empirical Results**
+
+---
+
+### 继续提取下一章节
+
+#### 文档1：Distributed representations of words and phrases and their compositionality.pdf
+
+**章节：Empirical Results**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "metric_entity": {
+      "metric_id": "Syntactic_AnalogicalReasoning",
+      "entity_type": "Metric",
+      "name": "Syntactic Analogical Reasoning",
+      "description": "Performance on syntactic analogy tasks",
+      "category": "Analogy Evaluation",
+      "formula": "Not explicitly defined"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Semantic_AnalogicalReasoning",
+      "entity_type": "Metric",
+      "name": "Semantic Analogical Reasoning",
+      "description": "Performance on semantic analogy tasks",
+      "category": "Analogy Evaluation",
+      "formula": "Not explicitly defined"
+    }
+  },
+  {
+    "metric_entity": {
+      "metric_id": "Total_Accuracy",
+      "entity_type": "Metric",
+      "name": "Total Accuracy",
+      "description": "Overall performance on analogy tasks",
+      "category": "Analogy Evaluation",
+      "formula": "Not explicitly defined"
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Empirical Results**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Learning Phrases**
+
+---
+
+### 继续提取下一章节
+
+#### 文档1：Distributed representations of words and phrases and their compositionality.pdf
+
+**章节：Learning Phrases**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_PhraseSkipGram",
+      "entity_type": "Algorithm",
+      "name": "Phrase Skip-gram model",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Phrase Representation",
+      "dataset": ["Internal Google dataset with one billion words"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+        "connections": ["Input to Hidden", "Hidden to Output"],
+        "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+      },
+      "methodology": {
+        "training_strategy": ["Subsampling of frequent words", "Negative Sampling", "Hierarchical Softmax"],
+        "parameter_tuning": ["Dimensionality", "Context size", "Subsampling rate"]
+      },
+      "feature_processing": ["Phrase Identification", "Word Tokenization", "Subsampling of frequent words"]
+    }
+  },
+  {
+    "dataset_entity": {
+      "dataset_id": "PhraseAnalogyDataset_2013",
+      "entity_type": "Dataset",
+      "name": "Phrase Analogy Dataset",
+      "description": "Dataset for evaluating phrase analogies",
+      "domain": "Natural Language Processing",
+      "size": 3218,
+      "year": 2013,
+      "creators": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Learning Phrases**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Additive Compositionality**
+
+---
+
+### 继续提取下一章节
+
+#### 文档1：Distributed representations of words and phrases and their compositionality.pdf
+
+**章节：Additive Compositionality**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_AdditiveCompositionality",
+      "entity_type": "Algorithm",
+      "name": "Additive Compositionality",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Combining word vectors",
+      "dataset": ["Internal Google dataset with one billion words"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Word Vectors", "Element-wise Addition"],
+        "connections": ["Vector Addition"],
+        "mechanisms": ["Linear Relationship"]
+      },
+      "methodology": {
+        "training_strategy": ["Training on large corpus"],
+        "parameter_tuning": ["Vector Dimensionality"]
+      },
+      "feature_processing": ["Word Vector Addition"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Additive Compositionality**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Comparison to Published Word Representations**
+
+---
+
+### 继续提取下一章节
+
+#### 文档1：Distributed representations of words and phrases and their compositionality.pdf
+
+**章节：Comparison to Published Word Representations**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Collobert2008_UnifiedArchitecture",
+      "entity_type": "Algorithm",
+      "name": "Unified Architecture for Natural Language Processing",
+      "year": 2008,
+      "authors": ["Collobert, R.", "Weston, J."],
+      "task": "Natural Language Processing",
+      "dataset": ["Various datasets"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Deep Neural Networks", "Multitask Learning"],
+        "connections": ["Input to Output"],
+        "mechanisms": ["Deep Learning"]
+      },
+      "methodology": {
+        "training_strategy": ["Multitask Learning"],
+        "parameter_tuning": ["Model Parameters"]
+      },
+      "feature_processing": ["Word Embeddings"]
+    }
+  },
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Turian2010_SemiSupervisedLearning",
+      "entity_type": "Algorithm",
+      "name": "Semi-supervised Learning",
+      "year": 2010,
+      "authors": ["Turian, J.", "Ratinov, L.", "Bengio, Y."],
+      "task": "Word Representation",
+      "dataset": ["Various datasets"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Word Vectors"],
+        "connections": ["Input to Output"],
+        "mechanisms": ["Semi-supervised Learning"]
+      },
+      "methodology": {
+        "training_strategy": ["Semi-supervised Learning"],
+        "parameter_tuning": ["Model Parameters"]
+      },
+      "feature_processing": ["Word Embeddings"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Comparison to Published Word Representations**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Conclusion**
+
+---
+
+### 继续提取下一章节
+
+#### 文档1：Distributed representations of words and phrases and their compositionality.pdf
+
+**章节：Conclusion**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Mikolov2013_SkipGram",
+      "entity_type": "Algorithm",
+      "name": "Skip-gram model",
+      "year": 2013,
+      "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+      "task": "Word and Phrase Representation",
+      "dataset": ["Internal Google dataset with one billion words"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+        "connections": ["Input to Hidden", "Hidden to Output"],
+        "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+      },
+      "methodology": {
+        "training_strategy": ["Subsampling of frequent words", "Negative Sampling", "Hierarchical Softmax"],
+        "parameter_tuning": ["Dimensionality", "Context size", "Subsampling rate"]
+      },
+      "feature_processing": ["Word tokenization", "Subsampling of frequent words"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Conclusion**
+2. **论文中是否还有其他章节未被提取：否**
+3. **是否需要继续提取：否**
+
+---
+
+### 最终确认
+
+所有章节均已提取完毕，接下来将处理其他文档。
+
+---
+
+### 处理其他文档
+
+#### 文档2：Experiments with a deductive question-answering program.pdf
+
+**章节确认：**
+1. **Introduction**
+2. **Purposes of the Investigation**
+3. **General Nature of the Investigation**
+4. **Preliminary Description of the Operation of DEDUCOM**
+5. **Valueans Questions**
+6. **The Predicate Ansupsset**
+7. **Flow Diagram of the Program**
+8. **Facts on how to Answer Valueans Questions**
+9. **The End Game Question**
+10. **The Mikado Question**
+11. **The Money Questions**
+12. **The State Description Compiler Question**
+13. **Conclusions**
+14. **Future Plans**
+
+**开始提取：Introduction**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_DEDUCOM",
+      "entity_type": "Algorithm",
+      "name": "DEDUCOM",
+      "year": 1965,
+      "authors": ["Slagle, J."],
+      "task": "Deductive Question-Answering",
+      "dataset": ["Custom facts and questions"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Fact Base", "Search Procedure", "Logical Deductions"],
+        "connections": ["Fact to Question Reduction"],
+        "mechanisms": ["Depth-First Search", "Predicate Calculus"]
+      },
+      "methodology": {
+        "training_strategy": ["Providing facts"],
+        "parameter_tuning": ["Fact Order", "Fact Form"]
+      },
+      "feature_processing": ["Fact Input"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Introduction**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Purposes of the Investigation**
+
+---
+
+### 继续提取下一章节
+
+#### 文档2：Experiments with a deductive question-answering program.pdf
+
+**章节：Purposes of the Investigation**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_DEDUCOM",
+      "entity_type": "Algorithm",
+      "name": "DEDUCOM",
+      "year": 1965,
+      "authors": ["Slagle, J."],
+      "task": "Deductive Question-Answering",
+      "dataset": ["Custom facts and questions"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Fact Base", "Search Procedure", "Logical Deductions"],
+        "connections": ["Fact to Question Reduction"],
+        "mechanisms": ["Depth-First Search", "Predicate Calculus"]
+      },
+      "methodology": {
+        "training_strategy": ["Providing facts"],
+        "parameter_tuning": ["Fact Order", "Fact Form"]
+      },
+      "feature_processing": ["Fact Input"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Purposes of the Investigation**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：General Nature of the Investigation**
+
+---
+
+### 继续提取下一章节
+
+#### 文档2：Experiments with a deductive question-answering program.pdf
+
+**章节：General Nature of the Investigation**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "dataset_entity": {
+      "dataset_id": "FactsAndQuestions_1965",
+      "entity_type": "Dataset",
+      "name": "Facts and Questions",
+      "description": "Custom facts and questions for DEDUCOM",
+      "domain": "Artificial Intelligence",
+      "size": 68,
+      "year": 1965,
+      "creators": ["Slagle, J."]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：General Nature of the Investigation**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Preliminary Description of the Operation of DEDUCOM**
+
+---
+
+### 继续提取下一章节
+
+#### 文档2：Experiments with a deductive question-answering program.pdf
+
+**章节：Preliminary Description of the Operation of DEDUCOM**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_DepthFirstSearch",
+      "entity_type": "Algorithm",
+      "name": "Depth-First Search",
+      "year": 1965,
+      "authors": ["Slagle, J."],
+      "task": "Question-Answering",
+      "dataset": ["Custom facts and questions"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Search Nodes", "Branches"],
+        "connections": ["Node to Node"],
+        "mechanisms": ["Depth-First Traversal"]
+      },
+      "methodology": {
+        "training_strategy": ["Providing facts"],
+        "parameter_tuning": ["Fact Order", "Fact Form"]
+      },
+      "feature_processing": ["Fact Input"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Preliminary Description of the Operation of DEDUCOM**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Valueans Questions**
+
+---
+
+### 继续提取下一章节
+
+#### 文档2：Experiments with a deductive question-answering program.pdf
+
+**章节：Valueans Questions**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_Valueans",
+      "entity_type": "Algorithm",
+      "name": "Valueans",
+      "year": 1965,
+      "authors": ["Slagle, J."],
+      "task": "Answering Value Questions",
+      "dataset": ["Custom facts and questions"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Fact Base", "Search Procedure", "Logical Deductions"],
+        "connections": ["Fact to Question Reduction"],
+        "mechanisms": ["Depth-First Search", "Predicate Calculus"]
+      },
+      "methodology": {
+        "training_strategy": ["Providing facts"],
+        "parameter_tuning": ["Fact Order", "Fact Form"]
+      },
+      "feature_processing": ["Fact Input"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Valueans Questions**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：The Predicate Ansupsset**
+
+---
+
+### 继续提取下一章节
+
+#### 文档2：Experiments with a deductive question-answering program.pdf
+
+**章节：The Predicate Ansupsset**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_Ansupsset",
+      "entity_type": "Algorithm",
+      "name": "Ansupsset",
+      "year": 1965,
+      "authors": ["Slagle, J."],
+      "task": "Answering Questions",
+      "dataset": ["Custom facts and questions"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Fact Base", "Search Procedure", "Logical Deductions"],
+        "connections": ["Fact to Question Reduction"],
+        "mechanisms": ["Depth-First Search", "Predicate Calculus"]
+      },
+      "methodology": {
+        "training_strategy": ["Providing facts"],
+        "parameter_tuning": ["Fact Order", "Fact Form"]
+      },
+      "feature_processing": ["Fact Input"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：The Predicate Ansupsset**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Flow Diagram of the Program**
+
+---
+
+### 继续提取下一章节
+
+#### 文档2：Experiments with a deductive question-answering program.pdf
+
+**章节：Flow Diagram of the Program**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_FlowDiagram",
+      "entity_type": "Algorithm",
+      "name": "Flow Diagram",
+      "year": 1965,
+      "authors": ["Slagle, J."],
+      "task": "Program Operation",
+      "dataset": ["Custom facts and questions"],
+      "metrics": ["Accuracy_Classification"],
+      "architecture": {
+        "components": ["Nodes", "Branches"],
+        "connections": ["Node to Node"],
+        "mechanisms": ["Depth-First Search", "Predicate Calculus"]
+      },
+      "methodology": {
+        "training_strategy": ["Providing facts"],
+        "parameter_tuning": ["Fact Order", "Fact Form"]
+      },
+      "feature_processing": ["Fact Input"]
+    }
+  }
+]
+```
+
+### 提取完成情况
+
+1. **刚刚提取的章节：Flow Diagram of the Program**
+2. **论文中是否还有其他章节未被提取：是**
+3. **下一个要提取的章节：Facts on how to Answer Valueans Questions**
+
+---
+
+### 继续提取下一章节
+
+#### 文档2：Experiments with a deductive question-answering program.pdf
+
+**章节：Facts on how to Answer Valueans Questions**
+
+---
+
+### 提取结果
+
+```json
+[
+  {
+    "algorithm_entity": {
+      "algorithm_id": "Slagle1965_FactBasedAnswering",
+      "entity_type": "Algorithm",
+      "name": "Fact-Based Answering",
+      "year": 1965,
+      "authors": ["Slagle, J."],
+      "task": "Answering Value Questions",
+### 提取实体信息
+
+#### 第1个文档：Distributed representations of words and phrases and their compositionality.pdf
+
+**章节：Introduction**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_SkipGram",
+       "entity_type": "Algorithm",
+       "name": "Skip-gram",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Word and Phrase Representation Learning",
+       "dataset": ["News Articles"],
+       "metrics": ["Accuracy", "Syntactic Accuracy", "Semantic Accuracy"],
+       "architecture": {
+         "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+         "connections": ["Input to Hidden", "Hidden to Output"],
+         "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+       },
+       "methodology": {
+         "training_strategy": ["Subsampling of Frequent Words", "Negative Sampling"],
+         "parameter_tuning": ["Dimensionality", "Context Size", "Subsampling Rate"]
+       },
+       "feature_processing": ["Word Tokenization", "Phrase Identification"]
+     }
+   }
+   ```
+
+2. **数据集**
+   ```json
+   {
+     "dataset_entity": {
+       "dataset_id": "NewsArticles_2013",
+       "entity_type": "Dataset",
+       "name": "News Articles",
+       "description": "Large dataset of news articles used for training word and phrase representations",
+       "domain": "Natural Language Processing",
+       "size": 1000000000,
+       "year": 2013,
+       "creators": ["Google Inc."]
+     }
+   }
+   ```
+
+3. **评价指标**
+   ```json
+   {
+     "metric_entity": {
+       "metric_id": "Accuracy_Classification",
+       "entity_type": "Metric",
+       "name": "Accuracy",
+       "description": "Overall accuracy of the model on the analogical reasoning task",
+       "category": "Classification Evaluation",
+       "formula": "Correct predictions / Total predictions"
+     }
+   }
+   ```
+
+**章节：Empirical Results**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_HierarchicalSoftmax",
+       "entity_type": "Algorithm",
+       "name": "Hierarchical Softmax",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Word and Phrase Representation Learning",
+       "dataset": ["News Articles"],
+       "metrics": ["Accuracy", "Syntactic Accuracy", "Semantic Accuracy"],
+       "architecture": {
+         "components": ["Binary Tree", "Leaf Nodes", "Inner Nodes"],
+         "connections": ["Root to Leaf Path"],
+         "mechanisms": ["Random Walk", "Logarithmic Cost"]
+       },
+       "methodology": {
+         "training_strategy": ["Subsampling of Frequent Words"],
+         "parameter_tuning": ["Dimensionality", "Context Size", "Subsampling Rate"]
+       },
+       "feature_processing": ["Word Tokenization", "Phrase Identification"]
+     }
+   }
+   ```
+
+2. **评价指标**
+   ```json
+   {
+     "metric_entity": {
+       "metric_id": "SyntacticAccuracy_Classification",
+       "entity_type": "Metric",
+       "name": "Syntactic Accuracy",
+       "description": "Accuracy on syntactic analogical reasoning tasks",
+       "category": "Classification Evaluation",
+       "formula": "Correct syntactic predictions / Total syntactic predictions"
+     }
+   }
+   ```
+
+**章节：Learning Phrases**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_PhraseSkipGram",
+       "entity_type": "Algorithm",
+       "name": "Phrase Skip-gram",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Phrase Representation Learning",
+       "dataset": ["News Articles"],
+       "metrics": ["Accuracy"],
+       "architecture": {
+         "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+         "connections": ["Input to Hidden", "Hidden to Output"],
+         "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+       },
+       "methodology": {
+         "training_strategy": ["Subsampling of Frequent Words", "Phrase Identification"],
+         "parameter_tuning": ["Dimensionality", "Context Size", "Subsampling Rate"]
+       },
+       "feature_processing": ["Phrase Tokenization"]
+     }
+   }
+   ```
+
+2. **数据集**
+   ```json
+   {
+     "dataset_entity": {
+       "dataset_id": "PhraseAnalogyDataset_2013",
+       "entity_type": "Dataset",
+       "name": "Phrase Analogy Dataset",
+       "description": "Dataset containing analogical reasoning tasks for phrases",
+       "domain": "Natural Language Processing",
+       "size": 3218,
+       "year": 2013,
+       "creators": ["Google Inc."]
+     }
+   }
+   ```
+
+**章节：Additive Compositionality**
+
+1. **评价指标**
+   ```json
+   {
+     "metric_entity": {
+       "metric_id": "ElementWiseAddition_Accuracy",
+       "entity_type": "Metric",
+       "name": "Element-wise Addition Accuracy",
+       "description": "Accuracy of combining word vectors using element-wise addition",
+       "category": "Vector Composition Evaluation",
+       "formula": "Correct compositions / Total compositions"
+     }
+   }
+   ```
+
+**章节：Comparison to Published Word Representations**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Collobert2008_UnifiedArchitecture",
+       "entity_type": "Algorithm",
+       "name": "Unified Architecture for NLP",
+       "year": 2008,
+       "authors": ["Collobert, R.", "Weston, J."],
+       "task": "Natural Language Processing",
+       "dataset": ["Various Datasets"],
+       "metrics": ["Accuracy"],
+       "architecture": {
+         "components": ["Deep Neural Networks", "Multitask Learning"],
+         "connections": ["Shared Layers"],
+         "mechanisms": ["Heuristic Programming"]
+       },
+       "methodology": {
+         "training_strategy": ["Supervised Learning"],
+         "parameter_tuning": ["Hyperparameters"]
+       },
+       "feature_processing": ["Word Embeddings"]
+     }
+   }
+   ```
+
+2. **数据集**
+   ```json
+   {
+     "dataset_entity": {
+       "dataset_id": "WordReprs_2013",
+       "entity_type": "Dataset",
+       "name": "Word Representations",
+       "description": "Dataset of word vectors published by various researchers",
+       "domain": "Natural Language Processing",
+       "size": "Variable",
+       "year": 2013,
+       "creators": ["Multiple Researchers"]
+     }
+   }
+   ```
+
+**章节：Conclusion**
+
+1. **算法**
+   ```json
+   {
+     "algorithm_entity": {
+       "algorithm_id": "Mikolov2013_NegativeSampling",
+       "entity_type": "Algorithm",
+       "name": "Negative Sampling",
+       "year": 2013,
+       "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+       "task": "Word and Phrase Representation Learning",
+       "dataset": ["News Articles"],
+       "metrics": ["Accuracy"],
+       "architecture": {
+         "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+         "connections": ["Input to Hidden", "Hidden to Output"],
+         "mechanisms": ["Noise Contrastive Estimation"]
+       },
+       "methodology": {
+         "training_strategy": ["Subsampling of Frequent Words"],
+         "parameter_tuning": ["Dimensionality", "Context Size", "Subsampling Rate"]
+       },
+       "feature_processing": ["Word Tokenization", "Phrase Identification"]
+     }
+   }
+   ```
+
+### 提取总结
+
+1. 刚刚提取的是 `Introduction`、`Empirical Results`、`Learning Phrases`、`Additive Compositionality` 和 `Conclusion` 小节。
+2. 论文中是否还有其他小节未被提取：是。
+3. 下一个小节是 `The Skip-gram Model`。
+
+```json
+EXTRACTION_COMPLETE: false, CURRENT_SECTION: Introduction, Empirical Results, Learning Phrases, Additive Compositionality, Conclusion, NEXT_SECTION: The Skip-gram Model
+```

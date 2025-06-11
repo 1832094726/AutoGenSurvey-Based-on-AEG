@@ -1,0 +1,10 @@
+{
+    "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+    "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+    "relation_type": "Optimize",
+    "structure": "Architecture.Component",
+    "detail": "CL3M extended with Temperature Parameter to form CPL3M",
+    "problem_addressed": "Incorporating probabilistic generalization and domain-specific constraints",
+    "evidence": "We also present a probabilistic generalization of this model that can take into account entity-mention links by considering multiple possible coreference links. Furthermore, while their model performs only slightly better than the Stanford rule-based system(Lee et al., 2011), we significantly outperform this system.",
+    "confidence": 0.93
+  }

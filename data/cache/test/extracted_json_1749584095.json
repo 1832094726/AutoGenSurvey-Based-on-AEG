@@ -1,0 +1,10 @@
+{
+    "from_entity": "Roy2015_ExpressionTree",
+    "to_entity": "Roy2016_ExpressionTree",
+    "relation_type": "Improve",
+    "structure": "Architecture.Mechanism",
+    "detail": "引入单调表达树和约束推理框架来改进算术表达式的解析",
+    "problem_addressed": "多步算术问题的求解",
+    "evidence": "We develop a theory for expression trees that can be used to represent and evaluate the target arithmetic expressions; we use it to uniquely decompose the target arithmetic problem to multiple classification problems; we then compose an expression tree, combining these with world knowledge through a constrained inference framework.",
+    "confidence": 0.95
+  }

@@ -182,8 +182,8 @@ def calculate_clustering_metrics(entities, relations):
     """
     logging.info(f"[calculate_clustering_metrics] 输入实体数: {len(entities)}, 关系数: {len(relations)}")
     stats = {
-        'precision': 0.75,  # 示例值
-        'recall': 0.82,     # 示例值
+        'precision': 0,  # 示例值
+        'recall': 0,     # 示例值
         'clusters': []      # 聚类结果
     }
     

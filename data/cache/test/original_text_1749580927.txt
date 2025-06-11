@@ -1,0 +1,659 @@
+[
+  {
+    "from_entity": "KoncelKedziorski2015_EquationTrees",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Replace",
+    "structure": "Architecture.Mechanism",
+    "detail": "Equation Trees replaced by Seq2Seq model with attention mechanism",
+    "problem_addressed": "Limited ability to generalize and handle diverse problem types",
+    "evidence": "In contrast to these approaches, we study the feasibility of applying deep learning to the task of math word problem solving.",
+    "confidence": 0.89
+  },
+  {
+    "from_entity": "Kushman2014_TemplateBasedSolver",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Template-based solver extended with Seq2Seq model and significant number identification",
+    "problem_addressed": "Inability to handle unseen equation templates",
+    "evidence": "We further design a hybrid model that combines the RNN model and a similarity-based retrieval model to achieve additional performance improvement.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "Math23K_2017",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "Deep Neural Solver evaluated on Math23K dataset",
+    "problem_addressed": "Need for large-scale dataset to validate deep learning models",
+    "evidence": "Experiments conducted on a large dataset show that the RNN model and the hybrid model significantly outperform state-of-the-art statistical learning methods for math word problem solving.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "Alg514_2014",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "Deep Neural Solver evaluated on Alg514 dataset",
+    "problem_addressed": "Benchmarking on standard datasets",
+    "evidence": "We compare our method G-ALIGNER with baselines that use standard techniques of diagram understanding.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Seo2014_G_ALIGNER",
+    "to_entity": "Geometry_Questions_Dataset_2014",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "G-ALIGNER evaluated on Geometry Questions Dataset",
+    "problem_addressed": "Need for dataset with textual descriptions and diagrams",
+    "evidence": "To experimentally evaluate our method we build a dataset of geometry questions along with annotations about visual elements and alignments.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Seo2014_G_ALIGNER",
+    "to_entity": "F1_Score_2014",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "G-ALIGNER evaluated using F1 Score",
+    "problem_addressed": "Need for robust evaluation metric",
+    "evidence": "Results show that the system can generate hundreds of valid problems per second with varying levels of difficulty.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Wang2016_DimensionallyGuidedSynthesis",
+    "to_entity": "Synthesized_MWPs_2016",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "Dimensionally Guided Synthesis evaluated on Synthesized MWPs",
+    "problem_addressed": "Need for diverse and configurable math word problems",
+    "evidence": "We have conducted a pilot study to carefully assess the authenticity of our synthesized MWPs from the actual textbook MWPs.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2016_DimensionallyGuidedSynthesis",
+    "to_entity": "Accuracy_Classification_2016",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "Dimensionally Guided Synthesis evaluated using Accuracy",
+    "problem_addressed": "Need for evaluation metric to measure problem authenticity",
+    "evidence": "Results show that the system can generate hundreds of valid problems per second with varying levels of difficulty.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "Accuracy_Classification_2016",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "Deep Neural Solver evaluated using Accuracy",
+    "problem_addressed": "Need for evaluation metric to measure problem-solving performance",
+    "evidence": "Experiments conducted on a large dataset show that the RNN model and the hybrid model significantly outperform state-of-the-art statistical learning methods for math word problem solving.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "Wang2017_HybridModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Deep Neural Solver extended with hybrid model combining seq2seq and retrieval",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Math23K_2017",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "Hybrid Model evaluated on Math23K dataset",
+    "problem_addressed": "Need for large-scale dataset to validate hybrid model",
+    "evidence": "Experiments on our dataset show that, by introducing the hybrid model, the accuracy increases from 58.1% to 64.7%.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Alg514_2014",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "Hybrid Model evaluated on Alg514 dataset",
+    "problem_addressed": "Benchmarking on standard datasets",
+    "evidence": "We compare our method G-ALIGNER with baselines that use standard techniques of diagram understanding.",
+    "confidence": 0.90
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Accuracy_Classification_2016",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "Hybrid Model evaluated using Accuracy",
+    "problem_addressed": "Need for evaluation metric to measure problem-solving performance",
+    "evidence": "Experiments on our dataset show that, by introducing the hybrid model, the accuracy increases from 58.1% to 64.7%.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Robaidek2018_DataDrivenMethods",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "Data-Driven Methods improved by using Seq2Seq model with attention mechanism",
+    "problem_addressed": "Limited performance of retrieval and classification models",
+    "evidence": "Our experiments show that a well-tuned classifier outperforms generation and retrieval on several datasets.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Robaidek2018_DataDrivenMethods",
+    "to_entity": "Math23K_2017",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "Data-Driven Methods evaluated on Math23K dataset",
+    "problem_addressed": "Need for large-scale dataset to validate data-driven models",
+    "evidence": "We study classification, generation, and information retrieval models, and examine popular extensions to these models such as structured self-attention and the use of pretrained word embeddings.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Robaidek2018_DataDrivenMethods",
+    "to_entity": "Accuracy_Classification_2016",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "Data-Driven Methods evaluated using Accuracy",
+    "problem_addressed": "Need for evaluation metric to measure problem-solving performance",
+    "evidence": "Our experiments show that a well-tuned classifier outperforms generation and retrieval on several datasets.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Robaidek2018_DataDrivenMethods",
+    "to_entity": "Wang2017_HybridModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Data-Driven Methods extended with hybrid model combining seq2seq and retrieval",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Robaidek2018_DataDrivenMethods",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Data-Driven Methods extended with Seq2Seq model",
+    "problem_addressed": "Limited performance of retrieval and classification models",
+    "evidence": "Our experiments show that a well-tuned classifier outperforms generation and retrieval on several datasets.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Wang2017_Seq2SeqModel",
+    "to_entity": "Math23K_2017",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "Seq2Seq Model evaluated on Math23K dataset",
+    "problem_addressed": "Need for large-scale dataset to validate seq2seq model",
+    "evidence": "Experiments conducted on a large dataset show that the RNN model and the hybrid model significantly outperform state-of-the-art statistical learning methods for math word problem solving.",
+    "confidence": 0.95
+  },
+  {
+    "from_entity": "Wang2017_Seq2SeqModel",
+    "to_entity": "Accuracy_Classification_2016",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "Seq2Seq Model evaluated using Accuracy",
+    "problem_addressed": "Need for evaluation metric to measure problem-solving performance",
+    "evidence": "Experiments conducted on a large dataset show that the RNN model and the hybrid model significantly outperform state-of-the-art statistical learning methods for math word problem solving.",
+    "confidence": 0.92
+  },
+  {
+    "from_entity": "Seo2015_GEOS",
+    "to_entity": "SAT_Geometry_Questions_2015",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "GEOS evaluated on SAT Geometry Questions dataset",
+    "problem_addressed": "Need for dataset with textual descriptions and diagrams",
+    "evidence": "We evaluate GEOS on official SAT geometry questions.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Seo2015_GEOS",
+    "to_entity": "Practice_Geometry_Questions_2015",
+    "relation_type": "Use",
+    "structure": "Dataset",
+    "detail": "GEOS evaluated on Practice Geometry Questions dataset",
+    "problem_addressed": "Need for dataset with textual descriptions and diagrams",
+    "evidence": "We evaluate GEOS on practice SAT geometry questions.",
+    "confidence": 0.93
+  },
+  {
+    "from_entity": "Seo2015_GEOS",
+    "to_entity": "F1_Score_2014",
+    "relation_type": "Use",
+    "structure": "Metric",
+    "detail": "GEOS evaluated using F1 Score",
+    "problem_addressed": "Need for robust evaluation metric",
+    "evidence": "Results show that the system can generate hundreds of valid problems per second with varying levels of difficulty.",
+    "confidence": 0.88
+  },
+  {
+    "from_entity": "Wang2016_DimensionallyGuidedSynthesis",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Improve",
+    "structure": "Architecture.Component",
+    "detail": "Dimensionally Guided Synthesis improved by using Deep Neural Solver",
+    "problem_addressed": "Limited diversity and configurability of generated problems",
+    "evidence": "Our evaluation results demonstrate the performance of our synthesis algorithm and strong resemblance of the synthesized MWPs to actual textbook problems.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Wang2017_DeepNeuralSolver",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Component",
+    "detail": "Deep Neural Solver extended with Seq2Seq model",
+    "problem_addressed": "Limited performance of retrieval and classification models",
+    "evidence": "Our experiments show that a well-tuned classifier outperforms generation and retrieval on several datasets.",
+    "confidence": 0.91
+  },
+  {
+    "from_entity": "Wang2017_Seq2SeqModel",
+    "to_entity": "Wang2017_HybridModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Seq2Seq Model extended with hybrid model combining seq2seq and retrieval",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_DeepNeuralSolver",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Deep Neural Solver",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence": "Inspired by these observations, we design a hybrid model which combines the seq2seq model and the retrieval model.",
+    "confidence": 0.94
+  },
+  {
+    "from_entity": "Wang2017_HybridModel",
+    "to_entity": "Wang2017_Seq2SeqModel",
+    "relation_type": "Extend",
+    "structure": "Architecture.Connection",
+    "detail": "Hybrid Model extended from Seq2Seq Model",
+    "problem_addressed": "Improving performance on problems with new equation templates",
+    "evidence
