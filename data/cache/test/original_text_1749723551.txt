@@ -1,0 +1,245 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2014_G-ALIGNER",
+        "entity_type": "Algorithm",
+        "name": "G-ALIGNER",
+        "year": 2014,
+        "authors": ["Seo, M.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."],
+        "task": "Diagram Understanding in Geometry Questions",
+        "dataset": ["GeometryQuestionsDataset_2014"],
+        "metrics": ["Accuracy_Geometry", "F1_Score_Classification"],
+        "architecture": {
+          "components": ["Primitive Detector", "Corner Detector", "Alignment Constraint"],
+          "connections": ["Visual Element Identification", "Textual Mention Alignment"],
+          "mechanisms": ["Submodular Optimization", "Greedy Approximation"]
+        },
+        "methodology": {
+          "training_strategy": ["Hough Transform", "Submodular Objective Function"],
+          "parameter_tuning": ["Threshold for Primitive Detection"]
+        },
+        "feature_processing": ["Textual Mention Extraction", "Primitive Post-processing"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "GeometryQuestionsDataset_2014",
+        "entity_type": "Dataset",
+        "name": "Geometry Questions Dataset",
+        "description": "包含几何问题的文字描述和图示的数据集",
+        "domain": "几何学",
+        "size": 100,
+        "year": 2014,
+        "creators": ["Seo, M.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Geometry",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "几何元素识别的准确率",
+        "category": "几何理解评估",
+        "formula": "正确识别的几何元素数量 / 总几何元素数量"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "分类任务的F1分数",
+        "category": "分类评估",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Yu2016_ImplicitQuantityRelationsExtractor",
+        "entity_type": "Algorithm",
+        "name": "Implicit Quantity Relations Extractor",
+        "year": 2016,
+        "authors": ["Yu, X.", "Jian, P.", "Wang, M.", "Wu, S."],
+        "task": "隐式数量关系提取",
+        "dataset": ["ElementarySchoolArithmeticApplicationProblem_2011"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Chinese Phrase Parser", "SVM Classifier", "Semantic Models"],
+          "connections": ["Chinese Phrase Parsing", "SVM Classification", "Instantiation Method"],
+          "mechanisms": ["Frame-based Calculus", "Means-end Analysis"]
+        },
+        "methodology": {
+          "training_strategy": ["Chinese Lexical Analysis System(ICTCLAS)", "SVM Classification"],
+          "parameter_tuning": ["Kernel Width", "Regularization Parameter"]
+        },
+        "feature_processing": ["Chinese Phrase Parsing", "Normalization of Common Units"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ElementarySchoolArithmeticApplicationProblem_2011",
+        "entity_type": "Dataset",
+        "name": "小学算术应用题",
+        "description": "包含多步加减法应用题的数据集",
+        "domain": "小学数学",
+        "size": 627,
+        "year": 2011,
+        "creators": ["People's Education Press"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2016_DimensionallyGuidedSynthesis",
+        "entity_type": "Algorithm",
+        "name": "Dimensionally Guided Synthesis",
+        "year": 2016,
+        "authors": ["Wang, K.", "Su, Z."],
+        "task": "数学文字题自动生成",
+        "dataset": ["NewsArticlesDataset_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Equation Generator", "Narrative Generator"],
+          "connections": ["Equation Synthesis", "Story Composition"],
+          "mechanisms": ["Dimensional Unit Assignment", "Binary Expression Tree"]
+        },
+        "methodology": {
+          "training_strategy": ["Negative Sampling", "Hierarchical Softmax"],
+          "parameter_tuning": ["Subsampling Rate", "Number of Negative Samples"]
+        },
+        "feature_processing": ["Dimensional Unit Handling", "Context Window Size"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "NewsArticlesDataset_2016",
+        "entity_type": "Dataset",
+        "name": "News Articles Dataset",
+        "description": "包含各种新闻文章的大规模数据集",
+        "domain": "自然语言处理",
+        "size": 1000000000,
+        "year": 2016,
+        "creators": ["Google"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_HybridModel",
+        "entity_type": "Algorithm",
+        "name": "Hybrid Model",
+        "year": 2017,
+        "authors": ["Wang, Y.", "Liu, X.", "Shi, S."],
+        "task": "自动解决数学文字题",
+        "dataset": ["Math23K_2017", "Alg514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Seq2Seq Model", "Similarity-based Retrieval Model"],
+          "connections": ["Equation Template Generation", "Textual Similarity Matching"],
+          "mechanisms": ["Significant Number Identification", "Submodular Optimization"]
+        },
+        "methodology": {
+          "training_strategy": ["Seq2Seq with Attention", "Hough Transform"],
+          "parameter_tuning": ["Learning Rate", "Dropout Rate"]
+        },
+        "feature_processing": ["Number Mapping", "Textual Feature Extraction"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2015_Geos",
+        "entity_type": "Algorithm",
+        "name": "GEOS",
+        "year": 2015,
+        "authors": ["Seo, M.", "Kembhavi, A.", "Farhadi, A.", "Etzioni, O."],
+        "task": "几何问题求解",
+        "dataset": ["GeometryQuestionsDataset_2014"],
+        "metrics": ["Accuracy_Geometry"],
+        "architecture": {
+          "components": ["Geometric Relation Detector", "Textual Alignment Module"],
+          "connections": ["Visual Element Recognition", "Textual Mention Alignment"],
+          "mechanisms": ["Submodular Optimization", "Greedy Approximation"]
+        },
+        "methodology": {
+          "training_strategy": ["Hough Transform", "Submodular Objective Function"],
+          "parameter_tuning": ["Threshold for Primitive Detection"]
+        },
+        "feature_processing": ["Textual Mention Extraction", "Primitive Post-processing"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Mikolov2013_SkipGram",
+        "entity_type": "Algorithm",
+        "name": "Skip-gram",
+        "year": 2013,
+        "authors": ["Mikolov, T.", "Sutskever, I.", "Chen, K.", "Corrado, G.", "Dean, J."],
+        "task": "分布式表示学习",
+        "dataset": ["NewsArticlesDataset_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Input Layer", "Hidden Layer", "Output Layer"],
+          "connections": ["Word Embedding", "Context Prediction"],
+          "mechanisms": ["Hierarchical Softmax", "Negative Sampling", "Subsampling of Frequent Words"]
+        },
+        "methodology": {
+          "training_strategy": ["Negative Sampling", "Hierarchical Softmax"],
+          "parameter_tuning": ["Subsampling Threshold", "Number of Negative Samples"]
+        },
+        "feature_processing": ["Word Frequency Filtering", "Context Window Size"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Alg514_2014",
+        "entity_type": "Dataset",
+        "name": "Alg514",
+        "description": "包含线性代数问题的数据集",
+        "domain": "代数学",
+        "size": 514,
+        "year": 2014,
+        "creators": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Slagle1965_DEDUCOM",
+        "entity_type": "Algorithm",
+        "name": "DEDUCOM",
+        "year": 1965,
+        "authors": ["Slagle, J."],
+        "task": "演绎式问答",
+        "dataset": ["CustomFactSet_1965"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Fact Interpreter", "Search Procedure"],
+          "connections": ["Fact Matching", "Recursive Question Reduction"],
+          "mechanisms": ["Depth-First Search", "Logical Deduction"]
+        },
+        "methodology": {
+          "training_strategy": ["Manual Fact Entry"],
+          "parameter_tuning": []
+        },
+        "feature_processing": ["Fact Parsing", "Question Simplification"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "CustomFactSet_1965",
+        "entity_type": "Dataset",
+        "name": "Custom Fact Set",
+        "description": "包含演绎推理所需事实的数据集",
+        "domain": "演绎推理",
+        "size": 68,
+        "year": 1965,
+        "creators": ["Slagle, J."]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "EXPERIMENTS",
+    "next_section": "CONCLUSION"
+  }
+}
+```

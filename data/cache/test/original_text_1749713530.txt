@@ -1,0 +1,221 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Kushman2014_TemplateBasedSolver",
+        "entity_type": "Algorithm",
+        "name": "Template Based Solver",
+        "year": 2014,
+        "authors": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Alg514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Equation Template System"],
+          "connections": ["Maps natural language sentences to equation templates"],
+          "mechanisms": ["Pattern Matching"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Verb Categorization"]
+        },
+        "feature_processing": ["Text Parsing"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhou2015_EnhancedTemplateBasedSolver",
+        "entity_type": "Algorithm",
+        "name": "Enhanced Template Based Solver",
+        "year": 2015,
+        "authors": ["Zhou, L.", "Dai, S.", "Chen, L."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Alg514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Equation Template System"],
+          "connections": ["Max-Margin Objective"],
+          "mechanisms": ["Pattern Matching"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Max-Margin Objective"]
+        },
+        "feature_processing": ["Text Parsing"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Alg514_2014",
+        "entity_type": "Dataset",
+        "name": "Alg514",
+        "description": "Linear algebra problems dataset",
+        "domain": "Mathematics",
+        "size": 514,
+        "year": 2014,
+        "creators": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "DRAW1K_2017",
+        "entity_type": "Dataset",
+        "name": "DRAW-1K",
+        "description": "Diverse algebra word problem set",
+        "domain": "Mathematics",
+        "size": 1000,
+        "year": 2017,
+        "creators": ["Upadhyay, S.", "Chang, M."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin1878_2015",
+        "entity_type": "Dataset",
+        "name": "Dolphin1878",
+        "description": "Number word problems dataset",
+        "domain": "Mathematics",
+        "size": 1878,
+        "year": 2015,
+        "creators": ["Shi, S.", "Wang, Y.", "Lin, C.", "Liu, X.", "Rui, Y."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数/总样本数"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "F1得分",
+        "category": "分类评估",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Precision_Classification",
+        "entity_type": "Metric",
+        "name": "Precision",
+        "description": "精确率",
+        "category": "分类评估",
+        "formula": "真正例 / (真正例 + 假正例)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Recall_Classification",
+        "entity_type": "Metric",
+        "name": "Recall",
+        "description": "召回率",
+        "category": "分类评估",
+        "formula": "真正例 / (真正例 + 假反例)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Upadhyay2016_MixedSP",
+        "entity_type": "Algorithm",
+        "name": "Mixed SP",
+        "year": 2016,
+        "authors": ["Upadhyay, S.", "Chang, M."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["DRAW1K_2017"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Similarity-based Retrieval Model", "Seq2Seq Model"],
+          "connections": ["Combines retrieval and generation"],
+          "mechanisms": ["Hybrid Approach"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Threshold Tuning"]
+        },
+        "feature_processing": ["Text Parsing"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2014_DiagramUnderstanding",
+        "entity_type": "Algorithm",
+        "name": "Diagram Understanding",
+        "year": 2014,
+        "authors": ["Seo, M.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."],
+        "task": "Diagram Understanding in Geometry Questions",
+        "dataset": ["GeometryQuestionDataset_2015"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["G-ALIGNER"],
+          "connections": ["Primitive Identification and Alignment"],
+          "mechanisms": ["Submodular Optimization"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Threshold Tuning"]
+        },
+        "feature_processing": ["Text Parsing", "Visual Element Detection"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "GeometryQuestionDataset_2015",
+        "entity_type": "Dataset",
+        "name": "Geometry Question Dataset",
+        "description": "Geometry questions with diagrams",
+        "domain": "Mathematics",
+        "size": 100,
+        "year": 2015,
+        "creators": ["Seo, M.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2016_DimensionallyGuidedSynthesis",
+        "entity_type": "Algorithm",
+        "name": "Dimensionally Guided Synthesis",
+        "year": 2016,
+        "authors": ["Wang, K.", "Su, Z."],
+        "task": "Generating Mathematical Word Problems",
+        "dataset": ["SingaporeMathCurriculum_2009"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Equation Generator", "Narrative Generator"],
+          "connections": ["Binary Expression Tree"],
+          "mechanisms": ["Dimensional Units"]
+        },
+        "methodology": {
+          "training_strategy": ["Random Sampling"],
+          "parameter_tuning": ["Dimensional Unit Assignment"]
+        },
+        "feature_processing": ["Text Parsing", "Numerical Value Generation"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "SingaporeMathCurriculum_2009",
+        "entity_type": "Dataset",
+        "name": "Singapore Math Curriculum",
+        "description": "Math word problems from Singapore curriculum",
+        "domain": "Mathematics",
+        "size": 24,
+        "year": 2009,
+        "creators": ["Publications, F.S."]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "EXPERIMENTAL SETUP",
+    "next_section": "EXPERIMENTS"
+  }
+}
+```

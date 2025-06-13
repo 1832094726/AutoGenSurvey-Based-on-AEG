@@ -1,0 +1,177 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Robaidek2018_DataDrivenMethods",
+        "entity_type": "Algorithm",
+        "name": "Data-Driven Methods",
+        "year": 2018,
+        "authors": ["Robaidek, B.", "Koncel-Kedziorski, R.", "Hajishirzi, H."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["DRAW_2015", "MAWPS_2016", "Math23K_2017"],
+        "metrics": ["Accuracy_Classification", "F1_Score_Classification"],
+        "architecture": {
+          "components": ["BiLSTM", "Structured Self-Attention"],
+          "connections": ["seq2seq", "retrieval"],
+          "mechanisms": ["significant number identifier", "pretrained word embeddings"]
+        },
+        "methodology": {
+          "training_strategy": ["cross-entropy loss", "SGD"],
+          "parameter_tuning": ["dropout", "learning rate"]
+        },
+        "feature_processing": ["number mapping", "equation templates"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "DRAW_2015",
+        "entity_type": "Dataset",
+        "name": "DRAW",
+        "description": "A diverse algebra word problem set",
+        "domain": "Mathematics",
+        "size": 1000,
+        "year": 2015,
+        "creators": ["Upadhyay, S.", "Chang, M."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MAWPS_2016",
+        "entity_type": "Dataset",
+        "name": "MAWPS",
+        "description": "Math Word Problem repository",
+        "domain": "Mathematics",
+        "size": 2373,
+        "year": 2016,
+        "creators": ["Koncel-Kedziorski, R.", "Roy, S.", "Amini, A.", "Kushman, N.", "Hajishirzi, H."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "description": "Large dataset of Chinese algebra word problems",
+        "domain": "Mathematics",
+        "size": 23164,
+        "year": 2017,
+        "creators": ["Wang, Y.", "Zhang, D.", "Gao, L.", "Song, J.", "Guo, L.", "Shen, H."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数/总样本数"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "综合考虑精确率和召回率的评价指标",
+        "category": "分类评估",
+        "formula": "2 * (precision * recall) / (precision + recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_DeepNeuralSolver",
+        "entity_type": "Algorithm",
+        "name": "Deep Neural Solver",
+        "year": 2017,
+        "authors": ["Wang, Y.", "Liu, X.", "Shi, S."],
+        "task": "Solving Math Word Problems",
+        "dataset": ["Alg514_2014", "Math23K_2017"],
+        "metrics": ["Accuracy_Classification", "F1_Score_Classification"],
+        "architecture": {
+          "components": ["RNN", "seq2seq"],
+          "connections": ["encoder-decoder"],
+          "mechanisms": ["significant number identification", "retrieval model"]
+        },
+        "methodology": {
+          "training_strategy": ["cross-entropy loss", "SGD"],
+          "parameter_tuning": ["dropout", "learning rate"]
+        },
+        "feature_processing": ["number mapping", "equation templates"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2014_GAligner",
+        "entity_type": "Algorithm",
+        "name": "G-ALIGNER",
+        "year": 2014,
+        "authors": ["Seo, M.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."],
+        "task": "Diagram Understanding in Geometry Questions",
+        "dataset": ["Geometry Questions Dataset"],
+        "metrics": ["F1_Score_Classification"],
+        "architecture": {
+          "components": ["submodular optimization", "greedy algorithm"],
+          "connections": ["visual elements", "textual mentions"],
+          "mechanisms": ["coverage function", "visual coherence function", "alignment constraint function"]
+        },
+        "methodology": {
+          "training_strategy": ["submodular optimization"],
+          "parameter_tuning": ["threshold for primitive detection"]
+        },
+        "feature_processing": ["primitive identification", "corner detection", "textual mention extraction"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Watanabe2014_PBFDiagramUnderstanding",
+        "entity_type": "Algorithm",
+        "name": "PBF Diagram Understanding",
+        "year": 2014,
+        "authors": ["Watanabe, Y.", "Nagao, M."],
+        "task": "Diagram Understanding Using Integration of Layout Information and Textual Information",
+        "dataset": ["PBF Diagrams"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["layout information", "natural language information"],
+          "connections": ["symbol connections", "adjacency relationships"],
+          "mechanisms": ["semantic interpretation rules"]
+        },
+        "methodology": {
+          "training_strategy": ["manual annotation"],
+          "parameter_tuning": []
+        },
+        "feature_processing": ["keyword extraction", "expression pattern matching"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2016_DimensionallyGuidedSynthesis",
+        "entity_type": "Algorithm",
+        "name": "Dimensionally Guided Synthesis",
+        "year": 2016,
+        "authors": ["Wang, K.", "Su, Z."],
+        "task": "Synthesizing Mathematical Word Problems",
+        "dataset": ["Singapore Math Curriculum"],
+        "metrics": ["Accuracy_Classification", "Error Rate"],
+        "architecture": {
+          "components": ["equation generator", "narrative generator"],
+          "connections": ["binary expression tree", "dimensional units"],
+          "mechanisms": ["variable unrolling", "sub-story generation"]
+        },
+        "methodology": {
+          "training_strategy": ["random generation", "constraint satisfaction"],
+          "parameter_tuning": ["difficulty levels", "distraction introduction"]
+        },
+        "feature_processing": ["dimensional unit assignment", "keyword assignment"]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "INTRODUCTION",
+    "next_section": "METHODOLOGY"
+  }
+}
+```

@@ -1,0 +1,355 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_LatentLeftLinkingModel",
+        "entity_type": "Algorithm",
+        "name": "Latent Left Linking Model (L3M)",
+        "year": 2013,
+        "authors": ["Kai-Wei Chang", "Rajhans Samdani", "Dan Roth"],
+        "task": "Coreference Resolution",
+        "dataset": ["ACE 2004", "Ontonotes-5.0"],
+        "metrics": ["MUC", "BCUB", "CEAF"],
+        "architecture": {
+          "components": ["Pairwise Mention Scorer", "Left-Linking Model"],
+          "connections": ["Mention Pair Granularity", "Best-Left-Link Inference"],
+          "mechanisms": ["Latent Structural SVM", "Stochastic Gradient Descent"]
+        },
+        "methodology": {
+          "training_strategy": ["Structured Prediction", "Loss-Augmented Inference"],
+          "parameter_tuning": ["Regularization Parameter λ", "Threshold t"]
+        },
+        "feature_processing": ["Pairwise Compatibility Score", "Feature Extraction φ(j, i)"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_ConstrainedLatentLeftLinkingModel",
+        "entity_type": "Algorithm",
+        "name": "Constrained Latent Left Linking Model (CL3M)",
+        "year": 2013,
+        "authors": ["Kai-Wei Chang", "Rajhans Samdani", "Dan Roth"],
+        "task": "Coreference Resolution",
+        "dataset": ["ACE 2004", "Ontonotes-5.0"],
+        "metrics": ["MUC", "BCUB", "CEAF"],
+        "architecture": {
+          "components": ["Latent Left Linking Model", "Domain Knowledge-Based Constraints"],
+          "connections": ["Mention Pair Granularity", "Best-Left-Link Inference"],
+          "mechanisms": ["Latent Structural SVM", "Stochastic Gradient Descent"]
+        },
+        "methodology": {
+          "training_strategy": ["Structured Prediction", "Loss-Augmented Inference"],
+          "parameter_tuning": ["Regularization Parameter λ", "Constraint Scores ρp"]
+        },
+        "feature_processing": ["Pairwise Compatibility Score", "Feature Extraction φ(j, i)", "Constraint Injection"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+        "entity_type": "Algorithm",
+        "name": "Probabilistic Latent Left Linking Model (PL3M)",
+        "year": 2013,
+        "authors": ["Kai-Wei Chang", "Rajhans Samdani", "Dan Roth"],
+        "task": "Coreference Resolution",
+        "dataset": ["ACE 2004", "Ontonotes-5.0"],
+        "metrics": ["MUC", "BCUB", "CEAF"],
+        "architecture": {
+          "components": ["Latent Left Linking Model", "Temperature Parameter γ"],
+          "connections": ["Mention Pair Granularity", "Best-Left-Link Inference"],
+          "mechanisms": ["Latent Structural SVM", "Stochastic Gradient Descent"]
+        },
+        "methodology": {
+          "training_strategy": ["Structured Prediction", "Loss-Augmented Inference"],
+          "parameter_tuning": ["Regularization Parameter λ", "Temperature Parameter γ"]
+        },
+        "feature_processing": ["Pairwise Compatibility Score", "Feature Extraction φ(j, i)"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ACE2004_2004",
+        "entity_type": "Dataset",
+        "name": "ACE 2004",
+        "description": "Automatic Content Extraction dataset",
+        "domain": "Natural Language Processing",
+        "size": 443,
+        "year": 2004,
+        "creators": ["NIST"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Ontonotes5.0_2012",
+        "entity_type": "Dataset",
+        "name": "Ontonotes-5.0",
+        "description": "Large annotated corpus on coreference",
+        "domain": "Natural Language Processing",
+        "size": 3145,
+        "year": 2012,
+        "creators": ["Pradhan et al."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "MUC_Classification",
+        "entity_type": "Metric",
+        "name": "MUC",
+        "description": "Measures how many predicted clusters need to be merged to cover the gold clusters",
+        "category": "Coreference Evaluation",
+        "formula": "Not explicitly defined"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "BCUB_Classification",
+        "entity_type": "Metric",
+        "name": "BCUB",
+        "description": "Uses the intersection between predicted and gold clusters for a given mention",
+        "category": "Coreference Evaluation",
+        "formula": "Not explicitly defined"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "CEAF_Classification",
+        "entity_type": "Metric",
+        "name": "CEAF",
+        "description": "Entity-based CEAF measures the similarity between clusters",
+        "category": "Coreference Evaluation",
+        "formula": "Not explicitly defined"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2010_MultiPassSieve",
+        "entity_type": "Algorithm",
+        "name": "Multi-Pass Sieve",
+        "year": 2010,
+        "authors": ["Karthik Raghunathan", "Heeyoung Lee", "Sudarshan Rangarajan", "Nathanael Chambers", "Mihai Surdeanu", "Dan Jurafsky", "Christopher Manning"],
+        "task": "Coreference Resolution",
+        "dataset": ["ACE2004-ROTH-DEV", "ACE2004-CULOTTA-TEST", "ACE2004-NWIRE", "MUC6-TEST"],
+        "metrics": ["MUC", "B3", "Pairwise F1"],
+        "architecture": {
+          "components": ["Exact Match", "Precise Constructs", "Strict Head Matching", "Relaxed Head Matching", "Pronouns"],
+          "connections": ["Tiered Model", "Attribute Sharing", "Mention Selection", "Search Pruning"],
+          "mechanisms": ["Deterministic Coreference Models", "Transitive Closure"]
+        },
+        "methodology": {
+          "training_strategy": ["Unsupervised", "No Gold Coreference Links"],
+          "parameter_tuning": ["None"]
+        },
+        "feature_processing": ["Coreference Features", "Cluster-Level Features", "Acronym Detection", "Demonym Detection"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chen2014_NeuralDependencyParser",
+        "entity_type": "Algorithm",
+        "name": "Neural Dependency Parser",
+        "year": 2014,
+        "authors": ["Danqi Chen", "Christopher D. Manning"],
+        "task": "Dependency Parsing",
+        "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+        "metrics": ["Unlabeled Attachment Score (UAS)", "Labeled Attachment Score (LAS)"],
+        "architecture": {
+          "components": ["Neural Network Classifier", "Arc-Standard System"],
+          "connections": ["Transition-Based Parsing", "Greedy Parsing"],
+          "mechanisms": ["Dense Features", "Cube Activation Function", "Pre-trained Word Embeddings"]
+        },
+        "methodology": {
+          "training_strategy": ["Stochastic Gradient Descent", "AdaGrad", "Dropout"],
+          "parameter_tuning": ["Embedding Size d", "Hidden Layer Size h", "Regularization Parameter λ", "Initial Learning Rate α"]
+        },
+        "feature_processing": ["Dense Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "EnglishPennTreebank_2014",
+        "entity_type": "Dataset",
+        "name": "English Penn Treebank",
+        "description": "Standard dataset for dependency parsing",
+        "domain": "Natural Language Processing",
+        "size": 39832,
+        "year": 2014,
+        "creators": ["Danqi Chen", "Christopher D. Manning"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ChinesePennTreebank_2014",
+        "entity_type": "Dataset",
+        "name": "Chinese Penn Treebank",
+        "description": "Standard dataset for dependency parsing",
+        "domain": "Natural Language Processing",
+        "size": 16091,
+        "year": 2014,
+        "creators": ["Danqi Chen", "Christopher D. Manning"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "UAS_Classification",
+        "entity_type": "Metric",
+        "name": "Unlabeled Attachment Score (UAS)",
+        "description": "Measures the accuracy of unlabeled dependency relations",
+        "category": "Dependency Parsing Evaluation",
+        "formula": "Number of correct unlabeled dependencies / Total number of dependencies"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "LAS_Classification",
+        "entity_type": "Metric",
+        "name": "Labeled Attachment Score (LAS)",
+        "description": "Measures the accuracy of labeled dependency relations",
+        "category": "Dependency Parsing Evaluation",
+        "formula": "Number of correct labeled dependencies / Total number of dependencies"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Lin2017_StructuredSelfAttentiveSentenceEmbedding",
+        "entity_type": "Algorithm",
+        "name": "Structured Self-Attentive Sentence Embedding",
+        "year": 2017,
+        "authors": ["Zhouhan Lin", "Minwei Feng", "Cicero Nogueira dos Santos", "Mo Yu", "Bing Xiang", "Bowen Zhou", "Yoshua Bengio"],
+        "task": "Sentence Embedding",
+        "dataset": ["Age Dataset", "Yelp Dataset", "SNLI Corpus"],
+        "metrics": ["Classification Accuracy", "Test Accuracy"],
+        "architecture": {
+          "components": ["Bidirectional LSTM", "Self-Attention Mechanism"],
+          "connections": ["Weighted Sums of Hidden States", "Annotation Matrix"],
+          "mechanisms": ["Penalization Term", "Frobenius Norm"]
+        },
+        "methodology": {
+          "training_strategy": ["Stochastic Gradient Descent", "AdaGrad"],
+          "parameter_tuning": ["Hidden Unit Number u", "Hidden Layer Size da", "Penalization Term Coefficient"]
+        },
+        "feature_processing": ["Word Embeddings", "POS Tag Embeddings", "Dependency Label Embeddings"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AgeDataset_2017",
+        "entity_type": "Dataset",
+        "name": "Age Dataset",
+        "description": "Twitter tweets for author profiling",
+        "domain": "Natural Language Processing",
+        "size": 68485,
+        "year": 2017,
+        "creators": ["Zhouhan Lin", "Minwei Feng", "Cicero Nogueira dos Santos", "Mo Yu", "Bing Xiang", "Bowen Zhou", "Yoshua Bengio"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "YelpDataset_2017",
+        "entity_type": "Dataset",
+        "name": "Yelp Dataset",
+        "description": "Yelp reviews for sentiment analysis",
+        "domain": "Natural Language Processing",
+        "size": 2700000,
+        "year": 2017,
+        "creators": ["Zhouhan Lin", "Minwei Feng", "Cicero Nogueira dos Santos", "Mo Yu", "Bing Xiang", "Bowen Zhou", "Yoshua Bengio"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "SNLICorpus_2015",
+        "entity_type": "Dataset",
+        "name": "SNLI Corpus",
+        "description": "Human-written English sentence pairs for textual entailment",
+        "domain": "Natural Language Processing",
+        "size": 570000,
+        "year": 2015,
+        "creators": ["Samuel R. Bowman", "Gabor Angeli", "Christopher Potts", "Christopher D. Manning"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Liang2016_TagBasedMWP",
+        "entity_type": "Algorithm",
+        "name": "Tag-Based English Math Word Problem Solver",
+        "year": 2016,
+        "authors": ["Chao-Chun Liang", "Kuang-Yi Hsu", "Chien-Tsung Huang", "Chung-Min Li", "Shen-Yu Miao", "Keh-Yih Su"],
+        "task": "Math Word Problem Solving",
+        "dataset": ["MA1", "MA2", "IXL"],
+        "metrics": ["Accuracy", "Solution Type Accuracy"],
+        "architecture": {
+          "components": ["Language Analyzer", "Solution Type Classifier", "Logic Form Converter", "Inference Engine", "Explanation Generator"],
+          "connections": ["Syntactic Tree", "Logic Forms", "Reasoning Chains"],
+          "mechanisms": ["Tag-Based Annotation", "First-Order Logic Predicates", "Logic Inference"]
+        },
+        "methodology": {
+          "training_strategy": ["Rule-Based", "Statistical Classifiers"],
+          "parameter_tuning": ["SVM Classifier with Linear Kernel"]
+        },
+        "feature_processing": ["POS Tagging", "Named Entity Recognition", "Parsing", "Co-Reference Resolution"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MA1_2014",
+        "entity_type": "Dataset",
+        "name": "MA1",
+        "description": "Simple math word problems on addition and subtraction",
+        "domain": "Mathematical Word Problems",
+        "size": 395,
+        "year": 2014,
+        "creators": ["M.J. Hosseini", "H. Hajishirzi", "O. Etzioni", "N. Kushman"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MA2_2014",
+        "entity_type": "Dataset",
+        "name": "MA2",
+        "description": "Math word problems with more irrelevant information",
+        "domain": "Mathematical Word Problems",
+        "size": 395,
+        "year": 2014,
+        "creators": ["M.J. Hosseini", "H. Hajishirzi", "O. Etzioni", "N. Kushman"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "IXL_2014",
+        "entity_type": "Dataset",
+        "name": "IXL",
+        "description": "Math word problems with more information gaps",
+        "domain": "Mathematical Word Problems",
+        "size": 395,
+        "year": 2014,
+        "creators": ["M.J. Hosseini", "H. Hajishirzi", "O. Etzioni", "N. Kushman"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_MathWordProblem",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Proportion of correctly solved problems",
+        "category": "Math Word Problem Evaluation",
+        "formula": "Number of Correct Answers / Total Number of Problems"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "SolutionTypeAccuracy_MathWordProblem",
+        "entity_type": "Metric",
+        "name": "Solution Type Accuracy",
+        "description": "Accuracy of identifying the correct solution type",
+        "category": "Math Word Problem Evaluation",
+        "formula": "Number of Correct Solution Types / Total Number of Problems"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": true,
+    "current_section": "CONCLUSION",
+    "next_section": ""
+  }
+}
+```

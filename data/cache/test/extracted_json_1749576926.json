@@ -1,4 +1,0 @@
-{
-        "training_strategy": ["joint training", "conditional probability maximization"],
-        "parameter_tuning": ["initialization with Gaussian distribution", "AdaDelta optimizer"]
-      }

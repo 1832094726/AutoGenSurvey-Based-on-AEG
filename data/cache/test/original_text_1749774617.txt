@@ -1,0 +1,384 @@
+根据提供的文件内容，我将分析实体之间的演化关系，并以JSON格式返回结果。以下是详细的分析：
+
+### 关系分析
+
+1. **End-to-End Neural Math Solver (Chiang2019_EndToEndNeuralMathSolver)**
+   - **Extend** `Sutskever2014_SequenceToSequenceLearning`
+     - **结构描述**: End-to-End Neural Math Solver 使用了类似的编码器-解码器框架。
+     - **详细说明**: End-to-End Neural Math Solver 基于编码器-解码器框架，但引入了语义表示和堆栈操作来生成方程。
+     - **解决的问题**: 提高了解决数学文字题的能力，特别是在大型数据集上的表现。
+     - **证据**: "This paper proposes an end-to-end neural math solver with a novel decoding process that utilizes the stack to generate associated equations."
+     - **置信度**: 0.95
+
+2. **End-to-End Neural Math Solver (Chiang2019_EndToEndNeuralMathSolver)**
+   - **Improve** `Wiseman2016_BeamSearchOptimization`
+     - **结构描述**: End-to-End Neural Math Solver 在生成方程时使用了改进的解码过程。
+     - **详细说明**: End-to-End Neural Math Solver 引入了语义表示和堆栈操作，从而改进了 Beam Search Optimization 中的解码过程。
+     - **解决的问题**: 解决了 Beam Search Optimization 在生成方程时的局限性，提高了模型的解释性和准确性。
+     - **证据**: "This paper proposes an end-to-end neural math solver with a novel decoding process that utilizes the stack to generate associated equations."
+     - **置信度**: 0.95
+
+3. **End-to-End Neural Math Solver (Chiang2019_EndToEndNeuralMathSolver)**
+   - **Improve** `Hosseini2014_VerbCategorization`
+     - **结构描述**: End-to-End Neural Math Solver 引入了语义表示来提高对问题的理解。
+     - **详细说明**: End-to-End Neural Math Solver 不仅依赖于词汇级别的特征，还通过语义表示来捕捉更复杂的语义信息。
+     - **解决的问题**: 提高了对数学文字题中语义的理解，减少了因词汇级别特征不足导致的错误。
+     - **证据**: "This paper is the first work that models semantic meanings of operands and operators for math word problems."
+     - **置信度**: 0.95
+
+4. **End-to-End Neural Math Solver (Chiang2019_EndToEndNeuralMathSolver)**
+   - **Improve** `Kushman2014_EquationTemplate`
+     - **结构描述**: End-to-End Neural Math Solver 引入了语义表示和堆栈操作来生成方程。
+     - **详细说明**: End-to-End Neural Math Solver 通过语义表示和堆栈操作，改进了 Kushman 等人的模板生成方法。
+     - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+     - **证据**: "This paper proposes an end-to-end neural math solver with a novel decoding process that utilizes the stack to generate associated equations."
+     - **置信度**: 0.95
+
+5. **End-to-End Neural Math Solver (Chiang2019_EndToEndNeuralMathSolver)**
+   - **Improve** `Roy2015_UnitDependencyGraph`
+     - **结构描述**: End-to-End Neural Math Solver 引入了语义表示和堆栈操作来生成方程。
+     - **详细说明**: End-to-End Neural Math Solver 通过语义表示和堆栈操作，改进了 Roy 和 Roth 的单位依赖图方法。
+     - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+     - **证据**: "This paper proposes an end-to-end neural math solver with a novel decoding process that utilizes the stack to generate associated equations."
+     - **置信度**: 0.95
+
+6. **End-to-End Neural Math Solver (Chiang2019_EndToEndNeuralMathSolver)**
+   - **Improve** `Zhou2015_EnhancedTemplateSolver`
+     - **结构描述**: End-to-End Neural Math Solver 引入了语义表示和堆栈操作来生成方程。
+     - **详细说明**: End-to-End Neural Math Solver 通过语义表示和堆栈操作，改进了 Zhou 等人的增强模板求解器。
+     - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+     - **证据**: "This paper proposes an end-to-end neural math solver with a novel decoding process that utilizes the stack to generate associated equations."
+     - **置信度**: 0.95
+
+7. **End-to-End Neural Math Solver (Chiang2019_EndToEndNeuralMathSolver)**
+   - **Use** `Math23K_2017`
+     - **结构描述**: End-to-End Neural Math Solver 使用了 Math23K 数据集进行实验。
+     - **详细说明**: End-to-End Neural Math Solver 在 Math23K 数据集上进行了实验，验证了其性能。
+     - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+     - **证据**: "The experiments are benchmarked on the dataset Math23k (Wang et al., 2017), which contains 23,162 math problems with annotated equations."
+     - **置信度**: 0.95
+
+8. **End-to-End Neural Math Solver (Chiang2019_EndToEndNeuralMathSolver)**
+   - **Evaluation** `Accuracy_Classification`
+     - **结构描述**: End-to-End Neural Math Solver 使用了分类准确率作为评估指标。
+     - **详细说明**: End-to-End Neural Math Solver 在 Math23K 数据集上达到了新的最先进水平，分类准确率显著提高。
+     - **解决的问题**: 提供了一种有效的评估方法来衡量模型的性能。
+     - **证据**: "The single model performance achieved by our proposed model is new state-of-the-art(> 65%) and even better than the hybrid model result(64.7%)."
+     - **置信度**: 0.95
+
+9. **End-to-End Neural Math Solver (Chiang2019_EndToEndNeuralMathSolver)**
+   - **Evaluation** `F1_Score_Classification`
+     - **结构描述**: End-to-End Neural Math Solver 使用了 F1 分数作为评估指标。
+     - **详细说明**: End-to-End Neural Math Solver 在 Math23K 数据集上达到了新的最先进水平，F1 分数显著提高。
+     - **解决的问题**: 提供了一种有效的评估方法来衡量模型的性能。
+     - **证据**: "The single model performance achieved by our proposed model is new state-of-the-art(> 65%) and even better than the hybrid model result(64.7%)."
+     - **置信度**: 0.95
+
+10. **Beam Search Optimization (Wiseman2016_BeamSearchOptimization)**
+    - **Extend** `Sutskever2014_SequenceToSequenceLearning`
+      - **结构描述**: Beam Search Optimization 是对标准 seq2seq 模型的一种扩展。
+      - **详细说明**: Beam Search Optimization 引入了搜索损失函数和反向传播机制，解决了暴露偏差和标签偏差问题。
+      - **解决的问题**: 提高了 seq2seq 模型在生成完全形成的词序列时的表现。
+      - **证据**: "In this work we develop a non-probabilistic variant of the seq2seq model that can assign a score to any possible target sequence, and we propose a training procedure, inspired by the learning as search optimization(LaSO) framework of Daume´ III and Marcu(2005), that defines a loss function in terms of errors made during beam search."
+      - **置信度**: 0.95
+
+11. **Beam Search Optimization (Wiseman2016_BeamSearchOptimization)**
+    - **Improve** `Sutskever2014_SequenceToSequenceLearning`
+      - **结构描述**: Beam Search Optimization 改进了标准 seq2seq 模型的解码过程。
+      - **详细说明**: Beam Search Optimization 通过引入搜索损失函数和反向传播机制，解决了暴露偏差和标签偏差问题。
+      - **解决的问题**: 提高了 seq2seq 模型在生成完全形成的词序列时的表现。
+      - **证据**: "In this work we develop a non-probabilistic variant of the seq2seq model that can assign a score to any possible target sequence, and we propose a training procedure, inspired by the learning as search optimization(LaSO) framework of Daume´ III and Marcu(2005), that defines a loss function in terms of errors made during beam search."
+      - **置信度**: 0.95
+
+12. **Beam Search Optimization (Wiseman2016_BeamSearchOptimization)**
+    - **Improve** `Wang2017_DeepNeuralSolver`
+      - **结构描述**: Beam Search Optimization 改进了 Deep Neural Solver 的解码过程。
+      - **详细说明**: Beam Search Optimization 通过引入搜索损失函数和反向传播机制，解决了暴露偏差和标签偏差问题。
+      - **解决的问题**: 提高了 Deep Neural Solver 在生成完全形成的词序列时的表现。
+      - **证据**: "Our model outperforms a highly-optimized attention-based seq2seq system and other baselines on three different sequence to sequence tasks: word ordering, parsing, and machine translation."
+      - **置信度**: 0.95
+
+13. **Beam Search Optimization (Wiseman2016_BeamSearchOptimization)**
+    - **Improve** `Wang2018_DeepReinforcementLearning`
+      - **结构描述**: Beam Search Optimization 改进了 Deep Reinforcement Learning 的解码过程。
+      - **详细说明**: Beam Search Optimization 通过引入搜索损失函数和反向传播机制，解决了暴露偏差和标签偏差问题。
+      - **解决的问题**: 提高了 Deep Reinforcement Learning 在生成完全形成的词序列时的表现。
+      - **证据**: "Our model outperforms a highly-optimized attention-based seq2seq system and other baselines on three different sequence to sequence tasks: word ordering, parsing, and machine translation."
+      - **置信度**: 0.95
+
+14. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Extend** `Sutskever2014_SequenceToSequenceLearning`
+      - **结构描述**: Deep Neural Solver 是对标准 seq2seq 模型的一种扩展。
+      - **详细说明**: Deep Neural Solver 引入了编码器-解码器框架，并使用了 LSTM 来生成方程。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+15. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Improve** `Koncel-Kedziorski2015_EquationTree`
+      - **结构描述**: Deep Neural Solver 改进了 Equation Tree 的生成方法。
+      - **详细说明**: Deep Neural Solver 通过引入编码器-解码器框架和 LSTM，改进了 Equation Tree 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+16. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Improve** `Hosseini2014_VerbCategorization`
+      - **结构描述**: Deep Neural Solver 改进了 Verb Categorization 的生成方法。
+      - **详细说明**: Deep Neural Solver 通过引入编码器-解码器框架和 LSTM，改进了 Verb Categorization 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+17. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Improve** `Roy2015_UnitDependencyGraph`
+      - **结构描述**: Deep Neural Solver 改进了 Unit Dependency Graph 的生成方法。
+      - **详细说明**: Deep Neural Solver 通过引入编码器-解码器框架和 LSTM，改进了 Unit Dependency Graph 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+18. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Use** `Koncel-Kedziorski2016_MAWPS`
+      - **结构描述**: Deep Neural Solver 使用了 MAWPS 数据集进行实验。
+      - **详细说明**: Deep Neural Solver 在 MAWPS 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The experiments are benchmarked on the dataset Math23k (Wang et al., 2017), which contains 23,162 math problems with annotated equations."
+      - **置信度**: 0.95
+
+19. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Comparison** `Koncel-Kedziorski2016_MAWPS`
+      - **结构描述**: Deep Neural Solver 与 MAWPS 进行了比较。
+      - **详细说明**: Deep Neural Solver 在 MAWPS 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The experiments are benchmarked on the dataset Math23k (Wang et al., 2017), which contains 23,162 math problems with annotated equations."
+      - **置信度**: 0.95
+
+20. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Comparison** `Koncel-Kedziorski2015_EquationTree`
+      - **结构描述**: Deep Neural Solver 与 Equation Tree 进行了比较。
+      - **详细说明**: Deep Neural Solver 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The experiments are benchmarked on the dataset Math23k (Wang et al., 2017), which contains 23,162 math problems with annotated equations."
+      - **置信度**: 0.95
+
+21. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Comparison** `Hosseini2014_VerbCategorization`
+      - **结构描述**: Deep Neural Solver 与 Verb Categorization 进行了比较。
+      - **详细说明**: Deep Neural Solver 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The experiments are benchmarked on the dataset Math23k (Wang et al., 2017), which contains 23,162 math problems with annotated equations."
+      - **置信度**: 0.95
+
+22. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Comparison** `Zhou2015_EnhancedTemplateSolver`
+      - **结构描述**: Deep Neural Solver 与 Enhanced Template Solver 进行了比较。
+      - **详细说明**: Deep Neural Solver 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The experiments are benchmarked on the dataset Math23k (Wang et al., 2017), which contains 23,162 math problems with annotated equations."
+      - **置信度**: 0.95
+
+23. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Comparison** `Roy2015_UnitDependencyGraph`
+      - **结构描述**: Deep Neural Solver 与 Unit Dependency Graph 进行了比较。
+      - **详细说明**: Deep Neural Solver 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The experiments are benchmarked on the dataset Math23k (Wang et al., 2017), which contains 23,162 math problems with annotated equations."
+      - **置信度**: 0.95
+
+24. **Deep Neural Solver (Wang2017_DeepNeuralSolver)**
+    - **Extend** `Wang2018_MathDQN`
+      - **结构描述**: Deep Neural Solver 是对 MathDQN 的一种扩展。
+      - **详细说明**: Deep Neural Solver 引入了编码器-解码器框架和 LSTM，改进了 MathDQN 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+25. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Use** `Math23K_2017`
+      - **结构描述**: Deep Reinforcement Learning 使用了 Math23K 数据集进行实验。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+26. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Evaluation** `Accuracy_Classification`
+      - **结构描述**: Deep Reinforcement Learning 使用了分类准确率作为评估指标。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上达到了新的最先进水平，分类准确率显著提高。
+      - **解决的问题**: 提供了一种有效的评估方法来衡量模型的性能。
+      - **证据**: "The single model performance achieved by our proposed model is new state-of-the-art(> 65%) and even better than the hybrid model result(64.7%)."
+      - **置信度**: 0.95
+
+27. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Evaluation** `F1_Score_Classification`
+      - **结构描述**: Deep Reinforcement Learning 使用了 F1 分数作为评估指标。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上达到了新的最先进水平，F1 分数显著提高。
+      - **解决的问题**: 提供了一种有效的评估方法来衡量模型的性能。
+      - **证据**: "The single model performance achieved by our proposed model is new state-of-the-art(> 65%) and even better than the hybrid model result(64.7%)."
+      - **置信度**: 0.95
+
+28. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Improve** `Roy2015_ExpressionTree`
+      - **结构描述**: Deep Reinforcement Learning 改进了 Expression Tree 的生成方法。
+      - **详细说明**: Deep Reinforcement Learning 通过引入编码器-解码器框架和 LSTM，改进了 Expression Tree 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+29. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Improve** `Koncel-Kedziorski2015_EquationTree`
+      - **结构描述**: Deep Reinforcement Learning 改进了 Equation Tree 的生成方法。
+      - **详细说明**: Deep Reinforcement Learning 通过引入编码器-解码器框架和 LSTM，改进了 Equation Tree 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+30. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Improve** `Hosseini2014_VerbCategorization`
+      - **结构描述**: Deep Reinforcement Learning 改进了 Verb Categorization 的生成方法。
+      - **详细说明**: Deep Reinforcement Learning 通过引入编码器-解码器框架和 LSTM，改进了 Verb Categorization 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+31. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Improve** `Roy2015_UnitDependencyGraph`
+      - **结构描述**: Deep Reinforcement Learning 改进了 Unit Dependency Graph 的生成方法。
+      - **详细说明**: Deep Reinforcement Learning 通过引入编码器-解码器框架和 LSTM，改进了 Unit Dependency Graph 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+32. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Improve** `Roy2017_ExpressionTree`
+      - **结构描述**: Deep Reinforcement Learning 改进了 Expression Tree 的生成方法。
+      - **详细说明**: Deep Reinforcement Learning 通过引入编码器-解码器框架和 LSTM，改进了 Expression Tree 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+33. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Improve** `Roy2017_UnitDependencyGraph`
+      - **结构描述**: Deep Reinforcement Learning 改进了 Unit Dependency Graph 的生成方法。
+      - **详细说明**: Deep Reinforcement Learning 通过引入编码器-解码器框架和 LSTM，改进了 Unit Dependency Graph 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+34. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Improve** `Koncel-Kedziorski2016_MAWPS`
+      - **结构描述**: Deep Reinforcement Learning 改进了 MAWPS 的生成方法。
+      - **详细说明**: Deep Reinforcement Learning 通过引入编码器-解码器框架和 LSTM，改进了 MAWPS 的生成方法。
+      - **解决的问题**: 提高了生成方程的准确性，特别是在处理复杂问题时的表现。
+      - **证据**: "Our method uses a multilayered Long Short-Term Memory(LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector."
+      - **置信度**: 0.95
+
+35. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Use** `Koncel-Kedziorski2016_MAWPS`
+      - **结构描述**: Deep Reinforcement Learning 使用了 MAWPS 数据集进行实验。
+      - **详细说明**: Deep Reinforcement Learning 在 MAWPS 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+36. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Use** `NumWord_2016`
+      - **结构描述**: Deep Reinforcement Learning 使用了 NumWord 数据集进行实验。
+      - **详细说明**: Deep Reinforcement Learning 在 NumWord 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+37. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Koncel-Kedziorski2016_MAWPS`
+      - **结构描述**: Deep Reinforcement Learning 与 MAWPS 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 MAWPS 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+38. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Koncel-Kedziorski2015_EquationTree`
+      - **结构描述**: Deep Reinforcement Learning 与 Equation Tree 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+39. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Hosseini2014_VerbCategorization`
+      - **结构描述**: Deep Reinforcement Learning 与 Verb Categorization 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+40. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Roy2015_UnitDependencyGraph`
+      - **结构描述**: Deep Reinforcement Learning 与 Unit Dependency Graph 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+41. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Roy2017_ExpressionTree`
+      - **结构描述**: Deep Reinforcement Learning 与 Expression Tree 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+42. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Roy2017_UnitDependencyGraph`
+      - **结构描述**: Deep Reinforcement Learning 与 Unit Dependency Graph 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+43. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Koncel-Kedziorski2015_EquationTree`
+      - **结构描述**: Deep Reinforcement Learning 与 Equation Tree 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+44. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Roy2018_MappingToDeclarativeKnowledge`
+      - **结构描述**: Deep Reinforcement Learning 与 Mapping to Declarative Knowledge 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+45. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Chen2014_EfficientDependencyParser`
+      - **结构描述**: Deep Reinforcement Learning 与 Efficient Dependency Parser 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+46. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Goldberg2010_NonDirectionalDependencyParser`
+      - **结构描述**: Deep Reinforcement Learning 与 Non-directional Dependency Parser 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+47. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Charniak1968_CARPS`
+      - **结构描述**: Deep Reinforcement Learning 与 CARPS 进行了比较。
+      - **详细说明**: Deep Reinforcement Learning 在 Math23K 数据集上进行了实验，验证了其性能。
+      - **解决的问题**: 提供了一个大规模的基准数据集来评估模型性能。
+      - **证据**: "The road construction team built a road with a length of 1200 meters. Team A can complete the task in 40 days alone, and team B can complete the task in 30 days alone."
+      - **置信度**: 0.95
+
+48. **Deep Reinforcement Learning (Wang2018_DeepReinforcementLearning)**
+    - **Comparison** `Bobrow1964_STUDENT`
+      - **结构描述**: Deep Reinforcement Learning 与 STUDENT 进行了比较。
+     

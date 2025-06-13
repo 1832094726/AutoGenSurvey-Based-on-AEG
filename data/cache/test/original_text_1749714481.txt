@@ -1,0 +1,119 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Mikolov2013_SkipGramModel",
+        "entity_type": "Algorithm",
+        "name": "Skip-gram Model",
+        "year": 2013,
+        "authors": ["Mikolov, T.", "Chen, K.", "Corrado, G.", "Dean, J."],
+        "task": "Word Representation Learning",
+        "dataset": ["News_dataset_2013"],
+        "metrics": ["Accuracy_Classification", "Syntactic_Analogy_Task", "Semantic_Analogy_Task"],
+        "architecture": {
+          "components": ["Input Layer", "Projection Layer", "Output Layer"],
+          "connections": ["Word Embeddings", "Softmax Function"],
+          "mechanisms": ["Negative Sampling", "Hierarchical Softmax"]
+        },
+        "methodology": {
+          "training_strategy": ["Subsampling of Frequent Words", "Negative Sampling", "Hierarchical Softmax"],
+          "parameter_tuning": ["Learning Rate", "Dimensionality of Vectors", "Context Window Size"]
+        },
+        "feature_processing": ["Subsampling of Frequent Words", "Word Frequency Normalization"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "News_dataset_2013",
+        "entity_type": "Dataset",
+        "name": "News Articles",
+        "description": "A large dataset consisting of various news articles used for training word embeddings.",
+        "domain": "Natural Language Processing",
+        "size": 1000000000,
+        "year": 2013,
+        "creators": ["Google Inc."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Overall accuracy of the model on classification tasks.",
+        "category": "Classification Evaluation",
+        "formula": "Correct Predictions / Total Predictions"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Syntactic_Analogy_Task",
+        "entity_type": "Metric",
+        "name": "Syntactic Analogy Task",
+        "description": "Evaluation of the model's ability to solve syntactic analogies.",
+        "category": "Analogy Reasoning",
+        "formula": "Not specified"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Semantic_Analogy_Task",
+        "entity_type": "Metric",
+        "name": "Semantic Analogy Task",
+        "description": "Evaluation of the model's ability to solve semantic analogies.",
+        "category": "Analogy Reasoning",
+        "formula": "Not specified"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Morin2005_HierarchicalProbabilisticNNLM",
+        "entity_type": "Algorithm",
+        "name": "Hierarchical Probabilistic Neural Network Language Model",
+        "year": 2005,
+        "authors": ["Morin, F.", "Bengio, Y."],
+        "task": "Language Modeling",
+        "dataset": [],
+        "metrics": [],
+        "architecture": {
+          "components": ["Binary Tree Output Layer", "Inner Nodes Representations"],
+          "connections": ["Logarithmic Complexity Path", "Random Walk"],
+          "mechanisms": ["Binary Tree Representation"]
+        },
+        "methodology": {
+          "training_strategy": ["Binary Tree Construction", "Frequency-based Huffman Codes"],
+          "parameter_tuning": []
+        },
+        "feature_processing": []
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Gutmann2012_NoiseContrastiveEstimation",
+        "entity_type": "Algorithm",
+        "name": "Noise Contrastive Estimation",
+        "year": 2012,
+        "authors": ["Gutmann, M. U.", "Hyvärinen, A."],
+        "task": "Unnormalized Statistical Models",
+        "dataset": [],
+        "metrics": [],
+        "architecture": {
+          "components": ["Data Distribution", "Noise Distribution"],
+          "connections": ["Logistic Regression"],
+          "mechanisms": ["Distinguishing Data from Noise"]
+        },
+        "methodology": {
+          "training_strategy": ["Logistic Regression for Distinguishing Data from Noise"],
+          "parameter_tuning": []
+        },
+        "feature_processing": []
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "METHOD",
+    "next_section": "EXPERIMENTS"
+  }
+}
+```

@@ -1,0 +1,238 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2016_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Expression Tree",
+        "year": 2016,
+        "authors": ["Roy, S.", "Roth, D."],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["AI2_2016", "IL_2015", "Commoncore_2016"],
+        "metrics": ["Accuracy_Solving", "F1_Score_TextualParsing"],
+        "architecture": {
+          "components": ["Monotonic Expression Tree", "Binary Tree", "Quantity Schemas"],
+          "connections": ["Lowest Common Ancestor Node", "Parent-Child Relationships"],
+          "mechanisms": ["Constrained Inference Framework", "Beam Search Strategy"]
+        },
+        "methodology": {
+          "training_strategy": ["Multiclass Classification", "Pairwise Classification"],
+          "parameter_tuning": ["wIRR"]
+        },
+        "feature_processing": ["Quantity Schemas Extraction", "Verb Detection", "Subject Detection", "Unit Detection", "NP Detection", "Rate Detection"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AI2_2016",
+        "entity_type": "Dataset",
+        "name": "AI2 Dataset",
+        "year": 2016,
+        "description": "A collection of 395 addition and subtraction problems",
+        "domain": "Arithmetic Word Problem Solving",
+        "size": 395,
+        "creators": ["Hosseini, M. J.", "Hajishirzi, H.", "Etzioni, O.", "Kushman, N."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "IL_2015",
+        "entity_type": "Dataset",
+        "name": "IL Dataset",
+        "year": 2015,
+        "description": "A collection of arithmetic problems released by Roy et al.",
+        "domain": "Arithmetic Word Problem Solving",
+        "size": 562,
+        "creators": ["Roy, S.", "Vieira, T.", "Roth, D."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Commoncore_2016",
+        "entity_type": "Dataset",
+        "name": "Commoncore Dataset",
+        "year": 2016,
+        "description": "A new dataset of multi-step arithmetic problems",
+        "domain": "Arithmetic Word Problem Solving",
+        "size": 600,
+        "creators": ["Roy, S.", "Vieira, T.", "Roth, D."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Solving",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "year": 2016,
+        "description": "The percentage of correctly solved arithmetic word problems",
+        "category": "Arithmetic Word Problem Solving",
+        "formula": "Correctly solved problems / Total problems"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_TextualParsing",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "year": 2016,
+        "description": "Harmonic mean of precision and recall for textual parsing",
+        "category": "Textual Parsing",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2015_GEOS",
+        "entity_type": "Algorithm",
+        "name": "GEOS",
+        "year": 2015,
+        "authors": ["Seo, M. J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O.", "Malcolm, C."],
+        "task": "Geometry Problem Solving",
+        "dataset": ["SAT_2015"],
+        "metrics": ["Accuracy_Geometry"],
+        "architecture": {
+          "components": ["Text Parsing", "Diagram Parsing", "Constrained Inference"],
+          "connections": ["Text-Diagram Alignment", "Literal Matching"],
+          "mechanisms": ["Submodular Optimization", "Greedy Algorithm"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["λ"]
+        },
+        "feature_processing": ["Text-Diagram Integration", "Logical Expression Mapping"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "SAT_2015",
+        "entity_type": "Dataset",
+        "name": "SAT",
+        "year": 2015,
+        "description": "A set of SAT plane geometry questions",
+        "domain": "Geometry Problem Solving",
+        "size": 186,
+        "creators": ["Seo, M. J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O.", "Malcolm, C."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Geometry",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "year": 2015,
+        "description": "The percentage of correctly answered geometry questions",
+        "category": "Geometry Problem Solving",
+        "formula": "Correctly answered questions / Total questions"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2019_T-RNN",
+        "entity_type": "Algorithm",
+        "name": "T-RNN",
+        "year": 2019,
+        "authors": ["Wang, L.", "Zhang, D.", "Xu, N.", "Dai, B. T.", "Shen, H. T."],
+        "task": "Math Word Problem Solving",
+        "dataset": ["Math23K_2017", "MAWPS_2016"],
+        "metrics": ["Accuracy_Solving"],
+        "architecture": {
+          "components": ["Seq2Seq Model", "Bi-LSTM", "Self-Attention", "Recursive Neural Network"],
+          "connections": ["Text-Template Alignment", "Quantity Embedding", "Operator Inference"],
+          "mechanisms": ["Equation Normalization", "Operator Encapsulation"]
+        },
+        "methodology": {
+          "training_strategy": ["Deep Learning"],
+          "parameter_tuning": ["Learning Rate", "Dropout Rate"]
+        },
+        "feature_processing": ["Number Mapping", "Equation Template Parsing"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "year": 2017,
+        "description": "A dataset of Chinese math word problems for elementary school students",
+        "domain": "Math Word Problem Solving",
+        "size": 23162,
+        "creators": ["Wang, Y.", "Liu, X.", "Shi, S."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MAWPS_2016",
+        "entity_type": "Dataset",
+        "name": "MAWPS",
+        "year": 2016,
+        "description": "A dataset of arithmetic word problems with one unknown variable",
+        "domain": "Arithmetic Word Problem Solving",
+        "size": 2373,
+        "creators": ["Koncel-Kedziorski, R.", "Hajishirzi, H.", "Sabharwal, A.", "Etzioni, O.", "Ang, S. D."]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Alvin2017_GeoShader",
+        "entity_type": "Algorithm",
+        "name": "GeoShader",
+        "year": 2017,
+        "authors": ["Alvin, C.", "Gulwani, S.", "Majumdar, R.", "Mukhopadhyay, S."],
+        "task": "Geometry Proof Problem Generation",
+        "dataset": ["Geometry_Figures_2014"],
+        "metrics": ["Number_of_generated_problems", "Time_per_problem"],
+        "architecture": {
+          "components": ["Hypergraph", "Axioms"],
+          "connections": ["Implicit Facts", "Explicit Facts"],
+          "mechanisms": ["Minimal Assumption Generation", "Strictly Interesting Problem Synthesis"]
+        },
+        "methodology": {
+          "training_strategy": ["Semi-Automated Methodology"],
+          "parameter_tuning": []
+        },
+        "feature_processing": ["Figure Analysis", "Axiom Utilization"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Geometry_Figures_2014",
+        "entity_type": "Dataset",
+        "name": "Geometry Figures",
+        "year": 2014,
+        "description": "A corpus of 110 figures taken from popular geometry textbooks",
+        "domain": "Geometry Proof Problem Generation",
+        "size": 110,
+        "creators": ["Alvin, C.", "Gulwani, S.", "Majumdar, R.", "Mukhopadhyay, S."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Number_of_generated_problems",
+        "entity_type": "Metric",
+        "name": "Number of Generated Problems",
+        "year": 2014,
+        "description": "The average number of generated problems per figure",
+        "category": "Geometry Proof Problem Generation",
+        "formula": "Total generated problems / Number of figures"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Time_per_problem",
+        "entity_type": "Metric",
+        "name": "Time per Problem",
+        "year": 2014,
+        "description": "The average time taken to generate problems per figure",
+        "category": "Geometry Proof Problem Generation",
+        "formula": "Total time taken / Number of figures"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "METHOD",
+    "next_section": "EXPERIMENTAL SETUP"
+  }
+}
+```

@@ -1,0 +1,309 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Hosseini2014_VerbCategorization",
+        "entity_type": "Algorithm",
+        "name": "Verb Categorization",
+        "year": 2014,
+        "authors": ["Hosseini, M. J.", "Hajishirzi, H.", "Etzioni, O.", "Kushman, N."],
+        "task": "Solving Arithmetic Word Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Verb categorization model"],
+          "connections": ["Mapping verbs to operations"],
+          "mechanisms": ["Learning verb categories from data"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ALG514_2014",
+        "entity_type": "Dataset",
+        "name": "ALG514",
+        "description": "A dataset of algebraic word problems",
+        "domain": "Mathematics",
+        "size": 514,
+        "year": 2014,
+        "creators": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数/总样本数"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Koncel-Kedziorski2015_EquationTree",
+        "entity_type": "Algorithm",
+        "name": "Equation Tree",
+        "year": 2015,
+        "authors": ["Koncel-Kedziorski, R.", "Hajishirzi, H.", "Sabharwal, A.", "Etzioni, O.", "Ang, S. D."],
+        "task": "Solving Algebraic Word Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Equation tree generator"],
+          "connections": ["Mapping problem text to equation trees"],
+          "mechanisms": ["Learning to combine quantities using textual information"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "Unit Dependency Graph",
+        "year": 2015,
+        "authors": ["Roy, S.", "Roth, D."],
+        "task": "Solving Arithmetic Word Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Unit dependency graph"],
+          "connections": ["Modeling unit consistency in tree-search"],
+          "mechanisms": ["Ensuring unit consistency in the equation tree"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2018_DeepReinforcementLearning",
+        "entity_type": "Algorithm",
+        "name": "Deep Reinforcement Learning",
+        "year": 2018,
+        "authors": ["Wang, L.", "Zhang, D.", "Gao, L.", "Song, J.", "Guo, L.", "Shen, H. T."],
+        "task": "Solving Arithmetic Word Problems",
+        "dataset": ["Math23K_2017"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Deep Q-network"],
+          "connections": ["Mapping problem text to equation templates"],
+          "mechanisms": ["Learning to solve problems via reinforcement learning"]
+        },
+        "methodology": {
+          "training_strategy": ["Reinforcement learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "description": "A large dataset of Chinese algebra word problems",
+        "domain": "Mathematics",
+        "size": 23164,
+        "year": 2017,
+        "creators": ["Wang, L.", "Zhang, D.", "Gao, L.", "Song, J.", "Guo, L.", "Shen, H. T."]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2017_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Expression Tree",
+        "year": 2017,
+        "authors": ["Roy, S.", "Vieira, T.", "Roth, D."],
+        "task": "Solving Arithmetic Word Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Expression tree generator"],
+          "connections": ["Mapping problem text to expression trees"],
+          "mechanisms": ["Learning to combine quantities using textual information"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Kushman2014_EquationTemplate",
+        "entity_type": "Algorithm",
+        "name": "Equation Template",
+        "year": 2014,
+        "authors": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Equation template system"],
+          "connections": ["Mapping problem text to equation templates"],
+          "mechanisms": ["Learning equation templates from data"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhou2015_EnhancedTemplateSolver",
+        "entity_type": "Algorithm",
+        "name": "Enhanced Template Solver",
+        "year": 2015,
+        "authors": ["Zhou, L.", "Dai, S.", "Chen, L."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Max-margin objective"],
+          "connections": ["Mapping problem text to equation templates"],
+          "mechanisms": ["Improving accuracy and reducing time cost"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "Unit Dependency Graph",
+        "year": 2015,
+        "authors": ["Roy, S.", "Roth, D."],
+        "task": "Solving Arithmetic Word Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Unit dependency graph"],
+          "connections": ["Modeling unit consistency in tree-search"],
+          "mechanisms": ["Ensuring unit consistency in the equation tree"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2017_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "Unit Dependency Graph",
+        "year": 2017,
+        "authors": ["Roy, S.", "Roth, D."],
+        "task": "Solving Arithmetic Word Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Unit dependency graph"],
+          "connections": ["Modeling unit consistency in tree-search"],
+          "mechanisms": ["Ensuring unit consistency in the equation tree"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Mitra2016_FormulaSolver",
+        "entity_type": "Algorithm",
+        "name": "Formula Solver",
+        "year": 2016,
+        "authors": ["Mitra, A.", "Baral, C."],
+        "task": "Solving Simple Addition-Subtraction Arithmetic Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Formula solver"],
+          "connections": ["Mapping problem text to formulas"],
+          "mechanisms": ["Learning to use formulas to solve problems"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2014_G-ALIGNER",
+        "entity_type": "Algorithm",
+        "name": "G-ALIGNER",
+        "year": 2014,
+        "authors": ["Seo, M.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."],
+        "task": "Diagram Understanding in Geometry Questions",
+        "dataset": ["High_school_geometry_problems_2015"],
+        "metrics": ["F1_Score_Classification"],
+        "architecture": {
+          "components": ["Primitive detector", "Alignment module"],
+          "connections": ["Coupling visual and textual elements"],
+          "mechanisms": ["Submodular optimization for primitive selection"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning"],
+          "parameter_tuning": ["Hyperparameter tuning"]
+        },
+        "feature_processing": ["Feature extraction from problem text"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "High_school_geometry_problems_2015",
+        "entity_type": "Dataset",
+        "name": "High School Geometry Problems",
+        "description": "A dataset of high school plane geometry questions",
+        "domain": "Geometry",
+        "size": 100,
+        "year": 2015,
+        "creators": ["Seo, M.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "F1得分",
+        "category": "分类评估",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "RELATED WORK",
+    "next_section": "METHOD"
+  }
+}
+```

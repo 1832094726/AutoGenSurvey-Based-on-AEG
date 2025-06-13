@@ -1,0 +1,351 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhou2015_QuadraticProgrammingApproach",
+        "entity_type": "Algorithm",
+        "name": "Quadratic Programming Approach",
+        "year": 2015,
+        "authors": ["Lipu Zhou", "Shuaixiang Dai", "Liwei Chen"],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_AlgebraWordProblems"],
+        "architecture": {
+          "components": ["Log-linear model", "Alignment decision variables", "Composition decision variables"],
+          "connections": ["Max-margin objective", "Integer Linear Programming (ILP)"],
+          "mechanisms": ["Feature extraction", "Constraint generation"]
+        },
+        "methodology": {
+          "training_strategy": ["Max-margin objective", "Constraint generation"],
+          "parameter_tuning": ["Learning rate", "Batch size"]
+        },
+        "feature_processing": ["Lexical features", "Syntactic features", "Semantic features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ALG514_2014",
+        "entity_type": "Dataset",
+        "name": "ALG514",
+        "year": 2014,
+        "creators": ["Nate Kushman", "Yoav Artzi", "Luke Zettlemoyer", "Regina Barzilay"],
+        "description": "A dataset of algebra word problems used for training and evaluation.",
+        "domain": "Algebra Word Problems",
+        "size": 514
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_AlgebraWordProblems",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "year": 2015,
+        "description": "The proportion of correctly solved algebra word problems.",
+        "category": "Algebra Word Problem Evaluation",
+        "formula": "Correctly solved problems / Total problems"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+        "entity_type": "Algorithm",
+        "name": "Recurrent Neural Network Encoder-Decoder",
+        "year": 2014,
+        "authors": ["Kyunghyun Cho", "Bart van Merrienboer", "Caglar Gulcehre", "Dzmitry Bahdanau", "Fethi Bougares", "Holger Schwenk", "Yoshua Bengio"],
+        "task": "Phrase Translation",
+        "dataset": ["Europarl_2014", "NewsCommentary_2014", "UN_2014"],
+        "metrics": ["BLEU_Score_Translation", "Perplexity_LanguageModel"],
+        "architecture": {
+          "components": ["Encoder RNN", "Decoder RNN"],
+          "connections": ["Hidden state transition", "Output prediction"],
+          "mechanisms": ["Reset gate", "Update gate"]
+        },
+        "methodology": {
+          "training_strategy": ["Maximize conditional log-likelihood", "Beam search"],
+          "parameter_tuning": ["Gradient-based optimization", "L-BFGS"]
+        },
+        "feature_processing": ["Word embeddings", "Deep neural network layers"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Europarl_2014",
+        "entity_type": "Dataset",
+        "name": "Europarl",
+        "year": 2014,
+        "creators": ["Philipp Koehn", "Franz Josef Och", "Daniel Marcu"],
+        "description": "A parallel corpus used for statistical machine translation.",
+        "domain": "Statistical Machine Translation",
+        "size": 61000000
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "NewsCommentary_2014",
+        "entity_type": "Dataset",
+        "name": "News Commentary",
+        "year": 2014,
+        "creators": ["Philipp Koehn", "Franz Josef Och", "Daniel Marcu"],
+        "description": "A dataset of news commentary for statistical machine translation.",
+        "domain": "Statistical Machine Translation",
+        "size": 5500000
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "UN_2014",
+        "entity_type": "Dataset",
+        "name": "UN",
+        "year": 2014,
+        "creators": ["Philipp Koehn", "Franz Josef Och", "Daniel Marcu"],
+        "description": "A parallel corpus of UN documents for statistical machine translation.",
+        "domain": "Statistical Machine Translation",
+        "size": 421000000
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "BLEU_Score_Translation",
+        "entity_type": "Metric",
+        "name": "BLEU Score",
+        "year": 2014,
+        "description": "A metric for evaluating the quality of machine translation.",
+        "category": "Translation Evaluation",
+        "formula": "BLEU score formula"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Perplexity_LanguageModel",
+        "entity_type": "Metric",
+        "name": "Perplexity",
+        "year": 2014,
+        "description": "A measure of how well a language model predicts a sample.",
+        "category": "Language Model Evaluation",
+        "formula": "Perplexity formula"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Goldwasser2014_CombinedFeedbackPerceptron",
+        "entity_type": "Algorithm",
+        "name": "Combined Feedback Perceptron",
+        "year": 2014,
+        "authors": ["Dan Goldwasser", "Dan Roth"],
+        "task": "Semantic Interpretation",
+        "dataset": ["Geoquery_2014", "Solitaire game rules_2014"],
+        "metrics": ["Accuracy_SemanticInterpretation"],
+        "architecture": {
+          "components": ["Binary perceptron", "Structured perceptron"],
+          "connections": ["Feature extraction", "Decision function"],
+          "mechanisms": ["Loss approximation", "Binary feedback"]
+        },
+        "methodology": {
+          "training_strategy": ["Online learning", "Error-driven updates"],
+          "parameter_tuning": ["Weight vector initialization", "Learning rate"]
+        },
+        "feature_processing": ["Lexical features", "Syntactic features", "Semantic features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Geoquery_2014",
+        "entity_type": "Dataset",
+        "name": "Geoquery",
+        "year": 2014,
+        "creators": ["Dan Goldwasser", "Dan Roth"],
+        "description": "A dataset of geographical queries for semantic parsing.",
+        "domain": "Semantic Parsing",
+        "size": 500
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_SemanticInterpretation",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "year": 2014,
+        "description": "The proportion of correctly interpreted natural language instructions.",
+        "category": "Semantic Interpretation Evaluation",
+        "formula": "Correctly interpreted instructions / Total instructions"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Pennington2014_GloVe",
+        "entity_type": "Algorithm",
+        "name": "GloVe",
+        "year": 2014,
+        "authors": ["Jeffrey Pennington", "Richard Socher", "Christopher D. Manning"],
+        "task": "Word Representation",
+        "dataset": ["Wikipedia_2014", "Gigaword_2014", "CommonCrawl_2014"],
+        "metrics": ["Accuracy_WordAnalogy", "SpearmanRankCorrelation_WordSimilarity"],
+        "architecture": {
+          "components": ["Log-bilinear regression model", "Word vectors", "Context word vectors"],
+          "connections": ["Dot product of word and context vectors"],
+          "mechanisms": ["Weighted least squares", "Bias terms"]
+        },
+        "methodology": {
+          "training_strategy": ["Weighted least squares optimization", "AdaGrad"],
+          "parameter_tuning": ["Learning rate", "Maximum training iterations"]
+        },
+        "feature_processing": ["Co-occurrence matrix", "Context window"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Wikipedia_2014",
+        "entity_type": "Dataset",
+        "name": "Wikipedia",
+        "year": 2014,
+        "creators": ["Jeffrey Pennington", "Richard Socher", "Christopher D. Manning"],
+        "description": "A large-scale corpus of Wikipedia articles.",
+        "domain": "Natural Language Processing",
+        "size": 1600000000
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Gigaword_2014",
+        "entity_type": "Dataset",
+        "name": "Gigaword",
+        "year": 2014,
+        "creators": ["Jeffrey Pennington", "Richard Socher", "Christopher D. Manning"],
+        "description": "A large-scale corpus of news articles.",
+        "domain": "Natural Language Processing",
+        "size": 4300000000
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "CommonCrawl_2014",
+        "entity_type": "Dataset",
+        "name": "CommonCrawl",
+        "year": 2014,
+        "creators": ["Jeffrey Pennington", "Richard Socher", "Christopher D. Manning"],
+        "description": "A large-scale corpus of web data.",
+        "domain": "Natural Language Processing",
+        "size": 42000000000
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_WordAnalogy",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "year": 2014,
+        "description": "The proportion of correctly solved word analogy problems.",
+        "category": "Word Analogy Evaluation",
+        "formula": "Correctly solved analogies / Total analogies"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "SpearmanRankCorrelation_WordSimilarity",
+        "entity_type": "Metric",
+        "name": "Spearman Rank Correlation",
+        "year": 2014,
+        "description": "A measure of how well word similarities are ranked.",
+        "category": "Word Similarity Evaluation",
+        "formula": "Spearman rank correlation formula"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Hajishirzi2013_NECO",
+        "entity_type": "Algorithm",
+        "name": "NECO",
+        "year": 2013,
+        "authors": ["Hannaneh Hajishirzi", "Leila Zilles", "Daniel S. Weld", "Luke Zettlemoyer"],
+        "task": "Coreference Resolution and Named-Entity Linking",
+        "dataset": ["ACE2004_NEWSWIRE", "CONLL2011_COREFERENCE"],
+        "metrics": ["MUC_Coreference", "B3_Coreference", "Pairwise_Coreference", "F1_NamedEntityLinking"],
+        "architecture": {
+          "components": ["Sieve-based coreference system", "NEL-informed sieves", "Feature extraction"],
+          "connections": ["Link propagation", "Attribute updates"],
+          "mechanisms": ["Max-margin objective", "Constraint generation"]
+        },
+        "methodology": {
+          "training_strategy": ["Multi-pass sieves", "Constraint generation"],
+          "parameter_tuning": ["Confidence thresholds", "Feature selection"]
+        },
+        "feature_processing": ["Lexical features", "Syntactic features", "Semantic features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ACE2004_NEWSWIRE",
+        "entity_type": "Dataset",
+        "name": "ACE2004 NEWSWIRE",
+        "year": 2004,
+        "creators": ["Hannaneh Hajishirzi", "Leila Zilles", "Daniel S. Weld", "Luke Zettlemoyer"],
+        "description": "A dataset of news articles for coreference resolution and named-entity linking.",
+        "domain": "Natural Language Processing",
+        "size": 128
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "CONLL2011_COREFERENCE",
+        "entity_type": "Dataset",
+        "name": "CONLL2011 COREFERENCE",
+        "year": 2011,
+        "creators": ["Hannaneh Hajishirzi", "Leila Zilles", "Daniel S. Weld", "Luke Zettlemoyer"],
+        "description": "A dataset for coreference resolution from multiple domains.",
+        "domain": "Coreference Resolution",
+        "size": 625
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "MUC_Coreference",
+        "entity_type": "Metric",
+        "name": "MUC",
+        "year": 2013,
+        "description": "A link-based metric for evaluating coreference resolution.",
+        "category": "Coreference Resolution Evaluation",
+        "formula": "MUC formula"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "B3_Coreference",
+        "entity_type": "Metric",
+        "name": "B3",
+        "year": 2013,
+        "description": "A metric for evaluating coreference resolution based on intersection between predicted and gold clusters.",
+        "category": "Coreference Resolution Evaluation",
+        "formula": "B3 formula"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Pairwise_Coreference",
+        "entity_type": "Metric",
+        "name": "Pairwise",
+        "year": 2013,
+        "description": "A metric for evaluating coreference resolution based on pairs of mentions.",
+        "category": "Coreference Resolution Evaluation",
+        "formula": "Pairwise formula"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_NamedEntityLinking",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "year": 2013,
+        "description": "A harmonic mean of precision and recall for named-entity linking.",
+        "category": "Named-Entity Linking Evaluation",
+        "formula": "F1 = 2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "RESULTS",
+    "next_section": "CONCLUSION"
+  }
+}
+```

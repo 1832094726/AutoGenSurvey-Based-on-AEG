@@ -103,19 +103,33 @@ def calculate_entity_statistics(review_entities, citation_entities):
     
     return stats
 
-def calculate_relation_statistics(relations):
+def calculate_relation_statistics(relations, review_relations=None, citation_relations=None):
     """
     计算关系相关统计指标
     
     Args:
-        relations (list): 关系列表
+        relations (list): 所有关系列表
+        review_relations (list): 综述中的关系列表
+        citation_relations (list): 引文中的关系列表
     
     Returns:
         dict: 关系统计指标
     """
     logging.info(f"[calculate_relation_statistics] 输入关系数: {len(relations)}")
+    
+    # 默认值处理
+    review_relations = review_relations or []
+    citation_relations = citation_relations or []
+    
+    # 如果未提供分类关系，尝试从relations中的source字段分类
+    if not review_relations and not citation_relations:
+        review_relations = [r for r in relations if r.get('source') == '综述']
+        citation_relations = [r for r in relations if r.get('source') == '引文']
+    
     stats = {
         'total_relations': len(relations),
+        'review_relations': len(review_relations),
+        'citation_relations': len(citation_relations),
         'relation_coverage': 0.0,
         'improve_count': 0,
         'optimize_count': 0,
@@ -127,7 +141,7 @@ def calculate_relation_statistics(relations):
     }
     
     # 统计不同类型的关系
-    entity_in_relations = set()  # 用于计算关系覆盖率
+    entity_in_relations = set()  # 用于计算实体参与度
     
     for relation in relations:
         relation_type = relation.get('relation_type', '').lower()
@@ -157,13 +171,42 @@ def calculate_relation_statistics(relations):
         else:
             stats['other_count'] += 1
     
-    logging.info(f"[calculate_relation_statistics] 关系类型统计: {stats['relation_types']}")
-    logging.info(f"[calculate_relation_statistics] 各类型计数: improve={stats['improve_count']}, optimize={stats['optimize_count']}, extend={stats['extend_count']}, replace={stats['replace_count']}, use={stats['use_count']}, other={stats['other_count']}")
+    # 计算关系覆盖率：重合的关系数除以综述的关系数
+    # 重合关系：源实体、目标实体和关系类型都相同
+    if review_relations:
+        review_relation_keys = set()
+        for r in review_relations:
+            # 创建关系的唯一标识：from_entity + to_entity + relation_type
+            key = (r.get('from_entity', ''), r.get('to_entity', ''), r.get('relation_type', '').lower())
+            review_relation_keys.add(key)
+        
+        citation_relation_keys = set()
+        for r in citation_relations:
+            key = (r.get('from_entity', ''), r.get('to_entity', ''), r.get('relation_type', '').lower())
+            citation_relation_keys.add(key)
+        
+        # 计算重合关系数
+        overlapping_relations = review_relation_keys.intersection(citation_relation_keys)
+        overlapping_count = len(overlapping_relations)
+        
+        # 关系覆盖率 = 重合关系数 / 综述关系数
+        if review_relation_keys:
+            stats['relation_coverage'] = overlapping_count / len(review_relation_keys)
+            stats['overlapping_relations'] = overlapping_count
+        
+        logging.info(f"[calculate_relation_statistics] 综述关系数: {len(review_relations)}, " 
+                    f"引文关系数: {len(citation_relations)}, "
+                    f"重合关系数: {overlapping_count}, "
+                    f"关系覆盖率: {stats['relation_coverage']:.4f}")
+    else:
+        # 如果没有综述关系，则使用参与关系的实体比例作为覆盖率（兼容旧逻辑）
+        if entity_in_relations:
+            stats['relation_coverage'] = len(entity_in_relations) / (len(entity_in_relations) * 1.2)
     
-    # 计算关系覆盖率 (参与关系的实体 / 总实体数)
-    # 这里需要所有实体的总数，暂时使用参与关系的实体数作为分母
-    if entity_in_relations:
-        stats['relation_coverage'] = len(entity_in_relations) / (len(entity_in_relations) * 1.2)  # 假设总体实体数比参与关系的实体多20%
+    logging.info(f"[calculate_relation_statistics] 关系类型统计: {stats['relation_types']}")
+    logging.info(f"[calculate_relation_statistics] 各类型计数: improve={stats['improve_count']}, "
+                f"optimize={stats['optimize_count']}, extend={stats['extend_count']}, "
+                f"replace={stats['replace_count']}, use={stats['use_count']}, other={stats['other_count']}")
     
     logging.info(f"[calculate_relation_statistics] 结果: {stats}")
     

@@ -1,0 +1,111 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2018_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "year": 2018,
+        "authors": ["Lei Wang", "Dongxiang Zhang", "Lianli Gao", "Jingkuan Song", "Long Guo", "Heng Tao Shen"],
+        "task": "Solving arithmetic word problems",
+        "dataset": ["Math23K_2017"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Deep Q-Learning", "Reinforcement Learning"],
+          "connections": ["State-action pairs", "Reward function"],
+          "mechanisms": ["Q-value updates", "Policy optimization"]
+        },
+        "methodology": {
+          "training_strategy": ["Deep reinforcement learning"],
+          "parameter_tuning": ["Learning rate", "Discount factor"]
+        },
+        "feature_processing": ["Equation templates", "Number mapping"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "description": "Large dataset of Chinese algebra word problems",
+        "domain": "Mathematics",
+        "size": 23164,
+        "year": 2017,
+        "creators": ["Yan Wang", "Xiaojiang Liu", "Shuming Shi"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Classification accuracy",
+        "category": "Classification evaluation",
+        "formula": "Correct predictions / Total predictions"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Koncel-Kedziorski2018_HybridModel",
+        "entity_type": "Algorithm",
+        "name": "Hybrid Model",
+        "year": 2018,
+        "authors": ["Benjamin Robaidek", "Rik Koncel-Kedziorski", "Hannaneh Hajishirzi"],
+        "task": "Solving math word problems",
+        "dataset": ["DRAW_2015", "MAWPS_2016", "Math23K_2017"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Seq2Seq model", "Similarity-based retrieval model"],
+          "connections": ["Hybrid combination"],
+          "mechanisms": ["Threshold-based selection"]
+        },
+        "methodology": {
+          "training_strategy": ["End-to-end training"],
+          "parameter_tuning": ["Threshold for similarity"]
+        },
+        "feature_processing": ["Number mapping", "Equation templates"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Watanabe2014_PBFIntegration",
+        "entity_type": "Algorithm",
+        "name": "PBF Integration",
+        "year": 2014,
+        "authors": ["Yasuhiko Watanabe", "Makoto Nagao"],
+        "task": "Diagram understanding in pictorial books of flora",
+        "dataset": ["PBFDiagramDataset_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Layout information", "Natural language information"],
+          "connections": ["Combination of layout and text"],
+          "mechanisms": ["Semantic interpretation", "Spatial relationship"]
+        },
+        "methodology": {
+          "training_strategy": ["Rule-based classification"],
+          "parameter_tuning": ["None"]
+        },
+        "feature_processing": ["Keywords assignment", "Expression patterns"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "PBFDiagramDataset_2014",
+        "entity_type": "Dataset",
+        "name": "PBF Diagram Dataset",
+        "description": "Dataset of diagrams from pictorial books of flora",
+        "domain": "Botany",
+        "size": 31,
+        "year": 2014,
+        "creators": ["Yasuhiko Watanabe", "Makoto Nagao"]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": true,
+    "current_section": "CONCLUSION",
+    "next_section": null
+  }
+}
+```

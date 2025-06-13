@@ -1,0 +1,79 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2018_MappingToDeclarativeKnowledge",
+        "entity_type": "Algorithm",
+        "name": "MappingToDeclarativeKnowledge",
+        "title": "Mapping to Declarative Knowledge for Word Problem Solving",
+        "year": 2018,
+        "authors": ["Roy, S.", "Roth, D."],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["AddSub_2014"],
+        "metrics": ["Accuracy_WordProblemSolving"],
+        "architecture": {
+          "components": ["Declarative Rules", "Feature Extraction", "Latent Variable Modeling"],
+          "connections": ["Natural Language to Math Expressions"],
+          "mechanisms": ["Verb Categorization", "Concept Identification"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Hyperparameter Optimization"]
+        },
+        "feature_processing": ["Dependency Parsing", "Coreference Resolution"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2018_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "title": "MathDQN: Solving Arithmetic Word Problems via Deep Reinforcement Learning",
+        "year": 2018,
+        "authors": ["Wang, L.", "Zhang, D.", "Gao, L.", "Song, J.", "Guo, L.", "Shen, H.T."],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["Dolphin18K_2016"],
+        "metrics": ["Accuracy_WordProblemSolving"],
+        "architecture": {
+          "components": ["Deep Q-Network", "Feed-Forward Neural Network"],
+          "connections": ["State Representation", "Action Selection", "Reward Function"],
+          "mechanisms": ["Copy Mechanism", "Alignment Mechanism", "Policy Gradient"]
+        },
+        "methodology": {
+          "training_strategy": ["Reinforcement Learning"],
+          "parameter_tuning": ["Hyperparameter Optimization"]
+        },
+        "feature_processing": ["Dependency Parsing", "Coreference Resolution"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin18K_2016",
+        "entity_type": "Dataset",
+        "name": "Dolphin18K",
+        "description": "Dataset for arithmetic word problems",
+        "domain": "Natural Language Processing",
+        "size": 18000,
+        "year": 2016,
+        "creators": ["Roy, S.", "Roth, D."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_WordProblemSolving",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Accuracy of solving word problems",
+        "category": "Word Problem Solving Evaluation",
+        "formula": "Correct Solutions / Total Solutions"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": true,
+    "current_section": "CONCLUSION",
+    "next_section": null
+  }
+}
+```

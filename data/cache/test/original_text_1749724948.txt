@@ -1,0 +1,111 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Expression Tree",
+        "year": 2015,
+        "authors": ["Roy, A.", "Roth, D."],
+        "task": "Solving Arithmetic Word Problems",
+        "dataset": ["AddSub_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Expression Tree Construction", "Scoring Function"],
+          "connections": ["Leaf Nodes Identification", "Operator Selection"],
+          "mechanisms": ["Bottom-Up Tree Construction"]
+        },
+        "methodology": {
+          "training_strategy": ["Maximize Equation Likelihood"],
+          "parameter_tuning": ["Classifier Parameters"]
+        },
+        "feature_processing": ["Quantity Extraction", "Verb Classification"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "MathDQN2018_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "year": 2018,
+        "authors": ["Wang, L.", "Zhang, D.", "Gao, L.", "Song, J.", "Guo, L.", "Shen, H.T."],
+        "task": "Solving Arithmetic Word Problems",
+        "dataset": ["Dolphin18K_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Deep Q-Network", "Feed-Forward Neural Network"],
+          "connections": ["States", "Actions", "Reward Function"],
+          "mechanisms": ["Policy Gradient", "Reinforcement Learning"]
+        },
+        "methodology": {
+          "training_strategy": ["Policy Gradient"],
+          "parameter_tuning": ["Network Parameters"]
+        },
+        "feature_processing": ["Number Extraction", "Copy Mechanism", "Alignment Mechanism"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin18K_2016",
+        "entity_type": "Dataset",
+        "name": "Dolphin18K",
+        "description": "A dataset for arithmetic word problems",
+        "domain": "Arithmetic Word Problems",
+        "size": 18000,
+        "year": 2016,
+        "creators": ["Roy, A.", "Roth, D."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Classification accuracy",
+        "category": "Classification Evaluation",
+        "formula": "Correct Predictions / Total Predictions"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "ALGES2015_EquationTree",
+        "entity_type": "Algorithm",
+        "name": "ALGES",
+        "year": 2015,
+        "authors": ["Koncel-Kedziorski, R.", "Hajishirzi, H.", "Sabharwal, A.", "Etzioni, O.", "Ang, S.D."],
+        "task": "Solving Multi-Sentence Algebraic Word Problems",
+        "dataset": ["ALG514_2014", "Dolphin18K_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Integer Linear Programming", "Discriminative Models"],
+          "connections": ["Text Spans to Arithmetic Operators", "Global Context Combination"],
+          "mechanisms": ["Equation Tree Generation", "Equation Tree Scoring"]
+        },
+        "methodology": {
+          "training_strategy": ["Unsupervised Learning"],
+          "parameter_tuning": ["Model Parameters"]
+        },
+        "feature_processing": ["Type-Consistent Equations", "Desirable Properties Enforcement"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ALG514_2014",
+        "entity_type": "Dataset",
+        "name": "ALG514",
+        "description": "A dataset for algebraic word problems",
+        "domain": "Algebraic Word Problems",
+        "size": 514,
+        "year": 2014,
+        "creators": ["Roy, A.", "Roth, D."]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "METHODS",
+    "next_section": "EXPERIMENTS"
+  }
+}
+```

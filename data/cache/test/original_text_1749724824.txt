@@ -1,0 +1,237 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Hajishirzi2013_NECO",
+        "entity_type": "Algorithm",
+        "name": "NECO",
+        "year": 2013,
+        "authors": ["Hannaneh Hajishirzi", "Leila Zilles", "Daniel S. Weld", "Luke Zettlemoyer"],
+        "task": "Coreference Resolution and Named-Entity Linking",
+        "dataset": ["ACE2004_NEWSWIRE", "CONLL2011_COREFERENCE"],
+        "metrics": ["F1_NamedEntityLinking", "MUC_Coreference", "B3_Coreference", "Pairwise_Coreference"],
+        "architecture": {
+          "components": ["Sieve-based model", "Log-linear model"],
+          "connections": ["Stanford sieve model", "NEL-informed sieves"],
+          "mechanisms": ["Mention detection", "Entity linking", "Attribute extraction"]
+        },
+        "methodology": {
+          "training_strategy": ["Multi-pass sieves", "Constraint generation"],
+          "parameter_tuning": ["High precision linking results", "Propagation of links and attributes"]
+        },
+        "feature_processing": ["Lexical features", "Syntactic features", "Dependency features", "Context similarity features", "Coreference features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "YahooAnswers_2016",
+        "entity_type": "Dataset",
+        "name": "Yahoo Answers",
+        "year": 2016,
+        "description": "A dataset of community question-answer pairs used for extracting math word problems",
+        "domain": "Math Word Problems",
+        "size": "Over 1 million posts",
+        "creators": ["Danqing Huang", "Shuming Shi", "Chin-Yew Lin", "Jian Yin", "Wei-Ying Ma"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin18K_2016",
+        "entity_type": "Dataset",
+        "name": "Dolphin18K",
+        "year": 2016,
+        "description": "A large-scale and diverse dataset for math word problem solving",
+        "domain": "Math Word Problems",
+        "size": "18,460 problems",
+        "creators": ["Danqing Huang", "Shuming Shi", "Chin-Yew Lin", "Jian Yin", "Wei-Ying Ma"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_AlgebraWordProblems",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "year": 2014,
+        "description": "Accuracy of solving algebra word problems",
+        "category": "Algebra Word Problem Solving",
+        "formula": "Correctly solved problems / Total problems"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_SemanticInterpretation",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "year": 2014,
+        "description": "F1 score for semantic interpretation",
+        "category": "Semantic Interpretation",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+        "entity_type": "Algorithm",
+        "name": "RNN Encoder-Decoder",
+        "year": 2014,
+        "authors": ["Kyunghyun Cho", "Bart van Merriënboer", "Caglar Gulcehre", "Dzmitry Bahdanau", "Fethi Bougares", "Holger Schwenk", "Yoshua Bengio"],
+        "task": "Phrase-based Statistical Machine Translation",
+        "dataset": ["Europarl_2014", "NewsCommentary_2014", "UN_2014"],
+        "metrics": ["BLEU_Score_Translation", "Perplexity_LanguageModel"],
+        "architecture": {
+          "components": ["Encoder RNN", "Decoder RNN"],
+          "connections": ["Hidden state transition", "Output prediction"],
+          "mechanisms": ["Reset gate", "Update gate"]
+        },
+        "methodology": {
+          "training_strategy": ["Gradient-based optimization", "Beam search"],
+          "parameter_tuning": ["Adadelta", "Stochastic gradient descent"]
+        },
+        "feature_processing": ["Word embeddings", "Dependency paths", "Part-of-speech tags"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Geoquery_2014",
+        "entity_type": "Dataset",
+        "name": "Geoquery",
+        "year": 2014,
+        "description": "A dataset of geographical queries and their corresponding logical forms",
+        "domain": "Natural Language Processing",
+        "size": "250 training queries, 250 testing queries",
+        "creators": ["Dan Goldwasser", "Dan Roth"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_SemanticInterpretation",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "year": 2014,
+        "description": "Accuracy of semantic interpretation",
+        "category": "Semantic Interpretation",
+        "formula": "Correctly interpreted sentences / Total sentences"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Pennington2014_GloVe",
+        "entity_type": "Algorithm",
+        "name": "GloVe",
+        "year": 2014,
+        "authors": ["Jeffrey Pennington", "Richard Socher", "Christopher D. Manning"],
+        "task": "Word Representation",
+        "dataset": ["Wikipedia_2014", "Gigaword_2014", "CommonCrawl_2014"],
+        "metrics": ["Accuracy_WordAnalogy", "SpearmanRankCorrelation_WordSimilarity"],
+        "architecture": {
+          "components": ["Global vectors", "Log-bilinear regression model"],
+          "connections": ["Word vectors", "Context word vectors"],
+          "mechanisms": ["Weighted least squares", "Dot product"]
+        },
+        "methodology": {
+          "training_strategy": ["Log-linear model", "Weighting function"],
+          "parameter_tuning": ["Learning rate", "Number of iterations"]
+        },
+        "feature_processing": ["Word co-occurrence counts", "Bias terms"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ImageNet_2009",
+        "entity_type": "Dataset",
+        "name": "ImageNet",
+        "year": 2009,
+        "description": "A large-scale hierarchical image database",
+        "domain": "Computer Vision",
+        "size": "3.2 million images",
+        "creators": ["Jia Deng", "Wei Dong", "Richard Socher", "Li-Jia Li", "Kai Li", "Li Fei-Fei"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_ImageClassification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "year": 2009,
+        "description": "Accuracy of image classification",
+        "category": "Image Classification",
+        "formula": "Correctly classified images / Total images"
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin1878_2016",
+        "entity_type": "Dataset",
+        "name": "Dolphin1878",
+        "year": 2016,
+        "description": "A collection of number word problems",
+        "domain": "Math Word Problems",
+        "size": "1,878 problems",
+        "creators": ["Shuming Shi", "Yuehui Wang", "Chin-Yew Lin", "Xiaojiang Liu", "Yong Rui"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_NamedEntityLinking",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "year": 2014,
+        "description": "F1 score for named entity linking",
+        "category": "Named Entity Linking",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhou2015_QuadraticProgrammingApproach",
+        "entity_type": "Algorithm",
+        "name": "Quadratic Programming Approach",
+        "year": 2015,
+        "authors": ["Lipu Zhou", "Shuaixiang Dai", "Liwei Chen"],
+        "task": "Algebra Word Problem Solving",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_AlgebraWordProblems"],
+        "architecture": {
+          "components": ["Log-linear model", "Quadratic programming"],
+          "connections": ["Number slots", "Unknown slots"],
+          "mechanisms": ["Max-margin objective", "Constraint generation"]
+        },
+        "methodology": {
+          "training_strategy": ["Max-margin objective", "Constraint generation"],
+          "parameter_tuning": ["C parameter"]
+        },
+        "feature_processing": ["Lexical features", "Syntactic features", "Solution features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ALG514_2014",
+        "entity_type": "Dataset",
+        "name": "ALG514",
+        "year": 2014,
+        "description": "A dataset of algebra word problems",
+        "domain": "Math Word Problems",
+        "size": "514 problems",
+        "creators": ["Nate Kushman", "Yoav Artzi", "Luke Zettlemoyer", "Regina Barzilay"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "year": 2014,
+        "description": "F1 score for classification",
+        "category": "Classification",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": true,
+    "current_section": "CONCLUSION",
+    "next_section": null
+  }
+}
+```

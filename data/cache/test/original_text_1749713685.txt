@@ -1,0 +1,133 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Robaidek2018_BiLSTMClassifier",
+        "entity_type": "Algorithm",
+        "name": "BiLSTM Classifier",
+        "year": 2018,
+        "authors": ["Robaidek, B.", "Koncel-Kedziorski, R.", "Hajishirzi, H."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["DRAW_2015", "MAWPS_2016", "Math23K_2017"],
+        "metrics": ["Accuracy_Classification", "F1_Score_Classification"],
+        "architecture": {
+          "components": ["Bidirectional LSTM", "Softmax Layer"],
+          "connections": ["Input Sequence to Bidirectional LSTM", "Bidirectional LSTM to Softmax"],
+          "mechanisms": ["Backpropagation Through Time", "Cross Entropy Loss"]
+        },
+        "methodology": {
+          "training_strategy": ["End-to-end Training", "Cross Entropy Loss"],
+          "parameter_tuning": ["Learning Rate", "Dropout Rate"]
+        },
+        "feature_processing": ["Word Embeddings", "Pretrained Word Embeddings"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Robaidek2018_StructuredSelfAttention",
+        "entity_type": "Algorithm",
+        "name": "Structured Self-Attention",
+        "year": 2018,
+        "authors": ["Robaidek, B.", "Koncel-Kedziorski, R.", "Hajishirzi, H."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["DRAW_2015", "MAWPS_2016", "Math23K_2017"],
+        "metrics": ["Accuracy_Classification", "F1_Score_Classification"],
+        "architecture": {
+          "components": ["Bidirectional LSTM", "Multi-Hop Self-Attention"],
+          "connections": ["Input Sequence to Bidirectional LSTM", "Bidirectional LSTM to Multi-Hop Self-Attention", "Multi-Hop Self-Attention to Fixed Size Embedding"],
+          "mechanisms": ["Self-Attention Mechanism", "Constraint on Attention Hops"]
+        },
+        "methodology": {
+          "training_strategy": ["End-to-end Training", "Cross Entropy Loss"],
+          "parameter_tuning": ["Learning Rate", "Dropout Rate"]
+        },
+        "feature_processing": ["Word Embeddings", "Pretrained Word Embeddings"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2017_Seq2SeqModel",
+        "entity_type": "Algorithm",
+        "name": "Seq2Seq Model",
+        "year": 2017,
+        "authors": ["Wang, Y.", "Liu, X.", "Shi, S."],
+        "task": "Solving Math Word Problems",
+        "dataset": ["Math23K_2017", "Alg514_2014"],
+        "metrics": ["Accuracy_Classification", "F1_Score_Classification"],
+        "architecture": {
+          "components": ["Encoder LSTM", "Decoder LSTM", "Attention Mechanism"],
+          "connections": ["Input Sequence to Encoder LSTM", "Encoder LSTM to Decoder LSTM", "Decoder LSTM to Output Sequence"],
+          "mechanisms": ["Attention Mechanism", "Beam Search Decoding"]
+        },
+        "methodology": {
+          "training_strategy": ["End-to-end Training", "Teacher Forcing"],
+          "parameter_tuning": ["Learning Rate", "Dropout Rate"]
+        },
+        "feature_processing": ["Word Embeddings", "Pretrained Word Embeddings"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "description": "Large dataset of Chinese algebra word problems",
+        "domain": "Mathematics",
+        "size": 23164,
+        "year": 2017,
+        "creators": ["Wang, Y.", "Liu, X.", "Shi, S."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "DRAW_2015",
+        "entity_type": "Dataset",
+        "name": "DRAW",
+        "description": "Dataset of algebra word problems",
+        "domain": "Mathematics",
+        "size": 1000,
+        "year": 2015,
+        "creators": ["Upadhyay, S.", "Chang, M."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MAWPS_2016",
+        "entity_type": "Dataset",
+        "name": "MAWPS",
+        "description": "Math Word Problem Repository",
+        "domain": "Mathematics",
+        "size": 2373,
+        "year": 2016,
+        "creators": ["Koncel-Kedziorski, R.", "Roy, S.", "Amini, A.", "Kushman, N.", "Hajishirzi, H."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Proportion of correctly classified instances",
+        "category": "Classification",
+        "formula": "Correct Predictions / Total Predictions"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "Harmonic mean of precision and recall",
+        "category": "Classification",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "EXPERIMENTS",
+    "next_section": "CONCLUSION"
+  }
+}
+```

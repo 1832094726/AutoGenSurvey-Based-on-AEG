@@ -1,0 +1,111 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Yu2016_DirectlyStatedSolver",
+        "entity_type": "Algorithm",
+        "name": "Directly-stated method",
+        "year": 2016,
+        "authors": ["Yu, X.", "Wang, M."],
+        "task": "Solving arithmetic word problems",
+        "dataset": ["Chinese elementary school arithmetic word problems"],
+        "metrics": ["Accuracy"],
+        "architecture": {
+          "components": ["System of high-order equations"],
+          "connections": ["Quantity relations extraction"],
+          "mechanisms": ["Directly stated method"]
+        },
+        "methodology": {
+          "training_strategy": ["Rule-based"],
+          "parameter_tuning": ["Not applicable"]
+        },
+        "feature_processing": ["Extracting quantity relations"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ChineseElementarySchoolArithmeticWordProblems_2016",
+        "entity_type": "Dataset",
+        "name": "Chinese elementary school arithmetic word problems",
+        "description": "Arithmetic word problems from Chinese elementary school textbooks",
+        "domain": "Mathematics education",
+        "size": 627,
+        "year": 2016,
+        "creators": ["Yu, X.", "Wang, M."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_ArithmeticWordProblem",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Accuracy of solving arithmetic word problems",
+        "category": "Arithmetic word problem solving",
+        "formula": "Number of correctly solved problems / Total number of problems"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Ma2010_FrameBasedCalculus",
+        "entity_type": "Algorithm",
+        "name": "Frame-Based Calculus",
+        "year": 2010,
+        "authors": ["Ma, Y."],
+        "task": "Solving multi-step addition and subtraction word problems",
+        "dataset": ["Chinese elementary school arithmetic word problems"],
+        "metrics": ["Accuracy"],
+        "architecture": {
+          "components": ["MSWPAS-NP", "MSWPAS-CP"],
+          "connections": ["Natural language processing", "Problem frame construction", "Calculation based on frames"],
+          "mechanisms": ["Means-end Analysis", "Sub-goal generation", "New fact generation"]
+        },
+        "methodology": {
+          "training_strategy": ["Not applicable"],
+          "parameter_tuning": ["Not applicable"]
+        },
+        "feature_processing": ["Problem frame construction"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ChineseElementarySchoolMathBooks_2010",
+        "entity_type": "Dataset",
+        "name": "Chinese elementary school math books",
+        "description": "Arithmetic word problems from Chinese elementary school math books",
+        "domain": "Mathematics education",
+        "size": "Multiple books",
+        "year": 2010,
+        "creators": ["Ma, Y."]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Yu2016_ImplicitQuantityRelationsExtractor",
+        "entity_type": "Algorithm",
+        "name": "Implicit Quantity Relations Extractor",
+        "year": 2016,
+        "authors": ["Yu, X.", "Jian, P."],
+        "task": "Extracting implicit quantity relations",
+        "dataset": ["Chinese arithmetic word problems"],
+        "metrics": ["Accuracy"],
+        "architecture": {
+          "components": ["Chinese phrase parse", "SVM classification", "Semantic models"],
+          "connections": ["Matching semantic models", "Constructing equations"],
+          "mechanisms": ["Chinese phrase parsing", "SVM classification", "Instantiation method"]
+        },
+        "methodology": {
+          "training_strategy": ["SVM classification"],
+          "parameter_tuning": ["Slack variable for SVM"]
+        },
+        "feature_processing": ["Chinese phrase parsing", "Bag of words"]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "EXPERIMENTS",
+    "next_section": "CONCLUSIONS"
+  }
+}
+```

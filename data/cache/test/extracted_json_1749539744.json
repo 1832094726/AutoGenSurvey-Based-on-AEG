@@ -1,4 +1,0 @@
-{
-        "training_strategy": ["Semi-Supervised Learning"],
-        "parameter_tuning": ["Regularization"]
-      }

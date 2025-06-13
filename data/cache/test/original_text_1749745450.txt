@@ -1,0 +1,234 @@
+根据提供的文件内容，我将分析实体之间的演化关系，并以JSON格式返回结果。以下是详细的分析：
+
+### 新发现的关系
+
+#### 1. **从隐含数量关系提取到多步加减法问题求解**
+- **关系类型**: Extend
+- **结构描述**: Sentence-level context
+- **详细说明**: Yu2016_ImplicitQuantityRelationsExtractor 提出了一种从中文算术文字题中提取隐含数量关系的方法，而 Ma2010_FrameBasedCalculus 则进一步利用这些隐含关系来解决多步加减法问题。
+- **解决问题**: 提取隐含数量关系有助于更复杂问题的求解。
+- **证据**: Yu2016_ImplicitQuantityRelationsExtractor 提出了隐含数量关系的提取方法，而 Ma2010_FrameBasedCalculus 使用了这些关系来构建问题框架并进行求解。
+- **置信度**: 0.95
+
+```json
+{
+  "from_entity": "Yu2016_ImplicitQuantityRelationsExtractor",
+  "to_entity": "Ma2010_FrameBasedCalculus",
+  "relation_type": "Extend",
+  "structure": "Sentence-level context",
+  "detail": "Yu2016_ImplicitQuantityRelationsExtractor 提出了一种从中文算术文字题中提取隐含数量关系的方法，而 Ma2010_FrameBasedCalculus 则进一步利用这些隐含关系来解决多步加减法问题。",
+  "problem_addressed": "提取隐含数量关系有助于更复杂问题的求解。",
+  "evidence": "Yu2016_ImplicitQuantityRelationsExtractor 提出了隐含数量关系的提取方法，而 Ma2010_FrameBasedCalculus 使用了这些关系来构建问题框架并进行求解。",
+  "confidence": 0.95
+}
+```
+
+#### 2. **从演绎推理程序到隐含数量关系提取**
+- **关系类型**: Extend
+- **结构描述**: Paragraph context
+- **详细说明**: Slagle1965_DEDUCOM 是早期的演绎推理程序，而 Yu2016_ImplicitQuantityRelationsExtractor 在此基础上进一步发展，专门用于从中文算术文字题中提取隐含数量关系。
+- **解决问题**: 提供了一种更具体的应用场景，即从自然语言中提取隐含数量关系。
+- **证据**: Slagle1965_DEDUCOM 处理的是通用的演绎推理问题，而 Yu2016_ImplicitQuantityRelationsExtractor 将其应用到了特定的算术问题上。
+- **置信度**: 0.95
+
+```json
+{
+  "from_entity": "Slagle1965_DEDUCOM",
+  "to_entity": "Yu2016_ImplicitQuantityRelationsExtractor",
+  "relation_type": "Extend",
+  "structure": "Paragraph context",
+  "detail": "Slagle1965_DEDUCOM 是早期的演绎推理程序，而 Yu2016_ImplicitQuantityRelationsExtractor 在此基础上进一步发展，专门用于从中文算术文字题中提取隐含数量关系。",
+  "problem_addressed": "提供了一种更具体的应用场景，即从自然语言中提取隐含数量关系。",
+  "evidence": "Slagle1965_DEDUCOM 处理的是通用的演绎推理问题，而 Yu2016_ImplicitQuantityRelationsExtractor 将其应用到了特定的算术问题上。",
+  "confidence": 0.95
+}
+```
+
+#### 3. **从Skip-gram模型到多步加减法问题求解**
+- **关系类型**: Use
+- **结构描述**: Citation contexts
+- **详细说明**: Mikolov2013_SkipGram 提出的Skip-gram模型被 Wang2016_DimensionallyGuidedSynthesis 用于生成数学文字题。
+- **解决问题**: 使用高质量的词向量表示来辅助生成更复杂的数学问题。
+- **证据**: Wang2016_DimensionallyGuidedSynthesis 使用了 Skip-gram 模型生成的词向量来指导合成数学问题。
+- **置信度**: 0.95
+
+```json
+{
+  "from_entity": "Mikolov2013_SkipGram",
+  "to_entity": "Wang2016_DimensionallyGuidedSynthesis",
+  "relation_type": "Use",
+  "structure": "Citation contexts",
+  "detail": "Mikolov2013_SkipGram 提出的Skip-gram模型被 Wang2016_DimensionallyGuidedSynthesis 用于生成数学文字题。",
+  "problem_addressed": "使用高质量的词向量表示来辅助生成更复杂的数学问题。",
+  "evidence": "Wang2016_DimensionallyGuidedSynthesis 使用了 Skip-gram 模型生成的词向量来指导合成数学问题。",
+  "confidence": 0.95
+}
+```
+
+#### 4. **从Skip-gram模型到隐含数量关系提取**
+- **关系类型**: Comparison
+- **结构描述**: Section headings
+- **详细说明**: Mikolov2013_SkipGram 和 Yu2016_ImplicitQuantityRelationsExtractor 都涉及了对自然语言的理解，但前者主要用于词向量表示，后者则专注于隐含数量关系的提取。
+- **解决问题**: 比较两种不同的自然语言处理方法在不同任务上的适用性。
+- **证据**: Mikolov2013_SkipGram 主要用于词向量表示，而 Yu2016_ImplicitQuantityRelationsExtractor 则专注于隐含数量关系的提取。
+- **置信度**: 0.95
+
+```json
+{
+  "from_entity": "Mikolov2013_SkipGram",
+  "to_entity": "Yu2016_ImplicitQuantityRelationsExtractor",
+  "relation_type": "Comparison",
+  "structure": "Section headings",
+  "detail": "Mikolov2013_SkipGram 和 Yu2016_ImplicitQuantityRelationsExtractor 都涉及了对自然语言的理解，但前者主要用于词向量表示，后者则专注于隐含数量关系的提取。",
+  "problem_addressed": "比较两种不同的自然语言处理方法在不同任务上的适用性。",
+  "evidence": "Mikolov2013_SkipGram 主要用于词向量表示，而 Yu2016_ImplicitQuantityRelationsExtractor 则专注于隐含数量关系的提取。",
+  "confidence": 0.95
+}
+```
+
+#### 5. **从Skip-gram模型到多步加减法问题求解**
+- **关系类型**: Comparison
+- **结构描述**: Paragraph context
+- **详细说明**: Mikolov2013_SkipGram 和 Ma2010_FrameBasedCalculus 都涉及了对自然语言的理解，但前者主要用于词向量表示，后者则专注于多步加减法问题的求解。
+- **解决问题**: 比较两种不同的自然语言处理方法在不同任务上的适用性。
+- **证据**: Mikolov2013_SkipGram 主要用于词向量表示，而 Ma2010_FrameBasedCalculus 则专注于多步加减法问题的求解。
+- **置信度**: 0.95
+
+```json
+{
+  "from_entity": "Mikolov2013_SkipGram",
+  "to_entity": "Ma2010_FrameBasedCalculus",
+  "relation_type": "Comparison",
+  "structure": "Paragraph context",
+  "detail": "Mikolov2013_SkipGram 和 Ma2010_FrameBasedCalculus 都涉及了对自然语言的理解，但前者主要用于词向量表示，后者则专注于多步加减法问题的求解。",
+  "problem_addressed": "比较两种不同的自然语言处理方法在不同任务上的适用性。",
+  "evidence": "Mikolov2013_SkipGram 主要用于词向量表示，而 Ma2010_FrameBasedCalculus 则专注于多步加减法问题的求解。",
+  "confidence": 0.95
+}
+```
+
+#### 6. **从演绎推理程序到多步加减法问题求解**
+- **关系类型**: Comparison
+- **结构描述**: Citation contexts
+- **详细说明**: Slagle1965_DEDUCOM 和 Ma2010_FrameBasedCalculus 都涉及了对自然语言的理解，但前者主要用于演绎推理，后者则专注于多步加减法问题的求解。
+- **解决问题**: 比较两种不同的自然语言处理方法在不同任务上的适用性。
+- **证据**: Slagle1965_DEDUCOM 处理的是通用的演绎推理问题，而 Ma2010_FrameBasedCalculus 则专注于多步加减法问题的求解。
+- **置信度**: 0.95
+
+```json
+{
+  "from_entity": "Slagle1965_DEDUCOM",
+  "to_entity": "Ma2010_FrameBasedCalculus",
+  "relation_type": "Comparison",
+  "structure": "Citation contexts",
+  "detail": "Slagle1965_DEDUCOM 和 Ma2010_FrameBasedCalculus 都涉及了对自然语言的理解，但前者主要用于演绎推理，后者则专注于多步加减法问题的求解。",
+  "problem_addressed": "比较两种不同的自然语言处理方法在不同任务上的适用性。",
+  "evidence": "Slagle1965_DEDUCOM 处理的是通用的演绎推理问题，而 Ma2010_FrameBasedCalculus 则专注于多步加减法问题的求解。",
+  "confidence": 0.95
+}
+```
+
+#### 7. **从Skip-gram模型到几何问题求解**
+- **关系类型**: Comparison
+- **结构描述**: Citation contexts
+- **详细说明**: Mikolov2013_SkipGram 和 Seo2014_DiagramUnderstanding 都涉及了对自然语言的理解，但前者主要用于词向量表示，后者则专注于几何问题的求解。
+- **解决问题**: 比较两种不同的自然语言处理方法在不同任务上的适用性。
+- **证据**: Mikolov2013_SkipGram 主要用于词向量表示，而 Seo2014_DiagramUnderstanding 则专注于几何问题的求解。
+- **置信度**: 0.95
+
+```json
+{
+  "from_entity": "Mikolov2013_SkipGram",
+  "to_entity": "Seo2014_DiagramUnderstanding",
+  "relation_type": "Comparison",
+  "structure": "Citation contexts",
+  "detail": "Mikolov2013_SkipGram 和 Seo2014_DiagramUnderstanding 都涉及了对自然语言的理解，但前者主要用于词向量表示，后者则专注于几何问题的求解。",
+  "problem_addressed": "比较两种不同的自然语言处理方法在不同任务上的适用性。",
+  "evidence": "Mikolov2013_SkipGram 主要用于词向量表示，而 Seo2014_DiagramUnderstanding 则专注于几何问题的求解。",
+  "confidence": 0.95
+}
+```
+
+### 提取完成状态
+
+```json
+{
+  "relations": [
+    {
+      "from_entity": "Yu2016_ImplicitQuantityRelationsExtractor",
+      "to_entity": "Ma2010_FrameBasedCalculus",
+      "relation_type": "Extend",
+      "structure": "Sentence-level context",
+      "detail": "Yu2016_ImplicitQuantityRelationsExtractor 提出了一种从中文算术文字题中提取隐含数量关系的方法，而 Ma2010_FrameBasedCalculus 则进一步利用这些隐含关系来解决多步加减法问题。",
+      "problem_addressed": "提取隐含数量关系有助于更复杂问题的求解。",
+      "evidence": "Yu2016_ImplicitQuantityRelationsExtractor 提出了隐含数量关系的提取方法，而 Ma2010_FrameBasedCalculus 使用了这些关系来构建问题框架并进行求解。",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Slagle1965_DEDUCOM",
+      "to_entity": "Yu2016_ImplicitQuantityRelationsExtractor",
+      "relation_type": "Extend",
+      "structure": "Paragraph context",
+      "detail": "Slagle1965_DEDUCOM 是早期的演绎推理程序，而 Yu2016_ImplicitQuantityRelationsExtractor 在此基础上进一步发展，专门用于从中文算术文字题中提取隐含数量关系。",
+      "problem_addressed": "提供了一种更具体的应用场景，即从自然语言中提取隐含数量关系。",
+      "evidence": "Slagle1965_DEDUCOM 处理的是通用的演绎推理问题，而 Yu2016_ImplicitQuantityRelationsExtractor 将其应用到了特定的算术问题上。",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Mikolov2013_SkipGram",
+      "to_entity": "Wang2016_DimensionallyGuidedSynthesis",
+      "relation_type": "Use",
+      "structure": "Citation contexts",
+      "detail": "Mikolov2013_SkipGram 提出的Skip-gram模型被 Wang2016_DimensionallyGuidedSynthesis 用于生成数学文字题。",
+      "problem_addressed": "使用高质量的词向量表示来辅助生成更复杂的数学问题。",
+      "evidence": "Wang2016_DimensionallyGuidedSynthesis 使用了 Skip-gram 模型生成的词向量来指导合成数学问题。",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Mikolov2013_SkipGram",
+      "to_entity": "Yu2016_ImplicitQuantityRelationsExtractor",
+      "relation_type": "Comparison",
+      "structure": "Section headings",
+      "detail": "Mikolov2013_SkipGram 和 Yu2016_ImplicitQuantityRelationsExtractor 都涉及了对自然语言的理解，但前者主要用于词向量表示，后者则专注于隐含数量关系的提取。",
+      "problem_addressed": "比较两种不同的自然语言处理方法在不同任务上的适用性。",
+      "evidence": "Mikolov2013_SkipGram 主要用于词向量表示，而 Yu2016_ImplicitQuantityRelationsExtractor 则专注于隐含数量关系的提取。",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Mikolov2013_SkipGram",
+      "to_entity": "Ma2010_FrameBasedCalculus",
+      "relation_type": "Comparison",
+      "structure": "Paragraph context",
+      "detail": "Mikolov2013_SkipGram 和 Ma2010_FrameBasedCalculus 都涉及了对自然语言的理解，但前者主要用于词向量表示，后者则专注于多步加减法问题的求解。",
+      "problem_addressed": "比较两种不同的自然语言处理方法在不同任务上的适用性。",
+      "evidence": "Mikolov2013_SkipGram 主要用于词向量表示，而 Ma2010_FrameBasedCalculus 则专注于多步加减法问题的求解。",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Slagle1965_DEDUCOM",
+      "to_entity": "Ma2010_FrameBasedCalculus",
+      "relation_type": "Comparison",
+      "structure": "Citation contexts",
+      "detail": "Slagle1965_DEDUCOM 和 Ma2010_FrameBasedCalculus 都涉及了对自然语言的理解，但前者主要用于演绎推理，后者则专注于多步加减法问题的求解。",
+      "problem_addressed": "比较两种不同的自然语言处理方法在不同任务上的适用性。",
+      "evidence": "Slagle1965_DEDUCOM 处理的是通用的演绎推理问题，而 Ma2010_FrameBasedCalculus 则专注于多步加减法问题的求解。",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Mikolov2013_SkipGram",
+      "to_entity": "Seo2014_DiagramUnderstanding",
+      "relation_type": "Comparison",
+      "structure": "Citation contexts",
+      "detail": "Mikolov2013_SkipGram 和 Seo2014_DiagramUnderstanding 都涉及了对自然语言的理解，但前者主要用于词向量表示，后者则专注于几何问题的求解。",
+      "problem_addressed": "比较两种不同的自然语言处理方法在不同任务上的适用性。",
+      "evidence": "Mikolov2013_SkipGram 主要用于词向量表示，而 Seo2014_DiagramUnderstanding 则专注于几何问题的求解。",
+      "confidence": 0.95
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false
+  }
+}
+```
+
+这些新发现的关系补充了已有关系列表，提供了更多的跨领域和跨任务的关联。由于文件中涉及的实体较多，建议继续深入挖掘其他潜在的关系。

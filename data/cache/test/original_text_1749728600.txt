@@ -1,0 +1,155 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2017_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "Unit Dependency Graph",
+        "year": 2017,
+        "authors": ["Roy, S.", "Roth, D."],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["AllArith_2016"],
+        "metrics": ["Accuracy_Solving"],
+        "architecture": {
+          "components": ["Vertex Classifier", "Edge Classifier", "Constrained Inference Module"],
+          "connections": ["Vertex Classifier -> Constrained Inference Module", "Edge Classifier -> Constrained Inference Module"],
+          "mechanisms": ["Decomposed Model", "Joint Inference"]
+        },
+        "methodology": {
+          "training_strategy": ["Decomposed Model", "Joint Training"],
+          "parameter_tuning": ["Scaling Parameters"]
+        },
+        "feature_processing": ["Context Features", "Rule Based Extraction Features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AllArith_2016",
+        "entity_type": "Dataset",
+        "name": "AllArith",
+        "description": "综合算术应用题数据集",
+        "domain": "数学应用题求解",
+        "size": 831,
+        "year": 2016,
+        "creators": ["Roy, S.", "Roth, D."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Solving",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "解题准确率",
+        "category": "算术应用题求解评估",
+        "formula": "正确解题数量 / 总题目数量"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Duda1972_HoughTransformation",
+        "entity_type": "Algorithm",
+        "name": "Hough Transformation",
+        "year": 1972,
+        "authors": ["Duda, R. O.", "Hart, P. E."],
+        "task": "Line and Curve Detection",
+        "dataset": ["Natural_Images_2004"],
+        "metrics": ["Detection_Rate_RectangleDetection"],
+        "architecture": {
+          "components": ["Point-Line Transformation", "Accumulator Array"],
+          "connections": ["Point-Line Transformation -> Accumulator Array"],
+          "mechanisms": ["Normal Parameterization", "Quantization"]
+        },
+        "methodology": {
+          "training_strategy": ["Quantization"],
+          "parameter_tuning": ["Quantization Parameters"]
+        },
+        "feature_processing": ["Angle-Radius Parameters"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Natural_Images_2004",
+        "entity_type": "Dataset",
+        "name": "Natural Images",
+        "description": "自然场景图像数据集",
+        "domain": "计算机视觉",
+        "size": "未提供具体数量",
+        "year": 2004,
+        "creators": ["Duda, R. O.", "Hart, P. E."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Detection_Rate_RectangleDetection",
+        "entity_type": "Metric",
+        "name": "Detection Rate",
+        "description": "矩形检测率",
+        "category": "图像处理评估",
+        "formula": "正确检测的矩形数量 / 总矩形数量"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Antol2015_VisualQuestionAnswering",
+        "entity_type": "Algorithm",
+        "name": "Visual Question Answering (VQA)",
+        "year": 2015,
+        "authors": ["Antol, S.", "Agrawal, A.", "Lu, J.", "Mitchell, M.", "Batra, D.", "Zitnick, C. L.", "Parikh, D."],
+        "task": "视觉问答",
+        "dataset": ["MS_COCO_2014", "Abstract_Scenes_2015"],
+        "metrics": ["Accuracy_Classification", "F1_Score_Classification"],
+        "architecture": {
+          "components": ["Multi-Layer Perceptron (MLP)", "Long Short-Term Memory (LSTM)"],
+          "connections": ["MLP -> Output", "LSTM -> Output"],
+          "mechanisms": ["Bag-of-Words Representation", "Image Feature Extraction"]
+        },
+        "methodology": {
+          "training_strategy": ["Concatenation of Features"],
+          "parameter_tuning": ["Hidden Layer Size", "Dropout Rate"]
+        },
+        "feature_processing": ["Bag-of-Words", "Image Features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MS_COCO_2014",
+        "entity_type": "Dataset",
+        "name": "MS COCO",
+        "description": "微软通用物体上下文数据集",
+        "domain": "计算机视觉",
+        "size": 204721,
+        "year": 2014,
+        "creators": ["Lin, T.-Y.", "Maire, M.", "Belongie, S.", "Hays, J.", "Perona, P.", "Ramanan, D.", "Dollar, P.", "Zitnick, C. L."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Abstract_Scenes_2015",
+        "entity_type": "Dataset",
+        "name": "Abstract Scenes",
+        "description": "抽象场景数据集",
+        "domain": "计算机视觉",
+        "size": 50000,
+        "year": 2015,
+        "creators": ["Antol, S.", "Agrawal, A.", "Lu, J.", "Mitchell, M.", "Batra, D.", "Zitnick, C. L.", "Parikh, D."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "分类的F1得分",
+        "category": "分类评估",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": true,
+    "current_section": "CONCLUSION",
+    "next_section": null
+  }
+}
+```

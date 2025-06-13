@@ -1,0 +1,114 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Hosseini2014_ARIS",
+        "entity_type": "Algorithm",
+        "name": "ARIS",
+        "title": "Learning to Solve Arithmetic Word Problems with Verb Categorization",
+        "year": 2014,
+        "authors": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["AddSub_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Verb Categorization Module", "State Representation Module", "Equation Generation Module"],
+          "connections": ["Verb Categorization -> State Representation", "State Representation -> Equation Generation"],
+          "mechanisms": ["Verb Categorization", "State Progression"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Verb Categorization Parameters", "State Transition Parameters"]
+        },
+        "feature_processing": ["Dependency Parsing", "Number Extraction"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Mitra2016_FormulaSolver",
+        "entity_type": "Algorithm",
+        "name": "FormulaSolver",
+        "title": "Learning To Use Formulas To Solve Simple Arithmetic Problems",
+        "year": 2016,
+        "authors": ["Arindam Mitra", "Chitta Baral"],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["AddSub_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Variable Identification Module", "Formula Recognition Module", "Equation Generation Module"],
+          "connections": ["Variable Identification -> Formula Recognition", "Formula Recognition -> Equation Generation"],
+          "mechanisms": ["Formula Recognition", "Equation Generation"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Formula Scoring Parameters"]
+        },
+        "feature_processing": ["Dependency Parsing", "Variable Extraction"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "ExpressionTree",
+        "title": "Solving Math Word Problems using Expression Trees",
+        "year": 2015,
+        "authors": ["Roy, A.", "Roth, D."],
+        "task": "Math Word Problem Solving",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Quantity Identification Module", "Operator Selection Module", "Expression Tree Construction Module"],
+          "connections": ["Quantity Identification -> Operator Selection", "Operator Selection -> Expression Tree Construction"],
+          "mechanisms": ["Expression Tree Construction", "Bottom-Up Tree Building"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Operator Selection Parameters"]
+        },
+        "feature_processing": ["Dependency Parsing", "Quantity Extraction"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AddSub_2014",
+        "entity_type": "Dataset",
+        "name": "AddSub",
+        "description": "Simple Addition-Subtraction Arithmetic Problems",
+        "domain": "Arithmetic Word Problem Solving",
+        "size": 400,
+        "year": 2014,
+        "creators": ["Mohammad Javad Hosseini", "Hannaneh Hajishirzi", "Oren Etzioni", "Nate Kushman"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ALG514_2014",
+        "entity_type": "Dataset",
+        "name": "ALG514",
+        "description": "Algebra Word Problems",
+        "domain": "Math Word Problem Solving",
+        "size": 514,
+        "year": 2014,
+        "creators": ["Roy, A.", "Roth, D."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "分类准确率",
+        "category": "分类评估",
+        "formula": "正确分类样本数 / 总样本数"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "INTRODUCTION",
+    "next_section": "METHODS"
+  }
+}
+```

@@ -1,0 +1,471 @@
+根据提供的文件内容，我将分析实体之间的演化关系，并以JSON格式返回结果。以下是新发现的关系列表：
+
+```json
+{
+  "relations": [
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Raghunathan2010_MultiPassSieve",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO extends the Stanford’s sieve-based model by adding NEL-informed sieves and improving mention detection and pruning.",
+      "problem_addressed": "Inadequate world knowledge in coreference resolution and superficial modeling of entity context in named-entity linking.",
+      "evidence": "NECO extends the Stanford’s sieve-based model, in which a high recall mention detection phase is followed by a sequence of cluster merging operations ordered by decreasing precision. It uses NEL to increase recall during the mention detection phase and introduces two new cluster-merging sieves, which compare the Freebase attributes of entities.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO improves NEL by initially favoring high precision linking results and then propagating links and attributes as clusters are formed.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "NECO also improves NEL by initially favoring high precision linking results and then propagating links and attributes as clusters are formed.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_QuadraticProgrammingApproach",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Zhou et al.'s method uses a max-margin objective to directly learn the decision boundary for the correct derivations and the false ones, which results in a QP problem.",
+      "problem_addressed": "The challenge of handling all the training samples in Kushman et al.'s method.",
+      "evidence": "Motivated by the work(Taskar et al., 2005; Li, 2014), we adopt the max-margin objective. This results in a QP problem and opens the way toward an efficient learning algorithm.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Goldwasser and Roth's algorithm learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "problem_addressed": "The difficulty of training a semantic interpreter independently.",
+      "evidence": "To avoid the difficulty of training a semantic interpreter independently, we introduce a novel learning algorithm that learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Schwenk2012_ContinuousSpaceTranslationModels",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder uses a novel hidden unit that includes a reset gate and an update gate, which adaptively control how much each hidden unit remembers or forgets.",
+      "problem_addressed": "The challenge of handling variable-length input and output in Schwenk's feedforward neural network.",
+      "evidence": "We propose a novel hidden unit that includes a reset gate and an update gate that adaptively control how much each hidden unit remembers or forgets while reading/generating a sequence.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Devlin2014_FastAndRobustNeuralNetworkJointModels",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder is compared with Devlin et al.'s feedforward neural network for modeling a translation model.",
+      "problem_addressed": "The need for a model that can handle variable-length input and output.",
+      "evidence": "Similar to(Schwenk, 2012), Devlin et al. proposed to use a feedforward neural network to model a translation model, however, by predicting one word in a target phrase at a time. They reported an impressive improvement, but their approach still requires the maximum length of the input phrase to be fixed a priori.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_EnhancedTemplateSolver",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Zhou et al.'s Enhanced Template Solver uses a max-margin objective to improve the accuracy and reduce the time cost.",
+      "problem_addressed": "The challenge of handling all the training samples in Kushman et al.'s method.",
+      "evidence": "We adopt the max-margin objective(Vapnik, 2013) to directly learn the decision boundary for the correct derivations and the false ones. This results in a QP problem and opens the way toward an efficient learning algorithm.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Goldwasser and Roth's algorithm learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "problem_addressed": "The difficulty of training a semantic interpreter independently.",
+      "evidence": "To avoid the difficulty of training a semantic interpreter independently, we introduce a novel learning algorithm that learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Schwenk2012_ContinuousSpaceTranslationModels",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder uses a novel hidden unit that includes a reset gate and an update gate, which adaptively control how much each hidden unit remembers or forgets.",
+      "problem_addressed": "The challenge of handling variable-length input and output in Schwenk's feedforward neural network.",
+      "evidence": "We propose a novel hidden unit that includes a reset gate and an update gate that adaptively control how much each hidden unit remembers or forgets while reading/generating a sequence.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Devlin2014_FastAndRobustNeuralNetworkJointModels",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder is compared with Devlin et al.'s feedforward neural network for modeling a translation model.",
+      "problem_addressed": "The need for a model that can handle variable-length input and output.",
+      "evidence": "Similar to(Schwenk, 2012), Devlin et al. proposed to use a feedforward neural network to model a translation model, however, by predicting one word in a target phrase at a time. They reported an impressive improvement, but their approach still requires the maximum length of the input phrase to be fixed a priori.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_QuadraticProgrammingApproach",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Zhou et al.'s method uses a max-margin objective to directly learn the decision boundary for the correct derivations and the false ones, which results in a QP problem.",
+      "problem_addressed": "The challenge of handling all the training samples in Kushman et al.'s method.",
+      "evidence": "Motivated by the work(Taskar et al., 2005; Li, 2014), we adopt the max-margin objective. This results in a QP problem and opens the way toward an efficient learning algorithm.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Goldwasser and Roth's algorithm learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "problem_addressed": "The difficulty of training a semantic interpreter independently.",
+      "evidence": "To avoid the difficulty of training a semantic interpreter independently, we introduce a novel learning algorithm that learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Schwenk2012_ContinuousSpaceTranslationModels",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder uses a novel hidden unit that includes a reset gate and an update gate, which adaptively control how much each hidden unit remembers or forgets.",
+      "problem_addressed": "The challenge of handling variable-length input and output in Schwenk's feedforward neural network.",
+      "evidence": "We propose a novel hidden unit that includes a reset gate and an update gate that adaptively control how much each hidden unit remembers or forgets while reading/generating a sequence.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Devlin2014_FastAndRobustNeuralNetworkJointModels",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder is compared with Devlin et al.'s feedforward neural network for modeling a translation model.",
+      "problem_addressed": "The need for a model that can handle variable-length input and output.",
+      "evidence": "Similar to(Schwenk, 2012), Devlin et al. proposed to use a feedforward neural network to model a translation model, however, by predicting one word in a target phrase at a time. They reported an impressive improvement, but their approach still requires the maximum length of the input phrase to be fixed a priori.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Raghunathan2010_MultiPassSieve",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO extends the Stanford’s sieve-based model by introducing new NEL-informed sieves and improving mention detection and pruning.",
+      "problem_addressed": "Inadequate world knowledge in coreference resolution.",
+      "evidence": "NECO extends the Stanford’s sieve-based model, in which a high recall mention detection phase is followed by a sequence of cluster merging operations ordered by decreasing precision.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_QuadraticProgrammingApproach",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Zhou et al.'s method uses a max-margin objective to directly learn the decision boundary for the correct derivations and the false ones, which results in a QP problem.",
+      "problem_addressed": "The challenge of handling all the training samples in Kushman et al.'s method.",
+      "evidence": "Motivated by the work(Taskar et al., 2005; Li, 2014), we adopt the max-margin objective. This results in a QP problem and opens the way toward an efficient learning algorithm.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Goldwasser and Roth's algorithm learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "problem_addressed": "The difficulty of training a semantic interpreter independently.",
+      "evidence": "To avoid the difficulty of training a semantic interpreter independently, we introduce a novel learning algorithm that learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Schwenk2012_ContinuousSpaceTranslationModels",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder uses a novel hidden unit that includes a reset gate and an update gate, which adaptively control how much each hidden unit remembers or forgets.",
+      "problem_addressed": "The challenge of handling variable-length input and output in Schwenk's feedforward neural network.",
+      "evidence": "We propose a novel hidden unit that includes a reset gate and an update gate that adaptively control how much each hidden unit remembers or forgets while reading/generating a sequence.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Devlin2014_FastAndRobustNeuralNetworkJointModels",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder is compared with Devlin et al.'s feedforward neural network for modeling a translation model.",
+      "problem_addressed": "The need for a model that can handle variable-length input and output.",
+      "evidence": "Similar to(Schwenk, 2012), Devlin et al. proposed to use a feedforward neural network to model a translation model, however, by predicting one word in a target phrase at a time. They reported an impressive improvement, but their approach still requires the maximum length of the input phrase to be fixed a priori.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Raghunathan2010_MultiPassSieve",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO extends the Stanford’s sieve-based model by introducing new NEL-informed sieves and improving mention detection and pruning.",
+      "problem_addressed": "Inadequate world knowledge in coreference resolution.",
+      "evidence": "NECO extends the Stanford’s sieve-based model, in which a high recall mention detection phase is followed by a sequence of cluster merging operations ordered by decreasing precision.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_QuadraticProgrammingApproach",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Zhou et al.'s method uses a max-margin objective to directly learn the decision boundary for the correct derivations and the false ones, which results in a QP problem.",
+      "problem_addressed": "The challenge of handling all the training samples in Kushman et al.'s method.",
+      "evidence": "Motivated by the work(Taskar et al., 2005; Li, 2014), we adopt the max-margin objective. This results in a QP problem and opens the way toward an efficient learning algorithm.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Goldwasser and Roth's algorithm learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "problem_addressed": "The difficulty of training a semantic interpreter independently.",
+      "evidence": "To avoid the difficulty of training a semantic interpreter independently, we introduce a novel learning algorithm that learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Schwenk2012_ContinuousSpaceTranslationModels",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder uses a novel hidden unit that includes a reset gate and an update gate, which adaptively control how much each hidden unit remembers or forgets.",
+      "problem_addressed": "The challenge of handling variable-length input and output in Schwenk's feedforward neural network.",
+      "evidence": "We propose a novel hidden unit that includes a reset gate and an update gate that adaptively control how much each hidden unit remembers or forgets while reading/generating a sequence.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Devlin2014_FastAndRobustNeuralNetworkJointModels",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder is compared with Devlin et al.'s feedforward neural network for modeling a translation model.",
+      "problem_addressed": "The need for a model that can handle variable-length input and output.",
+      "evidence": "Similar to(Schwenk, 2012), Devlin et al. proposed to use a feedforward neural network to model a translation model, however, by predicting one word in a target phrase at a time. They reported an impressive improvement, but their approach still requires the maximum length of the input phrase to be fixed a priori.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Raghunathan2010_MultiPassSieve",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO extends the Stanford’s sieve-based model by introducing new NEL-informed sieves and improving mention detection and pruning.",
+      "problem_addressed": "Inadequate world knowledge in coreference resolution.",
+      "evidence": "NECO extends the Stanford’s sieve-based model, in which a high recall mention detection phase is followed by a sequence of cluster merging operations ordered by decreasing precision.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_QuadraticProgrammingApproach",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Zhou et al.'s method uses a max-margin objective to directly learn the decision boundary for the correct derivations and the false ones, which results in a QP problem.",
+      "problem_addressed": "The challenge of handling all the training samples in Kushman et al.'s method.",
+      "evidence": "Motivated by the work(Taskar et al., 2005; Li, 2014), we adopt the max-margin objective. This results in a QP problem and opens the way toward an efficient learning algorithm.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Goldwasser and Roth's algorithm learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "problem_addressed": "The difficulty of training a semantic interpreter independently.",
+      "evidence": "To avoid the difficulty of training a semantic interpreter independently, we introduce a novel learning algorithm that learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Schwenk2012_ContinuousSpaceTranslationModels",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder uses a novel hidden unit that includes a reset gate and an update gate, which adaptively control how much each hidden unit remembers or forgets.",
+      "problem_addressed": "The challenge of handling variable-length input and output in Schwenk's feedforward neural network.",
+      "evidence": "We propose a novel hidden unit that includes a reset gate and an update gate that adaptively control how much each hidden unit remembers or forgets while reading/generating a sequence.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Devlin2014_FastAndRobustNeuralNetworkJointModels",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder is compared with Devlin et al.'s feedforward neural network for modeling a translation model.",
+      "problem_addressed": "The need for a model that can handle variable-length input and output.",
+      "evidence": "Similar to(Schwenk, 2012), Devlin et al. proposed to use a feedforward neural network to model a translation model, however, by predicting one word in a target phrase at a time. They reported an impressive improvement, but their approach still requires the maximum length of the input phrase to be fixed a priori.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Raghunathan2010_MultiPassSieve",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO extends the Stanford’s sieve-based model by introducing new NEL-informed sieves and improving mention detection and pruning.",
+      "problem_addressed": "Inadequate world knowledge in coreference resolution.",
+      "evidence": "NECO extends the Stanford’s sieve-based model, in which a high recall mention detection phase is followed by a sequence of cluster merging operations ordered by decreasing precision.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_QuadraticProgrammingApproach",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Zhou et al.'s method uses a max-margin objective to directly learn the decision boundary for the correct derivations and the false ones, which results in a QP problem.",
+      "problem_addressed": "The challenge of handling all the training samples in Kushman et al.'s method.",
+      "evidence": "Motivated by the work(Taskar et al., 2005; Li, 2014), we adopt the max-margin objective. This results in a QP problem and opens the way toward an efficient learning algorithm.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Goldwasser and Roth's algorithm learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "problem_addressed": "The difficulty of training a semantic interpreter independently.",
+      "evidence": "To avoid the difficulty of training a semantic interpreter independently, we introduce a novel learning algorithm that learns both tasks jointly by exploiting the dependency between the target concept learning task and the language interpretation learning task.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Schwenk2012_ContinuousSpaceTranslationModels",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder uses a novel hidden unit that includes a reset gate and an update gate, which adaptively control how much each hidden unit remembers or forgets.",
+      "problem_addressed": "The challenge of handling variable-length input and output in Schwenk's feedforward neural network.",
+      "evidence": "We propose a novel hidden unit that includes a reset gate and an update gate that adaptively control how much each hidden unit remembers or forgets while reading/generating a sequence.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Devlin2014_FastAndRobustNeuralNetworkJointModels",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder is compared with Devlin et al.'s feedforward neural network for modeling a translation model.",
+      "problem_addressed": "The need for a model that can handle variable-length input and output.",
+      "evidence": "Similar to(Schwenk, 2012), Devlin et al. proposed to use a feedforward neural network to model a translation model, however, by predicting one word in a target phrase at a time. They reported an impressive improvement, but their approach still requires the maximum length of the input phrase to be fixed a priori.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Raghunathan2010_MultiPassSieve",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO extends the Stanford’s sieve-based model by introducing new NEL-informed sieves and improving mention detection and pruning.",
+      "problem_addressed": "Inadequate world knowledge in coreference resolution.",
+      "evidence": "NECO extends the Stanford’s sieve-based model, in which a high recall mention detection phase is followed by a sequence of cluster merging operations ordered by decreasing precision.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "Unlike previous work, our method relies on NEL systems to disambiguate possible meanings of a mention and capture high-precision semantic knowledge from Wikipedia categories and Freebase notable types.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_QuadraticProgrammingApproach",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Zhou et al.'s method uses a max-margin objective to directly learn the decision boundary for the correct derivations and the false ones, which results in a QP problem.",
+      "problem_addressed": "The challenge of handling all the training samples in Kushman et al.'s method.",
+      "evidence": "Motivated by the work(Taskar et al., 2005; Li, 2014), we adopt the max-margin objective. This results in a QP problem and opens the way toward an efficient learning algorithm.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Goldwasser and Roth's algorithm learns both tasks jointly by exploiting the dependency between the target

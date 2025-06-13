@@ -1,0 +1,447 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_LatentLeftLinkingModel",
+        "entity_type": "Algorithm",
+        "name": "Latent Left-Linking Model (L3M)",
+        "year": 2013,
+        "authors": ["Chang, K.-W.", "Samdani, R.", "Roth, D."],
+        "task": "Coreference resolution",
+        "dataset": ["ACE_2004", "Ontonotes-5.0_2012"],
+        "metrics": ["MUC", "BCUB", "CEAF"],
+        "architecture": {
+          "components": ["Pairwise scorer", "Left-linking model"],
+          "connections": ["Pairwise scorer -> Hidden layer", "Hidden layer -> Scoring function"],
+          "mechanisms": ["Stochastic gradient descent", "Constraint-augmented inference"]
+        },
+        "methodology": {
+          "training_strategy": ["Stochastic gradient descent", "Cross-validation"],
+          "parameter_tuning": ["Learning rate", "Regularization parameter"]
+        },
+        "feature_processing": ["Word embeddings", "POS tag features", "Dependency label features"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_ConstrainedLatentLeftLinkingModel",
+        "entity_type": "Algorithm",
+        "name": "Constrained Latent Left-Linking Model (CL3M)",
+        "year": 2013,
+        "authors": ["Chang, K.-W.", "Samdani, R.", "Roth, D."],
+        "task": "Coreference resolution",
+        "dataset": ["ACE_2004", "Ontonotes-5.0_2012"],
+        "metrics": ["MUC", "BCUB", "CEAF"],
+        "architecture": {
+          "components": ["Pairwise scorer", "Left-linking model", "Constraint module"],
+          "connections": ["Pairwise scorer -> Hidden layer", "Hidden layer -> Scoring function", "Constraint module -> Scoring function"],
+          "mechanisms": ["Stochastic gradient descent", "Constraint-augmented inference"]
+        },
+        "methodology": {
+          "training_strategy": ["Stochastic gradient descent", "Cross-validation"],
+          "parameter_tuning": ["Learning rate", "Regularization parameter", "Constraint coefficients"]
+        },
+        "feature_processing": ["Word embeddings", "POS tag features", "Dependency label features", "Domain knowledge-based constraints"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+        "entity_type": "Algorithm",
+        "name": "Probabilistic Latent Left-Linking Model (PL3M)",
+        "year": 2013,
+        "authors": ["Chang, K.-W.", "Samdani, R.", "Roth, D."],
+        "task": "Coreference resolution",
+        "dataset": ["ACE_2004", "Ontonotes-5.0_2012"],
+        "metrics": ["MUC", "BCUB", "CEAF"],
+        "architecture": {
+          "components": ["Pairwise scorer", "Probabilistic left-linking model"],
+          "connections": ["Pairwise scorer -> Hidden layer", "Hidden layer -> Scoring function"],
+          "mechanisms": ["Stochastic gradient descent", "Temperature parameter"]
+        },
+        "methodology": {
+          "training_strategy": ["Stochastic gradient descent", "Cross-validation"],
+          "parameter_tuning": ["Learning rate", "Regularization parameter", "Temperature parameter"]
+        },
+        "feature_processing": ["Word embeddings", "POS tag features", "Dependency label features"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+        "entity_type": "Algorithm",
+        "name": "Constrained Probabilistic Latent Left-Linking Model (CPL3M)",
+        "year": 2013,
+        "authors": ["Chang, K.-W.", "Samdani, R.", "Roth, D."],
+        "task": "Coreference resolution",
+        "dataset": ["ACE_2004", "Ontonotes-5.0_2012"],
+        "metrics": ["MUC", "BCUB", "CEAF"],
+        "architecture": {
+          "components": ["Pairwise scorer", "Probabilistic left-linking model", "Constraint module"],
+          "connections": ["Pairwise scorer -> Hidden layer", "Hidden layer -> Scoring function", "Constraint module -> Scoring function"],
+          "mechanisms": ["Stochastic gradient descent", "Temperature parameter", "Constraint-augmented inference"]
+        },
+        "methodology": {
+          "training_strategy": ["Stochastic gradient descent", "Cross-validation"],
+          "parameter_tuning": ["Learning rate", "Regularization parameter", "Temperature parameter", "Constraint coefficients"]
+        },
+        "feature_processing": ["Word embeddings", "POS tag features", "Dependency label features", "Domain knowledge-based constraints"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ACE_2004",
+        "entity_type": "Dataset",
+        "name": "ACE 2004",
+        "description": "Automatic Content Extraction 2004 evaluation data",
+        "domain": "Natural Language Processing",
+        "size": 443,
+        "year": 2004,
+        "creators": ["NIST"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Ontonotes-5.0_2012",
+        "entity_type": "Dataset",
+        "name": "Ontonotes-5.0",
+        "description": "Large annotated corpus for coreference resolution",
+        "domain": "Natural Language Processing",
+        "size": 3145,
+        "year": 2012,
+        "creators": ["Pradhan, S.", "Ramshaw, L.", "Marcus, M.", "Palmer, M.", "Weischedel, R.", "Xue, N."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "MUC",
+        "entity_type": "Metric",
+        "name": "MUC",
+        "description": "Measures how many predicted clusters need to be merged to cover the gold clusters",
+        "category": "Coreference resolution",
+        "formula": "Not explicitly defined"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "BCUB",
+        "entity_type": "Metric",
+        "name": "BCUB",
+        "description": "B-cubed metric for evaluating clustering",
+        "category": "Coreference resolution",
+        "formula": "Not explicitly defined"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "CEAF",
+        "entity_type": "Metric",
+        "name": "CEAF",
+        "description": "Entity-based CEAF metric for evaluating coreference resolution",
+        "category": "Coreference resolution",
+        "formula": "Not explicitly defined"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Raghunathan2010_MultiPassSieve",
+        "entity_type": "Algorithm",
+        "name": "Multi-Pass Sieve",
+        "year": 2010,
+        "authors": ["Raghunathan, K.", "Lee, H.", "Rangarajan, S.", "Chambers, N.", "Surdeanu, M.", "Jurafsky, D.", "Manning, C."],
+        "task": "Coreference resolution",
+        "dataset": ["ACE2004-ROTH-DEV", "ACE2004-CULOTTA-TEST", "ACE2004-NWIRE", "MUC6-TEST"],
+        "metrics": ["Pairwise F1", "MUC", "B3"],
+        "architecture": {
+          "components": ["Sieve tiers", "Coreference models"],
+          "connections": ["Sieve tiers -> Coreference models", "Coreference models -> Entity clusters"],
+          "mechanisms": ["Attribute sharing", "Mention selection", "Search pruning"]
+        },
+        "methodology": {
+          "training_strategy": ["Deterministic models", "Unsupervised learning"],
+          "parameter_tuning": ["No parameter tuning"]
+        },
+        "feature_processing": ["Syntactic features", "Semantic features", "Global information sharing"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Chen2014_EfficientDependencyParser",
+        "entity_type": "Algorithm",
+        "name": "Efficient Dependency Parser",
+        "year": 2014,
+        "authors": ["Chen, D.", "Manning, C.D."],
+        "task": "Dependency parsing",
+        "dataset": ["English Penn Treebank", "Chinese Penn Treebank"],
+        "metrics": ["Unlabeled Attachment Score (UAS)", "Labeled Attachment Score (LAS)"],
+        "architecture": {
+          "components": ["Bidirectional LSTM", "Neural network classifier"],
+          "connections": ["Word embeddings -> Hidden layer", "Hidden layer -> Scoring function"],
+          "mechanisms": ["Cube activation function", "Pre-trained word embeddings", "POS tag and arc label embeddings"]
+        },
+        "methodology": {
+          "training_strategy": ["Structured perceptron", "Mini-batched AdaGrad"],
+          "parameter_tuning": ["Embedding size", "Hidden layer size", "Regularization parameter", "Initial learning rate"]
+        },
+        "feature_processing": ["Word embeddings", "POS tag features", "Arc label features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "English_Penn_Treebank",
+        "entity_type": "Dataset",
+        "name": "English Penn Treebank",
+        "description": "Standard dataset for dependency parsing",
+        "domain": "Natural Language Processing",
+        "size": 39832,
+        "year": 2014,
+        "creators": ["Hill, F.", "Cho, K.", "Korhonen, A."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Chinese_Penn_Treebank",
+        "entity_type": "Dataset",
+        "name": "Chinese Penn Treebank",
+        "description": "Standard dataset for dependency parsing",
+        "domain": "Natural Language Processing",
+        "size": 16091,
+        "year": 2014,
+        "creators": ["Hill, F.", "Cho, K.", "Korhonen, A."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Unlabeled_Attachment_Score",
+        "entity_type": "Metric",
+        "name": "Unlabeled Attachment Score (UAS)",
+        "description": "Percentage of tokens assigned their correct parent",
+        "category": "Dependency parsing",
+        "formula": "Number of correct dependencies / Total number of dependencies"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Labeled_Attachment_Score",
+        "entity_type": "Metric",
+        "name": "Labeled Attachment Score (LAS)",
+        "description": "Percentage of tokens assigned their correct parent and label",
+        "category": "Dependency parsing",
+        "formula": "Number of correct dependencies with correct labels / Total number of dependencies"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Goldberg2010_NonDirectionalDependencyParser",
+        "entity_type": "Algorithm",
+        "name": "Non-directional easy-first dependency parsing algorithm",
+        "year": 2010,
+        "authors": ["Goldberg, Y.", "Elhadad, M."],
+        "task": "Dependency parsing",
+        "dataset": ["WSJ Treebank"],
+        "metrics": ["Unlabeled Attachment Score", "Root prediction", "Complete correct parses"],
+        "architecture": {
+          "components": ["Predictor", "Completer", "Scanner"],
+          "connections": ["Predictor -> State set", "Completer -> State set", "Scanner -> State set"],
+          "mechanisms": ["Bottom-up parsing", "Look-ahead", "State set operations"]
+        },
+        "methodology": {
+          "training_strategy": ["Perceptron learning", "Greedy algorithm"],
+          "parameter_tuning": ["Look-ahead window size"]
+        },
+        "feature_processing": ["Syntactic features", "Lexical features", "Contextual features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "WSJ_Treebank",
+        "entity_type": "Dataset",
+        "name": "WSJ Treebank",
+        "description": "Wall Street Journal corpus for dependency parsing",
+        "domain": "Natural Language Processing",
+        "size": 39832,
+        "year": 2010,
+        "creators": ["Nivre, J.", "Hall, J.", "Nilsson, J."]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Shi2015_SigmaDolphin",
+        "entity_type": "Algorithm",
+        "name": "SigmaDolphin",
+        "year": 2015,
+        "authors": ["Shi, S.", "Wang, Y.", "Lin, C.-Y.", "Liu, X.", "Rui, Y."],
+        "task": "Math word problem solving",
+        "dataset": ["NDMC dataset"],
+        "metrics": ["Precision", "Recall", "F1"],
+        "architecture": {
+          "components": ["Meaning representation language (DOL)", "CFG parser", "Reasoning module"],
+          "connections": ["Natural language text -> DOL trees", "DOL trees -> Math expressions", "Math expressions -> Final answers"],
+          "mechanisms": ["Semantic parsing", "Reasoning over structured representations"]
+        },
+        "methodology": {
+          "training_strategy": ["CFG rule construction", "Type-compatibility checking"],
+          "parameter_tuning": ["No parameter tuning"]
+        },
+        "feature_processing": ["Word embeddings", "Semantic functions", "Entity variables"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "NDMC_dataset",
+        "entity_type": "Dataset",
+        "name": "NDMC dataset",
+        "description": "Dataset of number word problems",
+        "domain": "Mathematical problem solving",
+        "size": 1504,
+        "year": 2015,
+        "creators": ["Shi, S.", "Wang, Y.", "Lin, C.-Y.", "Liu, X.", "Rui, Y."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Precision",
+        "entity_type": "Metric",
+        "name": "Precision",
+        "description": "Correctly identified entities over identified entities",
+        "category": "Math word problem solving",
+        "formula": "True positives / (True positives + False positives)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Recall",
+        "entity_type": "Metric",
+        "name": "Recall",
+        "description": "Correctly identified entities over all entities",
+        "category": "Math word problem solving",
+        "formula": "True positives / (True positives + False negatives)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score",
+        "entity_type": "Metric",
+        "name": "F1",
+        "description": "Harmonic mean of precision and recall",
+        "category": "Math word problem solving",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Clark2016_Aristo",
+        "entity_type": "Algorithm",
+        "name": "Aristo",
+        "year": 2016,
+        "authors": ["Clark, P.", "Etzioni, O.", "Khot, T.", "Sabharwal, A.", "Tafjord, O."],
+        "task": "Elementary science question answering",
+        "dataset": ["NY Regents Science Exam"],
+        "metrics": ["Score"],
+        "architecture": {
+          "components": ["IR solver", "PMI solver", "SVM solver", "RULE solver", "ILP solver"],
+          "connections": ["Text -> IR solver", "Text -> PMI solver", "Text -> SVM solver", "Text -> RULE solver", "Text -> ILP solver"],
+          "mechanisms": ["Multiple levels of representation", "Combination of solvers"]
+        },
+        "methodology": {
+          "training_strategy": ["Logistic regression for combination"],
+          "parameter_tuning": ["Solver-specific parameters", "Logistic regression parameters"]
+        },
+        "feature_processing": ["TF-IDF scoring", "Pointwise mutual information", "Word embeddings", "Logical rules", "Knowledge tables"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "NY_Regents_Science_Exam",
+        "entity_type": "Dataset",
+        "name": "NY Regents Science Exam",
+        "description": "Elementary science exam questions",
+        "domain": "Elementary science",
+        "size": 237,
+        "year": 2016,
+        "creators": ["Clark, P.", "Etzioni, O.", "Khot, T.", "Sabharwal, A.", "Tafjord, O."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Score",
+        "entity_type": "Metric",
+        "name": "Score",
+        "description": "Percentage of correctly answered questions",
+        "category": "Elementary science question answering",
+        "formula": "Number of correct answers / Total number of questions"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Alvin2015_GeoTutor",
+        "entity_type": "Algorithm",
+        "name": "GeoTutor",
+        "year": 2015,
+        "authors": ["Alvin, C.", "Gulwani, S.", "Majumdar, R.", "Mukhopadhyay, S."],
+        "task": "Euclidean Geometry problem solving",
+        "dataset": ["High school geometry problems"],
+        "metrics": ["Precision", "Recall", "F1"],
+        "architecture": {
+          "components": ["Hypergraph representation", "Traversal algorithm", "Reasoning module"],
+          "connections": ["Geometric figure -> Hypergraph", "Hypergraph -> Proof problems", "Proof problems -> Solutions"],
+          "mechanisms": ["Semantic parsing", "Reasoning over structured representations"]
+        },
+        "methodology": {
+          "training_strategy": ["Rule-based construction", "Traversing hypergraph"],
+          "parameter_tuning": ["No parameter tuning"]
+        },
+        "feature_processing": ["Geometric classes", "Functions", "Templates", "Axioms"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "High_school_geometry_problems",
+        "entity_type": "Dataset",
+        "name": "High school geometry problems",
+        "description": "Collection of high school geometry problems",
+        "domain": "Euclidean Geometry",
+        "size": 110,
+        "year": 2015,
+        "creators": ["Alvin, C.", "Gulwani, S.", "Majumdar, R.", "Mukhopadhyay, S."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Precision",
+        "entity_type": "Metric",
+        "name": "Precision",
+        "description": "Correctly identified entities over identified entities",
+        "category": "Euclidean Geometry problem solving",
+        "formula": "True positives / (True positives + False positives)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Recall",
+        "entity_type": "Metric",
+        "name": "Recall",
+        "description": "Correctly identified entities over all entities",
+        "category": "Euclidean Geometry problem solving",
+        "formula": "True positives / (True positives + False negatives)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score",
+        "entity_type": "Metric",
+        "name": "F1",
+        "description": "Harmonic mean of precision and recall",
+        "category": "Euclidean Geometry problem solving",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "INTRODUCTION",
+    "next_section": "RELATED WORK"
+  }
+}
+```

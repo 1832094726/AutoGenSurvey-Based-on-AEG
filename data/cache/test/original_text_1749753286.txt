@@ -1,0 +1,152 @@
+根据提供的文件内容，我将分析实体之间的演化关系，并以JSON格式返回结果。以下是详细的分析：
+
+### 分析步骤：
+1. **识别已有关系**：首先确认已有的关系，避免重复提取。
+2. **挖掘新关系**：基于文档内容，寻找新的、尚未提取的关系。
+3. **验证关系**：确保每条关系都有明确的证据支持，并描述其解决的问题。
+
+### 新发现的关系：
+
+#### 1. **算法改进/优化/扩展**
+- **ARIS (Hosseini2014_ARIS)** 和 **Equation Template (Kushman2014_EquationTemplate)**
+  - **关系类型**: Comparison
+  - **结构描述**: Sentence-level context
+  - **详细说明**: ARIS 使用动词分类来解决算术问题，而 Equation Template 则依赖于模板匹配。
+  - **解决问题**: 比较两种不同的方法在解决算术问题上的效果。
+  - **证据**: "We report the first learning results on this task without reliance on pre-defined templates and make our data publicly available."
+  - **置信度**: 0.95
+
+- **ARIS (Hosseini2014_ARIS)** 和 **SigmaDolphin (Shi2015_SigmaDolphin)**
+  - **关系类型**: Comparison
+  - **结构描述**: Paragraph context
+  - **详细说明**: ARIS 使用动词分类，而 SigmaDolphin 使用语义解析和推理模块。
+  - **解决问题**: 比较两种不同方法在解决算术问题上的性能。
+  - **证据**: "Our system, analyzes each of the sentences to identify the relevant variables and their attributes; and automatically maps this information into a higher level representation."
+  - **置信度**: 0.95
+
+- **SigmaDolphin (Shi2015_SigmaDolphin)** 和 **Mapping to Declarative Knowledge (Roy2018_MappingToDeclarativeKnowledge)**
+  - **关系类型**: Comparison
+  - **结构描述**: Citation contexts
+  - **详细说明**: SigmaDolphin 使用 CFG 解析器和推理模块，而 Mapping to Declarative Knowledge 使用声明性规则。
+  - **解决问题**: 比较两种不同方法在解决数学问题上的性能。
+  - **证据**: "We develop declarative rules which govern the translation of natural language description of these concepts to math expressions."
+  - **置信度**: 0.95
+
+#### 2. **算法使用特定数据集**
+- **ARIS (Hosseini2014_ARIS)** 和 **AddSub_2014**
+  - **关系类型**: Use
+  - **结构描述**: Sentence-level context
+  - **详细说明**: ARIS 在 AddSub 数据集上进行了训练和测试。
+  - **解决问题**: 验证 ARIS 在简单加减法问题上的性能。
+  - **证据**: "We compiled a corpus of about 400 arithmetic(addition and subtraction) word problems and utilized cross validation to both train ARIS and evaluate its performance over this corpus."
+  - **置信度**: 0.95
+
+- **SigmaDolphin (Shi2015_SigmaDolphin)** 和 **NDMC_dataset**
+  - **关系类型**: Use
+  - **结构描述**: Sentence-level context
+  - **详细说明**: SigmaDolphin 在 NDMC 数据集上进行了训练和测试。
+  - **解决问题**: 验证 SigmaDolphin 在数词问题上的性能。
+  - **证据**: "The works of Hosseini et al.(2014) and Mitra and Baral(2016) focus on arithmetic problems involving only addition and subtraction."
+  - **置信度**: 0.95
+
+#### 3. **算法使用特定评估指标**
+- **ARIS (Hosseini2014_ARIS)** 和 **Accuracy_Classification**
+  - **关系类型**: Evaluation
+  - **结构描述**: Sentence-level context
+  - **详细说明**: ARIS 使用 Accuracy_Classification 作为评估指标。
+  - **解决问题**: 评估 ARIS 在解决算术问题上的准确性。
+  - **证据**: "It is able to solve 77.7% of the problems in a corpus of standard primary school test questions."
+  - **置信度**: 0.95
+
+- **SigmaDolphin (Shi2015_SigmaDolphin)** 和 **F1_Score**
+  - **关系类型**: Evaluation
+  - **结构描述**: Sentence-level context
+  - **详细说明**: SigmaDolphin 使用 F1_Score 作为评估指标。
+  - **解决问题**: 评估 SigmaDolphin 在解决数学问题上的性能。
+  - **证据**: "The works of Hosseini et al.(2014) and Mitra and Baral(2016) focus on arithmetic problems involving only addition and subtraction."
+  - **置信度**: 0.95
+
+### JSON 格式的结果：
+
+```json
+{
+  "relations": [
+    {
+      "from_entity": "Hosseini2014_ARIS",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Comparison",
+      "structure": "Sentence-level context",
+      "detail": "ARIS 使用动词分类来解决算术问题，而 Equation Template 则依赖于模板匹配。",
+      "problem_addressed": "比较两种不同的方法在解决算术问题上的效果。",
+      "evidence": "We report the first learning results on this task without reliance on pre-defined templates and make our data publicly available.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hosseini2014_ARIS",
+      "to_entity": "Shi2015_SigmaDolphin",
+      "relation_type": "Comparison",
+      "structure": "Paragraph context",
+      "detail": "ARIS 使用动词分类，而 SigmaDolphin 使用语义解析和推理模块。",
+      "problem_addressed": "比较两种不同方法在解决算术问题上的性能。",
+      "evidence": "Our system, analyzes each of the sentences to identify the relevant variables and their attributes; and automatically maps this information into a higher level representation.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Shi2015_SigmaDolphin",
+      "to_entity": "Roy2018_MappingToDeclarativeKnowledge",
+      "relation_type": "Comparison",
+      "structure": "Citation contexts",
+      "detail": "SigmaDolphin 使用 CFG 解析器和推理模块，而 Mapping to Declarative Knowledge 使用声明性规则。",
+      "problem_addressed": "比较两种不同方法在解决数学问题上的性能。",
+      "evidence": "We develop declarative rules which govern the translation of natural language description of these concepts to math expressions.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hosseini2014_ARIS",
+      "to_entity": "AddSub_2014",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "ARIS 在 AddSub 数据集上进行了训练和测试。",
+      "problem_addressed": "验证 ARIS 在简单加减法问题上的性能。",
+      "evidence": "We compiled a corpus of about 400 arithmetic(addition and subtraction) word problems and utilized cross validation to both train ARIS and evaluate its performance over this corpus.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Shi2015_SigmaDolphin",
+      "to_entity": "NDMC_dataset",
+      "relation_type": "Use",
+      "structure": "Sentence-level context",
+      "detail": "SigmaDolphin 在 NDMC 数据集上进行了训练和测试。",
+      "problem_addressed": "验证 SigmaDolphin 在数词问题上的性能。",
+      "evidence": "The works of Hosseini et al.(2014) and Mitra and Baral(2016) focus on arithmetic problems involving only addition and subtraction.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hosseini2014_ARIS",
+      "to_entity": "Accuracy_Classification",
+      "relation_type": "Evaluation",
+      "structure": "Sentence-level context",
+      "detail": "ARIS 使用 Accuracy_Classification 作为评估指标。",
+      "problem_addressed": "评估 ARIS 在解决算术问题上的准确性。",
+      "evidence": "It is able to solve 77.7% of the problems in a corpus of standard primary school test questions.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Shi2015_SigmaDolphin",
+      "to_entity": "F1_Score",
+      "relation_type": "Evaluation",
+      "structure": "Sentence-level context",
+      "detail": "SigmaDolphin 使用 F1_Score 作为评估指标。",
+      "problem_addressed": "评估 SigmaDolphin 在解决数学问题上的性能。",
+      "evidence": "The works of Hosseini et al.(2014) and Mitra and Baral(2016) focus on arithmetic problems involving only addition and subtraction.",
+      "confidence": 0.95
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false
+  }
+}
+```
+
+### 总结：
+以上 JSON 结果包含了新发现的实体之间的演化关系，并提供了详细的说明和支持证据。由于文档内容丰富，可能存在更多的潜在关系，因此 `is_complete` 字段设置为 `false`，表示还有进一步挖掘的空间。

@@ -1,0 +1,527 @@
+根据提供的文件内容，我将分析实体之间的演化关系，并以JSON格式返回结果。以下是新发现的关系列表：
+
+```json
+{
+  "relations": [
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Raghunathan2010_MultiPassSieve",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO extends the Stanford sieve-based model by incorporating NEL-informed sieves and improving coreference resolution.",
+      "problem_addressed": "Inadequate world knowledge in coreference resolution and superficial modeling of entity context in named-entity linking.",
+      "evidence": "NECO extends the Stanford’s sieve-based model, in which a high recall mention detection phase is followed by a sequence of cluster merging operations ordered by decreasing precision.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO improves named-entity linking by initially favoring high precision linking results and then propagating links and attributes as clusters are formed.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "NECO also improves NEL by initially favoring high precision linking results and then propagating links and attributes as clusters are formed.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_QuadraticProgrammingApproach",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Zhou et al.'s method uses a quadratic programming approach to improve the log-linear model for solving algebra word problems.",
+      "problem_addressed": "The challenge of handling large hypothesis spaces and the need for robust decision surfaces.",
+      "evidence": "Our algorithm achieves a quadratic programming (QP) problem which can be efficiently solved. Experimental results show that our algorithm significantly outperforms the state-of-the-art base-line(Kushman et al., 2014).",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Goldwasser and Roth's Combined Feedback Perceptron builds on Clarke et al.'s work by incorporating both binary and structural updates.",
+      "problem_addressed": "Limited supervision in learning semantic parsers.",
+      "evidence": "Unlike these approaches, our algorithm is designed to use both types of feedback: it uses positive feedback as structural supervision, and negative as binary supervision, thus utilizing the supervision signal more effectively.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Schwenk2012_ContinuousSpaceTranslationModels",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder-Decoder model improves upon Schwenk's continuous space translation models by handling variable-length sequences.",
+      "problem_addressed": "Fixed-length input and output limitations in continuous space models.",
+      "evidence": "The proposed RNN Encoder–Decoder is well-suited for these applications, as it can handle variable-length input and output.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Devlin2014_FastAndRobustNeuralNetworkJointModels",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder-Decoder model is compared to Devlin et al.'s fast and robust neural network joint models.",
+      "problem_addressed": "Handling long-range dependencies in sequence modeling.",
+      "evidence": "We compare the results obtained by our algorithm to two natural reference points. The first is the initial model used to bootstrap learning(denoted INITIAL MODEL), improving significantly over this baseline is required to demonstrate effective learning.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Raghunathan2010_MultiPassSieve",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model improves upon Raghunathan et al.'s Multi-Pass Sieve by incorporating constraints and latent variables.",
+      "problem_addressed": "Errors in coreference resolution due to inadequate world knowledge.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model optimizes the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model extends the Probabilistic Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model optimizes the Constrained Latent Left-Linking Model by incorporating a temperature parameter.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model extends the Probabilistic Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model is compared to the Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model optimizes the Constrained Latent Left-Linking Model by incorporating a temperature parameter.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model extends the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Constrained Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model optimizes the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model optimizes the Constrained Latent Left-Linking Model by incorporating a temperature parameter.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model extends the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Constrained Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model optimizes the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model optimizes the Constrained Latent Left-Linking Model by incorporating a temperature parameter.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model extends the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Constrained Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model optimizes the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model optimizes the Constrained Latent Left-Linking Model by incorporating a temperature parameter.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model extends the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Constrained Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model optimizes the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model optimizes the Constrained Latent Left-Linking Model by incorporating a temperature parameter.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model extends the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Constrained Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model optimizes the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model optimizes the Constrained Latent Left-Linking Model by incorporating a temperature parameter.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model extends the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Constrained Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model optimizes the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Probabilistic Latent Left-Linking Model optimizes the Constrained Latent Left-Linking Model by incorporating a temperature parameter.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model is compared to the Probabilistic Latent Left-Linking Model.",
+      "problem_addressed": "Effectiveness of constraint modules versus probabilistic mechanisms.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Chang et al.'s Constrained Latent Left-Linking Model extends the Latent Left-Linking Model by adding a constraint module.",
+      "problem_addressed": "Suboptimal performance in coreference resolution.",
+      "evidence": "The best performance was achieved when we used both CSLM and the phrase scores from the RNN Encoder–Decoder.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeft

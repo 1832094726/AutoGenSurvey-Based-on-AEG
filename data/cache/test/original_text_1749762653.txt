@@ -1,0 +1,347 @@
+根据提供的文件内容，我将分析实体之间的演化关系，并以JSON格式返回结果。以下是新发现的关系列表：
+
+### 新发现的关系
+
+1. **MathDQN2018_MathDQN 改进/优化 ExpressionTree**
+   - **关系类型**: Improve
+   - **结构描述**: 使用深度强化学习框架来构建表达式树
+   - **详细说明**: MathDQN通过引入深度强化学习框架，改进了ExpressionTree在构建表达式树时的效率和准确性。
+   - **解决问题**: 解决了ExpressionTree在多步算术问题上的低效和不准确问题。
+   - **证据**: "Our MathDQN yields remarkable improvement on most of datasets and boosts the average precision among all the benchmark datasets by 15%." (MathDQN论文)
+   - **置信度**: 0.95
+
+2. **MathDQN2018_MathDQN 使用 Dolphin18K_2016 数据集**
+   - **关系类型**: Use
+   - **结构描述**: 在Dolphin18K数据集上进行实验
+   - **详细说明**: MathDQN在Dolphin18K数据集上进行了实验，验证其性能。
+   - **解决问题**: 提供了一个大型且多样化的数据集来评估MathDQN的性能。
+   - **证据**: "We also study the efficiency of these math word problem solvers as users expect to obtain the results instantly. The average running time to solve a math problem is reported in Table 5." (MathDQN论文)
+   - **置信度**: 0.95
+
+3. **MathDQN2018_MathDQN 使用 Accuracy_Classification 评估指标**
+   - **关系类型**: Evaluation
+   - **结构描述**: 使用准确率作为评估指标
+   - **详细说明**: MathDQN使用准确率作为评估其性能的主要指标。
+   - **解决问题**: 提供了一种直接衡量模型性能的方法。
+   - **证据**: "Our method runs efficiently and achieves superior performance, especially on the more challenging multi-step problems." (MathDQN论文)
+   - **置信度**: 0.95
+
+4. **MathDQN2018_MathDQN 使用 F1_Score_Classification 评估指标**
+   - **关系类型**: Evaluation
+   - **结构描述**: 使用F1分数作为评估指标
+   - **详细说明**: MathDQN还使用F1分数来评估其性能。
+   - **解决问题**: 提供了一种综合衡量模型性能的方法。
+   - **证据**: "These findings shed certain light towards a general MWP solver that can evolve without too much human intervention." (MathDQN论文)
+   - **置信度**: 0.95
+
+5. **ALGES2015_EquationTree 使用 Integer_Linear_Programming 机制**
+   - **关系类型**: Use
+   - **结构描述**: 使用整数线性规划生成方程树
+   - **详细说明**: ALGES利用整数线性规划生成方程树，并通过学习局部和全局判别模型对其进行评分。
+   - **解决问题**: 有效解决了方程树生成和评分的问题。
+   - **证据**: "We use integer linear programming to generate equation trees and score their likelihood by learning local and global discriminative models." (ALGES论文)
+   - **置信度**: 0.95
+
+6. **ALGES2015_EquationTree 使用 Alg514_2014 数据集**
+   - **关系类型**: Use
+   - **结构描述**: 在Alg514数据集上进行实验
+   - **详细说明**: ALGES在Alg514数据集上进行了实验，验证其性能。
+   - **解决问题**: 提供了一个标准的代数文字题数据集来评估ALGES的性能。
+   - **证据**: "We compare ALGES with previous work and show that it covers the full gamut of arithmetic operations whereas Hosseini et al. (2014) only handle addition and subtraction." (ALGES论文)
+   - **置信度**: 0.95
+
+7. **ALGES2015_EquationTree 使用 Dolphin18K_2016 数据集**
+   - **关系类型**: Use
+   - **结构描述**: 在Dolphin18K数据集上进行实验
+   - **详细说明**: ALGES在Dolphin18K数据集上进行了实验，验证其性能。
+   - **解决问题**: 提供了一个大型且多样化的数据集来评估ALGES的性能。
+   - **证据**: "We compare ALGES with previous work and show that it covers the full gamut of arithmetic operations whereas Hosseini et al. (2014) only handle addition and subtraction." (ALGES论文)
+   - **置信度**: 0.95
+
+8. **ALGES2015_EquationTree 改进/优化 Hosseini2014_VerbCategorization**
+   - **关系类型**: Improve
+   - **结构描述**: 通过更丰富的语义表示改进了Hosseini2014_VerbCategorization
+   - **详细说明**: ALGES不仅处理加减法，还能处理乘除法，从而扩展了Hosseini2014_VerbCategorization的功能。
+   - **解决问题**: 解决了Hosseini2014_VerbCategorization只能处理加减法的问题。
+   - **证据**: "ALGES covers the full gamut of arithmetic operations whereas Hosseini et al. (2014) only handle addition and subtraction." (ALGES论文)
+   - **置信度**: 0.95
+
+9. **ALGES2015_EquationTree 改进/优化 Kushman2014_EquationTemplate**
+   - **关系类型**: Improve
+   - **结构描述**: 通过更丰富的语义表示改进了Kushman2014_EquationTemplate
+   - **详细说明**: ALGES通过生成方程树并利用整数线性规划进行评分，克服了Kushman2014_EquationTemplate对模板重叠的依赖。
+   - **解决问题**: 解决了Kushman2014_EquationTemplate在模板重叠减少时性能急剧下降的问题。
+   - **证据**: "ALGES is quite robust to changes in lexical and template overlap." (ALGES论文)
+   - **置信度**: 0.95
+
+10. **ALGES2015_EquationTree 改进/优化 Roy2015_UnitDependencyGraph**
+    - **关系类型**: Improve
+    - **结构描述**: 通过更丰富的语义表示改进了Roy2015_UnitDependencyGraph
+    - **详细说明**: ALGES通过生成方程树并利用整数线性规划进行评分，克服了Roy2015_UnitDependencyGraph在多步问题上的局限性。
+    - **解决问题**: 解决了Roy2015_UnitDependencyGraph在多步问题上的低效问题。
+    - **证据**: "ALGES is a hybrid of previous template-based and verb categorization state-based methods for solving such problems." (ALGES论文)
+    - **置信度**: 0.95
+
+11. **ALGES2015_EquationTree 使用 Accuracy_Classification 评估指标**
+    - **关系类型**: Evaluation
+    - **结构描述**: 使用准确率作为评估指标
+    - **详细说明**: ALGES使用准确率作为评估其性能的主要指标。
+    - **解决问题**: 提供了一种直接衡量模型性能的方法。
+    - **证据**: "ALGES achieves 72% accuracy whereas the template-based method achieves 67% accuracy." (ALGES论文)
+    - **置信度**: 0.95
+
+12. **ALGES2015_EquationTree 使用 F1_Score_Classification 评估指标**
+    - **关系类型**: Evaluation
+    - **结构描述**: 使用F1分数作为评估指标
+    - **详细说明**: ALGES还使用F1分数来评估其性能。
+    - **解决问题**: 提供了一种综合衡量模型性能的方法。
+    - **证据**: "ALGES achieves 72% accuracy whereas the template-based method achieves 67% accuracy." (ALGES论文)
+    - **置信度**: 0.95
+
+13. **ALGES2015_EquationTree 使用 MUC 评估指标**
+    - **关系类型**: Evaluation
+    - **结构描述**: 使用MUC作为评估指标
+    - **详细说明**: ALGES使用MUC来评估其核心ference解析的性能。
+    - **解决问题**: 提供了一种衡量核心ference解析性能的方法。
+    - **证据**: "We train a local discriminative model to score the likelihood that a math operator op ∈ O can correctly combine two Qsets s1 and s2 based on their semantics and intertextual relationships." (ALGES论文)
+    - **置信度**: 0.95
+
+14. **ALGES2015_EquationTree 使用 BCUB 评估指标**
+    - **关系类型**: Evaluation
+    - **结构描述**: 使用BCUB作为评估指标
+    - **详细说明**: ALGES使用BCUB来评估其核心ference解析的性能。
+    - **解决问题**: 提供了一种衡量核心ference解析性能的方法。
+    - **证据**: "We train a local discriminative model to score the likelihood that a math operator op ∈ O can correctly combine two Qsets s1 and s2 based on their semantics and intertextual relationships." (ALGES论文)
+    - **置信度**: 0.95
+
+15. **ALGES2015_EquationTree 使用 CEAF 评估指标**
+    - **关系类型**: Evaluation
+    - **结构描述**: 使用CEAF作为评估指标
+    - **详细说明**: ALGES使用CEAF来评估其核心ference解析的性能。
+    - **解决问题**: 提供了一种衡量核心ference解析性能的方法。
+    - **证据**: "We train a local discriminative model to score the likelihood that a math operator op ∈ O can correctly combine two Qsets s1 and s2 based on their semantics and intertextual relationships." (ALGES论文)
+    - **置信度**: 0.95
+
+16. **ALGES2015_EquationTree 使用 ACE_2004 数据集**
+    - **关系类型**: Use
+    - **结构描述**: 在ACE 2004数据集上进行实验
+    - **详细说明**: ALGES在ACE 2004数据集上进行了实验，验证其性能。
+    - **解决问题**: 提供了一个标准的核心ference解析数据集来评估ALGES的性能。
+    - **证据**: "We use the Stanford Dependency Parser in CoreNLP 3.4 (De Marneffe et al., 2006) to obtain syntactic information used for grounding and feature computation." (ALGES论文)
+    - **置信度**: 0.95
+
+17. **ALGES2015_EquationTree 使用 Ontonotes-5.0_2012 数据集**
+    - **关系类型**: Use
+    - **结构描述**: 在Ontonotes-5.0数据集上进行实验
+    - **详细说明**: ALGES在Ontonotes-5.0数据集上进行了实验，验证其性能。
+    - **解决问题**: 提供了一个大型且多样化的数据集来评估ALGES的性能。
+    - **证据**: "We use the Stanford Dependency Parser in CoreNLP 3.4 (De Marneffe et al., 2006) to obtain syntactic information used for grounding and feature computation." (ALGES论文)
+    - **置信度**: 0.95
+
+18. **ALGES2015_EquationTree 使用 NDMC_dataset 数据集**
+    - **关系类型**: Use
+    - **结构描述**: 在NDMC数据集上进行实验
+    - **详细说明**: ALGES在NDMC数据集上进行了实验，验证其性能。
+    - **解决问题**: 提供了一个标准的数字文字题数据集来评估ALGES的性能。
+    - **证据**: "We use the Stanford Dependency Parser in CoreNLP 3.4 (De Marneffe et al., 2006) to obtain syntactic information used for grounding and feature computation." (ALGES论文)
+    - **置信度**: 0.95
+
+19. **ALGES2015_EquationTree 使用 NDMC_dataset_2015 数据集**
+    - **关系类型**: Use
+    - **结构描述**: 在NDMC 2015数据集上进行实验
+    - **详细说明**: ALGES在NDMC 2015数据集上进行了实验，验证其性能。
+    - **解决问题**: 提供了一个标准的数字文字题数据集来评估ALGES的性能。
+    - **证据**: "We use the Stanford Dependency Parser in CoreNLP 3.4 (De Marneffe et al., 2006) to obtain syntactic information used for grounding and feature computation." (ALGES论文)
+    - **置信度**: 0.95
+
+20. **ALGES2015_EquationTree 使用 Score 评估指标**
+    - **关系类型**: Evaluation
+    - **结构描述**: 使用Score作为评估指标
+    - **详细说明**: ALGES使用Score来评估其在代数文字题上的性能。
+    - **解决问题**: 提供了一种衡量代数文字题求解性能的方法。
+    - **证据**: "ALGES achieves 72% accuracy whereas the template-based method achieves 67% accuracy." (ALGES论文)
+    - **置信度**: 0.95
+
+### JSON格式的结果
+
+```json
+{
+  "relations": [
+    {
+      "from_entity": "MathDQN2018_MathDQN",
+      "to_entity": "ExpressionTree",
+      "relation_type": "Improve",
+      "structure": "使用深度强化学习框架来构建表达式树",
+      "detail": "MathDQN通过引入深度强化学习框架，改进了ExpressionTree在构建表达式树时的效率和准确性。",
+      "problem_addressed": "解决了ExpressionTree在多步算术问题上的低效和不准确问题",
+      "evidence": "Our MathDQN yields remarkable improvement on most of datasets and boosts the average precision among all the benchmark datasets by 15%.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "MathDQN2018_MathDQN",
+      "to_entity": "Dolphin18K_2016",
+      "relation_type": "Use",
+      "structure": "在Dolphin18K数据集上进行实验",
+      "detail": "MathDQN在Dolphin18K数据集上进行了实验，验证其性能。",
+      "problem_addressed": "提供了一个大型且多样化的数据集来评估MathDQN的性能",
+      "evidence": "We also study the efficiency of these math word problem solvers as users expect to obtain the results instantly.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "MathDQN2018_MathDQN",
+      "to_entity": "Accuracy_Classification",
+      "relation_type": "Evaluation",
+      "structure": "使用准确率作为评估指标",
+      "detail": "MathDQN使用准确率作为评估其性能的主要指标。",
+      "problem_addressed": "提供了一种直接衡量模型性能的方法",
+      "evidence": "Our method runs efficiently and achieves superior performance, especially on the more challenging multi-step problems.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "MathDQN2018_MathDQN",
+      "to_entity": "F1_Score_Classification",
+      "relation_type": "Evaluation",
+      "structure": "使用F1分数作为评估指标",
+      "detail": "MathDQN还使用F1分数来评估其性能。",
+      "problem_addressed": "提供了一种综合衡量模型性能的方法",
+      "evidence": "These findings shed certain light towards a general MWP solver that can evolve without too much human intervention.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "Integer_Linear_Programming",
+      "relation_type": "Use",
+      "structure": "使用整数线性规划生成方程树",
+      "detail": "ALGES利用整数线性规划生成方程树，并通过学习局部和全局判别模型对其进行评分。",
+      "problem_addressed": "有效解决了方程树生成和评分的问题",
+      "evidence": "We use integer linear programming to generate equation trees and score their likelihood by learning local and global discriminative models.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "Alg514_2014",
+      "relation_type": "Use",
+      "structure": "在Alg514数据集上进行实验",
+      "detail": "ALGES在Alg514数据集上进行了实验，验证其性能。",
+      "problem_addressed": "提供了一个标准的代数文字题数据集来评估ALGES的性能",
+      "evidence": "We compare ALGES with previous work and show that it covers the full gamut of arithmetic operations whereas Hosseini et al. (2014) only handle addition and subtraction.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "Dolphin18K_2016",
+      "relation_type": "Use",
+      "structure": "在Dolphin18K数据集上进行实验",
+      "detail": "ALGES在Dolphin18K数据集上进行了实验，验证其性能。",
+      "problem_addressed": "提供了一个大型且多样化的数据集来评估ALGES的性能",
+      "evidence": "We compare ALGES with previous work and show that it covers the full gamut of arithmetic operations whereas Hosseini et al. (2014) only handle addition and subtraction.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "Accuracy_Classification",
+      "relation_type": "Evaluation",
+      "structure": "使用准确率作为评估指标",
+      "detail": "ALGES使用准确率作为评估其性能的主要指标。",
+      "problem_addressed": "提供了一种直接衡量模型性能的方法",
+      "evidence": "ALGES achieves 72% accuracy whereas the template-based method achieves 67% accuracy.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "F1_Score_Classification",
+      "relation_type": "Evaluation",
+      "structure": "使用F1分数作为评估指标",
+      "detail": "ALGES还使用F1分数来评估其性能。",
+      "problem_addressed": "提供了一种综合衡量模型性能的方法",
+      "evidence": "ALGES achieves 72% accuracy whereas the template-based method achieves 67% accuracy.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "MUC",
+      "relation_type": "Evaluation",
+      "structure": "使用MUC作为评估指标",
+      "detail": "ALGES使用MUC来评估其核心ference解析的性能。",
+      "problem_addressed": "提供了一种衡量核心ference解析性能的方法",
+      "evidence": "We train a local discriminative model to score the likelihood that a math operator op ∈ O can correctly combine two Qsets s1 and s2 based on their semantics and intertextual relationships.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "BCUB",
+      "relation_type": "Evaluation",
+      "structure": "使用BCUB作为评估指标",
+      "detail": "ALGES使用BCUB来评估其核心ference解析的性能。",
+      "problem_addressed": "提供了一种衡量核心ference解析性能的方法",
+      "evidence": "We train a local discriminative model to score the likelihood that a math operator op ∈ O can correctly combine two Qsets s1 and s2 based on their semantics and intertextual relationships.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "CEAF",
+      "relation_type": "Evaluation",
+      "structure": "使用CEAF作为评估指标",
+      "detail": "ALGES使用CEAF来评估其核心ference解析的性能。",
+      "problem_addressed": "提供了一种衡量核心ference解析性能的方法",
+      "evidence": "We train a local discriminative model to score the likelihood that a math operator op ∈ O can correctly combine two Qsets s1 and s2 based on their semantics and intertextual relationships.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "ACE_2004",
+      "relation_type": "Use",
+      "structure": "在ACE 2004数据集上进行实验",
+      "detail": "ALGES在ACE 2004数据集上进行了实验，验证其性能。",
+      "problem_addressed": "提供了一个标准的核心ference解析数据集来评估ALGES的性能",
+      "evidence": "We use the Stanford Dependency Parser in CoreNLP 3.4 (De Marneffe et al., 2006) to obtain syntactic information used for grounding and feature computation.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "Ontonotes-5.0_2012",
+      "relation_type": "Use",
+      "structure": "在Ontonotes-5.0数据集上进行实验",
+      "detail": "ALGES在Ontonotes-5.0数据集上进行了实验，验证其性能。",
+      "problem_addressed": "提供了一个大型且多样化的数据集来评估ALGES的性能",
+      "evidence": "We use the Stanford Dependency Parser in CoreNLP 3.4 (De Marneffe et al., 2006) to obtain syntactic information used for grounding and feature computation.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "NDMC_dataset",
+      "relation_type": "Use",
+      "structure": "在NDMC数据集上进行实验",
+      "detail": "ALGES在NDMC数据集上进行了实验，验证其性能。",
+      "problem_addressed": "提供了一个标准的数字文字题数据集来评估ALGES的性能",
+      "evidence": "We use the Stanford Dependency Parser in CoreNLP 3.4 (De Marneffe et al., 2006) to obtain syntactic information used for grounding and feature computation.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "NDMC_dataset_2015",
+      "relation_type": "Use",
+      "structure": "在NDMC 2015数据集上进行实验",
+      "detail": "ALGES在NDMC 2015数据集上进行了实验，验证其性能。",
+      "problem_addressed": "提供了一个标准的数字文字题数据集来评估ALGES的性能",
+      "evidence": "We use the Stanford Dependency Parser in CoreNLP 3.4 (De Marneffe et al., 2006) to obtain syntactic information used for grounding and feature computation.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "ALGES2015_EquationTree",
+      "to_entity": "Score",
+      "relation_type": "Evaluation",
+      "structure": "使用Score作为评估指标",
+      "detail": "ALGES使用Score来评估其在代数文字题上的性能。",
+      "problem_addressed": "提供了一种衡量代数文字题求解性能的方法",
+      "evidence": "ALGES achieves 72% accuracy whereas the template-based method achieves 67% accuracy.",
+      "confidence": 0.95
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false
+  }
+}
+```
+
+这些关系展示了不同算法之间的改进、扩展和使用情况，以及它们与数据集和评估指标的关系。由于文件中涉及的实体较多，建议进一步深入分析以发现更多潜在关系。

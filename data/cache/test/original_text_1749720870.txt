@@ -1,0 +1,145 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Expression Tree",
+        "year": 2015,
+        "authors": ["Roy, S.", "Roth, D."],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["AI2_2016", "IL_2016", "CC_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Binary Classifier", "Bottom-up Tree Construction"],
+          "connections": ["Quantity Extraction", "Operator Selection"],
+          "mechanisms": ["Beam Search", "Scoring Function"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Beam Size"]
+        },
+        "feature_processing": ["Quantity Relevance Prediction", "Simple Prediction Problems"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "ALGES2015_EquationTree",
+        "entity_type": "Algorithm",
+        "name": "ALGES",
+        "year": 2015,
+        "authors": ["Koncel-Kedziorski, R.", "Hajishirzi, H.", "Sabharwal, A.", "Etzioni, O.", "Ang, S. D."],
+        "task": "Algebraic Word Problem Solving",
+        "dataset": ["AI2_2016", "IL_2016", "CC_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Equation Tree", "Integer Linear Programming"],
+          "connections": ["Syntactic Validity", "Type Consistency"],
+          "mechanisms": ["Brute-force Enumeration", "Scoring Function"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["ILP Constraints"]
+        },
+        "feature_processing": ["Quantity Enumeration", "Problem Text Parsing"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "UnitDep2017_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "Unit Dependency Graph",
+        "year": 2017,
+        "authors": ["Roy, S.", "Roth, D."],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["AI2_2016", "IL_2016", "CC_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Unit Dependency Graph", "Node Classifier", "Edge Classifier"],
+          "connections": ["Rate Consistency", "Path Constraints"],
+          "mechanisms": ["Graph Likelihood Calculation"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Classifier Parameters"]
+        },
+        "feature_processing": ["Rate Detection", "Relation Classification"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "MathDQN2018_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "year": 2018,
+        "authors": ["Wang, L.", "Zhang, D.", "Gao, L.", "Song, J.", "Guo, L.", "Shen, H. T."],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["AI2_2016", "IL_2016", "CC_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Deep Q-Network", "Markov Decision Process"],
+          "connections": ["State Representation", "Action Selection"],
+          "mechanisms": ["Reward Function", "Policy Gradient"]
+        },
+        "methodology": {
+          "training_strategy": ["Reinforcement Learning"],
+          "parameter_tuning": ["Q-Network Parameters"]
+        },
+        "feature_processing": ["Problem Text Encoding", "Quantity Extraction"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "SingleEQ_2016",
+        "entity_type": "Dataset",
+        "name": "SingleEQ",
+        "year": 2016,
+        "description": "包含单步和多步算术问题的数据集",
+        "domain": "数学问题求解",
+        "size": 508,
+        "creators": ["Koncel-Kedziorski, R.", "Hajishirzi, H.", "Sabharwal, A.", "Etzioni, O.", "Ang, S. D."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AllArith_2016",
+        "entity_type": "Dataset",
+        "name": "AllArith",
+        "year": 2016,
+        "description": "混合了来自多个源的算术问题的数据集",
+        "domain": "数学问题求解",
+        "size": 831,
+        "creators": ["Roy, S.", "Roth, D."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MAWPS-S_2016",
+        "entity_type": "Dataset",
+        "name": "MAWPS-S",
+        "year": 2016,
+        "description": "包含单变量算术问题的数据集",
+        "domain": "数学问题求解",
+        "size": 2373,
+        "creators": ["Koncel-Kedziorski, R.", "Roy, S.", "Amini, A.", "Kushman, N.", "Hajishirzi, H."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "综合考虑精确率和召回率的评价指标",
+        "category": "分类评估",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "ARITHMETIC WORD PROBLEM SOLVER",
+    "next_section": "EQUATION SET SOLVER"
+  }
+}
+```

@@ -1,0 +1,165 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Expression Tree",
+        "year": 2015,
+        "authors": ["Roy, S.", "Roth, D."],
+        "task": "Arithmetic Word Problem Solving",
+        "dataset": ["AI2_2016", "IL_2015", "Commoncore_2016"],
+        "metrics": ["Accuracy_Solving", "F1_Score_TextualParsing"],
+        "architecture": {
+          "components": ["Monotonic Expression Tree", "Binary Tree", "LCA Node"],
+          "connections": ["Leaf Nodes to Internal Nodes", "Internal Nodes to Operations"],
+          "mechanisms": ["Decomposition Strategy", "Constrained Inference Framework", "Quantity Schemas"]
+        },
+        "methodology": {
+          "training_strategy": ["Beam Search", "Pairwise Classification"],
+          "parameter_tuning": ["wIRR"]
+        },
+        "feature_processing": ["Quantity Schemas", "Dependency Parsing", "Surface Form Extraction"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "AI2_2016",
+        "entity_type": "Dataset",
+        "name": "AI2 Dataset",
+        "year": 2016,
+        "description": "Collection of 395 addition and subtraction problems",
+        "domain": "Arithmetic Word Problem Solving",
+        "creators": ["Hosseini, M. J.", "Hajishirzi, H.", "Etzioni, O.", "Kushman, N."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "IL_2015",
+        "entity_type": "Dataset",
+        "name": "IL Dataset",
+        "year": 2015,
+        "description": "Collection of arithmetic problems that can be solved by performing one operation",
+        "domain": "Arithmetic Word Problem Solving",
+        "creators": ["Roy, S.", "Vieira, T.", "Roth, D."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Commoncore_2016",
+        "entity_type": "Dataset",
+        "name": "Commoncore Dataset",
+        "year": 2016,
+        "description": "New dataset of multi-step arithmetic problems",
+        "domain": "Arithmetic Word Problem Solving",
+        "creators": ["Roy, S.", "Vieira, T.", "Roth, D."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Solving",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "year": 2016,
+        "description": "Proportion of correctly solved arithmetic problems",
+        "category": "Arithmetic Problem Solving",
+        "formula": "Number of Correct Solutions / Total Number of Problems"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_TextualParsing",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "year": 2015,
+        "description": "Harmonic mean of precision and recall for textual parsing",
+        "category": "Textual Parsing",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2015_GEOS",
+        "entity_type": "Algorithm",
+        "name": "GEOS",
+        "year": 2015,
+        "authors": ["Seo, M. J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O.", "Malcolm, C."],
+        "task": "Geometry Problem Solving",
+        "dataset": ["SAT_2015"],
+        "metrics": ["Accuracy_Solving", "F1_Score_TextualParsing"],
+        "architecture": {
+          "components": ["Text Parsing", "Diagram Parsing", "Logical Representation"],
+          "connections": ["Text Parsing to Diagram Parsing", "Logical Representation to Solver"],
+          "mechanisms": ["Submodular Optimization", "Greedy Algorithm", "Constrained Inference"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning", "Submodular Optimization"],
+          "parameter_tuning": ["λ"]
+        },
+        "feature_processing": ["Concept Identification", "Relation Identification", "Literal Parsing", "Relation Completion"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "SAT_2015",
+        "entity_type": "Dataset",
+        "name": "SAT",
+        "year": 2015,
+        "description": "Official SAT questions and practice questions for geometry problems",
+        "domain": "Geometry Problem Solving",
+        "creators": ["Seo, M. J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O.", "Malcolm, C."]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Wang2019_T-RNN",
+        "entity_type": "Algorithm",
+        "name": "T-RNN",
+        "year": 2019,
+        "authors": ["Wang, L.", "Zhang, D.", "Xu, X.", "Gao, L.", "Song, J.", "Guo, L.", "Shen, H. T."],
+        "task": "Math Word Problem Solving",
+        "dataset": ["Math23K_2017", "MAWPS_2016"],
+        "metrics": ["Accuracy_Solving"],
+        "architecture": {
+          "components": ["Bi-LSTM", "Self Attention", "Recursive Neural Network"],
+          "connections": ["Quantity Embedding to Recursive NN", "Template Prediction to Answer Generation"],
+          "mechanisms": ["Equation Normalization", "Operator Encapsulation", "Beam Search"]
+        },
+        "methodology": {
+          "training_strategy": ["Sequence-to-Sequence Model", "Beam Search"],
+          "parameter_tuning": ["Adam Optimizer", "Learning Rate", "Dropout Rate"]
+        },
+        "feature_processing": ["Number Mapping", "Context Vectorization", "Quantity Embedding"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "year": 2017,
+        "description": "Dataset of Chinese math word problems for elementary school students",
+        "domain": "Arithmetic Word Problem Solving",
+        "creators": ["Wang, Y.", "Liu, X.", "Shi, S."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "MAWPS_2016",
+        "entity_type": "Dataset",
+        "name": "MAWPS",
+        "year": 2016,
+        "description": "Dataset of arithmetic word problems with one unknown variable",
+        "domain": "Arithmetic Word Problem Solving",
+        "creators": ["Koncel-Kedziorski, R.", "Hajishirzi, H.", "Sabharwal, A.", "Etzioni, O.", "Ang, S. D."]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "EXPERIMENTAL SETUP",
+    "next_section": "EXPERIMENTAL RESULTS"
+  }
+}
+```

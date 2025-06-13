@@ -1,0 +1,263 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Roy2015_ExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Expression Tree",
+        "year": 2015,
+        "authors": ["Roy, S.", "Vieira, T.", "Roth, D."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Algebra.com_2014"],
+        "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+        "architecture": {
+          "components": ["Expression Tree Parser", "Semantic Interpreter"],
+          "connections": ["Expression Tree Nodes", "Variable Alignments"],
+          "mechanisms": ["Tree Construction", "Semantic Parsing"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning", "Weak Supervision"],
+          "parameter_tuning": ["Beam Search", "L-BFGS"]
+        },
+        "feature_processing": ["Dependency Path Features", "Noun Phrase Overlap"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "ALGES2015_EquationTree",
+        "entity_type": "Algorithm",
+        "name": "ALGES Equation Tree",
+        "year": 2015,
+        "authors": ["Roy, S.", "Vieira, T.", "Roth, D."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Algebra.com_2014"],
+        "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+        "architecture": {
+          "components": ["Equation Tree Parser", "Semantic Interpreter"],
+          "connections": ["Equation Tree Nodes", "Variable Alignments"],
+          "mechanisms": ["Tree Construction", "Semantic Parsing"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning", "Weak Supervision"],
+          "parameter_tuning": ["Beam Search", "L-BFGS"]
+        },
+        "feature_processing": ["Dependency Path Features", "Noun Phrase Overlap"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "UnitDep2017_UnitDependencyGraph",
+        "entity_type": "Algorithm",
+        "name": "Unit Dependency Graph",
+        "year": 2017,
+        "authors": ["Huang, W.", "Yih, W.", "Choi, Y."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Algebra.com_2014"],
+        "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+        "architecture": {
+          "components": ["Unit Dependency Graph", "Semantic Interpreter"],
+          "connections": ["Unit Dependencies", "Variable Alignments"],
+          "mechanisms": ["Graph Construction", "Semantic Parsing"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning", "Weak Supervision"],
+          "parameter_tuning": ["Beam Search", "L-BFGS"]
+        },
+        "feature_processing": ["Unit Dependency Features", "Noun Phrase Overlap"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "MathDQN2018_MathDQN",
+        "entity_type": "Algorithm",
+        "name": "MathDQN",
+        "year": 2018,
+        "authors": ["Wang, Y.", "He, X.", "Chen, W."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Math23K_2017"],
+        "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+        "architecture": {
+          "components": ["Reinforcement Learning", "Deep Q-Network"],
+          "connections": ["State Representation", "Action Selection"],
+          "mechanisms": ["Reward Function", "Policy Gradient"]
+        },
+        "methodology": {
+          "training_strategy": ["Reinforcement Learning"],
+          "parameter_tuning": ["Learning Rate", "Discount Factor"]
+        },
+        "feature_processing": ["State Features", "Action Features"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seq2SeqET2018_Seq2SeqExpressionTree",
+        "entity_type": "Algorithm",
+        "name": "Seq2Seq Expression Tree",
+        "year": 2018,
+        "authors": ["Wang, Y.", "He, X.", "Chen, W."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Math23K_2017"],
+        "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+        "architecture": {
+          "components": ["Sequence-to-Sequence Model", "Expression Tree Decoder"],
+          "connections": ["Input Sequence", "Output Tree"],
+          "mechanisms": ["Attention Mechanism", "Tree Construction"]
+        },
+        "methodology": {
+          "training_strategy": ["Sequence-to-Sequence Learning"],
+          "parameter_tuning": ["Learning Rate", "Batch Size"]
+        },
+        "feature_processing": ["Word Embeddings", "Positional Encoding"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "StackDecoder2019_StackDecoder",
+        "entity_type": "Algorithm",
+        "name": "Stack Decoder",
+        "year": 2019,
+        "authors": ["Wang, Y.", "He, X.", "Chen, W."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Math23K_2017"],
+        "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+        "architecture": {
+          "components": ["Stack-based Decoder", "Semantic Interpreter"],
+          "connections": ["Stack Operations", "Variable Alignments"],
+          "mechanisms": ["Stack-based Parsing", "Semantic Parsing"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning", "Weak Supervision"],
+          "parameter_tuning": ["Beam Search", "L-BFGS"]
+        },
+        "feature_processing": ["Stack Features", "Noun Phrase Overlap"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "T-RNN2019_T-RecurrentNeuralNetwork",
+        "entity_type": "Algorithm",
+        "name": "T-Recurrent Neural Network",
+        "year": 2019,
+        "authors": ["Wang, Y.", "He, X.", "Chen, W."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Math23K_2017"],
+        "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+        "architecture": {
+          "components": ["Temporal Recurrent Neural Network", "Semantic Interpreter"],
+          "connections": ["Temporal Dependencies", "Variable Alignments"],
+          "mechanisms": ["Temporal Parsing", "Semantic Parsing"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning", "Weak Supervision"],
+          "parameter_tuning": ["Beam Search", "L-BFGS"]
+        },
+        "feature_processing": ["Temporal Features", "Noun Phrase Overlap"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Math23K_2017",
+        "entity_type": "Dataset",
+        "name": "Math23K",
+        "description": "A large-scale dataset for solving math word problems",
+        "domain": "Mathematics",
+        "size": 23000,
+        "year": 2017,
+        "creators": ["Wang, Y.", "He, X.", "Chen, W."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Equation_Accuracy",
+        "entity_type": "Metric",
+        "name": "Equation Accuracy",
+        "description": "Accuracy of the generated equation system",
+        "category": "Equation Generation",
+        "formula": "Correctly Generated Equations / Total Equations"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Answer_Accuracy",
+        "entity_type": "Metric",
+        "name": "Answer Accuracy",
+        "description": "Accuracy of the generated numerical answer",
+        "category": "Answer Generation",
+        "formula": "Correctly Generated Answers / Total Answers"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhou2015_QuadraticProgrammingSolver",
+        "entity_type": "Algorithm",
+        "name": "Quadratic Programming Solver",
+        "year": 2015,
+        "authors": ["Zhou, L.", "Dai, S.", "Chen, L."],
+        "task": "Solving Algebra Word Problems",
+        "dataset": ["Algebra.com_2014"],
+        "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+        "architecture": {
+          "components": ["Quadratic Programming Model", "Log-linear Model"],
+          "connections": ["Input Sentence", "Logical Interpretation"],
+          "mechanisms": ["Optimization", "Logical Formula Generation"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning", "Weak Supervision"],
+          "parameter_tuning": ["Beam Search", "L-BFGS"]
+        },
+        "feature_processing": ["Lexical Features", "Syntactic Features"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Goldwasser2014_LearningFromNaturalInstructions",
+        "entity_type": "Algorithm",
+        "name": "Learning from Natural Instructions",
+        "year": 2014,
+        "authors": ["Goldwasser, D.", "Roth, D."],
+        "task": "Interpreting Natural Language Instructions",
+        "dataset": ["Solitaire Card Game Rules", "Geoquery_1996"],
+        "metrics": ["Accuracy"],
+        "architecture": {
+          "components": ["Semantic Parser", "Response Driven Learning Framework"],
+          "connections": ["Instruction Interpretation", "Game Move Classification"],
+          "mechanisms": ["Feedback-driven Learning", "Logical Formula Generation"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning", "Weak Supervision"],
+          "parameter_tuning": ["Beam Search", "L-BFGS"]
+        },
+        "feature_processing": ["Lexical Features", "Syntactic Features"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Cho2014_RNNEncoderDecoder",
+        "entity_type": "Algorithm",
+        "name": "RNN Encoder-Decoder",
+        "year": 2014,
+        "authors": ["Cho, K.", "van Merriënboer, B.", "Bahdanau, D.", "Bougares, F.", "Schwenk, H.", "Bengio, Y."],
+        "task": "Phrase Representation for Statistical Machine Translation",
+        "dataset": ["WMT'14_English-French_2014"],
+        "metrics": ["BLEU_Score_Translation"],
+        "architecture": {
+          "components": ["Recurrent Neural Network (RNN) Encoder", "RNN Decoder"],
+          "connections": ["Fixed-Length Vector Representation", "Variable-Length Sequence"],
+          "mechanisms": ["Conditional Probability Maximization", "Hidden Units with Reset and Update Gates"]
+        },
+        "methodology": {
+          "training_strategy": ["Gradient-based Learning"],
+          "parameter_tuning": ["Learning Rate", "Rank Approximation"]
+        },
+        "feature_processing": ["Word Embeddings", "Continuous Space Representation"]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": true,
+    "current_section": "RESULTS",
+    "next_section": null
+  }
+}
+```

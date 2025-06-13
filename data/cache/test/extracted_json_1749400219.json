@@ -1,4 +1,0 @@
-{
-        "training_strategy": ["Training on high school geometry problem generation"],
-        "parameter_tuning": ["Hyperparameter tuning for geometry problem generation"]
-      }

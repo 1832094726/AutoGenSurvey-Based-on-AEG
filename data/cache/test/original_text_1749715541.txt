@@ -1,0 +1,219 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Kushman2014_TemplateBasedSolver",
+        "entity_type": "Algorithm",
+        "name": "Template-Based Solver",
+        "year": 2014,
+        "authors": ["Nate Kushman", "Yoav Artzi", "Luke Zettlemoyer", "Regina Barzilay"],
+        "task": "Solving algebra word problems",
+        "dataset": ["Algebra.com_2014"],
+        "metrics": ["Equation_Accuracy", "Answer_Accuracy"],
+        "architecture": {
+          "components": ["Equation templates", "Alignment between text and templates"],
+          "connections": ["Mapping between natural language and equation templates"],
+          "mechanisms": ["Slot filling for numbers and nouns", "Canonicalization of templates"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised learning with labeled equations", "Semi-supervised learning with answers"],
+          "parameter_tuning": ["Beam search with k=200", "L-BFGS optimization", "L2 regularization with λ=0.1"]
+        },
+        "feature_processing": ["Part-of-speech tagging", "Lematization", "Dependency parsing", "Identifying closest noun in dependency parse"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Algebra.com_2014",
+        "entity_type": "Dataset",
+        "name": "Algebra.com",
+        "description": "A crowdsourced tutoring website with algebra word problems",
+        "domain": "Mathematics",
+        "size": 514,
+        "year": 2014,
+        "creators": ["Nate Kushman", "Yoav Artzi", "Luke Zettlemoyer", "Regina Barzilay"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Equation_Accuracy",
+        "entity_type": "Metric",
+        "name": "Equation Accuracy",
+        "description": "Measures how often the system generates the correct equation system",
+        "category": "Algebra word problem solving",
+        "formula": "Correct equation systems / Total equation systems"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Answer_Accuracy",
+        "entity_type": "Metric",
+        "name": "Answer Accuracy",
+        "description": "Measures how often the generated numerical answer is correct",
+        "category": "Algebra word problem solving",
+        "formula": "Correct numerical answers / Total numerical answers"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Cho2014_RNNEncoderDecoder",
+        "entity_type": "Algorithm",
+        "name": "RNN Encoder-Decoder",
+        "year": 2014,
+        "authors": ["Kyunghyun Cho", "Bart van Merrienboer", "Caglar Gulcehre", "Dzmitry Bahdanau", "Fethi Bougares", "Holger Schwenk", "Yoshua Bengio"],
+        "task": "Statistical machine translation",
+        "dataset": ["WMT'14_English-French_2014"],
+        "metrics": ["BLEU_Score_Translation", "Perplexity_LanguageModel"],
+        "architecture": {
+          "components": ["Recurrent Neural Network (RNN) Encoder", "RNN Decoder", "Hidden unit with reset and update gates"],
+          "connections": ["Fixed-length vector representation between encoder and decoder"],
+          "mechanisms": ["Conditional probability maximization", "Adaptive remembering and forgetting"]
+        },
+        "methodology": {
+          "training_strategy": ["Joint training of encoder and decoder", "Gradient-based optimization"],
+          "parameter_tuning": ["AdaDelta optimizer", "Stochastic gradient descent", "Rank-100 matrices for word embeddings"]
+        },
+        "feature_processing": ["Word embeddings", "Continuous space representation"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "WMT'14_English-French_2014",
+        "entity_type": "Dataset",
+        "name": "WMT'14 English-French",
+        "description": "A parallel corpus for English-French translation",
+        "domain": "Machine Translation",
+        "size": "Large scale",
+        "year": 2014,
+        "creators": ["WMT'14 organizers"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "BLEU_Score_Translation",
+        "entity_type": "Metric",
+        "name": "BLEU Score",
+        "description": "A metric for evaluating the quality of machine translation",
+        "category": "Translation performance",
+        "formula": "BP * exp(Σ(wn * log pn))"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Perplexity_LanguageModel",
+        "entity_type": "Metric",
+        "name": "Perplexity",
+        "description": "A measure of how well a probability distribution or probability model predicts a sample",
+        "category": "Language modeling",
+        "formula": "2^(-1/N * Σ log2 p(xi))"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Goldwasser2014_LearningFromNaturalInstructions",
+        "entity_type": "Algorithm",
+        "name": "Learning from Natural Instructions",
+        "year": 2014,
+        "authors": ["Dan Goldwasser", "Dan Roth"],
+        "task": "Interpreting natural language instructions",
+        "dataset": ["Solitaire card game rules", "Geoquery_1996"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Semantic interpreter", "Feedback function"],
+          "connections": ["Mapping between natural language and logical representations"],
+          "mechanisms": ["Integer Linear Programming (ILP) for inference", "Behavioral feedback for learning"]
+        },
+        "methodology": {
+          "training_strategy": ["Response-driven learning", "Iterative learning with feedback"],
+          "parameter_tuning": ["Constraint generation", "Flow constraints for connectivity"]
+        },
+        "feature_processing": ["Lexical and syntactic features", "External knowledge base integration"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Geoquery_1996",
+        "entity_type": "Dataset",
+        "name": "Geoquery",
+        "description": "A dataset of geographical queries and their corresponding logical forms",
+        "domain": "Geographical information retrieval",
+        "size": 500,
+        "year": 1996,
+        "creators": ["John Zelle", "Raymond Mooney"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhou2015_QuadraticProgrammingSolver",
+        "entity_type": "Algorithm",
+        "name": "Quadratic Programming Solver",
+        "year": 2015,
+        "authors": ["Lipu Zhou", "Shuaixiang Dai", "Liwei Chen"],
+        "task": "Solving algebra word problems",
+        "dataset": ["ACE2004-NWIRE_2004"],
+        "metrics": ["Accuracy_MathWordProblem"],
+        "architecture": {
+          "components": ["Log-linear model", "Quadratic programming (QP) problem"],
+          "connections": ["Max-margin objective for learning"],
+          "mechanisms": ["Robust decision surface", "Efficient QP solver"]
+        },
+        "methodology": {
+          "training_strategy": ["Max-margin learning", "Constraint generation"],
+          "parameter_tuning": ["C parameter for balancing slack variable penalty and margin"]
+        },
+        "feature_processing": ["Single slot features", "Slot pair features", "Solution features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ACE2004-NWIRE_2004",
+        "entity_type": "Dataset",
+        "name": "ACE 2004 newswire",
+        "description": "A dataset of newswire texts with named entity annotations",
+        "domain": "Natural Language Processing",
+        "size": 128,
+        "year": 2004,
+        "creators": ["NIST"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_MathWordProblem",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Proportion of correctly answered questions",
+        "category": "Math word problem solving",
+        "formula": "Correct answers / Total questions"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Hajishirzi2013_NECO",
+        "entity_type": "Algorithm",
+        "name": "NECO",
+        "year": 2013,
+        "authors": ["Hannaneh Hajishirzi", "Leila Zilles", "Daniel S. Weld", "Luke Zettlemoyer"],
+        "task": "Coreference resolution and named-entity linking",
+        "dataset": ["ACE2004-NWIRE_2004", "CONLL2011_2011", "ACE2004-NWIRE-NEL_2004"],
+        "metrics": ["MUC_Classification", "B3_Classification", "Pairwise_Classification", "F1_Score_NEL"],
+        "architecture": {
+          "components": ["Stanford sieve-based model", "NEL-informed sieves", "Mention detection"],
+          "connections": ["Cluster merging operations", "NEL constraints"],
+          "mechanisms": ["Propagating entity links within mention clusters", "Relaxed NEL sieve"]
+        },
+        "methodology": {
+          "training_strategy": ["Deterministic coreference rules", "High-precision linking"],
+          "parameter_tuning": ["Confidence thresholds for GLOW and WikipediaMiner"]
+        },
+        "feature_processing": ["Coarse and fine-grained attributes from Freebase and Wikipedia"]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "METHODOLOGY",
+    "next_section": "EXPERIMENTAL SETUP"
+  }
+}
+```

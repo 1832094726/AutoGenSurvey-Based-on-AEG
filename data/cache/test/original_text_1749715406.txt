@@ -1,0 +1,273 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Hajishirzi2013_NECO",
+        "entity_type": "Algorithm",
+        "name": "NECO",
+        "year": 2013,
+        "authors": ["Hajishirzi, H.", "Zilles, L.", "Weld, D. S.", "Zettlemoyer, L."],
+        "task": "Joint Coreference Resolution and Named-Entity Linking",
+        "dataset": ["ACE2004-NWIRE_2004", "CONLL2011_2011", "ACE2004-NWIRE-NEL_2004"],
+        "metrics": ["MUC_Classification", "B3_Classification", "Pairwise_Classification"],
+        "architecture": {
+          "components": ["Stanford sieve-based model", "Multi-pass sieves", "NEL-informed sieves"],
+          "connections": ["Exact NEL sieve", "Relaxed NEL sieve"],
+          "mechanisms": ["Coreference clusters", "NEL constraints", "Mention pruning", "Attribute incorporation"]
+        },
+        "methodology": {
+          "training_strategy": ["Fully supervised", "Weakly supervised"],
+          "parameter_tuning": ["High-precision NEL constraints", "Optimized fine-grained attributes"]
+        },
+        "feature_processing": ["Mention detection", "Entity link assignment", "Attribute extraction"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ACE2004-NWIRE_2004",
+        "entity_type": "Dataset",
+        "name": "ACE2004-NWIRE",
+        "description": "Newswire subset of the ACE 2004 corpus",
+        "domain": "Natural Language Processing",
+        "size": 128,
+        "year": 2004,
+        "creators": ["NIST"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "CONLL2011_2011",
+        "entity_type": "Dataset",
+        "name": "CONLL2011",
+        "description": "Coreference dataset from five different domains",
+        "domain": "Natural Language Processing",
+        "size": 625,
+        "year": 2011,
+        "creators": ["Pradhan, S.", "Ramshaw, L.", "Marcus, M.", "Palmer, M.", "Weischedel, R.", "Xue, N."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ACE2004-NWIRE-NEL_2004",
+        "entity_type": "Dataset",
+        "name": "ACE2004-NWIRE-NEL",
+        "description": "Subset of ACE2004-NWIRE with gold-standard entity links",
+        "domain": "Natural Language Processing",
+        "size": 12,
+        "year": 2004,
+        "creators": ["NIST"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "MUC_Classification",
+        "entity_type": "Metric",
+        "name": "MUC",
+        "description": "Link-based metric measuring the number of clusters needing to be merged",
+        "category": "Coreference Evaluation",
+        "formula": "Number of clusters needed to cover gold clusters / Total number of clusters"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "B3_Classification",
+        "entity_type": "Metric",
+        "name": "B3",
+        "description": "Proportion of intersection between predicted and gold clusters",
+        "category": "Coreference Evaluation",
+        "formula": "Sum of intersections / Sum of predicted and gold clusters"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Pairwise_Classification",
+        "entity_type": "Metric",
+        "name": "Pairwise",
+        "description": "Proportion of correct pairwise coreference decisions",
+        "category": "Coreference Evaluation",
+        "formula": "Number of correct pairwise decisions / Total number of pairwise decisions"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhou2015_QuadraticProgrammingSolver",
+        "entity_type": "Algorithm",
+        "name": "Quadratic Programming Solver",
+        "year": 2015,
+        "authors": ["Zhou, L.", "Dai, S.", "Chen, L."],
+        "task": "Automatically Solving Algebra Word Problems",
+        "dataset": ["Geoquery_1996"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Log-linear model", "Quadratic Programming"],
+          "connections": ["Template selection", "Number assignment"],
+          "mechanisms": ["Max-margin objective", "Constraint generation"]
+        },
+        "methodology": {
+          "training_strategy": ["Fully supervised", "Weakly supervised"],
+          "parameter_tuning": ["Max-margin objective"]
+        },
+        "feature_processing": ["Single slot features", "Slot pair features", "Solution features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Geoquery_1996",
+        "entity_type": "Dataset",
+        "name": "Geoquery",
+        "description": "Geographical database queries",
+        "domain": "Natural Language Processing",
+        "size": 500,
+        "year": 1996,
+        "creators": ["Zelle, J.", "Mooney, R."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Proportion of correct predictions",
+        "category": "Classification Evaluation",
+        "formula": "Correct predictions / Total predictions"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Goldwasser2014_LearningFromNaturalInstructions",
+        "entity_type": "Algorithm",
+        "name": "Learning from Natural Instructions",
+        "year": 2014,
+        "authors": ["Goldwasser, D.", "Roth, D."],
+        "task": "Interpreting Natural Language Instructions",
+        "dataset": ["Freecell Solitaire Card Game", "Geoquery_1996"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Semantic parser", "Integer Linear Programming(ILP)", "Feedback mechanism"],
+          "connections": ["Lexical decisions", "Compositional decisions"],
+          "mechanisms": ["Lexical alignment", "Logical symbol composition"]
+        },
+        "methodology": {
+          "training_strategy": ["Fully supervised", "Weakly supervised"],
+          "parameter_tuning": ["Max-margin objective", "Loss approximation"]
+        },
+        "feature_processing": ["Lexical features", "Syntactic features", "Semantic features"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Cho2014_RNNEncoderDecoder",
+        "entity_type": "Algorithm",
+        "name": "RNN Encoder-Decoder",
+        "year": 2014,
+        "authors": ["Cho, K.", "van Merrienboer, B.", "Gulcehre, C.", "Bahdanau, D.", "Bougares, F.", "Schwenk, H.", "Bengio, Y."],
+        "task": "Statistical Machine Translation",
+        "dataset": ["WMT'14 English-French"],
+        "metrics": ["BLEU_Score_Translation", "Perplexity_LanguageModel"],
+        "architecture": {
+          "components": ["Encoder RNN", "Decoder RNN"],
+          "connections": ["Fixed-length vector representation"],
+          "mechanisms": ["Reset gate", "Update gate"]
+        },
+        "methodology": {
+          "training_strategy": ["Fully supervised"],
+          "parameter_tuning": ["Gradient-based optimization", "Beam search"]
+        },
+        "feature_processing": ["Phrase representations", "Continuous space embeddings"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "WMT'14_English-French_2014",
+        "entity_type": "Dataset",
+        "name": "WMT'14 English-French",
+        "description": "English to French translation task",
+        "domain": "Statistical Machine Translation",
+        "size": 418000000,
+        "year": 2014,
+        "creators": ["WMT"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "BLEU_Score_Translation",
+        "entity_type": "Metric",
+        "name": "BLEU",
+        "description": "Bilingual Evaluation Understudy score",
+        "category": "Translation Evaluation",
+        "formula": "Modified n-gram precision with brevity penalty"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Perplexity_LanguageModel",
+        "entity_type": "Metric",
+        "name": "Perplexity",
+        "description": "Measure of how well a language model predicts a sample",
+        "category": "Language Model Evaluation",
+        "formula": "exp(-1/N * sum(log P(word_i))"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Kushman2014_TemplateBasedSolver",
+        "entity_type": "Algorithm",
+        "name": "Template-Based Solver",
+        "year": 2014,
+        "authors": ["Kushman, N.", "Artzi, Y.", "Zettlemoyer, L.", "Barzilay, R."],
+        "task": "Automatically Solving Algebra Word Problems",
+        "dataset": ["Algebra.com_2014"],
+        "metrics": ["Equation Accuracy", "Answer Accuracy"],
+        "architecture": {
+          "components": ["Log-linear model", "Equation templates"],
+          "connections": ["Template instantiation", "Alignment"],
+          "mechanisms": ["Canonicalization", "Beam search"]
+        },
+        "methodology": {
+          "training_strategy": ["Fully supervised", "Weakly supervised"],
+          "parameter_tuning": ["L-BFGS optimization", "Marginal likelihood maximization"]
+        },
+        "feature_processing": ["Document level features", "Single slot features", "Slot pair features", "Solution features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Algebra.com_2014",
+        "entity_type": "Dataset",
+        "name": "Algebra.com",
+        "description": "Crowdsourced tutoring website with algebra word problems",
+        "domain": "Natural Language Processing",
+        "size": 514,
+        "year": 2014,
+        "creators": ["Algebra.com"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Equation_Accuracy",
+        "entity_type": "Metric",
+        "name": "Equation Accuracy",
+        "description": "Proportion of correctly generated equation systems",
+        "category": "Algebra Word Problem Evaluation",
+        "formula": "Correct equation systems / Total equation systems"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Answer_Accuracy",
+        "entity_type": "Metric",
+        "name": "Answer Accuracy",
+        "description": "Proportion of correctly generated numeric answers",
+        "category": "Algebra Word Problem Evaluation",
+        "formula": "Correct numeric answers / Total numeric answers"
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "INTRODUCTION",
+    "next_section": "METHODOLOGY"
+  }
+}
+```

@@ -1,0 +1,207 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Goldberg2010_EasyFirstNonDirectionalParser",
+        "entity_type": "Algorithm",
+        "name": "Easy-First Non-Directional Dependency Parsing",
+        "year": 2010,
+        "authors": ["Goldberg, Yoav", "Elhadad, Michael"],
+        "task": "Dependency Parsing",
+        "dataset": ["PTB_2010", "CoNLL2007_2007"],
+        "metrics": ["Accuracy_Classification", "Root_Classification", "Complete_Classification"],
+        "architecture": {
+          "components": ["ATTACHLEFT", "ATTACHRIGHT"],
+          "connections": ["bottom-up parsing", "non-directional"],
+          "mechanisms": ["greedy", "best-first", "O(nlogn)"]
+        },
+        "methodology": {
+          "training_strategy": ["structured perceptron"],
+          "parameter_tuning": ["parameter averaging"]
+        },
+        "feature_processing": ["rich feature set", "local context", "syntactic structure"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "PTB_2010",
+        "entity_type": "Dataset",
+        "name": "Penn Treebank",
+        "description": "Wall Street Journal corpus converted to dependency structures",
+        "domain": "Natural Language Processing",
+        "size": 23,
+        "year": 2010,
+        "creators": ["Marcus, Mitchell P.", "Marcinkiewicz, Mary Ann", "Santorini, Beatrice"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "CoNLL2007_2007",
+        "entity_type": "Dataset",
+        "name": "CoNLL 2007",
+        "description": "English dataset for dependency parsing",
+        "domain": "Natural Language Processing",
+        "size": "varies",
+        "year": 2007,
+        "creators": ["Nivre, Joakim", "Hall, Johan", "Nilsson, Jens"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Accuracy_Classification",
+        "entity_type": "Metric",
+        "name": "Accuracy",
+        "description": "Percentage of tokens assigned their correct parent",
+        "category": "Dependency Parsing",
+        "formula": "correctly parsed tokens / total tokens"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Root_Classification",
+        "entity_type": "Metric",
+        "name": "Root",
+        "description": "Percentage of sentences with correct ROOT attachment",
+        "category": "Dependency Parsing",
+        "formula": "correctly parsed ROOT attachments / total sentences"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Complete_Classification",
+        "entity_type": "Metric",
+        "name": "Complete",
+        "description": "Percentage of sentences with all tokens assigned their correct parent",
+        "category": "Dependency Parsing",
+        "formula": "correctly parsed sentences / total sentences"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Earley1970_EfficientContextFreeParsing",
+        "entity_type": "Algorithm",
+        "name": "Efficient Context-Free Parsing",
+        "year": 1970,
+        "authors": ["Earley, Jay"],
+        "task": "Context-Free Parsing",
+        "dataset": [],
+        "metrics": [],
+        "architecture": {
+          "components": ["states", "scanner", "predictor", "completer"],
+          "connections": ["state transitions", "look-ahead"],
+          "mechanisms": ["dynamic programming", "O(n^3)"]
+        },
+        "methodology": {
+          "training_strategy": [],
+          "parameter_tuning": []
+        },
+        "feature_processing": ["syntax analysis", "context-free grammar"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Shi2015_AutomaticallySolvingNumberWordProblems",
+        "entity_type": "Algorithm",
+        "name": "SigmaDolphin",
+        "year": 2015,
+        "authors": ["Shi, Shuming", "Wang, Yuehui", "Lin, Chin-Yew", "Liu, Xiaojiang", "Rui, Yong"],
+        "task": "Automatically Solving Number Word Problems",
+        "dataset": ["Dolphin1878_2015"],
+        "metrics": ["Precision_Classification", "Recall_Classification", "F1_Score_Classification"],
+        "architecture": {
+          "components": ["CFG parser", "reasoning module", "DOL language"],
+          "connections": ["semantic parsing", "reasoning"],
+          "mechanisms": ["context-free grammar", "semantic interpretation"]
+        },
+        "methodology": {
+          "training_strategy": ["semi-automatic grammar rules"],
+          "parameter_tuning": []
+        },
+        "feature_processing": ["pattern matching", "semantic structure"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin1878_2015",
+        "entity_type": "Dataset",
+        "name": "Dolphin1878",
+        "description": "Collection of 1,878 math number word problems",
+        "domain": "Mathematics",
+        "size": 1878,
+        "year": 2015,
+        "creators": ["Shi, Shuming", "Wang, Yuehui", "Lin, Chin-Yew", "Liu, Xiaojiang", "Rui, Yong"]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Precision_Classification",
+        "entity_type": "Metric",
+        "name": "Precision",
+        "description": "Ratio of correctly generated answers to all generated answers",
+        "category": "Question Answering",
+        "formula": "true positives / (true positives + false positives)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "Recall_Classification",
+        "entity_type": "Metric",
+        "name": "Recall",
+        "description": "Ratio of correctly generated answers to all correct answers",
+        "category": "Question Answering",
+        "formula": "true positives / (true positives + false negatives)"
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "Harmonic mean of precision and recall",
+        "category": "Question Answering",
+        "formula": "2 * (precision * recall) / (precision + recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Clark2016_Aristo",
+        "entity_type": "Algorithm",
+        "name": "Aristo",
+        "year": 2016,
+        "authors": ["Clark, Peter", "Etzioni, Oren", "Khot, Tushar", "Sabharwal, Ashish", "Tafjord, Oyvind", "Turney, Peter", "Khashabi, Daniel"],
+        "task": "Elementary Science Question Answering",
+        "dataset": ["NYRegents_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["IR solver", "PMI solver", "SVM solver", "RULE solver", "ILP solver"],
+          "connections": ["multi-level representation", "ensemble"],
+          "mechanisms": ["information retrieval", "statistical reasoning", "inference"]
+        },
+        "methodology": {
+          "training_strategy": ["TF-IDF scoring", "logistic regression"],
+          "parameter_tuning": ["constraint optimization", "similarity measures"]
+        },
+        "feature_processing": ["lexical chunks", "corpus statistics", "semantic rules", "table knowledge"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "NYRegents_2016",
+        "entity_type": "Dataset",
+        "name": "NY Regents",
+        "description": "Multiple choice questions from the NY Regents 4th Grade Science exams",
+        "domain": "Elementary Science",
+        "size": 237,
+        "year": 2016,
+        "creators": ["NY State Education Department"]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "INTRODUCTION",
+    "next_section": "METHOD"
+  }
+}
+```

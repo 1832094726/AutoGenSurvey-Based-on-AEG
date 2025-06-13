@@ -112,7 +112,7 @@ def check_extraction_complete(text):
 
 
 # 修改生成提取提示词的函数
-def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None, extracted_sections=None,review_entities=None):
+def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None, extracted_sections=None,sections_to_extract=None,review_entities=None):
     """
     生成用于实体提取的提示词，支持分章节提取
     
@@ -201,9 +201,8 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
     
     # 添加分章节提取的指令
     chapter_extraction_prompt = """
-请按小节提取实体，首先分析有几个章节和小节，每次以小节为单位提取一个部分。请先确认你正在处理哪个章节（例如：INTRODUCTION，ARITHMETIC WORD PROBLEM SOLVER，FEATURE EXTRACTION，Dataset Repository and Performance Analysis 等）。
-
-在提取完当前小节的实体后，请在JSON的"extraction_info"字段中明确告知：
+请按章节提取实体，首先分析有几个章节，每次以章节为单位提取一个部分。请先确认你正在处理哪个章节（例如：INTRODUCTION，ARITHMETIC WORD PROBLEM SOLVER，FEATURE EXTRACTION，Dataset Repository and Performance Analysis 等）。
+在提取完当前章节的实体后，请在JSON的"extraction_info"字段中明确告知：
 1. 当前提取的章节名称（current_section字段）
 2. 是否已完成所有章节提取（is_complete字段，true或false）
 3. 如果还有未提取的小节，下一个要提取的小节是什么（next_section字段）
@@ -227,7 +226,8 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
     if extracted_sections and len(extracted_sections) > 0:
         sections_hint = "\n\n以下章节已经被提取过，请不要重复提取：\n- "
         sections_hint += "\n- ".join(extracted_sections)
-        sections_hint += "\n\n请继续提取下一个章节的实体。"
+        if sections_to_extract:
+            sections_hint += f"\n\n请继续提取{sections_to_extract}章节的实体。检查sections_to_extract是否已经提取过，如果全部提取完成，请在JSON的'extraction_info'字段中设置'is_complete'为true。next_section字段设置为None。"
         prompt += sections_hint
 
     # 如果有之前提取的实体，添加到提示中
@@ -386,16 +386,15 @@ def extract_entities_with_openai(prompt, model_name="gpt-3.5-turbo", max_attempt
             response = client.chat.completions.create(
                 model=model_name,
                 messages=messages,
-                temperature=0.2,
-                max_tokens=None,  # 不限制token数量
-                response_format={"type": "json_object"},
-                stream=True
+                temperature=0,
+                max_tokens=None
             )
             # 收集流式响应内容
-            content = ""
-            for chunk in response:
-                if chunk.choices and chunk.choices[0].delta.content:
-                    content += chunk.choices[0].delta.content
+            # content = ""
+            # for chunk in response:
+            #     if chunk.choices and chunk.choices[0].delta.content:
+            #         content += chunk.choices[0].delta.content
+            content=response.choices[0].message.content
             # 保存响应到内存变量
             response_content = content
             logging.info(f"已收到OpenAI API响应，长度: {len(content)} 字符")
@@ -478,10 +477,10 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
     current_attempt = 0
     is_extraction_complete = False
     
-
+    #已提取的章节
     extracted_sections = []
-
-    
+    #准备提取的章节
+    sections_to_extract = None
     logging.info(f"开始提取，已提取的章节: {extracted_sections}")
     
     # 创建提示词文件并上传（只上传一次）
@@ -496,6 +495,7 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             model_name, 
             previous_entities=all_entities,
             extracted_sections=extracted_sections,
+            sections_to_extract=sections_to_extract,
             review_entities=review_entities
         )
         
@@ -562,9 +562,8 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             response = client.chat.completions.create(
                 model=Config.QWEN_MODEL or "qwen-long",
                 messages=messages,
-                temperature=0.2,
+                temperature=0,
                 stream=True,
-                response_format={"type": "json_object"},
                 max_tokens=None  # 不限制token数量
             )
             
@@ -592,12 +591,12 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             if current_section and current_section not in extracted_sections:
                 extracted_sections.append(current_section)
                 logging.info(f"已提取的章节列表更新为: {extracted_sections}")
-            
+            sections_to_extract=next_section
             
             # 提取JSON部分
             logging.info(f"提取到的文本长度: {len(content)}")
             json_text = extract_json_from_text(content)
-            
+            logging.info(f"提取到的JSON文本: {json_text}")
             if json_text:
                 logging.info(f"提取到的JSON文本长度: {len(json_text)}")
                 try:
@@ -689,11 +688,22 @@ def extract_json_from_text(text):
     Returns:
         str: 提取的JSON文本，如果未找到则返回None
     """
+    from json_repair import repair_json
     if not text:
         return None
-        
     logging.info(f"开始从文本中提取JSON，文本长度：{len(text)} 字符")
-    return text
+    json_candidate=repair_json(text)
+    logging.info(f"修复后的JSON文本长度：{len(json_candidate)} 字符")
+    if len(json_candidate) < len(text) - 500:
+                    # 保存原文本和提取后的内容到缓存目录
+                    os.makedirs("data/cache/test", exist_ok=True)
+                    timestamp = int(time.time())
+                    with open(f"data/cache/test/original_text_{timestamp}.txt", "w", encoding="utf-8") as f:
+                        f.write(text)
+                    with open(f"data/cache/test/extracted_json_{timestamp}.json", "w", encoding="utf-8") as f:
+                        f.write(json_candidate)
+                    logging.info(f"已保存原文本和提取JSON到data/cache/test目录，时间戳: {timestamp}")
+    return json_candidate
     # 首先尝试从代码块中提取JSON
     json_block_pattern = r'```(?:json)?\s*([\s\S]*?)(?:\s*```|\s*EXTRACTION_COMPLETE\s*:)'
     matches = re.findall(json_block_pattern, text)
@@ -1151,7 +1161,7 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
         logging.error(traceback.format_exc())
         return all_relations if 'all_relations' in locals() else []
 
-def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, max_attempts=15):
+def _process_relations_batch(entities,review_relations, pdf_paths=None, previous_relations=None, max_attempts=15):
     """
     处理一批PDF文件中的关系
     
@@ -1184,28 +1194,7 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         
         if not file_ids:
             logging.warning("没有有效的file-id，将仅基于实体列表分析关系")
-    
-    # 创建临时文件保存所有实体 - 只上传一次
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as temp_file:
-        temp_filename = temp_file.name
-        # 将所有实体以JSON格式写入TXT文件
-        json_content = json.dumps(entities, ensure_ascii=False, indent=2)
-        temp_file.write(json_content)
-        logging.info(f"已将 {len(entities)} 个实体以JSON格式写入TXT文件: {temp_filename}")
-    
-    # 上传实体文件并获取file-id - 只上传一次
-    entities_file_id = upload_and_cache_file(temp_filename, purpose="file-extract")
-    uploaded_file_ids.append(entities_file_id)
-    
-    # 删除临时文件
-    try:
-        os.unlink(temp_filename)
-    except Exception as e:
-        logging.warning(f"删除临时文件时出错: {str(e)}")
-    
-    if not entities_file_id:
-        logging.error("上传实体文件失败，无法获取file-id")
-        return all_relations, False
+
     
     # 添加file-id引用（包括PDF文件和实体文件）
 
@@ -1215,7 +1204,6 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         all_file_ids = []
         if file_ids:
             all_file_ids.extend(file_ids)
-        all_file_ids.append(entities_file_id)
         current_attempt += 1
         logging.info(f"关系提取尝试 {current_attempt}/{max_attempts}")
         
@@ -1223,7 +1211,7 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         current_relation_count = len(all_relations)
         
         # 生成关系提取提示
-        system_message, user_message = generate_evolution_relation_prompt(all_relations)
+        system_message, user_message = generate_evolution_relation_prompt(all_relations,review_relations,entities)
         
         # 将提示内容保存为文本文件
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as prompt_file:
@@ -1301,7 +1289,6 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
                 messages=messages,
                 temperature=0.2,
                 stream=True,
-                response_format={"type": "json_object"},
                 max_tokens=None  # 不限制token数量
             )
             
@@ -1436,7 +1423,7 @@ def _process_relations_batch(entities, pdf_paths=None, previous_relations=None, 
         
     return all_relations, is_extraction_complete
 
-def generate_evolution_relation_prompt(previous_relations=None, entities=None, is_complete=None):
+def generate_evolution_relation_prompt(previous_relations=None, review_relations=None, entities=None, is_complete=None):
     """
     生成提取演化关系的提示词
     
@@ -1472,22 +1459,15 @@ def generate_evolution_relation_prompt(previous_relations=None, entities=None, i
         # 转换为JSON格式
         relations_json = json.dumps(simplified_relations, ensure_ascii=False)
         
-        user_message += f"\n\n我们已经提取了 {len(previous_relations)} 个关系。以下是所有已知关系的简化列表（仅包含实体ID和关系类型）:\n{relations_json}"
-        user_message += f"\n\n重要：请勿重复提取上述任何关系组合，而是发掘新的、尚未提取的关系。"
+        user_message += f"\n\n我们已经提取了 {len(previous_relations)} 个关系。以下是所有已提取关系的简化列表（仅包含实体ID和关系类型）:\n{relations_json}"
+        user_message += f"\n\n重要：请勿重复提取上述任何关系组合，而是发掘新的、尚未提取的关系然后重点关注新的综述关系。"
         user_message += f"\n特别是考虑那些由不同来源引用的实体之间可能存在的关系，或者不同任务领域之间的跨领域关系。"
+        logging.info(f"已提取的关系：{relations_json}")
         
-        # 创建已处理实体的集合，便于统计
-        processed_entities = set()
-        for rel in previous_relations:
-            if rel.get('from_entity'):
-                processed_entities.add(rel.get('from_entity'))
-            if rel.get('to_entity'):
-                processed_entities.add(rel.get('to_entity'))
-        
-        user_message += f"\n\n目前已涉及 {len(processed_entities)} 个实体，请尝试发现更多实体之间的关系，尤其是尚未处理过的实体。"
-    
+        user_message += f"\n\n目前涉及的实体有：{entities}，请尝试在论文中发现实体之间的新关系，请勿重复提取已知关系。"
+        user_message += f"\n\n目前涉及的综述关系有：{review_relations}，请尝试在论文中发现综述关系。"
     # 添加完成状态请求
-    user_message += f"\n\n请以以下JSON格式返回结果，包含关系列表和提取完成状态：\n"
+    user_message += f"\n\n请以以下JSON格式返回英文结果，包含新的关系列表和提取完成状态：\n"
     user_message += """{
   "relations": [
     {
@@ -1506,7 +1486,7 @@ def generate_evolution_relation_prompt(previous_relations=None, entities=None, i
   }
 }"""
     
-    user_message += "\n\n请确保在JSON的extraction_info字段中指明是否已完成所有关系提取（is_complete字段设为true或false）。"
+    user_message += "\n\n请确保在JSON的extraction_info字段中指明是否已完成所有关系提取（is_complete字段设为true或false）。如果没有新的关系，请在JSON的extraction_info字段中设置'is_complete'为true。"
     
     return system_message, user_message
 

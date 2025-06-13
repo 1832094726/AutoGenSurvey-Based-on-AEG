@@ -1,0 +1,551 @@
+根据提供的文件内容，我将分析实体之间的演化关系，并以JSON格式返回结果。以下是新发现的关系列表：
+
+```json
+{
+  "relations": [
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Raghunathan2010_MultiPassSieve",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO extends the Stanford’s sieve-based model by adding NEL-informed sieves and improving mention detection and pruning.",
+      "problem_addressed": "Inadequate world knowledge in coreference resolution and superficial modeling of entity context in named-entity linking.",
+      "evidence": "NECO extends the Stanford’s sieve-based model, in which a high recall mention detection phase is followed by a sequence of cluster merging operations ordered by decreasing precision.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Hajishirzi2013_NECO",
+      "to_entity": "Ratinov2012_NEL",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "NECO uses an ensemble of NEL systems and incorporates new NEL-informed mention-merging sieves.",
+      "problem_addressed": "Errors in named-entity linking due to superficial modeling of entity context.",
+      "evidence": "We introduce NECO, a new algorithm which solves named entity linking and coreference resolution, which solves both problems jointly, demonstrating improved performance on both tasks.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Zhou2015_EnhancedTemplateSolver",
+      "to_entity": "Kushman2014_EquationTemplate",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "Enhanced Template Solver uses a max-margin objective to improve the decision boundary for correct derivations.",
+      "problem_addressed": "The challenge of handling unseen inputs and improving the generalization of the model.",
+      "evidence": "We adopt the max-margin objective to directly learn the decision boundary for the correct derivations and the false ones.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Goldwasser2014_CombinedFeedbackPerceptron",
+      "to_entity": "Clarke2010_DrivingSemanticParsing",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "Combined Feedback Perceptron uses both binary and structural updates to learn from feedback.",
+      "problem_addressed": "Limited supervision in semantic parsing.",
+      "evidence": "Unlike these approaches, our algorithm is designed to use both types of feedback: it uses positive feedback as structural supervision, and negative as binary supervision.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Schwenk2012_ContinuousSpaceTranslationModels",
+      "relation_type": "Improve",
+      "structure": "Algorithm Architecture",
+      "detail": "RNN Encoder–Decoder handles variable-length input and output sequences, avoiding the limitations of fixed-size inputs and outputs.",
+      "problem_addressed": "Handling variable-length input and output sequences in statistical machine translation.",
+      "evidence": "The proposed RNN Encoder–Decoder is well-suited for these applications, as it can handle variable-length input and output.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Cho2014_RecurrentNeuralNetworkEncoderDecoder",
+      "to_entity": "Devlin2014_FastAndRobustNeuralNetworkJointModels",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "Cho et al.'s RNN Encoder–Decoder is compared to Devlin et al.'s approach in terms of handling variable-length sequences.",
+      "problem_addressed": "Handling variable-length sequences in statistical machine translation.",
+      "evidence": "Similarly, Devlin et al. proposed to use a feedforward neural network to model a translation model, but required the maximum length of the input phrase to be fixed a priori.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Constrained Latent Left-Linking Model adds a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The Constrained Latent Left-Linking Model (CL3M) includes a Constraint module that connects to the Scoring function.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "Constrained Probabilistic Latent Left-Linking Model adds a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The Constrained Probabilistic Latent Left-Linking Model (CPL3M) includes a Constraint module that connects to the Scoring function.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M extends L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M optimizes L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M extends L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M optimizes L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M extends L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M optimizes L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M extends L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M optimizes L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M extends L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M optimizes L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M extends L3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Comparison",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M is compared to PL3M in terms of handling constraints and probabilistic modeling.",
+      "problem_addressed": "Inadequate handling of constraints and probabilistic modeling in coreference resolution.",
+      "evidence": "The CL3M architecture includes mechanisms such as Stochastic gradient descent and Constraint-augmented inference, while PL3M uses Temperature parameter.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "relation_type": "Extend",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M extends CL3M by incorporating a temperature parameter for probabilistic modeling.",
+      "problem_addressed": "Inadequate probabilistic modeling in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedProbabilisticLatentLeftLinkingModel",
+      "to_entity": "Chang2013_ProbabilisticLatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CPL3M optimizes PL3M by adding a constraint module to improve the accuracy of coreference resolution.",
+      "problem_addressed": "Inadequate handling of constraints in coreference resolution.",
+      "evidence": "The CPL3M architecture includes mechanisms such as Stochastic gradient descent, Temperature parameter, and Constraint-augmented inference.",
+      "confidence": 0.95
+    },
+    {
+      "from_entity": "Chang2013_ConstrainedLatentLeftLinkingModel",
+      "to_entity": "Chang2013_LatentLeftLinkingModel",
+      "relation_type": "Optimize",
+      "structure": "Algorithm Architecture",
+      "detail": "CL3M optimizes L3M by adding a constraint module to improve the accuracy of coreference resolution.",

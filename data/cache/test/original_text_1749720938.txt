@@ -1,0 +1,145 @@
+```json
+{
+  "entities": [
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Kushman2014_EquationTemplate",
+        "entity_type": "Algorithm",
+        "name": "Equation Template",
+        "year": 2014,
+        "authors": ["Kushman, N.", "Zettlemoyer, L.", "Barzilay, R.", "Artzi, Y."],
+        "task": "Equation Set Problem Solving",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Template Matching", "Slot Filling"],
+          "connections": ["Equation Template Selection", "Number Slot Assignment"],
+          "mechanisms": ["Log-linear Model", "RankSVM"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Parameter Optimization"]
+        },
+        "feature_processing": ["Lexical Features", "Syntactic Features"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Zhou2015_EnhancedTemplateSolver",
+        "entity_type": "Algorithm",
+        "name": "Enhanced Template Solver",
+        "year": 2015,
+        "authors": ["Zhou, L.", "Dai, S.", "Chen, L."],
+        "task": "Equation Set Problem Solving",
+        "dataset": ["ALG514_2014"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Template Matching", "Slot Filling"],
+          "connections": ["Equation Template Selection", "Number Slot Assignment"],
+          "mechanisms": ["Max-Margin Objective", "RankSVM"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Parameter Optimization"]
+        },
+        "feature_processing": ["Lexical Features", "Syntactic Features"]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "ALG514_2014",
+        "entity_type": "Dataset",
+        "name": "ALG514",
+        "description": "Algebra word problems dataset",
+        "domain": "Mathematical Word Problems",
+        "size": 514,
+        "year": 2014,
+        "creators": ["Kushman, N.", "Zettlemoyer, L.", "Barzilay, R.", "Artzi, Y."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "Dolphin1878_2016",
+        "entity_type": "Dataset",
+        "name": "Dolphin1878",
+        "description": "Equation set problems dataset",
+        "domain": "Mathematical Word Problems",
+        "size": 1878,
+        "year": 2016,
+        "creators": ["Huang, D.", "Shi, S.", "Lin, C.", "Yin, J.", "Ma, W."]
+      }
+    },
+    {
+      "dataset_entity": {
+        "dataset_id": "DRAW1K_2016",
+        "entity_type": "Dataset",
+        "name": "DRAW1K",
+        "description": "Linear equation problems dataset",
+        "domain": "Mathematical Word Problems",
+        "size": 1000,
+        "year": 2016,
+        "creators": ["Upadhyay, S.", "Chang, M.", "Chang, K.", "Yih, W."]
+      }
+    },
+    {
+      "metric_entity": {
+        "metric_id": "F1_Score_Classification",
+        "entity_type": "Metric",
+        "name": "F1 Score",
+        "description": "Harmonic mean of precision and recall",
+        "category": "Classification Evaluation",
+        "formula": "2 * (Precision * Recall) / (Precision + Recall)"
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Huang2018_FineGrainedExpression",
+        "entity_type": "Algorithm",
+        "name": "Fine-Grained Expression",
+        "year": 2018,
+        "authors": ["Huang, D.", "Shi, S.", "Yin, J.", "Lin, C."],
+        "task": "Equation Set Problem Solving",
+        "dataset": ["Dolphin18K_2016"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Template Fragment Parsing", "RankSVM"],
+          "connections": ["Textual Feature Matching", "Template Fragment Alignment"],
+          "mechanisms": ["Fine-Grained Units", "Sub-tree Representation"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Parameter Optimization"]
+        },
+        "feature_processing": ["Lexical Features", "Syntactic Features"]
+      }
+    },
+    {
+      "algorithm_entity": {
+        "algorithm_id": "Seo2014_GeoRep",
+        "entity_type": "Algorithm",
+        "name": "GeoRep",
+        "year": 2014,
+        "authors": ["Seo, M.J.", "Hajishirzi, H.", "Farhadi, A.", "Etzioni, O."],
+        "task": "Diagram Understanding",
+        "dataset": ["Geometry Problems"],
+        "metrics": ["Accuracy_Classification"],
+        "architecture": {
+          "components": ["Structure Mapping Engine", "Qualitative Spatial Descriptions"],
+          "connections": ["Line Diagram Parsing", "Two-Level Representation Architecture"],
+          "mechanisms": ["Visual Elements Formulation", "Spatial Description Generation"]
+        },
+        "methodology": {
+          "training_strategy": ["Supervised Learning"],
+          "parameter_tuning": ["Parameter Optimization"]
+        },
+        "feature_processing": ["Visual Features", "Spatial Features"]
+      }
+    }
+  ],
+  "extraction_info": {
+    "is_complete": false,
+    "current_section": "EQUATION SET SOLVER",
+    "next_section": "GEOMETRIC WORD PROBLEM(GWP) SOLVER"
+  }
+}
+```
