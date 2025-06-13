@@ -502,7 +502,8 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
         # 每次迭代时创建新的提示词文件，但只获取一次file_id
         import tempfile
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as prompt_file:
-            prompt_filename = prompt_file.name
+            #写入data/cache/test/ 带时间戳
+            prompt_filename = f"data/cache/test/{time.strftime('%Y%m%d_%H%M%S')}_entity_prompt_{prompt_filename}"
             prompt_file.write(current_prompt)
             
         # 只在第一次上传提示词文件
@@ -659,13 +660,7 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             logging.error(f"提取实体时出错: {str(e)}")
             logging.error(traceback.format_exc())
             # 继续下一次尝试
-            
-        # 尝试删除临时文件
-        try:
-            if os.path.exists(prompt_filename):
-                os.unlink(prompt_filename)
-        except Exception as e:
-            logging.warning(f"删除临时文件失败: {str(e)}")
+        
     
     # 清理临时文件和资源
     try:
@@ -1071,7 +1066,7 @@ def _get_entity_id(entity):
         return entity["metric_entity"].get("metric_id")
     return None
 
-def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous_relations=None, max_attempts=15, batch_size=100):
+def extract_evolution_relations(entities, pdf_paths=None,review_relations=None, task_id=None, previous_relations=None, max_attempts=15, batch_size=100):
     """
     从实体列表和PDF文件中提取演化关系，支持多个PDF文件和file-id方式，支持批量处理
     
@@ -1118,6 +1113,7 @@ def extract_evolution_relations(entities, pdf_paths=None, task_id=None, previous
                 # 为每个批次单独处理
                 batch_relations, batch_complete = _process_relations_batch(
                     entities=entities,
+                    review_relations=review_relations,
                     pdf_paths=batch_paths,
                     previous_relations=all_relations,
                     max_attempts=max_attempts
@@ -1215,11 +1211,11 @@ def _process_relations_batch(entities,review_relations, pdf_paths=None, previous
         
         # 将提示内容保存为文本文件
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as prompt_file:
-            prompt_filename = prompt_file.name
+            #写入data/cache/test/ 带时间戳
+            prompt_filename = f"data/cache/test/{time.strftime('%Y%m%d_%H%M%S')}_relation_prompt_{prompt_filename}"
             prompt_content = f"{system_message}\n\n{user_message}"
             prompt_file.write(prompt_content)
             logging.info(f"已将提示信息写入TXT文件: {prompt_filename}")
-        
         # 上传或更新提示文件
         if prompt_file_id is None:
             # 首次上传提示文件
@@ -1248,11 +1244,6 @@ def _process_relations_batch(entities,review_relations, pdf_paths=None, previous
                 prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
                 logging.info(f"重新上传提示文件: {prompt_filename}, file_id: {prompt_file_id}")
         
-        # 删除临时提示文件
-        try:
-            os.unlink(prompt_filename)
-        except Exception as e:
-            logging.warning(f"删除临时提示文件时出错: {str(e)}")
         
         if not prompt_file_id:
             logging.error("上传提示文件失败，尝试下一次迭代")
@@ -1463,9 +1454,27 @@ def generate_evolution_relation_prompt(previous_relations=None, review_relations
         user_message += f"\n\n重要：请勿重复提取上述任何关系组合，而是发掘新的、尚未提取的关系然后重点关注新的综述关系。"
         user_message += f"\n特别是考虑那些由不同来源引用的实体之间可能存在的关系，或者不同任务领域之间的跨领域关系。"
         logging.info(f"已提取的关系：{relations_json}")
-        
-        user_message += f"\n\n目前涉及的实体有：{entities}，请尝试在论文中发现实体之间的新关系，请勿重复提取已知关系。"
-        user_message += f"\n\n目前涉及的综述关系有：{review_relations}，请尝试在论文中发现综述关系。"
+
+    simple_entities=[]
+    for entity in entities:
+        if "algorithm_entity" in entity:
+            entity_name = entity["algorithm_entity"].get("algorithm_id")
+            simple_entities.append(entity_name)
+        elif "dataset_entity" in entity:
+            entity_name = entity["dataset_entity"].get("dataset_id")
+            simple_entities.append(entity_name)
+        elif "metric_entity" in entity:
+            entity_name = entity["metric_entity"].get("metric_id")
+            simple_entities.append(entity_name)
+    user_message += f"\n\n目前涉及的实体有：{simple_entities}，如果关系中涉及这些实体，保持实体的ID相同，请尝试在论文中发现实体之间的新关系，请勿重复提取已知关系。"
+    simple_review_relations=[]
+    for rel in review_relations:
+        simple_review_relations.append({
+            "from_entity": rel.get("from_entity"),
+            "to_entity": rel.get("to_entity"),
+            "relation_type": rel.get("relation_type")
+        })
+    user_message += f"\n\n目前涉及的综述关系有：{simple_review_relations}，请尝试在论文中发现这些综述关系，保持综述关系的ID相同。"    
     # 添加完成状态请求
     user_message += f"\n\n请以以下JSON格式返回英文结果，包含新的关系列表和提取完成状态：\n"
     user_message += """{
@@ -1474,6 +1483,8 @@ def generate_evolution_relation_prompt(previous_relations=None, review_relations
       "from_entity": "实体A的ID",
       "to_entity": "实体B的ID",
       "relation_type": "主要关系类型：Improve/Optimize/Extend/Replace/Use",
+      "from_entity_type": "实体A的类型",
+      "to_entity_type": "实体B的类型",
       "structure": "关系的结构描述",
       "detail": "关系的详细说明",
       "problem_addressed": "该关系解决的问题",
@@ -1504,14 +1515,18 @@ def generate_relation_extraction_prompt_base():
 2. 请不要创建文件中不存在的实体，必须严格使用文件中提供的实体ID
 3. 对于每个关系，请提供它解决的问题（problem_addressed字段）
 4. 必须以JSON格式返回结果，包含关系列表和提取完成状态
-
+5. 实体id不能使用Algorithm_1,Algorithm_2,Dataset_1,Dataset_2,Metric_1,Metric_2这种形式，请使用论文中具体实体的名称
 实体之间的演化关系可以是：
 - 算法改进/优化/扩展/替换另一个算法
 - 算法使用特定数据集
 - 算法使用特定评估指标
 - 数据集改进/扩展另一个数据集
 - 评估指标改进/扩展另一个评估指标
-
+格式要求：
+- 实体类型（Algorithm, Dataset, Metric）不能省略
+- 算法实体ID（使用格式: 作者年份_实体名称，例如Zhang2016_TemplateSolver）不能省略尽量与实体中的实体ID相同
+- 数据集实体ID（使用格式: 实体名称_年份，例如MNIST_2010）不能省略尽量与实体中的实体ID相同
+- 评价实体ID（使用格式: 实体名称_类别，例如Accuracy_Classification）不能省略尽量与实体中的实体ID相同
 返回格式示例：
 {
   "relations": [
@@ -1547,14 +1562,18 @@ def generate_relation_extraction_prompt_with_features():
 2. 请不要创建文件中不存在的实体，必须严格使用文件中提供的实体ID
 3. 如果实体文件中有数百个实体，请尽可能全面分析它们之间的关系
 4. 对于每个关系，请提供它解决的问题（problem_addressed字段）
-
+5. 实体id不能使用Algorithm_1,Algorithm_2,Dataset_1,Dataset_2,Metric_1,Metric_2这种形式，请使用论文中具体实体的名称
 实体之间的演化关系可以是：
 - 算法改进/优化/扩展/替换另一个算法
 - 算法使用特定数据集
 - 算法使用特定评估指标
 - 数据集改进/扩展另一个数据集
 - 评估指标改进/扩展另一个评估指标
-
+格式要求：
+- 实体类型（Algorithm, Dataset, Metric）不能省略
+- 算法实体ID（使用格式: 作者年份_实体名称，例如Zhang2016_TemplateSolver）不能省略尽量与实体中的实体ID相同
+- 数据集实体ID（使用格式: 实体名称_年份，例如MNIST_2010）不能省略尽量与实体中的实体ID相同
+- 评价实体ID（使用格式: 实体名称_类别，例如Accuracy_Classification）不能省略尽量与实体中的实体ID相同
 识别特征：
 "relation_patterns": {
   "Improvement": ["improves upon", "outperforms", "better than", "surpasses", "exceeds"],
@@ -1571,6 +1590,8 @@ def generate_relation_extraction_prompt_with_features():
     {
       "from_entity": "实体A的ID",
       "to_entity": "实体B的ID",
+      "from_entity_type": "实体A的类型",
+      "to_entity_type": "实体B的类型",
       "relation_type": "主要关系类型：Improve/Optimize/Extend/Replace/Use",
       "structure": "关系的结构描述",
       "detail": "关系的详细说明",

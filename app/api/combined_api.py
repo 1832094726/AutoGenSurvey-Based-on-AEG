@@ -884,7 +884,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         )
         
         # 处理综述论文，提取实体，使用相同的任务ID
-        review_entities, review_relations = extract_entities_from_review(review_path, task_id)
+        review_entities, _ = extract_entities_from_review(review_path, task_id)
         
         # 确保所有综述实体都有正确的来源标记
         for entity in review_entities:
@@ -909,7 +909,11 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         )
         
         # 处理引用文献，提取实体，使用相同的任务ID
-        citation_entities, citation_relations = extract_entities_from_citations(review_entities,citation_paths, task_id)
+        citation_entities, _ = extract_entities_from_citations(
+            review_entities=review_entities,
+            citation_paths=citation_paths,
+            batch_size=15, 
+            task_id=task_id)
         
         # 确保所有引文实体都有正确的来源标记
         for entity in citation_entities:
@@ -949,7 +953,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             entities=review_entities, 
             pdf_paths=[review_path],  # 只传入综述PDF
             task_id=task_id,
-            previous_relations=review_relations,
+            previous_relations=None,
             batch_size=10
         )
         
@@ -968,9 +972,10 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             citation_evolution_relations = extract_evolution_relations(
                 entities=citation_entities, 
                 pdf_paths=citation_paths,  # 只传入引文PDF
+                review_relations=review_evolution_relations,
                 task_id=task_id,
-                previous_relations=citation_relations,
-                batch_size=5
+                previous_relations=None,
+                batch_size=15
             )
             
             # 确保所有引文关系都有正确的来源标记
@@ -984,7 +989,6 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         
         # 合并所有实体（保留原始代码）
         all_entities = review_entities + citation_entities
-        all_relations = review_relations + citation_relations
         
         # 更新状态：计算指标
         db_manager.update_processing_status(
@@ -1083,7 +1087,7 @@ def extract_entities_from_review(review_path, task_id):
     # 暂时返回空的关系列表，关系将在后续步骤中提取
     return entities, []
 
-def extract_entities_from_citations(review_entities, citation_paths, task_id):
+def extract_entities_from_citations(review_entities, citation_paths,batch_size, task_id):
     """从引用文献中提取实体和关系"""
     from app.modules.agents import extract_paper_entities
     
@@ -1101,8 +1105,7 @@ def extract_entities_from_citations(review_entities, citation_paths, task_id):
         logging.error("没有有效的引用文献文件")
         return all_entities, []
     
-    # 批量处理引用文献，每次处理5篇
-    batch_size = 10
+
 
     # 提取实体，使用主任务ID
     all_entities, is_complete = extract_paper_entities(

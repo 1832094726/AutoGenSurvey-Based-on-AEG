@@ -1,7 +1,7 @@
 import os
 import logging
 from flask import Flask
-from app.config import config_by_name
+from app.config import config_by_name, Config
 from app.api.combined_api import combined_api
 # 以下导入保留用于备份，后续可以移除
 # from app.api.entities import entity_api
@@ -27,6 +27,9 @@ def create_app(config_name='default'):
     
     # 加载配置
     app.config.from_object(config_by_name[config_name])
+    
+    # 增加文件上传大小限制
+    app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024  # 500MB
     
     # 确保必要的文件夹存在
     ensure_dirs(app)
