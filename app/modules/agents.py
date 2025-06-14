@@ -502,8 +502,7 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
         # 每次迭代时创建新的提示词文件，但只获取一次file_id
         import tempfile
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as prompt_file:
-            #写入data/cache/test/ 带时间戳
-            prompt_filename = f"data/cache/test/{time.strftime('%Y%m%d_%H%M%S')}_entity_prompt_{prompt_filename}"
+            prompt_filename = prompt_file.name
             prompt_file.write(current_prompt)
             
         # 只在第一次上传提示词文件
@@ -660,7 +659,16 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             logging.error(f"提取实体时出错: {str(e)}")
             logging.error(traceback.format_exc())
             # 继续下一次尝试
-        
+        # 移动临时提示文件到data/cache/test/ 带时间戳
+        with open(prompt_filename, 'rb') as f:
+            with open(f"data/cache/test/{time.strftime('%Y%m%d_%H%M%S')}_entity", 'wb') as f2:
+                f2.write(f.read())
+        # 删除临时提示文件
+        try:
+            if os.path.exists(prompt_filename):
+                os.unlink(prompt_filename)
+        except Exception as e:
+            logging.warning(f"删除临时文件失败: {str(e)}")
     
     # 清理临时文件和资源
     try:
@@ -1211,11 +1219,12 @@ def _process_relations_batch(entities,review_relations, pdf_paths=None, previous
         
         # 将提示内容保存为文本文件
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as prompt_file:
-            #写入data/cache/test/ 带时间戳
-            prompt_filename = f"data/cache/test/{time.strftime('%Y%m%d_%H%M%S')}_relation_prompt_{prompt_filename}"
+            prompt_filename = prompt_file.name
             prompt_content = f"{system_message}\n\n{user_message}"
             prompt_file.write(prompt_content)
+            
             logging.info(f"已将提示信息写入TXT文件: {prompt_filename}")
+        
         # 上传或更新提示文件
         if prompt_file_id is None:
             # 首次上传提示文件
@@ -1244,6 +1253,15 @@ def _process_relations_batch(entities,review_relations, pdf_paths=None, previous
                 prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
                 logging.info(f"重新上传提示文件: {prompt_filename}, file_id: {prompt_file_id}")
         
+        # 移动临时提示文件到data/cache/test/ 带时间戳
+        with open(prompt_filename, 'rb') as f:
+            with open(f"data/cache/test/{time.strftime('%Y%m%d_%H%M%S')}_relation", 'wb') as f2:
+                f2.write(f.read())
+        # 删除临时提示文件
+        try:
+            os.unlink(prompt_filename)
+        except Exception as e:
+            logging.warning(f"删除临时提示文件时出错: {str(e)}")
         
         if not prompt_file_id:
             logging.error("上传提示文件失败，尝试下一次迭代")
@@ -1468,13 +1486,15 @@ def generate_evolution_relation_prompt(previous_relations=None, review_relations
             simple_entities.append(entity_name)
     user_message += f"\n\n目前涉及的实体有：{simple_entities}，如果关系中涉及这些实体，保持实体的ID相同，请尝试在论文中发现实体之间的新关系，请勿重复提取已知关系。"
     simple_review_relations=[]
-    for rel in review_relations:
-        simple_review_relations.append({
-            "from_entity": rel.get("from_entity"),
-            "to_entity": rel.get("to_entity"),
-            "relation_type": rel.get("relation_type")
-        })
-    user_message += f"\n\n目前涉及的综述关系有：{simple_review_relations}，请尝试在论文中发现这些综述关系，保持综述关系的ID相同。"    
+    if review_relations:
+        for rel in review_relations:
+            simple_review_relations.append({
+                "from_entity": rel.get("from_entity"),
+                "to_entity": rel.get("to_entity"),
+                "relation_type": rel.get("relation_type")
+            })
+    if simple_review_relations:
+        user_message += f"\n\n目前涉及的综述关系有：{simple_review_relations}，请尝试在论文中发现这些综述关系，保持综述关系的ID相同。"    
     # 添加完成状态请求
     user_message += f"\n\n请以以下JSON格式返回英文结果，包含新的关系列表和提取完成状态：\n"
     user_message += """{
