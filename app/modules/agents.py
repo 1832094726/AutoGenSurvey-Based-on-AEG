@@ -348,18 +348,19 @@ def generate_entity_extraction_prompt_with_features():
 
 
 # 创建一个通用的实体提取函数，替代多个API特定的函数
-def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, previous_entities=None,review_entities=None):
+def extract_entities_with_model(pdf_paths, model_name="qwen-long", max_attempts=25, previous_entities=None, review_entities=None):
     """
     使用指定模型从PDF文件中提取实体，支持多个文件和file-id方式
     
     Args:
         pdf_paths (str/list): PDF文件路径或路径列表
-        model_name (str): 模型名称 ("qwen", "openai")
+        model_name (str): 模型名称，支持qwen-long, claude-3-7-sonnet-20250219, gpt-4.1, gemini-2.5-flash
         max_attempts (int): 最大尝试次数
         previous_entities (list, optional): 之前提取的实体，用于断点续传
+        review_entities (list, optional): 综述文章中的实体，用于参考
         
     Returns:
-        tuple: (提取的实体列表, 是否处理完成)
+        tuple: (提取的实体列表, 是否处理完成, 已提取章节)
     """
     # 转换单个路径为列表
     if isinstance(pdf_paths, str):
@@ -371,7 +372,7 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
     file_ids = []
     for pdf_path in pdf_paths:
         if os.path.exists(pdf_path):
-            file_id = upload_and_cache_file(pdf_path)
+            file_id = upload_and_cache_file(pdf_path, model_name=model_name)
             if file_id:
                 file_ids.append(file_id)
     
@@ -394,7 +395,7 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
     
     while current_attempt < max_attempts and not is_extraction_complete:
         current_attempt += 1
-        logging.info(f"提取尝试 {current_attempt}/{max_attempts}, 是否完成: {is_extraction_complete}")
+        logging.info(f"提取尝试 {current_attempt}/{max_attempts}, 使用模型: {model_name}, 是否完成: {is_extraction_complete}")
         
         # 获取提取当前章节的提示词
         current_prompt = generate_entity_extraction_prompt(
@@ -411,57 +412,142 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             prompt_filename = prompt_file.name
             prompt_file.write(current_prompt)
             
-        prompt_file_id = upload_and_cache_file(prompt_filename)
-        logging.info(f"上传提示词文件: {prompt_filename}, file_id: {prompt_file_id}")
+        prompt_file_id = upload_and_cache_file(prompt_filename, model_name=model_name)
+        logging.info(f"上传提示词文件: {prompt_filename}, file_id: {prompt_file_id}, 模型: {model_name}")
 
         # 使用模型API提取实体
         entities = []
         try:
-            from openai import OpenAI
-            client = OpenAI(
-                api_key=Config.QWEN_API_KEY,
-                base_url=Config.QWEN_BASE_URL
-            )
-            
-            # 构建消息
-            messages = [
-                {"role": "system", "content": "你是一个专注于从学术论文中提取实体信息的AI助手，负责提取算法、数据集和评价指标等实体信息。"}
-            ]
+            content = ""
             
             # 添加file-id引用
             content_file_ids = file_ids.copy()
             if prompt_file_id:
                 content_file_ids.append(prompt_file_id)
+            
+            # 根据不同模型调用相应的API
+            if model_name == "qwen-long":
+                from openai import OpenAI
+                client = OpenAI(
+                    api_key=Config.QWEN_API_KEY,
+                    base_url=Config.QWEN_BASE_URL
+                )
                 
-            if content_file_ids:
-                file_content = ",".join([f"fileid://{fid}" for fid in content_file_ids])
-                messages.append({"role": "system", "content": file_content})
+                # 构建消息
+                messages = [
+                    {"role": "system", "content": "你是一个专注于从学术论文中提取实体信息的AI助手，负责提取算法、数据集和评价指标等实体信息。"}
+                ]
+                
+                # 添加file-id引用
+                if content_file_ids:
+                    file_content = ",".join([f"fileid://{fid}" for fid in content_file_ids])
+                    messages.append({"role": "system", "content": file_content})
+                
+                # 添加用户提示 - 简化提示，因为主要内容已经在文件中
+                messages.append({"role": "user", "content": "请根据提供的PDF文件和提示词文件，提取相关实体信息。"})
+                
+                # 调用API
+                logging.info(f"调用千问API提取实体，文件数: {len(content_file_ids)}")
+                response = client.chat.completions.create(
+                    model=Config.QWEN_MODEL,
+                    messages=messages,
+                    temperature=0,
+                    stream=True,
+                    max_tokens=None,  # 不限制token数量
+                    file_ids=content_file_ids
+                )
+                
+                # 收集流式响应内容
+                chunk_count = 0
+                for chunk in response:
+                    chunk_count += 1
+                    if chunk.choices and chunk.choices[0].delta.content:
+                        content += chunk.choices[0].delta.content
+                    # 每100个块记录一次
+                    if chunk_count % 100 == 0:
+                        logging.info(f"收到响应块 #{chunk_count}，当前响应长度: {len(content)} 字符")
+                
+                logging.info(f"响应接收完成，共 {chunk_count} 个响应块，总长度: {len(content)} 字符")
             
-            # 添加用户提示 - 简化提示，因为主要内容已经在文件中
-            messages.append({"role": "user", "content": "请根据提供的PDF文件和提示词文件，提取相关实体信息。"})
+            # Claude模型
+            elif model_name == "claude-3-7-sonnet-20250219":
+                import anthropic
+                client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
+                
+                # 构建消息内容
+                logging.info(f"调用Claude API提取实体，文件数: {len(content_file_ids)}")
+                message = client.messages.create(
+                    model="claude-3-7-sonnet-20250219",
+                    max_tokens=4000,
+                    temperature=0,
+                    system="你是一个专注于从学术论文中提取实体信息的AI助手，负责提取算法、数据集和评价指标等实体信息。",
+                    messages=[
+                        {"role": "user", "content": "请根据提供的PDF文件和提示词文件，提取相关实体信息。"}
+                    ],
+                    file_ids=content_file_ids
+                )
+                
+                if hasattr(message, "content"):
+                    content = message.content[0].text
+                    logging.info(f"响应接收完成，总长度: {len(content)} 字符")
             
-            # 调用API
-            logging.info(f"调用千问API提取实体，文件数: {len(content_file_ids)}")
-            response = client.chat.completions.create(
-                model=Config.QWEN_MODEL or "qwen-long",
-                messages=messages,
-                temperature=0,
-                stream=True,
-                max_tokens=None  # 不限制token数量
-            )
+            # GPT-4.1模型
+            elif model_name == "gpt-4.1":
+                from openai import OpenAI
+                client = OpenAI(api_key=Config.OPENAI_API_KEY)
+                
+                # 构建消息内容
+                logging.info(f"调用OpenAI API提取实体，文件数: {len(content_file_ids)}")
+                response = client.chat.completions.create(
+                    model="gpt-4.1",
+                    messages=[
+                        {"role": "system", "content": "你是一个专注于从学术论文中提取实体信息的AI助手，负责提取算法、数据集和评价指标等实体信息。"},
+                        {"role": "user", "content": "请根据提供的PDF文件和提示词文件，提取相关实体信息。"}
+                    ],
+                    file_ids=content_file_ids,
+                    temperature=0,
+                    stream=True
+                )
+                
+                # 收集流式响应内容
+                chunk_count = 0
+                for chunk in response:
+                    chunk_count += 1
+                    if chunk.choices and chunk.choices[0].delta.content:
+                        content += chunk.choices[0].delta.content
+                    # 每100个块记录一次
+                    if chunk_count % 100 == 0:
+                        logging.info(f"收到响应块 #{chunk_count}，当前响应长度: {len(content)} 字符")
+                
+                logging.info(f"响应接收完成，共 {chunk_count} 个响应块，总长度: {len(content)} 字符")
             
-            # 收集流式响应内容
-            content = ""
-            chunk_count = 0
-            for chunk in response:
-                chunk_count += 1
-                if chunk.choices and chunk.choices[0].delta.content:
-                    content += chunk.choices[0].delta.content
-                # 每100个块记录一次
-                if chunk_count % 100 == 0:
-                    logging.info(f"收到响应块 #{chunk_count}，当前响应长度: {len(content)} 字符")
+            # Gemini模型
+            elif model_name == "gemini-2.5-flash":
+                import google.generativeai as genai
+                genai.configure(api_key=Config.GEMINI_API_KEY)
+                
+                # 构建消息内容
+                logging.info(f"调用Gemini API提取实体，文件数: {len(content_file_ids)}")
+                model = genai.GenerativeModel(
+                    model_name="gemini-2.5-flash",
+                    system_instruction="你是一个专注于从学术论文中提取实体信息的AI助手，负责提取算法、数据集和评价指标等实体信息。"
+                )
+                
+                response = model.generate_content(
+                    contents="请根据提供的PDF文件和提示词文件，提取相关实体信息。",
+                    generation_config=genai.GenerationConfig(
+                        temperature=0
+                    ),
+                    file_ids=content_file_ids
+                )
+                
+                if hasattr(response, "text"):
+                    content = response.text
+                    logging.info(f"响应接收完成，总长度: {len(content)} 字符")
             
-            logging.info(f"响应接收完成，共 {chunk_count} 个响应块，总长度: {len(content)} 字符")
+            else:
+                logging.error(f"不支持的模型类型: {model_name}")
+                return all_entities, False, extracted_sections
             
             # 检查是否包含完成标志，并提取章节信息
             is_complete, current_section, next_section = check_extraction_complete(content)
@@ -548,21 +634,12 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
                 f2.write(f.read())
         # 删除临时提示文件
         try:
-            if os.path.exists(prompt_filename):
-                os.unlink(prompt_filename)
+            os.unlink(prompt_filename)
         except Exception as e:
-            logging.warning(f"删除临时文件失败: {str(e)}")
+            logging.warning(f"删除临时提示文件时出错: {str(e)}")
     
-    # 清理临时文件和资源
-    try:
-        if prompt_file_id:
-            # 可以选择在这里删除已上传的提示词文件
-            pass
-    except Exception as e:
-        logging.warning(f"清理资源时出错: {str(e)}")
-    
-    logging.info(f"完成实体提取，共 {len(all_entities)} 个实体，完成状态: {is_extraction_complete}，已提取章节: {extracted_sections}")
-    return all_entities, is_extraction_complete
+    logging.info(f"提取完成，共 {len(all_entities)} 个实体，完成状态: {is_extraction_complete}")
+    return all_entities, is_extraction_complete, extracted_sections
 
 def extract_json_from_text(text):
     """
@@ -738,37 +815,38 @@ def extract_json_from_text(text):
     logging.warning("未能从文本中提取有效的JSON")
     return None
 
-def extract_paper_entities(review_entities,pdf_paths, max_attempts=25, batch_size=100, model_name="qwen", task_id=None):
+def extract_paper_entities(review_entities, pdf_paths, max_attempts=25, batch_size=100, model_name="qwen-long", task_id=None):
     """
-    从PDF文件中提取实体，支持批量处理和文件ID模式
+    从多个PDF文件中提取实体，支持批量处理
     
     Args:
-        pdf_paths (str/list): 单个PDF路径或PDF路径列表
+        review_entities (list): 综述文章中的实体列表，用于参考
+        pdf_paths (str/list): PDF文件路径或路径列表
         max_attempts (int): 最大尝试次数
-        batch_size (int): 批处理大小
-        model_name (str): 使用的模型名称
-        task_id (str): 任务ID，用于缓存
+        batch_size (int): 批处理大小，每次处理的PDF文件数量
+        model_name (str): 模型名称，支持qwen-long, claude-3-7-sonnet-20250219, gpt-4.1, gemini-2.5-flash
+        task_id (str, optional): 任务ID，用于缓存和日志
         
     Returns:
-        tuple: (提取的实体列表, 处理是否完成标志)
+        tuple: (提取的实体列表, 是否处理完成)
     """
     # 转换单个路径为列表
     if isinstance(pdf_paths, str):
         pdf_paths = [pdf_paths]
-        
-    # 验证并过滤PDF路径
+    
+    # 验证路径
     valid_paths = []
     for path in pdf_paths:
-        if os.path.exists(path) and path.lower().endswith('.pdf'):
+        if os.path.exists(path):
             valid_paths.append(path)
         else:
-            logging.warning(f"无效的PDF文件路径: {path}")
+            logging.warning(f"文件不存在: {path}")
     
     if not valid_paths:
         logging.error("没有有效的PDF文件路径")
         return [], False
     
-    logging.info(f"从 {len(valid_paths)} 个PDF文件中提取实体")
+    logging.info(f"从 {len(valid_paths)} 个PDF文件中提取实体，批处理大小: {batch_size}，使用模型: {model_name}")
     
     # 生成缓存目录和文件路径
     cache_dir = os.path.join(Config.CACHE_DIR, 'entities')
@@ -812,12 +890,14 @@ def extract_paper_entities(review_entities,pdf_paths, max_attempts=25, batch_siz
     all_entities = [] 
     is_complete = True
     
-    # 统一分批处理，无论batch_size为多少
+    # 分批处理
     for i in range(0, len(valid_paths), batch_size):
         batch_paths = valid_paths[i:i+batch_size]
         logging.info(f"处理批次 {i//batch_size + 1}/{(len(valid_paths) + batch_size - 1)//batch_size}，包含 {len(batch_paths)} 个PDF文件")
-        batch_entities, batch_complete = extract_entities_with_model(
-            batch_paths, 
+        
+        # 为每个批次单独处理
+        batch_entities, batch_complete, _ = extract_entities_with_model(
+            pdf_paths=batch_paths,
             model_name=model_name,
             max_attempts=max_attempts,
             previous_entities=all_entities if all_entities else None,
@@ -859,13 +939,14 @@ def extract_paper_entities(review_entities,pdf_paths, max_attempts=25, batch_siz
 
 
 # 添加一个函数用于上传文件并缓存file-id
-def upload_and_cache_file(file_path, purpose="file-extract"):
+def upload_and_cache_file(file_path, purpose="file-extract", model_name="qwen-long"):
     """
-    上传文件到OpenAI并缓存file-id，避免重复上传
+    根据不同模型上传文件并缓存file-id，避免重复上传
     
     Args:
         file_path (str): 文件路径
         purpose (str): 文件用途，默认为"file-extract"
+        model_name (str): 模型名称，支持qwen-long, claude-3-7-sonnet-20250219, gpt-4.1, gemini-2.5-flash
         
     Returns:
         str: 文件ID，如果上传失败则返回None
@@ -881,8 +962,8 @@ def upload_and_cache_file(file_path, purpose="file-extract"):
     # 获取文件信息作为缓存键
     file_name = os.path.basename(file_path)
     file_size = os.path.getsize(file_path)
-    # 生成缓存键
-    cache_key = f"{file_name}_{file_size}"
+    # 生成缓存键，包含模型名称以区分不同模型的缓存
+    cache_key = f"{model_name}_{file_name}_{file_size}"
     cache_key = hashlib.md5(cache_key.encode()).hexdigest()
     cache_file = os.path.join(cache_dir, f"{cache_key}.json")
     
@@ -893,46 +974,103 @@ def upload_and_cache_file(file_path, purpose="file-extract"):
                 cached_data = json.load(f)
                 file_id = cached_data.get("file_id")
                 if file_id:
-                    logging.info(f"从缓存获取file-id: {file_id} (文件: {file_name})")
+                    logging.info(f"从缓存获取file-id: {file_id} (文件: {file_name}, 模型: {model_name})")
                     return file_id
         except Exception as e:
             logging.error(f"读取缓存文件出错: {str(e)}")
     
-    # 如果没有缓存或缓存无效，上传文件
+    # 根据模型选择不同的上传逻辑
     try:
-        from openai import OpenAI
-        client = OpenAI(
-            api_key=Config.OPENAI_API_KEY or Config.QWEN_API_KEY,
-            base_url=Config.QWEN_BASE_URL
-        )
+        file_id = None
         
-        logging.info(f"上传文件到千问API: {file_name}")
-        with open(file_path, "rb") as file:
-            response = client.files.create(
-                file=file,
-                purpose=purpose
+        # 千问模型
+        if model_name == "qwen-long":
+            from openai import OpenAI
+            client = OpenAI(
+                api_key=Config.QWEN_API_KEY,
+                base_url=Config.QWEN_BASE_URL
             )
             
-        if hasattr(response, "id") and response.id:
-            file_id = response.id
-            logging.info(f"文件上传成功，file-id: {file_id}")
+            logging.info(f"上传文件到千问API: {file_name}")
+            with open(file_path, "rb") as file:
+                response = client.files.create(
+                    file=file,
+                    purpose=purpose
+                )
+                
+            if hasattr(response, "id") and response.id:
+                file_id = response.id
+        
+        # Claude模型
+        elif model_name == "claude-3-7-sonnet-20250219":
+            import anthropic
+            client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
             
-            # # 缓存file-id
-            # with open(cache_file, 'w', encoding='utf-8') as f:
-            #     cache_data = {
-            #         "file_id": file_id,
-            #         "file_name": file_name,
-            #         "upload_time": time.time()
-            #     }
-            #     json.dump(cache_data, f, indent=2, ensure_ascii=False)
-            # logging.info(f"file-id已缓存到 {cache_file}")
+            logging.info(f"上传文件到Claude API: {file_name}")
+            with open(file_path, "rb") as file:
+                response = client.files.create(
+                    file=file,
+                    purpose=purpose
+                )
+                
+            if hasattr(response, "id") and response.id:
+                file_id = response.id
+        
+        # GPT-4.1模型
+        elif model_name == "gpt-4.1":
+            from openai import OpenAI
+            client = OpenAI(api_key=Config.OPENAI_API_KEY)
+            
+            logging.info(f"上传文件到OpenAI API: {file_name}")
+            with open(file_path, "rb") as file:
+                response = client.files.create(
+                    file=file,
+                    purpose=purpose
+                )
+                
+            if hasattr(response, "id") and response.id:
+                file_id = response.id
+        
+        # Gemini模型
+        elif model_name == "gemini-2.5-flash":
+            import google.generativeai as genai
+            genai.configure(api_key=Config.GEMINI_API_KEY)
+            
+            logging.info(f"上传文件到Gemini API: {file_name}")
+            with open(file_path, "rb") as file:
+                file_content = file.read()
+                response = genai.upload_file(
+                    contents=file_content,
+                    mime_type="application/pdf"
+                )
+                
+            if hasattr(response, "file_id") and response.file_id:
+                file_id = response.file_id
+        
+        else:
+            logging.error(f"不支持的模型类型: {model_name}")
+            return None
+            
+        if file_id:
+            logging.info(f"文件上传成功，file-id: {file_id}，模型: {model_name}")
+            
+            # 缓存file-id
+            with open(cache_file, 'w', encoding='utf-8') as f:
+                cache_data = {
+                    "file_id": file_id,
+                    "file_name": file_name,
+                    "model_name": model_name,
+                    "upload_time": time.time()
+                }
+                json.dump(cache_data, f, indent=2, ensure_ascii=False)
+            logging.info(f"file-id已缓存到 {cache_file}")
             return file_id
         else:
-            logging.error("上传文件失败，API没有返回有效的file-id")
+            logging.error(f"上传文件失败，API没有返回有效的file-id，模型: {model_name}")
             return None
             
     except Exception as e:
-        logging.error(f"上传文件时出错: {str(e)}")
+        logging.error(f"上传文件时出错，模型: {model_name}, 错误: {str(e)}")
         logging.error(traceback.format_exc())
         return None
 
@@ -957,17 +1095,19 @@ def _get_entity_id(entity):
         return entity["metric_entity"].get("metric_id")
     return None
 
-def extract_evolution_relations(entities, pdf_paths=None,review_relations=None, task_id=None, previous_relations=None, max_attempts=15, batch_size=100):
+def extract_evolution_relations(entities, pdf_paths=None, review_relations=None, task_id=None, previous_relations=None, max_attempts=15, batch_size=100, model_name="qwen-long"):
     """
     从实体列表和PDF文件中提取演化关系，支持多个PDF文件和file-id方式，支持批量处理
     
     Args:
         entities (list): 实体列表
         pdf_paths (str/list, optional): PDF文件路径或路径列表
+        review_relations (list, optional): 综述文章中的关系
         task_id (str, optional): 任务ID，用于缓存和日志
         previous_relations (list, optional): 之前提取的关系，用于断点续传
         max_attempts (int): 最大尝试次数
         batch_size (int): 批处理大小，每次处理的PDF文件数量
+        model_name (str): 模型名称，支持qwen-long, claude-3-7-sonnet-20250219, gpt-4.1, gemini-2.5-flash
         
     Returns:
         list: 提取的演化关系列表
@@ -978,9 +1118,9 @@ def extract_evolution_relations(entities, pdf_paths=None,review_relations=None, 
             pdf_paths = [pdf_paths]
             
         if pdf_paths:
-            logging.info(f"从 {len(pdf_paths)} 个PDF文件中提取演化关系，批处理大小: {batch_size}")
+            logging.info(f"从 {len(pdf_paths)} 个PDF文件中提取演化关系，批处理大小: {batch_size}，使用模型: {model_name}")
         else:
-            logging.info("没有提供PDF文件，仅基于实体列表分析演化关系")
+            logging.info(f"没有提供PDF文件，仅基于实体列表分析演化关系，使用模型: {model_name}")
             
         # 验证实体列表
         if not entities or not isinstance(entities, list) or len(entities) == 0:
@@ -1007,7 +1147,8 @@ def extract_evolution_relations(entities, pdf_paths=None,review_relations=None, 
                     review_relations=review_relations,
                     pdf_paths=batch_paths,
                     previous_relations=all_relations,
-                    max_attempts=max_attempts
+                    max_attempts=max_attempts,
+                    model_name=model_name
                 )
                 
                 # 合并关系并避免重复
@@ -1034,9 +1175,11 @@ def extract_evolution_relations(entities, pdf_paths=None,review_relations=None, 
             # 如果没有PDF文件，直接处理实体列表
             all_relations, is_extraction_complete = _process_relations_batch(
                 entities=entities,
+                review_relations=review_relations,
                 pdf_paths=None,
                 previous_relations=all_relations,
-                max_attempts=max_attempts
+                max_attempts=max_attempts,
+                model_name=model_name
             )
         
         logging.info(f"关系提取完成，共 {len(all_relations)} 个关系，完成状态: {is_extraction_complete}")
@@ -1048,15 +1191,17 @@ def extract_evolution_relations(entities, pdf_paths=None,review_relations=None, 
         logging.error(traceback.format_exc())
         return all_relations if 'all_relations' in locals() else []
 
-def _process_relations_batch(entities,review_relations, pdf_paths=None, previous_relations=None, max_attempts=15):
+def _process_relations_batch(entities, review_relations, pdf_paths=None, previous_relations=None, max_attempts=15, model_name="qwen-long"):
     """
     处理一批PDF文件中的关系
     
     Args:
         entities (list): 实体列表
+        review_relations (list, optional): 综述文章中的关系
         pdf_paths (list, optional): PDF文件路径列表
         previous_relations (list, optional): 之前提取的关系，用于断点续传
         max_attempts (int): 最大尝试次数
+        model_name (str): 模型名称，支持qwen-long, claude-3-7-sonnet-20250219, gpt-4.1, gemini-2.5-flash
         
     Returns:
         tuple: (提取的关系列表, 完成状态)
@@ -1075,7 +1220,7 @@ def _process_relations_batch(entities,review_relations, pdf_paths=None, previous
     if pdf_paths:
         for pdf_path in pdf_paths:
             if os.path.exists(pdf_path):
-                file_id = upload_and_cache_file(pdf_path)
+                file_id = upload_and_cache_file(pdf_path, model_name=model_name)
                 if file_id:
                     file_ids.append(file_id)
         
@@ -1092,13 +1237,13 @@ def _process_relations_batch(entities,review_relations, pdf_paths=None, previous
         if file_ids:
             all_file_ids.extend(file_ids)
         current_attempt += 1
-        logging.info(f"关系提取尝试 {current_attempt}/{max_attempts}")
+        logging.info(f"关系提取尝试 {current_attempt}/{max_attempts}，使用模型: {model_name}")
         
         # 获取当前关系数量
         current_relation_count = len(all_relations)
         
         # 生成关系提取提示
-        system_message, user_message = generate_evolution_relation_prompt(all_relations,review_relations,entities)
+        system_message, user_message = generate_evolution_relation_prompt(all_relations, review_relations, entities)
         
         # 将提示内容保存为文本文件
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as prompt_file:
@@ -1108,9 +1253,9 @@ def _process_relations_batch(entities,review_relations, pdf_paths=None, previous
             
             logging.info(f"已将提示信息写入TXT文件: {prompt_filename}")
 
-        prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
+        prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract", model_name=model_name)
         uploaded_file_ids.append(prompt_file_id)
-        logging.info(f"上传提示文件: {prompt_filename}, file_id: {prompt_file_id}")
+        logging.info(f"上传提示文件: {prompt_filename}, file_id: {prompt_file_id}, 模型: {model_name}")
 
         # 移动临时提示文件到data/cache/test/ 带时间戳
         with open(prompt_filename, 'rb') as f:

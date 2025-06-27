@@ -37,13 +37,23 @@ class Config:
     QWEN_API_KEY = os.getenv('QWEN_API_KEY', 'sk-0fe80fc99c3045dfaa4c2921910245c1')  # 千问API密钥
     QWEN_BASE_URL = os.getenv('QWEN_BASE_URL', 'https://dashscope.aliyuncs.com/compatible-mode/v1')
     QWEN_MODEL = os.getenv('QWEN_MODEL', 'qwen-long')  # 千问模型
-    DEFAULT_MODEL = os.environ.get('DEFAULT_MODEL', 'qwen')  # 默认使用千问模型，可通过环境变量修改
+    DEFAULT_MODEL = os.environ.get('DEFAULT_MODEL', 'qwen-long')  # 默认使用千问长文本模型
+    
+    # 新增模型API密钥配置
+    ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', 'sk-ZHVYXikfYSPi4eq4Qi8W7XPjZx6r90bQcV2hgI454Bi5DwjN')  # Claude API密钥
+    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-ZHVYXikfYSPi4eq4Qi8W7XPjZx6r90bQcV2hgI454Bi5DwjN')  # OpenAI API密钥
+    GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'sk-ZHVYXikfYSPi4eq4Qi8W7XPjZx6r90bQcV2hgI454Bi5DwjN')  # Gemini API密钥
+    
+    # 模型基础URL配置
+    ANTHROPIC_BASE_URL = os.environ.get('ANTHROPIC_BASE_URL', 'https://api.shubiaobiao.com/v1')
+    OPENAI_BASE_URL = os.environ.get('OPENAI_BASE_URL', 'https://api.shubiaobiao.com/v1')
+    GEMINI_BASE_URL = os.environ.get('GEMINI_BASE_URL', 'https://api.shubiaobiao.com/v1')
     
     # JSON响应大小限制配置
     MAX_JSON_RESPONSE_SIZE = 8192000  # 最大JSON响应大小（字符数）
     
     # 处理并发配置
-    MAX_WORKERS = 4  # 最大工作线程数
+    MAX_WORKERS = 40  # 最大工作线程数
 
     # 重试配置
     MAX_RETRY_ATTEMPTS = 3  # 最大重试次数
@@ -81,7 +91,6 @@ class Config:
     MYSQL_DB = os.environ.get('MYSQL_DB', 'algorithm_evolution')
 
     # 新添加的OpenAI API相关配置
-    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')
     OPENAI_MODEL = os.environ.get('OPENAI_MODEL', 'gpt-3.5-turbo')
 
     @classmethod

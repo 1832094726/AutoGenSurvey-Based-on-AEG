@@ -15,6 +15,7 @@ from app.modules.db_manager import db_manager
 from app.modules.metrics_calculator import calculate_entity_statistics, calculate_relation_statistics, calculate_clustering_metrics
 import mysql.connector
 import time
+import threading
 
 # 创建蓝图
 combined_api = Blueprint('combined_api', __name__)
@@ -772,81 +773,86 @@ def clear_cache_keep_file_ids():
 @combined_api.route('/comparison/start', methods=['POST'])
 def start_comparison():
     """启动比较分析任务"""
-    temp_files = []  # 用于跟踪所有临时文件
     try:
-        # 获取表单数据
-        review_paper = request.files.get('review_paper')
-        citation_papers = request.files.getlist('citation_papers')
-        model_name = request.form.get('model', 'chatgpt')
-        from pathlib import Path
-        # 验证输入
-        if not review_paper:
+        # 检查是否有文件上传
+        if 'review_paper' not in request.files:
             return jsonify({'status': 'error', 'message': '未提供综述论文'}), 400
-        from datetime import datetime
-        # 生成任务ID
-        task_id = str(uuid.uuid4())
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         
-        # 创建上传目录
-        os.makedirs(Config.UPLOAD_DIR, exist_ok=True)
-        os.makedirs(Config.CITED_PAPERS_DIR, exist_ok=True)
+        review_file = request.files['review_paper']
+        if review_file.filename == '':
+            return jsonify({'status': 'error', 'message': '未选择综述论文文件'}), 400
         
-        # 保存综述论文，使用任务ID避免冲突
-        review_filename = review_paper.filename
-        # 不要生成安全的文件名
-        safe_filename = f"{Path(review_filename).name}"  
-        # 直接保存文件到目标位置
-        review_path = os.path.join(Config.UPLOAD_FOLDER, safe_filename)
-        review_paper.save(review_path)
+        # 检查文件类型
+        if not review_file.filename.lower().endswith('.pdf'):
+            return jsonify({'status': 'error', 'message': '综述论文必须是PDF格式'}), 400
+        
+        # 获取模型名称
+        model_name = request.form.get('model', 'qwen-long')
+        logging.info(f"使用模型: {model_name}")
+        
+        # 创建临时文件列表，用于后续清理
+        temp_files = []
+        
+        # 保存综述论文
+        review_filename = secure_filename(review_file.filename)
+        review_path = os.path.join(Config.UPLOAD_DIR, review_filename)
+        review_file.save(review_path)
         temp_files.append(review_path)
         
-        # 保存引用论文，使用时间戳和索引前缀
+        # 处理引用文献
         citation_paths = []
-        for i, paper in enumerate(citation_papers):
-            if paper.filename:
-                citation_path = os.path.join(Config.CITED_PAPERS_DIR, paper.filename)
-                paper.save(citation_path)
-                citation_paths.append(citation_path)
-                temp_files.append(citation_path)
+        if 'citation_papers' in request.files:
+            citation_files = request.files.getlist('citation_papers')
+            for citation_file in citation_files:
+                if citation_file and citation_file.filename != '' and citation_file.filename.lower().endswith('.pdf'):
+                    citation_filename = secure_filename(citation_file.filename)
+                    citation_path = os.path.join(Config.UPLOAD_DIR, citation_filename)
+                    citation_file.save(citation_path)
+                    citation_paths.append(citation_path)
+                    temp_files.append(citation_path)
         
-        # 创建处理任务
-        task_name = f"比较分析任务 - {review_paper.filename}"
-        db_manager.create_processing_task(
-            task_id=task_id,
-            task_name=task_name
-        )
+        # 生成任务ID
+        task_id = str(uuid.uuid4())
         
-        # 更新任务状态
-        db_manager.update_processing_status(
+        # 创建处理状态记录
+        db_manager.create_processing_status(
             task_id=task_id,
             status='处理中',
             current_stage='初始化',
-            progress=0.0,
-            message='任务已创建，准备开始处理'
+            progress=0.05,
+            message='正在准备处理任务',
+            file_info={
+                'review': review_filename,
+                'citations': [os.path.basename(path) for path in citation_paths]
+            }
         )
         
-        # 在后台启动处理任务
-        import threading
-        process_thread = threading.Thread(
+        # 启动后台处理线程
+        thread = threading.Thread(
             target=run_comparison_task,
             args=(task_id, review_path, citation_paths, model_name, temp_files)
         )
-        process_thread.daemon = True
-        process_thread.start()
+        thread.daemon = True
+        thread.start()
         
+        # 返回任务ID和初始状态
         return jsonify({
-            'status': 'success',
-            'message': '比较分析任务已启动',
-            'task_id': task_id
+            'success': True,
+            'task': {
+                'task_id': task_id,
+                'status': '处理中',
+                'current_stage': '初始化',
+                'progress': 0.05,
+                'message': '正在准备处理任务'
+            }
         })
-    
+        
     except Exception as e:
         logging.error(f"启动比较分析任务时出错: {str(e)}")
-        import traceback
         logging.error(traceback.format_exc())
         
-        # 发生错误时清理所有临时文件
-        for file_path in temp_files:
+        # 清理临时文件
+        for file_path in temp_files if 'temp_files' in locals() else []:
             try:
                 if os.path.exists(file_path):
                     os.remove(file_path)
@@ -884,7 +890,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         )
         
         # 处理综述论文，提取实体，使用相同的任务ID
-        review_entities, _ = extract_entities_from_review(review_path, task_id)
+        review_entities, _ = extract_entities_from_review(review_path, task_id, model_name=model_name)
         
         # 确保所有综述实体都有正确的来源标记
         for entity in review_entities:
@@ -913,7 +919,8 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             review_entities=review_entities,
             citation_paths=citation_paths,
             batch_size=10, 
-            task_id=task_id)
+            task_id=task_id,
+            model_name=model_name)
         
         # 确保所有引文实体都有正确的来源标记
         for entity in citation_entities:
@@ -954,7 +961,8 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             pdf_paths=[review_path],  # 只传入综述PDF
             task_id=task_id,
             previous_relations=None,
-            batch_size=10
+            batch_size=10,
+            model_name=model_name
         )
         
         # 确保所有综述关系都有正确的来源标记
@@ -975,7 +983,8 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
                 review_relations=review_evolution_relations,
                 task_id=task_id,
                 previous_relations=None,
-                batch_size=10
+                batch_size=10,
+                model_name=model_name
             )
             
             # 确保所有引文关系都有正确的来源标记
@@ -1049,7 +1058,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             except Exception as file_err:
                 logging.error(f"删除临时文件出错: {str(file_err)}")
 
-def extract_entities_from_review(review_path, task_id):
+def extract_entities_from_review(review_path, task_id, model_name):
     """从综述论文中提取实体和关系"""
     from app.modules.agents import extract_paper_entities
     
@@ -1064,7 +1073,7 @@ def extract_entities_from_review(review_path, task_id):
     entities, is_complete = extract_paper_entities(
         review_entities=None,
         pdf_paths=review_path,
-        model_name="qwen",
+        model_name=model_name,
         task_id=task_id  # 使用主任务ID
     )
     
@@ -1087,7 +1096,7 @@ def extract_entities_from_review(review_path, task_id):
     # 暂时返回空的关系列表，关系将在后续步骤中提取
     return entities, []
 
-def extract_entities_from_citations(review_entities, citation_paths,batch_size, task_id):
+def extract_entities_from_citations(review_entities, citation_paths, batch_size, task_id, model_name):
     """从引用文献中提取实体和关系"""
     from app.modules.agents import extract_paper_entities
     
@@ -1105,15 +1114,13 @@ def extract_entities_from_citations(review_entities, citation_paths,batch_size, 
         logging.error("没有有效的引用文献文件")
         return all_entities, []
     
-
-
     # 提取实体，使用主任务ID
     all_entities, is_complete = extract_paper_entities(
         review_entities=review_entities,
         pdf_paths=valid_paths,
         max_attempts=18,
         batch_size=batch_size,
-        model_name="qwen",
+        model_name=model_name,
         task_id=task_id  # 使用主任务ID
     )
     
