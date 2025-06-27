@@ -912,7 +912,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         citation_entities, _ = extract_entities_from_citations(
             review_entities=review_entities,
             citation_paths=citation_paths,
-            batch_size=105, 
+            batch_size=10, 
             task_id=task_id)
         
         # 确保所有引文实体都有正确的来源标记
@@ -954,7 +954,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             pdf_paths=[review_path],  # 只传入综述PDF
             task_id=task_id,
             previous_relations=None,
-            batch_size=100
+            batch_size=10
         )
         
         # 确保所有综述关系都有正确的来源标记
@@ -975,7 +975,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
                 review_relations=review_evolution_relations,
                 task_id=task_id,
                 previous_relations=None,
-                batch_size=150
+                batch_size=10
             )
             
             # 确保所有引文关系都有正确的来源标记

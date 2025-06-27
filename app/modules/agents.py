@@ -135,7 +135,7 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
     
     # 添加JSON格式要求
     json_format_prompt = """
-你必须严格按照以下JSON格式返回结果，不要包含任何额外的文本说明：
+你必须严格按照以下JSON格式返回结果，要求为全英文，不要包含任何额外的文本说明：
 
 {
   "entities": [
@@ -144,7 +144,7 @@ def generate_entity_extraction_prompt(model_name="qwen", previous_entities=None,
         "algorithm_id": "Zhang2016_TemplateSolver",
         "entity_type": "Algorithm",
         "name": "TemplateSolver",
-        "title": "论文标题",
+        "title": "当前提取的论文标题",
         "year": 2016,
         "authors": ["Zhang, Y.", "Li, W."],
         "task": "任务类型",
@@ -346,100 +346,6 @@ def generate_entity_extraction_prompt_with_features():
 
 """
 
-# 更新 extract_entities_with_openai 函数
-def extract_entities_with_openai(prompt, model_name="gpt-3.5-turbo", max_attempts=3, temp_cache_path=None):
-    """
-    使用OpenAI API提取实体
-    
-    Args:
-        prompt (str): 提取实体的提示词
-        model_name (str): 模型名称
-        max_attempts (int): 最大尝试次数
-        temp_cache_path (str, optional): 临时缓存文件路径，已弃用，保留参数是为了兼容性
-        
-    Returns:
-        tuple: (提取的实体列表, 是否处理完成)
-    """
-    if not hasattr(Config, 'OPENAI_API_KEY') or not Config.OPENAI_API_KEY:
-        logging.error("未配置OpenAI API密钥")
-        return [], False
-    
-    # 不再使用临时缓存文件，而是在内存中保存结果
-    response_content = ""
-    
-    # 尝试多次提取
-    attempt = 0
-    while attempt < max_attempts:
-        attempt += 1
-        try:
-            logging.info(f"尝试使用OpenAI提取实体 (尝试 {attempt}/{max_attempts})")
-            # 创建OpenAI客户端
-            client = OpenAI(
-                api_key=Config.OPENAI_API_KEY
-            )
-            # 构建消息
-            messages = [
-                {"role": "system", "content": "你是一个专注于从学术论文中提取实体信息的AI助手。请从提供的文本中提取算法、数据集和评价指标等相关实体信息，并以JSON格式返回。"},
-                {"role": "user", "content": prompt}
-            ]
-            # 调用API
-            response = client.chat.completions.create(
-                model=model_name,
-                messages=messages,
-                temperature=0,
-                max_tokens=None
-            )
-            # 收集流式响应内容
-            # content = ""
-            # for chunk in response:
-            #     if chunk.choices and chunk.choices[0].delta.content:
-            #         content += chunk.choices[0].delta.content
-            content=response.choices[0].message.content
-            # 保存响应到内存变量
-            response_content = content
-            logging.info(f"已收到OpenAI API响应，长度: {len(content)} 字符")
-            # 检查是否包含完成标志 - 使用公共函数
-            is_complete = check_extraction_complete(content)
-            # 尝试提取JSON部分
-            json_text = extract_json_from_text(content)
-            entities = []
-            # 验证并解析JSON
-            if json_text:
-                try:
-                    entities = json.loads(json_text)
-                    if not isinstance(entities, list):
-                        entities = [entities]  # 确保是列表格式
-                except json.JSONDecodeError:
-                    logging.warning(f"JSON解析错误，尝试清理后重新解析")
-                    try:
-                        clean_json = json_text.replace('```', '').strip()
-                        clean_json = re.sub(r',\s*]', ']', clean_json)  # 移除尾部逗号
-                        clean_json = re.sub(r',\s*}', '}', clean_json)  # 移除尾部逗号
-                        entities = json.loads(clean_json)
-                        if not isinstance(entities, list):
-                            entities = [entities]  # 确保是列表格式
-                    except Exception as clean_err:
-                        logging.error(f"清理后JSON仍解析失败: {str(clean_err)}")
-            if entities and len(entities) > 0:
-                logging.info(f"成功从OpenAI响应提取 {len(entities)} 个实体")
-                return entities, is_complete
-            else:
-                logging.warning(f"提取结果格式不正确，未能提取有效实体")
-                if attempt < max_attempts:
-                    logging.info(f"将重试...")
-                    time.sleep(2)  # 短暂延迟后重试
-        except Exception as e:
-            logging.error(f"使用OpenAI API提取实体时出错: {str(e)}")
-            import traceback
-            logging.error(traceback.format_exc())
-            if attempt < max_attempts:
-                logging.info(f"将重试...")
-                time.sleep(2)
-    
-    logging.error(f"在 {max_attempts} 次尝试后仍未能提取实体")
-    return [], False
-
-
 
 # 创建一个通用的实体提取函数，替代多个API特定的函数
 def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, previous_entities=None,review_entities=None):
@@ -505,32 +411,9 @@ def extract_entities_with_model(pdf_paths, model_name="qwen", max_attempts=25, p
             prompt_filename = prompt_file.name
             prompt_file.write(current_prompt)
             
-        # 只在第一次上传提示词文件
-        if prompt_file_id is None:
-            prompt_file_id = upload_and_cache_file(prompt_filename)
-            logging.info(f"上传提示词文件: {prompt_filename}, file_id: {prompt_file_id}")
-        else:
-            # 如果已有file_id，只更新文件内容
-            try:
-                from openai import OpenAI
-                client = OpenAI(
-                    api_key=Config.QWEN_API_KEY,
-                    base_url=Config.QWEN_BASE_URL
-                )
-                
-                # 更新提示词文件内容
-                with open(prompt_filename, 'rb') as f:
-                    client.files.update(
-                        file_id=prompt_file_id,
-                        file=f,
-                        purpose="file-extract"
-                    )
-                logging.info(f"更新提示词文件内容: {prompt_filename}, file_id: {prompt_file_id}")
-            except Exception as e:
-                logging.warning(f"更新提示词文件失败，将重新上传: {str(e)}")
-                prompt_file_id = upload_and_cache_file(prompt_filename)
-                logging.info(f"重新上传提示词文件: {prompt_filename}, file_id: {prompt_file_id}")
-        
+        prompt_file_id = upload_and_cache_file(prompt_filename)
+        logging.info(f"上传提示词文件: {prompt_filename}, file_id: {prompt_file_id}")
+
         # 使用模型API提取实体
         entities = []
         try:
@@ -1224,35 +1107,11 @@ def _process_relations_batch(entities,review_relations, pdf_paths=None, previous
             prompt_file.write(prompt_content)
             
             logging.info(f"已将提示信息写入TXT文件: {prompt_filename}")
-        
-        # 上传或更新提示文件
-        if prompt_file_id is None:
-            # 首次上传提示文件
-            prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
-            uploaded_file_ids.append(prompt_file_id)
-            logging.info(f"首次上传提示文件: {prompt_filename}, file_id: {prompt_file_id}")
-        else:
-            # 更新已有提示文件内容
-            try:
-                from openai import OpenAI
-                client = OpenAI(
-                    api_key=Config.QWEN_API_KEY,
-                    base_url=Config.QWEN_BASE_URL
-                )
-                
-                # 更新提示词文件内容
-                with open(prompt_filename, 'rb') as f:
-                    client.files.update(
-                        file_id=prompt_file_id,
-                        file=f,
-                        purpose="file-extract"
-                    )
-                logging.info(f"更新提示文件内容: {prompt_filename}, file_id: {prompt_file_id}")
-            except Exception as e:
-                logging.warning(f"更新提示文件失败，将重新上传: {str(e)}")
-                prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
-                logging.info(f"重新上传提示文件: {prompt_filename}, file_id: {prompt_file_id}")
-        
+
+        prompt_file_id = upload_and_cache_file(prompt_filename, purpose="file-extract")
+        uploaded_file_ids.append(prompt_file_id)
+        logging.info(f"上传提示文件: {prompt_filename}, file_id: {prompt_file_id}")
+
         # 移动临时提示文件到data/cache/test/ 带时间戳
         with open(prompt_filename, 'rb') as f:
             with open(f"data/cache/test/{time.strftime('%Y%m%d_%H%M%S')}_relation", 'wb') as f2:
