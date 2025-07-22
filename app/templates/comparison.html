@@ -104,6 +104,47 @@
 {% endblock %}
 
 {% block content %}
+<!-- 重新提取关系对话框 -->
+<div class="modal fade" id="reextractModal" tabindex="-1" role="dialog" aria-labelledby="reextractModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reextractModalLabel">重新提取关系 - 上传引文PDF</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle"></i>
+          <strong>说明：</strong>此功能将复用已有任务的实体数据，但需要重新上传综述PDF和引文PDF文件来重新提取演化关系。这样可以节省实体提取的成本。
+        </div>
+
+        <div class="form-group">
+          <label for="reextractReviewFile">选择综述PDF文件：</label>
+          <input type="file" class="form-control-file" id="reextractReviewFile" accept=".pdf">
+          <small class="form-text text-muted">请选择一个PDF格式的综述论文文件</small>
+        </div>
+
+        <div class="form-group">
+          <label for="reextractCitationFiles">选择引文PDF文件：</label>
+          <input type="file" class="form-control-file" id="reextractCitationFiles" multiple accept=".pdf">
+          <small class="form-text text-muted">请选择一个或多个PDF格式的引文文献文件</small>
+        </div>
+
+        <div id="reextractFileList" class="mt-3" style="display: none;">
+          <h6>已选择的文件：</h6>
+          <ul id="reextractSelectedFiles" class="list-group"></ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="confirmReextract" disabled>开始重新提取关系</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container mt-4">
   <div class="row mb-4">
     <div class="col">
@@ -151,9 +192,10 @@
           <div class="form-group">
             <select class="form-control" name="model" id="modelSelect">
               <option value="qwen-long">通义千问长文本版（qwen-long）</option>
-              <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet</option>
-              <option value="gpt-4.1">GPT-4.1</option>
-              <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+              <option value="claude-3-7-sonnet-20250219">claude-3-7-sonnet-20250219</option>
+              <option value="gpt-4.1-mini">gpt-4.1-mini</option>
+              <option value="deepseek-v3">DeepSeek-v3</option>
+              <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
             </select>
             <small class="form-text text-muted">选择用于提取实体和关系的大语言模型</small>
           </div>
@@ -252,6 +294,20 @@
     // 刷新历史记录按钮点击事件
     $('#refreshHistoryBtn').on('click', function() {
       loadComparisonHistory();
+    });
+
+    // 重新提取关系按钮点击事件（使用事件委托）
+    $(document).on('click', '.reextract-btn', function() {
+      const sourceTaskId = $(this).data('task-id');
+      const modelName = $('#modelSelect').val();
+
+      if (!sourceTaskId) {
+        alert('无效的任务ID');
+        return;
+      }
+
+      // 显示PDF文件选择对话框
+      showReextractDialog(sourceTaskId, modelName);
     });
     
     // 文件上传处理
@@ -493,8 +549,13 @@
                   <td><span class="badge ${statusClass}">${task.status}</span></td>
                   <td>${formattedDate}</td>
                   <td>
-                    ${task.status === '已完成' ? 
-                      `<a href="/comparison/results/${task.task_id}" class="btn btn-sm btn-primary">查看结果</a>` : 
+                    ${task.status === '已完成' ?
+                      `<div class="btn-group" role="group">
+                        <a href="/comparison/results/${task.task_id}" class="btn btn-sm btn-primary">查看结果</a>
+                        <button class="btn btn-sm btn-warning reextract-btn" data-task-id="${task.task_id}" title="基于此任务的实体重新提取关系">
+                          <i class="fas fa-redo"></i> 重新提取关系
+                        </button>
+                      </div>` :
                       `<button class="btn btn-sm btn-secondary" disabled>等待完成</button>`}
                   </td>
                 </tr>
@@ -528,11 +589,16 @@
     
     // 格式化日期
     function formatDate(dateString) {
-      if (!dateString) return '未知时间';
-      
+      if (!dateString || dateString === null || dateString === 'null' || dateString === 'N/A') {
+        return '未知时间';
+      }
+
       const date = new Date(dateString);
-      if (isNaN(date.getTime())) return dateString;
-      
+      if (isNaN(date.getTime())) {
+        console.warn('无法解析日期:', dateString);
+        return '未知时间';
+      }
+
       return date.toLocaleString('zh-CN', {
         year: 'numeric',
         month: '2-digit',
@@ -541,6 +607,156 @@
         minute: '2-digit'
       });
     }
+
+    // 显示重新提取关系对话框
+    function showReextractDialog(sourceTaskId, modelName) {
+      // 存储参数供后续使用
+      $('#reextractModal').data('sourceTaskId', sourceTaskId);
+      $('#reextractModal').data('modelName', modelName);
+
+      // 重置对话框状态
+      $('#reextractReviewFile').val('');
+      $('#reextractCitationFiles').val('');
+      $('#reextractFileList').hide();
+      $('#reextractSelectedFiles').empty();
+      $('#confirmReextract').prop('disabled', true);
+
+      // 显示对话框
+      $('#reextractModal').modal('show');
+    }
+
+    // 处理文件选择
+    function updateFileList() {
+      const reviewFile = $('#reextractReviewFile')[0].files[0];
+      const citationFiles = $('#reextractCitationFiles')[0].files;
+      const fileList = $('#reextractSelectedFiles');
+
+      fileList.empty();
+
+      let hasFiles = false;
+
+      // 显示综述文件
+      if (reviewFile) {
+        const listItem = $(`
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span><i class="fas fa-file-pdf text-primary"></i> [综述] ${reviewFile.name}</span>
+            <span class="badge badge-primary">${(reviewFile.size / 1024 / 1024).toFixed(2)} MB</span>
+          </li>
+        `);
+        fileList.append(listItem);
+        hasFiles = true;
+      }
+
+      // 显示引文文件
+      if (citationFiles.length > 0) {
+        for (let i = 0; i < citationFiles.length; i++) {
+          const file = citationFiles[i];
+          const listItem = $(`
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span><i class="fas fa-file-pdf text-danger"></i> [引文] ${file.name}</span>
+              <span class="badge badge-secondary">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+            </li>
+          `);
+          fileList.append(listItem);
+        }
+        hasFiles = true;
+      }
+
+      if (hasFiles) {
+        $('#reextractFileList').show();
+        // 只有当综述和引文文件都选择了才能确认
+        $('#confirmReextract').prop('disabled', !(reviewFile && citationFiles.length > 0));
+      } else {
+        $('#reextractFileList').hide();
+        $('#confirmReextract').prop('disabled', true);
+      }
+    }
+
+    $('#reextractReviewFile').on('change', updateFileList);
+    $('#reextractCitationFiles').on('change', updateFileList);
+
+    // 确认重新提取关系
+    $('#confirmReextract').on('click', function() {
+      const sourceTaskId = $('#reextractModal').data('sourceTaskId');
+      const modelName = $('#reextractModal').data('modelName');
+      const reviewFile = $('#reextractReviewFile')[0].files[0];
+      const citationFiles = $('#reextractCitationFiles')[0].files;
+
+      if (!reviewFile) {
+        alert('请选择综述PDF文件');
+        return;
+      }
+
+      if (!citationFiles || citationFiles.length === 0) {
+        alert('请选择至少一个引文PDF文件');
+        return;
+      }
+
+      // 关闭对话框
+      $('#reextractModal').modal('hide');
+
+      // 上传文件并启动任务
+      uploadFilesAndStartReextract(sourceTaskId, modelName, reviewFile, citationFiles);
+    });
+
+    // 上传文件并启动重新提取关系任务
+    function uploadFilesAndStartReextract(sourceTaskId, modelName, reviewFile, citationFiles) {
+      // 显示进度容器
+      $('#progressContainer').show();
+      $('#resultSection').hide();
+
+      // 重置进度显示
+      $('#currentStage').text('上传文件');
+      $('#statusMessage').text('正在上传PDF文件...');
+      $('#progressPercent').text('0%');
+      $('#progressBar').css('width', '0%').text('0%');
+
+      // 创建FormData对象上传文件
+      const formData = new FormData();
+
+      // 添加综述文件
+      formData.append('review_file', reviewFile);
+
+      // 添加引文文件
+      for (let i = 0; i < citationFiles.length; i++) {
+        formData.append('citation_files', citationFiles[i]);
+      }
+
+      formData.append('source_task_id', sourceTaskId);
+      formData.append('model_name', modelName);
+
+      // 上传文件
+      $.ajax({
+        url: '/api/comparison/upload_and_reextract',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          if (response.task_id) {
+            console.log('重新提取关系任务已启动:', response.task_id);
+
+            // 开始轮询任务状态
+            pollTaskStatus(response.task_id);
+          } else {
+            alert('启动重新提取关系任务失败: ' + (response.message || '未知错误'));
+            $('#progressContainer').hide();
+          }
+        },
+        error: function(xhr) {
+          let errorMessage = '上传文件或启动任务失败';
+          try {
+            const errorResponse = JSON.parse(xhr.responseText);
+            errorMessage = errorResponse.error || errorMessage;
+          } catch (e) {
+            errorMessage = xhr.statusText || errorMessage;
+          }
+
+          alert(errorMessage);
+          $('#progressContainer').hide();
+        }
+      });
+    }
   });
 </script>
-{% endblock %} 
+{% endblock %}

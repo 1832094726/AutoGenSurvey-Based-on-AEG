@@ -431,11 +431,12 @@ def extract_entities_from_paper(pdf_path, task_id=None, sub_progress=None):
             message=f"正在提取实体: {basename}"
         )
     
-    # 使用agents模块中的方法提取实体
+    # 使用agents模块中的方法提取实体（采用GPT/DeepSeek的PDF提取方法）
     from app.modules.agents import extract_paper_entities
     entities, is_complete = extract_paper_entities(
-        pdf_path, 
-        model_name=Config.DEFAULT_MODEL,
+        review_entities=None,  # 修正参数
+        pdf_paths=pdf_path,
+        model_name=Config.DEFAULT_MODEL,  # 使用gpt-4.1-mini
         task_id=task_id,
         batch_size=1
     )
@@ -721,9 +722,14 @@ def process_papers_and_extract_data(review_pdf_path, task_id=None, citation_path
                     message=f'正在处理第 {batch_index+1}/{total_batches} 批引用文献，共 {len(batch_pdfs)} 个文件'
                 )
             
-            # 使用优化的批量处理方法
+            # 使用优化的批量处理方法（采用GPT/DeepSeek的PDF提取方法）
             from app.modules.agents import extract_paper_entities
-            batch_entities, _ = extract_paper_entities(batch_pdfs, model_name=Config.DEFAULT_MODEL, task_id=task_id)
+            batch_entities, _ = extract_paper_entities(
+                review_entities=None,  # 修正参数
+                pdf_paths=batch_pdfs,
+                model_name=Config.DEFAULT_MODEL,  # 使用gpt-4.1-mini
+                task_id=task_id
+            )
             
             if batch_entities:
                 citation_entities.extend(batch_entities)
@@ -894,21 +900,23 @@ def extract_relationships_with_context(entities, pdf_path, task_id=None, existin
             message=f'正在提取 {len(entities)} 个实体之间的关系'
         )
     
-    # 使用现有关系作为上下文继续提取
+    # 使用现有关系作为上下文继续提取（采用GPT/DeepSeek的PDF提取方法）
     if existing_relations:
         # 创建一个包含已存在关系信息的提示
         relations = extract_evolution_relations(
-            pdf_paths=pdf_path, 
-            entities=entities, 
-            task_id=task_id, 
-            previous_relations=existing_relations
+            entities=entities,
+            pdf_paths=pdf_path,
+            task_id=task_id,
+            previous_relations=existing_relations,
+            model_name=Config.DEFAULT_MODEL  # 使用gpt-4.1-mini
         )
     else:
         # 第一次提取
         relations = extract_evolution_relations(
-            pdf_paths=pdf_path, 
-            entities=entities, 
-            task_id=task_id
+            entities=entities,
+            pdf_paths=pdf_path,
+            task_id=task_id,
+            model_name=Config.DEFAULT_MODEL  # 使用gpt-4.1-mini
         )
     
     # 缓存关系数据

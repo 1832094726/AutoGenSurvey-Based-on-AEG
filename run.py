@@ -33,6 +33,8 @@ def parse_args():
     parser.add_argument('--debug', action='store_true', help='是否开启调试模式')
     parser.add_argument('--safe', action='store_true', help='安全模式 (仅测试创建应用)')
     parser.add_argument('--check-imports', action='store_true', help='仅检查导入是否成功')
+    parser.add_argument('--no-reload', action='store_true', help='禁用自动重载功能')
+    parser.add_argument('--reload', action='store_true', help='启用自动重载功能')
     return parser.parse_args()
 
 if __name__ == '__main__':
@@ -59,12 +61,24 @@ if __name__ == '__main__':
                 print("安全模式: 应用实例创建成功，不启动服务器")
                 sys.exit(0)
                 
+            # 确定是否启用重载
+            use_reloader = False  # 默认禁用重载
+            if args.reload:
+                use_reloader = True
+                print("启用自动重载功能")
+            elif args.no_reload:
+                use_reloader = False
+                print("禁用自动重载功能")
+            else:
+                print("默认禁用自动重载功能（避免文件监控问题）")
+
             # 启动应用
             print(f"启动应用服务器，主机: {args.host}, 端口: {args.port}")
             app.run(
                 host=args.host,
                 port=args.port,
-                debug=args.debug or app.config.get('DEBUG', False)
+                debug=args.debug or app.config.get('DEBUG', False),
+                use_reloader=use_reloader
             )
         except Exception as e:
             print(f"应用启动过程中发生错误: {str(e)}")

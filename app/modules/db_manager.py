@@ -1677,6 +1677,39 @@ class DatabaseManager:
     def get_outgoing_relations(self, entity_id):
         """获取从指定实体出发的所有关系"""
         return self._get_outgoing_relations_mysql(entity_id)
+
+    def get_relations_by_entity(self, entity_id):
+        """获取与指定实体相关的所有关系（包括传入和传出关系）
+
+        Args:
+            entity_id (str): 实体ID
+
+        Returns:
+            list: 关系列表，包含传入和传出关系
+        """
+        try:
+            # 获取传入关系
+            incoming_relations = self.get_incoming_relations(entity_id)
+            # 获取传出关系
+            outgoing_relations = self.get_outgoing_relations(entity_id)
+
+            # 合并关系并标记方向
+            all_relations = []
+
+            for relation in incoming_relations:
+                relation['direction'] = 'incoming'  # 标记为传入关系
+                all_relations.append(relation)
+
+            for relation in outgoing_relations:
+                relation['direction'] = 'outgoing'  # 标记为传出关系
+                all_relations.append(relation)
+
+            logging.info(f"实体 {entity_id} 共有 {len(incoming_relations)} 个传入关系，{len(outgoing_relations)} 个传出关系")
+            return all_relations
+
+        except Exception as e:
+            logging.error(f"获取实体 {entity_id} 的关系时出错: {str(e)}")
+            return []
             
     def _get_outgoing_relations_mysql(self, entity_id):
         """获取从指定实体出发的关系（传出关系）"""
@@ -2160,30 +2193,29 @@ class DatabaseManager:
             list: 任务记录列表
         """
         try:
-            # 查询与比较分析相关的任务
+            # 直接查询所有任务记录，不限制条件，按时间排序
             query = """
-            SELECT task_id, task_name, status, current_stage, progress, message, 
+            SELECT task_id, task_name, status, current_stage, progress, message,
                    start_time, update_time, end_time, completed
             FROM ProcessingStatus
-            WHERE task_name LIKE '%比较%' OR task_name LIKE '%比对%' OR task_name LIKE '%Comparison%' 
-                  OR task_name LIKE '%Compare%' OR status = 'completed'
+            WHERE start_time IS NOT NULL
             ORDER BY start_time DESC
             LIMIT %s
             """
-            
+
             rows = db_utils.select_all(query, (limit,))
-            
-            # 如果没有找到任何结果，查询最近的任务记录
+
+            # 如果仍然没有找到任何结果，查询所有记录（包括时间为NULL的）
             if not rows:
                 fallback_query = """
-                SELECT task_id, task_name, status, current_stage, progress, message, 
+                SELECT task_id, task_name, status, current_stage, progress, message,
                        start_time, update_time, end_time, completed
                 FROM ProcessingStatus
-                ORDER BY start_time DESC
+                ORDER BY id DESC
                 LIMIT %s
                 """
                 rows = db_utils.select_all(fallback_query, (limit,))
-                logging.info(f"未找到特定比较任务，返回最近的{limit}条任务记录")
+                logging.info(f"未找到有时间数据的任务，返回最近的{limit}条任务记录")
             
             tasks = []
             
@@ -2191,15 +2223,19 @@ class DatabaseManager:
                 task = row.copy()
                 # 处理日期时间类型
                 for col_name in ['start_time', 'update_time', 'end_time']:
-                    if col_name in task and task[col_name] and isinstance(task[col_name], (datetime.datetime, datetime.date)):
-                        task[col_name] = task[col_name].strftime('%Y-%m-%d %H:%M:%S')
+                    if col_name in task:
+                        if task[col_name] and isinstance(task[col_name], (datetime.datetime, datetime.date)):
+                            task[col_name] = task[col_name].strftime('%Y-%m-%d %H:%M:%S')
+                        elif not task[col_name]:
+                            # 如果时间字段为空，设置为None而不是保留原值
+                            task[col_name] = None
                 # 处理completed布尔值
                 if 'completed' in task:
                     task['completed'] = task['completed'] == 1 if task['completed'] is not None else False
                 # 处理progress浮点值
                 if 'progress' in task and task['progress'] is not None:
                     task['progress'] = float(task['progress'])
-                
+
                 tasks.append(task)
             
             logging.info(f"获取到 {len(tasks)} 条比较分析历史记录")

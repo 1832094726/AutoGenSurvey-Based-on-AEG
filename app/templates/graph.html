@@ -1456,8 +1456,11 @@
                     });
             }
 
-            // 初始加载全部数据
-            loadGraphData();
+            // 不再自动加载数据，等待用户选择任务后手动加载
+            // loadGraphData(); // 已注释掉自动加载
+
+            // 显示提示信息
+            showNotification('请选择任务后点击"加载图形"按钮来查看知识图谱', 'info');
 
             // 按钮点击事件 - 加载任务
             document.getElementById('btn-load-task').addEventListener('click', function() {
@@ -1667,14 +1670,17 @@
                 if (taskId) {
                     // 显示任务详情
                     showTaskInfo(taskId);
-                    // 自动加载当前选择任务的图形数据
-                    console.log('自动加载任务对应的图形数据');
-                    loadGraphData(taskId, true); // 强制刷新数据
+                    // 不再自动加载，提示用户点击加载按钮
+                    console.log('任务已选择，等待用户点击加载按钮');
+                    showNotification('任务已选择，请点击"加载图形"按钮查看知识图谱', 'info');
                 } else {
                     document.getElementById('task-info').classList.add('d-none');
-                    // 加载全部数据
-                    console.log('加载全部图形数据');
-                    loadGraphData(null, true);
+                    // 清空图形显示
+                    console.log('清空图形显示');
+                    if (cy) {
+                        cy.elements().remove();
+                        showNotification('请选择任务后点击"加载图形"按钮', 'info');
+                    }
                 }
                 });
 

@@ -1,0 +1,58 @@
+# Flask自动重载忽略文件
+# 忽略AutoSurvey目录
+AutoSurvey/
+AutoSurvey/*
+
+# 忽略其他不需要监控的目录
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
+
+# 忽略临时文件
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# 忽略数据文件
+data/
+cache/
+uploads/
+logs/
+
+# 忽略配置文件
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# 忽略IDE文件
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 忽略系统文件
+.DS_Store
+Thumbs.db

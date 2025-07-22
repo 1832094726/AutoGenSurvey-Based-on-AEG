@@ -37,17 +37,19 @@ class Config:
     QWEN_API_KEY = os.getenv('QWEN_API_KEY', 'sk-0fe80fc99c3045dfaa4c2921910245c1')  # 千问API密钥
     QWEN_BASE_URL = os.getenv('QWEN_BASE_URL', 'https://dashscope.aliyuncs.com/compatible-mode/v1')
     QWEN_MODEL = os.getenv('QWEN_MODEL', 'qwen-long')  # 千问模型
-    DEFAULT_MODEL = os.environ.get('DEFAULT_MODEL', 'qwen-long')  # 默认使用千问长文本模型
+    DEFAULT_MODEL = os.environ.get('DEFAULT_MODEL', 'gpt-4.1-mini')  # 默认使用GPT模型进行PDF提取
     
-    # 新增模型API密钥配置
-    ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', 'sk-ZHVYXikfYSPi4eq4Qi8W7XPjZx6r90bQcV2hgI454Bi5DwjN')  # Claude API密钥
-    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-ZHVYXikfYSPi4eq4Qi8W7XPjZx6r90bQcV2hgI454Bi5DwjN')  # OpenAI API密钥
-    GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'sk-ZHVYXikfYSPi4eq4Qi8W7XPjZx6r90bQcV2hgI454Bi5DwjN')  # Gemini API密钥
-    
-    # 模型基础URL配置
-    ANTHROPIC_BASE_URL = os.environ.get('ANTHROPIC_BASE_URL', 'https://api.shubiaobiao.com/v1')
-    OPENAI_BASE_URL = os.environ.get('OPENAI_BASE_URL', 'https://api.shubiaobiao.com/v1')
-    GEMINI_BASE_URL = os.environ.get('GEMINI_BASE_URL', 'https://api.shubiaobiao.com/v1')
+    # 新增模型API密钥配置（统一使用shubiaobiao）
+    ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', 'sk-aYa1InFVmrtzBU2u77E9D8153a534522Ae49506058984019')  # Claude API密钥
+    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-aYa1InFVmrtzBU2u77E9D8153a534522Ae49506058984019')  # OpenAI API密钥
+    GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'sk-aYa1InFVmrtzBU2u77E9D8153a534522Ae49506058984019')  # Gemini API密钥
+    DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY', 'sk-aYa1InFVmrtzBU2u77E9D8153a534522Ae49506058984019')  # DeepSeek API密钥
+
+    # 模型基础URL配置（统一使用shubiaobiao）
+    ANTHROPIC_BASE_URL = os.environ.get('ANTHROPIC_BASE_URL', 'https://api.shubiaobiao.cn/v1/')
+    OPENAI_BASE_URL = os.environ.get('OPENAI_BASE_URL', 'https://api.shubiaobiao.cn/v1/')
+    GEMINI_BASE_URL = os.environ.get('GEMINI_BASE_URL', 'https://api.shubiaobiao.cn/v1/')
+    DEEPSEEK_BASE_URL = os.environ.get('DEEPSEEK_BASE_URL', 'https://api.shubiaobiao.cn/v1/')
     
     # JSON响应大小限制配置
     MAX_JSON_RESPONSE_SIZE = 8192000  # 最大JSON响应大小（字符数）
@@ -73,12 +75,6 @@ class Config:
     GRAPH_DATA_DIR = os.path.join('./data', 'graph')  # 图数据存储目录
     LOG_DIR = os.path.join('./data', 'logs')  # 日志存储目录
     CITED_PAPERS_DIR = os.path.join('./data', 'cited_papers')  # 引用文献存储目录
-    
-    # DeepSeek大模型API配置
-    DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY', 'your-deepseek-api-key')
-    DEEPSEEK_API_BASE = os.environ.get('DEEPSEEK_API_BASE', 'https://api.deepseek.com')
-    DEEPSEEK_MODEL = os.environ.get('DEEPSEEK_MODEL', 'deepseek-chat')
-    DEEPSEEK_EMBEDDING_MODEL = os.environ.get('DEEPSEEK_EMBEDDING_MODEL', 'deepseek-embedding')
     
     # 数据库配置 - 只使用MySQL
     DB_TYPE = 'mysql'  # 固定为MySQL

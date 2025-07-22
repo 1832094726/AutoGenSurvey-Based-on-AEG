@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论文分析系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .analysis-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+        }
+        .progress-container {
+            display: none;
+            margin-top: 15px;
+        }
+        .result-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .model-badge {
+            font-size: 0.8em;
+            margin-left: 5px;
+        }
+        .analysis-type-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        .file-upload-area {
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        .file-upload-area:hover {
+            border-color: #007bff;
+            background: #e3f2fd;
+        }
+        .file-upload-area.dragover {
+            border-color: #007bff;
+            background: #e3f2fd;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-microscope"></i> 算法演化知识图谱系统
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">首页</a>
+                <a class="nav-link" href="/graph">知识图谱</a>
+                <a class="nav-link active" href="/paper-analysis">论文分析</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4">
+                    <i class="fas fa-file-alt"></i> 论文分析系统
+                    <small class="text-muted">基于AI的论文方法覆盖率分析</small>
+                </h1>
+            </div>
+        </div>
+
+        <!-- 功能选择卡片 -->
+        <div class="row">
+            <!-- 论文与任务比较 -->
+            <div class="col-lg-4 mb-4">
+                <div class="analysis-card">
+                    <div class="analysis-type-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-balance-scale"></i> 论文与任务比较
+                        </h5>
+                    </div>
+                    <p class="text-muted">上传论文PDF，与指定任务的引文数据进行方法覆盖率比较分析</p>
+                    
+                    <form id="paperTaskForm">
+                        <div class="mb-3">
+                            <label class="form-label">选择任务</label>
+                            <select class="form-select" id="taskSelect" required>
+                                <option value="">正在加载任务列表...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">上传论文PDF</label>
+                            <div class="file-upload-area" id="paperUpload1">
+                                <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                <p class="mb-0">点击或拖拽PDF文件到此处</p>
+                                <input type="file" class="d-none" id="paperFile1" accept=".pdf" required>
+                            </div>
+                            <div id="fileName1" class="mt-2 text-success"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-file-code"></i> 论文提取结果 (可选)
+                                <small class="text-muted">- 优先使用已提取的结果</small>
+                            </label>
+                            <div class="file-upload-area" id="extractedUpload1" style="border-style: dotted; padding: 15px;">
+                                <i class="fas fa-upload fa-lg text-muted mb-2"></i>
+                                <p class="mb-0 small">上传之前提取的JSON文件 (可选)</p>
+                                <p class="mb-0 small text-muted">如果提供，将跳过论文提取步骤</p>
+                                <input type="file" class="d-none" id="extractedFile1" accept=".json">
+                            </div>
+                            <div id="extractedFileName1" class="mt-2 text-info"></div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">选择分析模型</label>
+                            <select class="form-select" id="modelSelect1">
+                                <option value="gemini-2.0-flash">Gemini 2.0 Flash (推荐PDF分析)</option>
+                                <option value="qwen-long">Qwen Long (默认)</option>
+                                <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet</option>
+                                <option value="gpt-4.1-mini">GPT-4.1 Mini</option>
+                                <option value="deepseek-v3">DeepSeek V3</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-play"></i> 开始分析
+                        </button>
+                    </form>
+                    
+                    <div class="progress-container" id="progress1">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span id="progressText1">准备中...</span>
+                            <span id="progressPercent1">0%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="progressBar1" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-container" id="result1">
+                        <h6>分析结果</h6>
+                        <div id="resultContent1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 论文与论文比较 -->
+            <div class="col-lg-4 mb-4">
+                <div class="analysis-card">
+                    <div class="analysis-type-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-copy"></i> 论文与论文比较
+                        </h5>
+                    </div>
+                    <p class="text-muted">上传两篇论文PDF，进行方法覆盖率对比分析</p>
+                    
+                    <form id="paperPaperForm">
+                        <div class="mb-3">
+                            <label class="form-label">论文1 (参考论文)</label>
+                            <div class="file-upload-area" id="paperUpload2">
+                                <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                <p class="mb-0">点击或拖拽PDF文件到此处</p>
+                                <input type="file" class="d-none" id="paperFile2" accept=".pdf" required>
+                            </div>
+                            <div id="fileName2" class="mt-2 text-success"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-file-code"></i> 论文1提取结果 (可选)
+                                <small class="text-muted">- 优先使用已提取的结果</small>
+                            </label>
+                            <div class="file-upload-area" id="extractedUpload2" style="border-style: dotted; padding: 15px;">
+                                <i class="fas fa-upload fa-lg text-muted mb-2"></i>
+                                <p class="mb-0 small">上传之前提取的JSON文件 (可选)</p>
+                                <p class="mb-0 small text-muted">如果提供，将跳过论文1提取步骤</p>
+                                <input type="file" class="d-none" id="extractedFile2" accept=".json">
+                            </div>
+                            <div id="extractedFileName2" class="mt-2 text-info"></div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">论文2 (待比较论文)</label>
+                            <div class="file-upload-area" id="paperUpload3">
+                                <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                <p class="mb-0">点击或拖拽PDF文件到此处</p>
+                                <input type="file" class="d-none" id="paperFile3" accept=".pdf" required>
+                            </div>
+                            <div id="fileName3" class="mt-2 text-success"></div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">选择分析模型</label>
+                            <select class="form-select" id="modelSelect2">
+                                <option value="gemini-2.0-flash">Gemini 2.0 Flash (推荐PDF分析)</option>
+                                <option value="qwen-long">Qwen Long (默认)</option>
+                                <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet</option>
+                                <option value="gpt-4.1-mini">GPT-4.1 Mini</option>
+                                <option value="deepseek-v3">DeepSeek V3</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-play"></i> 开始分析
+                        </button>
+                    </form>
+                    
+                    <div class="progress-container" id="progress2">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span id="progressText2">准备中...</span>
+                            <span id="progressPercent2">0%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="progressBar2" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-container" id="result2">
+                        <h6>分析结果</h6>
+                        <div id="resultContent2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 任务关系覆盖率分析 -->
+            <div class="col-lg-4 mb-4">
+                <div class="analysis-card">
+                    <div class="analysis-type-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-project-diagram"></i> 关系覆盖率分析
+                        </h5>
+                    </div>
+                    <p class="text-muted">分析任务中综述关系与引文关系的覆盖率</p>
+                    
+                    <form id="relationCoverageForm">
+                        <div class="mb-3">
+                            <label class="form-label">选择任务</label>
+                            <select class="form-select" id="taskSelect2" required>
+                                <option value="">正在加载任务列表...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">选择分析模型</label>
+                            <select class="form-select" id="modelSelect3">
+                                <option value="gemini-2.0-flash">Gemini 2.0 Flash (推荐关系分析)</option>
+                                <option value="deepseek-v3">DeepSeek V3 (备用推荐)</option>
+                                <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet</option>
+                                <option value="qwen-long">Qwen Long</option>
+                                <option value="gpt-4.1-mini">GPT-4.1 Mini</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-play"></i> 开始分析
+                        </button>
+                    </form>
+                    
+                    <div class="progress-container" id="progress3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span id="progressText3">准备中...</span>
+                            <span id="progressPercent3">0%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="progressBar3" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-container" id="result3">
+                        <h6>分析结果</h6>
+                        <div id="resultContent3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 历史记录部分 -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-history"></i> 分析历史记录
+                        </h5>
+                        <button class="btn btn-sm btn-outline-secondary" id="refreshAnalysisHistoryBtn">
+                            <i class="fas fa-sync-alt"></i> 刷新
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="analysisHistoryTable">
+                                <thead>
+                                    <tr>
+                                        <th>分析类型</th>
+                                        <th>任务ID</th>
+                                        <th>状态</th>
+                                        <th>创建时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="analysisHistoryTableBody">
+                                    <tr>
+                                        <td colspan="5" class="text-center">加载历史记录中...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/paper_analysis.js') }}"></script>
+</body>
+</html>

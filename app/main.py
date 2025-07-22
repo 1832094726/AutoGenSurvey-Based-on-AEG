@@ -59,6 +59,11 @@ def table():
     """渲染表格页面"""
     return render_template('table.html')
 
+@main.route('/paper-analysis')
+def paper_analysis():
+    """渲染论文分析页面"""
+    return render_template('paper_analysis.html')
+
 @main.route('/entity/<entity_id>')
 @main.route('/entities/<entity_id>')
 def entity_detail(entity_id):

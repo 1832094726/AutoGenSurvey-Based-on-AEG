@@ -1,0 +1,21 @@
+{
+  "review_relations_count": 37,
+  "citation_relations_count": 26,
+  "relation_coverage": {
+    "relation_coverage": {
+      "total_review_relations": 30,
+      "total_citation_relations": 26,
+      "overlapping_relations": 16,
+      "overall_coverage_ratio": 0.533,
+      "coverage_by_type": {
+        "improve": 0.0,
+        "optimize": 0.6,
+        "extend": 0.625,
+        "replace": 0.0,
+        "use": 0.5
+      }
+    },
+    "detailed_analysis": "本次分析旨在评估引文关系对综述关系的覆盖程度。总共有30个综述关系和26个引文关系。通过比较两种关系数据，我们发现有16个综述关系被引文关系所覆盖，整体覆盖率为53.3%。\n\n具体到每种关系类型，'Optimize'关系的覆盖率为60%，这意味着在综述中标记为'Optimize'的关系，有60%也在引文关系中被标记为'Optimize'。'Extend'关系的覆盖率为62.5%，'Use'关系的覆盖率为50%。'Improve'和'Replace'关系的覆盖率为0%，表明在本次数据中，综述关系中存在的'Improve'和'Replace'关系没有在引文关系中体现。\n\n未匹配的原因可能包括：1) 引文关系数据不完整，未能捕捉到所有综述中存在的关联；2) 综述关系和引文关系在标注标准上存在差异，导致某些关系类型未能对应；3) 实体识别的误差，导致即使关系类型相同，但由于实体对不匹配，也被视为未覆盖。需要注意的是，由于没有提供实体信息，这里的匹配仅仅基于关系类型，实际的覆盖率可能会更低，因为需要考虑实体对的匹配情况。"
+  },
+  "model_used": "gemini-2.0-flash"
+}

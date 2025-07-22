@@ -20,6 +20,15 @@ import threading
 # 创建蓝图
 combined_api = Blueprint('combined_api', __name__)
 
+def generate_task_name(original_task_name, task_id, task_data):
+    """生成任务名称 - 如果原始名称为空则使用task_id"""
+    # 如果原始任务名称为空、None，则使用task_id
+    if not original_task_name or original_task_name.strip() == '':
+        return task_id if task_id else '未知任务'
+
+    # 否则使用原始名称
+    return original_task_name
+
 # =================== 文件上传处理相关API ===================
 
 @combined_api.route('/upload', methods=['POST'])
@@ -770,6 +779,193 @@ def clear_cache_keep_file_ids():
 
 # =================== 比较分析相关API ===================
 
+@combined_api.route('/comparison/reextract_relations', methods=['POST'])
+def reextract_relations():
+    """基于已有任务的实体重新提取演化关系"""
+    try:
+        data = request.get_json()
+
+        # 验证必需的参数
+        required_fields = ['source_task_id', 'model_name', 'review_path', 'citation_paths']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({'error': f'缺少必需的参数: {field}'}), 400
+
+        source_task_id = data['source_task_id']
+        model_name = data['model_name']
+        review_path = data['review_path']  # 新增：综述PDF路径
+        citation_paths = data['citation_paths']  # 新增：引文PDF路径列表
+
+        # 验证综述PDF文件是否存在
+        if not review_path or not os.path.exists(review_path):
+            return jsonify({'error': '综述PDF文件不存在或路径无效'}), 400
+
+        # 验证引文PDF文件是否存在
+        if not citation_paths or not isinstance(citation_paths, list):
+            return jsonify({'error': '必须提供引文PDF文件路径列表'}), 400
+
+        # 检查PDF文件是否存在
+        missing_files = []
+        for pdf_path in citation_paths:
+            if not os.path.exists(pdf_path):
+                missing_files.append(pdf_path)
+
+        if missing_files:
+            return jsonify({'error': f'以下PDF文件不存在: {missing_files}'}), 400
+
+        # 验证源任务是否存在
+        source_task = db_manager.get_processing_status(source_task_id)
+        if not source_task:
+            return jsonify({'error': f'源任务 {source_task_id} 不存在'}), 404
+
+        # 检查源任务是否有实体数据
+        entities = db_manager.get_entities_by_task(source_task_id)
+        if not entities:
+            return jsonify({'error': f'源任务 {source_task_id} 中没有实体数据'}), 400
+
+        # 生成新任务ID
+        new_task_id = str(uuid.uuid4())
+
+        # 创建新任务记录
+        task_name = f"重新提取关系 - 基于任务 {source_task_id[:8]}"
+        db_manager.create_processing_task(new_task_id, task_name)
+
+        # 更新任务状态
+        db_manager.update_processing_status(
+            task_id=new_task_id,
+            status='处理中',
+            current_stage='初始化',
+            progress=0.0,
+            message='正在初始化重新提取关系任务'
+        )
+
+        # 启动后台任务
+        thread = threading.Thread(
+            target=reextract_relations_from_existing_task,
+            args=(source_task_id, new_task_id, model_name, review_path, citation_paths)
+        )
+        thread.daemon = True
+        thread.start()
+
+        return jsonify({
+            'task_id': new_task_id,
+            'source_task_id': source_task_id,
+            'review_file': os.path.basename(review_path),
+            'citation_files_count': len(citation_paths),
+            'message': '重新提取关系任务已启动'
+        })
+
+    except Exception as e:
+        logging.error(f"启动重新提取关系任务时出错: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+@combined_api.route('/comparison/upload_and_reextract', methods=['POST'])
+def upload_and_reextract():
+    """上传PDF文件并启动重新提取关系任务"""
+    try:
+        # 获取表单数据
+        source_task_id = request.form.get('source_task_id')
+        model_name = request.form.get('model_name')
+
+        if not source_task_id or not model_name:
+            return jsonify({'error': '缺少必需的参数: source_task_id 或 model_name'}), 400
+
+        # 获取上传的文件
+        review_file = request.files.get('review_file')
+        citation_files = request.files.getlist('citation_files')
+
+        if not review_file:
+            return jsonify({'error': '没有上传综述PDF文件'}), 400
+
+        if not citation_files:
+            return jsonify({'error': '没有上传引文PDF文件'}), 400
+
+        # 验证源任务是否存在
+        source_task = db_manager.get_processing_status(source_task_id)
+        if not source_task:
+            return jsonify({'error': f'源任务 {source_task_id} 不存在'}), 404
+
+        # 检查源任务是否有实体数据
+        entities = db_manager.get_entities_by_task(source_task_id)
+        if not entities:
+            return jsonify({'error': f'源任务 {source_task_id} 中没有实体数据'}), 400
+
+        # 保存上传的文件
+        import tempfile
+        import shutil
+
+        temp_dir = tempfile.mkdtemp(prefix='reextract_')
+        review_path = None
+        citation_paths = []
+
+        try:
+            # 保存综述文件
+            if review_file.filename and review_file.filename.endswith('.pdf'):
+                review_filename = f"review_{review_file.filename}"
+                review_path = os.path.join(temp_dir, review_filename)
+                review_file.save(review_path)
+                logging.info(f"保存综述文件: {review_path}")
+            else:
+                shutil.rmtree(temp_dir)
+                return jsonify({'error': '综述文件必须是PDF格式'}), 400
+
+            # 保存引文文件
+            for i, file in enumerate(citation_files):
+                if file.filename and file.filename.endswith('.pdf'):
+                    # 生成安全的文件名
+                    safe_filename = f"citation_{i}_{file.filename}"
+                    file_path = os.path.join(temp_dir, safe_filename)
+                    file.save(file_path)
+                    citation_paths.append(file_path)
+                    logging.info(f"保存引文文件: {file_path}")
+
+            if not citation_paths:
+                shutil.rmtree(temp_dir)
+                return jsonify({'error': '没有有效的引文PDF文件'}), 400
+
+            # 生成新任务ID
+            new_task_id = str(uuid.uuid4())
+
+            # 创建新任务记录
+            task_name = f"重新提取关系 - 基于任务 {source_task_id[:8]} (1个综述+{len(citation_paths)}个引文)"
+            db_manager.create_processing_task(new_task_id, task_name)
+
+            # 更新任务状态
+            db_manager.update_processing_status(
+                task_id=new_task_id,
+                status='处理中',
+                current_stage='初始化',
+                progress=0.0,
+                message=f'正在初始化重新提取关系任务，已上传1个综述PDF和{len(citation_paths)}个引文PDF'
+            )
+
+            # 启动后台任务
+            thread = threading.Thread(
+                target=reextract_relations_from_existing_task,
+                args=(source_task_id, new_task_id, model_name, review_path, citation_paths)
+            )
+            thread.daemon = True
+            thread.start()
+
+            return jsonify({
+                'task_id': new_task_id,
+                'source_task_id': source_task_id,
+                'review_file': os.path.basename(review_path),
+                'citation_files_count': len(citation_paths),
+                'temp_dir': temp_dir,
+                'message': '文件上传成功，重新提取关系任务已启动'
+            })
+
+        except Exception as e:
+            # 清理临时文件
+            if os.path.exists(temp_dir):
+                shutil.rmtree(temp_dir)
+            raise e
+
+    except Exception as e:
+        logging.error(f"上传文件并启动重新提取关系任务时出错: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
 @combined_api.route('/comparison/start', methods=['POST'])
 def start_comparison():
     """启动比较分析任务"""
@@ -813,19 +1009,14 @@ def start_comparison():
         
         # 生成任务ID
         task_id = str(uuid.uuid4())
-        
-        # 创建处理状态记录
-        db_manager.create_processing_status(
-            task_id=task_id,
-            status='处理中',
-            current_stage='初始化',
-            progress=0.05,
-            message='正在准备处理任务',
-            file_info={
-                'review': review_filename,
-                'citations': [os.path.basename(path) for path in citation_paths]
-            }
+                # 创建处理任务
+        task_name = f"比较分析任务 - review_filename"
+        db_manager.create_processing_task(
+            task_name=task_name,
+            task_id=task_id
         )
+        
+
         
         # 启动后台处理线程
         thread = threading.Thread(
@@ -837,14 +1028,9 @@ def start_comparison():
         
         # 返回任务ID和初始状态
         return jsonify({
-            'success': True,
-            'task': {
-                'task_id': task_id,
-                'status': '处理中',
-                'current_stage': '初始化',
-                'progress': 0.05,
-                'message': '正在准备处理任务'
-            }
+            'status': 'success',
+            'message': '比较分析任务已启动',
+            'task_id': task_id
         })
         
     except Exception as e:
@@ -918,7 +1104,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
         citation_entities, _ = extract_entities_from_citations(
             review_entities=review_entities,
             citation_paths=citation_paths,
-            batch_size=10, 
+            batch_size=15, 
             task_id=task_id,
             model_name=model_name)
         
@@ -961,7 +1147,7 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             pdf_paths=[review_path],  # 只传入综述PDF
             task_id=task_id,
             previous_relations=None,
-            batch_size=10,
+            batch_size=15,
             model_name=model_name
         )
         
@@ -982,8 +1168,9 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
                 pdf_paths=citation_paths,  # 只传入引文PDF
                 review_relations=review_evolution_relations,
                 task_id=task_id,
+                max_attempts=5,
                 previous_relations=None,
-                batch_size=10,
+                batch_size=15, 
                 model_name=model_name
             )
             
@@ -1058,31 +1245,198 @@ def run_comparison_task(task_id, review_path, citation_paths, model_name, temp_f
             except Exception as file_err:
                 logging.error(f"删除临时文件出错: {str(file_err)}")
 
+def reextract_relations_from_existing_task(source_task_id, new_task_id, model_name, review_path, citation_paths):
+    """基于已有任务的实体重新提取演化关系"""
+    try:
+        logging.info(f"开始基于任务 {source_task_id} 的实体重新提取关系，新任务ID: {new_task_id}")
+        logging.info(f"综述PDF文件: {os.path.basename(review_path)}")
+        logging.info(f"引文PDF文件: {len(citation_paths)} 个文件")
+
+        # 设置环境变量指定模型
+        os.environ['AI_MODEL'] = model_name
+
+        # 更新处理状态
+        db_manager.update_processing_status(
+            task_id=new_task_id,
+            current_stage='获取已有实体',
+            progress=0.1,
+            message=f'正在从任务 {source_task_id} 获取已提取的实体'
+        )
+
+        # 从数据库获取已有任务的实体
+        all_entities = db_manager.get_entities_by_task(source_task_id)
+        if not all_entities:
+            raise ValueError(f"任务 {source_task_id} 中没有找到实体数据")
+
+        # 分离综述实体和引文实体
+        review_entities = []
+        citation_entities = []
+
+        for entity in all_entities:
+            # 检查实体的来源，支持多种实体类型
+            source = None
+
+            # 检查外层source字段
+            if 'source' in entity and entity['source']:
+                source = entity['source']
+            # 检查algorithm_entity中的source
+            elif 'algorithm_entity' in entity and entity['algorithm_entity'] and 'source' in entity['algorithm_entity']:
+                source = entity['algorithm_entity']['source']
+            # 检查dataset_entity中的source
+            elif 'dataset_entity' in entity and entity['dataset_entity'] and 'source' in entity['dataset_entity']:
+                source = entity['dataset_entity']['source']
+            # 检查metric_entity中的source
+            elif 'metric_entity' in entity and entity['metric_entity'] and 'source' in entity['metric_entity']:
+                source = entity['metric_entity']['source']
+
+            # 根据来源分类
+            if source == '综述':
+                review_entities.append(entity)
+            elif source == '引文':
+                citation_entities.append(entity)
+
+        logging.info(f"获取到 {len(review_entities)} 个综述实体，{len(citation_entities)} 个引文实体")
+
+        # 更新状态：重新提取关系
+        db_manager.update_processing_status(
+            task_id=new_task_id,
+            current_stage='重新提取关系',
+            progress=0.3,
+            message='正在重新分析实体之间的演化关系'
+        )
+
+        # 导入关系提取函数
+        from app.modules.agents import extract_evolution_relations
+
+        # 1. 重新提取综述关系
+        db_manager.update_processing_status(
+            task_id=new_task_id,
+            current_stage='提取综述关系',
+            progress=0.4,
+            message='正在重新从综述实体中提取算法演化关系'
+        )
+
+        review_evolution_relations = extract_evolution_relations(
+            entities=review_entities,
+            pdf_paths=[review_path],  # 使用提供的综述PDF路径
+            task_id=new_task_id,
+            previous_relations=None,
+            batch_size=15,
+            model_name=model_name
+        )
+
+        # 确保所有综述关系都有正确的来源标记
+        for relation in review_evolution_relations:
+            relation['source'] = '综述'
+
+        # 2. 重新提取引文关系
+        if citation_entities:
+            db_manager.update_processing_status(
+                task_id=new_task_id,
+                current_stage='提取引文关系',
+                progress=0.6,
+                message='正在重新从引文PDF和实体中提取算法演化关系'
+            )
+
+            citation_evolution_relations = extract_evolution_relations(
+                entities=citation_entities,
+                pdf_paths=citation_paths,  # 使用提供的引文PDF路径
+                review_relations=review_evolution_relations,
+                task_id=new_task_id,
+                max_attempts=6,
+                previous_relations=None,
+                batch_size=20,
+                model_name=model_name
+            )
+
+            # 确保所有引文关系都有正确的来源标记
+            for relation in citation_evolution_relations:
+                relation['source'] = '引文'
+        else:
+            citation_evolution_relations = []
+
+        # 合并两种来源的演化关系
+        evolution_relations = review_evolution_relations + citation_evolution_relations
+
+        # 更新状态：计算指标
+        db_manager.update_processing_status(
+            task_id=new_task_id,
+            current_stage='计算指标',
+            progress=0.8,
+            message='正在计算比较指标'
+        )
+
+        # 导入所需模块
+        from app.modules.data_extraction import calculate_comparison_metrics
+
+        # 使用calculate_comparison_metrics函数计算比较指标
+        metrics = calculate_comparison_metrics(review_entities, citation_entities, evolution_relations)
+
+        # 保存实体和关系到数据库，使用新任务ID
+        save_entities_and_relations(all_entities, evolution_relations, new_task_id)
+
+        # 构建结果
+        result_data = {
+            'source_task_id': source_task_id,
+            'review_entities_count': len(review_entities),
+            'citation_entities_count': len(citation_entities),
+            'relations_count': len(evolution_relations),
+            'metrics': metrics
+        }
+
+        # 更新任务状态为完成
+        db_manager.update_processing_status(
+            task_id=new_task_id,
+            status='已完成',
+            current_stage='任务完成',
+            progress=1.0,
+            message=json.dumps(result_data, ensure_ascii=False),
+            completed=True
+        )
+
+        logging.info(f"基于任务 {source_task_id} 的关系重新提取任务 {new_task_id} 已完成")
+        return result_data
+
+    except Exception as e:
+        logging.error(f"重新提取关系任务 {new_task_id} 时出错: {str(e)}")
+        import traceback
+        logging.error(traceback.format_exc())
+
+        # 更新处理状态为错误
+        db_manager.update_processing_status(
+            task_id=new_task_id,
+            status='错误',
+            current_stage='处理出错',
+            progress=0,
+            message=f'重新提取关系时出错: {str(e)}'
+        )
+        raise
+
 def extract_entities_from_review(review_path, task_id, model_name):
     """从综述论文中提取实体和关系"""
     from app.modules.agents import extract_paper_entities
-    
+
     # 检查文件是否存在
     if not os.path.exists(review_path):
         logging.error(f"综述论文文件不存在: {review_path}")
         return [], []
-        
+
     logging.info(f"开始处理综述论文: {os.path.basename(review_path)}")
-    
-    # 从综述论文中提取实体，使用主任务ID
+
+    # 从综述论文中提取实体，使用主任务ID（采用GPT/DeepSeek的PDF提取方法）
     entities, is_complete = extract_paper_entities(
         review_entities=None,
         pdf_paths=review_path,
-        model_name=model_name,
+        model_name=model_name if model_name else "gpt-4.1-mini",  # 默认使用GPT
         task_id=task_id  # 使用主任务ID
     )
-    
+
     # 确保所有实体都有正确的来源标记
     for entity in entities:
         # 标记外层source字段
         if 'source' not in entity or not entity['source'] or entity['source'] == '未知':
             entity['source'] = '综述'
-        
+
         # 标记内层source字段
         if 'algorithm_entity' in entity and isinstance(entity['algorithm_entity'], dict):
             entity['algorithm_entity']['source'] = '综述'
@@ -1090,9 +1444,9 @@ def extract_entities_from_review(review_path, task_id, model_name):
             entity['dataset_entity']['source'] = '综述'
         elif 'metric_entity' in entity and isinstance(entity['metric_entity'], dict):
             entity['metric_entity']['source'] = '综述'
-    
+
     logging.info(f"从综述论文中提取到 {len(entities)} 个实体")
-    
+
     # 暂时返回空的关系列表，关系将在后续步骤中提取
     return entities, []
 
@@ -1114,13 +1468,13 @@ def extract_entities_from_citations(review_entities, citation_paths, batch_size,
         logging.error("没有有效的引用文献文件")
         return all_entities, []
     
-    # 提取实体，使用主任务ID
+    # 提取实体，使用主任务ID（采用GPT/DeepSeek的PDF提取方法）
     all_entities, is_complete = extract_paper_entities(
         review_entities=review_entities,
         pdf_paths=valid_paths,
-        max_attempts=18,
+        max_attempts=6,
         batch_size=batch_size,
-        model_name=model_name,
+        model_name=model_name if model_name else "gpt-4.1-mini",  # 默认使用GPT
         task_id=task_id  # 使用主任务ID
     )
     
@@ -1166,22 +1520,57 @@ def save_entities_and_relations(entities, relations, task_id=None):
 
 @combined_api.route('/comparison/history', methods=['GET'])
 def get_comparison_history():
-    """获取比较分析的历史任务记录"""
+    """获取比较分析的历史任务记录，支持论文分析任务选择"""
     try:
         # 使用db_manager的get_comparison_history方法获取任务记录
-        tasks = db_manager.get_comparison_history(limit=20)
-        
+        tasks = db_manager.get_comparison_history(limit=200)
+
+        # 为论文分析页面格式化任务数据
+        formatted_tasks = []
+        for task in tasks:
+            # 获取原始任务名称
+            original_task_name = task.get('task_name', '')
+            task_id = task.get('task_id', '')
+
+            # 生成任务名称
+            task_name = generate_task_name(original_task_name, task_id, task)
+
+            # 确保每个任务都有必要的字段
+            formatted_task = {
+                "task_id": task_id,
+                "id": task_id,  # 兼容不同的ID字段名
+                "name": task_name,
+                "description": task.get('description', f"创建于 {task.get('start_time', 'Unknown')}"),
+                "status": task.get('status', 'completed'),
+                "created_at": task.get('created_at', ''),
+                "entity_count": task.get('entity_count', 0),
+                "relation_count": task.get('relation_count', 0),
+                # 添加时间字段
+                "start_time": task.get('start_time'),
+                "update_time": task.get('update_time'),
+                "end_time": task.get('end_time'),
+                "task_name": task_name  # 使用任务名称
+            }
+
+            formatted_tasks.append(formatted_task)
+
+        # 按创建时间倒序排列，最新的在前面
+        formatted_tasks.sort(key=lambda x: x.get('start_time', ''), reverse=True)
+
         return jsonify({
             "success": True,
-            "tasks": tasks
+            "tasks": formatted_tasks,
+            "total_count": len(formatted_tasks),
+            "message": f"找到 {len(formatted_tasks)} 个可用任务"
         })
-        
+
     except Exception as e:
         logging.error(f"获取比较分析历史记录时出错: {str(e)}")
         logging.error(traceback.format_exc())
         return jsonify({
             "success": False,
-            "message": f"获取历史记录出错: {str(e)}"
+            "message": f"获取历史记录出错: {str(e)}",
+            "tasks": []  # 返回空任务列表而不是完全失败
         }), 500
 
 @combined_api.route('/comparison/<task_id>/entities', methods=['GET'])

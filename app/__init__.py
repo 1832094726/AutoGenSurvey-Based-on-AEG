@@ -51,7 +51,17 @@ def register_blueprints(app):
     """注册所有蓝图"""
     # 注册合并后的API蓝图
     app.register_blueprint(combined_api, url_prefix='/api')
-    
+
+    # 注册论文分析API蓝图（新增）
+    try:
+        from app.api.paper_analysis_api import paper_analysis_api
+        app.register_blueprint(paper_analysis_api, url_prefix='/api')
+        print("✅ 论文分析API蓝图注册成功")
+    except Exception as e:
+        print(f"❌ 论文分析API蓝图注册失败: {str(e)}")
+        import traceback
+        traceback.print_exc()
+
     # 以下注册保留用于备份，后续可以移除
     """
     # 注册API蓝图
@@ -65,14 +75,14 @@ def register_blueprints(app):
     app.register_blueprint(evolution_bp, url_prefix='/api/evolution')
     app.register_blueprint(comparison_bp, url_prefix='/api/comparison')
     """
-    
+
     # 导入并注册主蓝图 - 直接使用main.py中的蓝图
     from app.main import main as main_blueprint
     app.register_blueprint(main_blueprint)
-    
+
     # 导入并注册routes蓝图
     try:
         from app.routes.main import routes_main
         app.register_blueprint(routes_main)
     except ImportError:
-        logging.warning("无法导入routes_main蓝图") 
+        logging.warning("无法导入routes_main蓝图")

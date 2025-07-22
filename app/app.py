@@ -19,7 +19,16 @@ def create_app(config_class=Config):
     
     # 初始化扩展
     db.init_app(app)
-    
+
+    # 注册论文分析API（添加错误处理）
+    try:
+        from app.api.paper_analysis_api import paper_analysis_api
+        app.register_blueprint(paper_analysis_api, url_prefix='/api')
+        print("✅ 论文分析API蓝图注册成功")
+    except Exception as e:
+        print(f"❌ 论文分析API蓝图注册失败: {str(e)}")
+        import traceback
+        traceback.print_exc()
     # 注册蓝图
     from app.routes.main import main as main_blueprint
     app.register_blueprint(main_blueprint)
