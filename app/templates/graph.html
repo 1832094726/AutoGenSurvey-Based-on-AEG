@@ -147,6 +147,8 @@
                     </div>
                     <div class="layout-controls">
                         <button id="btn-reset" class="btn btn-sm btn-outline-secondary">重置视图</button>
+                        <button id="btn-layout-tree" class="btn btn-sm btn-outline-success">树状布局</button>
+                        <button id="btn-layout-dagre" class="btn btn-sm btn-outline-info">层次布局</button>
                         <button id="btn-layout-circle" class="btn btn-sm btn-outline-primary">圆形布局</button>
                         <button id="btn-layout-grid" class="btn btn-sm btn-outline-primary">网格布局</button>
                         <button id="btn-layout-cose" class="btn btn-sm btn-outline-primary">COSE布局</button>
@@ -1085,6 +1087,335 @@
                 }
             });
 
+            // 树状布局函数
+            function applyTreeLayout() {
+                if (!cy || cy.nodes().length === 0) {
+                    showNotification('没有可用的图形数据', 'warning');
+                    return;
+                }
+
+                console.log('开始应用树状布局...');
+
+                try {
+                    const nodes = cy.nodes();
+                    const edges = cy.edges();
+
+                    // 计算每个节点的入度和出度
+                    const inDegree = {};
+                    const outDegree = {};
+                    const children = {};
+
+                    nodes.forEach(node => {
+                        const nodeId = node.id();
+                        inDegree[nodeId] = 0;
+                        outDegree[nodeId] = 0;
+                        children[nodeId] = [];
+                    });
+
+                    edges.forEach(edge => {
+                        const source = edge.source().id();
+                        const target = edge.target().id();
+                        if (inDegree[target] !== undefined) {
+                            inDegree[target]++;
+                        }
+                        if (outDegree[source] !== undefined) {
+                            outDegree[source]++;
+                            children[source].push(target);
+                        }
+                    });
+
+                    // 找到根节点（入度为0的节点）
+                    let rootNodes = nodes.filter(node => inDegree[node.id()] === 0);
+
+                    if (rootNodes.length === 0) {
+                        // 如果没有根节点，选择出度最高的节点作为根
+                        let maxOutDegree = 0;
+                        let rootNode = nodes[0];
+                        nodes.forEach(node => {
+                            const degree = outDegree[node.id()];
+                            if (degree > maxOutDegree) {
+                                maxOutDegree = degree;
+                                rootNode = node;
+                            }
+                        });
+                        rootNodes = [rootNode];
+                    }
+
+                    // 计算每个节点的层级
+                    const levels = {};
+                    const levelGroups = {};
+
+                    function calculateLevels(nodeId, level = 0, visited = new Set()) {
+                        if (visited.has(nodeId)) return;
+                        visited.add(nodeId);
+
+                        levels[nodeId] = level;
+
+                        if (!levelGroups[level]) {
+                            levelGroups[level] = [];
+                        }
+                        levelGroups[level].push(nodeId);
+
+                        // 递归处理子节点
+                        children[nodeId].forEach(childId => {
+                            calculateLevels(childId, level + 1, visited);
+                        });
+                    }
+
+                    // 从根节点开始计算层级
+                    rootNodes.forEach(root => {
+                        calculateLevels(root.id());
+                    });
+
+                    // 处理孤立节点
+                    nodes.forEach(node => {
+                        const nodeId = node.id();
+                        if (levels[nodeId] === undefined) {
+                            const maxLevel = Math.max(...Object.keys(levelGroups).map(l => parseInt(l)), -1);
+                            const level = maxLevel + 1;
+                            levels[nodeId] = level;
+                            if (!levelGroups[level]) {
+                                levelGroups[level] = [];
+                            }
+                            levelGroups[level].push(nodeId);
+                        }
+                    });
+
+                    console.log('层级分组:', levelGroups);
+
+                    // 设置节点位置 - 实现倒三角形布局
+                    const containerWidth = cy.container().clientWidth || 1200;
+                    const containerHeight = cy.container().clientHeight || 800;
+
+                    const startX = 100;
+                    const startY = 100;
+                    const levelSpacing = Math.min(200, (containerHeight - 200) / Object.keys(levelGroups).length);
+                    const maxNodesInLevel = Math.max(...Object.values(levelGroups).map(group => group.length));
+                    const baseNodeSpacing = Math.min(150, (containerWidth - 200) / maxNodesInLevel);
+
+                    Object.keys(levelGroups).forEach(level => {
+                        const levelNodes = levelGroups[level];
+                        const levelNum = parseInt(level);
+
+                        // 计算该层的Y坐标
+                        const y = startY + levelNum * levelSpacing;
+
+                        // 计算该层节点的X坐标分布
+                        const nodeCount = levelNodes.length;
+                        const totalWidth = (nodeCount - 1) * baseNodeSpacing;
+                        const levelStartX = startX + levelNum * 100; // 每层向右偏移
+
+                        levelNodes.forEach((nodeId, index) => {
+                            const node = cy.getElementById(nodeId);
+                            if (node.length > 0) {
+                                let x;
+                                if (nodeCount === 1) {
+                                    x = levelStartX;
+                                } else {
+                                    x = levelStartX + (index * totalWidth) / (nodeCount - 1);
+                                }
+
+                                node.position({
+                                    x: x,
+                                    y: y
+                                });
+
+                                console.log(`节点 ${nodeId} 位置: (${x}, ${y}), 层级: ${level}`);
+                            }
+                        });
+                    });
+
+                    // 适应视图
+                    setTimeout(() => {
+                        cy.fit(undefined, 50);
+                        console.log('树状布局应用成功');
+                        showNotification('树状布局应用成功', 'success');
+                    }, 100);
+
+                } catch (error) {
+                    console.error('应用树状布局时出错:', error);
+                    showNotification('应用树状布局失败: ' + error.message, 'error');
+                }
+            }
+
+            // 层次布局函数 - 更清晰的分层展示
+            function applyHierarchicalLayout() {
+                if (!cy || cy.nodes().length === 0) {
+                    showNotification('没有可用的图形数据', 'warning');
+                    return;
+                }
+
+                console.log('开始应用层次布局...');
+
+                try {
+                    const nodes = cy.nodes();
+                    const edges = cy.edges();
+
+                    // 使用breadthfirst布局作为基础
+                    const layout = cy.layout({
+                        name: 'breadthfirst',
+                        directed: true,
+                        padding: 100,
+                        spacingFactor: 2.0,
+                        avoidOverlap: true,
+                        nodeDimensionsIncludeLabels: true,
+                        animate: true,
+                        animationDuration: 800,
+                        fit: true,
+                        // 设置根节点
+                        roots: function() {
+                            // 找到入度为0的节点作为根
+                            const inDegree = {};
+                            nodes.forEach(node => {
+                                inDegree[node.id()] = 0;
+                            });
+
+                            edges.forEach(edge => {
+                                const target = edge.target().id();
+                                if (inDegree[target] !== undefined) {
+                                    inDegree[target]++;
+                                }
+                            });
+
+                            const rootNodes = nodes.filter(node => inDegree[node.id()] === 0);
+
+                            if (rootNodes.length === 0) {
+                                // 如果没有根节点，选择度数最高的节点
+                                let maxDegree = 0;
+                                let rootNode = nodes[0];
+                                nodes.forEach(node => {
+                                    const degree = node.degree();
+                                    if (degree > maxDegree) {
+                                        maxDegree = degree;
+                                        rootNode = node;
+                                    }
+                                });
+                                return [rootNode];
+                            }
+
+                            return rootNodes;
+                        }()
+                    });
+
+                    layout.one('layoutstop', function() {
+                        console.log('层次布局基础完成，开始优化位置...');
+
+                        // 获取容器尺寸
+                        const containerWidth = cy.container().clientWidth || 1200;
+                        const containerHeight = cy.container().clientHeight || 800;
+
+                        // 重新计算位置，实现更好的分层效果
+                        const nodePositions = {};
+                        const levels = {};
+
+                        // 计算每个节点的层级（基于BFS）
+                        const visited = new Set();
+                        const queue = [];
+
+                        // 找到根节点
+                        const inDegree = {};
+                        nodes.forEach(node => {
+                            inDegree[node.id()] = 0;
+                        });
+
+                        edges.forEach(edge => {
+                            const target = edge.target().id();
+                            if (inDegree[target] !== undefined) {
+                                inDegree[target]++;
+                            }
+                        });
+
+                        const rootNodes = nodes.filter(node => inDegree[node.id()] === 0);
+
+                        // 从根节点开始BFS
+                        rootNodes.forEach(root => {
+                            queue.push({node: root.id(), level: 0});
+                            visited.add(root.id());
+                            levels[root.id()] = 0;
+                        });
+
+                        while (queue.length > 0) {
+                            const {node: nodeId, level} = queue.shift();
+
+                            // 找到所有子节点
+                            const children = edges.filter(edge => edge.source().id() === nodeId);
+                            children.forEach(edge => {
+                                const childId = edge.target().id();
+                                if (!visited.has(childId)) {
+                                    visited.add(childId);
+                                    levels[childId] = level + 1;
+                                    queue.push({node: childId, level: level + 1});
+                                }
+                            });
+                        }
+
+                        // 处理孤立节点
+                        nodes.forEach(node => {
+                            if (levels[node.id()] === undefined) {
+                                levels[node.id()] = 0;
+                            }
+                        });
+
+                        // 按层级分组
+                        const levelGroups = {};
+                        Object.keys(levels).forEach(nodeId => {
+                            const level = levels[nodeId];
+                            if (!levelGroups[level]) {
+                                levelGroups[level] = [];
+                            }
+                            levelGroups[level].push(nodeId);
+                        });
+
+                        console.log('层级分组:', levelGroups);
+
+                        // 重新定位节点
+                        const maxLevel = Math.max(...Object.keys(levelGroups).map(l => parseInt(l)));
+                        const levelHeight = Math.max(80, (containerHeight - 200) / (maxLevel + 1));
+
+                        Object.keys(levelGroups).forEach(level => {
+                            const levelNodes = levelGroups[level];
+                            const levelNum = parseInt(level);
+
+                            // Y坐标：从上到下分层
+                            const y = 100 + levelNum * levelHeight;
+
+                            // X坐标：在该层内均匀分布
+                            const nodeCount = levelNodes.length;
+                            const availableWidth = containerWidth - 200;
+                            const nodeSpacing = nodeCount > 1 ? availableWidth / (nodeCount - 1) : 0;
+
+                            levelNodes.forEach((nodeId, index) => {
+                                const node = cy.getElementById(nodeId);
+                                if (node.length > 0) {
+                                    let x;
+                                    if (nodeCount === 1) {
+                                        x = containerWidth / 2;
+                                    } else {
+                                        x = 100 + index * nodeSpacing;
+                                    }
+
+                                    node.position({x: x, y: y});
+                                    console.log(`节点 ${nodeId} 重新定位到: (${x}, ${y}), 层级: ${level}`);
+                                }
+                            });
+                        });
+
+                        // 适应视图
+                        setTimeout(() => {
+                            cy.fit(undefined, 50);
+                            console.log('层次布局应用成功');
+                            showNotification('层次布局应用成功', 'success');
+                        }, 100);
+                    });
+
+                    layout.run();
+
+                } catch (error) {
+                    console.error('应用层次布局时出错:', error);
+                    showNotification('应用层次布局失败: ' + error.message, 'error');
+                }
+            }
+
             // 加载图数据的函数，增加taskId参数支持按任务加载
             function loadGraphData(taskId = null, forceRefresh = false) {
                 // 显示加载提示
@@ -1362,52 +1693,26 @@
                     cy.add(elements);
                     console.log('元素添加完成');
                     
-                    // 数据加载后应用布局
+                    // 数据加载后应用树状布局
                     try {
-                        console.log('尝试应用COSE布局');
-                    const layout = cy.layout({
-                            name: 'cose',
-                            padding: 50,
-                            animate: false, // 禁用动画可能会减少渲染问题
-                            nodeDimensionsIncludeLabels: true, // 确保标签包含在布局计算中
-                            fit: true,
-                            componentSpacing: 40,
-                            nodeRepulsion: function(node) { 
-                                return 400000; // 增强节点排斥力，防止重叠
-                            },
-                            idealEdgeLength: 100,
-                            // 使用更快的算法，牺牲一些质量换取性能
-                            refresh: 20,
-                            randomize: true
-                    });
-                    
-                    layout.one('layoutstop', function() {
-                        console.log('布局应用完成');
-                        
-                        // 适应视图
-                        console.log('调整视图大小...');
-                        cy.fit(undefined, 50);
-                        
-                        // 再次强制调整尺寸
-                        forceResizeCytoscape();
-                                
-                            // 显示成功消息
-                            showNotification('图形数据加载完成', 'success');
-                            hideLoading();
-                        
-                        console.log('视图调整完成');
-                        
+                        console.log('尝试应用树状布局');
+
+                        // 延迟应用层次布局，确保元素已完全添加
+                        setTimeout(() => {
+                            applyHierarchicalLayout();
+                        }, 100);
+
+                        // 显示成功消息
+                        showNotification('图形数据加载完成', 'success');
+                        hideLoading();
+
                         // 打印最终元素统计
                         const finalNodes = cy.nodes().length;
                         const finalEdges = cy.edges().length;
                         console.log(`图形渲染完成: ${finalNodes} 个节点, ${finalEdges} 条边`);
-                        
+
                         // 更新图形统计信息
                         document.getElementById('graph-stats').textContent = `图形统计: ${finalNodes}个节点, ${finalEdges}条边`;
-                    });
-                    
-                    // 运行布局
-                    layout.run();
                     } catch (layoutError) {
                         console.error('应用布局时出错:', layoutError);
                         hideLoading();
@@ -1745,20 +2050,30 @@
                 }
             });
             
+            // 树状布局按钮
+            document.getElementById('btn-layout-tree').addEventListener('click', function() {
+                applyTreeLayout();
+            });
+
+            // 层次布局按钮
+            document.getElementById('btn-layout-dagre').addEventListener('click', function() {
+                applyHierarchicalLayout();
+            });
+
             document.getElementById('btn-layout-circle').addEventListener('click', function() {
                 cy.layout({
                     name: 'circle',
                     padding: 50
                 }).run();
             });
-            
+
             document.getElementById('btn-layout-grid').addEventListener('click', function() {
                 cy.layout({
                     name: 'grid',
                     padding: 50
                 }).run();
             });
-            
+
             document.getElementById('btn-layout-cose').addEventListener('click', function() {
                 cy.layout({
                     name: 'cose',
