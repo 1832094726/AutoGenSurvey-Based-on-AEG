@@ -86,3 +86,13 @@ def register_blueprints(app):
         app.register_blueprint(routes_main)
     except ImportError:
         logging.warning("无法导入routes_main蓝图")
+
+    # 注册AutoSurvey集成蓝图
+    try:
+        from app.routes.autosurvey_routes import autosurvey_bp
+        app.register_blueprint(autosurvey_bp)
+        print("✅ AutoSurvey集成蓝图注册成功")
+    except Exception as e:
+        print(f"❌ AutoSurvey集成蓝图注册失败: {str(e)}")
+        import traceback
+        traceback.print_exc()
