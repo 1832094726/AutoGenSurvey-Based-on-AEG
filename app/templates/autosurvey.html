@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoSurvey集成 - 算法综述生成</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .task-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .task-card.selected {
+            border-color: #0d6efd;
+            background-color: #f8f9ff;
+        }
+        .task-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .generation-params {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .progress-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .result-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .algorithm-lineage {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 侧边栏 -->
+            <div class="col-md-3 bg-light p-3">
+                <h5><i class="fas fa-robot"></i> AutoSurvey集成</h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="#task-selection" data-step="task-selection">
+                        <i class="fas fa-tasks"></i> 任务选择
+                    </a>
+                    <a class="nav-link" href="#parameter-config" data-step="parameter-config">
+                        <i class="fas fa-cog"></i> 参数配置
+                    </a>
+                    <a class="nav-link" href="#generation-progress" data-step="generation-progress">
+                        <i class="fas fa-spinner"></i> 生成进度
+                    </a>
+                    <a class="nav-link" href="#result-display" data-step="result-display">
+                        <i class="fas fa-file-alt"></i> 结果展示
+                    </a>
+                </nav>
+            </div>
+
+            <!-- 主内容区 -->
+            <div class="col-md-9 p-4">
+                <!-- 任务选择步骤 -->
+                <div id="step-task-selection" class="step-content">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3><i class="fas fa-tasks"></i> 选择任务</h3>
+                        <div>
+                            <button id="btn-refresh-tasks" class="btn btn-outline-secondary">
+                                <i class="fas fa-sync-alt"></i> 刷新
+                            </button>
+                            <button id="btn-select-all" class="btn btn-outline-primary">
+                                <i class="fas fa-check-square"></i> 全选
+                            </button>
+                            <button id="btn-clear-selection" class="btn btn-outline-warning">
+                                <i class="fas fa-times"></i> 清空
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 任务筛选 -->
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <input type="text" id="task-search" class="form-control" placeholder="搜索任务名称...">
+                        </div>
+                        <div class="col-md-3">
+                            <select id="status-filter" class="form-select">
+                                <option value="">所有状态</option>
+                                <option value="completed">已完成</option>
+                                <option value="processing">处理中</option>
+                                <option value="failed">失败</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select id="entity-count-filter" class="form-select">
+                                <option value="">实体数量</option>
+                                <option value="1-10">1-10个</option>
+                                <option value="11-50">11-50个</option>
+                                <option value="51+">50个以上</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button id="btn-apply-filters" class="btn btn-primary w-100">
+                                <i class="fas fa-filter"></i> 筛选
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 任务列表 -->
+                    <div id="task-list" class="row">
+                        <!-- 任务卡片将通过JavaScript动态加载 -->
+                    </div>
+
+                    <!-- 选择摘要 -->
+                    <div id="selection-summary" class="alert alert-info mt-3" style="display: none;">
+                        <h6><i class="fas fa-info-circle"></i> 选择摘要</h6>
+                        <div id="summary-content"></div>
+                    </div>
+
+                    <div class="text-end mt-3">
+                        <button id="btn-next-to-params" class="btn btn-primary" disabled>
+                            下一步：参数配置 <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 参数配置步骤 -->
+                <div id="step-parameter-config" class="step-content" style="display: none;">
+                    <h3><i class="fas fa-cog"></i> 参数配置</h3>
+                    
+                    <div class="generation-params">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="survey-topic" class="form-label">综述主题</label>
+                                    <input type="text" id="survey-topic" class="form-control" 
+                                           placeholder="请输入综述主题，如：深度学习在自然语言处理中的应用">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="section-num" class="form-label">章节数量</label>
+                                    <input type="number" id="section-num" class="form-control" value="7" min="3" max="15">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="subsection-len" class="form-label">子章节长度</label>
+                                    <input type="number" id="subsection-len" class="form-control" value="700" min="300" max="1500">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="rag-num" class="form-label">RAG引用数量</label>
+                                    <input type="number" id="rag-num" class="form-control" value="60" min="20" max="200">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="outline-ref-num" class="form-label">大纲参考文献数量</label>
+                                    <input type="number" id="outline-ref-num" class="form-control" value="1500" min="500" max="3000">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="model-select" class="form-label">生成模型</label>
+                                    <select id="model-select" class="form-select">
+                                        <option value="gpt-4o-2024-05-13">GPT-4o (推荐)</option>
+                                        <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">输出格式</label>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="format-markdown" value="markdown" checked>
+                                <label class="form-check-label" for="format-markdown">Markdown</label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="format-pdf" value="pdf">
+                                <label class="form-check-label" for="format-pdf">PDF</label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="format-word" value="word">
+                                <label class="form-check-label" for="format-word">Word</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="include-lineage" checked>
+                                <label class="form-check-label" for="include-lineage">
+                                    包含算法脉络分析
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="include-visualization">
+                                <label class="form-check-label" for="include-visualization">
+                                    包含可视化图表
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-end mt-3">
+                        <button id="btn-back-to-tasks" class="btn btn-outline-secondary me-2">
+                            <i class="fas fa-arrow-left"></i> 返回任务选择
+                        </button>
+                        <button id="btn-start-generation" class="btn btn-success">
+                            <i class="fas fa-play"></i> 开始生成综述
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 生成进度步骤 -->
+                <div id="step-generation-progress" class="step-content" style="display: none;">
+                    <h3><i class="fas fa-spinner fa-spin"></i> 生成进度</h3>
+                    
+                    <div class="progress-container">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span id="current-stage">准备中...</span>
+                                <span id="progress-percentage">0%</span>
+                            </div>
+                            <div class="progress">
+                                <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                                     role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div id="progress-details" class="card">
+                            <div class="card-body">
+                                <h6>处理详情</h6>
+                                <div id="progress-log" style="max-height: 300px; overflow-y: auto;">
+                                    <!-- 进度日志 -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <button id="btn-cancel-generation" class="btn btn-outline-danger">
+                                <i class="fas fa-stop"></i> 取消生成
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 结果展示步骤 -->
+                <div id="step-result-display" class="step-content" style="display: none;">
+                    <h3><i class="fas fa-file-alt"></i> 生成结果</h3>
+                    
+                    <div class="result-container">
+                        <!-- 结果摘要 -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5><i class="fas fa-chart-bar"></i> 生成摘要</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <h4 id="result-word-count" class="text-primary">-</h4>
+                                            <small>字数</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <h4 id="result-section-count" class="text-success">-</h4>
+                                            <small>章节数</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <h4 id="result-reference-count" class="text-info">-</h4>
+                                            <small>参考文献</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <h4 id="result-quality-score" class="text-warning">-</h4>
+                                            <small>质量评分</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 算法脉络分析 -->
+                        <div id="lineage-analysis" class="algorithm-lineage">
+                            <h6><i class="fas fa-project-diagram"></i> 算法脉络分析</h6>
+                            <div id="lineage-content">
+                                <!-- 脉络分析内容 -->
+                            </div>
+                        </div>
+
+                        <!-- 综述内容预览 -->
+                        <div class="card mt-3">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-eye"></i> 内容预览</h5>
+                                <div>
+                                    <button id="btn-download-markdown" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-download"></i> Markdown
+                                    </button>
+                                    <button id="btn-download-pdf" class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-file-pdf"></i> PDF
+                                    </button>
+                                    <button id="btn-download-word" class="btn btn-sm btn-outline-success">
+                                        <i class="fas fa-file-word"></i> Word
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="survey-content-preview" style="max-height: 500px; overflow-y: auto;">
+                                    <!-- 综述内容预览 -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-end mt-3">
+                            <button id="btn-new-generation" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> 新建生成任务
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载提示模态框 -->
+    <div class="modal fade" id="loadingModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">加载中...</span>
+                    </div>
+                    <p class="mt-2" id="loading-message">正在加载...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/autosurvey.js"></script>
+</body>
+</html>
