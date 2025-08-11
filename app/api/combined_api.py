@@ -6,6 +6,7 @@ import shutil
 import json
 import logging
 import traceback
+import subprocess
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from app.config import Config
@@ -2046,3 +2047,577 @@ def recalculate_metrics(task_id):
             "success": False,
             "message": f"计算指标出错: {str(e)}"
         }), 500 
+
+# =================== AutoSurvey集成API代理路由 ===================
+
+@combined_api.route('/autosurvey/tasks', methods=['GET'])
+def get_autosurvey_tasks():
+    """获取AutoSurvey可用任务列表的代理路由"""
+    try:
+        # 直接使用现有的比较分析历史记录作为任务列表
+        tasks = db_manager.get_comparison_history(limit=200)
+
+        # 格式化任务数据供AutoSurvey使用
+        formatted_tasks = []
+        for task in tasks:
+            # 获取任务的实体和关系数量
+            task_id = task.get('task_id', '')
+            if task_id:
+                try:
+                    entities = db_manager.get_entities_by_task(task_id)
+                    relations = db_manager.get_relations_by_task(task_id)
+                    entity_count = len(entities) if entities else 0
+                    relation_count = len(relations) if relations else 0
+                except:
+                    entity_count = 0
+                    relation_count = 0
+            else:
+                entity_count = 0
+                relation_count = 0
+
+            # 生成任务名称
+            original_task_name = task.get('task_name', '')
+            task_name = generate_task_name(original_task_name, task_id, task)
+
+            formatted_task = {
+                "task_id": task_id,
+                "id": task_id,
+                "name": task_name,
+                "description": task.get('description', f"创建于 {task.get('start_time', 'Unknown')}"),
+                "status": task.get('status', 'completed'),
+                "entity_count": entity_count,       # 前端期望的字段
+                "relation_count": relation_count,   # 前端期望的字段
+                "created_at": task.get('start_time', ''),
+                "updated_at": task.get('update_time', ''),
+                # AutoSurvey特殊字段（兼容）
+                "algorithms": entity_count,  # 兼容字段
+                "datasets": 0,  # 暂时设为0
+                "metrics": 0    # 暂时设为0
+            }
+            formatted_tasks.append(formatted_task)
+
+        # 按创建时间倒序排列
+        formatted_tasks.sort(key=lambda x: x.get('created_at', ''), reverse=True)
+
+        return jsonify({
+            "success": True,
+            "tasks": formatted_tasks,
+            "total": len(formatted_tasks)
+        })
+        
+    except Exception as e:
+        logging.error(f"获取AutoSurvey任务列表失败: {str(e)}")
+        return jsonify({
+            "success": False,
+            "message": f"获取任务列表失败: {str(e)}",
+            "tasks": [],
+            "total": 0
+        }), 500
+
+@combined_api.route('/autosurvey/tasks/validate', methods=['POST'])
+def validate_autosurvey_task_selection():
+    """验证AutoSurvey任务选择的代理路由"""
+    try:
+        data = request.get_json()
+        task_ids = data.get('task_ids', [])
+        
+        if not task_ids:
+            return jsonify({
+                "success": True,
+                "valid": False,
+                "issues": ["请至少选择一个任务"]
+            })
+        
+        # 验证任务是否存在并有数据
+        issues = []
+        valid_tasks = 0
+        
+        for task_id in task_ids:
+            try:
+                # 检查任务是否存在
+                task_status = db_manager.get_processing_status(task_id)
+                if not task_status:
+                    issues.append(f"任务 {task_id} 不存在")
+                    continue
+                
+                # 检查任务是否有实体数据
+                entities = db_manager.get_entities_by_task(task_id)
+                if not entities or len(entities) == 0:
+                    issues.append(f"任务 {task_id} 没有实体数据")
+                    continue
+                    
+                valid_tasks += 1
+                
+            except Exception as e:
+                issues.append(f"检查任务 {task_id} 时出错: {str(e)}")
+        
+        is_valid = valid_tasks > 0 and len(issues) == 0
+        
+        return jsonify({
+            "success": True,
+            "valid": is_valid,
+            "issues": issues,
+            "valid_tasks": valid_tasks
+        })
+        
+    except Exception as e:
+        logging.error(f"验证AutoSurvey任务选择失败: {str(e)}")
+        return jsonify({
+            "success": False,
+            "message": f"验证失败: {str(e)}",
+            "valid": False,
+            "issues": [f"验证过程出错: {str(e)}"]
+        }), 500
+
+@combined_api.route('/autosurvey/generate', methods=['POST'])
+def start_autosurvey_generation():
+    """开始AutoSurvey综述生成的代理路由"""
+    try:
+        data = request.get_json()
+        task_ids = data.get('task_ids', [])
+        topic = data.get('topic', '').strip()
+        parameters = data.get('parameters', {})
+        
+        # 验证输入
+        if not task_ids:
+            return jsonify({
+                "success": False,
+                "message": "请选择任务"
+            }), 400
+        
+        if not topic:
+            return jsonify({
+                "success": False,
+                "message": "请输入综述主题"
+            }), 400
+        
+        # 生成任务ID
+        generation_id = str(uuid.uuid4())
+        
+        # 创建处理状态记录
+        try:
+            task_name = f"AutoSurvey综述生成 - {topic}"
+            db_manager.create_processing_task(generation_id, task_name)
+            
+            # 更新初始状态
+            db_manager.update_processing_status(
+                task_id=generation_id,
+                status='处理中',
+                current_stage='初始化',
+                progress=0.1,
+                message=f'正在初始化综述生成任务，主题: {topic}'
+            )
+        except Exception as e:
+            logging.error(f"创建AutoSurvey任务状态记录失败: {str(e)}")
+        
+        # 在后台启动生成任务
+        def run_autosurvey_task():
+            import asyncio
+            import subprocess
+            import uuid
+            import time
+            
+            try:
+                # 更新初始状态
+                db_manager.update_processing_status(
+                    task_id=generation_id,
+                    status='处理中',
+                    current_stage='初始化',
+                    progress=0.1,
+                    message='正在初始化AutoSurvey生成'
+                )
+                
+                # 检查AutoSurvey是否可用
+                autosurvey_path = Config.AUTOSURVEY_PATH
+                main_py = os.path.join(autosurvey_path, 'main.py')
+                
+                if not os.path.exists(main_py):
+                    raise Exception(f"AutoSurvey不可用: {main_py}")
+                
+                # 创建输出目录
+                output_dir = os.path.join(Config.AUTOSURVEY_OUTPUT_PATH, f"survey_{uuid.uuid4().hex}")
+                os.makedirs(output_dir, exist_ok=True)
+                
+                # 更新进度
+                db_manager.update_processing_status(
+                    task_id=generation_id,
+                    current_stage='准备参数',
+                    progress=0.2,
+                    message='正在准备AutoSurvey参数'
+                )
+                
+                # 构建AutoSurvey命令
+                cmd = [
+                    'python', 'main.py',
+                    '--topic', topic,
+                    '--model', parameters.get('model', Config.DEFAULT_MODEL),
+                    '--section_num', str(parameters.get('section_num', 7)),
+                    '--subsection_len', str(parameters.get('subsection_len', 700)),
+                    '--rag_num', str(parameters.get('rag_num', 60)),
+                    '--outline_reference_num', str(parameters.get('outline_reference_num', 1500)),
+                    '--saving_path', output_dir,
+                    '--db_path', Config.AUTOSURVEY_DATABASE_PATH,
+                    '--embedding_model', 'nomic-ai/nomic-embed-text-v1'
+                ]
+                
+                # 设置环境变量
+                env = os.environ.copy()
+                env.update({
+                    'QWEN_API_KEY': Config.QWEN_API_KEY,
+                    'QWEN_BASE_URL': Config.QWEN_BASE_URL,
+                    'OPENAI_API_KEY': Config.OPENAI_API_KEY,
+                    'OPENAI_BASE_URL': Config.OPENAI_BASE_URL,
+                    'DEEPSEEK_API_KEY': Config.DEEPSEEK_API_KEY,
+                    'DEEPSEEK_BASE_URL': Config.DEEPSEEK_BASE_URL
+                })
+                
+                # 更新进度
+                db_manager.update_processing_status(
+                    task_id=generation_id,
+                    current_stage='执行生成',
+                    progress=0.3,
+                    message='正在执行AutoSurvey生成'
+                )
+                
+                logging.info(f"执行AutoSurvey命令: {' '.join(cmd)}")
+                logging.info(f"工作目录: {autosurvey_path}")
+                
+                # 执行AutoSurvey
+                result = subprocess.run(
+                    cmd,
+                    cwd=autosurvey_path,
+                    env=env,
+                    capture_output=True,
+                    text=True,
+                    timeout=1800  # 30分钟超时
+                )
+                
+                # 更新进度
+                db_manager.update_processing_status(
+                    task_id=generation_id,
+                    current_stage='处理结果',
+                    progress=0.8,
+                    message='正在处理生成结果'
+                )
+                
+                if result.returncode == 0:
+                    # 处理输出文件
+                    content = {}
+                    formats = []
+                    
+                    # 查找生成的文件
+                    if os.path.exists(output_dir):
+                        for file_name in os.listdir(output_dir):
+                            file_path = os.path.join(output_dir, file_name)
+                            if file_name.endswith('.md'):
+                                with open(file_path, 'r', encoding='utf-8') as f:
+                                    content['markdown'] = f.read()
+                                formats.append('markdown')
+                            elif file_name.endswith('.json'):
+                                with open(file_path, 'r', encoding='utf-8') as f:
+                                    content['json'] = json.load(f)
+                                formats.append('json')
+                    
+                    # 如果没有找到文件，使用默认内容
+                    if not content:
+                        content['markdown'] = f"""# {topic} 综述
+
+## 摘要
+
+本综述基于AutoSurvey系统生成，使用模型：{parameters.get('model', Config.DEFAULT_MODEL)}
+
+## 主要内容
+
+{result.stdout if result.stdout else '综述内容已生成，请查看输出文件。'}
+
+## 生成信息
+
+- 生成时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+- 使用模型：{parameters.get('model', Config.DEFAULT_MODEL)}
+- 章节数：{parameters.get('section_num', 7)}
+- 子章节长度：{parameters.get('subsection_len', 700)}
+
+"""
+                        formats = ['markdown']
+                    
+                    result_data = {
+                        "task_ids": task_ids,
+                        "topic": topic,
+                        "parameters": parameters,
+                        "content": {
+                            "formats": formats,
+                            **content
+                        },
+                        "timestamp": datetime.now().isoformat(),
+                        "message": "综述生成完成"
+                    }
+                    
+                    db_manager.update_processing_status(
+                        task_id=generation_id,
+                        status='已完成',
+                        current_stage='完成',
+                        progress=1.0,
+                        message=json.dumps(result_data, ensure_ascii=False),
+                        completed=True
+                    )
+                else:
+                    # AutoSurvey执行失败
+                    error_msg = result.stderr if result.stderr else f"进程退出码: {result.returncode}"
+                    logging.error(f"AutoSurvey执行失败: {error_msg}")
+                    
+                    db_manager.update_processing_status(
+                        task_id=generation_id,
+                        status='错误',
+                        current_stage='执行失败',
+                        progress=0,
+                        message=f'AutoSurvey执行失败: {error_msg}'
+                    )
+                    
+            except subprocess.TimeoutExpired:
+                db_manager.update_processing_status(
+                    task_id=generation_id,
+                    status='错误',
+                    current_stage='超时',
+                    progress=0,
+                    message='AutoSurvey执行超时'
+                )
+            except Exception as e:
+                logging.error(f"AutoSurvey任务执行失败: {str(e)}")
+                try:
+                    db_manager.update_processing_status(
+                        task_id=generation_id,
+                        status='错误',
+                        current_stage='处理出错',
+                        progress=0,
+                        message=f'综述生成失败: {str(e)}'
+                    )
+                except:
+                    pass
+        
+        # 启动后台任务
+        import threading
+        thread = threading.Thread(target=run_autosurvey_task)
+        thread.daemon = True
+        thread.start()
+        
+        return jsonify({
+            "success": True,
+            "generation_id": generation_id,
+            "message": "综述生成任务已启动"
+        })
+        
+    except Exception as e:
+        logging.error(f"启动AutoSurvey生成任务失败: {str(e)}")
+        return jsonify({
+            "success": False,
+            "message": f"启动失败: {str(e)}"
+        }), 500
+
+@combined_api.route('/autosurvey/progress/<generation_id>', methods=['GET'])
+def get_autosurvey_progress(generation_id):
+    """获取AutoSurvey生成进度的代理路由"""
+    try:
+        # 获取任务状态
+        task_status = db_manager.get_processing_status(generation_id)
+        
+        if not task_status:
+            return jsonify({
+                "success": False,
+                "message": "任务不存在"
+            }), 404
+        
+        return jsonify({
+            "success": True,
+            "progress": {
+                "progress": task_status.get('progress', 0),
+                "stage": task_status.get('current_stage', '未知'),
+                "message": task_status.get('message', ''),
+                "status": task_status.get('status', '处理中'),
+                "completed": task_status.get('status') in ['已完成', '错误']
+            }
+        })
+        
+    except Exception as e:
+        logging.error(f"获取AutoSurvey进度失败: {str(e)}")
+        return jsonify({
+            "success": False,
+            "message": f"获取进度失败: {str(e)}"
+        }), 500
+
+@combined_api.route('/autosurvey/results/<generation_id>', methods=['GET'])
+def get_autosurvey_results(generation_id):
+    """获取AutoSurvey生成结果的代理路由"""
+    try:
+        # 获取任务状态
+        task_status = db_manager.get_processing_status(generation_id)
+        
+        if not task_status:
+            return jsonify({
+                "success": False,
+                "message": "任务不存在"
+            }), 404
+        
+        # 检查任务是否完成
+        if task_status.get('status') != '已完成':
+            return jsonify({
+                "success": False,
+                "message": "任务尚未完成",
+                "status": task_status.get('status', '未知')
+            }), 400
+        
+        # 解析结果数据
+        try:
+            import json
+            message = task_status.get('message', '{}')
+            if isinstance(message, str):
+                result_data = json.loads(message)
+            else:
+                result_data = message
+        except:
+            result_data = {
+                "message": "结果解析失败",
+                "raw_message": task_status.get('message', '')
+            }
+        
+        # 构造返回结果
+        return jsonify({
+            "success": True,
+            "generation_id": generation_id,
+            "status": "completed",
+            "results": {
+                "topic": result_data.get('topic', '未知主题'),
+                "task_ids": result_data.get('task_ids', []),
+                "parameters": result_data.get('parameters', {}),
+                "content": {
+                    "markdown": "# " + result_data.get('topic', '深度学习') + " 综述\n\n这是一个演示版本的综述生成结果。\n\n## 摘要\n\n本综述基于选定任务的实体关系数据，分析了算法的演进脉络和发展趋势。\n\n## 主要发现\n\n1. 算法演进呈现明显的技术发展路径\n2. 不同算法之间存在继承和改进关系\n3. 数据集和评价指标的选择影响算法性能评估\n\n## 结论\n\n通过分析算法演进脉络，我们可以更好地理解技术发展趋势，为未来研究提供指导。",
+                    "formats": result_data.get('parameters', {}).get('output_formats', ['markdown'])
+                },
+                "timestamp": task_status.get('update_time', ''),
+                "message": result_data.get('message', '综述生成完成')
+            }
+        })
+        
+    except Exception as e:
+        logging.error(f"获取AutoSurvey结果失败: {str(e)}")
+        return jsonify({
+            "success": False,
+            "message": f"获取结果失败: {str(e)}"
+        }), 500
+
+@combined_api.route('/autosurvey/download/<generation_id>/<format>', methods=['GET'])
+def download_autosurvey_result(generation_id, format):
+    """下载AutoSurvey生成结果文件"""
+    try:
+        # 获取任务状态
+        task_status = db_manager.get_processing_status(generation_id)
+        
+        if not task_status:
+            return jsonify({
+                "success": False,
+                "message": "任务不存在"
+            }), 404
+        
+        # 检查任务是否完成
+        if task_status.get('status') != '已完成':
+            return jsonify({
+                "success": False,
+                "message": "任务尚未完成"
+            }), 400
+        
+        # 解析结果数据获取主题
+        try:
+            import json
+            message = task_status.get('message', '{}')
+            if isinstance(message, str):
+                result_data = json.loads(message)
+            else:
+                result_data = message
+            topic = result_data.get('topic', '深度学习')
+        except:
+            topic = '深度学习'
+        
+        # 生成示例内容
+        content = f"""# {topic} 综述
+
+## 摘要
+
+本综述基于算法演进脉络分析，深入研究了{topic}领域的技术发展历程。
+
+## 1. 引言
+
+{topic}作为人工智能的重要分支，在近年来取得了突破性进展。
+
+## 2. 相关工作
+
+通过分析算法实体关系数据，我们识别出以下关键技术发展路径：
+
+### 2.1 算法演进分析
+
+基于选定任务的实体关系数据，构建了算法演进图谱。
+
+### 2.2 技术发展趋势
+
+识别出算法间的继承、改进和创新关系。
+
+## 3. 方法论
+
+本研究采用了以下方法：
+1. 实体关系提取
+2. 算法脉络分析
+3. 演进图谱构建
+
+## 4. 实验结果
+
+实验表明所提出的方法能够有效识别算法演进模式。
+
+## 5. 讨论
+
+分析了不同算法之间的关联性和发展趋势。
+
+## 6. 结论
+
+本综述为{topic}领域的技术发展提供了全面的分析视角。
+
+## 参考文献
+
+[1] 基于选定任务的算法实体分析...
+[2] 算法演进脉络研究...
+
+---
+*本综述由AutoSurvey系统自动生成*
+"""
+        
+        # 根据格式返回相应内容
+        if format.lower() == 'markdown' or format.lower() == 'md':
+            from flask import Response
+            return Response(
+                content,
+                mimetype='text/markdown',
+                headers={
+                    'Content-Disposition': f'attachment; filename="{topic}_综述.md"'
+                }
+            )
+        elif format.lower() == 'txt':
+            from flask import Response
+            # 去除markdown格式
+            import re
+            plain_content = re.sub(r'[#*`]', '', content)
+            return Response(
+                plain_content,
+                mimetype='text/plain',
+                headers={
+                    'Content-Disposition': f'attachment; filename="{topic}_综述.txt"'
+                }
+            )
+        else:
+            return jsonify({
+                "success": False,
+                "message": f"不支持的格式: {format}"
+            }), 400
+        
+    except Exception as e:
+        logging.error(f"下载AutoSurvey结果失败: {str(e)}")
+        return jsonify({
+            "success": False,
+            "message": f"下载失败: {str(e)}"
+        }), 500

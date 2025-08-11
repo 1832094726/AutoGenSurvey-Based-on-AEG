@@ -1745,15 +1745,6 @@ def generate_relation_extraction_prompt_with_features():
 - 算法实体ID（使用格式: 作者年份_实体名称，例如Zhang2016_TemplateSolver）不能省略尽量与实体中的实体ID相同
 - 数据集实体ID（使用格式: 实体名称_年份，例如MNIST_2010）不能省略尽量与实体中的实体ID相同
 - 评价实体ID（使用格式: 实体名称_类别，例如Accuracy_Classification）不能省略尽量与实体中的实体ID相同
-识别特征：
-"relation_patterns": {
-  "Improvement": ["improves upon", "outperforms", "better than", "surpasses", "exceeds"],
-  "Usage": ["use", "apply", "employ", "adopt"],
-  "Extension": ["extends", "generalizes", "based on", "builds on"],
-  "Evaluation": ["evaluated on", "tested using", "in terms of", "measured by", "achieved"],
-  "Comparison": ["compared to", "unlike", "versus", "whereas"]
-},
-"structural_features": ["Sentence-level context", "Paragraph context", "Citation contexts", "Section headings", "Figure/Table captions", "Pseudocode blocks"]
 
 请以JSON格式返回结果，结果为全英文，包含关系列表和提取完成状态：
 {

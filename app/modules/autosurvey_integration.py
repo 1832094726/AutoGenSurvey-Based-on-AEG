@@ -666,23 +666,14 @@ class AutoSurveyConnector:
             await self.session.close()
 
     async def generate_survey(self, request: SurveyGenerationRequest) -> SurveyResult:
-        """生成综述"""
+        """生成综述 - 使用真实的AutoSurvey"""
         try:
-            # 模拟AutoSurvey API调用
-            # 实际实现中需要根据AutoSurvey的真实API进行调用
-
             self.logger.info(f"开始生成综述: {request.topic}")
 
-            # 准备请求数据
-            request_data = request.to_autosurvey_request()
-
-            # 这里应该是真实的API调用
-            # response = await self._call_autosurvey_api(request_data)
-
-            # 模拟响应
-            mock_response = await self._mock_autosurvey_response(request_data)
-
-            return self._parse_survey_result(mock_response, request.topic)
+            # 使用命令行方式调用AutoSurvey
+            result = await self._call_autosurvey_command_line(request)
+            
+            return self._parse_survey_result(result, request.topic)
 
         except Exception as e:
             self.logger.error(f"生成综述失败: {str(e)}")
@@ -714,75 +705,147 @@ class AutoSurveyConnector:
                 self.logger.warning(f"API调用失败，重试 {attempt + 1}/{self.config.max_retries}: {str(e)}")
                 await asyncio.sleep(2 ** attempt)  # 指数退避
 
-    async def _call_autosurvey_command_line(self, request_data: Dict[str, Any]) -> Dict[str, Any]:
+    async def _call_autosurvey_command_line(self, request: SurveyGenerationRequest) -> Dict[str, Any]:
         """通过命令行调用AutoSurvey"""
         import subprocess
         import tempfile
         import uuid
         import os
+        import asyncio
 
-        # 创建临时文件
-        temp_dir = tempfile.mkdtemp()
-        input_file = os.path.join(temp_dir, f"input_{uuid.uuid4().hex}.json")
-        output_dir = os.path.join(temp_dir, "output")
+        # AutoSurvey项目路径
+        autosurvey_path = Config.AUTOSURVEY_PATH
+        if not os.path.exists(autosurvey_path):
+            raise Exception(f"AutoSurvey路径不存在: {autosurvey_path}")
+
+        # 创建临时输出目录
+        output_dir = os.path.join(Config.AUTOSURVEY_OUTPUT_PATH, f"survey_{uuid.uuid4().hex}")
         os.makedirs(output_dir, exist_ok=True)
 
         try:
-            # 保存输入数据
-            with open(input_file, 'w', encoding='utf-8') as f:
-                json.dump(request_data, f, ensure_ascii=False, indent=2)
-
-            # 构建命令
+            # 构建命令参数
+            params = request.generation_params
             cmd = [
                 'python', 'main.py',
-                '--topic', request_data.get('topic', ''),
-                '--input_file', input_file,
-                '--output_dir', output_dir,
-                '--model', request_data.get('generation_params', {}).get('model', 'gpt-4o-2024-05-13'),
-                '--section_num', str(request_data.get('generation_params', {}).get('section_num', 7)),
-                '--subsection_len', str(request_data.get('generation_params', {}).get('subsection_len', 700)),
-                '--rag_num', str(request_data.get('generation_params', {}).get('rag_num', 60)),
-                '--outline_reference_num', str(request_data.get('generation_params', {}).get('outline_reference_num', 1500)),
-                '--api_key', self.config.api_key,
-                '--api_url', self.config.api_url
+                '--topic', request.topic,
+                '--model', params.model,
+                '--section_num', str(params.section_num),
+                '--subsection_len', str(params.subsection_len),
+                '--rag_num', str(params.rag_num),
+                '--outline_reference_num', str(params.outline_reference_num),
+                '--saving_path', output_dir,
+                '--db_path', Config.AUTOSURVEY_DATABASE_PATH,
+                '--embedding_model', Config.AUTOSURVEY_EMBEDDING_MODEL
             ]
 
-            # 执行命令
-            self.logger.info(f"执行AutoSurvey命令: {' '.join(cmd)}")
+            # 设置环境变量
+            env = os.environ.copy()
+            env.update({
+                'QWEN_API_KEY': Config.QWEN_API_KEY,
+                'QWEN_BASE_URL': Config.QWEN_BASE_URL,
+                'OPENAI_API_KEY': Config.OPENAI_API_KEY,
+                'OPENAI_BASE_URL': Config.OPENAI_BASE_URL,
+                'DEEPSEEK_API_KEY': Config.DEEPSEEK_API_KEY,
+                'DEEPSEEK_BASE_URL': Config.DEEPSEEK_BASE_URL
+            })
 
+            self.logger.info(f"执行AutoSurvey命令: {' '.join(cmd)}")
+            self.logger.info(f"工作目录: {autosurvey_path}")
+
+            # 执行命令
             process = await asyncio.create_subprocess_exec(
                 *cmd,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
-                cwd='./AutoSurvey'  # 假设AutoSurvey在此目录
+                cwd=autosurvey_path,
+                env=env
             )
 
             stdout, stderr = await process.communicate()
 
-            if process.returncode == 0:
-                # 读取输出结果
-                result_file = os.path.join(output_dir, 'survey_result.json')
-                if os.path.exists(result_file):
-                    with open(result_file, 'r', encoding='utf-8') as f:
-                        result = json.load(f)
-                    return result
-                else:
-                    # 如果没有JSON结果文件，尝试读取Markdown文件
-                    md_files = [f for f in os.listdir(output_dir) if f.endswith('.md')]
-                    if md_files:
-                        with open(os.path.join(output_dir, md_files[0]), 'r', encoding='utf-8') as f:
-                            content = f.read()
-                        return self._create_result_from_content(content, request_data)
-                    else:
-                        raise Exception("未找到输出文件")
-            else:
-                error_msg = stderr.decode('utf-8') if stderr else "未知错误"
+            if process.returncode != 0:
+                error_msg = stderr.decode('utf-8') if stderr else f"进程退出码: {process.returncode}"
+                self.logger.error(f"AutoSurvey执行失败: {error_msg}")
                 raise Exception(f"AutoSurvey执行失败: {error_msg}")
 
-        finally:
-            # 清理临时文件
-            import shutil
-            shutil.rmtree(temp_dir, ignore_errors=True)
+            # 处理输出文件
+            return self._process_autosurvey_output(output_dir, request.topic)
+
+        except Exception as e:
+            self.logger.error(f"调用AutoSurvey命令行失败: {str(e)}")
+            raise
+
+    def _process_autosurvey_output(self, output_dir: str, topic: str) -> Dict[str, Any]:
+        """处理AutoSurvey生成的输出文件"""
+        try:
+            result = {
+                "content": {
+                    "formats": [],
+                    "files": {}
+                },
+                "status": "completed",
+                "topic": topic,
+                "timestamp": datetime.now().isoformat()
+            }
+
+            # 查找生成的文件
+            if not os.path.exists(output_dir):
+                raise Exception(f"输出目录不存在: {output_dir}")
+
+            files = os.listdir(output_dir)
+            if not files:
+                raise Exception("未找到生成的输出文件")
+
+            # 处理不同格式的文件
+            for file_name in files:
+                file_path = os.path.join(output_dir, file_name)
+                if not os.path.isfile(file_path):
+                    continue
+
+                file_ext = os.path.splitext(file_name)[1].lower()
+
+                if file_ext == '.md':
+                    # 读取Markdown内容
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    result["content"]["markdown"] = content
+                    result["content"]["formats"].append("markdown")
+                    result["content"]["files"]["markdown"] = file_path
+
+                elif file_ext == '.json':
+                    # 读取JSON内容
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        json_content = json.load(f)
+                    result["content"]["json"] = json_content
+                    result["content"]["formats"].append("json")
+                    result["content"]["files"]["json"] = file_path
+
+                elif file_ext in ['.pdf', '.docx', '.html']:
+                    # 记录文件路径
+                    format_name = file_ext[1:]  # 去掉点号
+                    result["content"]["formats"].append(format_name)
+                    result["content"]["files"][format_name] = file_path
+
+            # 如果没有找到内容，返回错误
+            if not result["content"]["formats"]:
+                raise Exception("未找到有效的输出格式")
+
+            return result
+
+        except Exception as e:
+            self.logger.error(f"处理AutoSurvey输出失败: {str(e)}")
+            # 返回错误结果
+            return {
+                "content": {
+                    "formats": ["markdown"],
+                    "markdown": f"# 综述生成失败\n\n{str(e)}",
+                    "files": {}
+                },
+                "status": "error",
+                "error": str(e),
+                "topic": topic,
+                "timestamp": datetime.now().isoformat()
+            }
 
     def _create_result_from_content(self, content: str, request_data: Dict[str, Any]) -> Dict[str, Any]:
         """从内容创建结果对象"""

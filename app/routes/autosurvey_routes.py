@@ -23,7 +23,7 @@ from app.modules.survey_storage_manager import SurveyStorageManager
 from app.modules.db_manager import DatabaseManager
 
 # 创建蓝图
-autosurvey_bp = Blueprint('autosurvey', __name__, url_prefix='/autosurvey')
+autosurvey_bp = Blueprint('autosurvey', __name__)
 
 # 全局变量存储处理状态
 processing_tasks = {}
@@ -34,7 +34,20 @@ storage_manager = SurveyStorageManager()
 @autosurvey_bp.route('/')
 def index():
     """AutoSurvey集成主页"""
-    return render_template('autosurvey.html')
+    try:
+        return render_template('autosurvey.html')
+    except Exception as e:
+        logging.error(f"渲染AutoSurvey模板失败: {str(e)}")
+        return f"AutoSurvey页面加载失败: {str(e)}", 500
+
+@autosurvey_bp.route('/test')
+def test():
+    """测试路由"""
+    return jsonify({
+        "success": True,
+        "message": "AutoSurvey蓝图工作正常",
+        "timestamp": datetime.now().isoformat()
+    })
 
 @autosurvey_bp.route('/api/tasks', methods=['GET'])
 def get_tasks():
@@ -119,11 +132,24 @@ def start_generation():
         processing_tasks[generation_id] = status
         
         # 使用异步任务管理器启动生成任务
-        await task_manager.submit_task(
-            generation_id,
-            run_generation_task,
-            generation_id, task_ids, topic, parameters
-        )
+        # 在新的事件循环中运行异步任务
+        def run_async_task():
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                loop.run_until_complete(task_manager.submit_task(
+                    generation_id,
+                    run_generation_task,
+                    generation_id, task_ids, topic, parameters
+                ))
+            finally:
+                loop.close()
+        
+        # 在后台线程中启动异步任务
+        import threading
+        thread = threading.Thread(target=run_async_task)
+        thread.daemon = True
+        thread.start()
         
         return jsonify({
             "success": True,
