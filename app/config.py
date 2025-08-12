@@ -34,16 +34,16 @@ class Config:
     SECURITY_PASSWORD_SALT = os.getenv('SECURITY_PASSWORD_SALT', 'dev_password_salt')  # 密码盐值
     
     # 模型配置
-    QWEN_API_KEY = os.getenv('QWEN_API_KEY', 'sk-0fe80fc99c3045dfaa4c2921910245c1')  # 千问API密钥
+    QWEN_API_KEY = os.getenv('QWEN_API_KEY', 'sk-')  # 千问API密钥
     QWEN_BASE_URL = os.getenv('QWEN_BASE_URL', 'https://dashscope.aliyuncs.com/compatible-mode/v1')
     QWEN_MODEL = os.getenv('QWEN_MODEL', 'qwen-long')  # 千问模型
     DEFAULT_MODEL = os.environ.get('DEFAULT_MODEL', 'gpt-4.1-mini')  # 默认使用GPT模型进行PDF提取
     
     # 新增模型API密钥配置（统一使用shubiaobiao）
-    ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', 'sk-aYa1InFVmrtzBU2u77E9D8153a534522Ae49506058984019')  # Claude API密钥
-    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-aYa1InFVmrtzBU2u77E9D8153a534522Ae49506058984019')  # OpenAI API密钥
-    GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'sk-aYa1InFVmrtzBU2u77E9D8153a534522Ae49506058984019')  # Gemini API密钥
-    DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY', 'sk-aYa1InFVmrtzBU2u77E9D8153a534522Ae49506058984019')  # DeepSeek API密钥
+    ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', 'sk-')  # Claude API密钥
+    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'sk-')  # OpenAI API密钥
+    GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'sk-')  # Gemini API密钥
+    DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY', 'sk-')  # DeepSeek API密钥
 
     # 模型基础URL配置（统一使用shubiaobiao）
     ANTHROPIC_BASE_URL = os.environ.get('ANTHROPIC_BASE_URL', 'https://api.shubiaobiao.cn/v1/')
