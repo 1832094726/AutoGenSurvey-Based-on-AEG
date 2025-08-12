@@ -90,9 +90,19 @@ def register_blueprints(app):
     # 注册AutoSurvey集成蓝图
     try:
         from app.routes.autosurvey_routes import autosurvey_bp
-        app.register_blueprint(autosurvey_bp)
+        app.register_blueprint(autosurvey_bp, url_prefix='/autosurvey')
         print("✅ AutoSurvey集成蓝图注册成功")
     except Exception as e:
         print(f"❌ AutoSurvey集成蓝图注册失败: {str(e)}")
+        import traceback
+        traceback.print_exc()
+    
+    # 注册智能综述生成蓝图
+    try:
+        from app.routes.smart_survey_routes import smart_survey_bp
+        app.register_blueprint(smart_survey_bp)
+        print("✅ 智能综述生成蓝图注册成功")
+    except Exception as e:
+        print(f"❌ 智能综述生成蓝图注册失败: {str(e)}")
         import traceback
         traceback.print_exc()

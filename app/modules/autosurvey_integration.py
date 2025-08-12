@@ -109,7 +109,7 @@ class SurveyGenerationRequest:
                 "section_num": self.parameters.get("section_num", 7),
                 "subsection_len": self.parameters.get("subsection_len", 700),
                 "rag_num": self.parameters.get("rag_num", 60),
-                "outline_reference_num": self.parameters.get("outline_reference_num", 1500),
+                "outline_reference_num": self.parameters.get("outline_reference_num", 100),
                 "model": self.parameters.get("model", "gpt-4o-2024-05-13"),
                 **self.parameters
             }
@@ -639,7 +639,7 @@ class AutoSurveyConfig:
             "section_num": 7,
             "subsection_len": 700,
             "rag_num": 60,
-            "outline_reference_num": 1500,
+            "outline_reference_num": 100,
             "model": self.model,
             "api_url": self.api_url,
             "api_key": self.api_key
@@ -2644,7 +2644,7 @@ class DataFormatConverter:
             "section_num": 7,
             "subsection_len": 700,
             "rag_num": 60,
-            "outline_reference_num": 1500,
+            "outline_reference_num": 100,
             "model": "gpt-4o-2024-05-13"
         }
 

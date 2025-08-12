@@ -636,7 +636,12 @@ class AutoSurveyApp {
         }
         
         try {
-            const response = await fetch(`/api/autosurvey/download/${this.generationId}/${format}`);
+            // 根据生成模式选择正确的下载API路径
+            const downloadUrl = this.isSmartMode ? 
+                `/api/smart_survey/download/${this.generationId}/${format}` : 
+                `/api/autosurvey/download/${this.generationId}/${format}`;
+            
+            const response = await fetch(downloadUrl);
             
             if (response.ok) {
                 const blob = await response.blob();
@@ -649,7 +654,8 @@ class AutoSurveyApp {
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
             } else {
-                this.showError('下载失败');
+                const errorText = await response.text();
+                this.showError(`下载失败: ${errorText}`);
             }
         } catch (error) {
             this.showError('下载时出错: ' + error.message);

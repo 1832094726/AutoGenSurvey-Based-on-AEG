@@ -2254,7 +2254,7 @@ def start_autosurvey_generation():
                     '--section_num', str(parameters.get('section_num', 7)),
                     '--subsection_len', str(parameters.get('subsection_len', 700)),
                     '--rag_num', str(parameters.get('rag_num', 60)),
-                    '--outline_reference_num', str(parameters.get('outline_reference_num', 1500)),
+                    '--outline_reference_num', str(parameters.get('outline_reference_num', 100)),
                     '--saving_path', output_dir,
                     '--db_path', Config.AUTOSURVEY_DATABASE_PATH,
                     '--embedding_model', 'nomic-ai/nomic-embed-text-v1'
